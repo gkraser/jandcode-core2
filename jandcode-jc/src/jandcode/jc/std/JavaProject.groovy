@@ -895,8 +895,8 @@ class JavaProject extends ProjectScript implements ILibDepends {
         }
         md = new ModuleDefInfoImpl(packageName, m_path, null, m_file)
         // автоматически добавляем зависимость, она всегда нужна
-        if (md.name != "jandcode.xcore") {
-            md.depends.prod.add("jandcode.xcore")
+        if (md.name != "jandcode.core") {
+            md.depends.prod.add("jandcode.core")
         }
         this._moduleDefInfos.add(md)
 

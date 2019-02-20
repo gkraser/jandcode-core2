@@ -28,9 +28,9 @@ class P extends ProjectScript {
                     "jandcode-jc",
                     "jandcode-jc-junit",
 
-                    "jandcode-xcore",
-                    "jandcode-xcore-groovy",
-                    "jandcode-xcore-jc",
+                    "jandcode-core",
+                    "jandcode-core-groovy",
+                    "jandcode-core-jc",
             ]
         }
 

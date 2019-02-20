@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <app debug="true" appname="#{module}"/>
+
+    <app-conf-handler name="h-app" class="jandcode.core.AppConfHandler1"/>
+
+    <x-depends module="jandcode.core"/>
+
+    <!-- beans -->
+
+    <bean name="bean1" class="jandcode.core.Beans_Test.Bean1"
+          attr1="111"/>
+
+    <bean name="bean2.prototype" class="jandcode.core.Beans_Test.Bean1"
+          bean.prototype="true"/>
+
+    <castForDefault name="a1"/>
+    <castForDefault name="a2" class="jandcode.core.Beans_Test.Real1"/>
+
+    <datadir>
+
+        <path name="one"/>
+
+    </datadir>
+
+</root>

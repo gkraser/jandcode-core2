@@ -1,4 +1,4 @@
-import jandcode.xcore.jc.*
+import jandcode.core.jc.*
 import jandcode.jc.*
 import jandcode.jc.std.*
 import jandcode.commons.*
