@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<root>
-
-    <bean name="jandcode.xcore.groovy.GroovyService"
-          class="jandcode.xcore.groovy.impl.GroovyServiceImpl"/>
-
-
-</root>

@@ -1,0 +1,23 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    void onInclude() {
+        //
+        project.name = "jandcode-core"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.core")
+            //
+            depends.prod.add(
+                    "jandcode-commons",
+                    "jandcode-commons-moduledef",
+            )
+            depends.dev.add(
+            )
+            //
+        }
+    }
+
+}

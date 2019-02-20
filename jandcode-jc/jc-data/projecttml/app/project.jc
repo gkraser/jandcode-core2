@@ -1,11 +1,11 @@
-import jandcode.xcore.jc.*
+import jandcode.core.jc.*
 import jandcode.jc.*
 import jandcode.jc.std.*
 
 class P extends ProjectScript {
 
     static beforeLoad = {
-        classpath("jandcode-xcore-jc")
+        classpath("jandcode-core-jc")
     }
 
     void onInclude() {

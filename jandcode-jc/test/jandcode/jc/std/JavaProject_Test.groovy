@@ -53,12 +53,12 @@ class JavaProject_Test extends CustomProjectTestCase {
 
     @Test
     public void test_test() throws Exception {
-        p.cm.test()
+        p.cm.exec("test")
     }
 
     @Test
     public void test_showinfo() throws Exception {
-        p.cm.showinfo()
+        p.cm.exec("showinfo")
     }
 
 }
