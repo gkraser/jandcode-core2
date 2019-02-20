@@ -60,10 +60,10 @@ dependencies {
     compile group: 'org.fusesource.jansi', name: 'jansi', version: '1.17.1'
 
     // picocli, для groovy
-    compile group: 'info.picocli', name: 'picocli', version: '3.6.1'
+    compile group: 'info.picocli', name: 'picocli', version: '3.9.5'
 
     // slf4j
-    v = '1.7.25'
+    v = '1.7.26'
     compile group: 'org.slf4j', name: 'slf4j-api', version: v
     compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: v
     compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: v
