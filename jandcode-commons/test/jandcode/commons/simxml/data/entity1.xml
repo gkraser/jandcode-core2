@@ -1,0 +1,5 @@
+<!DOCTYPE doc [ <!ENTITY xxe SYSTEM "file:///" > ]>
+<doc>
+    <e>&gt;&amp;&lt;&quot;</e>
+    <m>&xxe;</m>
+</doc>

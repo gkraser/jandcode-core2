@@ -1,0 +1,15 @@
+import jandcode.xcore.jc.*
+import jandcode.jc.*
+import jandcode.jc.std.*
+import jandcode.commons.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+    }
+
+    void onInclude() {
+        project.name = "dummy-project"
+    }
+
+}

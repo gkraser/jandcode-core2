@@ -1,0 +1,9 @@
+<configuration>
+    <appender name="jc.console" class="jandcode.jc.impl.log.LogbackJcConsoleAppender">
+    </appender>
+    <root level="off">
+        <appender-ref ref="jc.console"/>
+    </root>
+    <logger name="jc.console" level="info"/>
+</configuration>
+

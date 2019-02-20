@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <field name="sys" sys="1"/>
+
+    <field name="string" parent="sys" string="1" in-string="1"/>
+
+    <field name="memo" parent="string" memo="1" in-string="from-memo"/>
+
+    <!-- =================== -->
+
+    <domain name="sys" sys="1">
+
+    </domain>
+
+    <domain name="id" parent="sys" id="1" in-id="1">
+        <ref parent="memo"/>
+        <field name="id" parent="string"/>
+    </domain>
+
+    <domain name="abonent" parent="id" abonent="1" in-id="from-abonent">
+        <ref from-abonent="1"/>
+        <field name="f1" parent="memo" abonent-f1="1"/>
+        <field name="f2" parent="memo" abonent-f2="1" memo="from-abonent"/>
+    </domain>
+
+</root>

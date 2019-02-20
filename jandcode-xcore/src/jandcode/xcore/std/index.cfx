@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!--
+
+        Набор стандартных сервисов для приложения.
+        Входят в модуль core и доступны всем приложениям.
+
+    -->
+
+    <!-- стандартные сервисы -->
+
+    <bean name="jandcode.xcore.std.CheckChangedResourceService"
+          class="jandcode.xcore.std.impl.CheckChangedResourceServiceImpl"
+          bean.autoCreate="true"/>
+
+    <bean name="jandcode.xcore.std.AppCheckChangedResourceService"
+          class="jandcode.xcore.std.impl.AppCheckChangedResourceServiceImpl"
+          bean.autoCreate="true"/>
+
+    <bean name="jandcode.xcore.std.DataDirService"
+          class="jandcode.xcore.std.impl.DataDirServiceImpl"/>
+
+    <bean name="jandcode.xcore.std.JcDataAppService"
+          class="jandcode.xcore.std.impl.JcDataAppServiceImpl"/>
+
+    <!-- ===================================================================== -->
+
+    <datadir>
+        <!--
+
+            Настройки для сервDataDirServicevice
+
+            Каждый узел path объявляет поименнованный путь.
+
+            Если имеется атрибут path.debug, то он используется при запуске
+            приложения в отладочном режиме вместо атрибута path
+
+            Подстановки:
+
+            ${tempdir}     - каталог temp, настроенный в системе
+            ${appdir}      - каталог App#getAppdir()
+            ${appdir.key}  - уникальный ключ каталога приложения.
+            ${workdir}     - катаApp.App#getWorkdir()
+            ${workdir.key} - уникальный ключ рабочего каталога.
+            ${homedir}     - каталог пользователя
+            ${appname}     - имя приложения
+            ${name}        - имя элемента path, в котором используется подстановка
+
+            ${ANY}         - любое другое имя рассматривается как путь,
+                             настроенный в элементе с именем ANY
+
+            XXX.key позволяют настраивать разные каталоги для одинаковых приложений,
+            которые запущены в разных рабочих каталогах или в разных каталогах приложения.
+            Значение - md5 hash пути соответствующего каталога.
+
+            Если для какого-то элемента не объявлен path, то подразумевается:
+                ${root}/${name}
+
+
+        -->
+
+        <path name="root" path="${appdir}/datadir" path.debug="${appdir}/temp/datadir"/>
+        <path name="temp" path="${tempdir}/.${appname}"/>
+        <path name="temp.workdir" path="${temp}/${workdir.key}"/>
+
+    </datadir>
+
+</root>

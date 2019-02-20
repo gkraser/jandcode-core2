@@ -1,0 +1,75 @@
+repositories {
+    jcenter()
+}
+
+String v, vp
+
+configurations {
+    compile1  // для индивидуальных тестов
+
+    compile {
+        // это предоставляет slf4j
+        exclude group: "commons-logging"
+        // это предоставляет flexmark
+        exclude group: "junit"
+        exclude group: "log4j"
+    }
+}
+
+dependencies {
+
+    // ant
+    v = '1.10.5'
+    compile group: 'org.apache.ant', name: 'ant', version: v
+    compile group: 'org.apache.ant', name: 'ant-launcher', version: v
+    compile(group: 'org.apache.ant', name: 'ant-junit', version: v) {
+        transitive = false
+    }
+    compile(group: 'org.apache.ant', name: 'ant-junitlauncher', version: v) {
+        transitive = false
+    }
+
+    // junit5
+    v = '5.4.0'
+    vp = '1.4.0'  // platform
+    compile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: v
+    compile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: v
+    compile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: v
+    compile group: 'org.junit.platform', name: 'junit-platform-launcher', version: vp
+    compile group: 'org.junit.platform', name: 'junit-platform-console', version: vp
+
+    // commons
+    compile group: 'org.apache.commons', name: 'commons-vfs2', version: '2.3'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
+    // groovy
+    v = '2.5.6'
+    compile group: 'org.codehaus.groovy', name: 'groovy', version: v
+    compile(group: 'org.codehaus.groovy', name: 'groovy-ant', version: v) {
+        exclude group: 'org.apache.ant'
+        exclude module: 'groovy-groovydoc'
+    }
+    compile group: 'org.codehaus.groovy', name: 'groovy-json', version: v
+    compile group: 'org.codehaus.groovy', name: 'groovy-xml', version: v
+    compile group: 'org.codehaus.groovy', name: 'groovy-templates', version: v
+    compile(group: 'org.codehaus.groovy', name: 'groovy-groovydoc', version: v) {
+        exclude module: 'groovy-docgenerator'
+    }
+
+    // jansi
+    compile group: 'org.fusesource.jansi', name: 'jansi', version: '1.17.1'
+
+    // picocli, для groovy
+    compile group: 'info.picocli', name: 'picocli', version: '3.6.1'
+
+    // slf4j
+    v = '1.7.25'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: v
+    compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: v
+    compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: v
+
+    // logback
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+
+}
+

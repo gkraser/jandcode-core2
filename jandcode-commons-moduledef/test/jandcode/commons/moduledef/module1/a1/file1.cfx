@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <a
+            module="#{module.name}"
+            module.name="#{module.name}"
+            module.package="#{module.package}"
+            module.package.cur="#{module.package.cur}"
+            module.package.rel="#{module.package.rel}"
+            module.packagepath="#{module.packagepath}"
+            module.packagepath.cur="#{module.packagepath.cur}"
+            module.packagepath.rel="#{module.packagepath.rel}"
+    />
+
+    <x-include path="b1/file2.cfx"/>
+
+</root>

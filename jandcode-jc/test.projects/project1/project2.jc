@@ -1,0 +1,15 @@
+void onInclude() {
+    //
+    println "Hello2!"
+    def p = load("project.jc")
+    //
+    if (!project.vars.containsKey("counter")) {
+        project.vars.counter = 0
+    }
+    int cnt = project.vars.counter
+    cnt++
+    cnt++
+    project.vars.counter = cnt
+    //
+    assert p.vars.counter == 1
+}

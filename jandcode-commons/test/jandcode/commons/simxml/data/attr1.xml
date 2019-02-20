@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <node a1="1">
+        text1
+        <b b1="2">1</b>
+        text2
+        <b b1="2">1</b>
+        <b b1="22" id="q1">1</b>
+    </node>
+</root>

@@ -1,0 +1,38 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+import jandcode.commons.*
+
+class P extends ProjectScript {
+
+    void onInclude() {
+
+        // включаем плагин. Теперь - это шаблон.
+        Projecttml t = include(Projecttml)
+
+        t.desc = "jc-env.bat (или jc-env.sh для linux)"
+
+        t.gen = {
+            def fnEnv = UtFile.isWindows() ? "jc-env.bat" : "jc-env.sh"
+            def fnRun = UtFile.isWindows() ? "jc-run.bat" : "jc-run.sh"
+
+            def fn = UtFile.join(t.outdir, fnEnv)
+            if (UtFile.exists(fn)) {
+                error("Файл ${fn} уже существует")
+            }
+            String txt
+            String jcRunSys = UtFile.join(UtFile.abs(ctx.config.appdir), fnRun)
+            if (UtFile.isWindows()) {
+                txt = "@echo off\n" +
+                        "\n" +
+                        "set JC_RUN=${jcRunSys}\n"
+            } else {
+                txt = "#! /bin/sh\n" +
+                        "\n" +
+                        "export JC_RUN=${jcRunSys}\n"
+            }
+            ant.echo(message: txt, file: fn)
+        }
+
+    }
+
+}

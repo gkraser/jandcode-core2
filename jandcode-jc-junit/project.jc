@@ -1,0 +1,23 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    void onInclude() {
+        //
+        project.name = "jandcode-jc-junit"
+        //
+        include(JavaProject).with {
+            packageRoot = "jandcode.jc.junit"
+            autoJcDepends = false
+            depends.prod.add(
+                    "jandcode-jc",
+                    "junit-platform-console",
+            )
+            depends.dev.add(
+            )
+            //
+        }
+    }
+
+}

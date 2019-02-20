@@ -1,0 +1,13 @@
+void onInclude() {
+    cm.add("hello", "Hello word команда",
+            cm.opt("q", false, "Это опция 1"),
+            cm.opt("q2", "", "Это опция 2"),
+    ) {
+        println("Hello")
+    }
+
+    cm.add('hello2', "Hello word команда") {
+        println("Hello")
+    }
+}
+

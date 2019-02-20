@@ -1,0 +1,36 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+import jandcode.commons.*
+
+class P extends ProjectScript {
+
+    void onInclude() {
+
+        // включаем плагин. Теперь - это шаблон.
+        Projecttml t = include(Projecttml)
+
+        t.desc = "Файл lib/project.jc и lib/lib.gradle для описания библиотек в каталоге lib с помощью gradle"
+
+        t.opts += [
+                cm.opt("n", "", "Имя генерируемого файла. По умолчанию - lib/project.jc"),
+        ]
+
+        t.gen = {
+            def pf = t.args.getString("n")
+            if (UtString.empty(pf)) {
+                pf = "lib/project.jc"
+            }
+            def fn = UtFile.join(t.outdir, pf)
+            if (UtFile.exists(fn)) {
+                error("Файл ${fn} уже существует")
+            }
+            ant.copy(file: wd("template-project-jc.txt"), tofile: fn)
+            fn = UtFile.join(t.outdir, "lib/lib.gradle")
+            if (!UtFile.exists(fn)) {
+                ant.copy(file: wd("template-lib-gradle.txt"), tofile: fn)
+            }
+        }
+
+    }
+
+}

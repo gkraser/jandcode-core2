@@ -1,0 +1,18 @@
+import bad1.bad2.bad3.*
+import bad1.bad2.bad3.*
+import bad1.bad2.bad3.*
+import jandcode.jc.*
+import jandcode.jc.ProjectScript
+
+class P1 extends ProjectScript {
+
+    static beforeLoad = {
+        log "beforeLoad!"
+    }
+
+    void onInclude() {
+        log "include!"
+    }
+
+
+}

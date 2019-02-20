@@ -1,0 +1,28 @@
+import jandcode.xcore.jc.*
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+        classpath("jandcode-xcore-jc")
+    }
+
+    void onInclude() {
+        //
+        project.name = "xxx-yyy"
+        project.version = include(HgVersion)
+        //
+        include(AppProject)
+        //
+        include(RootProject).with {
+            modules = [
+                    "xxx-yyy",
+            ]
+        }
+        //
+        // DEV
+        ut.includeDev("-dev.jc")
+    }
+
+}

@@ -1,0 +1,22 @@
+import jandcode.jc.std.*
+import jandcode.jc.std.*
+
+void onInclude() {
+
+    // включаем плагин. Теперь - это шаблон.
+    Projecttml t = include(Projecttml)
+
+    // универсальные опции для java-модуля
+    t.opts += t.optsJavaProject
+
+    // инициализация аргументов
+    t.init = {
+        t.initJavaProject()
+    }
+
+    // настройка сгенеренного проекта
+    t.done = {
+        t.ant.mkdir(dir: wd("temp"))
+        //t.ut.runcmd(cmd: "jc gen-idea -p", dir: wd("."))
+    }
+}

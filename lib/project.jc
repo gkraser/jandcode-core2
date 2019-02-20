@@ -1,0 +1,26 @@
+import jandcode.commons.*
+import jandcode.jc.*
+import jandcode.jc.std.*
+import jandcode.jc.std.gradle.*
+
+class P extends ProjectScript {
+
+    void onInclude() {
+        project.name = "lib-builder"
+        include(GradleTools).with {
+            publishDir = "../_jc/${project.name}"
+            tempDir = "../temp/${project.name}"
+
+            // все библиотеки берем из места
+            // откуда они в classpath появились
+            String newJarDir = wd("../_jc/_lib")
+            filter { List<GradleLibDef> libs ->
+                for (GradleLibDef lib : libs) {
+                    lib.jar = UtFile.join(newJarDir, "${lib.name}.jar")
+                }
+            }
+        }
+
+    }
+
+}

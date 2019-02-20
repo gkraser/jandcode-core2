@@ -1,0 +1,7 @@
+
+import jandcode.commons.*
+import jandcode.commons.groovy.*
+//#classpath=cp1
+import jandcode.commons.test.*
+
+print "hello"

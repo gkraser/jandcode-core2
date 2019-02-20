@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="jandcode">
+
+    <property name="root.dir" value="${basedir}/../.."/>
+
+    <property name="lib.dir.compile" value="${root.dir}/_jc/_lib"/>
+
+    <property name="jc.compiled" value="${root.dir}/_jc/classes-core"/>
+
+    <!-- библиотеки для компиляции -->
+    <path id="compile-lib">
+        <fileset dir="${lib.dir.compile}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <patternset id="pattern.resource">
+        <include name="**/?*.*"/>
+        <exclude name="**/?*.java"/>
+        <exclude name="**/?*.groovy"/>
+    </patternset>
+
+    <!-- ===================================================================== -->
+
+    <!-- компиляция jc -->
+    <target name="build.jc">
+
+        <taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc"
+                 classpathref="compile-lib"/>
+
+        <echo message="****** build jc ******"/>
+        <delete dir="${jc.compiled}" failonerror="false"/>
+        <mkdir dir="${jc.compiled}"/>
+        <groovyc destdir="${jc.compiled}" encoding="utf-8" includeantruntime="false"
+                 fork="true">
+            <javac encoding="utf-8" debug="true"/>
+
+            <src location="${root.dir}/jandcode-commons/src"/>
+            <src location="${root.dir}/jandcode-commons-ansifer/src"/>
+            <src location="${root.dir}/jandcode-commons-groovy/src"/>
+            <src location="${root.dir}/jandcode-commons-moduledef/src"/>
+            <src location="${root.dir}/jandcode-jc/src"/>
+
+            <classpath refid="compile-lib"/>
+        </groovyc>
+        <copy todir="${jc.compiled}">
+
+            <fileset dir="${root.dir}/jandcode-commons/src">
+                <patternset refid="pattern.resource"/>
+                <type type="file"/>
+            </fileset>
+            <fileset dir="${root.dir}/jandcode-commons-ansifer/src">
+                <patternset refid="pattern.resource"/>
+                <type type="file"/>
+            </fileset>
+            <fileset dir="${root.dir}/jandcode-commons-groovy/src">
+                <patternset refid="pattern.resource"/>
+                <type type="file"/>
+            </fileset>
+            <fileset dir="${root.dir}/jandcode-commons-moduledef/src">
+                <patternset refid="pattern.resource"/>
+                <type type="file"/>
+            </fileset>
+
+            <fileset dir="${root.dir}/jandcode-jc/src">
+                <patternset refid="pattern.resource"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+
+        <!-- version -->
+        <exec executable="hg" outputproperty="ver1">
+            <arg value="id"/>
+            <arg value="-n"/>
+        </exec>
+        <echo message="version=SNAPSHOT-${ver1}"
+              file="${jc.compiled}/jandcode/jc/version.properties"/>
+
+    </target>
+
+    <!-- ===================================================================== -->
+
+    <!-- запускаем свежеоткомпиленный jc, получая таким образом
+         формированние каталога с библиотеками commons и jc
+     -->
+    <target name="build.lib-commons">
+        <java classname="jandcode.jc.Main" fork="true"
+              dir="${root.dir}"
+              failonerror="true">
+            <env key="JC_PATH" value=""/>
+            <jvmarg value="-Djandcode.consolecharset=cp866"/>
+            <jvmarg value="-Djandcode.jc.appdir=${root.dir}"/>
+            <arg line="showinfo -no-ansi"/>
+            <classpath refid="compile-lib"/>
+            <classpath>
+                <pathelement path="${jc.compiled}"/>
+            </classpath>
+        </java>
+    </target>
+
+    <!-- ===================================================================== -->
+
+    <!-- собрать все -->
+    <target name="build.all" depends="build.jc,build.lib-commons">
+    </target>
+
+</project>

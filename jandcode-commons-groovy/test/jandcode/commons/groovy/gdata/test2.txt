@@ -1,0 +1,8 @@
+
+import jandcode.commons.*
+import jandcode.commons.groovy.*
+import jandcode.commons.test.*
+
+void run1(String a){
+    print "hello"
+}

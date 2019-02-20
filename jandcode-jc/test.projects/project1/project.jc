@@ -1,0 +1,13 @@
+void onInclude() {
+    //
+    println "Hello!"
+    //
+    if (!project.vars.containsKey("counter")) {
+        project.vars.counter = 0
+    }
+
+    int cnt = project.vars.counter
+    cnt++
+    project.vars.counter = cnt
+    //
+}

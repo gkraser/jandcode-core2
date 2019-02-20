@@ -1,0 +1,14 @@
+import jandcode.jc.*
+import jandcode.jc.ProjectScript
+
+class I_P extends ProjectScript {
+
+    public static class I_C1 extends ProjectScript {
+
+    }
+
+    void onInclude() {
+        include(I_C1)
+    }
+
+}

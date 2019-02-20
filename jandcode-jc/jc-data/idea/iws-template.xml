@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+
+    <component name="ErrorTreeViewConfiguration">
+        <option name="hideWarnings" value="true"/>
+        <option name="HIDE_WARNINGS" value="true"/>
+    </component>
+
+    <component name="ProjectView">
+        <panes>
+            <pane id="ProjectPane">
+                <option name="show-excluded-files" value="false"/>
+            </pane>
+        </panes>
+    </component>
+
+</project>
+

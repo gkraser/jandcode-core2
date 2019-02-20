@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <field name="sys"/>
+
+    <field name="string" parent="sys" string="1" abs="true" abs-f="true"
+           tag.db="true" tag-f.db="true"/>
+
+    <field name="memo" parent="string" memo="1"/>
+
+</root>

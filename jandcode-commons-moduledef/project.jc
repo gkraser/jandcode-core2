@@ -1,0 +1,11 @@
+void onInclude() {
+    //! еще нет модуля jc !//
+    def jm = include("jandcode.jc.std.JavaProject")
+    //
+    jm.autoJcDepends = false
+    jm.packageRoot = "jandcode.commons.moduledef"
+    jm.depends.prod.add(
+            "jandcode-commons",
+    )
+    jm.depends.dev.add()
+}

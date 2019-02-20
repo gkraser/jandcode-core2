@@ -1,0 +1,8 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+    void onInclude() {
+        include(CleanProjecttml)
+    }
+}

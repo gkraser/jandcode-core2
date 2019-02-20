@@ -1,0 +1,23 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    void onInclude() {
+        //
+        project.name = "jandcode-xcore-jc"
+        //
+        include(JavaProject).with {
+            packageRoot = "jandcode.xcore.jc"
+            //
+            depends.prod.add(
+                "jandcode-jc",
+                "jandcode-xcore",
+            )
+            depends.dev.add(
+            )
+            //
+        }
+    }
+
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!-- Конфигурация jc по умолчанию-->
+
+    <!-- цветовые схемы для ansi-консоли -->
+    <color-style name="app-header" color="yellow_h" background=""/>
+    <color-style name="app-info-name" color="cyan" background=""/>
+    <color-style name="app-info-value" color="black_h" background=""/>
+    <color-style name="app-delim" color="black_h" background=""/>
+    <color-style name="app-footer" color="cyan" background=""/>
+    <color-style name="app-cm-name" color="yellow" background=""/>
+    <color-style name="app-opt-name" color="cyan" background=""/>
+    <color-style name="error-delim" color="red_h" background=""/>
+    <color-style name="error-text" color="yellow" background=""/>
+    <color-style name="error-stack" color="cyan" background=""/>
+    <color-style name="log-info" color="" background=""/>
+    <color-style name="log-info-pfx" color="yellow" background=""/>
+    <color-style name="log-debug" color="black_h" background=""/>
+    <color-style name="log-debug-pfx" color="cyan" background=""/>
+    <color-style name="log-warn" color="black_h" background=""/>
+    <color-style name="log-warn-pfx" color="red_h" background=""/>
+    <color-style name="ant-info" color="black_h" background=""/>
+    <color-style name="ant-info-pfx" color="green" background=""/>
+    <color-style name="ant-error" color="red_h" background=""/>
+    <color-style name="ant-error-pfx" color="red_h" background=""/>
+    <color-style name="ant-warn" color="black_h" background=""/>
+    <color-style name="ant-warn-pfx" color="red_h" background=""/>
+    <color-style name="c1" color="yellow" background=""/>
+    <color-style name="c2" color="cyan" background=""/>
+    <color-style name="c-gray" color="black_h" background=""/>
+    <color-style name="opt-name" color="cyan" background=""/>
+    <color-style name="opt-help" color="" background=""/>
+
+</root>

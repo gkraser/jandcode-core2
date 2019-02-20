@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-depends module="m1"/>
+    <x-depends module="m2"/>
+    <x-depends lib="z1"/>
+    <x-depends lib="z2"/>
+
+    <x-any/>
+    <any/>
+
+</root>

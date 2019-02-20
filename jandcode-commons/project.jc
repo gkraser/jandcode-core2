@@ -1,0 +1,18 @@
+void onInclude() {
+    //! еще нет модуля jc !//
+    def jm = include("jandcode.jc.std.JavaProject")
+    //
+    jm.autoJcDepends = false
+    jm.packageRoot = "jandcode.commons"
+    jm.depends.prod.add(
+            "commons-io",
+            "commons-vfs2",
+
+            // logging
+            "slf4j-api",
+            "jcl-over-slf4j",
+            "logback-core",
+            "logback-classic",
+    )
+    jm.depends.dev.add()
+}

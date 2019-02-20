@@ -1,0 +1,22 @@
+plugins {
+    id "java"
+}
+
+buildDir = '../../_jc/_gradle-build-dir'
+
+apply from: '../../lib/lib.gradle'
+
+def libDir = '../../_jc/_lib'
+
+task copyLibs {
+    doLast {
+        ant.delete(dir: libDir)
+        configurations.compile.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+            project.copy {
+                from artifact.file
+                into libDir
+                rename { "${artifact.name}.${artifact.extension}" }
+            }
+        }
+    }
+}

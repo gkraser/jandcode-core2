@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+
+    <component name="CompilerConfiguration">
+        <option name="DEFAULT_COMPILER" value="Javac"/>
+        <resourceExtensions/>
+        <wildcardResourcePatterns>
+            <entry name="!?*.java"/>
+            <entry name="!?*.form"/>
+            <entry name="!?*.class"/>
+            <entry name="!?*.groovy"/>
+            <entry name="!?*.scala"/>
+            <entry name="!?*.flex"/>
+            <entry name="!?*.kt"/>
+            <entry name="!?*.clj"/>
+        </wildcardResourcePatterns>
+    </component>
+
+    <component name="ProjectModuleManager">
+        <modules>
+        </modules>
+    </component>
+
+    <component name="InspectionProjectProfileManager">
+        <profile version="1.0">
+            <option name="myName" value="Project Default"/>
+            <inspection_tool class="SpellCheckingInspection" enabled="false" level="TYPO"
+                             enabled_by_default="false">
+                <option name="processCode" value="true"/>
+                <option name="processLiterals" value="true"/>
+                <option name="processComments" value="true"/>
+            </inspection_tool>
+        </profile>
+        <option name="PROJECT_PROFILE" value="Project Default"/>
+        <option name="USE_PROJECT_PROFILE" value="true"/>
+        <version value="1.0"/>
+    </component>
+
+    <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8"
+               assert-keyword="true" jdk-15="true" project-jdk-name="1.8"
+               project-jdk-type="JavaSDK">
+        <output url="file://$PROJECT_DIR$/out"/>
+    </component>
+
+    <component name="Encoding">
+        <file url="PROJECT" charset="UTF-8"/>
+    </component>
+
+    <component name="ProjectRunConfigurationManager">
+        <configuration default="true" type="JUnit" factoryName="JUnit">
+            <extension name="coverage" enabled="false" merge="false"
+                       sample_coverage="true" runner="idea"/>
+            <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$"/>
+        </configuration>
+    </component>
+
+    <component name="JavaScriptSettings">
+        <option name="languageLevel" value="ES6"/>
+    </component>
+
+</project>
+
