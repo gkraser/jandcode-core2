@@ -25,11 +25,11 @@ abstract class CustomProjectTestCase extends Utils_Test {
 
     protected void prepareRealCtx() {
         String root1 = UtFile.join(UtFile.getPathprop(UtilsConsts.PATHPROP_COREROOT, ""), "")
-        ctx.addLibDir(root1 + "/jandcode-libs/_jc/lib-builder")
+        ctx.addLibDir(root1 + "/_jc/lib-builder")
     }
 
     protected String basepath(String path) {
-        String basepath = UtFile.join(UtFile.getPathprop(UtilsConsts.PATHPROP_COREROOT, ""), "jandcode-jc/jandcode-jc/test.projects")
+        String basepath = UtFile.join(UtFile.getPathprop(UtilsConsts.PATHPROP_COREROOT, ""), "jandcode-jc/test.projects")
         return UtFile.join(basepath, path)
     }
 
@@ -65,7 +65,7 @@ abstract class CustomProjectTestCase extends Utils_Test {
      * Имитация запуска jc в указанном каталоге с указанными аргументами
      */
     void run(String workdir, List args) {
-        String basepath = UtFile.join(UtFile.getPathprop(UtilsConsts.PATHPROP_COREROOT, ""), "jandcode-jc/jandcode-jc/test.projects")
+        String basepath = UtFile.join(UtFile.getPathprop(UtilsConsts.PATHPROP_COREROOT, ""), "jandcode-jc/test.projects")
         workdir = UtFile.join(basepath, workdir)
         MainImpl main = new MainImpl();
         main.run(args as String[], workdir, workdir, true);

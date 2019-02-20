@@ -3,3 +3,4 @@
 # workdir and specify the full path for 'jandcode'. ${path} replace on dir with .pathprop
 #
 jandcode.xcore.root=${path}
+jandcode.project.root=${path}
