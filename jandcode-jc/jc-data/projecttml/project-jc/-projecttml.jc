@@ -1,10 +1,6 @@
+import jandcode.commons.*
 import jandcode.jc.*
 import jandcode.jc.std.*
-import jandcode.commons.*
-import jandcode.jc.ProjectScript
-import jandcode.jc.std.Projecttml
-import jandcode.commons.UtFile
-import jandcode.commons.UtString
 
 class P extends ProjectScript {
 
