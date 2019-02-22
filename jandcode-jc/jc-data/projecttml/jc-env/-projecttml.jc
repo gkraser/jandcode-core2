@@ -1,6 +1,6 @@
+import jandcode.commons.*
 import jandcode.jc.*
 import jandcode.jc.std.*
-import jandcode.commons.*
 
 class P extends ProjectScript {
 
@@ -9,11 +9,17 @@ class P extends ProjectScript {
         // включаем плагин. Теперь - это шаблон.
         Projecttml t = include(Projecttml)
 
-        t.desc = "jc-env.bat (или jc-env.sh для linux)"
+        t.desc = "jc-env.bat (или jc-env.sh для linux) и jc-env.jc"
 
         t.gen = {
             def fnEnv = UtFile.isWindows() ? "jc-env.bat" : "jc-env.sh"
             def fnRun = UtFile.isWindows() ? "jc-run.bat" : "jc-run.sh"
+            def fnJc = "jc-env.jc"
+
+            fnJc = UtFile.join(t.outdir, fnJc)
+            if (UtFile.exists(fnJc)) {
+                error("Файл ${fnJc} уже существует")
+            }
 
             def fn = UtFile.join(t.outdir, fnEnv)
             if (UtFile.exists(fn)) {
@@ -24,13 +30,18 @@ class P extends ProjectScript {
             if (UtFile.isWindows()) {
                 txt = "@echo off\n" +
                         "\n" +
-                        "set JC_RUN=${jcRunSys}\n"
+                        "set JC_RUN=${jcRunSys}\n" +
+                        "set JC_PATH=%~dp0jc-env.jc\n"
             } else {
                 txt = "#! /bin/sh\n" +
                         "\n" +
-                        "export JC_RUN=${jcRunSys}\n"
+                        "export JC_RUN=${jcRunSys}\n" +
+                        "export JC_PATH=\${WD}/jc-env.jc\n"
             }
             ant.echo(message: txt, file: fn)
+
+            ant.copy(file: wd("template-jc-env-jc.txt"), tofile: fnJc)
+
         }
 
     }
