@@ -22,16 +22,11 @@ class P extends ProjectScript {
             dirsSrcTest = []
             depends.dev.add(
                     "jandcode-core",
-                    "jandcode-web",
-                    "jandcode-mdoc",
                     "jandcode-jc",
             )
         }
         //
         include(MDocProject).with {
-            depends.prod.add(
-                    "jandcode.web.tst",
-            )
             addSrc('src')
             addSrc('theme', prefix: '_theme')
             addSrc('_gen/mdoc')
