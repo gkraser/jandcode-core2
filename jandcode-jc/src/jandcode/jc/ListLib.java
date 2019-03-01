@@ -1,6 +1,7 @@
 package jandcode.jc;
 
 import jandcode.commons.*;
+import jandcode.commons.error.*;
 import jandcode.commons.named.*;
 
 import java.util.*;
@@ -28,14 +29,16 @@ public class ListLib extends DefaultNamedList<Lib> {
     /**
      * Отсортировать список по зависимостям.
      * Если библиотека находится в списке зависимостей другой библиотеки,
-     * она будет выше в списке. Остальные сортируются по имени.
+     * она будет выше в списке.
+     * Используется "Алгоритм Тарьяна" отсюда: https://ru.wikipedia.org/wiki/Топологическая_сортировка
      */
     public void sortByDepends() {
 
-        class SortItem implements Comparable<SortItem> {
+        class SortItem {
             private Lib lib;
             private String name;
             private Set<String> depends;
+            private int color;
 
             SortItem(Lib lib) {
                 this.lib = lib;
@@ -46,25 +49,53 @@ public class ListLib extends DefaultNamedList<Lib> {
                 }
             }
 
-            public int compareTo(SortItem it) {
-                if (this.depends.contains(it.name)) {
-                    return 1;
+        }
+
+        class Sorter {
+
+            private static final int GRAY = 1;
+            private static final int BLACK = 2;
+
+            private Map<String, SortItem> map = new LinkedHashMap<>();
+            private List<SortItem> res = new ArrayList<>();
+
+            Sorter(ListLib src) {
+                for (Lib z : src) {
+                    SortItem it = new SortItem(z);
+                    map.put(it.name, it);
                 }
-                if (it.depends.contains(this.name)) {
-                    return -1;
+            }
+
+            void sort() {
+                for (SortItem it : map.values()) {
+                    step(it);
                 }
-                return this.name.compareTo(it.name);
+            }
+
+            void step(SortItem it) {
+                if (it.color == BLACK) {
+                    return;
+                }
+                if (it.color == GRAY) {
+                    throw new XError("Циклическая зависимость в {0}", it.name);
+                }
+                it.color = GRAY;
+                for (String dep : it.depends) {
+                    SortItem ch = map.get(dep);
+                    if (ch != null) {
+                        step(ch);
+                    }
+                }
+                it.color = BLACK;
+                res.add(it);
             }
         }
 
-        List<SortItem> lst = new ArrayList<>();
-        for (Lib z : this) {
-            lst.add(new SortItem(z));
-        }
-        Collections.sort(lst);
+        Sorter srt = new Sorter(this);
+        srt.sort();
 
         clear();
-        for (SortItem it : lst) {
+        for (SortItem it : srt.res) {
             add(it.lib);
         }
 
