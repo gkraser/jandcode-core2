@@ -1,4 +1,5 @@
 import jandcode.jc.*
+import jandcode.jc.impl.*
 import jandcode.jc.std.*
 import jandcode.mdoc.jc.*
 
@@ -12,6 +13,11 @@ class P extends ProjectScript {
         //
         project.name = "jandcode-core2-docs"
         //
+        onEvent(PrepareProject.Event_Prepare) {
+            //todo времянка!
+            new ModuleDefProjectUtils(this).updateRegistryModuleDef()
+        }
+
         include(JavaProject).with {
             dirsSrcTest = []
             depends.dev.add(
