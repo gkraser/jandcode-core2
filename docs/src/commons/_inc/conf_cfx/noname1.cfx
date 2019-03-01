@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <list1>
+        <i attr1="1"/>
+        <i attr1="2"/>
+        <i attr1="3"/>
+    </list1>
+    <list1 name="i" attr1="4"/>
+</root>

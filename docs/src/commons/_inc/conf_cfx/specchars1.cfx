@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <action name="my/action1" attr1="1"/>
+    <action>
+        <my--action2 attr1="1"/>
+    </action>
+</root>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <domain name="Domain1" domain-attr1="1">
+        <field name="id" field-attr1="1"/>
+        <field name="name1" field-attr1="2"/>
+    </domain>
+    <domain name="Domain2" domain-attr1="2">
+        <field name="id" field-attr1="1"/>
+        <field name="name2" field-attr1="2"/>
+    </domain>
+</root>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <obj1>
+        <prop1>value1</prop1>
+        <emptyobj/>
+        <withattr attr1="1" attr2="2">
+            <attr3>3</attr3>
+            <emptyobj2/>
+        </withattr>
+    </obj1>
+</root>
