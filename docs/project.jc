@@ -19,6 +19,7 @@ class P extends ProjectScript {
         }
 
         include(JavaProject).with {
+            moduleGroup = "Docs"
             dirsSrcTest = []
             depends.dev.add(
                     "jandcode-core",
