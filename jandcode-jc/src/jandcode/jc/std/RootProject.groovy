@@ -111,6 +111,9 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
         include(BuildProject)
         onEvent(BuildProject.Event_Build, this.&buildHandler)
 
+        //
+        include(RegistryModuleDef)
+
         // cm
         cm.add("compile", this.&cmCompile, "Компиляция")
         cm.add("compile-test", this.&cmCompileTest, "Компиляция тестов")
@@ -389,8 +392,6 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
     void prepareHandler() {
         // копируем файлы из каталога data/dev
         copyTemplateFiles(wd("data/dev"), wd())
-        // генерим registry-module-def.cfx если нужно
-        new ModuleDefProjectUtils(this).updateRegistryModuleDef()
         // выполняем для модулей prepare, если им это нужно
         forModulesExecCm("prepare")
     }
