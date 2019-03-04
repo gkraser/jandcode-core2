@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!-- Основное содержание -->
+    <toc-root topic="index.md">
+
+        <toc title="Инсталяция">
+        </toc>
+
+        <toc topic="intro/manuals.md">
+
+            <!-- commons -->
+            <toc topic="commons/index">
+                <toc topic="./conf">
+                    <toc topic="./conf-*"/>
+                </toc>
+                <toc topic="./**/*"/>
+            </toc>
+
+            <!-- core -->
+            <toc topic="core/index">
+                <toc topic="./module"/>
+                <toc topic="./module-cfx"/>
+                <toc topic="./module-api"/>
+                <toc topic="./**/*"/>
+            </toc>
+
+            <!-- jc -->
+            <toc topic="jc/index">
+                <toc topic="./base"/>
+                <toc topic="./jc-bat"/>
+                <toc topic="./loadprocess"/>
+                <toc topic="./**/*"/>
+            </toc>
+
+            <!-- test -->
+            <toc topic="test/index">
+                <toc topic="./**/*"/>
+            </toc>
+
+        </toc>
+
+        <toc title="Все остальное">
+            <toc topic="**/*" type="auto"/>
+        </toc>
+
+    </toc-root>
+
+</root>

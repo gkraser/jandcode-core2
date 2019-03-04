@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <obj1>
+        <!--@
+            comment1
+        -->
+    </obj1>
+    <field name="f1">
+        <!--@
+            comment2
+        -->
+    </field>
+</root>
