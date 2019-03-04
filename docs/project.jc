@@ -24,8 +24,10 @@ class P extends ProjectScript {
         }
         //
         include(MDocProject).with {
+            depends.prod.add(
+                    "jandcode-mdoc-ext",
+            )
             addSrc('src')
-            addSrc('theme', prefix: '_theme')
             addSrc('_gen/mdoc')
             props['toc'] = 'toc.xml'
             props['title'] = project.name
