@@ -713,7 +713,9 @@ class JavaProject extends ProjectScript implements ILibDepends {
         x.addFolders(dirsExclude, "exclude")
         //
         x.removeDepends()
-        ListLib rlibs = depends.all.libsAll
+        LibDepends deps = create(LibDependsUtils).getDepends(project)
+        ListLib rlibs = deps.all.libsAll
+
         x.addDepends(rlibs)
     }
 
