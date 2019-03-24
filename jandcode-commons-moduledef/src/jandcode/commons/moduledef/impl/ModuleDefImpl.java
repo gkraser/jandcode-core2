@@ -1,5 +1,6 @@
 package jandcode.commons.moduledef.impl;
 
+import jandcode.commons.*;
 import jandcode.commons.moduledef.*;
 
 import java.util.*;
@@ -16,7 +17,7 @@ public class ModuleDefImpl implements ModuleDef {
 
     public ModuleDefImpl(String name, String path, String packageRoot, String moduleFile) {
         this.name = name;
-        this.path = path;
+        this.path = UtFile.getFileObject(path).toString();
         this.packageRoot = packageRoot;
         this.moduleFile = moduleFile;
         if (this.moduleFile == null) {

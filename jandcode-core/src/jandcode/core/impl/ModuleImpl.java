@@ -18,7 +18,10 @@ public class ModuleImpl implements Module {
         this.app = app;
         this.moduleDef = moduleDef;
         this.conf = moduleDefConfig.getConf();
-        this.depends = moduleDefConfig.getDepends();
+        //
+        Set<String> tmpDep = new LinkedHashSet<>(moduleDef.getDepends());
+        tmpDep.addAll(moduleDefConfig.getDepends());
+        this.depends = new ArrayList<>(tmpDep);
     }
 
     public App getApp() {
