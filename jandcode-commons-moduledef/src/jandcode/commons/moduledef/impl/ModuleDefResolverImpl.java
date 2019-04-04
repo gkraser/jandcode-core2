@@ -41,7 +41,7 @@ public class ModuleDefResolverImpl implements ModuleDefResolver {
         return res;
     }
 
-    public ModuleDef getModuleDef(String moduleName)  {
+    public ModuleDef getModuleDef(String moduleName) {
         ModuleDef md = findModuleDef(moduleName);
         if (md == null) {
             ModuleDef resSrc = sourceModules.find(moduleName);

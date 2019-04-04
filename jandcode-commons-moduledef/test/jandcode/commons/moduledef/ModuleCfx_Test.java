@@ -1,6 +1,5 @@
 package jandcode.commons.moduledef;
 
-import jandcode.commons.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.test.*;
 import org.junit.jupiter.api.*;
@@ -9,7 +8,7 @@ import java.util.regex.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ModuleRt_Test extends Utils_Test {
+public class ModuleCfx_Test extends Utils_Test {
 
     @Test
     public void test_moduleVars() throws Exception {

@@ -1,7 +1,5 @@
 package jandcode.commons.moduledef;
 
-import jandcode.commons.error.*;
-
 /**
  * Ресолвер для ModuleDef
  */
