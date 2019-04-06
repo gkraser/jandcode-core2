@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <a1 b1="1"/>
+    <x-include path="file3.json"/>
+    <a1 b1="1">
+        <x-include path="file3.json"/>
+    </a1>
+</root>

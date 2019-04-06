@@ -108,6 +108,9 @@ public class ConfLoaderImpl implements ConfLoaderContext {
         if ("json".equals(ext)) {
             return new ConfFileLoader_json(root, this);
         }
+        if ("xml".equals(ext)) {
+            return new ConfFileLoader_xml(root, this);
+        }
         //
         if (fileLoaderFactorys == null) {
             synchronized (Conf.class) {

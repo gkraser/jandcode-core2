@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <toc-root topic="index.md">
+        <toc topic="./get-start"/>
+        <x-include path="xml-inc3.xml"/>
+        <toc topic="./topic">
+            <toc topic="./topic-htm"/>
+        </toc>
+        <toc topic="./toc-xml"/>
+    </toc-root>
+</root>
