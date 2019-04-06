@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root root-attr="1">
+
+    <tag1 attr1="1">
+        <child-tag1 a1="1"/>
+        <child-tag1 name="n1" a1="2"/>
+    </tag1>
+
+</root>

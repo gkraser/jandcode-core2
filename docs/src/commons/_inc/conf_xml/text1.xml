@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <obj1>
+        text1
+    </obj1>
+    <field name="f1">
+        text2
+    </field>
+</root>

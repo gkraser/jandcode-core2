@@ -127,11 +127,15 @@ public class UseConf1 extends BaseCodeGen {
     }
 
     public void load1() throws Exception {
-        Conf x = UtConf.create();
-        UtConf.load(x).fromString("{\"a\":1}", "a.json");
-        outText(prn(x, "x"));
-        UtConf.load(x).fromString("<root><b>2</b></root>", "a.cfx");
-        outText(prn(x, "x"));
+        Conf x1 = UtConf.create();
+        UtConf.load(x1).fromString("{\"a\":1}", "a.json");
+        outText(prn(x1, "x"));
+        Conf x2 = UtConf.create();
+        UtConf.load(x2).fromString("<root><b>2</b></root>", "a.cfx");
+        outText(prn(x2, "x"));
+        Conf x3 = UtConf.create();
+        UtConf.load(x3).fromString("<root><a z=\"3\">a</a><b>2</b></root>", "a.xml");
+        outText(prn(x3, "x"));
     }
 
     public void join1() throws Exception {

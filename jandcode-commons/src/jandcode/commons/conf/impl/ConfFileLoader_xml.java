@@ -65,7 +65,7 @@ public class ConfFileLoader_xml extends DefaultHandler2 implements ILoader {
         int cnt = attributes.getLength();
         if (cnt > 0) {
             for (int i = 0; i < cnt; i++) {
-                cur.put(attributes.getQName(i), attributes.getValue(i));
+                cur.put(attributes.getQName(i), loader.expandVars(attributes.getValue(i)));
             }
         }
     }
@@ -82,7 +82,7 @@ public class ConfFileLoader_xml extends DefaultHandler2 implements ILoader {
             s = s.substring(1);
             s = UtString.normalizeIndent(s);
             if (s.length() > 0) {
-                stack.last().put("comment", s);
+                stack.last().put("comment", loader.expandVars(s));
             }
         }
     }
@@ -95,7 +95,7 @@ public class ConfFileLoader_xml extends DefaultHandler2 implements ILoader {
         s = buffer.toString().replaceAll("\r", "");
         s = UtString.normalizeIndent(s);
         if (s.length() > 0) {
-            stack.last().put("text", s);
+            stack.last().put("text", loader.expandVars(s));
         }
         buffer.setLength(0);
     }
