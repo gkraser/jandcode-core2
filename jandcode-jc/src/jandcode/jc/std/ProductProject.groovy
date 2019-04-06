@@ -19,6 +19,7 @@ class ProductProject extends ProjectScript {
                 // есть сборщики
                 cm.add("product", "Сборка продукта", this.&cmProduct,
                         cm.opt("q", false, "Быстрая сборка. Пропустить этап компиляции (для отладки)"),
+                        cm.opt("dev", false, "Dev-сборка. Не устанавливается флаг ctx.env.prod"),
                 )
                 if (lst.size() > 1) {
                     cm.get("product").opts.add(
@@ -33,11 +34,15 @@ class ProductProject extends ProjectScript {
     void cmProduct(CmArgs args) {
         List builders = impl(ProductBuilder)
 
-        // production mode
-        ctx.env.prod = true
-
         //
         boolean quick = args.containsKey("q")
+        boolean dev = args.containsKey("dev")
+
+        if (!dev) {
+            // production mode
+            ctx.env.prod = true
+        }
+
 
         Set<String> needs = null
         if (args.containsKey("b")) {
@@ -49,6 +54,7 @@ class ProductProject extends ProjectScript {
             if (needs == null || needs.contains(b.name)) {
                 cnt++
                 b.quick = quick
+                b.dev = dev
                 b.args.clear()
                 b.args.putAll(args)
                 b.exec()
