@@ -28,6 +28,12 @@ class ProductBuilder extends ProjectScript {
     boolean quick
 
     /**
+     * При значении true в командной строке передан параметр -dev
+     * и собирать нужно в режиме разработки.
+     */
+    boolean dev
+
+    /**
      * Аргументы командной строки, переданной при выполнеии команды product
      */
     CmArgs args = new CmArgsImpl()
@@ -131,6 +137,13 @@ class ProductBuilder extends ProjectScript {
      */
     void makeVersionFile() {
         ant.echo(message: project.version, file: destDir + "/VERSION")
+    }
+
+    /**
+     * Создать файл .jc-root в корне продукта
+     */
+    void makeJcRootFile() {
+        ant.echo(message: "", file: destDir + "/${JcConsts.JC_ROOT_FILE}")
     }
 
 }
