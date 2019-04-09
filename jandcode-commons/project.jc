@@ -1,4 +1,5 @@
 void onInclude() {
+    project.name = "jandcode-commons"
     //! еще нет модуля jc !//
     def jm = include("jandcode.jc.std.JavaProject")
     //
