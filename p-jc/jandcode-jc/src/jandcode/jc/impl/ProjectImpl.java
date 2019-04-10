@@ -107,7 +107,7 @@ public class ProjectImpl implements Project {
         }
         Project p = getCtx().getRootProject(getWd().getPath());
         if (p != null && p == this) {
-            p = null; // я сам себе не могу мыть корневым
+            p = null; // я сам себе не могу быть корневым
         }
         this.rootProject = p;
         return this.rootProject;
