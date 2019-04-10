@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <bean name="jandcode.mdoc.web.WebMDocService"
+          class="jandcode.mdoc.web.impl.WebMDocServiceImpl"/>
+
+    <web>
+        <mount-module/>
+
+        <!-- вызывается первой, что бы гарантированно получить файл, если он есть  -->
+        <action-factory name="mdoc" weight="1000"
+                       class="jandcode.mdoc.web.MDocActionFactory"/>
+
+        <action name="mdoc"
+                class="jandcode.mdoc.web.MDocAction"/>
+
+    </web>
+
+</root>

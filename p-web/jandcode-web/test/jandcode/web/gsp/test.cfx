@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-depends module="jandcode.web"/>
+
+
+    <web>
+
+        <mount name="i" realPath="#{path}"/>
+        <mount name="i" realPath="#{path}/root1"/>
+
+        <gsp name="gsp1" class="jandcode.web.gsp.data.Gsp1"/>
+        <gsp name="a/gsp1" class="jandcode.web.gsp.data.Gsp1"/>
+
+    </web>
+
+
+</root>

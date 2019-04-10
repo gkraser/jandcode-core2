@@ -11,12 +11,23 @@ class P extends ProjectScript {
             publishDir = "../_jc/${project.name}"
             tempDir = "../temp/${project.name}"
 
-            // все библиотеки берем из места
+            String jcLibsFile = wd('../jc-libs.txt')
+            Set jcLibs = new HashSet(new File(jcLibsFile).readLines())
+
+            // библиотеки, от которых зависит jc берем из места,
             // откуда они в classpath появились
             String newJarDir = wd("../_jc/_lib")
             filter { List<GradleLibDef> libs ->
                 for (GradleLibDef lib : libs) {
-                    lib.jar = UtFile.join(newJarDir, "${lib.name}.jar")
+                    if (jcLibs.contains(lib.name)) {
+                        String newJar = UtFile.join(newJarDir, "${lib.name}.jar")
+                        if (UtFile.exists(newJar)) {
+                            lib.jar = newJar
+                        } else {
+                            log.warn("Не найдена библиотека ${lib.name} из зависимостей " +
+                                    "jandcode-jc ${jcLibsFile} в каталоге ${newJarDir}")
+                        }
+                    }
                 }
             }
         }

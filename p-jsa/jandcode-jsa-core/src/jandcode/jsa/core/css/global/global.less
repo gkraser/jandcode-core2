@@ -1,0 +1,49 @@
+@import "../vars/global";
+
+// по умолчанию content-box... И тогда прямоугольники не учитывают padding.
+html {
+  box-sizing: border-box;
+  font-size: @font-size--base;
+  line-height: @line-height--base; // перекрываем normalize.css
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+
+  font-family: @font-family;
+  font-size: @font-size--normal;
+  line-height: @line-height--base;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+input:focus {
+  outline: none;
+}
+
+a:focus {
+  outline: none;
+}
+
+fieldset {
+  border-width: 1px;
+  border-style: solid;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  line-height: @line-height--base; // перекрываем normalize.css
+}

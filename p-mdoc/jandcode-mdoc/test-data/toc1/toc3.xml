@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <toc-root topic="index">
+        <include toc="part1/toc3.xml"/>
+    </toc-root>
+
+</root>

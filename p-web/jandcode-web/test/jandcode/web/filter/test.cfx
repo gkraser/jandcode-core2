@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-depends module="jandcode.web"/>
+
+    <web>
+
+        <action name="a1" class="jandcode.web.filter.ErrorAction"/>
+
+        <filter name="i" class="jandcode.web.filter.Filter1"
+                type="startRequest"/>
+        <filter name="i" class="jandcode.web.filter.Filter1"
+                type="stopRequest"/>
+        <filter name="i" class="jandcode.web.filter.Filter1"
+                type="beforeAction"/>
+        <filter name="i" class="jandcode.web.filter.Filter1"
+                type="afterAction"/>
+        <filter name="i" class="jandcode.web.filter.Filter1"
+                type="beforeRender"/>
+        <filter name="i" class="jandcode.web.filter.Filter1"
+                type="afterRender"/>
+
+
+        <filter name="ff1" class="jandcode.web.filter.Filter1"
+                type="afterRender,beforeAction" weight="0"/>
+
+        <filter name="ff3-all" class="jandcode.web.filter.Filter1"
+                type="*"/>
+
+    </web>
+
+</root>

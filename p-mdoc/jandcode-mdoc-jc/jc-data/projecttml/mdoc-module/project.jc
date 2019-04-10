@@ -1,0 +1,31 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+import jandcode.mdoc.jc.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+        classpath("jandcode-mdoc-jc")
+    }
+
+    void onInclude() {
+        //
+        project.name = "xxx-yyy"
+
+        include(JavaProject).with {
+            moduleGroup = "Docs"
+            dirsSrcTest = []
+            depends.dev.add(
+            )
+        }
+        //
+        include(MDocProject).with {
+            addSrc('src')
+            props['toc'] = 'toc.xml'
+            props['title'] = project.name
+            props['project.version'] = project.version
+        }
+    }
+
+
+}

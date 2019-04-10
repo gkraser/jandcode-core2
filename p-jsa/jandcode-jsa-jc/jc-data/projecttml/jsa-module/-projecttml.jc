@@ -1,0 +1,27 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    void onInclude() {
+
+        // включаем плагин. Теперь - это шаблон.
+        Projecttml t = include(Projecttml)
+
+        t.desc = "Jsa-модуль"
+
+        // универсальные опции для java-модуля
+        t.opts += t.optsJavaProject
+
+        // инициализация аргументов
+        t.init = {
+            t.initJavaProject("xxx-yyy")
+        }
+
+        // настройка сгенеренного проекта
+        t.done = {
+            t.ant.mkdir(dir: wd("temp"))
+        }
+    }
+
+}

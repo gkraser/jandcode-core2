@@ -1,0 +1,94 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+import jandcode.jsa.jc.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+        classpath("jandcode-jsa-jc")
+    }
+
+    void onInclude() {
+        //
+        project.name = "jandcode-jsa-jslib"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.jsa.jslib").with {
+                depends.prod.add(
+                        "jandcode.jsa.tools"
+                )
+            }
+            //
+            depends.prod.add(
+            )
+            depends.dev.add(
+            )
+            //
+        }
+        //
+        include(JsaProject).with {
+            nodeDepends.putAll(
+                    "axios": "0.18.0",
+                    "blueimp-md5": "2.10.0",
+                    "chai": "4.2.0",
+                    "jquery": "3.3.1",
+                    "lodash": "4.17.11",
+                    "mocha": "6.1.2",
+                    "moment": "2.24.0",
+                    "vue": "2.6.10",
+                    "vue-router": "3.0.3",
+                    "vuex": "3.1.0"
+            )
+            //
+            def globs = nodeDepends.keySet().collect {
+                it + "/" + JsaConsts.PACKAGE_JSON
+            }
+            globs.addAll(
+                    //
+                    "axios/dist/**/*",
+                    "!axios/**/*.map",
+
+                    //
+                    "blueimp-md5/js/*",
+                    "!blueimp-md5/**/*.map",
+
+                    //
+                    "chai/chai.js",
+
+                    //
+                    "jquery/dist/**/*",
+                    "!jquery/**/*.map",
+
+                    //
+                    "lodash/lodash*.js",
+
+                    //
+                    "mocha/mocha.*",
+
+                    //
+                    "moment/m*.js",
+                    "moment/min/**/*.js",
+                    "moment/locale/ru.js",
+
+                    //
+                    "vue/dist/*.js",
+                    "!vue/dist/*.common.*",
+                    "!vue/dist/*.esm.*",
+
+                    //
+                    "vue-router/dist/*.js",
+                    "!vue-router/dist/*.common.*",
+                    "!vue-router/dist/*.esm.*",
+
+                    //
+                    "vuex/dist/*.js",
+                    "!vuex/dist/*.common.*",
+                    "!vuex/dist/*.esm.*",
+
+            )
+            gulpTask(name: "nm", globs: globs)
+        }
+        //
+    }
+
+}

@@ -1,0 +1,36 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+import jandcode.jsa.jc.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+        classpath("jandcode-jsa-jc")
+    }
+
+    void onInclude() {
+        //
+        project.name = "jandcode-jsa-base"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.jsa.base").with {
+                depends.prod.add(
+                        "jandcode.jsa",
+                        "jandcode.jsa.jslib",
+                )
+            }
+            //
+            depends.prod.add(
+            )
+            depends.dev.add(
+            )
+            //
+        }
+        //
+        include(JsaProject).with {
+            gulpTask(name: "js", provide: true, globs: ["**/*.js"])
+            gulpTask(name: "babelHelpers", globs: ["js/boot/babelHelpers.js"])
+        }
+    }
+
+}

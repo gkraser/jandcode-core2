@@ -16,90 +16,96 @@ class P extends ProjectScript {
             project.version = include(HgVersion).version("#{ver}")
         }
         //
-
         include(RootProject).with {
             groupId = "com.jandcode"
-            moduleGroup = "JC-Core"
             modules = [
-                    "jandcode-commons",
-                    "jandcode-commons-ansifer",
-                    "jandcode-commons-groovy",
-                    "jandcode-commons-moduledef",
-
-                    "jandcode-jc",
-                    "jandcode-jc-junit",
-
-                    "jandcode-core",
-                    "jandcode-core-groovy",
-                    "jandcode-core-jc",
+                    "p-commons",
+                    "p-jc",
+                    "p-core",
+                    "p-db",
+                    "p-web",
+                    "p-jsa",
+                    "p-mdoc",
             ]
         }
-
         //
-        cm.add("product", this.&cmProduct, "Сборка продукта",
-                cm.opt("q", "Не собирать проект, для отладки")
-        )
-
+        include(ThisProductBuilder)
+        //
+        cm.add("view-jc-libs", this.&cmViewJcLibs, "Показать список внешних библиотек для jc (для обновления файла jc-libs.txt)")
     }
 
-    void cmProduct(CmArgs args) {
-        // production mode
-        ctx.env.prod = true
-
-        if (!args.q) {
-            cm.exec("build")
+    void cmViewJcLibs() {
+        ListLib libs = ctx.getLibs("jandcode-jc", "prod,dev")
+        List lst = []
+        for (lib in libs) {
+            if (lib.name.indexOf("jandcode")==-1) {
+                lst.add(lib.name)
+            }
         }
-
-        def dest = wd("_jc/product")
-        ut.cleandir(dest)
-
-        // libs
-        def cp = create(LibCopier)
-        cp.add(ctx.loadLibs(wd("lib")), false)
-        cp.add(include(RootProject).modules, false)
-        cp.copyTo("${dest}/lib", true, true)
-
-        //
-        ant.copy(file: wd("jc.bat"), todir: dest, overwrite: true, preservelastmodified: true)
-        ant.copy(file: wd("jc-env.bat"), todir: dest, overwrite: true, preservelastmodified: true)
-        ant.copy(file: wd("jc"), todir: dest, overwrite: true, preservelastmodified: true)
-        ant.copy(file: wd("jc-env.sh"), todir: dest, overwrite: true, preservelastmodified: true)
-        ant.copy(todir: dest, overwrite: true, preservelastmodified: true) {
-            fileset(dir: wd("data/distr"))
-        }
-
-        // формирование jc-run
-
-        def libCore = ctx.getLib("jandcode-jc").sourceProject.include(JavaProject)
-        def libCoreNames = UtCnv.toNameList(ctx.getLibs(libCore.depends.prod.names + [libCore.name]))
-
-        // jc-run.bat
-        File jcrunFile = new File(dest + "/jc-run.bat")
-        String jcrunFileText = UtFile.loadString(jcrunFile)
-        String s1 = ""
-        for (z in libCoreNames) {
-            s1 += "set CP=%CP%;%JCLIBDIR%\\${z}.jar\n"
-        }
-        jcrunFileText = jcrunFileText.replace("rem CP", s1)
-        UtFile.saveString(jcrunFileText, jcrunFile)
-
-        // jc-run.sh
-        jcrunFile = new File(dest + "/jc-run.sh")
-        jcrunFileText = UtFile.loadString(jcrunFile)
-        s1 = ""
-        for (z in libCoreNames) {
-            s1 += "CP=\"\${CP}:\${JCLIBDIR}/${z}.jar\"\n"
-        }
-        jcrunFileText = jcrunFileText.replace("# CP", s1)
-        UtFile.saveString(jcrunFileText, jcrunFile)
-
-        // .jc-root
-        ant.echo(message: "", file: dest + "/${JcConsts.JC_ROOT_FILE}")
-
-        // version
-        ant.echo(message: project.version, file: dest + "/VERSION")
-
+        lst.sort()
+        println lst.join("\n")
     }
 
+    static class ThisProductBuilder extends ProductBuilder {
+        void onExec() {
+            buildProject()
+
+            // libs
+            def cp = createLibCopier(true)
+            cp.add(ctx.loadLibs(wd("lib")), false)
+            List<Project> mods = []
+            grabJavaProjects(this, mods)
+            for (m in mods) {
+                if (m.name.startsWith("test") || m.name.endsWith("tests")) {
+                    continue
+                }
+                cp.add(m, false)
+            }
+            cp.copyTo("${destDir}/lib", true, true)
+
+            //
+            ant.copy(todir: destDir, overwrite: true, preservelastmodified: true) {
+                fileset(dir: wd("data/distr"))
+            }
+            ant.copy(file: wd("jc.bat"), todir: destDir, overwrite: true, preservelastmodified: true)
+            ant.copy(file: wd("jc-env.bat"), todir: destDir, overwrite: true, preservelastmodified: true)
+
+            // формирование jc-run
+            def libCore = ctx.getLib("jandcode-jc").sourceProject.include(JavaProject)
+            def libCoreNames = UtCnv.toNameList(ctx.getLibs(libCore.depends.prod.names + [libCore.name]))
+
+            // jc-run.bat
+            File jcrunFile = new File(destDir + "/jc-run.bat")
+            String jcrunFileText = UtFile.loadString(jcrunFile)
+            String s1 = ""
+            for (z in libCoreNames) {
+                s1 += "set CP=%CP%;%JCLIBDIR%\\${z}.jar\n"
+            }
+            jcrunFileText = jcrunFileText.replace("rem CP", s1)
+            UtFile.saveString(jcrunFileText, jcrunFile)
+
+            //
+            makeJcRootFile()
+            makeVersionFile()
+        }
+
+        /**
+         * В lst собирает список всех проектов, которые JavaModule,
+         * начиная с root
+         */
+        void grabJavaProjects(Project root, List lst) {
+            RootProject rp = root.getIncluded(RootProject)
+            if (rp != null) {
+                for (m in rp.modules) {
+                    grabJavaProjects(m, lst)
+                }
+            }
+            JavaProject jm = root.getIncluded(JavaProject)
+            if (jm != null) {
+                lst.add(root)
+            }
+        }
+
+    }
 
 }

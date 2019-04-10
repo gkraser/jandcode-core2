@@ -1,0 +1,28 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+    }
+
+    void onInclude() {
+        //
+        project.name = "jandcode-jsa"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.jsa").with {
+                depends.prod.add(
+                        "jandcode.web",
+                )
+            }
+            //
+            depends.prod.add(
+            )
+            depends.dev.add(
+            )
+            //
+        }
+    }
+
+}

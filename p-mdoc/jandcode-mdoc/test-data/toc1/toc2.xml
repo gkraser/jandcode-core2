@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <toc-root topic="index">
+        <toc topic="./*"/>
+        <include toc="part1/toc1.xml"/>
+        <include toc="part2/toc1.xml"/>
+    </toc-root>
+
+</root>

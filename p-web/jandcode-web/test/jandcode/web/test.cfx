@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-depends module="jandcode.web"/>
+
+    <web>
+
+        <action name="a1" class="jandcode.web.action.Action1"/>
+        <action name="a11" class="jandcode.web.action.Action1"/>
+
+        <render name="r1" class="jandcode.web.render.Render1"/>
+        <render name="r11" class="jandcode.web.render.Render1"/>
+
+        <type name="jandcode.web.type.Type1"/>
+        <type name="jandcode.web.type.Type2"/>
+
+    </web>
+
+</root>

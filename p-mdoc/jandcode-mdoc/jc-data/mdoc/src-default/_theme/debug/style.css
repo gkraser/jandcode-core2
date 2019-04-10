@@ -1,0 +1,115 @@
+
+.debug-panel {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+
+  margin-top: 14px;
+  margin-bottom: 14px;
+  background-color: rgba(219, 243, 255, 0.1);
+  color: rgba(135, 146, 158, 0.74);
+  font-size: 12px;
+  display: block;
+  padding: 8px;
+  border: 1px solid #c1ccd8;
+
+  border-radius: 25px;
+
+  border-left-width: 3px;
+  border-right-width: 3px;
+
+}
+
+.debug-panel .toolbar {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.debug-panel .toolbar > * {
+  margin-right: 8px;
+}
+
+.debug-panel .toolbar .grow {
+  flex-grow: 1;
+}
+
+.debug-panel .toolbar .info {
+  padding-top: 3px;
+
+}
+
+.debug-panel .toolbar .info.grow {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.debug-panel .toolbar .sourceFile {
+  font-weight: bold;
+  font-style: italic;
+  color: rgba(91, 102, 114, 0.64);
+}
+
+.debug-panel .toolbar .type {
+  padding-top: 3px;
+  font-weight: bold;
+  color: #72313c;
+}
+
+.debug-panel.debug-panel-cm-code {
+  margin-bottom: -4px;
+  margin-top: 4px;
+}
+
+.debug-panel button {
+  background-color: transparent;
+  border: 1px solid #c1ccd8;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: rgba(91, 102, 114, 0.64);
+  border-radius: 8px;
+}
+
+.debug-panel button:hover {
+  background-color: rgba(91, 102, 114, 0.64);
+  border: 1px solid rgba(91, 102, 114, 0.64);
+  color: white;
+}
+
+/* debug-table-toc
+----------------------------------------------------------------------------- */
+
+table.debug-table-toc td {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-size: 12px;
+  padding: 4px;
+  border: none;
+  text-align: left;
+  vertical-align: top;
+}
+
+table.debug-table-toc tr {
+}
+
+table.debug-table-toc tr:hover {
+  background-color: rgba(219, 243, 255, 0.29);
+}
+
+table.debug-table-toc td.toc-title {
+  padding-left: 20px;
+}
+
+table.debug-table-toc td .toc-realfile {
+  font-size: 10px;
+  color: gray;
+  padding-top: 4px;
+  padding-left: 40px;
+  font-style: italic;
+}
+
+/* edit marker
+----------------------------------------------------------------------------- */
+
+.edit-marker {
+  display: none;
+  position: absolute;
+  z-index:30000;
+}

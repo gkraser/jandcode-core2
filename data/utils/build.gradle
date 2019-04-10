@@ -11,11 +11,15 @@ def libDir = '../../_jc/_lib'
 task copyLibs {
     doLast {
         ant.delete(dir: libDir)
+        def f = new File('../../jc-libs.txt')
+        def ff = new HashSet(f.readLines())
         configurations.compile.resolvedConfiguration.resolvedArtifacts.each { artifact ->
-            project.copy {
-                from artifact.file
-                into libDir
-                rename { "${artifact.name}.${artifact.extension}" }
+            if (ff.contains(artifact.name)) {
+                project.copy {
+                    from artifact.file
+                    into libDir
+                    rename { "${artifact.name}.${artifact.extension}" }
+                }
             }
         }
     }

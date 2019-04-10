@@ -1,0 +1,28 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    void onInclude() {
+        //
+        project.name = "jandcode-mdoc-jc"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.mdoc.jc").with {
+                depends.prod.add(
+                )
+            }
+            //
+            depends.prod.add(
+                    "jandcode-jc",
+                    "jandcode-mdoc",
+                    "jandcode-mdoc-web",
+                    "jandcode-web-jc",
+            )
+            depends.dev.add(
+            )
+            //
+        }
+    }
+
+}

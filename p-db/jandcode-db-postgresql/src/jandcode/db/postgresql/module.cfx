@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <db>
+
+
+        <dbdriver name="postgresql" parent="jdbc" dbtype="postgresql"
+                  class="jandcode.db.postgresql.PostgresqlDbDriver">
+
+            <dbsource name="default"
+                      jdbcDriverClass="org.postgresql.Driver"
+                      url="jdbc:postgresql://${host}:${port}/${database}"
+                      host="localhost"
+                      port="5432"
+                      dbcp.validationQuery="select 1"
+                      system.database="postgres"
+            >
+
+                <bean name="jandcode.db.DbManagerService"
+                      class="jandcode.db.postgresql.PostgresqlDbManagerService"/>
+
+            </dbsource>
+
+            <!-- =================== -->
+
+            <dbdatatype name="int"
+                        sqltype="integer"/>
+
+            <dbdatatype name="double"
+                        sqltype="double precision"/>
+
+            <dbdatatype name="memo"
+                        sqltype="text"/>
+
+            <dbdatatype name="blob"
+                        sqltype="bytea"/>
+
+            <dbdatatype name="date"
+                        class="jandcode.db.postgresql.PostgresqlDbt_date"
+                        sqltype="date"/>
+
+            <dbdatatype name="datetime"
+                        class="jandcode.db.postgresql.PostgresqlDbt_datetime"
+                        sqltype="timestamp"/>
+
+        </dbdriver>
+
+
+    </db>
+
+</root>
