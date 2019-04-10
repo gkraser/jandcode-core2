@@ -10,6 +10,7 @@ class P extends ProjectScript {
     void onInclude() {
         //
         project.name = "p-mdoc"
+        project.version = load("..").version
         //
         include(RootProject).with {
             groupId = "com.jandcode"
