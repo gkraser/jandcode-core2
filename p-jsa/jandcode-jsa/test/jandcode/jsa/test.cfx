@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-depends module="jandcode.jsa"/>
+
+    <web>
+
+        <mount name="i"
+               virtualPath="jandcode/jsa"
+               realPath="#{path}"/>
+
+        <mount name="i"
+               virtualPath=""
+               realPath="#{path}/data/root"/>
+
+        <jsmodule name="jandcode/jsa/data/boot/boot-1.boot.js">
+            <include name="i" module="jandcode/jsa/data/boot/m1.js"/>
+        </jsmodule>
+
+    </web>
+
+</root>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-depends module="jandcode.db.postgresql"/>
+
+    <db>
+
+        <dbsource name="test.1"
+                  dbdriver="postgresql"
+                  database="jc2_db_test"
+                  username="ks"
+        />
+
+        <!-- для тестирования create/drop -->
+        <dbsource name="test.postgresql.create"
+                  dbdriver="postgresql"
+                  database="Jc2_db_test_creatE"
+                  username="ks"
+        />
+
+    </db>
+
+</root>

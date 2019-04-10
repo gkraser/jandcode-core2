@@ -1,0 +1,138 @@
+@import "../vars";
+@import "../icon/index";
+//
+@jc-action--caret-icon-size: @jc-icon--size / 2;
+@jc-action--item-gap: 0.5em;
+@jc-action--min-height: @jc-icon--size;
+
+@jc-button--padding-lr: 0.9em;
+@jc-button--height: 2.4em;
+@jc-button--icon-opacity: 0.7;
+
+// цвета
+
+@jc-button--default-fg: white;
+
+@jc-button--normal-bg: #e4e4e4;
+@jc-button--normal-fg: black;
+
+@jc-button--primary-bg: @color-primary;
+@jc-button--success-bg: @color-positive;
+@jc-button--danger-bg: @color-negative;
+@jc-button--warning-bg: @color-warning;
+@jc-button--info-bg: @color-info;
+
+/* base-action
+----------------------------------------------------------------------------- */
+
+.jc-base-action() {
+  .mod-click-action();
+
+  vertical-align: bottom;
+
+  display: inline-flex;
+  align-items: center;
+
+  min-height: @jc-action--min-height;
+
+  & > *:not(:first-child) {
+    margin-left: @jc-action--item-gap;
+  }
+
+  &--text {
+    flex: 1;
+  }
+
+  &--caret-icon {
+    width: @jc-action--caret-icon-size;
+    height: @jc-action--caret-icon-size;
+  }
+
+}
+
+/*  action
+----------------------------------------------------------------------------- */
+
+.jc-action {
+  .jc-base-action();
+}
+
+/*  button
+----------------------------------------------------------------------------- */
+
+.jc-button {
+  .jc-base-action();
+
+  padding-left: @jc-button--padding-lr;
+  padding-right: @jc-button--padding-lr;
+
+  border: 1px solid;
+  border-radius: 2px;
+
+  height: @jc-button--height;
+
+  .jc-button--icon:not(:only-child) {
+    opacity: @jc-button--icon-opacity;
+  }
+
+  .jc-button--caret-icon {
+    opacity: @jc-button--icon-opacity;
+  }
+
+  &:hover {
+  }
+
+  &:active {
+  }
+
+  &__submenuShowed {
+  }
+
+}
+
+.jc-button--type(@bg, @fg: @jc-button--default-fg) {
+  @brd: darken(@bg, 10%);
+  background-color: @bg;
+  color: @fg;
+  border-color: @brd;
+
+  &:hover {
+    background-color: darken(@bg, 10%);
+    border-color: darken(@brd, 10%);
+  }
+
+  &:active {
+    background-color: darken(@bg, 20%);
+    border-color: darken(@brd, 20%);
+  }
+
+  &.jc-button__submenuShowed {
+    background-color: darken(@bg, 20%);
+    border-color: darken(@brd, 20%);
+  }
+}
+
+.jc-button {
+  .jc-button--type(@jc-button--normal-bg, @jc-button--normal-fg)
+}
+
+.jc-button--primary {
+  .jc-button--type(@jc-button--primary-bg)
+}
+
+.jc-button--success {
+  .jc-button--type(@jc-button--success-bg)
+}
+
+.jc-button--danger {
+  .jc-button--type(@jc-button--danger-bg)
+}
+
+.jc-button--warning {
+  .jc-button--type(@jc-button--warning-bg)
+}
+
+.jc-button--info {
+  .jc-button--type(@jc-button--info-bg);
+}
+

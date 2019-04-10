@@ -1,0 +1,35 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+import jandcode.jsa.jc.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+        classpath("jandcode-jsa-jc")
+    }
+
+    void onInclude() {
+        //
+        project.name = "jandcode-jsa-core"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.jsa.core").with {
+                depends.prod.add(
+                        "jandcode.jsa.base",
+                )
+            }
+            //
+            depends.prod.add(
+            )
+            depends.dev.add(
+            )
+            //
+        }
+        //
+        include(JsaProject).with {
+            gulpTask(name: "vue", provide: true, globs: ["**/*.vue"])
+            gulpTask(name: "less", provide: true, globs: ["**/*-style.less", "css/theme-*.less"])
+        }
+    }
+
+}

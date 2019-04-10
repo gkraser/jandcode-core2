@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-depends module="jandcode.mdoc"/>
+
+    <mdoc>
+    </mdoc>
+
+
+    <!-- для тестов -->
+    <test>
+        <mdoc>
+
+            <doc name="doc1">
+                <prop name="title" value="Документ 1"/>
+                <prop name="debug" value="false"/>
+                <src name="i"
+                     dir="#{module.projectpath:jandcode.mdoc}/test-data/doc1/doc"/>
+                <src name="i" resources="true"
+                     dir="#{module.projectpath:jandcode.mdoc}/test-data/doc1/src"/>
+            </doc>
+
+            <doc name="toc1">
+                <prop name="title" value="Toc 1"/>
+                <prop name="debug" value="true"/>
+                <src name="i"
+                     dir="#{module.projectpath:jandcode.mdoc}/test-data/toc1"/>
+            </doc>
+
+            <doc name="real1">
+                <prop name="title" value="Реальная документация 1"/>
+                <prop name="project.version" value="2.0.xxx"/>
+                <prop name="debug" value="true"/>
+                <!--<prop name="debug.cm.code" value="true"/>-->
+                <src name="i"
+                     dir="#{module.projectpath:jandcode.mdoc}/../../jandcode-core2-docs/jandcode-core2-docs/src"/>
+            </doc>
+
+            <doc name="real2">
+                <prop name="title" value="Реальная документация 2"/>
+                <prop name="project.version" value="2.0.xxx"/>
+                <prop name="debug" value="true"/>
+                <!--<prop name="debug.cm.code" value="true"/>-->
+                <src name="i"
+                     dir="#{module.projectpath:jandcode.mdoc}/../../jandcode-core2-docs/jandcode-core2-docs/src"/>
+            </doc>
+
+        </mdoc>
+    </test>
+
+
+</root>

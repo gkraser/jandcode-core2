@@ -1,0 +1,28 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    void onInclude() {
+        //
+        project.name = "jandcode-db"
+        //
+        include(JavaProject).with {
+            //
+            moduleDef("jandcode.db").with {
+                depends.prod.add(
+                )
+            }
+            //
+            depends.prod.add(
+                    "commons-pool2",
+                    "commons-dbcp2",
+            )
+            depends.dev.add(
+            )
+            //
+        }
+
+    }
+
+}

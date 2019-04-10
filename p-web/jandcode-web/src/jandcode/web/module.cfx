@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <bean name="jandcode.web.WebService"
+          class="jandcode.web.impl.WebServiceImpl"
+          bean.autoCreate="true">
+
+        <!-- реализация RequestLogger -->
+        <requestLogger name="debug"
+                       class="jandcode.web.logger.RequestLoggerDebug"/>
+        <requestLogger name="production"
+                       class="jandcode.web.logger.RequestLoggerDefault"/>
+
+
+    </bean>
+
+    <bean name="jandcode.web.action.ActionService"
+          class="jandcode.web.action.impl.ActionServiceImpl"
+          bean.autoCreate="true"/>
+
+    <bean name="jandcode.web.render.RenderService"
+          class="jandcode.web.render.impl.RenderServiceImpl"
+          bean.autoCreate="true"/>
+
+    <bean name="jandcode.web.type.TypeService"
+          class="jandcode.web.type.impl.TypeServiceImpl"
+          bean.autoCreate="true"/>
+
+    <bean name="jandcode.web.virtfile.VirtFileService"
+          class="jandcode.web.virtfile.impl.VirtFileServiceImpl"
+          bean.autoCreate="true"/>
+
+    <bean name="jandcode.web.gsp.GspService"
+          class="jandcode.web.gsp.impl.GspServiceImpl"
+          bean.autoCreate="true"/>
+
+    <bean name="jandcode.web.filter.FilterService"
+          class="jandcode.web.filter.impl.FilterServiceImpl"
+          bean.autoCreate="true"/>
+
+    <!-- ===================================================================== -->
+
+    <web>
+
+        <!-- настройки для web -->
+
+        <action-provider name="system"
+                         class="jandcode.web.action.impl.ActionProviderConf"/>
+
+        <action-factory name="system"
+                        class="jandcode.web.action.impl.SystemActionFactory"/>
+
+        <!-- вызывается первой, что бы гарантированно получить файл, если он есть  -->
+        <action-factory name="virtfile" weight="100"
+                        class="jandcode.web.virtfile.impl.action.VirtFileActionFactory"/>
+
+        <render-provider name="system"
+                         class="jandcode.web.render.impl.RenderProviderConf"/>
+
+        <render-factory name="system"
+                        class="jandcode.web.render.impl.StdRenderFactory"/>
+
+        <type-provider name="system"
+                       class="jandcode.web.type.impl.TypeProviderConf"/>
+
+        <gsp-provider name="system"
+                      class="jandcode.web.gsp.impl.GspProviderConf"/>
+
+        <!-- =================== -->
+
+        <!-- монтирование каталогов jc-data/webroot -->
+        <mount name="jc-data"
+               class="jandcode.web.std.mount.JcDataMount"/>
+
+        <!-- автоматическое монтирование модулей с mount-module -->
+        <mount name="mount-module" class="jandcode.web.std.mount.ModuleMount">
+            <special-folder name="webroot" virtualPath=""/>
+        </mount>
+
+        <!-- =================== -->
+
+        <action name="root"
+                class="jandcode.web.virtfile.impl.action.VirtFolderAction"/>
+
+        <action name="showerror"
+                class="jandcode.web.std.action.Showerror"/>
+
+        <action name="virtfile"
+                class="jandcode.web.virtfile.impl.action.VirtFileAction"/>
+
+        <action name="virtfolder"
+                class="jandcode.web.virtfile.impl.action.VirtFolderAction"/>
+
+        <!-- =================== -->
+
+        <render name="tostring"
+                class="jandcode.web.render.impl.ToStringRender"/>
+
+        <render name="virtfile"
+                class="jandcode.web.virtfile.impl.render.VirtFileRender"/>
+
+        <render name="virtfile.default"
+                class="jandcode.web.virtfile.impl.render.BinVirtFileRender"/>
+
+        <render name="virtfile.gsp"
+                class="jandcode.web.gsp.impl.render.GspVirtFileRender"/>
+
+        <render name="virtfile.gsp.default"
+                class="jandcode.web.gsp.impl.render.GspDefaultVirtFileRender"/>
+
+        <render name="virtfile.gsp.css"
+                class="jandcode.web.gsp.impl.render.GspCssVirtFileRender"/>
+
+        <render name="virtfile.gsp.js"
+                class="jandcode.web.gsp.impl.render.GspJsVirtFileRender"/>
+
+        <!-- =================== -->
+
+        <type name="java.lang.Object"
+              render="tostring"/>
+
+        <type name="jandcode.web.virtfile.VirtFile"
+              render="virtfile"/>
+
+        <type name="org.apache.commons.vfs2.FileObject"
+              render="virtfile"/>
+
+        <!-- =================== -->
+
+        <filetype name="folder" type="private"/>
+        <filetype name="private" type="private"/>
+
+        <filetype name="java" type="private"/>
+        <filetype name="class" type="private"/>
+        <filetype name="groovy" type="private"/>
+        <filetype name="cfx" type="private"/>
+        <filetype name="action" type="private"/>
+
+        <filetype name="css" type="text" mime="text/css"/>
+
+        <filetype name="js" type="text" mime="application/javascript"/>
+
+        <filetype name="txt" type="text" mime="text/plain"/>
+        <filetype name="html" type="text" mime="text/html"/>
+        <filetype name="htm" type="text" mime="text/html"/>
+        <filetype name="json" type="text" mime="application/json"/>
+        <filetype name="xml" type="text" mime="text/xml"/>
+        <filetype name="csv" type="text" mime="text/plain"/>
+
+        <filetype name="png" type="bin" mime="image/png"/>
+        <filetype name="jpg" type="bin" mime="image/jpg"/>
+        <filetype name="jpeg" type="bin" mime="image/jpeg"/>
+        <filetype name="gif" type="bin" mime="image/gif"/>
+
+        <filetype name="zip" type="bin" mime="application/x-zip-compressed"/>
+        <filetype name="swf" type="bin" mime="application/x-shockwave-flash"/>
+        <filetype name="jar" type="bin" mime="application/x-zip-compressed"/>
+        <filetype name="exe" type="bin" mime="application/exe"/>
+        <filetype name="bin" type="bin" mime="application/octet-stream"/>
+
+        <filetype name="woff" type="bin" mime="application/x-font-woff"/>
+        <filetype name="woff2" type="bin" mime="application/x-font-woff2"/>
+        <filetype name="ttf" type="bin" mime="application/x-font-ttf"/>
+        <filetype name="svg" type="bin" mime="image/svg+xml"/>
+        <filetype name="eot" type="bin" mime="application/vnd.ms-fontobject"/>
+
+        <filetype name="gsp" type="private" tml="true"/>
+        <filetype name="map" type="text" mime="application/json"/>
+
+        <!-- =================== -->
+
+        <gspContext name="default">
+            <bean name="jandcode.web.std.gsp.GspPageManager"
+                  class="jandcode.web.std.gsp.impl.GspPageManagerImpl"/>
+
+        </gspContext>
+
+        <gsp name="jc/page"
+             class="jandcode.web.std.gsp.Page"/>
+
+        <gsp name="jc/pagePart"
+             class="jandcode.web.std.gsp.PagePart"/>
+
+        <gsp name="jc/pagePartOut"
+             class="jandcode.web.std.gsp.PagePartOut"/>
+
+        <gsp name="jc/link"
+             class="jandcode.web.std.gsp.Link"/>
+
+        <gsp name="jc/include"
+             class="jandcode.web.std.gsp.Include"/>
+
+        <gsp name="jc/includeText"
+             class="jandcode.web.std.gsp.IncludeText"/>
+
+        <gsp name="jc/includeTag"
+             class="jandcode.web.std.gsp.IncludeTag"/>
+
+        <gsp name="jc/block"
+             class="jandcode.web.std.gsp.Block"/>
+
+        <gsp name="root"
+             path="res:jandcode/web/std/gsp/root.gsp"/>
+
+        <gsp name="showerror"
+             path="res:jandcode/web/std/gsp/showerror.gsp"/>
+
+        <gsp name="showerror-ajax"
+             path="res:jandcode/web/std/gsp/showerror-ajax.gsp"/>
+
+        <!-- =================== -->
+
+
+    </web>
+
+</root>

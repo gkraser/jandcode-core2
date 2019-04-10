@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <db>
+
+
+        <dbdriver name="mysql" parent="jdbc" dbtype="mysql"
+                  class="jandcode.db.mysql.MysqlDbDriver">
+
+            <dbsource name="default"
+                      jdbcDriverClass="com.mysql.jdbc.Driver"
+                      url="jdbc:mysql://${host}/?useUnicode=true&amp;characterEncoding=UTF-8"
+                      host="localhost"
+                      system.database="mysql"
+                      system.username="root"
+                      dbcp.validationQuery="select 1"
+                      conn.serverTimezone="UTC"
+                      conn.useSSL="false">
+
+                <bean name="jandcode.db.DbManagerService"
+                      class="jandcode.db.mysql.MysqlDbManagerService"/>
+
+            </dbsource>
+
+            <!-- =================== -->
+
+            <dbdatatype name="memo" sqltype="text"/>
+
+            <dbdatatype name="date" class="jandcode.db.mysql.MysqlDbt_datetime"
+                        sqltype="date"/>
+
+            <dbdatatype name="datetime" class="jandcode.db.mysql.MysqlDbt_datetime"
+                        sqltype="datetime"/>
+
+
+        </dbdriver>
+
+
+    </db>
+
+</root>

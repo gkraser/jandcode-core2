@@ -1,0 +1,138 @@
+/*= common
+---------------------------------------*/
+
+body {
+  background: #EFF0F0;
+  font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
+
+a, a:visited {
+  color: #3276B1;
+  text-decoration: none;
+}
+
+h1, h2, h3 {
+  color: #474544;
+}
+
+h2.first {
+  margin-top: 0;
+}
+
+td, th {
+  text-align: left;
+  vertical-align: top;
+}
+
+/*= header
+---------------------------------------*/
+
+.tst-page-header {
+  background: #e6e7e7;
+  border-bottom: 1px solid silver;
+  color: #FFFFFF;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.tst-page-header .item {
+  padding: 6px 12px;
+  margin-left: -4px;
+  display: inline-block;
+  border-right: 1px solid silver;
+}
+
+.tst-page-header .menuitem {
+  color: #8a8887;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.tst-page-header .menuitem:hover {
+  background-color: #d1d2d2;
+}
+
+.tst-page-header .logo {
+  color: #8a8887;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/*= content
+---------------------------------------*/
+
+.tst-page-content {
+  padding: 20px;
+}
+
+/*= /tst table
+---------------------------------------*/
+
+.tst-showpath-table .ref {
+  display: block;
+  background: url("images/icon-folder.png") 4px 3px no-repeat;
+  padding: 4px 6px 4px 24px;
+  border: 1px solid transparent;
+}
+
+.tst-showpath-table span.ref {
+  color: #3276B1;
+  font-weight: bold;
+}
+
+.tst-showpath-table span.ref a:hover {
+  text-decoration: underline;
+}
+
+.tst-showpath-table .ref-folder {
+  background-image: url("images/icon-folder.png");
+}
+
+.tst-showpath-table .ref-file {
+  background-image: url("images/icon-file.png");
+}
+
+.tst-showpath-table .ref-file-gsp {
+  background-image: url("images/icon-file-gsp.png");
+}
+
+.tst-showpath-table {
+  border: 1px dotted silver;
+}
+
+.tst-showpath-table .cell1 {
+  border: 1px dotted silver;
+  border-right: 3px solid silver;
+  vertical-align: top;
+  width: 330px;
+}
+
+.tst-showpath-table .cell2 {
+  vertical-align: top;
+  width: 250px;
+}
+
+.tst-showpath-table .cell2.bottom {
+  border-bottom: 1px dotted silver;
+}
+
+.tst-showpath-table tbody.row:hover {
+  background-color: #e6e7e7;
+}
+
+.tst-showpath-table td.filled:hover {
+  background-color: #d1d2d2;
+}
+
+/*= /tst table
+---------------------------------------*/
+
+.tst-table td, .tst-table th {
+  padding: 3px 6px;
+  border: 1px solid silver;
+}
+
+.tst-table th {
+  background-color: #e6e7e7;
+}

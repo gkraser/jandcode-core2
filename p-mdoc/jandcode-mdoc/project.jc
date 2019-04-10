@@ -1,0 +1,27 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    void onInclude() {
+        //
+        project.name = "jandcode-mdoc"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.mdoc").with {
+                depends.prod.add(
+                        "jandcode.core.groovy",
+                )
+            }
+            //
+            depends.prod.add(
+                    "jandcode-commons",
+                    "jandcode-flexmark",
+            )
+            depends.dev.add(
+            )
+            //
+        }
+    }
+
+}

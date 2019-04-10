@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <app debug="true"/>
+
+    <x-depends module="jandcode.jsa.tst"/>
+
+    <web>
+        <mount name="jsa-webroot-dev"
+               realPath="#{path}/_gen/jsa-webroot"
+        />
+    </web>
+
+</root>

@@ -35,34 +35,34 @@
                  fork="true">
             <javac encoding="utf-8" debug="true"/>
 
-            <src location="${root.dir}/jandcode-commons/src"/>
-            <src location="${root.dir}/jandcode-commons-ansifer/src"/>
-            <src location="${root.dir}/jandcode-commons-groovy/src"/>
-            <src location="${root.dir}/jandcode-commons-moduledef/src"/>
-            <src location="${root.dir}/jandcode-jc/src"/>
+            <src location="${root.dir}/p-commons/jandcode-commons/src"/>
+            <src location="${root.dir}/p-commons/jandcode-commons-ansifer/src"/>
+            <src location="${root.dir}/p-commons/jandcode-commons-groovy/src"/>
+            <src location="${root.dir}/p-commons/jandcode-commons-moduledef/src"/>
+            <src location="${root.dir}/p-jc/jandcode-jc/src"/>
 
             <classpath refid="compile-lib"/>
         </groovyc>
         <copy todir="${jc.compiled}">
 
-            <fileset dir="${root.dir}/jandcode-commons/src">
+            <fileset dir="${root.dir}/p-commons/jandcode-commons/src">
                 <patternset refid="pattern.resource"/>
                 <type type="file"/>
             </fileset>
-            <fileset dir="${root.dir}/jandcode-commons-ansifer/src">
+            <fileset dir="${root.dir}/p-commons/jandcode-commons-ansifer/src">
                 <patternset refid="pattern.resource"/>
                 <type type="file"/>
             </fileset>
-            <fileset dir="${root.dir}/jandcode-commons-groovy/src">
+            <fileset dir="${root.dir}/p-commons/jandcode-commons-groovy/src">
                 <patternset refid="pattern.resource"/>
                 <type type="file"/>
             </fileset>
-            <fileset dir="${root.dir}/jandcode-commons-moduledef/src">
+            <fileset dir="${root.dir}/p-commons/jandcode-commons-moduledef/src">
                 <patternset refid="pattern.resource"/>
                 <type type="file"/>
             </fileset>
 
-            <fileset dir="${root.dir}/jandcode-jc/src">
+            <fileset dir="${root.dir}/p-jc/jandcode-jc/src">
                 <patternset refid="pattern.resource"/>
                 <type type="file"/>
             </fileset>

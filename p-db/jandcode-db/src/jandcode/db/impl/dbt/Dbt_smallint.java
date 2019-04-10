@@ -1,0 +1,26 @@
+package jandcode.db.impl.dbt;
+
+import jandcode.commons.*;
+import jandcode.commons.variant.*;
+
+import java.sql.*;
+
+public class Dbt_smallint extends BaseDbt {
+
+    public Dbt_smallint() {
+        setDatatype(VariantDataType.INT);
+    }
+
+    public Object getValue(ResultSet rs, int columnIdx) throws Exception {
+        Object value = rs.getInt(columnIdx);
+        if (rs.wasNull()) {
+            value = null;
+        }
+        return value;
+    }
+
+    public void setValue(PreparedStatement st, int paramIdx, Object value) throws Exception {
+        st.setInt(paramIdx, UtCnv.toInt(value));
+    }
+
+}

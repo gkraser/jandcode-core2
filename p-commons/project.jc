@@ -1,0 +1,23 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    void onInclude() {
+        //
+        project.name = "p-commons"
+        //
+        include(RootProject).with {
+            groupId = "com.jandcode"
+            moduleGroup = "JC-Commons"
+            modules = [
+                    "jandcode-commons",
+                    "jandcode-commons-ansifer",
+                    "jandcode-commons-groovy",
+                    "jandcode-commons-moduledef",
+            ]
+        }
+
+    }
+
+}

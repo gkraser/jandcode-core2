@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <bean name="jandcode.mdoc.MDocService"
+          class="jandcode.mdoc.impl.MDocServiceImpl"/>
+
+    <bean name="jandcode.mdoc.topic.TopicService"
+          class="jandcode.mdoc.topic.impl.TopicServiceImpl"/>
+
+    <bean name="jandcode.mdoc.cfg.DocCfgService"
+          class="jandcode.mdoc.cfg.impl.DocCfgServiceImpl"/>
+
+    <bean name="jandcode.mdoc.builder.OutBuilderService"
+          class="jandcode.mdoc.builder.impl.OutBuilderServiceImpl"/>
+
+    <!-- ===================================================================== -->
+
+    <mdoc>
+
+        <!-- регистрация экземпляра фабрики -->
+
+        <topic-factory name="md"
+                       class="jandcode.mdoc.topic.factory.MdTopicFactory"/>
+
+        <topic-factory name="htm"
+                       class="jandcode.mdoc.topic.factory.HtmTopicFactory"/>
+
+        <!-- =================== -->
+
+        <!-- привязка масок файлов к экземплярам фабрики -->
+
+        <topic-factory-bind name="md"
+                            masks="**/*.md"
+                            factory="md"/>
+
+        <topic-factory-bind name="htm"
+                            masks="**/*.htm"
+                            factory="htm"/>
+
+        <!-- =================== -->
+
+        <!-- регистрация builder -->
+
+        <out-builder name="html"
+                     class="jandcode.mdoc.builder.HtmlOutBuilder"/>
+
+        <!-- =================== -->
+
+        <!-- регистрация макрокоманд -->
+
+        <cm name="prop"
+            class="jandcode.mdoc.cm.PropCmHandler"/>
+
+        <cm name="code"
+            class="jandcode.mdoc.cm.CodeCmHandler"/>
+
+        <!-- =================== -->
+
+        <!-- каталоги с исходниками по умолчанию в формате fileset -->
+
+        <src-default name="base" dir="jc-data:mdoc/src-default"/>
+
+    </mdoc>
+
+</root>

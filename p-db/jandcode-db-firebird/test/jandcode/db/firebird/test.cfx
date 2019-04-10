@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-depends module="jandcode.db.firebird"/>
+
+    <db>
+
+        <dbsource name="test.1"
+                  dbdriver="firebird"
+                  database="#{module.projectpath:jandcode.db.firebird}/temp/test-1.gdb"
+                  username="sysdba"
+                  password="masterkey"
+        />
+
+        <!-- для тестирования create/drop -->
+        <dbsource name="test.firebird.create"
+                  dbdriver="firebird"
+                  database="#{module.projectpath:jandcode.db.firebird}/temp/test-create.gdb"
+        />
+
+    </db>
+
+</root>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <db>
+
+        <dbdriver name="oracle" parent="jdbc" dbtype="oracle"
+                  class="jandcode.db.oracle.OracleDbDriver">
+
+            <dbsource name="default"
+                      jdbcDriverClass="oracle.jdbc.driver.OracleDriver"
+                      url="jdbc:oracle:thin:@${host}:${port}:${database}"
+                      dbcp.validationQuery="select 1 from dual"
+                      initConnectionSql.0001="ALTER SESSION SET NLS_NUMERIC_CHARACTERS = '. '"
+                      initConnectionSql.0002="ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'"
+                      port="1521"
+            >
+
+                <bean name="jandcode.db.DbManagerService"
+                      class="jandcode.db.oracle.OracleDbManagerService"/>
+
+                <bean name="jandcode.db.DbMetadataService"
+                      class="jandcode.db.oracle.OracleDbMetadataService"/>
+
+            </dbsource>
+            <!-- =================== -->
+
+            <dbdatatype name="smallint" sqltype="number(5)"/>
+            <dbdatatype name="int" sqltype="number(10)"/>
+            <dbdatatype name="long" sqltype="number(19)"/>
+            <dbdatatype name="double" sqltype="number"/>
+            <dbdatatype name="string" sqltype="nvarchar2(${size})"/>
+            <dbdatatype name="memo" sqltype="nclob"/>
+            <dbdatatype name="boolean" sqltype="number(1)"/>
+
+            <dbdatatype name="date" class="jandcode.db.oracle.OracleDbt_datetime"
+                        sqltype="date"/>
+
+            <dbdatatype name="datetime" class="jandcode.db.oracle.OracleDbt_datetime"
+                        sqltype="date"/>
+
+        </dbdriver>
+
+    </db>
+
+</root>
