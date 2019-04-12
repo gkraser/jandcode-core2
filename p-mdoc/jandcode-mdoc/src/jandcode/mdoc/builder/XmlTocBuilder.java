@@ -236,7 +236,7 @@ public class XmlTocBuilder {
                 if (UtVDir.isRelPath(p_topic)) {
                     // относительный путь
                     Topic ownTopic = toc.getTopic();
-                    if (ownTopic!=null) {
+                    if (ownTopic != null) {
                         p_topic = UtVDir.expandRelPath(UtFile.path(ownTopic.getId()), p_topic);
                     } else {
                         p_topic = UtVDir.expandRelPath(this.basePath, p_topic);
@@ -281,6 +281,8 @@ public class XmlTocBuilder {
                         toc.addChild(t1);
                         applyXml(t1, ch);
                     }
+                } catch (Exception e) {
+                    throw new XErrorMark(e, "файл: " + p_tocFile);
                 } finally {
                     this.basePath = saveBasePath;
                 }
