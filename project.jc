@@ -22,6 +22,7 @@ class P extends ProjectScript {
                     "p-commons",
                     "p-jc",
                     "p-core",
+                    "p-modules",
                     "p-db",
                     "p-web",
                     "p-jsa",

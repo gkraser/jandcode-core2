@@ -1,0 +1,25 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+        load("..")
+    }
+
+    void onInclude() {
+        //
+        project.name = "p-modules"
+        project.version = load("..").version
+        //
+        include(RootProject).with {
+            groupId = "com.jandcode"
+            moduleGroup = "JC-Modules"
+            modules = [
+                    'jandcode-poi',
+                    'jandcode-lucene',
+            ]
+        }
+    }
+
+}
