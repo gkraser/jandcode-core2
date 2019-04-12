@@ -1,11 +1,11 @@
-package jandcode.core.groovy.impl;
+package jandcode.groovy.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.event.*;
 import jandcode.commons.groovy.*;
 import jandcode.core.*;
-import jandcode.core.groovy.*;
 import jandcode.core.std.*;
+import jandcode.groovy.*;
 
 import java.util.*;
 import java.util.concurrent.*;

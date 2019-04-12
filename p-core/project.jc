@@ -17,7 +17,6 @@ class P extends ProjectScript {
             moduleGroup = "JC-Core"
             modules = [
                 "jandcode-core",
-                "jandcode-core-groovy",
                 "jandcode-core-jc",
             ]
         }

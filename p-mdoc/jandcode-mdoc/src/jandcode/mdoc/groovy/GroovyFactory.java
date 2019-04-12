@@ -3,7 +3,7 @@ package jandcode.mdoc.groovy;
 import jandcode.commons.*;
 import jandcode.commons.groovy.*;
 import jandcode.core.*;
-import jandcode.core.groovy.*;
+import jandcode.groovy.*;
 import jandcode.mdoc.builder.*;
 import jandcode.mdoc.gsp.*;
 import jandcode.mdoc.source.*;
