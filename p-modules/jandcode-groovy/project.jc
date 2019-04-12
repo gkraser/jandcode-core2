@@ -3,18 +3,20 @@ import jandcode.jc.std.*
 
 class P extends ProjectScript {
 
+    static beforeLoad = {
+    }
+
     void onInclude() {
         //
-        project.name = "jandcode-core-groovy"
+        project.name = "jandcode-groovy"
         //
         include(JavaProject).with {
-            moduleDef("jandcode.core.groovy").with {
+            moduleDef("jandcode.groovy").with {
                 depends.prod.add(
                 )
             }
             //
             depends.prod.add(
-                    "jandcode-commons-groovy",
             )
             depends.dev.add(
             )
