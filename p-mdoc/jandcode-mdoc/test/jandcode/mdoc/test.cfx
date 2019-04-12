@@ -33,7 +33,7 @@
                 <prop name="debug" value="true"/>
                 <!--<prop name="debug.cm.code" value="true"/>-->
                 <src name="i"
-                     dir="#{module.projectpath:jandcode.mdoc}/../../jandcode-core2-docs/jandcode-core2-docs/src"/>
+                     dir="#{module.projectpath:jandcode.mdoc}/../../../jandcode-core2-docs/docs/src"/>
             </doc>
 
             <doc name="real2">
@@ -42,7 +42,7 @@
                 <prop name="debug" value="true"/>
                 <!--<prop name="debug.cm.code" value="true"/>-->
                 <src name="i"
-                     dir="#{module.projectpath:jandcode.mdoc}/../../jandcode-core2-docs/jandcode-core2-docs/src"/>
+                     dir="#{module.projectpath:jandcode.mdoc}/../../../jandcode-core2-docs/docs/src"/>
             </doc>
 
         </mdoc>
