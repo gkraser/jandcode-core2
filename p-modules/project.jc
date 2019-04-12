@@ -17,6 +17,7 @@ class P extends ProjectScript {
             moduleGroup = "JC-Modules"
             modules = [
                     'jandcode-poi',
+                    'jandcode-lucene',
             ]
         }
     }
