@@ -8,6 +8,7 @@ void onInclude() {
     jm.depends.prod.add(
             "commons-io",
             "commons-vfs2",
+            "gson",
 
             // logging
             "slf4j-api",
