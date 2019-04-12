@@ -24,7 +24,7 @@ public class MemoryTestSvc extends BaseTestSvc {
     }
 
     /**
-     * Разнича между записанным через {@link MemoryTestSvc#save()} и текущим,
+     * Разница между записанным через {@link MemoryTestSvc#save()} и текущим,
      * на момент вызова, состоянием.
      */
     public MemoryInfo diff() {

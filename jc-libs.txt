@@ -8,6 +8,7 @@ groovy-ant
 groovy-json
 groovy-templates
 groovy-xml
+gson
 jansi
 jcl-over-slf4j
 junit-jupiter-api
