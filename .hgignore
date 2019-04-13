@@ -20,4 +20,3 @@ node_modules
 syntax: regexp
 ^_
 ^lib/_
-

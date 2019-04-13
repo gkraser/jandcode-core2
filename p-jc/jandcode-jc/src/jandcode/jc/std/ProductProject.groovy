@@ -20,6 +20,7 @@ class ProductProject extends ProjectScript {
                 cm.add("product", "Сборка продукта", this.&cmProduct,
                         cm.opt("q", false, "Быстрая сборка. Пропустить этап компиляции (для отладки)"),
                         cm.opt("dev", false, "Dev-сборка. Не устанавливается флаг ctx.env.prod"),
+                        cm.opt("u", false, "Обновление сборки. Собирает, если изменилась версия"),
                 )
                 if (lst.size() > 1) {
                     cm.get("product").opts.add(
@@ -37,6 +38,7 @@ class ProductProject extends ProjectScript {
         //
         boolean quick = args.containsKey("q")
         boolean dev = args.containsKey("dev")
+        boolean update = args.containsKey("u")
 
         if (!dev) {
             // production mode
@@ -55,6 +57,7 @@ class ProductProject extends ProjectScript {
                 cnt++
                 b.quick = quick
                 b.dev = dev
+                b.update = update
                 b.args.clear()
                 b.args.putAll(args)
                 b.exec()

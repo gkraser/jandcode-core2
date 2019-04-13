@@ -39,7 +39,7 @@ class P extends ProjectScript {
         ListLib libs = ctx.getLibs("jandcode-jc", "prod,dev")
         List lst = []
         for (lib in libs) {
-            if (lib.name.indexOf("jandcode")==-1) {
+            if (lib.name.indexOf("jandcode") == -1) {
                 lst.add(lib.name)
             }
         }
