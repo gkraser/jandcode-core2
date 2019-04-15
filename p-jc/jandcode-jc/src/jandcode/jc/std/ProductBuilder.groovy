@@ -34,6 +34,12 @@ class ProductBuilder extends ProjectScript {
     boolean dev
 
     /**
+     * При значении true проверяется версия предыдущей сборки.
+     * Если она не изменилась,сборка не проводится
+     */
+    boolean update
+
+    /**
      * Аргументы командной строки, переданной при выполнеии команды product
      */
     CmArgs args = new CmArgsImpl()
@@ -71,11 +77,29 @@ class ProductBuilder extends ProjectScript {
         //
         String nm = name == null ? "" : " [${name}]"
         log.info("start product builder${nm}")
+
+        if (update) {
+            boolean needBuild = true
+
+            String versionFile = "${destDir}/VERSION"
+            if (UtFile.exists(versionFile)) {
+                String curVer = UtFile.loadString(versionFile).trim()
+                if (curVer == project.version.toString()) {
+                    needBuild = false
+                }
+            }
+
+            if (!needBuild) {
+                log.info("Already exists product${nm} version ${project.version} in [${destDir}]")
+                return
+            }
+        }
+
         ut.cleandir(destDir)
         //
         onExec()
         //
-        log.info("product${nm} in [${destDir}]")
+        log.info("product${nm} version ${project.version} in [${destDir}]")
     }
 
     /**
