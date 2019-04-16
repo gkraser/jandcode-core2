@@ -29,8 +29,8 @@ dependencies {
     }
 
     // junit5
-    v = '5.4.0'
-    vp = '1.4.0'  // platform
+    v = '5.4.1'
+    vp = '1.4.1'  // platform
     compile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: v
     compile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: v
     compile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: v
