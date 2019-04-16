@@ -29,8 +29,8 @@ dependencies {
     }
 
     // junit5
-    v = '5.4.0'
-    vp = '1.4.0'  // platform
+    v = '5.4.1'
+    vp = '1.4.1'  // platform
     compile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: v
     compile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: v
     compile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: v
@@ -91,7 +91,7 @@ dependencies {
     compile group: 'org.postgresql', name: 'postgresql', version: '42.2.5'
 
     // flexmark
-    v = '0.40.16'
+    v = '0.42.4'
     compile group: 'com.vladsch.flexmark', name: 'flexmark', version: v
     compile group: 'com.vladsch.flexmark', name: 'flexmark-formatter', version: v
     compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-gfm-strikethrough', version: v
@@ -132,6 +132,10 @@ dependencies {
     compile(group: 'org.apache.tika', name: 'tika-parsers', version: v) {
         transitive = false
     }
+
+    // javassist
+    v = '3.24.1-GA'
+    compile group: 'org.javassist', name: 'javassist', version: v
 
 }
 

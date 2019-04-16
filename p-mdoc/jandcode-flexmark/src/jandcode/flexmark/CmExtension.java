@@ -1,8 +1,8 @@
 package jandcode.flexmark;
 
-import com.vladsch.flexmark.*;
 import com.vladsch.flexmark.html.*;
 import com.vladsch.flexmark.parser.*;
+import com.vladsch.flexmark.util.builder.*;
 import com.vladsch.flexmark.util.options.*;
 import jandcode.flexmark.cm.*;
 

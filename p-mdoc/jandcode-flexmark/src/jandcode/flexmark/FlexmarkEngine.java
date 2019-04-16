@@ -1,6 +1,5 @@
 package jandcode.flexmark;
 
-import com.vladsch.flexmark.*;
 import com.vladsch.flexmark.ext.admonition.*;
 import com.vladsch.flexmark.ext.attributes.*;
 import com.vladsch.flexmark.ext.definition.*;
@@ -10,6 +9,7 @@ import com.vladsch.flexmark.ext.yaml.front.matter.*;
 import com.vladsch.flexmark.html.*;
 import com.vladsch.flexmark.parser.*;
 import com.vladsch.flexmark.util.ast.*;
+import com.vladsch.flexmark.util.builder.*;
 import com.vladsch.flexmark.util.options.*;
 import jandcode.commons.error.*;
 import jandcode.flexmark.mdtopic.*;
