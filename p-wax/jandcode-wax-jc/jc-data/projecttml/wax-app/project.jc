@@ -1,0 +1,26 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+import jandcode.wax.jc.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+        classpath("jandcode-wax-jc")
+    }
+
+    void onInclude() {
+        //
+        project.name = "xxx-yyy"
+        project.version = include(HgVersion)
+        //
+        include(WaxProject).with {
+            modules.add(
+                    "xxx-yyy",
+            )
+            depends.dev.add(
+                    "jandcode-wax-tst",
+            )
+        }
+    }
+
+}

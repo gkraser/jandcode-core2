@@ -9,17 +9,16 @@ class P extends ProjectScript {
 
     void onInclude() {
         //
-        project.name = "p-modules"
+        project.name = "p-wax"
         project.version = load("..").version
         //
         include(RootProject).with {
             groupId = "com.jandcode"
-            moduleGroup = "JC-Modules"
+            moduleGroup = "JC-Wax"
             modules = [
-                    'jandcode-poi',
-                    'jandcode-lucene',
-                    'jandcode-groovy',
-                    'jandcode-dao',
+                    'jandcode-wax',
+                    'jandcode-wax-tst',
+                    'jandcode-wax-jc',
             ]
         }
     }
