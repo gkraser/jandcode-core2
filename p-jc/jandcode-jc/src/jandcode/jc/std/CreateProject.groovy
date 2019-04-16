@@ -149,7 +149,7 @@ class CreateProject extends ProjectScript {
     }
 
     protected void showTemplates(boolean fullInfo) {
-        Map res = [:]
+        Map res = new TreeMap()
         List lst = ctx.service(JcDataService).findFiles(projecttmlRes)
         for (f in lst) {
             String nm = UtFile.filename(f)
