@@ -137,10 +137,14 @@ public class XmlTocBuilder {
             return;
         }
         if (checkSelf && root.getTopic() == null) {
+            String title = root.getTitle();
+            if (UtString.empty(title)){
+                title = (root.getName().equals("") ? "no-name" : root.getName()) + " (folder)";
+            }
             Topic newTopic = DocUtils.addTopic(
                     outBuilder.getDoc(),
                     getDummyTopicFileName(),
-                    "# " + (root.getName().equals("") ? "no-name" : root.getName()) + " (folder)"
+                    "# " + title
             );
             markUsed(newTopic);
             root.setTopic(newTopic);
@@ -306,11 +310,15 @@ public class XmlTocBuilder {
             return;
         }
 
+        String p_type = inc.xml.getString("type", "auto");
+
         // выбираем статьи, которые удовлетворяют маске и не использовались еще
         List<Topic> topics = new ArrayList<>();
         for (Topic t : outBuilder.getDoc().getTopics()) {
             if (MDocConsts.INDEX.equals(t.getId())) {
-                continue; //index в корне игнорируем,к нему особое отношение
+                if (p_type.equals("auto")) {
+                    continue; //index в корне игнорируем для auto, к нему особое отношение
+                }
             }
             if (UtVDir.matchPath(p_mask, t.getId())) {
                 if (!isUsed(t)) {
@@ -324,7 +332,6 @@ public class XmlTocBuilder {
             return; // так вполне может быть
         }
 
-        String p_type = inc.xml.getString("type", "auto");
         if (p_type.equals("plain")) {
             handleInclude_plain(inc, topics);
 
