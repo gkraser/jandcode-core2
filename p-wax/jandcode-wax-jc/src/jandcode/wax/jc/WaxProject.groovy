@@ -21,23 +21,4 @@ class WaxProject extends ProjectScript {
         //
     }
 
-    ////// delegates
-
-    /**
-     * Список модулей проекта в правильном порядке (сначала зависимые, потом зависящие).
-     * Это имена каталогов модулей относительно корневого проекта.
-     */
-    List getModules() {
-        RootProject rp = include(RootProject)
-        return rp.modules
-    }
-
-    /**
-     * Зависимости для проекта в целом
-     */
-    LibDepends getDepends() {
-        RootProject rp = include(RootProject)
-        return rp.getDepends()
-    }
-
 }
