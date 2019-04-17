@@ -31,7 +31,9 @@ class P extends ProjectScript {
             ]
         }
         //
-        include(ThisProductBuilder)
+        include(ThisProductBuilder).with {
+            destDir = "bin"
+        }
         //
         cm.add("view-jc-libs", this.&cmViewJcLibs, "Показать список внешних библиотек для jc (для обновления файла jc-libs.txt)")
     }
