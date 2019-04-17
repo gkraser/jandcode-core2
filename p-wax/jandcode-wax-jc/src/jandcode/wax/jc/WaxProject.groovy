@@ -13,8 +13,11 @@ class WaxProject extends ProjectScript {
 
     protected void onInclude() throws Exception {
         //
+        include(CreateProject)
         include(AppProject)
-        include(WebProject)
+        include(WebRun)
+        include(GenIdea_WebRun)
+        include(GenIdea_RunJc)
         include(RootProject)
         include(JsaRootProject)
         include(WaxProductBuilder)

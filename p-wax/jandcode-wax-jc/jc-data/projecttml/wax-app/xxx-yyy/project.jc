@@ -4,6 +4,10 @@ import jandcode.jsa.jc.*
 
 class P extends ProjectScript {
 
+    static beforeLoad = {
+        classpath("jandcode-wax-jc")
+    }
+
     void onInclude() {
         //
         project.name = "xxx-yyy"
