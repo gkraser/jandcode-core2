@@ -21,8 +21,6 @@ class P extends ProjectScript {
             ]
         }
         //
-        // DEV
-        ut.includeDev("-dev.jc")
     }
 
 }

@@ -34,9 +34,6 @@ class P extends ProjectScript {
         //
         include(ThisProductBuilder).with {
         }
-
-        // DEV
-        ut.includeDev("-dev.jc")
     }
 
     //////

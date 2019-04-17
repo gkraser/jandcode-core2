@@ -22,8 +22,6 @@ class P extends ProjectScript {
 
         // настройка сгенеренного проекта
         t.done = {
-            t.ant.mkdir(dir: wd("temp"))
-            t.ut.runcmd(cmd: "jc gen-idea", dir: wd("."))
         }
     }
 
