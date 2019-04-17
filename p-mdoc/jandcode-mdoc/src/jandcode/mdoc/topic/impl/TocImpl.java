@@ -99,6 +99,11 @@ public class TocImpl implements Toc {
         if (UtString.empty(topicId)) {
             return null;
         }
+        if (this.getTopic() != null) {
+            if (topicId.equals(this.getTopic().getId())) {
+                return this;
+            }
+        }
         return findByTopic_internal(this, topicId);
     }
 
