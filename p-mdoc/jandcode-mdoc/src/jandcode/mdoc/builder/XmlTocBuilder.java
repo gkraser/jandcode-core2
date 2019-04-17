@@ -137,10 +137,14 @@ public class XmlTocBuilder {
             return;
         }
         if (checkSelf && root.getTopic() == null) {
+            String title = root.getTitle();
+            if (UtString.empty(title)){
+                title = (root.getName().equals("") ? "no-name" : root.getName()) + " (folder)";
+            }
             Topic newTopic = DocUtils.addTopic(
                     outBuilder.getDoc(),
                     getDummyTopicFileName(),
-                    "# " + (root.getName().equals("") ? "no-name" : root.getName()) + " (folder)"
+                    "# " + title
             );
             markUsed(newTopic);
             root.setTopic(newTopic);
