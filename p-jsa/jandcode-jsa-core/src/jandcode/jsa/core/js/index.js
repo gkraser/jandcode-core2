@@ -9,9 +9,6 @@ import * as bem from './utils/bem'
 
 export * from './app'
 
-// все иконки из всех модулей
-import './svgicons.js'
-
 /**
  * Регистрация компонентов
  * @param comps набор компонентов. Каждый компонент, имеющий name будет зарегистрирован
