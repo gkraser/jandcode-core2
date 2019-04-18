@@ -8,6 +8,7 @@ import java.util.*;
 /**
  * Набор утилит для генерации случайных данных.
  */
+@SuppressWarnings("unchecked")
 public class Rnd implements IRnd {
 
     public static final String E_CHARS = "qwertyuiopasdfghjklzxcvbnm";

@@ -9,6 +9,7 @@ import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public class ReflectUtilsImpl implements ReflectUtils {
 
     private HashMap<Class, Clazz> classes = new HashMap<>();

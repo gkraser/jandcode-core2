@@ -25,12 +25,12 @@ public class CollectionBlockIterator implements Iterator<List>, Iterable<List> {
     }
 
     private void build() {
-        List tmp = new ArrayList();
+        List<Object> tmp = new ArrayList<>();
         for (Object value : _coll) {
             tmp.add(value);
             if (tmp.size() >= _blockSize) {
                 _tmp.add(tmp);
-                tmp = new ArrayList();
+                tmp = new ArrayList<>();
             }
         }
         if (tmp.size() > 0) {

@@ -6,7 +6,7 @@ import com.vladsch.flexmark.util.sequence.*;
 /**
  * Команда
  */
-public class CmBlock extends CustomBlock {
+public class CmBlock extends Block {
 
     private String text = "";
 

@@ -17,6 +17,7 @@ import java.util.regex.*;
 /**
  * Реализация GspContext для процесса рендеринга Gsp.
  */
+@SuppressWarnings("unchecked")
 public class GspContextImpl implements ITextBuffer, GspContext {
 
     public static Pattern P_LATER = Pattern.compile("\\~\\{([A-Z0-9]{32})\\}\\~");

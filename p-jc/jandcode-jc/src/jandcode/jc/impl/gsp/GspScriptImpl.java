@@ -9,6 +9,7 @@ import org.codehaus.groovy.runtime.*;
 
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public abstract class GspScriptImpl extends ProjectScript implements IGspScript {
 
     private String charset = UtString.UTF8;

@@ -7,6 +7,7 @@ import jandcode.commons.named.*;
 import java.text.*;
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public abstract class NamedListImpl<TYPE extends INamed> implements NamedList<TYPE> {
 
     protected Map<String, TYPE> map = new HashMap<>();

@@ -31,6 +31,7 @@ public abstract class CustomVDir implements VDir {
         rootPaths.add(0, r);
     }
 
+    @SuppressWarnings("unchecked")
     public List<VRoot> getRoots() {
         return (List) rootPaths;
     }

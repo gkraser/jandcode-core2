@@ -7,6 +7,7 @@ import jandcode.web.*;
 import jandcode.web.gsp.*;
 import org.apache.commons.vfs2.*;
 
+@SuppressWarnings("unchecked")
 public abstract class CustomGspDefFileObject extends BaseComp implements GspDef {
 
     protected abstract FileObject getFileObject();

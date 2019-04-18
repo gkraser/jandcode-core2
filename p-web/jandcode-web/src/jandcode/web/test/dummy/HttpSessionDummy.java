@@ -46,7 +46,7 @@ public class HttpSessionDummy implements HttpSession {
         return null;
     }
 
-    public Enumeration getAttributeNames() {
+    public Enumeration<String> getAttributeNames() {
         return null;
     }
 

@@ -115,6 +115,7 @@ public abstract class Base_Test {
      * Получить экземпляр тестового сервиса по классу.
      * Экземпляр сервиса создается при первом обращении автоматически.
      */
+    @SuppressWarnings("unchecked")
     public <A extends BaseTestSvc> A testSvc(Class<A> cls) {
         BaseTestSvc res = this.testSvcs.get(cls);
         if (res != null) {

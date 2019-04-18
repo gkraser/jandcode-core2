@@ -7,14 +7,14 @@ import java.io.*;
 import java.security.*;
 import java.util.*;
 
-@SuppressWarnings({"deprecation"})
+@SuppressWarnings("deprecation")
 public class HttpServletRequestDummy implements HttpServletRequest {
 
     private String contextPath = "/";
     private String authType;
     private Cookie[] cookies;
     private String queryString;
-    private HashMap<String, String> parameters = new HashMap<String, String>();
+    private HashMap<String, String> parameters = new HashMap<>();
     private String pathInfo;
 
     private HttpSessionDummy session = new HttpSessionDummy();
@@ -54,11 +54,11 @@ public class HttpServletRequestDummy implements HttpServletRequest {
 
     //
 
-    public Enumeration getHeaders(String s) {
+    public Enumeration<String> getHeaders(String s) {
         return null;
     }
 
-    public Enumeration getHeaderNames() {
+    public Enumeration<String> getHeaderNames() {
         return null;
     }
 
@@ -178,7 +178,7 @@ public class HttpServletRequestDummy implements HttpServletRequest {
         return null;
     }
 
-    public Enumeration getAttributeNames() {
+    public Enumeration<String> getAttributeNames() {
         return null;
     }
 
@@ -210,8 +210,8 @@ public class HttpServletRequestDummy implements HttpServletRequest {
         parameters.put(key, value);
     }
 
-    public Enumeration getParameterNames() {
-        return new Enumeration() {
+    public Enumeration<String> getParameterNames() {
+        return new Enumeration<String>() {
             Object[] ar = parameters.keySet().toArray();
             int idx = 0;
 
@@ -219,9 +219,9 @@ public class HttpServletRequestDummy implements HttpServletRequest {
                 return idx < ar.length;
             }
 
-            public Object nextElement() {
+            public String nextElement() {
                 idx++;
-                return ar[idx - 1];
+                return (String) ar[idx - 1];
             }
         };
     }
@@ -230,7 +230,7 @@ public class HttpServletRequestDummy implements HttpServletRequest {
         return new String[0];
     }
 
-    public Map getParameterMap() {
+    public Map<String, String[]> getParameterMap() {
         return null;
     }
 
@@ -274,7 +274,7 @@ public class HttpServletRequestDummy implements HttpServletRequest {
         return null;
     }
 
-    public Enumeration getLocales() {
+    public Enumeration<Locale> getLocales() {
         return null;
     }
 

@@ -11,6 +11,7 @@ import java.util.*;
 /**
  * Утилиты для классов
  */
+@SuppressWarnings("unchecked")
 public class UtClass {
 
     /**

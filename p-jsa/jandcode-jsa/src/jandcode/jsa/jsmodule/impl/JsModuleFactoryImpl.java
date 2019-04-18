@@ -25,6 +25,7 @@ public class JsModuleFactoryImpl extends BaseComp implements JsModuleFactory {
             cfg.join(moduleCfg);
         }
         cfg.setValue("class", null);
+        @SuppressWarnings("unchecked")
         JsModuleImpl m = (JsModuleImpl) getApp().create(getModuleClass());
         m.init(f, cfg);
         return m;

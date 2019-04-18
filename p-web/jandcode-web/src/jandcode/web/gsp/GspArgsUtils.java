@@ -14,6 +14,7 @@ import jandcode.web.*;
  * ...
  * }</pre>
  */
+@SuppressWarnings("unchecked")
 public class GspArgsUtils extends VariantMapWrap {
 
     protected BaseGsp gsp;

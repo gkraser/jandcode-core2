@@ -6,6 +6,7 @@ import jandcode.commons.event.*;
 import java.util.*;
 import java.util.concurrent.*;
 
+@SuppressWarnings("unchecked")
 public class EventBusImpl implements EventBus {
 
     private List<HandlerItem> handlers = new CopyOnWriteArrayList<>();

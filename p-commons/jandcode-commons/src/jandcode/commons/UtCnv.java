@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * Утилиты для стандартной конвертации значений
  */
+@SuppressWarnings("unchecked")
 public class UtCnv {
 
     protected static byte[] EMPTY_BYTEARRAY = new byte[0];

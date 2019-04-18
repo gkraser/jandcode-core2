@@ -7,6 +7,7 @@ import jandcode.jc.*;
 
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public class CmHolderImpl implements CmHolder {
 
     private Project project;

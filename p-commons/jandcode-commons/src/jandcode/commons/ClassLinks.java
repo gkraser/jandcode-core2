@@ -7,6 +7,7 @@ import java.util.*;
  * Добавляем объект для класса, затем пожем получить этот объект
  * как для добавленного класса, так и для его наследников.
  */
+@SuppressWarnings("unchecked")
 public class ClassLinks<TYPE> {
 
     private TYPE nullData;

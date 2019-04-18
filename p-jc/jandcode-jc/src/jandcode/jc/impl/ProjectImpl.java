@@ -11,6 +11,7 @@ import jandcode.jc.impl.version.*;
 
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public class ProjectImpl implements Project {
 
     protected Ctx ctx;

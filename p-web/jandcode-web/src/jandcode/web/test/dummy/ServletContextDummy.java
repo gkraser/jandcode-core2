@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
+@SuppressWarnings("deprecation")
 public class ServletContextDummy implements ServletContext {
 
     String contextPath = "/test";

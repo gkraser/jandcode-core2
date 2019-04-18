@@ -16,6 +16,7 @@ import java.util.regex.*;
 /**
  * Скрипты.
  */
+@SuppressWarnings("unchecked")
 public class ScriptHolder implements IScripts {
 
     private static Pattern P_BEFORELOAD = Pattern.compile("static\\s+beforeLoad\\s*=\\s*(\\{.*)", Pattern.DOTALL);
