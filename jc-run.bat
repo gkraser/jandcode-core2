@@ -8,6 +8,7 @@ rem in JC_JVM java parameters -Dxxx=yyy
 rem in JC_CLI additional cli parameters
 
 call %~dp0data\utils\prepare.bat
+if errorlevel 1 exit /b 1
 
 set CP=%~dp0_jc\classes-core
 
