@@ -13,7 +13,7 @@ class P extends ProjectScript {
         project.version = load("..").version
         //
         include(RootProject).with {
-            moduleGroup = "JSA"
+            moduleGroup = "JC-Jsa"
             groupId = "com.jandcode"
             modules = [
                     "jandcode-jsa",
