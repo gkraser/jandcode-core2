@@ -16,7 +16,6 @@ public class LibDependsImpl implements LibDepends {
         this.own = own;
         addGroup(JcConsts.DEPENDS_PROD);
         addGroup(JcConsts.DEPENDS_DEV);
-        addGroup(JcConsts.DEPENDS_EXDEV);
     }
 
     public Ctx getCtx() {
@@ -56,10 +55,6 @@ public class LibDependsImpl implements LibDepends {
 
     public LibDependsGroup getDev() {
         return getGroups().get(JcConsts.DEPENDS_DEV);
-    }
-
-    public LibDependsGroup getExdev() {
-        return getGroups().get(JcConsts.DEPENDS_EXDEV);
     }
 
     public LibDependsGroup getAll() {

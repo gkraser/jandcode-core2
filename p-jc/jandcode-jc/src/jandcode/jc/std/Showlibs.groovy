@@ -178,24 +178,14 @@ class Showlibs extends ProjectScript {
 
         ListLib dependsProd = ctx.getLibs(deps.prod.libs, JcConsts.DEPENDS_PROD)
         ListLib dependsDev = ctx.getLibs(deps.all.libs)
-        ListLib dependsExdev = deps.exdev.libsAll
 
-        // из dependsDev/Extdev удаляем то, что уже есть в depends. так нагляднее
+        // из dependsDev удаляем то, что уже есть в depends. так нагляднее
         for (lib in dependsProd) {
-            dependsDev.remove(lib)
-            dependsExdev.remove(lib)
-        }
-
-        // из dependsDev удаляем то, что уже есть в dependsExdev. так нагляднее
-        for (lib in dependsExdev) {
             dependsDev.remove(lib)
         }
 
         if (dependsDev.size() > 0) {
             data['Depends dev'] = dependsDev
-        }
-        if (dependsExdev.size() > 0) {
-            data['Depends exdev'] = dependsExdev
         }
         data['Depends prod'] = dependsProd
     }
@@ -205,13 +195,9 @@ class Showlibs extends ProjectScript {
 
         ListLib dependsProd = deps.prod.libs
         ListLib dependsDev = deps.dev.libs
-        ListLib dependsExdev = deps.exdev.libs
 
         if (dependsDev.size() > 0) {
             data['Depends dev'] = dependsDev
-        }
-        if (dependsExdev.size() > 0) {
-            data['Depends exdev'] = dependsExdev
         }
         if (dependsProd.size() > 0) {
             data['Depends prod'] = dependsProd

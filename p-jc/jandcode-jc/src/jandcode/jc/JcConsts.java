@@ -177,11 +177,6 @@ public class JcConsts {
     public static final String DEPENDS_DEV = "dev";
 
     /**
-     * Группа зависимостей exdev
-     */
-    public static final String DEPENDS_EXDEV = "exdev";
-
-    /**
      * Группа зависимостей all
      */
     public static final String DEPENDS_ALL = "all";
@@ -189,7 +184,7 @@ public class JcConsts {
     /**
      * Группы зависимостей, которые используются для раскрытия зависимостей по умолчанию
      */
-    public static final String EXPAND_DEPENDS_DEFAULT = "prod,exdev";
+    public static final String EXPAND_DEPENDS_DEFAULT = DEPENDS_PROD;
 
     /**
      * true - если опция системная
