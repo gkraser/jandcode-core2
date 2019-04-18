@@ -5,7 +5,7 @@
   //
   String title = "XxxYyy"
   //
-  String env = "jandcode/jsa/core/index.js"
+  String env = "jandcode/wax/index.js"
   String theme = "jandcode/jsa/core/css/theme-std.js"
   String main = "xxx/yyy/index.js"
 
