@@ -1,4 +1,3 @@
-
-import './vendor'
-
-console.info("wax1");
+//
+export * from 'jandcode.jsa.base'
+export * from 'jandcode.jsa.core'

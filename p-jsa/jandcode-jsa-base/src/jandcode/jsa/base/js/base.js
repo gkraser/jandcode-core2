@@ -17,7 +17,7 @@ let _nextId_defaultPrefix = 'jc-'
 export function nextId(prefix) {
     _nextId_cnt++;
     if (!prefix) prefix = _nextId_defaultPrefix;
-    return prefix + _nextId_cnt;
+    return '' + prefix + _nextId_cnt;
 }
 
 /**
