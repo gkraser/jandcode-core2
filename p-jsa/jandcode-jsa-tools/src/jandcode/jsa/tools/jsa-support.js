@@ -7,6 +7,7 @@ const globby = require('globby')
 let modules = []
 let modulesByName = {}
 let modulesReverse = []
+let rootProjectName = ''
 
 /**
  * Информация о jsa-модуле
@@ -122,6 +123,7 @@ function expandPath(pt, basedir, absolute) {
 }
 
 function init() {
+    rootProjectName = jsaModules.rootProjectName || 'noname'
     for (let mcfg of jsaModules.modules) {
         let m = new JsaModuleInfo(mcfg)
         modules.push(m)
@@ -139,4 +141,5 @@ module.exports = {
     modulesByName,
     resolveAlias,
     expandPath,
+    rootProjectName,
 }

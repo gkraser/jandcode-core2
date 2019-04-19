@@ -87,6 +87,7 @@ class JsaGulpBuilder {
         }
 
         function watchTasks(cb) {
+            process.title = 'gulp watch: ' + jsaSupport.rootProjectName
             for (let t of th.watchTasks) {
                 gulp.watch(t.globs, {usePolling: true}, gulp.series(t.task))
             }
