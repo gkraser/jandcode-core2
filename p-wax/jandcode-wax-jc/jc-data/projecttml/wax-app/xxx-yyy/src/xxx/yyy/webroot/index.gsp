@@ -18,9 +18,9 @@
   <meta charset="UTF-8">
   <title>${title}</title>
   <link rel="icon" href="data:,">
-  <jc:linkModule path="${env}"/>
-  <jc:linkModule path="${theme}"/>
-  <jc:linkModule path="${main}"/>
+  <jc:linkModule module="${env}"/>
+  <jc:linkModule module="${theme}"/>
+  <jc:linkModule module="${main}"/>
   <script>
       Jc.cfg.set(${cfgJson})
   </script>

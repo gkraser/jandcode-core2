@@ -35,7 +35,7 @@ public class GspArgsUtils extends VariantMapWrap {
 
     public Object get(Object key) {
         Object a = super.get(key);
-        if (a != null && a instanceof CharSequence) {
+        if (a instanceof CharSequence) {
             return gsp.substVar(a.toString());
         } else {
             return a;
@@ -54,6 +54,27 @@ public class GspArgsUtils extends VariantMapWrap {
         String res = getString(name);
         if (req && UtString.empty(res)) {
             throw new ErrorRequired(name);
+        }
+        return res;
+    }
+
+    /**
+     * Получение аргумента с проверкой на обязательность.
+     * Если тип значения аргумента "строка", то проверяется, что бы она не была
+     * пустой.
+     *
+     * @param name имя аргумента
+     * @param req  обязательность аргумента
+     */
+    public Object getValue(String name, boolean req) {
+        Object res = super.getValue(name);
+        if (res == null) {
+            throw new ErrorRequired(name);
+        }
+        if (res instanceof CharSequence) {
+            if (((CharSequence) res).length() == 0) {
+                throw new ErrorRequired(name);
+            }
         }
         return res;
     }

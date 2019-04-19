@@ -84,6 +84,12 @@ public class GspContextImpl implements ITextBuffer, GspContext {
 
     //////
 
+    public App getApp() {
+        return app;
+    }
+    
+    //////
+
     public BeanFactory getBeanFactory() {
         return beanFactory;
     }

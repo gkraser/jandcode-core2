@@ -17,10 +17,10 @@
   <meta charset="UTF-8">
   <title>${runCtx.title}</title>
   <link rel="icon" href="data:,">
-  <jc:linkModule path="jandcode.jsa.base"/>
-  <jc:linkModule path="${runCtx.theme}"/>
-  <jc:linkModule path="${runCtx.env}"/>
-  <jc:linkModule path="${runCtx.main}"/>
+  <jc:linkModule module="jandcode.jsa.base"/>
+  <jc:linkModule module="${runCtx.theme}"/>
+  <jc:linkModule module="${runCtx.env}"/>
+  <jc:linkModule module="${runCtx.main}"/>
   <jc:pagePartOut name="head"/>
 </head>
 <body>

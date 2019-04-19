@@ -1,4 +1,4 @@
-package jandcode.wax.cfg;
+package jandcode.wax.srv;
 
 import java.util.*;
 

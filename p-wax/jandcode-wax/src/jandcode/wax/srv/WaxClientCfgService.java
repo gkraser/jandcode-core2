@@ -1,4 +1,4 @@
-package jandcode.wax.cfg;
+package jandcode.wax.srv;
 
 import jandcode.core.*;
 
@@ -14,6 +14,6 @@ public interface WaxClientCfgService extends Comp {
      * вызывает метод {@link WaxClientCfgProvider#grabClientCfg(Map)}.
      * Полученный результат возвращает.
      */
-    Map<String, Object> grabClientCfg() throws Exception;
+    Map<String, Object> grabClientCfg();
 
 }
