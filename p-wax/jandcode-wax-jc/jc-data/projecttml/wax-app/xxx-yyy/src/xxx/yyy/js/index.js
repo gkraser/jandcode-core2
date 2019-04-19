@@ -1,5 +1,5 @@
 //
-import {jcWax} from './vendor'
+import './vendor'
 
 //
 export function run() {
