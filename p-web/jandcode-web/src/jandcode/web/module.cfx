@@ -169,11 +169,10 @@
 
         <!-- =================== -->
 
-        <gspContext name="default">
+        <gsp-context name="default">
             <bean name="jandcode.web.std.gsp.GspPageManager"
                   class="jandcode.web.std.gsp.impl.GspPageManagerImpl"/>
-
-        </gspContext>
+        </gsp-context>
 
         <gsp name="jc/page"
              class="jandcode.web.std.gsp.Page"/>
