@@ -10,7 +10,7 @@ import java.util.*;
  * Контекст, в рамках которого gsp осуществляет render.
  * Экземпляр создается для каждого процесса рендеринга.
  */
-public interface GspContext extends IGspFactory, IVirtFileFind, BeanFactoryOwner, IBeanIniter {
+public interface GspContext extends IAppLink, IGspFactory, IVirtFileFind, BeanFactoryOwner, IBeanIniter {
 
     /**
      * Выводит указанный gsp в буфер конекста и возврaщает этот буфер.

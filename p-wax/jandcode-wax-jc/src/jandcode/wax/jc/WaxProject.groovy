@@ -13,31 +13,15 @@ class WaxProject extends ProjectScript {
 
     protected void onInclude() throws Exception {
         //
+        include(CreateProject)
         include(AppProject)
-        include(WebProject)
+        include(WebRun)
+        include(GenIdea_WebRun)
+        include(GenIdea_RunJc)
         include(RootProject)
         include(JsaRootProject)
         include(WaxProductBuilder)
         //
-    }
-
-    ////// delegates
-
-    /**
-     * Список модулей проекта в правильном порядке (сначала зависимые, потом зависящие).
-     * Это имена каталогов модулей относительно корневого проекта.
-     */
-    List getModules() {
-        RootProject rp = include(RootProject)
-        return rp.modules
-    }
-
-    /**
-     * Зависимости для проекта в целом
-     */
-    LibDepends getDepends() {
-        RootProject rp = include(RootProject)
-        return rp.getDepends()
     }
 
 }

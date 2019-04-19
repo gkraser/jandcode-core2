@@ -78,10 +78,10 @@ public class JsaService extends CtxService {
      * от которых модуль зависит.
      */
     public Map getGulpTasks(JsaModule m) {
-        Map res = new LinkedHashMap();
+        Map<String, Object> res = new LinkedHashMap<>();
         NamedList<JsaModule> deps = getJsaModules(m.getLib().getDepends().getAll().getLibsAll());
         for (JsaModule mi : deps) {
-            for (Object key : mi.getGulpTasks().keySet()) {
+            for (String key : mi.getGulpTasks().keySet()) {
                 Object value = mi.getGulpTasks().get(key);
                 if (value instanceof Map) {
                     Map mvalue = (Map) value;

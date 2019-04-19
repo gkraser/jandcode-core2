@@ -14,13 +14,9 @@ class P extends ProjectScript {
             moduleDef("xxx.yyy").with {
                 depends.prod.add(
                 )
+                depends.dev.add(
+                )
             }
-            //
-            depends.prod.add(
-            )
-            depends.dev.add(
-            )
-            //
         }
     }
 

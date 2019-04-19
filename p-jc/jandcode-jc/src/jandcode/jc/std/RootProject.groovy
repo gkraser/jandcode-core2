@@ -31,12 +31,21 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
 
     }
 
+    private List _modules = []
+
     /**
      * Список модулей проекта в правильном порядке (сначала зависимые, потом зависящие).
      * При инициализации проекта - имена каталогов модулей относительно
      * корневого проекта. После инициализации - ссылки на проекты модулей.
      */
-    List modules = []
+    List getModules() {
+        return _modules
+    }
+
+    void setModules(Collection modules) {
+        this._modules.clear()
+        this._modules.addAll(modules)
+    }
 
     /**
      * Группы модулей.
@@ -177,7 +186,7 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
     void grabDepends(LibDepends deps) {
         // зависимости модулей
         for (Project p in modules) {
-            for (ILibDependsGrab dg: p.impl(ILibDependsGrab)) {
+            for (ILibDependsGrab dg : p.impl(ILibDependsGrab)) {
                 dg.grabDepends(deps)
             }
             for (ILibDepends dp : p.impl(ILibDepends)) {

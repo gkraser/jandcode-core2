@@ -14,7 +14,7 @@ class P extends ProjectScript {
         //
         include(RootProject).with {
             groupId = "com.jandcode"
-            moduleGroup = "JC-Wax"
+            moduleGroup = "jc-core/p-wax"
             modules = [
                     'jandcode-wax',
                     'jandcode-wax-tst',

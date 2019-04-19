@@ -7,7 +7,7 @@
     String m_run = "jandcode/jsa/tst/test/runVue.js"
   %>
   <jc:pagePart name="body">
-    <jc:linkModule path="${m_run}"/>
+    <jc:linkModule module="${m_run}"/>
     <script>
         require('${m_run}').runModule('${runCtx.main}')
     </script>

@@ -44,14 +44,14 @@ public interface ILibs extends IClasspath {
      *                   строка - имя библиотеки, INamed - getName() имя библиотеки.
      * @param groupNames имена групп зависимостей, которые участвуют в раскрытии.
      *                   если не указано (null или пустая строка),
-     *                   то подразумевается "prod,exdev"
+     *                   то подразумевается "prod"
      */
     ListLib getLibs(Object libNames, String groupNames);
 
     /**
      * Возвращает список, состоящий из библиотек names и всех их зависимостей.
      * см: {@link ILibs#getLibs(java.lang.Object, java.lang.String)}
-     * с группами "prod,exdev".
+     * с группой "prod".
      */
     ListLib getLibs(Object libNames);
 

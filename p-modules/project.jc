@@ -14,7 +14,7 @@ class P extends ProjectScript {
         //
         include(RootProject).with {
             groupId = "com.jandcode"
-            moduleGroup = "JC-Modules"
+            moduleGroup = "jc-core/p-modules"
             modules = [
                     'jandcode-poi',
                     'jandcode-lucene',

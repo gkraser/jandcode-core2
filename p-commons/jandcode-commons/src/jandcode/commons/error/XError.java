@@ -9,7 +9,7 @@ import java.util.*;
 public class XError extends RuntimeException {
 
     private String _messageRaw;
-    private ArrayList _params = new ArrayList();
+    private ArrayList<Object> _params = new ArrayList<>();
 
     /**
      * Генерация ошибки

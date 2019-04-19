@@ -1,8 +1,8 @@
 //
-import * as jsaBase from 'jandcode.jsa.base'
-import * as jsaCore from 'jandcode.jsa.core'
+import * as jcWax from 'jandcode.wax'
+
+export * from 'jandcode.wax'
 
 export {
-    jsaBase,
-    jsaCore,
+    jcWax,
 }

@@ -29,7 +29,7 @@ public class GspServiceImpl extends BaseComp implements GspService {
         List<Conf> z;
 
         // фабрика контекстов gsp
-        Conf x1 = getApp().getConf().getConf("web/gspContext/default");
+        Conf x1 = getApp().getConf().getConf("web/gsp-context/default");
         gspContextFactory = getApp().create(x1, GspContextFactory.class);
 
         // регистрация gsp

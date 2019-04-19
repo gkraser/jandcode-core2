@@ -1,5 +1,5 @@
 import * as test from 'jandcode.jsa.base/test'
-import * as m from 'jandcode.jsa.base/js/utils/cnv'
+import * as m from 'jandcode.jsa.base/js/cnv'
 
 let assert = test.assert
 

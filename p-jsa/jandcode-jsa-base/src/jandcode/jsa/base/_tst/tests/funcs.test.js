@@ -1,5 +1,5 @@
 import * as test from 'jandcode.jsa.base/test'
-import * as m from 'jandcode.jsa.base/js/utils/funcs'
+import * as m from 'jandcode.jsa.base/js/funcs'
 
 let assert = test.assert
 

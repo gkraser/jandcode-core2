@@ -8,6 +8,7 @@ import jandcode.jc.*;
  * Реализация и для ctx и для проекта. Если проект задан в конструкторе,
  * но он автоматом передается в аргументы.
  */
+@SuppressWarnings("unchecked")
 public class EventHolder implements IEvents {
 
     private Ctx ctx;

@@ -1,16 +1,19 @@
 //
 // сначала vendor, что бы jsaBase проинициализировалось
 import {Vue, VueRouter} from './vendor'
-// все конфигурации по умолчанию из всех модулей
-import '[*]/js/cfg-default.js'
-
+//
 import * as components from "./comp"
 import * as bem from './utils/bem'
 
-export * from './app'
+// конфигурация
+Jc.cfg.set({
+    // конфигурация темы
+    theme: {
+        // имя текущей темы
+        name: 'none',
 
-// все иконки из всех модулей
-import './svgicons.js'
+    }
+})
 
 /**
  * Регистрация компонентов

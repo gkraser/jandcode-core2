@@ -1,5 +1,6 @@
 import jandcode.jc.*
 import jandcode.jc.std.*
+import jandcode.jsa.jc.*
 
 class P extends ProjectScript {
 
@@ -14,16 +15,12 @@ class P extends ProjectScript {
         include(JavaProject).with {
             moduleDef("jandcode.wax").with {
                 depends.prod.add(
+                        "jandcode.web",
                         "jandcode.jsa.core",
                 )
             }
-            //
-            depends.prod.add(
-            )
-            depends.dev.add(
-            )
-            //
         }
+        include(JsaProject)
     }
 
 }

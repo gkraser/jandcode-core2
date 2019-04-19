@@ -15,6 +15,7 @@ public class GspDefCls extends BaseComp implements GspDef {
         this.cls = cls;
     }
 
+    @SuppressWarnings("unchecked")
     public Gsp createInst() {
         Gsp z = (Gsp) getApp().create(cls);
         z.setName(getName());

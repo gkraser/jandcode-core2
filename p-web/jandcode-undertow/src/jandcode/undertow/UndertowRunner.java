@@ -59,6 +59,7 @@ public class UndertowRunner implements IWebRunner {
         startWebXml(wx);
     }
 
+    @SuppressWarnings("unchecked")
     public void startWebXml(WebXml wx) throws Exception {
 
         DeploymentInfo servletBuilder = Servlets.deployment()

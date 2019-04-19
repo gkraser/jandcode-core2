@@ -1,11 +1,14 @@
 package jandcode.jsa.gsp;
 
+import jandcode.commons.*;
 import jandcode.web.gsp.*;
+
+import java.util.*;
 
 /**
  * Вывести тег для подключения модулей
  *
- * @arg path модули через ','
+ * @arg module модули через ',' или список модулей. Для каждого модуля будет выведен отдельный тег
  */
 public class LinkModule extends BaseGsp {
 
@@ -24,15 +27,19 @@ public class LinkModule extends BaseGsp {
 
     protected void onRender() throws Exception {
         GspArgsUtils ar = new GspArgsUtils(this);
-        String path = ar.getPath("path");
+
+        Object module = ar.getValue("module", true);
 
         // страницы, на которых используется linkModule, не должны кешироватся
         getRequest().disableCache();
 
-        // регистрируем
-        int key = inst(LinkModuleManager.class).addModules(path);
-
-        // выводить будем позже
-        out(new LaterOut(key));
+        // каждый модуль выводим отдельным тегом
+        List<String> lstPath = UtCnv.toList(module);
+        for (String p1 : lstPath) {
+            // регистрируем
+            int key = inst(LinkModuleManager.class).addModules(p1);
+            // выводить будем позже
+            out(new LaterOut(key));
+        }
     }
 }

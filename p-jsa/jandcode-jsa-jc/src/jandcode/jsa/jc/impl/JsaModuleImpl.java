@@ -11,7 +11,6 @@ import java.util.jar.*;
 
 public class JsaModuleImpl implements JsaModule {
 
-    private String name;
     private ModuleDef moduleDef;
     private String srcPath;
     private Lib lib;
@@ -57,6 +56,7 @@ public class JsaModuleImpl implements JsaModule {
         this.gulpTasks.putAll(jsa.getGulpTasks());
     }
 
+    @SuppressWarnings("unchecked")
     private void initJar(Ctx ctx, Lib lib) {
         if (lib.isSys()) {
             return; // системные даже не смотрим
@@ -144,11 +144,11 @@ public class JsaModuleImpl implements JsaModule {
         return resolvePaths;
     }
 
-    public Map getNodeDepends() {
+    public Map<String, String> getNodeDepends() {
         return nodeDepends;
     }
 
-    public Map getGulpTasks() {
+    public Map<String, Object> getGulpTasks() {
         return gulpTasks;
     }
 
