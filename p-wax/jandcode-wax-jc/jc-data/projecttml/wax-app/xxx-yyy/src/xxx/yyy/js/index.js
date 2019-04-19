@@ -1,7 +1,13 @@
 //
-import './vendor'
+import {jcWax} from './vendor'
+import Main from './Main'
 
 //
 export function run() {
-    console.info("app xxx.yyy runned!");
+    let vm = new Vue({
+        render(h) {
+            return h(Main)
+        }
+    })
+    vm.$mount("#jc-app")
 }

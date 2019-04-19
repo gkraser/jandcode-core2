@@ -4,6 +4,11 @@
 let _appInst
 let _appInitHandlers = []
 
+export let ob = {a:1}
+export function assignOb(newOb) {
+    ob = newOb
+}
+
 /**
  * Приложение
  */
@@ -26,6 +31,10 @@ export class App {
         for (let handler of _appInitHandlers) {
             handler(this)
         }
+    }
+
+    m111(){
+
     }
 
 }

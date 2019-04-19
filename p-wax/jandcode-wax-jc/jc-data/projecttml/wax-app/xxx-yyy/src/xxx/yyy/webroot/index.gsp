@@ -1,35 +1,26 @@
-<%@ page import="jandcode.wax.cfg.*; jandcode.web.*; jandcode.commons.*; jandcode.web.gsp.*" %>
+<%@ page import="jandcode.wax.srv.*; jandcode.web.*; jandcode.commons.*; jandcode.web.gsp.*" %>
 <!doctype html>
 <%
   BaseGsp th = this
   //
-  String title = "XxxYyy"
+  def ctx = th.inst(WaxIndexGspContext)
   //
-  String env = "jandcode/wax/index.js"
-  String theme = "jandcode/jsa/core/css/theme-std.js"
-  String main = "xxx/yyy/index.js"
-
-  // cfg
-  def cfgSvc = th.app.bean(WaxClientCfgService)
-  def cfgJson = UtJson.toJson(cfgSvc.grabClientCfg())
+  ctx.title = "XxxYyy"
+  ctx.main = "xxx.yyy"
 %>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>${title}</title>
+  <title>${ctx.title}</title>
   <link rel="icon" href="data:,">
-  <jc:linkModule module="${env}"/>
-  <jc:linkModule module="${theme}"/>
-  <jc:linkModule module="${main}"/>
-  <script>
-      Jc.cfg.set(${cfgJson})
-  </script>
+  <jc:linkModule module="${ctx.modules}"/>
 </head>
 <body>
 <div id="jc-app"></div>
 <script>
+    Jc.cfg.set(${ctx.cfgJson})
     Jc.ready(function() {
-        require('${main}').run()
+        require('${ctx.main}').run()
     })
 </script>
 </body>
