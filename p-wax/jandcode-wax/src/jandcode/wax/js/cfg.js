@@ -3,6 +3,5 @@ Jc.cfg.set({
     theme: {
         // имя текущей темы
         name: 'none',
-
     }
 })
