@@ -1,4 +1,4 @@
-<%@ page import="jandcode.jsa.cfg.*; jandcode.web.*; jandcode.commons.*; jandcode.web.gsp.*" %>
+<%@ page import="jandcode.wax.cfg.*; jandcode.web.*; jandcode.commons.*; jandcode.web.gsp.*" %>
 <!doctype html>
 <%
   BaseGsp th = this
@@ -10,7 +10,7 @@
   String main = "xxx/yyy/index.js"
 
   // cfg
-  def cfgSvc = th.app.bean(JsaClientCfgService)
+  def cfgSvc = th.app.bean(WaxClientCfgService)
   def cfgJson = UtJson.toJson(cfgSvc.grabClientCfg())
 %>
 <html>

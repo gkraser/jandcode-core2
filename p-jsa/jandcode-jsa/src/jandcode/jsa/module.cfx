@@ -4,9 +4,6 @@
     <bean name="jandcode.jsa.jsmodule.JsModuleService"
           class="jandcode.jsa.jsmodule.impl.JsModuleServiceImpl"/>
 
-    <bean name="jandcode.jsa.cfg.JsaClientCfgService"
-          class="jandcode.jsa.cfg.impl.JsaClientCfgServiceImpl"/>
-
     <web>
 
         <action name="jsa"

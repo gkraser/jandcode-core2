@@ -1,15 +1,15 @@
-package jandcode.jsa.cfg.impl;
+package jandcode.wax.cfg.impl;
 
 import jandcode.core.*;
-import jandcode.jsa.cfg.*;
+import jandcode.wax.cfg.*;
 
 import java.util.*;
 
-public class JsaClientCfgServiceImpl extends BaseComp implements JsaClientCfgService {
+public class WaxClientCfgServiceImpl extends BaseComp implements WaxClientCfgService {
 
     public Map<String, Object> grabClientCfg() throws Exception {
         Map<String, Object> res = new LinkedHashMap<>();
-        for (JsaClientCfgProvider p : getApp().impl(JsaClientCfgProvider.class)) {
+        for (WaxClientCfgProvider p : getApp().impl(WaxClientCfgProvider.class)) {
             p.grabClientCfg(res);
         }
         return res;
