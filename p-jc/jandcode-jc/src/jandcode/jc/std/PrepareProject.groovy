@@ -1,6 +1,6 @@
 package jandcode.jc.std
 
-
+import jandcode.commons.*
 import jandcode.jc.*
 
 /**
@@ -30,6 +30,12 @@ class PrepareProject extends ProjectScript {
         executed = true
 
         log.info "Prepare: ${ut.nameInfo(project)}"
+
+        // temp нужен всем
+        String temp = wd("temp")
+        if (!UtFile.exists(temp)) {
+            ant.mkdir(dir: temp)
+        }
 
         // сначала генерируем событие
         fireEvent(new Event_Prepare())
