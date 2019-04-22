@@ -217,6 +217,7 @@ ${aliases}
         sb.append("let ma = require('./jsa-prepare-data/module-alias')\n")
         sb.append("let z = {}\n")
         sb.append("let m\n")
+        sb.append("z.rootProjectName = '${project.name}'\n")
         sb.append("z.modules = []\n")
         sb.append("z.modulesByName = {}\n")
 

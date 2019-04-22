@@ -321,7 +321,7 @@ public class MainImpl {
     }
 
     private String copyright() {
-        return "Jandcode Jc " + version() + " (C) 2011-2018 Sergey Kravchenko";
+        return "Jandcode Jc " + version() + " (C) 2011-2019 Sergey Kravchenko";
     }
 
     private String commonOpt() {

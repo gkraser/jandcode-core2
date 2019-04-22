@@ -1,0 +1,253 @@
+diff -r aa47d6c0b060 data/utils/build.xml
+--- a/data/utils/build.xml	Tue Dec 25 13:22:45 2018 +0600
++++ b/data/utils/build.xml	Fri Dec 28 09:11:49 2018 +0600
+@@ -36,7 +36,9 @@
+         <mkdir dir="${jc.compiled}"/>
+         <groovyc destdir="${jc.compiled}" encoding="utf-8" includeantruntime="false"
+                  fork="true">
+-            <javac encoding="utf-8" debug="true"/>
++            <javac encoding="utf-8" debug="true">
++                <compilerarg value="-Jclasspath=${toString:compile-lib}"/>
++            </javac>
+ 
+             <src location="${root.dir.commons}/jandcode-commons/src"/>
+             <src location="${root.dir.commons}/jandcode-commons-ansifer/src"/>
+diff -r aa47d6c0b060 jandcode-commons/jandcode-commons/src/jandcode/commons/UtClass.java
+--- a/jandcode-commons/jandcode-commons/src/jandcode/commons/UtClass.java	Tue Dec 25 13:22:45 2018 +0600
++++ b/jandcode-commons/jandcode-commons/src/jandcode/commons/UtClass.java	Fri Dec 28 09:11:49 2018 +0600
+@@ -18,6 +18,18 @@
+      */
+     private static HashSet<String> classpathCache = new HashSet<String>();
+ 
++    private static class JcURLClassLoader extends URLClassLoader {
++
++        public JcURLClassLoader(ClassLoader parent) {
++            super(new URL[]{}, parent);
++        }
++
++        public void addURL(URL url) {
++            super.addURL(url);
++        }
++
++    }
++
+     /**
+      * Сбор классов в указанных packages.
+      * Сканируются: public, !abstract, !member
+@@ -220,11 +232,13 @@
+                 return false;
+             }
+             //
+-            URLClassLoader urlClassLoader = (URLClassLoader) Thread.currentThread().getContextClassLoader();
+-            Class urlClass = URLClassLoader.class;
+-            Method method = urlClass.getDeclaredMethod("addURL", URL.class);
+-            method.setAccessible(true);
+-            method.invoke(urlClassLoader, u);
++            ClassLoader curLdr = Thread.currentThread().getContextClassLoader();
++            if (!(curLdr instanceof JcURLClassLoader)) {
++                curLdr = new JcURLClassLoader(curLdr);
++                Thread.currentThread().setContextClassLoader(curLdr);
++            }
++            JcURLClassLoader urlClassLoader = (JcURLClassLoader) curLdr;
++            urlClassLoader.addURL(u);
+             //
+             classpathCache.add(us);
+             //
+@@ -236,24 +250,6 @@
+     }
+ 
+     /**
+-     * Возвращает список из всех classpath на момент вызова
+-     */
+-    public static List<String> getClasspath() {
+-        List<String> res = new ArrayList<>();
+-
+-        URLClassLoader urlClassLoader = (URLClassLoader) Thread.currentThread().getContextClassLoader();
+-        for (URL u : urlClassLoader.getURLs()) {
+-            String p = u.getPath();
+-            if (UtString.empty(p)) {
+-                continue;
+-            }
+-            String fn = new File(p).getAbsolutePath();
+-            res.add(fn);
+-        }
+-        return res;
+-    }
+-
+-    /**
+      * Поиск метода по имени без учета параметров
+      *
+      * @param cls        класс
+diff -r aa47d6c0b060 jandcode-commons/jandcode-commons/test/jandcode/commons/UtClass_Test.java
+--- a/jandcode-commons/jandcode-commons/test/jandcode/commons/UtClass_Test.java	Tue Dec 25 13:22:45 2018 +0600
++++ b/jandcode-commons/jandcode-commons/test/jandcode/commons/UtClass_Test.java	Fri Dec 28 09:11:49 2018 +0600
+@@ -51,12 +51,4 @@
+ 
+     }
+ 
+-    @Test
+-    public void test_getClasspath() throws Exception {
+-        UtClass.addClasspath(UtFile.getWorkdir());
+-        List<String> z = UtClass.getClasspath();
+-        System.out.println(z);
+-    }
+-
+-
+ }
+diff -r aa47d6c0b060 jandcode-jc/jandcode-jc/src/jandcode/jc/std/JavaCompiler.groovy
+--- a/jandcode-jc/jandcode-jc/src/jandcode/jc/std/JavaCompiler.groovy	Tue Dec 25 13:22:45 2018 +0600
++++ b/jandcode-jc/jandcode-jc/src/jandcode/jc/std/JavaCompiler.groovy	Fri Dec 28 09:11:49 2018 +0600
+@@ -93,7 +93,9 @@
+                 for (s in srcs) {
+                     src(path: s)
+                 }
+-                javac(debug: debug, encoding: encoding)
++                javac(debug: debug, encoding: encoding) {
++                    compilerarg(value:"-Jclasspath=${cp_s}")
++                }
+             }
+ 
+         }
+diff -r aa47d6c0b060 jandcode-jsa/jandcode-jsa/src/jandcode/jsa/jsmodule/impl/ModuleNameResolver.java
+--- a/jandcode-jsa/jandcode-jsa/src/jandcode/jsa/jsmodule/impl/ModuleNameResolver.java	Tue Dec 25 13:22:45 2018 +0600
++++ b/jandcode-jsa/jandcode-jsa/src/jandcode/jsa/jsmodule/impl/ModuleNameResolver.java	Fri Dec 28 09:11:49 2018 +0600
+@@ -3,6 +3,7 @@
+ import jandcode.commons.*;
+ import jandcode.jsa.jsmodule.*;
+ import jandcode.xcore.*;
++import jandcode.xcore.Module;
+ import jandcode.xweb.*;
+ import jandcode.xweb.virtfile.*;
+ 
+diff -r aa47d6c0b060 jandcode-xcore/jandcode-xcore/src/jandcode/xcore/impl/AppImpl.java
+--- a/jandcode-xcore/jandcode-xcore/src/jandcode/xcore/impl/AppImpl.java	Tue Dec 25 13:22:45 2018 +0600
++++ b/jandcode-xcore/jandcode-xcore/src/jandcode/xcore/impl/AppImpl.java	Fri Dec 28 09:11:49 2018 +0600
+@@ -6,6 +6,7 @@
+ import jandcode.commons.event.*;
+ import jandcode.commons.moduledef.*;
+ import jandcode.xcore.*;
++import jandcode.xcore.Module;
+ import org.apache.commons.vfs2.*;
+ import org.slf4j.*;
+ 
+diff -r aa47d6c0b060 jandcode-xcore/jandcode-xcore/src/jandcode/xcore/impl/ModuleHolderImpl.java
+--- a/jandcode-xcore/jandcode-xcore/src/jandcode/xcore/impl/ModuleHolderImpl.java	Tue Dec 25 13:22:45 2018 +0600
++++ b/jandcode-xcore/jandcode-xcore/src/jandcode/xcore/impl/ModuleHolderImpl.java	Fri Dec 28 09:11:49 2018 +0600
+@@ -3,6 +3,7 @@
+ import jandcode.commons.moduledef.*;
+ import jandcode.commons.named.*;
+ import jandcode.xcore.*;
++import jandcode.xcore.Module;
+ 
+ import java.util.*;
+ 
+diff -r aa47d6c0b060 jandcode-xcore/jandcode-xcore/src/jandcode/xcore/impl/ModuleImpl.java
+--- a/jandcode-xcore/jandcode-xcore/src/jandcode/xcore/impl/ModuleImpl.java	Tue Dec 25 13:22:45 2018 +0600
++++ b/jandcode-xcore/jandcode-xcore/src/jandcode/xcore/impl/ModuleImpl.java	Fri Dec 28 09:11:49 2018 +0600
+@@ -3,6 +3,7 @@
+ import jandcode.commons.conf.*;
+ import jandcode.commons.moduledef.*;
+ import jandcode.xcore.*;
++import jandcode.xcore.Module;
+ 
+ import java.util.*;
+ 
+diff -r aa47d6c0b060 jandcode-xcore/jandcode-xcore/src/jandcode/xcore/impl/ModuleSubHolderImpl.java
+--- a/jandcode-xcore/jandcode-xcore/src/jandcode/xcore/impl/ModuleSubHolderImpl.java	Tue Dec 25 13:22:45 2018 +0600
++++ b/jandcode-xcore/jandcode-xcore/src/jandcode/xcore/impl/ModuleSubHolderImpl.java	Fri Dec 28 09:11:49 2018 +0600
+@@ -2,6 +2,7 @@
+ 
+ import jandcode.commons.named.*;
+ import jandcode.xcore.*;
++import jandcode.xcore.Module;
+ 
+ import java.util.*;
+ 
+diff -r aa47d6c0b060 jandcode-xcore/jandcode-xcore/src/jandcode/xcore/std/impl/JcDataAppServiceImpl.java
+--- a/jandcode-xcore/jandcode-xcore/src/jandcode/xcore/std/impl/JcDataAppServiceImpl.java	Tue Dec 25 13:22:45 2018 +0600
++++ b/jandcode-xcore/jandcode-xcore/src/jandcode/xcore/std/impl/JcDataAppServiceImpl.java	Fri Dec 28 09:11:49 2018 +0600
+@@ -3,6 +3,7 @@
+ import jandcode.commons.*;
+ import jandcode.commons.vdir.*;
+ import jandcode.xcore.*;
++import jandcode.xcore.Module;
+ import jandcode.xcore.std.*;
+ import org.apache.commons.vfs2.*;
+ 
+diff -r aa47d6c0b060 jandcode-xdbm/jandcode-xdbm/src/jandcode/xdbm/ModelDef.java
+--- a/jandcode-xdbm/jandcode-xdbm/src/jandcode/xdbm/ModelDef.java	Tue Dec 25 13:22:45 2018 +0600
++++ b/jandcode-xdbm/jandcode-xdbm/src/jandcode/xdbm/ModelDef.java	Fri Dec 28 09:11:49 2018 +0600
+@@ -2,6 +2,7 @@
+ 
+ import jandcode.xcore.*;
+ import jandcode.commons.conf.*;
++import jandcode.xcore.Module;
+ 
+ import java.util.*;
+ 
+diff -r aa47d6c0b060 jandcode-xdbm/jandcode-xdbm/src/jandcode/xdbm/impl/ModelDefImpl.java
+--- a/jandcode-xdbm/jandcode-xdbm/src/jandcode/xdbm/impl/ModelDefImpl.java	Tue Dec 25 13:22:45 2018 +0600
++++ b/jandcode-xdbm/jandcode-xdbm/src/jandcode/xdbm/impl/ModelDefImpl.java	Fri Dec 28 09:11:49 2018 +0600
+@@ -3,6 +3,7 @@
+ import jandcode.commons.*;
+ import jandcode.xcore.*;
+ import jandcode.commons.conf.*;
++import jandcode.xcore.Module;
+ import jandcode.xdb.*;
+ import jandcode.xdbm.*;
+ import jandcode.xdbm.db.impl.*;
+diff -r aa47d6c0b060 jandcode-xdbm/jandcode-xdbm/src/jandcode/xdbm/verdb/impl/VerdbServiceImpl.java
+--- a/jandcode-xdbm/jandcode-xdbm/src/jandcode/xdbm/verdb/impl/VerdbServiceImpl.java	Tue Dec 25 13:22:45 2018 +0600
++++ b/jandcode-xdbm/jandcode-xdbm/src/jandcode/xdbm/verdb/impl/VerdbServiceImpl.java	Fri Dec 28 09:11:49 2018 +0600
+@@ -3,6 +3,7 @@
+ import jandcode.commons.*;
+ import jandcode.commons.moduledef.*;
+ import jandcode.xcore.*;
++import jandcode.xcore.Module;
+ import jandcode.xcore.std.*;
+ import jandcode.xdbm.*;
+ import jandcode.xdbm.mdb.*;
+diff -r aa47d6c0b060 jandcode-xweb/jandcode-xweb-tst/src/jandcode/xweb/tst/TstMount.java
+--- a/jandcode-xweb/jandcode-xweb-tst/src/jandcode/xweb/tst/TstMount.java	Tue Dec 25 13:22:45 2018 +0600
++++ b/jandcode-xweb/jandcode-xweb-tst/src/jandcode/xweb/tst/TstMount.java	Fri Dec 28 09:11:49 2018 +0600
+@@ -4,6 +4,7 @@
+ import jandcode.commons.moduledef.*;
+ import jandcode.commons.*;
+ import jandcode.commons.conf.*;
++import jandcode.xcore.Module;
+ import jandcode.xweb.virtfile.*;
+ import org.apache.commons.vfs2.*;
+ import org.apache.commons.vfs2.FileType;
+diff -r aa47d6c0b060 jandcode-xweb/jandcode-xweb/src/jandcode/xweb/UtWeb.java
+--- a/jandcode-xweb/jandcode-xweb/src/jandcode/xweb/UtWeb.java	Tue Dec 25 13:22:45 2018 +0600
++++ b/jandcode-xweb/jandcode-xweb/src/jandcode/xweb/UtWeb.java	Fri Dec 28 09:11:49 2018 +0600
+@@ -5,6 +5,7 @@
+ import jandcode.commons.io.*;
+ import jandcode.commons.conf.*;
+ import jandcode.xcore.*;
++import jandcode.xcore.Module;
+ import jandcode.xweb.virtfile.*;
+ 
+ import javax.servlet.http.*;
+diff -r aa47d6c0b060 jandcode-xweb/jandcode-xweb/src/jandcode/xweb/std/action/ModulePackageActionProvider.java
+--- a/jandcode-xweb/jandcode-xweb/src/jandcode/xweb/std/action/ModulePackageActionProvider.java	Tue Dec 25 13:22:45 2018 +0600
++++ b/jandcode-xweb/jandcode-xweb/src/jandcode/xweb/std/action/ModulePackageActionProvider.java	Fri Dec 28 09:11:49 2018 +0600
+@@ -3,6 +3,7 @@
+ import jandcode.commons.*;
+ import jandcode.commons.reflect.*;
+ import jandcode.xcore.*;
++import jandcode.xcore.Module;
+ import jandcode.xweb.*;
+ import jandcode.xweb.action.*;
+ import jandcode.xweb.action.impl.*;
+diff -r aa47d6c0b060 jandcode-xweb/jandcode-xweb/src/jandcode/xweb/std/mount/ModuleMount.java
+--- a/jandcode-xweb/jandcode-xweb/src/jandcode/xweb/std/mount/ModuleMount.java	Tue Dec 25 13:22:45 2018 +0600
++++ b/jandcode-xweb/jandcode-xweb/src/jandcode/xweb/std/mount/ModuleMount.java	Fri Dec 28 09:11:49 2018 +0600
+@@ -4,6 +4,7 @@
+ import jandcode.commons.moduledef.*;
+ import jandcode.commons.conf.*;
+ import jandcode.xcore.*;
++import jandcode.xcore.Module;
+ import jandcode.xweb.*;
+ import jandcode.xweb.virtfile.*;
+ import jandcode.xweb.virtfile.impl.virtfs.*;
