@@ -1,20 +1,29 @@
-package jandcode.store.impl.json;
+package jandcode.store.impl;
 
 import jandcode.commons.*;
 import jandcode.store.*;
+import jandcode.store.impl.json.*;
+import jandcode.store.impl.outtable.*;
 
 /**
- * Регистрация json-конверторов для store
+ * Глобальная инициализация
  */
-public class JsonCnvReg {
+public class StaticInit {
 
     static {
+
+        // json
 
         UtJson.getJsonEngine().getGsonBuilder().registerTypeHierarchyAdapter(
                 StoreRecord.class, new StoreRecordAdapter());
 
         UtJson.getJsonEngine().getGsonBuilder().registerTypeHierarchyAdapter(
                 Store.class, new StoreAdapter());
+
+        // outtable
+
+        UtOutTable.getOutTableEngine().registerOutTableFactory(
+                new StoreOutTableFactory());
 
     }
 

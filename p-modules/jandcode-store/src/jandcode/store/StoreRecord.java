@@ -12,7 +12,7 @@ import java.util.*;
 public interface StoreRecord extends
         IValueNamed, IValueNamedSet,
         IValueIndexed, IValueIndexedSet,
-        IVariantNamed, IVariantNamedDefault,
+        IVariantNamed, IVariantNamedDefault, IVariantIndexed,
         IStoreFieldHolder, ICustomProp {
 
 

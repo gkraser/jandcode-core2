@@ -5,20 +5,20 @@ import jandcode.commons.conf.*;
 import jandcode.commons.error.*;
 import jandcode.core.*;
 import jandcode.store.*;
-import jandcode.store.impl.json.*;
 
 import java.util.*;
 
 public class StoreServiceImpl extends BaseComp implements StoreService {
+
+    static {
+        new StaticInit();
+    }
 
     private Map<String, Class> fieldTypes = new LinkedHashMap<>();
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
         //
-
-        // регистрация json-конверторов
-        new JsonCnvReg();
 
         Conf dataConf = getApp().getConf().getConf("data");
 

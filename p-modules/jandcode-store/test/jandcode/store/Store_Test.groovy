@@ -120,6 +120,10 @@ public class Store_Test extends App_Test {
         assertEquals(r.getDictValue("s1", "x1"), null)
         assertEquals(r.getDictValue("s2", "x1"), null)
         assertEquals(r.getDictValue("s3", "x1"), null)
+
+        //
+        utils.outTable(st)
+        utils.outTable(st.get(0))
     }
 
 }
