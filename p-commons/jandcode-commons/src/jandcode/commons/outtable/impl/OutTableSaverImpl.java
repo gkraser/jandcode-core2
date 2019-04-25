@@ -39,7 +39,7 @@ public class OutTableSaverImpl implements OutTableSaver {
         if (v == null) {
             return NULL_STRING_VALUE;
         }
-        return UtCnv.toString(v);
+        return UtCnv.toString(v).replaceAll("[\n\t\r]", " ");
     }
 
     public void saveTo(Writer writer) throws Exception {

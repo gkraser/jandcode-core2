@@ -16,7 +16,7 @@ public class OutTable_Test extends Utils_Test {
         Rnd rnd = new Rnd(123);
 
         for (int i = 0; i < 100; i++) {
-            m.put("key-" + i, "value-" + i + "-" + rnd.text(Rnd.ERN_CHARS, 5, 30, 0)+"*");
+            m.put("key-" + i, "value-\n" + i + "-\r" + rnd.text(Rnd.ERN_CHARS, 5, 30, 0)+"*");
         }
 
         OutTableSaver sv = UtOutTable.createOutTableSaver(new MapOutTable(m));
