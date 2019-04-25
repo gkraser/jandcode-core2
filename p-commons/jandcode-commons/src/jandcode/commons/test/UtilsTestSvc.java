@@ -2,6 +2,7 @@ package jandcode.commons.test;
 
 import jandcode.commons.*;
 import jandcode.commons.error.*;
+import jandcode.commons.outtable.*;
 import org.slf4j.*;
 
 import java.io.*;
@@ -9,7 +10,7 @@ import java.net.*;
 import java.util.*;
 
 /**
- * Предок для тестов
+ * Утилиты для тестов
  */
 public class UtilsTestSvc extends BaseTestSvc {
 
@@ -160,6 +161,27 @@ public class UtilsTestSvc extends BaseTestSvc {
      */
     public void outMap(Map m) {
         outMap(m, false);
+    }
+
+    /**
+     * Вывести таблицу на консоль
+     *
+     * @param data  данные
+     * @param limit сколько записей выводить
+     */
+    public void outTable(Object data, int limit) {
+        OutTableSaver tb = UtOutTable.createOutTableSaver(data);
+        tb.setLimit(limit);
+        System.out.println(tb.save().toString());
+    }
+
+    /**
+     * Вывести таблицу на консоль
+     *
+     * @param data данные
+     */
+    public void outTable(Object data) {
+        outTable(data, -1);
     }
 
     ////// errors
