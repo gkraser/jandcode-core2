@@ -58,6 +58,9 @@ public class OutTableSaverImpl implements OutTableSaver {
 
         // размеры данных
         for (int row = 0; row < countRows; row++) {
+            if (limit > 0 && row >= limit) {
+                break;
+            }
             for (int col = 0; col < countCols; col++) {
                 String v = getCellText(row, col);
                 maxWidths[col] = Math.max(maxWidths[col], v.length());
