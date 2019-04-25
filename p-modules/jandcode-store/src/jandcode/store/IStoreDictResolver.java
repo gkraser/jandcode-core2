@@ -1,7 +1,7 @@
 package jandcode.store;
 
 /**
- * Интерфейс для полдучения значений словарных полей.
+ * Интерфейс для получения значений словарных полей.
  */
 public interface IStoreDictResolver {
 
