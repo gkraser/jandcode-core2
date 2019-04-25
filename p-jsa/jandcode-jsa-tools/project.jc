@@ -50,7 +50,7 @@ class P extends ProjectScript {
                     "@vue/babel-helper-vue-jsx-merge-props": "1.0.0-beta.3",
                     "@vue/babel-preset-jsx": "1.0.0-beta.3",
 
-                    "gulp": "4.0.0",
+                    "gulp": "4.0.1",
                     "gulp-babel": "8.0.0",
                     "gulp-cached": "1.1.1",
                     "gulp-debug": "4.0.0",

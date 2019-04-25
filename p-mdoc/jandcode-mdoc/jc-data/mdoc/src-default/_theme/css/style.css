@@ -314,3 +314,14 @@ a, a:visited {
   padding: 4px;
   border: 1px solid red;
 }
+
+/* print
+----------------------------------------------------------------------------- */
+
+@media print
+{
+  .page-tools
+  {
+    display: none !important;
+  }
+}
