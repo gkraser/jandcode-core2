@@ -1,12 +1,13 @@
 package jandcode.store.impl;
 
+import jandcode.commons.error.*;
 import jandcode.commons.variant.*;
 import jandcode.store.*;
 
 /**
  * Предок для реализаций полей
  */
-public abstract class BaseStoreField implements StoreField {
+public abstract class BaseStoreField implements StoreField, Cloneable {
 
     private String name;
     private int index = -1;  // метка, что поле еще не использовалось
@@ -52,6 +53,14 @@ public abstract class BaseStoreField implements StoreField {
 
     public void setDict(String dict) {
         this.dict = dict;
+    }
+
+    protected BaseStoreField cloneField() {
+        try {
+            return (BaseStoreField) this.clone();
+        } catch (Throwable e) {
+            throw new XErrorWrap(e);
+        }
     }
 
 }

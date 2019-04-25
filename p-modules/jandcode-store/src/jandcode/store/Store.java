@@ -68,4 +68,13 @@ public interface Store extends INamed, INamedSet, Iterable<StoreRecord>,
 
     void setDictResolver(IStoreDictResolver dictResolver);
 
+    //////
+
+    /**
+     * Клонировать структуру store.
+     *
+     * @return новый экземпляр store с идентичной структурой без данных
+     */
+    Store cloneStore();
+
 }

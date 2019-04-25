@@ -7,7 +7,7 @@ import jandcode.store.*;
 
 import java.util.*;
 
-public abstract class BaseStore implements Store {
+public abstract class BaseStore implements Store, Cloneable {
 
     private App app;
     private String name;
@@ -202,6 +202,32 @@ public abstract class BaseStore implements Store {
 
     public void setDictResolver(IStoreDictResolver dictResolver) {
         this.dictResolver = dictResolver;
+    }
+
+    //////
+
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    public Store cloneStore() {
+        try {
+            BaseStore res = (BaseStore) this.clone();
+            res.fields = new ArrayList<>();
+            res.fieldsByName = new HashMap<>();
+            res.records = new ArrayList<>();
+            res.customProps = null;
+
+            for (BaseStoreField f : this.fields) {
+                BaseStoreField fNew = f.cloneField();
+                fNew.setIndex(-1);
+                res.addFieldInst(f.getName(), fNew);
+            }
+
+            return res;
+        } catch (Throwable e) {
+            throw new XErrorWrap(e);
+        }
     }
 
 }
