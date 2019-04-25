@@ -1,4 +1,4 @@
-package jandcode.db.impl;
+package jandcode.commons.sql;
 
 import jandcode.commons.*;
 import jandcode.commons.io.*;
