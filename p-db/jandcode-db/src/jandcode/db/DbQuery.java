@@ -10,11 +10,6 @@ import jandcode.commons.variant.*;
 public interface DbQuery extends IVariantNamed, IVariantIndexed, AutoCloseable {
 
     /**
-     * Для кого запрос
-     */
-    Db getDb();
-
-    /**
      * Поля в запросе
      */
     NamedList<DbQueryField> getFields();
@@ -23,7 +18,7 @@ public interface DbQuery extends IVariantNamed, IVariantIndexed, AutoCloseable {
      * Установить объект в качестве источников значений для параметров.
      * Этот объект должен быть преобразумым в IVariantNamed.
      * Поддерживаемый типы params можно посмотреть
-     * в методе {@link UtCnv#toVariantNamed(java.lang.Object)}.
+     * в методе {@link UtCnv#toVariantNamed(Object)}.
      * <p>
      * Значения не копируются из params. Соответсвенно, при изменении значений
      * в объекте params, изменения сразу доступны в запросе. Это можно использовать
@@ -75,11 +70,6 @@ public interface DbQuery extends IVariantNamed, IVariantIndexed, AutoCloseable {
      * Проверка на конец данных. Возвращает true, если данных больше нет.
      */
     boolean eof();
-
-    /**
-     * см. {@link DbQuery#eof()}
-     */
-    boolean getEof();
 
 
 }

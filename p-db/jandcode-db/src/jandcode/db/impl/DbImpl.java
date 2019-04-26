@@ -1,7 +1,7 @@
 package jandcode.db.impl;
 
-import jandcode.db.*;
 import jandcode.commons.error.*;
+import jandcode.db.*;
 
 import java.sql.*;
 
@@ -69,7 +69,7 @@ public class DbImpl extends BaseDbSourceMember implements Db {
     ////// query
 
     public DbQuery createQuery(String sql, Object params) {
-        return new DbQueryImpl(this, sql, params);
+        return new DbQueryImpl(this.getDbSource().getDbDriver(), getConnection(), sql, params);
     }
 
     public DbQuery createQuery(String sql) {

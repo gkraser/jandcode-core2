@@ -1,9 +1,9 @@
 package jandcode.db.impl;
 
-import jandcode.db.*;
 import jandcode.commons.*;
 import jandcode.commons.error.*;
 import jandcode.commons.variant.*;
+import jandcode.db.*;
 import org.slf4j.*;
 
 import java.util.*;
@@ -45,11 +45,7 @@ public class QueryLogger {
      * Маркировать ошибку для отладки
      */
     public void markError(Exception e) throws Exception {
-        if (query.getDb().getDbSource().getApp().isDebug()) {
-            throw new XErrorMark(e, buildDebugInfo());
-        } else {
-            throw e;
-        }
+        throw new XErrorMark(e, buildDebugInfo());
     }
 
     //////

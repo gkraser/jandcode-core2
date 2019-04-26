@@ -3,23 +3,4 @@
 
     <x-depends module="jandcode.db"/>
 
-
-    <db>
-
-        <dbsource name="test.cfg.1"
-                  cfg="cfg/db/${dbsourceName}"/>
-
-        <dbdriver name="tmp.jdbc" parent="jdbc" dbtype="tmp.jdbc.dbtype">
-            <dbsource name="default"
-                      flag2="2"/>
-        </dbdriver>
-
-    </db>
-
-    <cfg>
-        <db name="test.cfg.1"
-            dbdriver="tmp.jdbc"
-            flag1="1"/>
-    </cfg>
-
 </root>

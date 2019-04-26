@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <db>
+        <dbdriver name="h2" parent="base" class="jandcode.db.h2.H2DbDriver"
+                  dbtype="h2">
+        </dbdriver>
+    </db>
+
+</root>

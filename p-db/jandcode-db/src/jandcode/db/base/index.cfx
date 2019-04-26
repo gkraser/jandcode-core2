@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <db>
+        <dbdriver name="base" class="jandcode.db.base.BaseDbDriver"
+                  dbtype="base">
+
+            <dbsource-default>
+                <!-- конфигурация dbsource по умолчанию для драйвера -->
+            </dbsource-default>
+
+            <!-- =================== -->
+
+            <dbdatatype name="null" class="jandcode.db.dbt.Dbt_null"/>
+
+            <dbdatatype name="string" class="jandcode.db.dbt.Dbt_string"/>
+
+            <dbdatatype name="int" class="jandcode.db.dbt.Dbt_int"/>
+
+            <dbdatatype name="long" class="jandcode.db.dbt.Dbt_long"/>
+
+            <dbdatatype name="smallint" class="jandcode.db.dbt.Dbt_smallint"/>
+
+            <dbdatatype name="double" class="jandcode.db.dbt.Dbt_double"/>
+
+            <dbdatatype name="memo" class="jandcode.db.dbt.Dbt_memo"/>
+
+            <dbdatatype name="date" class="jandcode.db.dbt.Dbt_datetime"/>
+
+            <dbdatatype name="datetime" class="jandcode.db.dbt.Dbt_datetime"/>
+
+            <dbdatatype name="blob" class="jandcode.db.dbt.Dbt_blob"/>
+
+            <dbdatatype name="boolean" class="jandcode.db.dbt.Dbt_boolean"/>
+
+            <!-- =================== -->
+
+            <type name="null" dbdatatype="null"/>
+
+            <type name="java.lang.CharSequence" dbdatatype="string"/>
+            <type name="java.lang.String" dbdatatype="string"/>
+
+            <type name="java.lang.Long" dbdatatype="long"/>
+            <type name="long" dbdatatype="long"/>
+
+            <type name="java.lang.Integer" dbdatatype="int"/>
+            <type name="int" dbdatatype="int"/>
+
+            <type name="java.lang.Short" dbdatatype="smallint"/>
+            <type name="short" dbdatatype="smallint"/>
+
+            <type name="java.lang.Double" dbdatatype="double"/>
+            <type name="double" dbdatatype="double"/>
+
+            <type name="java.lang.Boolean" dbdatatype="boolean"/>
+            <type name="boolean" dbdatatype="boolean"/>
+
+            <type name="jandcode.commons.datetime.XDateTime" dbdatatype="date"/>
+
+            <type name="byte-array" dbdatatype="blob"/>
+
+        </dbdriver>
+    </db>
+
+</root>

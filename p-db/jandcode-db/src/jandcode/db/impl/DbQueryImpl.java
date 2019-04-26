@@ -12,12 +12,14 @@ import java.util.*;
 
 public class DbQueryImpl implements DbQuery {
 
-    private DbImpl db;
+    private DbDriver dbDriver;
+    private Connection connection;
+
     private String sql;
     private String sqlPrepared;
     private List<String> sqlPreparedParams;
     private IVariantNamed params;
-    private NamedList<DbQueryFieldImpl> fields = new DefaultNamedList<>();
+    private NamedList<DbQueryField> fields = new DefaultNamedList<>();
     private Statement statement;
     private ResultSet resultSet;
     private QueryLogger queryLogger;
@@ -30,8 +32,9 @@ public class DbQueryImpl implements DbQuery {
     private int lastRead = -1;
 
 
-    public DbQueryImpl(DbImpl db, String sql, Object params) {
-        this.db = db;
+    public DbQueryImpl(DbDriver dbDriver, Connection connection, String sql, Object params) {
+        this.dbDriver = dbDriver;
+        this.connection = connection;
         this.queryLogger = new QueryLogger(this);
         setSql(sql);
         setParams(params);
@@ -39,12 +42,8 @@ public class DbQueryImpl implements DbQuery {
 
     //////
 
-    public Db getDb() {
-        return db;
-    }
-
     public NamedList<DbQueryField> getFields() {
-        return (NamedList) fields;
+        return fields;
     }
 
     public void setParams(Object params) {
@@ -55,7 +54,7 @@ public class DbQueryImpl implements DbQuery {
         this.sql = sql;
         this.sqlPrepared = null;
         this.sqlPreparedParams = null;
-        if (sql == null) {
+        if (UtString.empty(sql)) {
             this.sql = "NOT-ASSIGNED-SQL";
         }
         close();
@@ -153,10 +152,6 @@ public class DbQueryImpl implements DbQuery {
         return !hasRowData;
     }
 
-    public boolean getEof() {
-        return !hasRowData;
-    }
-
     ////// impl
 
     protected String getSqlPrepared() {
@@ -172,20 +167,20 @@ public class DbQueryImpl implements DbQuery {
         if (statement != null) {
             return;
         }
-        statement = db.getConnection().prepareStatement(getSqlPrepared());
+        statement = connection.prepareStatement(getSqlPrepared());
     }
 
     protected void createStatement() throws Exception {
         if (statement != null) {
             return;
         }
-        statement = db.getConnection().createStatement();
+        statement = connection.createStatement();
     }
 
     ////// values i/o
 
     protected void assignStatementParams() throws Exception {
-        db.getDbSource().getDbDriver().assignStatementParams((PreparedStatement) statement, params, sqlPreparedParams);
+        dbDriver.assignStatementParams((PreparedStatement) statement, params, sqlPreparedParams);
     }
 
     protected void bindResultSet(ResultSet resultSet) throws Exception {
@@ -197,10 +192,9 @@ public class DbQueryImpl implements DbQuery {
         //
         fields.clear();
         ResultSetMetaData md = resultSet.getMetaData();
-        DbDriver driver = db.getDbSource().getDbDriver();
         int cols = md.getColumnCount();
         for (int i = 1; i <= cols; i++) {
-            DbDatatype dt = driver.getDbDatatype(md, i);
+            DbDataType dt = dbDriver.getDbDatatype(md, i);
             //
             String fn = md.getColumnLabel(i);
             if (fields.find(fn) != null) {
@@ -224,8 +218,8 @@ public class DbQueryImpl implements DbQuery {
                 // поле еще не читалось
                 // читаем последовательно до нужного
                 for (int i = lastRead + 1; i <= index; i++) {
-                    DbQueryFieldImpl vf = fields.get(i);
-                    data[i] = vf.getDbDatatype().getValue(resultSet, i + 1);
+                    DbQueryField vf = fields.get(i);
+                    data[i] = vf.getDbDataType().getValue(resultSet, i + 1);
                 }
                 lastRead = index;
             }

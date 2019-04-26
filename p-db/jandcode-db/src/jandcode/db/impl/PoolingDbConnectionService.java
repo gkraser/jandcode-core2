@@ -1,8 +1,8 @@
 package jandcode.db.impl;
 
-import jandcode.db.*;
 import jandcode.commons.*;
 import jandcode.commons.error.*;
+import jandcode.db.*;
 import org.apache.commons.dbcp2.*;
 
 import java.sql.*;
@@ -105,7 +105,7 @@ public class PoolingDbConnectionService extends BaseDbSourceMember implements Db
         }
 
         // init sql
-        List<String> sqls = dbSource.getDbDriver().getInitConnectionSqls();
+        List<String> sqls = dbSource.getInitConnectionSqls();
         if (sqls != null && sqls.size() > 0) {
             bds.setConnectionInitSqls(sqls);
         }

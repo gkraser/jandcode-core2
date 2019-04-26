@@ -1,20 +1,22 @@
 package jandcode.db.impl;
 
-import jandcode.core.*;
-import jandcode.db.*;
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
+import jandcode.core.*;
+import jandcode.db.*;
 
 import java.util.*;
 
 public class DbSourceImpl extends BaseComp implements DbSource, ISubstVar, IBeanIniter {
 
-    private MapSubst props = new MapSubst();
     private DbDriver dbDriver;
+    private Conf conf;
+
+    private MapSubst props = new MapSubst();
     private ThreadLocalDb threadLocalDb = new ThreadLocalDb();
     private BeanFactory beanFactory = new DefaultBeanFactory(this);
-    private DbSourceDef dbSourceDef;
-    private Conf conf;
+
+    private List<String> initConnectionSqls;
 
     protected class ThreadLocalDb extends ThreadLocal<Db> {
         protected Db initialValue() {
@@ -49,10 +51,6 @@ public class DbSourceImpl extends BaseComp implements DbSource, ISubstVar, IBean
         for (Map.Entry<String, Object> a : this.conf.entrySet()) {
             getProps().put(a.getKey(), UtCnv.toString(a.getValue()));
         }
-        //
-        DbDriverDef drvdef = getApp().bean(DbService.class).getDbDrivers()
-                .get(getConf().getString("dbdriver", DbConsts.DBDRIVER_DEFAULT));
-        dbDriver = drvdef.createInst(this);
 
         //
         getBeanFactory().beanConfigure(cfg);
@@ -80,6 +78,10 @@ public class DbSourceImpl extends BaseComp implements DbSource, ISubstVar, IBean
         return dbDriver;
     }
 
+    protected void setDbDriver(DbDriver dbDriver) {
+        this.dbDriver = dbDriver;
+    }
+
     public Db createDb() {
         return create(DbImpl.class);
     }
@@ -90,13 +92,6 @@ public class DbSourceImpl extends BaseComp implements DbSource, ISubstVar, IBean
 
     public String getDbType() {
         return getDbDriver().getDbType();
-    }
-
-    /**
-     * Установка создателя
-     */
-    public void setDbSourceDef(DbSourceDef dbSourceDef) {
-        this.dbSourceDef = dbSourceDef;
     }
 
     //////
@@ -137,7 +132,32 @@ public class DbSourceImpl extends BaseComp implements DbSource, ISubstVar, IBean
     //////
 
     public DbSource cloneComp() {
-        return dbSourceDef.createInst();
+        return getApp().create(this.conf, DbSourceImpl.class, (inst) -> {
+            ((DbSourceImpl) inst).setDbDriver(dbDriver);
+        });
+    }
+
+    //////
+
+    public List<String> getInitConnectionSqls() {
+        if (initConnectionSqls == null) {
+            synchronized (this) {
+                if (initConnectionSqls == null) {
+                    initConnectionSqls = grabInitConnectionSqls();
+                }
+            }
+        }
+        return initConnectionSqls;
+    }
+
+    protected List<String> grabInitConnectionSqls() {
+        List<String> res = new ArrayList<>();
+        Map<String, String> p = getProps(DbSourcePropsConsts.initConnectionSql, false);
+        TreeMap<String, String> m = new TreeMap<>(p);
+        for (String s : m.values()) {
+            res.add(s);
+        }
+        return res;
     }
 
 }

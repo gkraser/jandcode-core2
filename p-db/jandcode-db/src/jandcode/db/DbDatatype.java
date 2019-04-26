@@ -1,6 +1,6 @@
 package jandcode.db;
 
-import jandcode.core.*;
+import jandcode.commons.named.*;
 import jandcode.commons.variant.*;
 
 import java.sql.*;
@@ -8,7 +8,7 @@ import java.sql.*;
 /**
  * Тип данных для базы данных.
  */
-public interface DbDatatype extends Comp, IDbSourceMember {
+public interface DbDataType extends INamed {
 
     /**
      * Прочитать значение из ResultSet.
@@ -32,19 +32,6 @@ public interface DbDatatype extends Comp, IDbSourceMember {
     /**
      * Тип данных (см. {@link VariantDataType})
      */
-    VariantDataType getDatatype();
-
-    /**
-     * Возвращает sql тип для создания поля. В типе может использоватся '${size}', который
-     * заменяется на размер.
-     */
-    String getSqlType();
-
-    /**
-     * Возвращает sql тип для создания поля.
-     *
-     * @param size размер поля, указывается для строковых данных
-     */
-    String getSqlType(long size);
+    VariantDataType getDataType();
 
 }

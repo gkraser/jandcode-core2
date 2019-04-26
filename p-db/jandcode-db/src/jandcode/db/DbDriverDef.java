@@ -1,21 +1,20 @@
 package jandcode.db;
 
 import jandcode.core.*;
-import jandcode.commons.conf.*;
 
 /**
  * Объявление dbdriver
  */
-public interface DbDriverDef extends Comp, IConfLink {
+public interface DbDriverDef extends Comp {
 
     /**
-     * Создать экземпляр для указанного dbsource
+     * Создать экземпляр
      */
-    DbDriver createInst(DbSource dbSource);
+    DbDriver createInst();
 
     /**
-     * Тип базы данных для этого драйвера
+     * Получить кешированный экземпляр
      */
-    String getDbType();
+    DbDriver getInst();
 
 }

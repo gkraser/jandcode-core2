@@ -13,7 +13,7 @@ public class DbConsts {
     /**
      * Драйвер по умолчанию
      */
-    public static final String DBDRIVER_DEFAULT = "jdbc";
+    public static final String DBDRIVER_DEFAULT = "base";
 
     /**
      * Бин для прямого соединения, без пула.

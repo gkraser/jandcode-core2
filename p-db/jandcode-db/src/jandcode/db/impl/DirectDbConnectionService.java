@@ -1,8 +1,8 @@
 package jandcode.db.impl;
 
-import jandcode.db.*;
 import jandcode.commons.*;
 import jandcode.commons.error.*;
+import jandcode.db.*;
 
 import java.sql.*;
 import java.util.*;
@@ -48,7 +48,7 @@ public class DirectDbConnectionService extends BaseDbSourceMember implements DbC
             }
 
             // init sql
-            List<String> sqls = dbSource.getDbDriver().getInitConnectionSqls();
+            List<String> sqls = dbSource.getInitConnectionSqls();
             if (sqls != null && sqls.size() > 0) {
                 Statement st = conn.createStatement();
                 try {

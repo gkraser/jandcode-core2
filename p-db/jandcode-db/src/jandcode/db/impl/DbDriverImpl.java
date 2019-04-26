@@ -1,42 +1,42 @@
 package jandcode.db.impl;
 
-import jandcode.core.*;
-import jandcode.db.*;
 import jandcode.commons.*;
+import jandcode.commons.conf.*;
 import jandcode.commons.error.*;
 import jandcode.commons.named.*;
-import jandcode.commons.conf.*;
 import jandcode.commons.variant.*;
+import jandcode.core.*;
+import jandcode.db.*;
 
 import java.sql.*;
 import java.util.*;
 
-public class DbDriverImpl extends BaseDbSourceMember implements DbDriver {
+public class DbDriverImpl extends BaseComp implements DbDriver {
 
+    private Conf conf;
     private String dbType;
-    private NamedList<DbDatatype> dbDatatypes = new DefaultNamedList<>();
+    private NamedList<DbDataType> dbDataTypes = new DefaultNamedList<>();
     private ClassLinks<String> dbDatatypesByClass = new ClassLinks<>();
-    private List<String> initConnectionSqls;
 
     //////
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
         //
-        Conf conf = cfg.getConf();
+        this.conf = cfg.getConf();
         //
-        for (Conf x : conf.getConfs("dbdatatype")) {
-            addDbDatatype(x);
+        for (Conf x : this.conf.getConfs("dbdatatype")) {
+            addDbDataType(x);
         }
         //
-        for (Conf x : conf.getConfs("type")) {
+        for (Conf x : this.conf.getConfs("type")) {
             addType(x);
         }
     }
 
-    protected void addDbDatatype(Conf x) {
-        DbDatatype r = (DbDatatype) getDbSource().create(x);
-        dbDatatypes.add(r);
+    protected void addDbDataType(Conf x) {
+        DbDataType r = (DbDataType) getApp().create(x);
+        dbDataTypes.add(r);
     }
 
     protected void addType(Conf x) {
@@ -49,6 +49,10 @@ public class DbDriverImpl extends BaseDbSourceMember implements DbDriver {
 
     //////
 
+    public Conf getConf() {
+        return conf;
+    }
+
     public String getDbType() {
         return dbType;
     }
@@ -59,8 +63,8 @@ public class DbDriverImpl extends BaseDbSourceMember implements DbDriver {
 
     //////
 
-    public NamedList<DbDatatype> getDbDatatypes() {
-        return dbDatatypes;
+    public NamedList<DbDataType> getDbDataTypes() {
+        return dbDataTypes;
     }
 
     protected ClassLinks<String> getDbDatatypesByClass() {
@@ -138,7 +142,7 @@ public class DbDriverImpl extends BaseDbSourceMember implements DbDriver {
     /**
      * dbdatatype для значения
      */
-    protected DbDatatype getDbDatatype(Object value) {
+    protected DbDataType getDbDatatype(Object value) {
         String cn = "null";
         if (value != null) {
             cn = value.getClass().getName();
@@ -147,17 +151,17 @@ public class DbDriverImpl extends BaseDbSourceMember implements DbDriver {
         if (nm == null) {
             throw new XError("Не определен dbdatatype для класса {0}", cn);
         }
-        return getDbDatatypes().get(nm);
+        return getDbDataTypes().get(nm);
     }
 
-    public DbDatatype getDbDatatype(ResultSetMetaData md, int colIdx) throws Exception {
+    public DbDataType getDbDatatype(ResultSetMetaData md, int colIdx) throws Exception {
         String nm = getDbDatatypeName(md, colIdx);
-        return getDbDatatypes().get(nm);
+        return getDbDataTypes().get(nm);
     }
 
-    public DbDatatype getDbDatatype(int sqlType) throws Exception {
+    public DbDataType getDbDatatype(int sqlType) throws Exception {
         String nm = getDbDatatypeName(sqlType);
-        return getDbDatatypes().get(nm);
+        return getDbDataTypes().get(nm);
     }
 
     //////
@@ -180,31 +184,10 @@ public class DbDriverImpl extends BaseDbSourceMember implements DbDriver {
                 setNullParam(statement, paramIdx, dt);
             } else {
                 Object value = paramValues.getValue(paramName);
-                DbDatatype dbdt = getDbDatatype(value);
+                DbDataType dbdt = getDbDatatype(value);
                 dbdt.setValue(statement, paramIdx, value);
             }
         }
-    }
-
-    public List<String> getInitConnectionSqls() {
-        if (initConnectionSqls == null) {
-            synchronized (this) {
-                if (initConnectionSqls == null) {
-                    initConnectionSqls = grabInitConnectionSqls();
-                }
-            }
-        }
-        return initConnectionSqls;
-    }
-
-    protected List<String> grabInitConnectionSqls() {
-        List<String> res = new ArrayList<>();
-        Map<String, String> p = getDbSource().getProps(DbSourcePropsConsts.initConnectionSql, false);
-        TreeMap<String, String> m = new TreeMap<>(p);
-        for (String s : m.values()) {
-            res.add(s);
-        }
-        return res;
     }
 
 }

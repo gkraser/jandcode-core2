@@ -1,29 +1,32 @@
 package jandcode.db.impl;
 
+import jandcode.commons.conf.*;
 import jandcode.core.*;
 import jandcode.db.*;
-import jandcode.commons.conf.*;
 
 public class DbDriverDefImpl extends BaseComp implements DbDriverDef {
 
     private Conf conf;
+    private DbDriver inst;
 
-    public DbDriverDefImpl(App app, Conf conf, String name) {
+    public DbDriverDefImpl(App app, Conf conf) {
         setApp(app);
-        setName(name);
         this.conf = conf;
+        setName(this.conf.getName());
     }
 
-    public DbDriver createInst(DbSource dbSource) {
-        return (DbDriver) dbSource.create(conf);
+    public DbDriver createInst() {
+        return (DbDriver) getApp().create(conf);
     }
 
-    public Conf getConf() {
-        return conf;
+    public DbDriver getInst() {
+        if (this.inst == null) {
+            synchronized (this) {
+                if (this.inst == null) {
+                    this.inst = createInst();
+                }
+            }
+        }
+        return this.inst;
     }
-
-    public String getDbType() {
-        return this.conf.getString("dbtype");
-    }
-
 }

@@ -1,7 +1,7 @@
 package jandcode.db;
 
-import jandcode.core.*;
 import jandcode.commons.conf.*;
+import jandcode.core.*;
 
 import java.util.*;
 
@@ -70,5 +70,17 @@ public interface DbSource extends Comp, IConfLink, BeanFactoryOwner {
      * Клонировать этот объект
      */
     DbSource cloneComp();
+
+    //////
+
+    /**
+     * Возвращает список sql, которые нужно выполнить при установке соединения.
+     * Может возвращает null, если такие sql не требуются.
+     * <p>
+     * По умолчанию данные собираются из свойств dbsource initConnectionSql.XXX.
+     * Сортируются по имени свойства.
+     */
+    List<String> getInitConnectionSqls();
+
 
 }
