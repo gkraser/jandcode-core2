@@ -4,8 +4,17 @@
     <x-depends module="jandcode.db"/>
 
     <cfg>
+
         <dbsource name="test1" dbdriver="h2.mem"
                   param1="1"/>
+
+        <dbsource name="props1" dbdriver="h2.mem"
+                  p1="P1"
+                  p2="2-${p1}"
+                  p3="3-${p2}"
+
+        />
+
     </cfg>
 
 </root>

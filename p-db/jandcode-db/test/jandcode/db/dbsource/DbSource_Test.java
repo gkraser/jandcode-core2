@@ -34,11 +34,11 @@ public class DbSource_Test extends App_Test {
 
     @Test
     public void props1() throws Exception {
-        DbSource dbs = svc.createDbSource("test1");
+        DbSource dbs = svc.createDbSource("props1");
         utils.delim("prop");
         utils.outMap(dbs.getProps());
         //
-        assertFalse(dbs.getProps().containsKey("bean"));
+        assertEquals(dbs.getProps().get("p3"), "3-2-P1");
 
     }
 
