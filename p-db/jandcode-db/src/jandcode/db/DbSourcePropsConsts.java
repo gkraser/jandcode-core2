@@ -6,12 +6,6 @@ package jandcode.db;
 public class DbSourcePropsConsts {
 
     /**
-     * Свойство 'jdbcDriverClass'. Класс jdbc-драйвера. Обычно явно не задается
-     * и определяется конкретным драйвером базы данных.
-     */
-    public static final String jdbcDriverClass = "jdbcDriverClass";
-
-    /**
      * Имя базы данных
      */
     public static final String database = "database";

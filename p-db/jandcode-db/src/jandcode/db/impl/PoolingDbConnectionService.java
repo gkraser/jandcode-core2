@@ -73,16 +73,6 @@ public class PoolingDbConnectionService extends BaseDbSourceMember implements Db
         dbcpProps.putAll(dbSource.getProps("dbcp", false));
         BasicDataSource bds = BasicDataSourceFactory.createDataSource(dbcpProps);
 
-        String cn = dbSource.getProps().get(DbSourcePropsConsts.jdbcDriverClass);
-        if (UtString.empty(cn)) {
-            throw new XError("Не указано свойство jdbcDriverClass для DbSource [{0}]", dbSource.getName());
-        }
-        try {
-            UtClass.getClass(cn);
-        } catch (Exception e) {
-            throw new XErrorWrap(e);
-        }
-        bds.setDriverClassName(cn);
         bds.setUrl(dbSource.getProps().get(DbSourcePropsConsts.url));
         String s = dbSource.getProps().get(DbSourcePropsConsts.username);
         if (s != null) {

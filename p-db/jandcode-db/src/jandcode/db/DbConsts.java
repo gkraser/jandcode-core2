@@ -18,6 +18,6 @@ public class DbConsts {
     /**
      * Бин для прямого соединения, без пула.
      */
-    public static final String BEAN_DIRECT_CONNECT = "direct.connection";
+    public static final String BEAN_DIRECT_CONNECT = "connectionService.direct";
 
 }

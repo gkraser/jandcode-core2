@@ -6,6 +6,13 @@
     <cfg>
         <dbsource name="dbSource_byName"
                   param1="1"/>
+
+        <dbsource name="test.h2"
+                  dbdriver="h2"
+                  url="jdbc:h2:mem:${database};DB_CLOSE_DELAY=-1"
+                  database="test_h2"
+        />
+
     </cfg>
 
 </root>

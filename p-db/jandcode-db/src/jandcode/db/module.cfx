@@ -17,8 +17,12 @@
 
     <db>
         <dbsource-default
-                dbdriver="h2"
-        />
+                dbdriver="h2">
+
+            <bean name="connectionService.direct"
+                  class="jandcode.db.impl.DirectDbConnectionService"/>
+
+        </dbsource-default>
     </db>
 
 </root>

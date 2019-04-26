@@ -16,15 +16,6 @@ public class DirectDbConnectionService extends BaseDbSourceMember implements DbC
         String s;
         // проверка наличия драйвера
         DbSource dbSource = getDbSource();
-        s = dbSource.getProps().get(DbSourcePropsConsts.jdbcDriverClass);
-        if (UtString.empty(s)) {
-            throw new XError("Не указано свойство jdbcDriverClass для DbSource [{0}]", dbSource.getName());
-        }
-        try {
-            UtClass.getClass(s);
-        } catch (Exception e) {
-            throw new XErrorWrap(e);
-        }
 
         //
         try {
