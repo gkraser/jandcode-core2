@@ -16,8 +16,7 @@
     <x-include path="h2/index.cfx"/>
 
     <db>
-        <dbsource-default
-                dbdriver="h2">
+        <dbsource-default>
 
             <bean name="connectionService.direct"
                   class="jandcode.db.impl.DirectDbConnectionService"/>

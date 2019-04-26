@@ -49,7 +49,12 @@ public class DbSourceImpl extends BaseComp implements DbSource, ISubstVar, IBean
         //
         this.conf = cfg.getConf();
         for (Map.Entry<String, Object> a : this.conf.entrySet()) {
-            getProps().put(a.getKey(), UtCnv.toString(a.getValue()));
+            String key = a.getKey();
+            Object value = a.getValue();
+            if (value instanceof Conf) {
+                continue;
+            }
+            getProps().put(key, UtCnv.toString(value));
         }
 
         //
