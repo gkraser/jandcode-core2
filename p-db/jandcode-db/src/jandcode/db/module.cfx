@@ -4,6 +4,11 @@
     <bean name="jandcode.db.DbDriverService"
           class="jandcode.db.impl.DbDriverServiceImpl"/>
 
+    <bean name="jandcode.db.DbService"
+          class="jandcode.db.impl.DbServiceImpl"/>
+
+    <!-- ===================================================================== -->
+
     <db>
     </db>
 

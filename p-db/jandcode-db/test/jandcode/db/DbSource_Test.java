@@ -16,5 +16,4 @@ public class DbSource_Test extends App_Test {
         utils.outMap(dbs.getConf());
     }
 
-
 }

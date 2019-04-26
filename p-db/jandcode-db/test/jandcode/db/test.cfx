@@ -3,4 +3,9 @@
 
     <x-depends module="jandcode.db"/>
 
+    <cfg>
+        <dbsource name="dbSource_byName"
+                  param1="1"/>
+    </cfg>
+
 </root>
