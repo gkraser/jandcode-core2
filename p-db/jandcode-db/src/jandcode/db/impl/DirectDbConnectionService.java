@@ -54,7 +54,7 @@ public class DirectDbConnectionService extends BaseDbSourceMember implements DbC
                 try {
                     for (String sql : sqls) {
                         try {
-                            st.executeUpdate(sql);
+                            st.execute(sql);
                         } catch (Exception e) {
                             throw new XErrorMark(e, "initConnectionSql: " + sql);
                         }
