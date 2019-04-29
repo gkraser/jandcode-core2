@@ -29,7 +29,7 @@ public class DbSourceFactory {
         dbSourceConf.join(params);
 
         // получаем dbdriver
-        String dbDriverName = dbSourceConf.getString("dbdriver");
+        String dbDriverName = dbSourceConf.getString("dbdriver", DbConsts.DBDRIVER_DEFAULT);
         if (UtString.empty(dbDriverName)) {
             throw new XError("Не указан параметр dbdriver");
         }
