@@ -21,8 +21,6 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
     private ThreadLocalDb threadLocalDb = new ThreadLocalDb();
     private BeanFactory beanFactory = new DefaultBeanFactory(this);
 
-    private List<String> initConnectionSqls;
-
     protected class ThreadLocalDb extends ThreadLocal<Db> {
         protected Db initialValue() {
             return createDb();
@@ -85,13 +83,17 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
 
     //////
 
-    public void setProp(String name, Object value) {
+    protected void clearPropsCache() {
         this.props = null;
+    }
+
+    public void setProp(String name, Object value) {
+        clearPropsCache();
         this.propsRaw.put(name, value);
     }
 
     public void setProps(Map<String, Object> props) {
-        this.props = null;
+        clearPropsCache();
         this.propsRaw.putAll(props);
     }
 
@@ -142,25 +144,12 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
 
     //////
 
-    public List<String> getInitConnectionSqls() {
-        if (initConnectionSqls == null) {
-            synchronized (this) {
-                if (initConnectionSqls == null) {
-                    initConnectionSqls = grabInitConnectionSqls();
-                }
-            }
-        }
-        return initConnectionSqls;
+    public DbConnectionService getConnectionService() {
+        return bean(DbConnectionService.class);
     }
 
-    protected List<String> grabInitConnectionSqls() {
-        List<String> res = new ArrayList<>();
-        IVariantMap p = getProps(DbSourcePropsConsts.initConnectionSql, false);
-        TreeMap<String, Object> m = new TreeMap<>(p);
-        for (Object s : m.values()) {
-            res.add(UtCnv.toString(s));
-        }
-        return res;
+    public DbConnectionService getConnectionDirectService() {
+        return (DbConnectionService) bean(DbConsts.BEAN_DIRECT_CONNECT);
     }
 
 }

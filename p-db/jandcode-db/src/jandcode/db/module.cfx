@@ -18,8 +18,11 @@
     <db>
         <dbsource-default>
 
+            <bean name="jandcode.db.DbConnectionService"
+                  class="jandcode.db.std.PoolingDbConnectionService"/>
+
             <bean name="connectionService.direct"
-                  class="jandcode.db.impl.DirectDbConnectionService"/>
+                  class="jandcode.db.std.DirectDbConnectionService"/>
 
         </dbsource-default>
     </db>

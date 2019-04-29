@@ -1,7 +1,8 @@
-package jandcode.db.impl;
+package jandcode.db.std;
 
 import jandcode.commons.*;
 import jandcode.commons.error.*;
+import jandcode.commons.variant.*;
 import jandcode.db.*;
 
 import java.sql.*;
@@ -10,37 +11,39 @@ import java.util.*;
 /**
  * Реализация соединения без пулов, прямое.
  */
-public class DirectDbConnectionService extends BaseDbSourceMember implements DbConnectionService {
+public class DirectDbConnectionService extends BaseDbConnectionService {
 
     public Connection connect() {
         String s;
-        // проверка наличия драйвера
+
+        //
         DbSource dbSource = getDbSource();
+        IVariantMap dbsProps = dbSource.getProps();
 
         //
         try {
             Properties props = new Properties();
-            s = dbSource.getProps().getString(DbSourcePropsConsts.username);
+            s = dbsProps.getString(DbSourcePropsConsts.username, null);
             if (s != null) {
                 props.put("user", s);
             }
-            s = dbSource.getProps().getString(DbSourcePropsConsts.password);
+            s = dbsProps.getString(DbSourcePropsConsts.password, null);
             if (s != null) {
                 // возможно пустой пароль
                 props.put("password", s);
             }
             props.putAll(dbSource.getProps("conn", false));
-            s = dbSource.getProps().getString(DbSourcePropsConsts.url);
+            s = dbsProps.getString(DbSourcePropsConsts.url);
             Connection conn = DriverManager.getConnection(s, props);
 
-            String databaseName = dbSource.getProps().getString(DbSourcePropsConsts.database);
+            String databaseName = dbsProps.getString(DbSourcePropsConsts.database);
             if (!UtString.empty(databaseName)) {
                 conn.setCatalog(databaseName);
             }
 
             // init sql
-            List<String> sqls = dbSource.getInitConnectionSqls();
-            if (sqls != null && sqls.size() > 0) {
+            List<String> sqls = getInitConnectionSqls();
+            if (sqls.size() > 0) {
                 Statement st = conn.createStatement();
                 try {
                     for (String sql : sqls) {
@@ -58,16 +61,6 @@ public class DirectDbConnectionService extends BaseDbSourceMember implements DbC
             return conn;
         } catch (Exception e) {
             throw new XErrorWrap(e);
-        }
-    }
-
-    public void disconnect(Connection conn) {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                throw new XErrorWrap(e);
-            }
         }
     }
 

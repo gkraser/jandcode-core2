@@ -1,4 +1,4 @@
-package jandcode.db.impl;
+package jandcode.db.std;
 
 import jandcode.commons.*;
 import jandcode.commons.error.*;
@@ -14,7 +14,7 @@ import java.util.*;
  * dbcp.XXXX, где XXX можно посмотреть тут:
  * https://commons.apache.org/proper/commons-dbcp/configuration.html
  */
-public class PoolingDbConnectionService extends BaseDbSourceMember implements DbConnectionService {
+public class PoolingDbConnectionService extends BaseDbConnectionService {
 
     protected BasicDataSource datasource;
 
@@ -25,16 +25,6 @@ public class PoolingDbConnectionService extends BaseDbSourceMember implements Db
             return getDatasource().getConnection();
         } catch (Exception e) {
             throw new XErrorWrap(e);
-        }
-    }
-
-    public void disconnect(Connection conn) {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                throw new XErrorWrap(e);
-            }
         }
     }
 
@@ -68,23 +58,24 @@ public class PoolingDbConnectionService extends BaseDbSourceMember implements Db
     protected BasicDataSource createDatasource() throws Exception {
 
         DbSource dbSource = getDbSource();
+        IVariantMap dbsProps = dbSource.getProps();
 
         // создаем datasource с использованием свойств dbcp.XXXX
         Properties dbcpProps = new Properties();
         dbcpProps.putAll(dbSource.getProps("dbcp", false));
         BasicDataSource bds = BasicDataSourceFactory.createDataSource(dbcpProps);
 
-        bds.setUrl(dbSource.getProps().getString(DbSourcePropsConsts.url));
-        String s = dbSource.getProps().getString(DbSourcePropsConsts.username);
+        bds.setUrl(dbsProps.getString(DbSourcePropsConsts.url));
+        String s = dbsProps.getString(DbSourcePropsConsts.username, null);
         if (s != null) {
             bds.setUsername(s);
         }
-        s = dbSource.getProps().getString(DbSourcePropsConsts.password);
+        s = dbsProps.getString(DbSourcePropsConsts.password, null);
         if (s != null) {
             // возможно пустой пароль
             bds.setPassword(s);
         }
-        s = dbSource.getProps().getString(DbSourcePropsConsts.database);
+        s = dbsProps.getString(DbSourcePropsConsts.database);
         if (!UtString.empty(s)) {
             bds.setDefaultCatalog(s);
         }
@@ -96,8 +87,8 @@ public class PoolingDbConnectionService extends BaseDbSourceMember implements Db
         }
 
         // init sql
-        List<String> sqls = dbSource.getInitConnectionSqls();
-        if (sqls != null && sqls.size() > 0) {
+        List<String> sqls = getInitConnectionSqls();
+        if (sqls.size() > 0) {
             bds.setConnectionInitSqls(sqls);
         }
 

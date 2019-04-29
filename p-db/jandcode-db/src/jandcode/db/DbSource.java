@@ -95,13 +95,13 @@ public interface DbSource extends Comp, IConfLink, BeanFactoryOwner {
     //////
 
     /**
-     * Возвращает список sql, которые нужно выполнить при установке соединения.
-     * Может возвращает null, если такие sql не требуются.
-     * <p>
-     * По умолчанию данные собираются из свойств dbsource initConnectionSql.XXX.
-     * Сортируются по имени свойства.
+     * Сервис для установки соединенй.
      */
-    List<String> getInitConnectionSqls();
+    DbConnectionService getConnectionService();
 
+    /**
+     * Сервис для установки соединенй без использования пула.
+     */
+    DbConnectionService getConnectionDirectService();
 
 }

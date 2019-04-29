@@ -16,9 +16,9 @@ public class DbImpl extends BaseDbSourceMember implements Db {
 
     protected DbConnectionService getConnectionService(boolean direct) {
         if (direct) {
-            return (DbConnectionService) getDbSource().bean(DbConsts.BEAN_DIRECT_CONNECT);
+            return getDbSource().getConnectionDirectService();
         } else {
-            return getDbSource().bean(DbConnectionService.class);
+            return getDbSource().getConnectionService();
         }
     }
 
