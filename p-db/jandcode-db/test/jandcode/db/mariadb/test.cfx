@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-depends module="jandcode.db"/>
+
+    <cfg>
+
+        <dbsource name="test1"
+                  dbdriver="mariadb"
+                  database="jc2_db_test"
+                  username="root"
+        />
+
+    </cfg>
+
+</root>

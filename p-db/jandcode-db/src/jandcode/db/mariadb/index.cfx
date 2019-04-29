@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <db>
+        <dbdriver name="mariadb" parent="base" class="jandcode.db.mariadb.MariadbDbDriver"
+                  dbtype="mysql">
+            <dbsource-default
+                    url="jdbc:mariadb://${host}"
+                    host="localhost"
+                    system.database="mysql"
+                    system.username="root"
+                    dbcp.validationQuery="select 1"
+                    conn.serverTimezone="UTC"
+                    conn.useSSL="false">
+            </dbsource-default>
+        </dbdriver>
+
+    </db>
+
+</root>
