@@ -18,9 +18,13 @@
 
             </dbsource-default>
 
-            <dbdatatype name="date" class="jandcode.db.mariadb.MariadbDbt_datetime"/>
+            <dbdatatype name="memo" sqltype="text"/>
 
-            <dbdatatype name="datetime" class="jandcode.db.mariadb.MariadbDbt_datetime"/>
+            <dbdatatype name="date" class="jandcode.db.mariadb.MariadbDbt_datetime"
+                        sqltype="date"/>
+
+            <dbdatatype name="datetime" class="jandcode.db.mariadb.MariadbDbt_datetime"
+                        sqltype="date"/>
 
         </dbdriver>
 
