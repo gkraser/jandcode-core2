@@ -42,4 +42,15 @@ public class DbSource_Test extends App_Test {
 
     }
 
+    @Test
+    public void clone1() throws Exception {
+        DbSource dbs = svc.createDbSource("props1");
+        DbSource dbs2 = dbs.cloneComp();
+        utils.delim("prop");
+        utils.outMap(dbs2.getProps());
+        //
+        assertEquals(dbs2.getProps().get("p3"), "3-2-P1");
+
+    }
+
 }

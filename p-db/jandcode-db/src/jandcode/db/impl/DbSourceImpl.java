@@ -86,8 +86,13 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
     //////
 
     public void setProp(String name, Object value) {
-        props = null;
-        propsRaw.put(name, value);
+        this.props = null;
+        this.propsRaw.put(name, value);
+    }
+
+    public void setProps(Map<String, Object> props) {
+        this.props = null;
+        this.propsRaw.putAll(props);
     }
 
     public IVariantMap getProps() {
@@ -128,9 +133,11 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
     //////
 
     public DbSource cloneComp() {
-        return getApp().create(this.conf, DbSourceImpl.class, (inst) -> {
+        DbSourceImpl dbs = getApp().create(this.conf, DbSourceImpl.class, (inst) -> {
             ((DbSourceImpl) inst).setDbDriver(dbDriver);
         });
+        dbs.propsRaw.putAll(propsRaw);
+        return dbs;
     }
 
     //////

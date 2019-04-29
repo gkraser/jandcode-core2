@@ -51,6 +51,13 @@ public interface DbSource extends Comp, IConfLink, BeanFactoryOwner {
     void setProp(String name, Object value);
 
     /**
+     * Установить значения свойств.
+     *
+     * @param props свойства
+     */
+    void setProps(Map<String, Object> props);
+
+    /**
      * Свойства базы данных. Имена свойств регистрозависимые.
      * В значениях раскрыты подстановки ${propname}.
      * <p>
