@@ -20,20 +20,20 @@ public class DirectDbConnectionService extends BaseDbSourceMember implements DbC
         //
         try {
             Properties props = new Properties();
-            s = dbSource.getProps().get(DbSourcePropsConsts.username);
+            s = dbSource.getProps().getString(DbSourcePropsConsts.username);
             if (s != null) {
                 props.put("user", s);
             }
-            s = dbSource.getProps().get(DbSourcePropsConsts.password);
+            s = dbSource.getProps().getString(DbSourcePropsConsts.password);
             if (s != null) {
                 // возможно пустой пароль
                 props.put("password", s);
             }
             props.putAll(dbSource.getProps("conn", false));
-            s = dbSource.getProps().get(DbSourcePropsConsts.url);
+            s = dbSource.getProps().getString(DbSourcePropsConsts.url);
             Connection conn = DriverManager.getConnection(s, props);
 
-            String databaseName = dbSource.getProps().get(DbSourcePropsConsts.database);
+            String databaseName = dbSource.getProps().getString(DbSourcePropsConsts.database);
             if (!UtString.empty(databaseName)) {
                 conn.setCatalog(databaseName);
             }

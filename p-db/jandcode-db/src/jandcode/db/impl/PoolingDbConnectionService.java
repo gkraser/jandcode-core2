@@ -2,6 +2,7 @@ package jandcode.db.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.error.*;
+import jandcode.commons.variant.*;
 import jandcode.db.*;
 import org.apache.commons.dbcp2.*;
 
@@ -73,25 +74,25 @@ public class PoolingDbConnectionService extends BaseDbSourceMember implements Db
         dbcpProps.putAll(dbSource.getProps("dbcp", false));
         BasicDataSource bds = BasicDataSourceFactory.createDataSource(dbcpProps);
 
-        bds.setUrl(dbSource.getProps().get(DbSourcePropsConsts.url));
-        String s = dbSource.getProps().get(DbSourcePropsConsts.username);
+        bds.setUrl(dbSource.getProps().getString(DbSourcePropsConsts.url));
+        String s = dbSource.getProps().getString(DbSourcePropsConsts.username);
         if (s != null) {
             bds.setUsername(s);
         }
-        s = dbSource.getProps().get(DbSourcePropsConsts.password);
+        s = dbSource.getProps().getString(DbSourcePropsConsts.password);
         if (s != null) {
             // возможно пустой пароль
             bds.setPassword(s);
         }
-        s = dbSource.getProps().get(DbSourcePropsConsts.database);
+        s = dbSource.getProps().getString(DbSourcePropsConsts.database);
         if (!UtString.empty(s)) {
             bds.setDefaultCatalog(s);
         }
 
         // connection properties
-        Map<String, String> props = dbSource.getProps("conn", false);
+        IVariantMap props = dbSource.getProps("conn", false);
         for (String key : props.keySet()) {
-            bds.addConnectionProperty(key, props.get(key));
+            bds.addConnectionProperty(key, props.getString(key));
         }
 
         // init sql

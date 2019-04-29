@@ -1,18 +1,23 @@
 package jandcode.db.impl;
 
 import jandcode.commons.*;
+import jandcode.commons.collect.*;
 import jandcode.commons.conf.*;
+import jandcode.commons.variant.*;
 import jandcode.core.*;
 import jandcode.db.*;
 
 import java.util.*;
 
-public class DbSourceImpl extends BaseComp implements DbSource, ISubstVar, IBeanIniter {
+public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
 
     private DbDriver dbDriver;
     private Conf conf;
 
-    private MapSubst props = new MapSubst();
+    private IVariantMap props;
+    private IVariantMap propsRaw = new VariantMap();
+    private PropsExpander propsExp = new PropsExpander(propsRaw);
+
     private ThreadLocalDb threadLocalDb = new ThreadLocalDb();
     private BeanFactory beanFactory = new DefaultBeanFactory(this);
 
@@ -21,27 +26,6 @@ public class DbSourceImpl extends BaseComp implements DbSource, ISubstVar, IBean
     protected class ThreadLocalDb extends ThreadLocal<Db> {
         protected Db initialValue() {
             return createDb();
-        }
-    }
-
-    // map с подстановками
-    protected class MapSubst extends HashMap<String, String> implements ISubstVar {
-
-        public String get(Object key) {
-            String v = super.get(key);
-            return UtString.substVar(v, this);
-        }
-
-        public String getRaw(Object key) {
-            return super.get(key);
-        }
-
-        public String onSubstVar(String v) {
-            String res = getRaw(v);
-            if (res == null) {
-                res = "";
-            }
-            return res;
         }
     }
 
@@ -54,7 +38,7 @@ public class DbSourceImpl extends BaseComp implements DbSource, ISubstVar, IBean
             if (value instanceof Conf) {
                 continue;
             }
-            getProps().put(key, UtCnv.toString(value));
+            propsRaw.put(key, UtCnv.toString(value));
         }
 
         //
@@ -101,35 +85,42 @@ public class DbSourceImpl extends BaseComp implements DbSource, ISubstVar, IBean
 
     //////
 
-    public Map<String, String> getProps() {
+    public void setProp(String name, Object value) {
+        props = null;
+        propsRaw.put(name, value);
+    }
+
+    public IVariantMap getProps() {
+        if (props == null) {
+            synchronized (this) {
+                if (props == null) {
+                    VariantMap vm = new VariantMap();
+                    propsExp.expandAllTo(vm);
+                    props = vm;
+                }
+            }
+        }
         return props;
     }
 
-    public Map<String, String> getProps(String prefix, boolean override) {
+    public IVariantMap getProps(String prefix, boolean override) {
+        IVariantMap prp = getProps();
         prefix = prefix + ".";
-        MapSubst res = new MapSubst();
+        VariantMap res = new VariantMap();
         if (override) {
             // сначала без префикса
-            for (String key : props.keySet()) {
+            for (String key : prp.keySet()) {
                 if (!key.startsWith(prefix)) {
-                    res.put(key, props.getRaw(key));
+                    res.put(key, prp.get(key));
                 }
             }
         }
         // накладываем с префиксом
-        for (String key : props.keySet()) {
+        for (String key : prp.keySet()) {
             String k2 = UtString.removePrefix(key, prefix);
             if (k2 != null) {
-                res.put(k2, props.getRaw(key));
+                res.put(k2, prp.get(key));
             }
-        }
-        return res;
-    }
-
-    public String onSubstVar(String v) {
-        String res = getProps().get(v);
-        if (res == null) {
-            res = "";
         }
         return res;
     }
@@ -157,10 +148,10 @@ public class DbSourceImpl extends BaseComp implements DbSource, ISubstVar, IBean
 
     protected List<String> grabInitConnectionSqls() {
         List<String> res = new ArrayList<>();
-        Map<String, String> p = getProps(DbSourcePropsConsts.initConnectionSql, false);
-        TreeMap<String, String> m = new TreeMap<>(p);
-        for (String s : m.values()) {
-            res.add(s);
+        IVariantMap p = getProps(DbSourcePropsConsts.initConnectionSql, false);
+        TreeMap<String, Object> m = new TreeMap<>(p);
+        for (Object s : m.values()) {
+            res.add(UtCnv.toString(s));
         }
         return res;
     }

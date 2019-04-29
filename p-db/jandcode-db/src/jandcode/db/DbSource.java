@@ -1,6 +1,7 @@
 package jandcode.db;
 
 import jandcode.commons.conf.*;
+import jandcode.commons.variant.*;
 import jandcode.core.*;
 
 import java.util.*;
@@ -41,13 +42,24 @@ public interface DbSource extends Comp, IConfLink, BeanFactoryOwner {
     ////// props
 
     /**
+     * Установить значение свойства.
+     *
+     * @param name  имя свойства
+     * @param value значение. Можно использовать подстановки '${propname}',
+     *              где propname - имя другого свойства.
+     */
+    void setProp(String name, Object value);
+
+    /**
      * Свойства базы данных. Имена свойств регистрозависимые.
-     * В значениях можно использовать подстановки ${propname}.
+     * В значениях раскрыты подстановки ${propname}.
      * <p>
      * Для свойств с префиксом 'conn.': префикс убирается и полученное свойство
      * используется как свойство jdbc-соединения (зависит от драйвера jdbc).
+     * <p>
+     * Только для чтения!
      */
-    Map<String, String> getProps();
+    IVariantMap getProps();
 
     /**
      * Возвращает свойства с указанным префиксом.
@@ -61,8 +73,10 @@ public interface DbSource extends Comp, IConfLink, BeanFactoryOwner {
      * причем префикс удаляется.
      * Например имеем в getProps() [username:'AAA',password:'BBB',system.username:'CCC'].
      * Тогда getProps('system', false) вернет [username:'ССС']
+     * <p>
+     * Только для чтения!
      */
-    Map<String, String> getProps(String prefix, boolean override);
+    IVariantMap getProps(String prefix, boolean override);
 
     //////
 

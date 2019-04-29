@@ -58,7 +58,7 @@ public class PropsExpander implements ISubstVar {
     }
 
     /**
-     * Возвращает map, где все знаячени свойст раскрыты.
+     * Возвращает map, где все значения свойст раскрыты.
      */
     public Map<String, Object> expandAll() {
         Map<String, Object> res = new LinkedHashMap<>();
@@ -66,6 +66,15 @@ public class PropsExpander implements ISubstVar {
             res.put(key, expandProp(key));
         }
         return res;
+    }
+
+    /**
+     * Заполняет переданный map раскрытыми свойствами.
+     */
+    public void expandAllTo(Map<String, Object> m) {
+        for (String key : rawProps.keySet()) {
+            m.put(key, expandProp(key));
+        }
     }
 
     //////
