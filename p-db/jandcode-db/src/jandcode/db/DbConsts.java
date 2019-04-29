@@ -6,11 +6,6 @@ package jandcode.db;
 public class DbConsts {
 
     /**
-     * Имя для объекта по умолчанию.
-     */
-    public static final String DEFAULT = "default";
-
-    /**
      * Драйвер по умолчанию
      */
     public static final String DBDRIVER_DEFAULT = "base";
