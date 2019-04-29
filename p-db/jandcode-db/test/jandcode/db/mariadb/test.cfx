@@ -11,6 +11,13 @@
                   username="root"
         />
 
+        <!-- для тестирования create/drop -->
+        <dbsource name="test.mariadb.create"
+                  dbdriver="mariadb"
+                  database="Jc2_db_test_creatE"
+                  username="root"
+        />
+
     </cfg>
 
 </root>

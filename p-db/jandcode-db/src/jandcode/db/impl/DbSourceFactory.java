@@ -40,8 +40,9 @@ public class DbSourceFactory {
         Conf dbDriverConf = dbDriver.getConf().findConf("dbsource-default");
         if (dbDriverConf != null) {
             Conf tmp = UtConf.create();
+            tmp.join(defaultConfig);
             tmp.join(dbDriverConf);
-            tmp.join(dbSourceConf);
+            tmp.join(params);
             dbSourceConf = tmp;
         }
 

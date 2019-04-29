@@ -12,6 +12,10 @@
                     dbcp.validationQuery="select 1"
                     conn.serverTimezone="UTC"
                     conn.useSSL="false">
+
+                <bean name="jandcode.db.DbManagerService"
+                      class="jandcode.db.mariadb.MariadbDbManagerService"/>
+
             </dbsource-default>
         </dbdriver>
 

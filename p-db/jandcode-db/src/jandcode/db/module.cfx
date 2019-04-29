@@ -25,6 +25,9 @@
             <bean name="connectionService.direct"
                   class="jandcode.db.std.DirectDbConnectionService"/>
 
+            <bean name="jandcode.db.DbManagerService"
+                  class="jandcode.db.base.BaseDbManagerService"/>
+
         </dbsource-default>
     </db>
 
