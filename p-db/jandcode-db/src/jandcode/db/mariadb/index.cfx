@@ -17,6 +17,11 @@
                       class="jandcode.db.mariadb.MariadbDbManagerService"/>
 
             </dbsource-default>
+
+            <dbdatatype name="date" class="jandcode.db.mariadb.MariadbDbt_datetime"/>
+
+            <dbdatatype name="datetime" class="jandcode.db.mariadb.MariadbDbt_datetime"/>
+
         </dbdriver>
 
     </db>
