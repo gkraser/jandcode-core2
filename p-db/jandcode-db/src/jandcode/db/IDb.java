@@ -16,12 +16,6 @@ public interface IDb {
     void connect() throws Exception;
 
     /**
-     * Установить соединение. Не использовать пул.
-     * Вызовы connect/disconnect должны быть сбалансированы.
-     */
-    void connectDirect() throws Exception;
-
-    /**
      * Обрыв соединения
      * Вызовы connect/disconnect должны быть сбалансированы.
      */

@@ -9,30 +9,18 @@ public class DbImpl extends BaseDbSourceMember implements Db {
 
     private Connection connection;
     protected int connectLevel;
-    private boolean directConnection;
     protected int trnLevel;
+    private DbConnectionService connectionService;
 
     ////// connect
 
-    protected DbConnectionService getConnectionService(boolean direct) {
-        if (direct) {
-            return getDbSource().getConnectionDirectService();
-        } else {
-            return getDbSource().getConnectionService();
-        }
+    protected void setConnectionService(DbConnectionService connectionService) {
+        this.connectionService = connectionService;
     }
 
     public void connect() throws Exception {
         if (connectLevel == 0) {
-            connection = getConnectionService(false).connect();
-        }
-        connectLevel++;
-    }
-
-    public void connectDirect() throws Exception {
-        if (connectLevel == 0) {
-            connection = getConnectionService(true).connect();
-            directConnection = true;
+            connection = connectionService.connect();
         }
         connectLevel++;
     }
@@ -42,9 +30,8 @@ public class DbImpl extends BaseDbSourceMember implements Db {
         if (connectLevel <= 0) {
             connectLevel = 0;
             try {
-                getConnectionService(directConnection).disconnect(connection);
+                connectionService.disconnect(connection);
             } finally {
-                directConnection = false;
                 connection = null;
             }
         }

@@ -20,6 +20,15 @@ public interface DbSource extends Comp, IConfLink, BeanFactoryOwner {
     Db createDb();
 
     /**
+     * Возвращает новый экземпляр Db.
+     * Соединение автоматически не устанавливается.
+     *
+     * @param direct при значении true создается экземпляр, настроенный
+     *               на dicrect-соединения (без пула).
+     */
+    Db createDb(boolean direct);
+
+    /**
      * Возвращает кешированный в рамках текущего потока экземпляр Db.
      * Соединение автоматически не устанавливается.
      */
@@ -91,17 +100,5 @@ public interface DbSource extends Comp, IConfLink, BeanFactoryOwner {
      * Клонировать этот объект
      */
     DbSource cloneComp();
-
-    //////
-
-    /**
-     * Сервис для установки соединенй.
-     */
-    DbConnectionService getConnectionService();
-
-    /**
-     * Сервис для установки соединенй без использования пула.
-     */
-    DbConnectionService getConnectionDirectService();
 
 }

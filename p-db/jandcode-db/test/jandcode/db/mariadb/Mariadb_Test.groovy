@@ -19,12 +19,13 @@ class Mariadb_Test extends App_Test {
         DbSource dbs = svc.getDbSource("test1")
         utils.outMap(dbs.props)
         //
-        Db db = dbs.createDb()
+        Db db = dbs.createDb(true)
         //
-        db.connectDirect()
+        db.connect()
         db.disconnect()
         db.connect()
         db.disconnect()
+        //
     }
 
 

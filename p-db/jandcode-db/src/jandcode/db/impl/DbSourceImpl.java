@@ -69,8 +69,18 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
         this.dbDriver = dbDriver;
     }
 
+    public Db createDb(boolean direct) {
+        DbImpl db = create(DbImpl.class);
+        if (direct) {
+            db.setConnectionService((DbConnectionService) bean(DbConsts.BEAN_DIRECT_CONNECT));
+        } else {
+            db.setConnectionService(bean(DbConnectionService.class));
+        }
+        return db;
+    }
+
     public Db createDb() {
-        return create(DbImpl.class);
+        return createDb(false);
     }
 
     public Db getDb() {
@@ -140,16 +150,6 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
         });
         dbs.propsRaw.putAll(propsRaw);
         return dbs;
-    }
-
-    //////
-
-    public DbConnectionService getConnectionService() {
-        return bean(DbConnectionService.class);
-    }
-
-    public DbConnectionService getConnectionDirectService() {
-        return (DbConnectionService) bean(DbConsts.BEAN_DIRECT_CONNECT);
     }
 
 }
