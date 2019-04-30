@@ -18,7 +18,7 @@
 
             </dbsource-default>
 
-            <dbdatatype name="memo" sqltype="text"/>
+            <dbdatatype name="memo" sqltype="longtext"/>
 
             <dbdatatype name="date" class="jandcode.db.mariadb.MariadbDbt_datetime"
                         sqltype="date"/>
