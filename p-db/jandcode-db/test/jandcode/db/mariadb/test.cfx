@@ -12,7 +12,7 @@
         />
 
         <!-- для тестирования create/drop -->
-        <dbsource name="test.mariadb.create"
+        <dbsource name="test.create"
                   dbdriver="mariadb"
                   database="Jc2_db_test_creatE"
                   username="root"

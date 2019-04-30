@@ -13,7 +13,7 @@ class MariadbDbManager_Test extends App_Test {
     public void exists1() throws Exception {
         DbService svc = app.bean(DbService)
         //
-        DbSource dbs = svc.createDbSource("test.mariadb.create")
+        DbSource dbs = svc.createDbSource("test.create")
         utils.outMap(dbs.props)
         utils.outMap(dbs.conf)
         DbManagerService mng = dbs.bean(DbManagerService)
@@ -25,9 +25,11 @@ class MariadbDbManager_Test extends App_Test {
     public void test1() throws Exception {
         DbService svc = app.bean(DbService)
         //
-        DbSource dbs = svc.createDbSource("test.mariadb.create")
+        DbSource dbs = svc.createDbSource("test.create")
         DbManagerService mng = dbs.bean(DbManagerService)
         //
+
+        Db db = dbs.createDb(true)
 
         if (mng.existDatabase()) {
             mng.dropDatabase()
@@ -36,6 +38,8 @@ class MariadbDbManager_Test extends App_Test {
 
         mng.createDatabase()
         assertEquals(mng.existDatabase(), true)
+        db.connect()
+        db.disconnect()
 
         mng.dropDatabase()
         assertEquals(mng.existDatabase(), false)
