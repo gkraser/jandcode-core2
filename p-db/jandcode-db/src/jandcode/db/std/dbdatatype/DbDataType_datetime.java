@@ -1,4 +1,4 @@
-package jandcode.db.std.dbt;
+package jandcode.db.std.dbdatatype;
 
 import jandcode.commons.error.*;
 import jandcode.commons.variant.*;
@@ -9,9 +9,9 @@ import java.sql.*;
  * ЭТА реализация - просто заглушка. Используейте специфический подход к дате и времени
  * для каждого драйвера
  */
-public class Dbt_datetime extends BaseDbt {
+public class DbDataType_datetime extends BaseDbDataType {
 
-    public Dbt_datetime() {
+    public DbDataType_datetime() {
         setDataType(VariantDataType.DATETIME);
     }
 

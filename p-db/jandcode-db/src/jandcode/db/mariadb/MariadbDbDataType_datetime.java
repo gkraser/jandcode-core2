@@ -2,11 +2,11 @@ package jandcode.db.mariadb;
 
 import jandcode.commons.*;
 import jandcode.commons.datetime.*;
-import jandcode.db.std.dbt.*;
+import jandcode.db.std.dbdatatype.*;
 
 import java.sql.*;
 
-public class MariadbDbt_datetime extends Dbt_datetime {
+public class MariadbDbDataType_datetime extends DbDataType_datetime {
 
     protected XDateTimeFormatter FMT_DATE = UtDateTime.createFormatter("yyyy-MM-dd");
     protected XDateTimeFormatter FMT_DATETIME = UtDateTime.createFormatter("yyyy-MM-dd HH:mm:ss");

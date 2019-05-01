@@ -1,12 +1,12 @@
-package jandcode.db.std.dbt;
+package jandcode.db.std.dbdatatype;
 
 import jandcode.commons.variant.*;
 
 import java.sql.*;
 
-public class Dbt_null extends BaseDbt {
+public class DbDataType_null extends BaseDbDataType {
 
-    public Dbt_null() {
+    public DbDataType_null() {
         setDataType(VariantDataType.OBJECT);
     }
 

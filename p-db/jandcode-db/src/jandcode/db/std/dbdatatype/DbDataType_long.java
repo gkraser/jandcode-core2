@@ -1,13 +1,13 @@
-package jandcode.db.std.dbt;
+package jandcode.db.std.dbdatatype;
 
 import jandcode.commons.*;
 import jandcode.commons.variant.*;
 
 import java.sql.*;
 
-public class Dbt_long extends BaseDbt {
+public class DbDataType_long extends BaseDbDataType {
 
-    public Dbt_long() {
+    public DbDataType_long() {
         setDataType(VariantDataType.LONG);
     }
 

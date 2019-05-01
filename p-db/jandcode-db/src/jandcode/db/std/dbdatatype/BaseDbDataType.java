@@ -1,10 +1,10 @@
-package jandcode.db.std.dbt;
+package jandcode.db.std.dbdatatype;
 
 import jandcode.commons.named.*;
 import jandcode.commons.variant.*;
 import jandcode.db.*;
 
-public abstract class BaseDbt extends Named implements DbDataType {
+public abstract class BaseDbDataType extends Named implements DbDataType {
 
     private VariantDataType datatype = VariantDataType.OBJECT;
     private String sqlType = "";

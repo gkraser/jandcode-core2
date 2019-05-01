@@ -1,4 +1,4 @@
-package jandcode.db.std.dbt;
+package jandcode.db.std.dbdatatype;
 
 import jandcode.commons.*;
 import jandcode.commons.io.*;
@@ -7,9 +7,9 @@ import jandcode.commons.variant.*;
 import java.io.*;
 import java.sql.*;
 
-public class Dbt_blob extends BaseDbt {
+public class DbDataType_blob extends BaseDbDataType {
 
-    public Dbt_blob() {
+    public DbDataType_blob() {
         setDataType(VariantDataType.BLOB);
     }
 

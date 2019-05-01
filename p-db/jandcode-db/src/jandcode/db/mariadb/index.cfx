@@ -20,10 +20,11 @@
 
             <dbdatatype name="memo" sqltype="longtext"/>
 
-            <dbdatatype name="date" class="jandcode.db.mariadb.MariadbDbt_datetime"
+            <dbdatatype name="date" class="jandcode.db.mariadb.MariadbDbDataType_datetime"
                         sqltype="date"/>
 
-            <dbdatatype name="datetime" class="jandcode.db.mariadb.MariadbDbt_datetime"
+            <dbdatatype name="datetime"
+                        class="jandcode.db.mariadb.MariadbDbDataType_datetime"
                         sqltype="date"/>
 
         </dbdriver>

@@ -1,18 +1,18 @@
-package jandcode.db.std.dbt;
+package jandcode.db.std.dbdatatype;
 
 import jandcode.commons.*;
 import jandcode.commons.variant.*;
 
 import java.sql.*;
 
-public class Dbt_int extends BaseDbt {
+public class DbDataType_string extends BaseDbDataType {
 
-    public Dbt_int() {
-        setDataType(VariantDataType.INT);
+    public DbDataType_string() {
+        setDataType(VariantDataType.STRING);
     }
 
     public Object getValue(ResultSet rs, int columnIdx) throws Exception {
-        Object value = rs.getInt(columnIdx);
+        Object value = rs.getString(columnIdx);
         if (rs.wasNull()) {
             value = null;
         }
@@ -20,7 +20,7 @@ public class Dbt_int extends BaseDbt {
     }
 
     public void setValue(PreparedStatement st, int paramIdx, Object value) throws Exception {
-        st.setInt(paramIdx, UtCnv.toInt(value));
+        st.setString(paramIdx, UtCnv.toString(value));
     }
 
 }
