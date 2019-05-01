@@ -1,4 +1,4 @@
-package jandcode.db.std.dbdatatype;
+package jandcode.db.std;
 
 /**
  * boolean - работает как smallint

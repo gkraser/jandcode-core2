@@ -11,39 +11,39 @@
 
             <!-- =================== -->
 
-            <dbdatatype name="null" class="jandcode.db.std.dbdatatype.DbDataType_null"/>
+            <dbdatatype name="null" class="jandcode.db.std.DbDataType_null"/>
 
-            <dbdatatype name="string" class="jandcode.db.std.dbdatatype.DbDataType_string"
+            <dbdatatype name="string" class="jandcode.db.std.DbDataType_string"
                         sqltype="varchar(${size})"/>
 
-            <dbdatatype name="int" class="jandcode.db.std.dbdatatype.DbDataType_int"
+            <dbdatatype name="int" class="jandcode.db.std.DbDataType_int"
                         sqltype="int"/>
 
-            <dbdatatype name="long" class="jandcode.db.std.dbdatatype.DbDataType_long"
+            <dbdatatype name="long" class="jandcode.db.std.DbDataType_long"
                         sqltype="bigint"/>
 
             <dbdatatype name="smallint"
-                        class="jandcode.db.std.dbdatatype.DbDataType_smallint"
+                        class="jandcode.db.std.DbDataType_smallint"
                         sqltype="smallint"/>
 
-            <dbdatatype name="double" class="jandcode.db.std.dbdatatype.DbDataType_double"
+            <dbdatatype name="double" class="jandcode.db.std.DbDataType_double"
                         sqltype="double"/>
 
-            <dbdatatype name="memo" class="jandcode.db.std.dbdatatype.DbDataType_memo"
+            <dbdatatype name="memo" class="jandcode.db.std.DbDataType_memo"
                         sqltype="clob"/>
 
-            <dbdatatype name="date" class="jandcode.db.std.dbdatatype.DbDataType_datetime"
+            <dbdatatype name="date" class="jandcode.db.std.DbDataType_datetime"
                         sqltype="date"/>
 
             <dbdatatype name="datetime"
-                        class="jandcode.db.std.dbdatatype.DbDataType_datetime"
+                        class="jandcode.db.std.DbDataType_datetime"
                         sqltype="datetime"/>
 
-            <dbdatatype name="blob" class="jandcode.db.std.dbdatatype.DbDataType_blob"
+            <dbdatatype name="blob" class="jandcode.db.std.DbDataType_blob"
                         sqltype="blob"/>
 
             <dbdatatype name="boolean"
-                        class="jandcode.db.std.dbdatatype.DbDataType_boolean"
+                        class="jandcode.db.std.DbDataType_boolean"
                         sqltype="smallint"/>
 
             <!-- =================== -->

@@ -1,18 +1,18 @@
-package jandcode.db.std.dbdatatype;
+package jandcode.db.std;
 
 import jandcode.commons.*;
 import jandcode.commons.variant.*;
 
 import java.sql.*;
 
-public class DbDataType_long extends BaseDbDataType {
+public class DbDataType_double extends BaseDbDataType {
 
-    public DbDataType_long() {
-        setDataType(VariantDataType.LONG);
+    public DbDataType_double() {
+        setDataType(VariantDataType.DOUBLE);
     }
 
     public Object getValue(ResultSet rs, int columnIdx) throws Exception {
-        Object value = rs.getLong(columnIdx);
+        Object value = rs.getDouble(columnIdx);
         if (rs.wasNull()) {
             value = null;
         }
@@ -20,7 +20,7 @@ public class DbDataType_long extends BaseDbDataType {
     }
 
     public void setValue(PreparedStatement st, int paramIdx, Object value) throws Exception {
-        st.setLong(paramIdx, UtCnv.toLong(value));
+        st.setDouble(paramIdx, UtCnv.toDouble(value));
     }
 
 }

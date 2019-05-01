@@ -1,4 +1,4 @@
-package jandcode.db.std.dbdatatype;
+package jandcode.db.std;
 
 import jandcode.commons.*;
 import jandcode.commons.io.*;
