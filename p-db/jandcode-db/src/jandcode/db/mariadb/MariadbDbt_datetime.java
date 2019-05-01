@@ -2,7 +2,7 @@ package jandcode.db.mariadb;
 
 import jandcode.commons.*;
 import jandcode.commons.datetime.*;
-import jandcode.db.dbt.*;
+import jandcode.db.std.dbt.*;
 
 import java.sql.*;
 

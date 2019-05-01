@@ -3,7 +3,7 @@ package jandcode.db.mariadb
 import jandcode.db.test.*
 import org.junit.jupiter.api.*
 
-import static org.junit.jupiter.api.Assertions.assertEquals
+import static org.junit.jupiter.api.Assertions.*
 
 class Mariadb_DbDatatType_Test extends DbDatatypeTestCase {
 

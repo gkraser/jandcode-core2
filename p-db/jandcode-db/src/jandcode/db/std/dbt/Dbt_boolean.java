@@ -1,4 +1,4 @@
-package jandcode.db.dbt;
+package jandcode.db.std.dbt;
 
 /**
  * boolean - работает как smallint

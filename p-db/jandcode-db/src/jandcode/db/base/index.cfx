@@ -11,36 +11,36 @@
 
             <!-- =================== -->
 
-            <dbdatatype name="null" class="jandcode.db.dbt.Dbt_null"/>
+            <dbdatatype name="null" class="jandcode.db.std.dbt.Dbt_null"/>
 
-            <dbdatatype name="string" class="jandcode.db.dbt.Dbt_string"
+            <dbdatatype name="string" class="jandcode.db.std.dbt.Dbt_string"
                         sqltype="varchar(${size})"/>
 
-            <dbdatatype name="int" class="jandcode.db.dbt.Dbt_int"
+            <dbdatatype name="int" class="jandcode.db.std.dbt.Dbt_int"
                         sqltype="int"/>
 
-            <dbdatatype name="long" class="jandcode.db.dbt.Dbt_long"
+            <dbdatatype name="long" class="jandcode.db.std.dbt.Dbt_long"
                         sqltype="bigint"/>
 
-            <dbdatatype name="smallint" class="jandcode.db.dbt.Dbt_smallint"
+            <dbdatatype name="smallint" class="jandcode.db.std.dbt.Dbt_smallint"
                         sqltype="smallint"/>
 
-            <dbdatatype name="double" class="jandcode.db.dbt.Dbt_double"
+            <dbdatatype name="double" class="jandcode.db.std.dbt.Dbt_double"
                         sqltype="double"/>
 
-            <dbdatatype name="memo" class="jandcode.db.dbt.Dbt_memo"
+            <dbdatatype name="memo" class="jandcode.db.std.dbt.Dbt_memo"
                         sqltype="clob"/>
 
-            <dbdatatype name="date" class="jandcode.db.dbt.Dbt_datetime"
+            <dbdatatype name="date" class="jandcode.db.std.dbt.Dbt_datetime"
                         sqltype="date"/>
 
-            <dbdatatype name="datetime" class="jandcode.db.dbt.Dbt_datetime"
+            <dbdatatype name="datetime" class="jandcode.db.std.dbt.Dbt_datetime"
                         sqltype="datetime"/>
 
-            <dbdatatype name="blob" class="jandcode.db.dbt.Dbt_blob"
+            <dbdatatype name="blob" class="jandcode.db.std.dbt.Dbt_blob"
                         sqltype="blob"/>
 
-            <dbdatatype name="boolean" class="jandcode.db.dbt.Dbt_boolean"
+            <dbdatatype name="boolean" class="jandcode.db.std.dbt.Dbt_boolean"
                         sqltype="smallint"/>
 
             <!-- =================== -->

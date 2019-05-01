@@ -1,4 +1,4 @@
-package jandcode.db.dbt;
+package jandcode.db.std.dbt;
 
 import jandcode.commons.error.*;
 import jandcode.commons.variant.*;
