@@ -65,7 +65,7 @@
             <type name="java.lang.Boolean" dbdatatype="boolean"/>
             <type name="boolean" dbdatatype="boolean"/>
 
-            <type name="jandcode.commons.datetime.XDateTime" dbdatatype="date"/>
+            <type name="jandcode.commons.datetime.XDateTime" dbdatatype="datetime"/>
 
             <type name="byte-array" dbdatatype="blob"/>
 
