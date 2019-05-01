@@ -1,7 +1,8 @@
 package jandcode.db;
 
-import jandcode.commons.named.*;
 import jandcode.core.*;
+
+import java.util.*;
 
 /**
  * Драйвера базы данных
@@ -9,8 +10,13 @@ import jandcode.core.*;
 public interface DbDriverService extends Comp {
 
     /**
-     * Зарегистрированные драйвера
+     * Получить драйвер по имени
      */
-    NamedList<DbDriverDef> getDbDrivers();
+    DbDriver getDbDriver(String name);
+
+    /**
+     * Имена зарегистрированных драйверов
+     */
+    Collection<String> getDbDriverNames();
 
 }

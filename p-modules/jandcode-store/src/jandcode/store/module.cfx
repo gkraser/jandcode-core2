@@ -19,7 +19,7 @@
                      class="jandcode.store.std.DateTimeStoreField"/>
 
         <store-field name="double"
-                     class="jandcode.store.std.DoubleStoreField"/>
+                     class="jandcode.store.std.DoubktleStoreField"/>
 
         <store-field name="int"
                      class="jandcode.store.std.IntStoreField"/>

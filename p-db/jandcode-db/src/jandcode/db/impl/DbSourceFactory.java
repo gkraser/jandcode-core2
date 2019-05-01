@@ -33,8 +33,7 @@ public class DbSourceFactory {
         if (UtString.empty(dbDriverName)) {
             throw new XError("Не указан параметр dbdriver");
         }
-        DbDriver dbDriver = app.bean(DbDriverService.class).getDbDrivers()
-                .get(dbDriverName).createInst();
+        DbDriver dbDriver = app.bean(DbDriverService.class).getDbDriver(dbDriverName);
 
         // драйвер может предоставить конфиг по умолчанию для dbsource
         Conf dbDriverConf = dbDriver.getConf().findConf("dbsource-default");
