@@ -40,11 +40,11 @@ public interface DbDriver extends INamed, IConfLink {
     /**
      * Получить тип для колонки ResultSet
      */
-    DbDataType getDbDatatype(ResultSetMetaData md, int colIdx) throws Exception;
+    DbDataType getDbDataType(ResultSetMetaData md, int colIdx) throws Exception;
 
     /**
      * Получить тип для колонки с sql-типом
      */
-    DbDataType getDbDatatype(int sqlType) throws Exception;
+    DbDataType getDbDataType(int sqlType) throws Exception;
 
 }

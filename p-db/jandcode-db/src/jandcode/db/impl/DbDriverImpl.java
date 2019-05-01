@@ -67,14 +67,14 @@ public class DbDriverImpl extends BaseComp implements DbDriver {
         return dbDataTypes;
     }
 
-    protected ClassLinks<String> getDbDatatypesByClass() {
+    protected ClassLinks<String> getDbDataTypesByClass() {
         return dbDatatypesByClass;
     }
 
     /**
      * Для sql типа возвращает имя dbdatatype
      */
-    protected String getDbDatatypeName(int sqltype) {
+    protected String getDbDataTypeName(int sqltype) {
         switch (sqltype) {
 
             case Types.BIT:
@@ -133,34 +133,34 @@ public class DbDriverImpl extends BaseComp implements DbDriver {
     /**
      * Для колонки возвращает имя dbdatatype
      */
-    protected String getDbDatatypeName(ResultSetMetaData md, int colIdx) throws Exception {
+    protected String getDbDataTypeName(ResultSetMetaData md, int colIdx) throws Exception {
         int ct = md.getColumnType(colIdx);
-        String dt = getDbDatatypeName(ct);
+        String dt = getDbDataTypeName(ct);
         return dt;
     }
 
     /**
      * dbdatatype для значения
      */
-    protected DbDataType getDbDatatype(Object value) {
+    protected DbDataType getDbDataType(Object value) {
         String cn = "null";
         if (value != null) {
             cn = value.getClass().getName();
         }
-        String nm = getDbDatatypesByClass().get(cn);
+        String nm = getDbDataTypesByClass().get(cn);
         if (nm == null) {
             throw new XError("Не определен dbdatatype для класса {0}", cn);
         }
         return getDbDataTypes().get(nm);
     }
 
-    public DbDataType getDbDatatype(ResultSetMetaData md, int colIdx) throws Exception {
-        String nm = getDbDatatypeName(md, colIdx);
+    public DbDataType getDbDataType(ResultSetMetaData md, int colIdx) throws Exception {
+        String nm = getDbDataTypeName(md, colIdx);
         return getDbDataTypes().get(nm);
     }
 
-    public DbDataType getDbDatatype(int sqlType) throws Exception {
-        String nm = getDbDatatypeName(sqlType);
+    public DbDataType getDbDataType(int sqlType) throws Exception {
+        String nm = getDbDataTypeName(sqlType);
         return getDbDataTypes().get(nm);
     }
 
@@ -184,7 +184,7 @@ public class DbDriverImpl extends BaseComp implements DbDriver {
                 setNullParam(statement, paramIdx, dt);
             } else {
                 Object value = paramValues.getValue(paramName);
-                DbDataType dbdt = getDbDatatype(value);
+                DbDataType dbdt = getDbDataType(value);
                 dbdt.setValue(statement, paramIdx, value);
             }
         }

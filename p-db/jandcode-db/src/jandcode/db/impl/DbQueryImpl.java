@@ -194,7 +194,7 @@ public class DbQueryImpl implements DbQuery {
         ResultSetMetaData md = resultSet.getMetaData();
         int cols = md.getColumnCount();
         for (int i = 1; i <= cols; i++) {
-            DbDataType dt = dbDriver.getDbDatatype(md, i);
+            DbDataType dt = dbDriver.getDbDataType(md, i);
             //
             String fn = md.getColumnLabel(i);
             if (fields.find(fn) != null) {
