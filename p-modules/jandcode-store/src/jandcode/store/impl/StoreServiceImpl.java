@@ -3,6 +3,7 @@ package jandcode.store.impl;
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.error.*;
+import jandcode.commons.named.*;
 import jandcode.core.*;
 import jandcode.store.*;
 
@@ -15,6 +16,7 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
     }
 
     private Map<String, Class> fieldTypes = new LinkedHashMap<>();
+    private NamedList<StoreDataType> storeDataTypes = new DefaultNamedList<>("Not found StoreDataType: {0}");
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
@@ -27,10 +29,19 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
             fieldTypes.put(sf.getName(), cls);
         }
 
+        for (Conf sf : dataConf.getConfs("storedatatype")) {
+            StoreDataType sdt = (StoreDataType) getApp().create(sf);
+            storeDataTypes.add(sdt);
+        }
+
     }
 
     public Collection<String> getFieldTypes() {
         return fieldTypes.keySet();
+    }
+
+    public NamedList<StoreDataType> getStoreDataTypes() {
+        return storeDataTypes;
     }
 
     public StoreField createStoreField(String type) {
