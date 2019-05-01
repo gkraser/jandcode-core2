@@ -7,19 +7,25 @@ import jandcode.core.*;
 import jandcode.db.*;
 
 /**
- * Фабрика DbSource
+ * Построитель конфигурации DbSource
  */
-public class DbSourceFactory {
+public class DbSourceConfBuilder {
 
     /**
-     * Создание DbSource
+     * Построить полный вариант конфигурации DbSource
      *
      * @param params произвольные параметры, обычно эти параметры берутся из ini
      */
-    public DbSource createDbSource(App app, Conf params) throws Exception {
+    public Conf buildConf(App app, Conf params) throws Exception {
 
         // будущая конфигурация DbSource
         Conf dbSourceConf = UtConf.create();
+
+        if (params.getBoolean("$full")) {
+            // передан вариант, который уже обработан
+            dbSourceConf.join(params);
+            return dbSourceConf;
+        }
 
         // конфигурация по умолчанию
         Conf defaultConfig = app.getConf().getConf("db/dbsource-default");
@@ -54,14 +60,13 @@ public class DbSourceFactory {
             }
         }
         dbSourceConf.join(beanConf);
+        dbSourceConf.setValue("dbdriver", dbDriver.getName());
 
-        // создаем
-        DbSourceImpl res = app.create(dbSourceConf, DbSourceImpl.class, (inst) -> {
-            ((DbSourceImpl) inst).setDbDriver(dbDriver);
-        });
+        // метим, что обработали
+        dbSourceConf.setValue("$full", true);
 
         //
-        return res;
+        return dbSourceConf;
     }
 
 }

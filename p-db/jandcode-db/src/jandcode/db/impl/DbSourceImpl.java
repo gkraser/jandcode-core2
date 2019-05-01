@@ -28,19 +28,24 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
     }
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
+        DbSourceConfBuilder cb = new DbSourceConfBuilder();
+        this.conf = cb.buildConf(getApp(), cfg.getConf());
+        this.dbDriver = getApp().bean(DbDriverService.class).getDbDriver(this.conf.getString("dbdriver"));
         //
-        this.conf = cfg.getConf();
         for (Map.Entry<String, Object> a : this.conf.entrySet()) {
             String key = a.getKey();
             Object value = a.getValue();
             if (value instanceof Conf) {
                 continue;
             }
+            if (key.startsWith("$")) {
+                continue;  // внутренние штучки
+            }
             propsRaw.put(key, UtCnv.toString(value));
         }
 
         //
-        getBeanFactory().beanConfigure(cfg);
+        getBeanFactory().beanConfigure(new DefaultBeanConfig(this.conf));
     }
 
     public Conf getConf() {
@@ -63,10 +68,6 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
 
     public DbDriver getDbDriver() {
         return dbDriver;
-    }
-
-    protected void setDbDriver(DbDriver dbDriver) {
-        this.dbDriver = dbDriver;
     }
 
     public Db createDb(boolean direct) {
@@ -145,10 +146,11 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
     //////
 
     public DbSource cloneComp() {
-        DbSourceImpl dbs = getApp().create(this.conf, DbSourceImpl.class, (inst) -> {
-            ((DbSourceImpl) inst).setDbDriver(dbDriver);
-        });
+        DbSourceImpl dbs = getApp().create(this.conf, DbSourceImpl.class);
+        // накладываем свойства текущие
         dbs.propsRaw.putAll(propsRaw);
+        dbs.clearPropsCache();
+        //
         return dbs;
     }
 

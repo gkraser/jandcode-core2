@@ -1,7 +1,6 @@
 package jandcode.db.impl;
 
 import jandcode.commons.conf.*;
-import jandcode.commons.error.*;
 import jandcode.commons.named.*;
 import jandcode.core.*;
 import jandcode.db.*;
@@ -47,11 +46,7 @@ public class DbServiceImpl extends BaseComp implements DbService {
     //////
 
     public DbSource createDbSource(Conf conf) {
-        try {
-            return new DbSourceFactory().createDbSource(getApp(), conf);
-        } catch (Exception e) {
-            throw new XErrorWrap(e);
-        }
+        return getApp().create(conf, DbSourceImpl.class);
     }
 
     public DbSource createDbSource(String name) {
