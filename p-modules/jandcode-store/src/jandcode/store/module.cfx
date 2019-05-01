@@ -6,40 +6,6 @@
 
     <data>
 
-        <store-field name="blob"
-                     class="jandcode.store.std.BlobStoreField"/>
-
-        <store-field name="boolean"
-                     class="jandcode.store.std.BooleanStoreField"/>
-
-        <store-field name="date"
-                     class="jandcode.store.std.DateStoreField"/>
-
-        <store-field name="datetime"
-                     class="jandcode.store.std.DateTimeStoreField"/>
-
-        <store-field name="double"
-                     class="jandcode.store.std.DoubktleStoreField"/>
-
-        <store-field name="int"
-                     class="jandcode.store.std.IntStoreField"/>
-
-        <store-field name="long"
-                     class="jandcode.store.std.LongStoreField"/>
-
-        <store-field name="null"
-                     class="jandcode.store.std.NullStoreField"/>
-
-        <store-field name="object"
-                     class="jandcode.store.std.ObjectStoreField"/>
-
-        <store-field name="rawstring"
-                     class="jandcode.store.std.RawStringStoreField"/>
-
-        <store-field name="string"
-                     class="jandcode.store.std.StringStoreField"/>
-
-
         <storedatatype name="blob"
                        class="jandcode.store.std.StoreDataType_blob"/>
 

@@ -101,7 +101,7 @@ public abstract class BaseStoreRecord implements StoreRecord, IRawRecord {
 
     public Object getValue(int index) {
         StoreField f = getStore().getField(index);
-        return f.getFieldValue(this, this);
+        return f.getStoreDataType().getFieldValue(this, f.getIndex(), this, f);
     }
 
     public boolean isNull(String name) {
@@ -111,13 +111,13 @@ public abstract class BaseStoreRecord implements StoreRecord, IRawRecord {
 
     public void setValue(int index, Object value) {
         StoreField f = getStore().getField(index);
-        f.setFieldValue(this, this, value);
+        f.getStoreDataType().setFieldValue(this, f.getIndex(), value, this, f);
     }
 
     ////// datatype
 
     public VariantDataType getDataType(String name) {
-        return getField(name).getDataType();
+        return getField(name).getStoreDataType().getDataType();
     }
 
     ////// ICustomProp

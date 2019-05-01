@@ -1,6 +1,7 @@
 package jandcode.store;
 
 import jandcode.core.test.*;
+import jandcode.store.impl.*;
 import jandcode.store.std.*;
 import org.junit.jupiter.api.*;
 
@@ -18,7 +19,7 @@ public class StoreService_Test extends App_Test {
 
     @Test
     public void types() throws Exception {
-        System.out.println(svc.getFieldTypes());
+        System.out.println(svc.getStoreDataTypes());
     }
 
     @Test
@@ -29,10 +30,11 @@ public class StoreService_Test extends App_Test {
         st.addField("code", "string", 10);
         //
         assertEquals(st.getCountFields(), 3);
-        assertTrue(st.getField("name") instanceof StringStoreField);
+        assertTrue(st.getField("name") instanceof DefaultStoreField);
         assertEquals(st.getField("name").getSize(), 0);
         assertEquals(st.getField("code").getSize(), 10);
         assertEquals(st.getField("code").getIndex(), 2);
+        assertTrue(st.getField("code").getStoreDataType() instanceof StoreDataType_string);
     }
 
     @Test
