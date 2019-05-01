@@ -1,7 +1,6 @@
 package jandcode.store.impl;
 
 import jandcode.commons.error.*;
-import jandcode.commons.variant.*;
 import jandcode.store.*;
 
 /**

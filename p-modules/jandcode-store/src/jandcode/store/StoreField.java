@@ -1,7 +1,6 @@
 package jandcode.store;
 
 import jandcode.commons.named.*;
-import jandcode.commons.variant.*;
 
 /**
  * Поле для {@link Store}.
