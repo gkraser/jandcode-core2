@@ -46,6 +46,9 @@
                         class="jandcode.db.std.DbDataType_boolean"
                         sqltype="smallint"/>
 
+            <dbdatatype name="object"
+                        class="jandcode.db.std.DbDataType_object"/>
+
             <!-- =================== -->
 
             <type name="null" dbdatatype="null"/>
