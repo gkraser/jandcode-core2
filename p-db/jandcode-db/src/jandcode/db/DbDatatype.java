@@ -35,12 +35,6 @@ public interface DbDataType extends INamed {
     VariantDataType getDataType();
 
     /**
-     * Возвращает sql тип для создания поля. В типе может использоватся '${size}', который
-     * заменяется на размер.
-     */
-    String getSqlType();
-
-    /**
      * Возвращает sql тип для создания поля.
      *
      * @param size размер поля, указывается для строковых данных
