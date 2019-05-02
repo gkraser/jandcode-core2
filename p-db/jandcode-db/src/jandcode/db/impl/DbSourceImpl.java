@@ -121,23 +121,28 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
         return props;
     }
 
-    public IVariantMap getProps(String prefix, boolean override) {
-        IVariantMap prp = getProps();
+    public IVariantMap getProps(String prefix, boolean override, boolean raw) {
+        IVariantMap curProps;
+        if (raw) {
+            curProps = propsRaw;
+        } else {
+            curProps = getProps();
+        }
         prefix = prefix + ".";
         VariantMap res = new VariantMap();
         if (override) {
             // сначала без префикса
-            for (String key : prp.keySet()) {
+            for (String key : curProps.keySet()) {
                 if (!key.startsWith(prefix)) {
-                    res.put(key, prp.get(key));
+                    res.put(key, curProps.get(key));
                 }
             }
         }
         // накладываем с префиксом
-        for (String key : prp.keySet()) {
+        for (String key : curProps.keySet()) {
             String k2 = UtString.removePrefix(key, prefix);
             if (k2 != null) {
-                res.put(k2, prp.get(key));
+                res.put(k2, curProps.get(key));
             }
         }
         return res;

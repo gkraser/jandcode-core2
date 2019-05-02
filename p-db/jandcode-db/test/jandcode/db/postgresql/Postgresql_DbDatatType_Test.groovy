@@ -1,6 +1,5 @@
 package jandcode.db.postgresql
 
-
 import jandcode.db.test.*
 import org.junit.jupiter.api.*
 

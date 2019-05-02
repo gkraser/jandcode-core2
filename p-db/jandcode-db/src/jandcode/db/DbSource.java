@@ -79,8 +79,10 @@ public interface DbSource extends Comp, IConfLink, BeanFactoryOwner {
 
     /**
      * Возвращает свойства с указанным префиксом.
+     * Если raw=true, то используются савойства с нераскрытыми подстановками ${prop}.
+     * Если raw=false, то используются савойства с подстановками ${prop} {@link DbSource#getProps()}
      * <p>
-     * Если override=true то возвращает копию getProps() с перекрытием
+     * Если override=true то возвращает копию свойств с перекрытием
      * свойствами 'prefix.XXX' свойств 'XXX'.
      * Например имеем в getProps() [username:'AAA',password:'BBB',system.username:'CCC'].
      * Тогда getProps('system', true) вернет [username:'ССС',password:'BBB']
@@ -92,7 +94,7 @@ public interface DbSource extends Comp, IConfLink, BeanFactoryOwner {
      * <p>
      * Только для чтения!
      */
-    IVariantMap getProps(String prefix, boolean override);
+    IVariantMap getProps(String prefix, boolean override, boolean raw);
 
     //////
 

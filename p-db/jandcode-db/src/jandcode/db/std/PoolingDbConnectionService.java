@@ -62,7 +62,7 @@ public class PoolingDbConnectionService extends BaseDbConnectionService {
 
         // создаем datasource с использованием свойств dbcp.XXXX
         Properties dbcpProps = new Properties();
-        dbcpProps.putAll(dbSource.getProps("dbcp", false));
+        dbcpProps.putAll(dbSource.getProps("dbcp", false, false));
         BasicDataSource bds = BasicDataSourceFactory.createDataSource(dbcpProps);
 
         bds.setUrl(dbsProps.getString(DbSourcePropsConsts.url));
@@ -81,7 +81,7 @@ public class PoolingDbConnectionService extends BaseDbConnectionService {
         }
 
         // connection properties
-        IVariantMap props = dbSource.getProps("conn", false);
+        IVariantMap props = dbSource.getProps("conn", false, false);
         for (String key : props.keySet()) {
             bds.addConnectionProperty(key, props.getString(key));
         }

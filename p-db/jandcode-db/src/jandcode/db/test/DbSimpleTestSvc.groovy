@@ -131,6 +131,10 @@ class DbSimpleTestSvc extends BaseAppTestSvc {
                 testSvc(UtilsTestSvc).showError(e)
             }
 
+            //fix: postgresql: ОШИБКА: в кешированном плане не должен изменяться тип результата
+            db.disconnect()
+            db.connect()
+
             db.execQuery("create table ${checkDbDataType_table} (f1 ${sqltype})")
 
             checkDbDataType_lastSqltype = sqltype

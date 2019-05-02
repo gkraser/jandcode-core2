@@ -143,6 +143,12 @@ public class DbDriverImpl extends BaseComp implements DbDriver {
     protected String getDbDataTypeName(ResultSetMetaData md, int colIdx) throws Exception {
         int ct = md.getColumnType(colIdx);
         String dt = getDbDataTypeName(ct);
+        if ("string".equals(dt)) {
+            String ctn = md.getColumnTypeName(colIdx);
+            if (ctn != null && ctn.indexOf("text") != -1) {
+                dt = "memo";
+            }
+        }
         return dt;
     }
 

@@ -2,11 +2,23 @@ package jandcode.db.postgresql
 
 import jandcode.core.test.*
 import jandcode.db.*
+import jandcode.db.base.*
 import org.junit.jupiter.api.*
 
 import static org.junit.jupiter.api.Assertions.*
 
 class PostgresqlDbManager_Test extends App_Test {
+
+    @Test
+    public void systemDb() throws Exception {
+        DbService svc = app.bean(DbService)
+        //
+        DbSource dbs = svc.createDbSource("test.create")
+        BaseDbManagerService dm = dbs.bean(DbManagerService)
+        DbSource sysDbs = dm.getSystemDbSource()
+        utils.outMap(sysDbs.getProps())
+    }
+
 
     @Test
     public void test1() throws Exception {

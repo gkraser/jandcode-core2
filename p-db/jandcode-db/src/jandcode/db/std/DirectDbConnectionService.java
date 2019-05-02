@@ -32,7 +32,7 @@ public class DirectDbConnectionService extends BaseDbConnectionService {
                 // возможно пустой пароль
                 props.put("password", s);
             }
-            props.putAll(dbSource.getProps("conn", false));
+            props.putAll(dbSource.getProps("conn", false, false));
             s = dbsProps.getString(DbSourcePropsConsts.url);
             Connection conn = DriverManager.getConnection(s, props);
 

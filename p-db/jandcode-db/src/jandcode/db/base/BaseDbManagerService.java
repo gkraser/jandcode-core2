@@ -8,16 +8,16 @@ import jandcode.db.*;
  */
 public class BaseDbManagerService extends BaseDbSourceMember implements DbManagerService {
 
-    protected DbSource systemDbSource;
+    private DbSource systemDbSource;
 
     /**
      * Системная база данных. Определяется как клон основной, где
      * свойства заменены свойствами с префиксом 'system.'
      */
-    protected DbSource getSystemDbSource() {
+    public DbSource getSystemDbSource() {
         if (systemDbSource == null) {
             systemDbSource = getDbSource().cloneComp();
-            systemDbSource.getProps().putAll(getDbSource().getProps("system", true));
+            systemDbSource.setProps(getDbSource().getProps("system", true, true));
         }
         return systemDbSource;
     }

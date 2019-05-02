@@ -14,7 +14,7 @@
         <!-- для тестирования create/drop -->
         <dbsource name="test.create"
                   dbdriver="postgresql"
-                  database="Jc2_db_test_creatE"
+                  database="jc2_db_test_create"
                   username="ks"
         />
 
