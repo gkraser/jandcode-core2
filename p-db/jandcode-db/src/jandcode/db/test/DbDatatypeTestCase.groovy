@@ -97,12 +97,6 @@ abstract class DbDatatypeTestCase extends App_Test {
     @Test
     public void test_memo() throws Exception {
         assertEquals(z.dbdatatypeResult("memo"), "memo")
-
-        if (z.dbType == "postgresql") {
-            assertEquals(z.dbdatatypeResult("memo"), "string")
-        } else {
-            assertEquals(z.dbdatatypeResult("memo"), "memo")
-        }
         //
         assertEquals(z.dbdatatypeRetrive("memo", 'This is big string'), 'This is big string')
         assertEquals(z.dbdatatypeRetrive("memo", 'Это длинная строка'), "Это длинная строка")
@@ -137,11 +131,7 @@ abstract class DbDatatypeTestCase extends App_Test {
 
     @Test
     public void test_date() throws Exception {
-        if (z.dbType == "oracle") {
-            assertEquals(z.dbdatatypeResult("date"), "datetime")
-        } else {
-            assertEquals(z.dbdatatypeResult("date"), "date")
-        }
+        assertEquals(z.dbdatatypeResult("date"), "date")
         //
         XDateTime dt;
 
@@ -149,16 +139,12 @@ abstract class DbDatatypeTestCase extends App_Test {
         assertEquals(z.dbdatatypeRetrive("date", dt), dt)
 
         dt = UtDateTime.now()
-        if (z.dbType == "oracle") {
-            assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearMSec())
-        } else {
-            assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearTime())
-        }
+        assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearTime())
 
         dt = UtDateTime.create("1984-04-01")
         assertEquals(z.dbdatatypeRetrive("date", dt), dt)
 
-        assertEquals(z.dbdatatypeRetrive("date", null), null)
+        assertEquals(z.dbdatatypeRetrive("date", null), UtDateTime.EMPTY_DATE)
     }
 
     @Test
@@ -174,16 +160,12 @@ abstract class DbDatatypeTestCase extends App_Test {
         assertEquals(z.dbdatatypeRetrive("datetime", dt), dt.clearMSec())
 
         dt = UtDateTime.create("1984-04-01")
-        if (z.dbType == "derby" || z.dbType == "firebird") {
-            assertEquals(z.dbdatatypeRetrive("datetime", dt), UtDateTime.create("1984-04-01T01:00:00"))
-        } else {
-            assertEquals(z.dbdatatypeRetrive("datetime", dt), dt)
-        }
+        assertEquals(z.dbdatatypeRetrive("datetime", dt), UtDateTime.create("1984-04-01T01:00:00"))
 
         dt = UtDateTime.create("1984-04-01T15:16:17")
         assertEquals(z.dbdatatypeRetrive("datetime", dt), dt)
 
-        assertEquals(z.dbdatatypeRetrive("datetime", null), null)
+        assertEquals(z.dbdatatypeRetrive("date", null), UtDateTime.EMPTY_DATE)
     }
 
 
