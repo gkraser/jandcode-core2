@@ -26,16 +26,14 @@
                         sqltype="bigint"
                         storedatatype="long"/>
 
-            <dbdatatype name="smallint"
-                        class="jandcode.db.std.DbDataType_smallint"
-                        sqltype="smallint"
-                        storedatatype="int"/>
+            <dbdatatype name="smallint" parent="int"
+                        sqltype="smallint"/>
 
             <dbdatatype name="double" class="jandcode.db.std.DbDataType_double"
                         sqltype="double"
                         storedatatype="double"/>
 
-            <dbdatatype name="memo" class="jandcode.db.std.DbDataType_memo"
+            <dbdatatype name="memo" parent="string"
                         sqltype="clob"
                         storedatatype="rawstring"/>
 

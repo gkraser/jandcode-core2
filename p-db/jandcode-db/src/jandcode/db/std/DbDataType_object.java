@@ -10,12 +10,12 @@ public class DbDataType_object extends BaseDbDataType {
         setDataType(VariantDataType.OBJECT);
     }
 
-    public Object getValue(ResultSet rs, int columnIdx) throws Exception {
+    public Value getValue(ResultSet rs, int columnIdx) throws Exception {
         Object value = rs.getObject(columnIdx);
         if (rs.wasNull()) {
-            return null;
+            return createValueNull();
         }
-        return value;
+        return createValue(value);
     }
 
     public void setValue(PreparedStatement st, int paramIdx, Object value) throws Exception {

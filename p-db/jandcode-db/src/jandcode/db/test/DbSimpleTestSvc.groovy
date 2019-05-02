@@ -96,6 +96,22 @@ class DbSimpleTestSvc extends BaseAppTestSvc {
     }
 
     /**
+     * Проверка для всех полей: null-значения пишутся и читаются корректно.
+     */
+    void checkNullTypes() {
+        println "checkNullTypes for: ${dbDriver.name}"
+        for (DbDataType dbt : dbDriver.dbDataTypes) {
+            String sqltype = dbt.getSqlType(20)
+            if (UtString.empty(sqltype)) {
+                println "  ${UtString.padRight(dbt.name, 20)}-> SKIP"
+                continue
+            }
+            dbdatatypeIsNull(dbt.name)
+            checkDbDataType_lastSqltype = ""
+        }
+    }
+
+    /**
      * Проверить наличие таблицы для проверки типа данных и создать ее, если нету
      * @param dbdatatype тип данных
      * @param size размер

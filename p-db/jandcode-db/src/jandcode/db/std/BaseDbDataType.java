@@ -10,6 +10,19 @@ public abstract class BaseDbDataType extends Named implements DbDataType {
     private String sqlType = "";
     private String storeDataTypeName;
 
+    class ValueImpl implements Value {
+        Object value;
+        boolean isNull;
+
+        public Object getValue() {
+            return value;
+        }
+
+        public boolean isNull() {
+            return isNull;
+        }
+    }
+
     public VariantDataType getDataType() {
         return datatype;
     }
@@ -36,6 +49,32 @@ public abstract class BaseDbDataType extends Named implements DbDataType {
 
     public void setStoreDataTypeName(String storeDataTypeName) {
         this.storeDataTypeName = storeDataTypeName;
+    }
+
+    //////
+
+    /**
+     * Создать null-значение
+     */
+    protected Value createValueNull() {
+        return new ValueImpl();
+    }
+
+    /**
+     * Создать значение value. Если value==null, помечается как null
+     */
+    protected Value createValue(Object value) {
+        return createValue(value, value == null);
+    }
+
+    /**
+     * Создать значение value.
+     */
+    protected Value createValue(Object value, boolean isNull) {
+        ValueImpl v = new ValueImpl();
+        v.value = value;
+        v.isNull = isNull;
+        return v;
     }
 
 }

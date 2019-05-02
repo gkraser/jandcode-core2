@@ -23,7 +23,7 @@ public class DbQueryImpl implements DbQuery {
     private Statement statement;
     private ResultSet resultSet;
     private QueryLogger queryLogger;
-    protected Object[] data;
+    protected DbDataType.Value[] data;
 
     // есть данные для строки
     private boolean hasRowData;
@@ -205,13 +205,13 @@ public class DbQueryImpl implements DbQuery {
             fields.add(f);
         }
 
-        data = new Object[cols];
+        data = new DbDataType.Value[cols];
         //
 
         next();
     }
 
-    protected Object getValueForField(DbQueryField field) {
+    protected DbDataType.Value getValueForField(DbQueryField field) {
         try {
             int index = field.getIndex();
             if (lastRead < index) {
@@ -251,13 +251,22 @@ public class DbQueryImpl implements DbQuery {
     //////  IVariantNamed
 
     public Object getValue(String name) {
-        return getValueForField(fields.get(name));
+        return getValueForField(fields.get(name)).getValue();
+    }
+
+    public boolean isNull(String name) {
+        return getValueForField(fields.get(name)).isNull();
     }
 
     //////
 
     public Object getValue(int index) {
-        return getValueForField(fields.get(index));
+        return getValueForField(fields.get(index)).getValue();
+    }
+
+    public boolean isNull(int index) {
+        return getValueForField(fields.get(index)).isNull();
     }
 
 }
+

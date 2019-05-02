@@ -11,12 +11,14 @@ public class DbDataType_long extends BaseDbDataType {
         setDataType(VariantDataType.LONG);
     }
 
-    public Object getValue(ResultSet rs, int columnIdx) throws Exception {
-        Object value = rs.getLong(columnIdx);
+    public Value getValue(ResultSet rs, int columnIdx) throws Exception {
+        boolean isNull = false;
+        long value = rs.getLong(columnIdx);
         if (rs.wasNull()) {
-            value = null;
+            value = 0;
+            isNull = true;
         }
-        return value;
+        return createValue(value, isNull);
     }
 
     public void setValue(PreparedStatement st, int paramIdx, Object value) throws Exception {

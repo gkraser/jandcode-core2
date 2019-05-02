@@ -10,8 +10,8 @@ public class DbDataType_null extends BaseDbDataType {
         setDataType(VariantDataType.OBJECT);
     }
 
-    public Object getValue(ResultSet rs, int columnIdx) throws Exception {
-        return null;
+    public Value getValue(ResultSet rs, int columnIdx) throws Exception {
+        return createValueNull();
     }
 
     public void setValue(PreparedStatement st, int paramIdx, Object value) throws Exception {

@@ -11,12 +11,14 @@ public class DbDataType_double extends BaseDbDataType {
         setDataType(VariantDataType.DOUBLE);
     }
 
-    public Object getValue(ResultSet rs, int columnIdx) throws Exception {
-        Object value = rs.getDouble(columnIdx);
+    public Value getValue(ResultSet rs, int columnIdx) throws Exception {
+        boolean isNull = false;
+        double value = rs.getDouble(columnIdx);
         if (rs.wasNull()) {
-            value = null;
+            value = 0.0;
+            isNull = true;
         }
-        return value;
+        return createValue(value, isNull);
     }
 
     public void setValue(PreparedStatement st, int paramIdx, Object value) throws Exception {

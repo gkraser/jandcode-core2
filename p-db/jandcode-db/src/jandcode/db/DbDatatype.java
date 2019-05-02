@@ -36,7 +36,7 @@ public interface DbDataType extends INamed {
      * @param columnIdx индекс колонки
      * @return значение
      */
-    Object getValue(ResultSet rs, int columnIdx) throws Exception;
+    Value getValue(ResultSet rs, int columnIdx) throws Exception;
 
     /**
      * Установить значение параметра (не null)

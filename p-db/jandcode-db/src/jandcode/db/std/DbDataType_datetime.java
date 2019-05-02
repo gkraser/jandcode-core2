@@ -13,12 +13,14 @@ public class DbDataType_datetime extends BaseDbDataType {
         setDataType(VariantDataType.DATETIME);
     }
 
-    public Object getValue(ResultSet rs, int columnIdx) throws Exception {
+    public Value getValue(ResultSet rs, int columnIdx) throws Exception {
+        boolean isNull = false;
         Object value = rs.getObject(columnIdx);
         if (rs.wasNull()) {
             value = null;
+            isNull = true;
         }
-        return UtCnv.toDateTime(value);
+        return createValue(UtCnv.toDateTime(value), isNull);
     }
 
     public void setValue(PreparedStatement st, int paramIdx, Object value) throws Exception {

@@ -30,12 +30,17 @@ abstract class DbDatatypeTestCase extends App_Test {
     }
 
     @Test
+    public void nulltypes() throws Exception {
+        z.checkNullTypes()
+    }
+
+    @Test
     public void test_long() throws Exception {
         assertEquals(z.dbdatatypeResult("long"), "long")
         //
         assertEquals(z.dbdatatypeRetrive("long", 123), 123)
         assertEquals(z.dbdatatypeRetrive("long", '1234'), 1234)
-        assertEquals(z.dbdatatypeRetrive("long", null), null)
+        assertEquals(z.dbdatatypeRetrive("long", null), 0)
     }
 
     @Test
@@ -44,7 +49,7 @@ abstract class DbDatatypeTestCase extends App_Test {
         //
         assertEquals(z.dbdatatypeRetrive("int", 123), 123)
         assertEquals(z.dbdatatypeRetrive("int", '1234'), 1234)
-        assertEquals(z.dbdatatypeRetrive("int", null), null)
+        assertEquals(z.dbdatatypeRetrive("int", null), 0)
     }
 
     @Test
@@ -53,7 +58,7 @@ abstract class DbDatatypeTestCase extends App_Test {
         //
         assertEquals(z.dbdatatypeRetrive("smallint", 123), 123)
         assertEquals(z.dbdatatypeRetrive("smallint", '1234'), 1234)
-        assertEquals(z.dbdatatypeRetrive("smallint", null), null)
+        assertEquals(z.dbdatatypeRetrive("smallint", null), 0)
     }
 
     @Test
@@ -73,7 +78,7 @@ abstract class DbDatatypeTestCase extends App_Test {
         assertEquals(d, (double) 1231234.67891, 0.0001)
 
         ob = z.dbdatatypeRetrive("double", null)
-        assertEquals(ob, null)
+        assertEquals(ob, (double) 0)
     }
 
     @Test
@@ -83,14 +88,10 @@ abstract class DbDatatypeTestCase extends App_Test {
         assertEquals(z.dbdatatypeRetrive("string", '123'), '123')
         assertEquals(z.dbdatatypeRetrive("string", 'Привет'), "Привет")
         assertEquals(z.dbdatatypeRetrive("string", 'Привет', 6), "Привет")
-        assertEquals(z.dbdatatypeRetrive("string", null), null)
+        assertEquals(z.dbdatatypeRetrive("string", null), '')
         assertEquals(z.dbdatatypeRetrive("string", 123), '123')
         //
-        if (z.dbType == "oracle") {
-            assertEquals(z.dbdatatypeRetrive("string", ""), null)
-        } else {
-            assertEquals(z.dbdatatypeRetrive("string", ""), "")
-        }
+        assertEquals(z.dbdatatypeRetrive("string", ""), "")
     }
 
     @Test
@@ -106,7 +107,7 @@ abstract class DbDatatypeTestCase extends App_Test {
         assertEquals(z.dbdatatypeRetrive("memo", 'This is big string'), 'This is big string')
         assertEquals(z.dbdatatypeRetrive("memo", 'Это длинная строка'), "Это длинная строка")
         assertEquals(z.dbdatatypeRetrive("memo", ''), '')
-        assertEquals(z.dbdatatypeRetrive("memo", null), null)
+        assertEquals(z.dbdatatypeRetrive("memo", null), '')
     }
 
     @Test
@@ -115,12 +116,14 @@ abstract class DbDatatypeTestCase extends App_Test {
         //
 
         byte[] a = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-        assertArrayEquals(z.dbdatatypeRetrive("blob", a), a)
+        byte[] a2 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        assertArrayEquals(z.dbdatatypeRetrive("blob", a), a2)
 
         byte[] b = []
-        assertEquals(z.dbdatatypeRetrive("blob", b), null)
+        byte[] c = []
+        assertArrayEquals(z.dbdatatypeRetrive("blob", b), c)
 
-        assertEquals(z.dbdatatypeRetrive("blob", null), null)
+        assertArrayEquals(z.dbdatatypeRetrive("blob", null), c)
     }
 
     @Test
@@ -129,7 +132,7 @@ abstract class DbDatatypeTestCase extends App_Test {
         //
         assertEquals(z.dbdatatypeRetrive("boolean", 1), 1)
         assertEquals(z.dbdatatypeRetrive("boolean", '1'), 1)
-        assertEquals(z.dbdatatypeRetrive("boolean", null), null)
+        assertEquals(z.dbdatatypeRetrive("boolean", null), 0)
     }
 
     @Test
