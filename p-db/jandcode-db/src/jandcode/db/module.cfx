@@ -15,6 +15,7 @@
     <x-include path="base/index.cfx"/>
     <x-include path="h2/index.cfx"/>
     <x-include path="mariadb/index.cfx"/>
+    <x-include path="postgresql/index.cfx"/>
 
     <db>
         <dbsource-default>
