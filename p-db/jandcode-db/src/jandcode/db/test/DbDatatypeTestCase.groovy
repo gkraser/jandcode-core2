@@ -138,7 +138,10 @@ abstract class DbDatatypeTestCase extends App_Test {
         dt = UtDateTime.create("2012-11-30")
         assertEquals(z.dbdatatypeRetrive("date", dt), dt)
 
-        dt = UtDateTime.now()
+        dt = UtDateTime.create("2012-11-30T22:23:24")
+        assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearTime())
+
+        dt = UtDateTime.create("2012-11-30T22:23:24.123")
         assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearTime())
 
         dt = UtDateTime.create("1984-04-01")
@@ -153,10 +156,13 @@ abstract class DbDatatypeTestCase extends App_Test {
         //
         XDateTime dt;
 
+        dt = UtDateTime.create("2012-11-30")
+        assertEquals(z.dbdatatypeRetrive("datetime", dt), dt)
+
         dt = UtDateTime.create("2012-11-30T22:23:24")
         assertEquals(z.dbdatatypeRetrive("datetime", dt), dt)
 
-        dt = UtDateTime.now()
+        dt = UtDateTime.create("2012-11-30T22:23:24.123")
         assertEquals(z.dbdatatypeRetrive("datetime", dt), dt.clearMSec())
 
         dt = UtDateTime.create("1984-04-01")

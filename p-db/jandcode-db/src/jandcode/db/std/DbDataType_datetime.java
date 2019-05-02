@@ -24,11 +24,14 @@ public class DbDataType_datetime extends BaseDbDataType {
         } else if (value instanceof Date) {
             value = ((Date) value).toLocalDate();
         }
-        return createValue(UtCnv.toDateTime(value), isNull);
+        XDateTime dtValue = UtCnv.toDateTime(value);
+        dtValue = dtValue.clearMSec();
+        return createValue(dtValue, isNull);
     }
 
     public void setValue(PreparedStatement st, int paramIdx, Object value) throws Exception {
         XDateTime dt = UtCnv.toDateTime(value);
+        dt = dt.clearMSec();
         LocalDateTime jdt = dt.toJavaLocalDateTime();
         st.setObject(paramIdx, jdt);
     }
