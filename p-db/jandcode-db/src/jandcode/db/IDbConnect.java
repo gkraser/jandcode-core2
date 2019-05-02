@@ -3,9 +3,9 @@ package jandcode.db;
 import java.sql.*;
 
 /**
- * Методы {@link Db}
+ * Методы обертки вокруг {@link Connection} для {@link Db}.
  */
-public interface IDb {
+public interface IDbConnect {
 
     ////// connect
 

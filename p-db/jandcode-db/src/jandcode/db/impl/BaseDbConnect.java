@@ -5,7 +5,10 @@ import jandcode.db.*;
 
 import java.sql.*;
 
-public class DbImpl extends BaseDbSourceMember implements Db {
+/**
+ * реализация интерфейса {@link IDbConnect}
+ */
+public abstract class BaseDbConnect extends BaseDbSourceMember implements IDbConnect {
 
     private Connection connection;
     protected int connectLevel;
