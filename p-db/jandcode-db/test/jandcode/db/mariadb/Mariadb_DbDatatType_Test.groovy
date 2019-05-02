@@ -37,19 +37,30 @@ class Mariadb_DbDatatType_Test extends DbDatatypeTestCase {
 
     @Test
     public void test2() throws Exception {
-        sqltypes()
-        storetypes()
-        //assertEquals(z.dbdatatypeIsNull("date"), true)
+        XDateTime dt;
+
+        dt = UtDateTime.create("2012-11-30")
+        dt = UtDateTime.create("1984-04-01")
+
+        assertEquals(z.dbdatatypeRetrive("date", dt), dt)
+    }
+    @Test
+    public void test21() throws Exception {
+        XDateTime dt;
+
+        dt = UtDateTime.create("2012-11-30")
+        dt = UtDateTime.create("1984-04-01")
+
+        assertEquals(z.dbdatatypeRetrive("datetime", dt), dt)
     }
 
     @Test
     public void test_date() throws Exception {
-        assertEquals(z.dbdatatypeResult("date"), "datetime")
+        assertEquals(z.dbdatatypeResult("date"), "date")
         //
         XDateTime dt;
 
-        assertEquals(z.dbdatatypeIsNull("date"), true)
-        //assertEquals(z.dbdatatypeRetrive("date", null), null)
+        assertEquals(z.dbdatatypeRetrive("date", null), UtDateTime.EMPTY_DATE)
 
         dt = UtDateTime.create("2012-11-30")
         assertEquals(z.dbdatatypeRetrive("date", dt), dt)

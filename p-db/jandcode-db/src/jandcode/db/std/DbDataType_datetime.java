@@ -19,23 +19,18 @@ public class DbDataType_datetime extends BaseDbDataType {
         if (rs.wasNull()) {
             value = null;
             isNull = true;
+        } else if (value instanceof Timestamp) {
+            value = ((Timestamp) value).toLocalDateTime();
+        } else if (value instanceof Date) {
+            value = ((Date) value).toLocalDate();
         }
         return createValue(UtCnv.toDateTime(value), isNull);
     }
 
     public void setValue(PreparedStatement st, int paramIdx, Object value) throws Exception {
         XDateTime dt = UtCnv.toDateTime(value);
-
         LocalDateTime jdt = dt.toJavaLocalDateTime();
         st.setObject(paramIdx, jdt);
-
-//        if (dt.hasTime()){
-//        } else {
-//
-//        }
-//
-//        //dt.to
-//        st.setObject(paramIdx, UtCnv.toDateTime(value));
     }
 
 }

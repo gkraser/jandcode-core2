@@ -7,6 +7,7 @@ import jandcode.commons.named.*;
 import jandcode.commons.variant.*;
 
 import java.awt.*;
+import java.time.*;
 import java.util.*;
 import java.util.List;
 
@@ -249,6 +250,10 @@ public class UtCnv {
                 return (XDateTime) value;
             } else if (value instanceof java.util.Date) {
                 return UtDateTime.create((java.util.Date) value);
+            } else if (value instanceof LocalDateTime) {
+                return UtDateTime.create(((LocalDateTime) value));
+            } else if (value instanceof LocalDate) {
+                return UtDateTime.create(((LocalDate) value));
             } else if (value instanceof Number) {
                 return UtDateTime.create(((Number) value).longValue());
             } else {
