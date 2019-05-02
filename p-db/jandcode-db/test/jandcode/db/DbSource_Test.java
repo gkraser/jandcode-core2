@@ -1,7 +1,6 @@
-package jandcode.db.dbsource;
+package jandcode.db;
 
 import jandcode.core.test.*;
-import jandcode.db.*;
 import jandcode.db.h2.*;
 import org.junit.jupiter.api.*;
 
