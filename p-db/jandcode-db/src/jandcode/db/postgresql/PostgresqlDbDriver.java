@@ -29,4 +29,15 @@ public class PostgresqlDbDriver extends BaseDbDriver {
         }
     }
 
+    protected String getDbDataTypeName(ResultSetMetaData md, int colIdx) throws Exception {
+        String dt = super.getDbDataTypeName(md, colIdx);
+        if ("string".equals(dt)) {
+            String ctn = md.getColumnTypeName(colIdx);
+            if ("text".equals(ctn)) {
+                dt = "memo";
+            }
+        }
+        return dt;
+    }
+
 }
