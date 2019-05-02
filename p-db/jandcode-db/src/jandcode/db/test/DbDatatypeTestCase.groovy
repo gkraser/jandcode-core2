@@ -23,6 +23,11 @@ abstract class DbDatatypeTestCase extends App_Test {
     }
 
     @Test
+    public void storetypes() throws Exception {
+        z.checkStoreTypes()
+    }
+
+    @Test
     public void test_long() throws Exception {
         utils.logOn()
         assertEquals(z.dbdatatypeResult("long"), "long")

@@ -1,17 +1,18 @@
 package jandcode.db.test
 
 import jandcode.commons.*
+import jandcode.commons.error.*
 import jandcode.commons.test.*
-import jandcode.core.*
 import jandcode.core.test.*
 import jandcode.db.*
+import jandcode.store.*
 
 /**
  * Утилиты для поддержки тестирования модуля db и драйверов на его основе.
  * В setUp создается при необходимости база данных, описанная в dbsource test.1
  * и с ней устанавливается соединение, доступное через db.
  */
-class DbSimpleTestSvc extends BaseTestSvc {
+class DbSimpleTestSvc extends BaseAppTestSvc {
 
     String dbsourceName = "test1"
 
@@ -25,7 +26,6 @@ class DbSimpleTestSvc extends BaseTestSvc {
     void setUp() throws Exception {
         super.setUp();
         //
-        App app = testSvc(AppTestSvc).app
         svc = app.bean(DbService)
         dbs = svc.getDbSource(dbsourceName)
         db = dbs.createDb(true)
@@ -76,6 +76,25 @@ class DbSimpleTestSvc extends BaseTestSvc {
                 // ignore
             }
             db.execQuery(sqlCreate)
+        }
+    }
+
+    /**
+     * Создание полей в store для всех типов dbdatatype для проверки их имен.
+     */
+    void checkStoreTypes() {
+        StoreService storeSvc = app.bean(StoreService)
+        //
+        println "checkStoreTypes for: ${db.dbSource.dbDriver.name}"
+        for (DbDataType dbt : db.dbSource.dbDriver.dbDataTypes) {
+            println "  ${UtString.padRight(dbt.name, 20)}-> ${dbt.storeDataTypeName}"
+            Store st = storeSvc.createStore()
+            if (UtString.empty(dbt.getStoreDataTypeName())) {
+                throw new XError("Для dbdatatype ${dbt.name} не определен storedatatype")
+            }
+            st.addField("f1", dbt.getStoreDataTypeName())
+            st.add(f1: "1")
+            st.get(0).getValue("f1")
         }
     }
 

@@ -10,6 +10,7 @@ class Mariadb_DbDatatType_Test extends DbDatatypeTestCase {
     @Test
     public void test1() throws Exception {
         //sqltypes()
+        storetypes()
         //test_memo()
 
         //assertEquals(z.dbdatatypeResult("memo"), "memo")

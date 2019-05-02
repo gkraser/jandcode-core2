@@ -41,4 +41,9 @@ public interface DbDataType extends INamed {
      */
     String getSqlType(long size);
 
+    /**
+     * Тип данных в store для представления этого типа данных
+     */
+    String getStoreDataTypeName();
+
 }
