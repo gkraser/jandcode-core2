@@ -1,7 +1,6 @@
 package jandcode.store.impl;
 
 import jandcode.commons.error.*;
-import jandcode.commons.variant.*;
 import jandcode.store.*;
 
 /**
@@ -13,14 +12,14 @@ public abstract class BaseStoreField implements StoreField, Cloneable {
     private int index = -1;  // метка, что поле еще не использовалось
     private int size;
     private String dict;
-    private VariantDataType dataType = VariantDataType.OBJECT;
+    private StoreDataType storeDataType;
 
-    public VariantDataType getDataType() {
-        return dataType;
+    public StoreDataType getStoreDataType() {
+        return storeDataType;
     }
 
-    protected void setDataType(VariantDataType dataType) {
-        this.dataType = dataType;
+    public void setStoreDataType(StoreDataType storeDataType) {
+        this.storeDataType = storeDataType;
     }
 
     public String getName() {

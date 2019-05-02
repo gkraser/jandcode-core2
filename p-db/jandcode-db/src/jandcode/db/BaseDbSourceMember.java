@@ -1,5 +1,6 @@
 package jandcode.db;
 
+import jandcode.commons.error.*;
 import jandcode.core.*;
 
 /**
@@ -14,6 +15,9 @@ public abstract class BaseDbSourceMember extends BaseComp implements IDbSourceMe
     }
 
     public void setDbSource(DbSource dbSource) {
+        if (this.dbSource != null) {
+            throw new XError("dbSource нельзя сменить");
+        }
         this.dbSource = dbSource;
     }
 

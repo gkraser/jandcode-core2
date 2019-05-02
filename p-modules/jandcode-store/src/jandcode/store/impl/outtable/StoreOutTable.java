@@ -56,7 +56,7 @@ public class StoreOutTable implements OutTable {
     }
 
     public VariantDataType getColDataType(int col) {
-        return store.getField(col).getDataType();
+        return store.getField(col).getStoreDataType().getDataType();
     }
 
 }

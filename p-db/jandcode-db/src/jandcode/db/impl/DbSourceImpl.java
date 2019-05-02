@@ -1,20 +1,25 @@
 package jandcode.db.impl;
 
+import jandcode.commons.*;
+import jandcode.commons.collect.*;
+import jandcode.commons.conf.*;
+import jandcode.commons.variant.*;
 import jandcode.core.*;
 import jandcode.db.*;
-import jandcode.commons.*;
-import jandcode.commons.conf.*;
 
 import java.util.*;
 
-public class DbSourceImpl extends BaseComp implements DbSource, ISubstVar, IBeanIniter {
+public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
 
-    private MapSubst props = new MapSubst();
     private DbDriver dbDriver;
+    private Conf conf;
+
+    private IVariantMap props;
+    private IVariantMap propsRaw = new VariantMap();
+    private PropsExpander propsExp = new PropsExpander(propsRaw);
+
     private ThreadLocalDb threadLocalDb = new ThreadLocalDb();
     private BeanFactory beanFactory = new DefaultBeanFactory(this);
-    private DbSourceDef dbSourceDef;
-    private Conf conf;
 
     protected class ThreadLocalDb extends ThreadLocal<Db> {
         protected Db initialValue() {
@@ -22,40 +27,25 @@ public class DbSourceImpl extends BaseComp implements DbSource, ISubstVar, IBean
         }
     }
 
-    // map с подстановками
-    protected class MapSubst extends HashMap<String, String> implements ISubstVar {
-
-        public String get(Object key) {
-            String v = super.get(key);
-            return UtString.substVar(v, this);
-        }
-
-        public String getRaw(Object key) {
-            return super.get(key);
-        }
-
-        public String onSubstVar(String v) {
-            String res = getRaw(v);
-            if (res == null) {
-                res = "";
-            }
-            return res;
-        }
-    }
-
     protected void onConfigure(BeanConfig cfg) throws Exception {
+        DbSourceConfBuilder cb = new DbSourceConfBuilder();
+        this.conf = cb.buildConf(getApp(), cfg.getConf());
+        this.dbDriver = getApp().bean(DbDriverService.class).getDbDriver(this.conf.getString("dbdriver"));
         //
-        this.conf = cfg.getConf();
         for (Map.Entry<String, Object> a : this.conf.entrySet()) {
-            getProps().put(a.getKey(), UtCnv.toString(a.getValue()));
+            String key = a.getKey();
+            Object value = a.getValue();
+            if (value instanceof Conf) {
+                continue;
+            }
+            if (key.startsWith("$")) {
+                continue;  // внутренние штучки
+            }
+            propsRaw.put(key, UtCnv.toString(value));
         }
-        //
-        DbDriverDef drvdef = getApp().bean(DbService.class).getDbDrivers()
-                .get(getConf().getString("dbdriver", DbConsts.DBDRIVER_DEFAULT));
-        dbDriver = drvdef.createInst(this);
 
         //
-        getBeanFactory().beanConfigure(cfg);
+        getBeanFactory().beanConfigure(new DefaultBeanConfig(this.conf));
     }
 
     public Conf getConf() {
@@ -80,8 +70,18 @@ public class DbSourceImpl extends BaseComp implements DbSource, ISubstVar, IBean
         return dbDriver;
     }
 
+    public Db createDb(boolean direct) {
+        DefaultDb db = create(DefaultDb.class);
+        if (direct) {
+            db.setConnectionService((DbConnectionService) bean(DbConsts.BEAN_DIRECT_CONNECT));
+        } else {
+            db.setConnectionService(bean(DbConnectionService.class));
+        }
+        return db;
+    }
+
     public Db createDb() {
-        return create(DbImpl.class);
+        return createDb(false);
     }
 
     public Db getDb() {
@@ -92,44 +92,58 @@ public class DbSourceImpl extends BaseComp implements DbSource, ISubstVar, IBean
         return getDbDriver().getDbType();
     }
 
-    /**
-     * Установка создателя
-     */
-    public void setDbSourceDef(DbSourceDef dbSourceDef) {
-        this.dbSourceDef = dbSourceDef;
-    }
-
     //////
 
-    public Map<String, String> getProps() {
+    protected void clearPropsCache() {
+        this.props = null;
+    }
+
+    public void setProp(String name, Object value) {
+        clearPropsCache();
+        this.propsRaw.put(name, value);
+    }
+
+    public void setProps(Map<String, Object> props) {
+        clearPropsCache();
+        this.propsRaw.putAll(props);
+    }
+
+    public IVariantMap getProps() {
+        if (props == null) {
+            synchronized (this) {
+                if (props == null) {
+                    VariantMap vm = new VariantMap();
+                    propsExp.expandAllTo(vm);
+                    props = vm;
+                }
+            }
+        }
         return props;
     }
 
-    public Map<String, String> getProps(String prefix, boolean override) {
+    public IVariantMap getProps(String prefix, boolean override, boolean raw) {
+        IVariantMap curProps;
+        if (raw) {
+            curProps = propsRaw;
+        } else {
+            curProps = getProps();
+        }
         prefix = prefix + ".";
-        MapSubst res = new MapSubst();
+        VariantMap res = new VariantMap();
         if (override) {
             // сначала без префикса
-            for (String key : props.keySet()) {
+            for (String key : curProps.keySet()) {
                 if (!key.startsWith(prefix)) {
-                    res.put(key, props.getRaw(key));
+                    res.put(key, curProps.get(key));
                 }
             }
         }
         // накладываем с префиксом
-        for (String key : props.keySet()) {
+        for (String key : curProps.keySet()) {
             String k2 = UtString.removePrefix(key, prefix);
             if (k2 != null) {
-                res.put(k2, props.getRaw(key));
+                res.put(k2, curProps.get(key));
             }
-        }
-        return res;
-    }
-
-    public String onSubstVar(String v) {
-        String res = getProps().get(v);
-        if (res == null) {
-            res = "";
         }
         return res;
     }
@@ -137,7 +151,12 @@ public class DbSourceImpl extends BaseComp implements DbSource, ISubstVar, IBean
     //////
 
     public DbSource cloneComp() {
-        return dbSourceDef.createInst();
+        DbSourceImpl dbs = getApp().create(this.conf, DbSourceImpl.class);
+        // накладываем свойства текущие
+        dbs.propsRaw.putAll(propsRaw);
+        dbs.clearPropsCache();
+        //
+        return dbs;
     }
 
 }

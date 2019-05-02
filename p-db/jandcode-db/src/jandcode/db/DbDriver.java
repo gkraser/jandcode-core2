@@ -1,6 +1,6 @@
 package jandcode.db;
 
-import jandcode.core.*;
+import jandcode.commons.conf.*;
 import jandcode.commons.named.*;
 import jandcode.commons.variant.*;
 
@@ -9,13 +9,12 @@ import java.util.*;
 
 /**
  * Драйвер базы данных.
- * Создается и существует только в рамках DbSource.
  */
-public interface DbDriver extends Comp, IDbSourceMember {
+public interface DbDriver extends INamed, IConfLink {
 
     /**
      * Тип базы данных. Например 'oracle', 'mysql'.
-     * Для одного типа базы данных может быть реализованно различные драйвера,
+     * Для одного типа базы данных может быть реализованны различные драйвера,
      * однако внешним инструментам нужно знать, что за тип базы используется.
      */
     String getDbType();
@@ -25,7 +24,7 @@ public interface DbDriver extends Comp, IDbSourceMember {
     /**
      * Поддерживаемые типы данных
      */
-    NamedList<DbDatatype> getDbDatatypes();
+    NamedList<DbDataType> getDbDataTypes();
 
     //////
 
@@ -41,22 +40,11 @@ public interface DbDriver extends Comp, IDbSourceMember {
     /**
      * Получить тип для колонки ResultSet
      */
-    DbDatatype getDbDatatype(ResultSetMetaData md, int colIdx) throws Exception;
+    DbDataType getDbDataType(ResultSetMetaData md, int colIdx) throws Exception;
 
     /**
      * Получить тип для колонки с sql-типом
      */
-    DbDatatype getDbDatatype(int sqlType) throws Exception;
-
-    //////
-
-    /**
-     * Возвращает список sql, которые нужно выполнить при установке соединения.
-     * Может возвращает null, если такие sql не требуются.
-     * <p>
-     * По умолчанию данные собираются из свойств dbsource initConnectionSql.XXX.
-     * Сортируются по имени свойства.
-     */
-    List<String> getInitConnectionSqls();
+    DbDataType getDbDataType(int sqlType) throws Exception;
 
 }

@@ -1,34 +1,25 @@
 package jandcode.db.impl;
 
-import jandcode.db.*;
 import jandcode.commons.named.*;
-import jandcode.commons.variant.*;
+import jandcode.db.*;
 
 public class DbQueryFieldImpl extends Named implements DbQueryField {
 
-    private DbDatatype dbDatatype;
+    private DbDataType dbDataType;
     private int index;
 
-    public DbQueryFieldImpl(String name, int index, DbDatatype dbDatatype) {
+    public DbQueryFieldImpl(String name, int index, DbDataType dbDataType) {
         this.name = name;
         this.index = index;
-        this.dbDatatype = dbDatatype;
-    }
-
-    public VariantDataType getDatatype() {
-        return getDbDatatype().getDatatype();
+        this.dbDataType = dbDataType;
     }
 
     public int getIndex() {
         return index;
     }
 
-    public DbDatatype getDbDatatype() {
-        return dbDatatype;
-    }
-
-    public String getDbDatatypeName() {
-        return dbDatatype.getName();
+    public DbDataType getDbDataType() {
+        return dbDataType;
     }
 
 }

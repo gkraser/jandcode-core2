@@ -1,18 +1,16 @@
 package jandcode.store;
 
 import jandcode.commons.named.*;
-import jandcode.commons.variant.*;
 
 /**
  * Поле для {@link Store}.
  */
-public interface StoreField extends INamed, IStoreFieldValue {
+public interface StoreField extends INamed {
 
     /**
-     * Тип данных (см. {@link VariantDataType}).
-     * Нужен для поддержки variant.
+     * Тип данных для поля
      */
-    VariantDataType getDataType();
+    StoreDataType getStoreDataType();
 
     /**
      * Индекс поля

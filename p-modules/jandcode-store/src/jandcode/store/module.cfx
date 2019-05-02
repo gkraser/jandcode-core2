@@ -6,38 +6,38 @@
 
     <data>
 
-        <store-field name="blob"
-                     class="jandcode.store.std.BlobStoreField"/>
+        <storedatatype name="blob"
+                       class="jandcode.store.std.StoreDataType_blob"/>
 
-        <store-field name="boolean"
-                     class="jandcode.store.std.BooleanStoreField"/>
+        <storedatatype name="boolean"
+                       class="jandcode.store.std.StoreDataType_boolean"/>
 
-        <store-field name="date"
-                     class="jandcode.store.std.DateStoreField"/>
+        <storedatatype name="date"
+                       class="jandcode.store.std.StoreDataType_date"/>
 
-        <store-field name="datetime"
-                     class="jandcode.store.std.DateTimeStoreField"/>
+        <storedatatype name="datetime"
+                       class="jandcode.store.std.StoreDataType_datetime"/>
 
-        <store-field name="double"
-                     class="jandcode.store.std.DoubleStoreField"/>
+        <storedatatype name="double"
+                       class="jandcode.store.std.StoreDataType_double"/>
 
-        <store-field name="int"
-                     class="jandcode.store.std.IntStoreField"/>
+        <storedatatype name="int"
+                       class="jandcode.store.std.StoreDataType_int"/>
 
-        <store-field name="long"
-                     class="jandcode.store.std.LongStoreField"/>
+        <storedatatype name="long"
+                       class="jandcode.store.std.StoreDataType_long"/>
 
-        <store-field name="null"
-                     class="jandcode.store.std.NullStoreField"/>
+        <storedatatype name="null"
+                       class="jandcode.store.std.StoreDataType_null"/>
 
-        <store-field name="object"
-                     class="jandcode.store.std.ObjectStoreField"/>
+        <storedatatype name="object"
+                       class="jandcode.store.std.StoreDataType_object"/>
 
-        <store-field name="rawstring"
-                     class="jandcode.store.std.RawStringStoreField"/>
+        <storedatatype name="rawstring"
+                       class="jandcode.store.std.StoreDataType_rawstring"/>
 
-        <store-field name="string"
-                     class="jandcode.store.std.StringStoreField"/>
+        <storedatatype name="string"
+                       class="jandcode.store.std.StoreDataType_string"/>
 
     </data>
 

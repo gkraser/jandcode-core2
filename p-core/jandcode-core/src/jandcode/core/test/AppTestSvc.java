@@ -18,7 +18,7 @@ public class AppTestSvc extends BaseTestSvc implements App {
 
     public static String FILE_TEST_CONF = "test.cfx";
 
-    private static HashMap<String, App> _cacheApp = new HashMap<String, App>();
+    private static HashMap<String, App> _cacheApp = new HashMap<>();
 
     protected App app;
 

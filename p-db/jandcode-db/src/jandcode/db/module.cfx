@@ -1,97 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
+    <bean name="jandcode.db.DbDriverService"
+          class="jandcode.db.impl.DbDriverServiceImpl"/>
+
     <bean name="jandcode.db.DbService"
           class="jandcode.db.impl.DbServiceImpl"/>
 
+    <!-- ===================================================================== -->
+
     <db>
+    </db>
 
-        <dbdriver name="jdbc" class="jandcode.db.jdbc.JdbcDbDriver" dbtype="jdbc">
+    <x-include path="base/index.cfx"/>
+    <x-include path="h2/index.cfx"/>
+    <x-include path="mariadb/index.cfx"/>
+    <x-include path="postgresql/index.cfx"/>
 
-            <dbsource name="default">
+    <db>
+        <dbsource-default>
 
-                <bean name="jandcode.db.DbConnectionService"
-                      class="jandcode.db.impl.PoolingDbConnectionService"/>
+            <bean name="jandcode.db.DbConnectionService"
+                  class="jandcode.db.std.PoolingDbConnectionService"/>
 
-                <bean name="jandcode.db.DbManagerService"
-                      class="jandcode.db.jdbc.JdbcDbManagerService"/>
+            <bean name="connectionService.direct"
+                  class="jandcode.db.std.DirectDbConnectionService"/>
 
-                <bean name="direct.connection"
-                      class="jandcode.db.impl.DirectDbConnectionService"/>
+            <bean name="jandcode.db.DbManagerService"
+                  class="jandcode.db.base.BaseDbManagerService"/>
 
-                <bean name="jandcode.db.DbMetadataService"
-                      class="jandcode.db.jdbc.JdbcDbMetadataService"/>
-
-            </dbsource>
-
-            <!-- =================== -->
-
-            <dbdatatype name="null" class="jandcode.db.impl.dbt.Dbt_null"/>
-
-            <dbdatatype name="string" class="jandcode.db.impl.dbt.Dbt_string"
-                        sqltype="varchar(${size})"/>
-
-            <dbdatatype name="int" class="jandcode.db.impl.dbt.Dbt_int"
-                        sqltype="int"/>
-
-            <dbdatatype name="long" class="jandcode.db.impl.dbt.Dbt_long"
-                        sqltype="bigint"/>
-
-            <dbdatatype name="smallint" class="jandcode.db.impl.dbt.Dbt_smallint"
-                        sqltype="smallint"/>
-
-            <dbdatatype name="double" class="jandcode.db.impl.dbt.Dbt_double"
-                        sqltype="double"/>
-
-            <dbdatatype name="memo" class="jandcode.db.impl.dbt.Dbt_memo"
-                        sqltype="clob"/>
-
-            <dbdatatype name="date" class="jandcode.db.impl.dbt.Dbt_datetime"
-                        sqltype="date"/>
-
-            <dbdatatype name="datetime" class="jandcode.db.impl.dbt.Dbt_datetime"
-                        sqltype="datetime"/>
-
-            <dbdatatype name="blob" class="jandcode.db.impl.dbt.Dbt_blob"
-                        sqltype="blob"/>
-
-            <dbdatatype name="boolean" class="jandcode.db.impl.dbt.Dbt_boolean"
-                        sqltype="smallint"/>
-
-            <!-- =================== -->
-
-            <type name="null" dbdatatype="null"/>
-
-            <type name="java.lang.CharSequence" dbdatatype="string"/>
-            <type name="java.lang.String" dbdatatype="string"/>
-
-            <type name="java.lang.Long" dbdatatype="long"/>
-            <type name="long" dbdatatype="long"/>
-
-            <type name="java.lang.Integer" dbdatatype="int"/>
-            <type name="int" dbdatatype="int"/>
-
-            <type name="java.lang.Short" dbdatatype="smallint"/>
-            <type name="short" dbdatatype="smallint"/>
-
-            <type name="java.lang.Double" dbdatatype="double"/>
-            <type name="double" dbdatatype="double"/>
-
-            <type name="java.lang.Boolean" dbdatatype="boolean"/>
-            <type name="boolean" dbdatatype="boolean"/>
-
-            <type name="jandcode.commons.datetime.XDateTime" dbdatatype="date"/>
-
-            <type name="byte-array" dbdatatype="blob"/>
-
-        </dbdriver>
-
-        <!-- =================== -->
-
-        <dbsource>
-            <!-- тут описываются datasource поименнованные -->
-        </dbsource>
-
+        </dbsource-default>
     </db>
 
 </root>

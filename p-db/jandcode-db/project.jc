@@ -3,26 +3,28 @@ import jandcode.jc.std.*
 
 class P extends ProjectScript {
 
+    static beforeLoad = {
+    }
+
     void onInclude() {
         //
         project.name = "jandcode-db"
         //
         include(JavaProject).with {
-            //
             moduleDef("jandcode.db").with {
                 depends.prod.add(
+                        "jandcode.store",
+
+                        "commons-pool2",
+                        "commons-dbcp2",
+                )
+                depends.dev.add(
+                        "h2",
+                        "mariadb-java-client",
+                        "postgresql",
                 )
             }
-            //
-            depends.prod.add(
-                    "commons-pool2",
-                    "commons-dbcp2",
-            )
-            depends.dev.add(
-            )
-            //
         }
-
     }
 
 }

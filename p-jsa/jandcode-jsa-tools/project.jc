@@ -28,10 +28,10 @@ class P extends ProjectScript {
         //
         include(JsaProject).with {
             nodeDepends.putAll(
-                    "@babel/cli": "7.4.3",
-                    "@babel/core": "7.4.3",
-                    "@babel/preset-env": "7.4.3",
-                    "@babel/polyfill": "7.4.3",
+                    "@babel/cli": "7.4.4",
+                    "@babel/core": "7.4.4",
+                    "@babel/preset-env": "7.4.4",
+                    "@babel/polyfill": "7.4.4",
                     "@babel/plugin-external-helpers": "7.2.0",
 
                     "cross-env": "5.2.0",
@@ -40,7 +40,7 @@ class P extends ProjectScript {
                     "fs-extra": "7.0.1",
                     "globby": "9.2.0",
                     "require-from-string": "2.0.2",
-                    "del": "4.1.0",
+                    "del": "4.1.1",
 
                     "less": "3.9.0",
 
@@ -62,9 +62,6 @@ class P extends ProjectScript {
                     "gulp-less": "4.0.1",
                     "through2": "3.0.1",
                     "vinyl": "2.2.0",
-
-                    // транзитивные зависимости вынесеные отдельно для определенных версий
-                    "chokidar": "2.1.5",
             )
         }
         //

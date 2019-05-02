@@ -1,12 +1,9 @@
 package jandcode.store.impl;
 
-import jandcode.commons.*;
 import jandcode.commons.conf.*;
-import jandcode.commons.error.*;
+import jandcode.commons.named.*;
 import jandcode.core.*;
 import jandcode.store.*;
-
-import java.util.*;
 
 public class StoreServiceImpl extends BaseComp implements StoreService {
 
@@ -14,7 +11,7 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
         new StaticInit();
     }
 
-    private Map<String, Class> fieldTypes = new LinkedHashMap<>();
+    private NamedList<StoreDataType> storeDataTypes = new DefaultNamedList<>("Not found StoreDataType: {0}");
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
@@ -22,23 +19,20 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
 
         Conf dataConf = getApp().getConf().getConf("data");
 
-        for (Conf sf : dataConf.getConfs("store-field")) {
-            Class cls = UtClass.getClass(sf.getString("class"));
-            fieldTypes.put(sf.getName(), cls);
+        for (Conf sf : dataConf.getConfs("storedatatype")) {
+            StoreDataType sdt = (StoreDataType) getApp().create(sf);
+            storeDataTypes.add(sdt);
         }
 
     }
 
-    public Collection<String> getFieldTypes() {
-        return fieldTypes.keySet();
+    public NamedList<StoreDataType> getStoreDataTypes() {
+        return storeDataTypes;
     }
 
     public StoreField createStoreField(String type) {
-        Class cls = fieldTypes.get(type);
-        if (cls == null) {
-            throw new XError("Тип поля {0} не найден");
-        }
-        return (StoreField) getApp().create(cls);
+        StoreDataType sdt = storeDataTypes.get(type);
+        return new DefaultStoreField(sdt);
     }
 
     public Store createStore() {

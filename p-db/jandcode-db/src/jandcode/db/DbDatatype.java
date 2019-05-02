@@ -1,6 +1,6 @@
 package jandcode.db;
 
-import jandcode.core.*;
+import jandcode.commons.named.*;
 import jandcode.commons.variant.*;
 
 import java.sql.*;
@@ -8,7 +8,25 @@ import java.sql.*;
 /**
  * Тип данных для базы данных.
  */
-public interface DbDatatype extends Comp, IDbSourceMember {
+public interface DbDataType extends INamed {
+
+    /**
+     * Значение, которое возвращает метод {@link DbDataType#getValue(java.sql.ResultSet, int)}.
+     */
+    interface Value {
+
+        /**
+         * Значение. Может быть null, но обычно нет.
+         */
+        Object getValue();
+
+        /**
+         * Признак null
+         */
+        boolean isNull();
+
+    }
+
 
     /**
      * Прочитать значение из ResultSet.
@@ -18,7 +36,7 @@ public interface DbDatatype extends Comp, IDbSourceMember {
      * @param columnIdx индекс колонки
      * @return значение
      */
-    Object getValue(ResultSet rs, int columnIdx) throws Exception;
+    Value getValue(ResultSet rs, int columnIdx) throws Exception;
 
     /**
      * Установить значение параметра (не null)
@@ -32,13 +50,7 @@ public interface DbDatatype extends Comp, IDbSourceMember {
     /**
      * Тип данных (см. {@link VariantDataType})
      */
-    VariantDataType getDatatype();
-
-    /**
-     * Возвращает sql тип для создания поля. В типе может использоватся '${size}', который
-     * заменяется на размер.
-     */
-    String getSqlType();
+    VariantDataType getDataType();
 
     /**
      * Возвращает sql тип для создания поля.
@@ -46,5 +58,10 @@ public interface DbDatatype extends Comp, IDbSourceMember {
      * @param size размер поля, указывается для строковых данных
      */
     String getSqlType(long size);
+
+    /**
+     * Тип данных в store для представления этого типа данных
+     */
+    String getStoreDataTypeName();
 
 }
