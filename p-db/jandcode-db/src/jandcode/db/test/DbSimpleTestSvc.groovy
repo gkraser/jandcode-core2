@@ -17,7 +17,9 @@ class DbSimpleTestSvc extends BaseAppTestSvc {
     String dbsourceName = "test1"
 
     DbService svc
-    DbSource dbs
+    DbSource dbSource
+    DbDriver dbDriver
+    String dbType
     Db db
 
     String checkDbDataType_table = "checkDbDataType"
@@ -27,8 +29,10 @@ class DbSimpleTestSvc extends BaseAppTestSvc {
         super.setUp();
         //
         svc = app.bean(DbService)
-        dbs = svc.getDbSource(dbsourceName)
-        db = dbs.createDb(true)
+        dbSource = svc.getDbSource(dbsourceName)
+        dbDriver = dbSource.getDbDriver()
+        dbType = dbDriver.getDbType()
+        db = dbSource.createDb(true)
         //
         String cfgKey = "test/dbprepare/${dbsourceName}/prepared"
         if (!app.conf.getBoolean(cfgKey)) {
@@ -47,7 +51,7 @@ class DbSimpleTestSvc extends BaseAppTestSvc {
     }
 
     def doPrepare() {
-        DbManagerService man = dbs.bean(DbManagerService)
+        DbManagerService man = dbSource.bean(DbManagerService)
         if (!man.existDatabase()) {
             man.createDatabase()
         }
@@ -60,8 +64,8 @@ class DbSimpleTestSvc extends BaseAppTestSvc {
      * Для каждого типа создается своя таблица.
      */
     void checkSqlTypes() {
-        println "checkSqlTypes for: ${db.dbSource.dbDriver.name}"
-        for (DbDataType dbt : db.dbSource.dbDriver.dbDataTypes) {
+        println "checkSqlTypes for: ${dbDriver.name}"
+        for (DbDataType dbt : dbDriver.dbDataTypes) {
             String sqltype = dbt.getSqlType(20)
             if (UtString.empty(sqltype)) {
                 println "  ${UtString.padRight(dbt.name, 20)}-> SKIP"
@@ -85,8 +89,8 @@ class DbSimpleTestSvc extends BaseAppTestSvc {
     void checkStoreTypes() {
         StoreService storeSvc = app.bean(StoreService)
         //
-        println "checkStoreTypes for: ${db.dbSource.dbDriver.name}"
-        for (DbDataType dbt : db.dbSource.dbDriver.dbDataTypes) {
+        println "checkStoreTypes for: ${dbDriver.name}"
+        for (DbDataType dbt : dbDriver.dbDataTypes) {
             println "  ${UtString.padRight(dbt.name, 20)}-> ${dbt.storeDataTypeName}"
             Store st = storeSvc.createStore()
             if (UtString.empty(dbt.getStoreDataTypeName())) {
@@ -104,12 +108,12 @@ class DbSimpleTestSvc extends BaseAppTestSvc {
      * @param size размер
      */
     void checkTable_checkDbDataType(String dbdatatype, int size = 20) {
-        DbDataType dbt = db.getDbSource().getDbDriver().getDbDataTypes().get(dbdatatype)
+        DbDataType dbt = dbDriver.getDbDataTypes().get(dbdatatype)
         String sqltype = dbt.getSqlType(size);
         //
         if (checkDbDataType_lastSqltype != sqltype) {
 
-            println "${db.getDbSource().getDbDriver().getName()} [${dbdatatype} => ${sqltype}]"
+            println "${dbDriver.name} [${dbdatatype} => ${sqltype}]"
 
             // сменился тип, таблица не актуальная, пересоздаем
             try {
@@ -125,7 +129,7 @@ class DbSimpleTestSvc extends BaseAppTestSvc {
     }
 
     /**
-     * Записать dbdatatype (не sql!) значение, прочитать его и вернуть
+     * Записать dbdatatype значение, прочитать его и вернуть
      */
     public Object dbdatatypeRetrive(String dbdatatype, Object value, int size = 20) throws Exception {
         checkTable_checkDbDataType(dbdatatype, size)

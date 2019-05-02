@@ -9,7 +9,9 @@ import static org.junit.jupiter.api.Assertions.*
 
 /**
  * Базовый класс для тестирования типов данных в базе.
- * используется как предок при тестировании каждого драйвера для унификации поведения.
+ * Используется как предок при тестировании каждого драйвера для унификации поведения.
+ *
+ * В коде имеются проверки dbType. В этих местах имеются сильные отличия в поведении!
  */
 abstract class DbDatatypeTestCase extends App_Test {
 
@@ -29,7 +31,6 @@ abstract class DbDatatypeTestCase extends App_Test {
 
     @Test
     public void test_long() throws Exception {
-        utils.logOn()
         assertEquals(z.dbdatatypeResult("long"), "long")
         //
         assertEquals(z.dbdatatypeRetrive("long", 123), 123)
@@ -83,8 +84,9 @@ abstract class DbDatatypeTestCase extends App_Test {
         assertEquals(z.dbdatatypeRetrive("string", 'Привет'), "Привет")
         assertEquals(z.dbdatatypeRetrive("string", 'Привет', 6), "Привет")
         assertEquals(z.dbdatatypeRetrive("string", null), null)
+        assertEquals(z.dbdatatypeRetrive("string", 123), '123')
         //
-        if (z.db.dbSource.dbType == "oracle") {
+        if (z.dbType == "oracle") {
             assertEquals(z.dbdatatypeRetrive("string", ""), null)
         } else {
             assertEquals(z.dbdatatypeRetrive("string", ""), "")
@@ -95,7 +97,7 @@ abstract class DbDatatypeTestCase extends App_Test {
     public void test_memo() throws Exception {
         assertEquals(z.dbdatatypeResult("memo"), "memo")
 
-        if (z.db.dbSource.dbType == "postgresql") {
+        if (z.dbType == "postgresql") {
             assertEquals(z.dbdatatypeResult("memo"), "string")
         } else {
             assertEquals(z.dbdatatypeResult("memo"), "memo")
@@ -103,58 +105,8 @@ abstract class DbDatatypeTestCase extends App_Test {
         //
         assertEquals(z.dbdatatypeRetrive("memo", 'This is big string'), 'This is big string')
         assertEquals(z.dbdatatypeRetrive("memo", 'Это длинная строка'), "Это длинная строка")
+        assertEquals(z.dbdatatypeRetrive("memo", ''), '')
         assertEquals(z.dbdatatypeRetrive("memo", null), null)
-    }
-
-    @Test
-    public void test_date() throws Exception {
-        if (z.db.dbSource.dbType == "oracle") {
-            assertEquals(z.dbdatatypeResult("date"), "datetime")
-        } else {
-            assertEquals(z.dbdatatypeResult("date"), "date")
-        }
-        //
-        XDateTime dt;
-
-        dt = UtDateTime.create("2012-11-30")
-        assertEquals(z.dbdatatypeRetrive("date", dt), dt)
-
-        dt = UtDateTime.now()
-        if (z.db.dbSource.dbType == "oracle") {
-            assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearMSec())
-        } else {
-            assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearTime())
-        }
-
-        dt = UtDateTime.create("1984-04-01")
-        assertEquals(z.dbdatatypeRetrive("date", dt), dt)
-
-        assertEquals(z.dbdatatypeRetrive("date", null), null)
-    }
-
-    @Test
-    public void test_datetime() throws Exception {
-        assertEquals(z.dbdatatypeResult("datetime"), "datetime")
-        //
-        XDateTime dt;
-
-        dt = UtDateTime.create("2012-11-30T22:23:24")
-        assertEquals(z.dbdatatypeRetrive("datetime", dt), dt)
-
-        dt = UtDateTime.now()
-        assertEquals(z.dbdatatypeRetrive("datetime", dt), dt.clearMSec())
-
-        dt = UtDateTime.create("1984-04-01")
-        if (z.db.dbSource.dbType == "derby" || z.db.dbSource.dbType == "firebird") {
-            assertEquals(z.dbdatatypeRetrive("datetime", dt), UtDateTime.create("1984-04-01T01:00:00"))
-        } else {
-            assertEquals(z.dbdatatypeRetrive("datetime", dt), dt)
-        }
-
-        dt = UtDateTime.create("1984-04-01T15:16:17")
-        assertEquals(z.dbdatatypeRetrive("datetime", dt), dt)
-
-        assertEquals(z.dbdatatypeRetrive("datetime", null), null)
     }
 
     @Test
@@ -179,5 +131,57 @@ abstract class DbDatatypeTestCase extends App_Test {
         assertEquals(z.dbdatatypeRetrive("boolean", '1'), 1)
         assertEquals(z.dbdatatypeRetrive("boolean", null), null)
     }
+
+    @Test
+    public void test_date() throws Exception {
+        if (z.dbType == "oracle") {
+            assertEquals(z.dbdatatypeResult("date"), "datetime")
+        } else {
+            assertEquals(z.dbdatatypeResult("date"), "date")
+        }
+        //
+        XDateTime dt;
+
+        dt = UtDateTime.create("2012-11-30")
+        assertEquals(z.dbdatatypeRetrive("date", dt), dt)
+
+        dt = UtDateTime.now()
+        if (z.dbType == "oracle") {
+            assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearMSec())
+        } else {
+            assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearTime())
+        }
+
+        dt = UtDateTime.create("1984-04-01")
+        assertEquals(z.dbdatatypeRetrive("date", dt), dt)
+
+        assertEquals(z.dbdatatypeRetrive("date", null), null)
+    }
+
+    @Test
+    public void test_datetime() throws Exception {
+        assertEquals(z.dbdatatypeResult("datetime"), "datetime")
+        //
+        XDateTime dt;
+
+        dt = UtDateTime.create("2012-11-30T22:23:24")
+        assertEquals(z.dbdatatypeRetrive("datetime", dt), dt)
+
+        dt = UtDateTime.now()
+        assertEquals(z.dbdatatypeRetrive("datetime", dt), dt.clearMSec())
+
+        dt = UtDateTime.create("1984-04-01")
+        if (z.dbType == "derby" || z.dbType == "firebird") {
+            assertEquals(z.dbdatatypeRetrive("datetime", dt), UtDateTime.create("1984-04-01T01:00:00"))
+        } else {
+            assertEquals(z.dbdatatypeRetrive("datetime", dt), dt)
+        }
+
+        dt = UtDateTime.create("1984-04-01T15:16:17")
+        assertEquals(z.dbdatatypeRetrive("datetime", dt), dt)
+
+        assertEquals(z.dbdatatypeRetrive("datetime", null), null)
+    }
+
 
 }

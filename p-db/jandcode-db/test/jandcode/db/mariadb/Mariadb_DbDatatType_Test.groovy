@@ -13,9 +13,9 @@ class Mariadb_DbDatatType_Test extends DbDatatypeTestCase {
         storetypes()
         //test_memo()
 
-        //assertEquals(z.dbdatatypeResult("memo"), "memo")
+        assertEquals(z.dbdatatypeResult("memo"), "memo")
 
-        assertEquals(z.dbdatatypeResult("datetime"), "datetime")
+        //assertEquals(z.dbdatatypeResult("datetime"), "datetime")
 
 
     }
