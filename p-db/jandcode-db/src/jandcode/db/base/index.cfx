@@ -39,21 +39,19 @@
                         sqltype="clob"
                         storedatatype="rawstring"/>
 
-            <dbdatatype name="date" class="jandcode.db.std.DbDataType_datetime"
-                        sqltype="date"
-                        storedatatype="date"/>
-
-            <dbdatatype name="datetime"
-                        class="jandcode.db.std.DbDataType_datetime"
+            <dbdatatype name="datetime" class="jandcode.db.std.DbDataType_datetime"
                         sqltype="datetime"
                         storedatatype="datetime"/>
+
+            <dbdatatype name="date" parent="datetime"
+                        sqltype="date"
+                        storedatatype="date"/>
 
             <dbdatatype name="blob" class="jandcode.db.std.DbDataType_blob"
                         sqltype="blob"
                         storedatatype="blob"/>
 
-            <dbdatatype name="boolean"
-                        class="jandcode.db.std.DbDataType_boolean"
+            <dbdatatype name="boolean" parent="smallint"
                         sqltype="smallint"
                         storedatatype="boolean"/>
 

@@ -71,15 +71,8 @@ class DbSimpleTestSvc extends BaseAppTestSvc {
                 println "  ${UtString.padRight(dbt.name, 20)}-> SKIP"
                 continue
             }
-            String tn = "${checkDbDataType_table}_sqltype_${dbt.name}"
-            String sqlCreate = "create table ${tn} (f1 ${sqltype})"
-            println "  ${UtString.padRight(dbt.name, 20)}-> ${UtString.padRight(sqltype, 20)}-> ${sqlCreate}"
-            try {
-                db.execQuery("drop table ${tn}")
-            } catch (e) {
-                // ignore
-            }
-            db.execQuery(sqlCreate)
+            checkTable_checkDbDataType(dbt.name)
+            checkDbDataType_lastSqltype = ""
         }
     }
 
@@ -139,6 +132,23 @@ class DbSimpleTestSvc extends BaseAppTestSvc {
         DbQuery q = db.openQuery("select * from ${checkDbDataType_table}")
         try {
             res = q.getValue("f1")
+        } finally {
+            q.close()
+        }
+        return res
+    }
+
+    /**
+     * Записать dbdatatype значение null, и вернуть isNull
+     */
+    public boolean dbdatatypeIsNull(String dbdatatype) throws Exception {
+        checkTable_checkDbDataType(dbdatatype, 20)
+        boolean res
+        db.execQuery("delete from ${checkDbDataType_table}")
+        db.execQuery("insert into ${checkDbDataType_table} (f1) values(:v)", [v: null])
+        DbQuery q = db.openQuery("select * from ${checkDbDataType_table}")
+        try {
+            res = q.isNull("f1")
         } finally {
             q.close()
         }

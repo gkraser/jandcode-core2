@@ -1,14 +1,12 @@
 package jandcode.db.std;
 
-import jandcode.commons.error.*;
+import jandcode.commons.*;
+import jandcode.commons.datetime.*;
 import jandcode.commons.variant.*;
 
 import java.sql.*;
+import java.time.*;
 
-/**
- * ЭТА реализация - просто заглушка. Используейте специфический подход к дате и времени
- * для каждого драйвера
- */
 public class DbDataType_datetime extends BaseDbDataType {
 
     public DbDataType_datetime() {
@@ -16,11 +14,26 @@ public class DbDataType_datetime extends BaseDbDataType {
     }
 
     public Object getValue(ResultSet rs, int columnIdx) throws Exception {
-        throw new XError("Not implemented getValue for date");
+        Object value = rs.getObject(columnIdx);
+        if (rs.wasNull()) {
+            value = null;
+        }
+        return UtCnv.toDateTime(value);
     }
 
     public void setValue(PreparedStatement st, int paramIdx, Object value) throws Exception {
-        throw new XError("Not implemented setValue for date");
+        XDateTime dt = UtCnv.toDateTime(value);
+
+        LocalDateTime jdt = dt.toJavaLocalDateTime();
+        st.setObject(paramIdx, jdt);
+
+//        if (dt.hasTime()){
+//        } else {
+//
+//        }
+//
+//        //dt.to
+//        st.setObject(paramIdx, UtCnv.toDateTime(value));
     }
 
 }

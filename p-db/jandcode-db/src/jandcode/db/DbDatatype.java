@@ -11,6 +11,24 @@ import java.sql.*;
 public interface DbDataType extends INamed {
 
     /**
+     * Значение, которое возвращает метод {@link DbDataType#getValue(java.sql.ResultSet, int)}.
+     */
+    interface Value {
+
+        /**
+         * Значение. Может быть null, но обычно нет.
+         */
+        Object getValue();
+
+        /**
+         * Признак null
+         */
+        boolean isNull();
+
+    }
+
+
+    /**
      * Прочитать значение из ResultSet.
      * Вызывается только один раз.
      *
