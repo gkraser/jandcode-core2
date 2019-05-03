@@ -21,7 +21,7 @@ public class DbSourceConfBuilder {
         // будущая конфигурация DbSource
         Conf dbSourceConf = UtConf.create();
 
-        if (params.getBoolean("$full")) {
+        if (params.getBoolean("^full")) {
             // передан вариант, который уже обработан
             dbSourceConf.join(params);
             return dbSourceConf;
@@ -63,7 +63,7 @@ public class DbSourceConfBuilder {
         dbSourceConf.setValue("dbdriver", dbDriver.getName());
 
         // метим, что обработали
-        dbSourceConf.setValue("$full", true);
+        dbSourceConf.setValue("^full", true);
 
         //
         return dbSourceConf;

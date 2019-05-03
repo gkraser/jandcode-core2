@@ -1,9 +1,7 @@
 package jandcode.db.impl;
 
 import jandcode.commons.*;
-import jandcode.commons.collect.*;
 import jandcode.commons.conf.*;
-import jandcode.commons.variant.*;
 import jandcode.core.*;
 import jandcode.db.*;
 
@@ -14,9 +12,7 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
     private DbDriver dbDriver;
     private Conf conf;
 
-    private IVariantMap props;
-    private IVariantMap propsRaw = new VariantMap();
-    private PropsExpander propsExp = new PropsExpander(propsRaw);
+    private DbSourceProps props = new DbSourcePropsImpl();
 
     private ThreadLocalDb threadLocalDb = new ThreadLocalDb();
     private BeanFactory beanFactory = new DefaultBeanFactory(this);
@@ -38,10 +34,10 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
             if (value instanceof Conf) {
                 continue;
             }
-            if (key.startsWith("$")) {
+            if (key.startsWith("^")) {
                 continue;  // внутренние штучки
             }
-            propsRaw.put(key, UtCnv.toString(value));
+            props.put(key, UtCnv.toString(value));
         }
 
         //
@@ -94,58 +90,8 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
 
     //////
 
-    protected void clearPropsCache() {
-        this.props = null;
-    }
-
-    public void setProp(String name, Object value) {
-        clearPropsCache();
-        this.propsRaw.put(name, value);
-    }
-
-    public void setProps(Map<String, Object> props) {
-        clearPropsCache();
-        this.propsRaw.putAll(props);
-    }
-
-    public IVariantMap getProps() {
-        if (props == null) {
-            synchronized (this) {
-                if (props == null) {
-                    VariantMap vm = new VariantMap();
-                    propsExp.expandAllTo(vm);
-                    props = vm;
-                }
-            }
-        }
+    public DbSourceProps getProps() {
         return props;
-    }
-
-    public IVariantMap getProps(String prefix, boolean override, boolean raw) {
-        IVariantMap curProps;
-        if (raw) {
-            curProps = propsRaw;
-        } else {
-            curProps = getProps();
-        }
-        prefix = prefix + ".";
-        VariantMap res = new VariantMap();
-        if (override) {
-            // сначала без префикса
-            for (String key : curProps.keySet()) {
-                if (!key.startsWith(prefix)) {
-                    res.put(key, curProps.get(key));
-                }
-            }
-        }
-        // накладываем с префиксом
-        for (String key : curProps.keySet()) {
-            String k2 = UtString.removePrefix(key, prefix);
-            if (k2 != null) {
-                res.put(k2, curProps.get(key));
-            }
-        }
-        return res;
     }
 
     //////
@@ -153,8 +99,9 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
     public DbSource cloneComp() {
         DbSourceImpl dbs = getApp().create(this.conf, DbSourceImpl.class);
         // накладываем свойства текущие
-        dbs.propsRaw.putAll(propsRaw);
-        dbs.clearPropsCache();
+        for (String key : props.keySet()) {
+            dbs.props.put(key, props.getRaw(key));
+        }
         //
         return dbs;
     }
