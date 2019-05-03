@@ -183,7 +183,7 @@ public class DbQueryImpl implements DbQuery {
         dbDriver.assignStatementParams((PreparedStatement) statement, params, sqlPreparedParams);
     }
 
-    protected void bindResultSet(ResultSet resultSet) throws Exception {
+    public void bindResultSet(ResultSet resultSet) throws Exception {
         if (this.resultSet != null) {
             throw new XError("Запрос не закрыт");
         }
@@ -266,6 +266,15 @@ public class DbQueryImpl implements DbQuery {
 
     public boolean isNull(int index) {
         return getValueForField(fields.get(index)).isNull();
+    }
+
+    //////
+
+    public ResultSet getResultSet() {
+        if (resultSet == null) {
+            throw new XError("Запрос не открыт");
+        }
+        return resultSet;
     }
 
 }
