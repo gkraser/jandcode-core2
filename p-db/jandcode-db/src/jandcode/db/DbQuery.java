@@ -4,6 +4,8 @@ import jandcode.commons.*;
 import jandcode.commons.named.*;
 import jandcode.commons.variant.*;
 
+import java.sql.*;
+
 /**
  * Запрос к базе данных.
  */
@@ -71,5 +73,16 @@ public interface DbQuery extends IVariantNamed, IVariantIndexed, AutoCloseable {
      */
     boolean eof();
 
+    //////
+
+    /**
+     * Возвращает внутренний ResultSet для открытого запроса.
+     */
+    ResultSet getResultSet();
+
+    /**
+     * Настраивает DbQuery на использование свежеоткрытого ResultSet
+     */
+    void bindResultSet(ResultSet resultSet) throws Exception;
 
 }
