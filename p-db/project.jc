@@ -18,6 +18,10 @@ class P extends ProjectScript {
             modules = [
                 //
                 'jandcode-db',
+                'jandcode-db-h2',
+                'jandcode-db-mariadb',
+                'jandcode-db-oracle',
+                'jandcode-db-postgresql',
             ]
         }
     }

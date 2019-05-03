@@ -1,0 +1,25 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+    }
+
+    void onInclude() {
+        //
+        project.name = "jandcode-db-mariadb"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.db.mariadb").with {
+                depends.prod.add(
+                        "jandcode.db",
+                        "mariadb-java-client",
+                )
+                depends.dev.add(
+                )
+            }
+        }
+    }
+
+}
