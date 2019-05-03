@@ -62,9 +62,7 @@ public class PropsExpander implements ISubstVar {
      */
     public Map<String, Object> expandAll() {
         Map<String, Object> res = new LinkedHashMap<>();
-        for (String key : rawProps.keySet()) {
-            res.put(key, expandProp(key));
-        }
+        expandAllTo(res);
         return res;
     }
 
