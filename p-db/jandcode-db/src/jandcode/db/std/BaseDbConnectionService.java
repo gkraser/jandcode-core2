@@ -35,7 +35,7 @@ public abstract class BaseDbConnectionService extends BaseDbSourceMember impleme
 
     protected List<String> grabInitConnectionSqls() {
         List<String> res = new ArrayList<>();
-        IVariantMap p = getDbSource().getProps(DbSourcePropsConsts.initConnectionSql, false, false);
+        IVariantMap p = getDbSource().getProps().subMap(DbSourcePropsConsts.initConnectionSql);
         TreeMap<String, Object> m = new TreeMap<>(p);
         for (Object s : m.values()) {
             res.add(UtCnv.toString(s));

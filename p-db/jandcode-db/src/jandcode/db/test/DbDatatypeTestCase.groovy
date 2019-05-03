@@ -131,7 +131,11 @@ abstract class DbDatatypeTestCase extends App_Test {
 
     @Test
     public void test_date() throws Exception {
-        assertEquals(z.dbdatatypeResult("date"), "date")
+        if (z.dbType == "oracle") {
+            assertEquals(z.dbdatatypeResult("date"), "datetime")
+        } else {
+            assertEquals(z.dbdatatypeResult("date"), "date")
+        }
         //
         XDateTime dt;
 
@@ -139,13 +143,25 @@ abstract class DbDatatypeTestCase extends App_Test {
         assertEquals(z.dbdatatypeRetrive("date", dt), dt)
 
         dt = UtDateTime.create("2012-11-30T22:23:24")
-        assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearTime())
+        if (z.dbType == "oracle") {
+            assertEquals(z.dbdatatypeRetrive("date", dt), dt)
+        } else {
+            assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearTime())
+        }
 
         dt = UtDateTime.create("2012-11-30T22:23:24.123")
-        assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearTime())
+        if (z.dbType == "oracle") {
+            assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearMSec())
+        } else {
+            assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearTime())
+        }
 
         dt = UtDateTime.create("1984-04-01")
-        assertEquals(z.dbdatatypeRetrive("date", dt), dt)
+        if (z.dbType == "oracle") {
+            assertEquals(z.dbdatatypeRetrive("date", dt), UtDateTime.create("1984-04-01T01:00:00"))
+        } else {
+            assertEquals(z.dbdatatypeRetrive("date", dt), dt)
+        }
 
         assertEquals(z.dbdatatypeRetrive("date", null), UtDateTime.EMPTY_DATE)
     }
