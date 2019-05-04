@@ -1,4 +1,4 @@
-package jandcode.db.base;
+package jandcode.db.std;
 
 import jandcode.commons.error.*;
 import jandcode.db.*;

@@ -1,7 +1,7 @@
 package jandcode.db.h2;
 
 import jandcode.db.*;
-import jandcode.db.base.*;
+import jandcode.db.std.*;
 
 /**
  * DbManagerServive для h2 в памяти.

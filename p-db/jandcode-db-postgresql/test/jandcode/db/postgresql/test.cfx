@@ -3,4 +3,21 @@
 
     <x-depends module="jandcode.db.postgresql"/>
 
+    <cfg>
+
+        <dbsource name="test1"
+                  dbdriver="postgresql"
+                  database="jc2_db_test"
+                  username="ks"
+        />
+
+        <!-- для тестирования create/drop -->
+        <dbsource name="test.create"
+                  dbdriver="postgresql"
+                  database="jc2_db_test_create"
+                  username="ks"
+        />
+
+    </cfg>
+
 </root>

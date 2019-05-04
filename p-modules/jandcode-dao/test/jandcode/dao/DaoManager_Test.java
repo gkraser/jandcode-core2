@@ -5,6 +5,8 @@ import jandcode.dao.data.*;
 import jandcode.dao.impl.*;
 import org.junit.jupiter.api.*;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class DaoManager_Test extends App_Test {
 
     @Test
@@ -34,7 +36,12 @@ public class DaoManager_Test extends App_Test {
         res = z.sum(2, 4);
         System.out.println("res=" + res);
 
-        z.getContext();
+        try {
+            z.getContext();
+            fail();
+        } catch (Exception e) {
+            // ignore
+        }
     }
 
 

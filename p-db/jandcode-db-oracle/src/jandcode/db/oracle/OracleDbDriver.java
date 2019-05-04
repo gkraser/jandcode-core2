@@ -1,6 +1,6 @@
 package jandcode.db.oracle;
 
-import jandcode.db.base.*;
+import jandcode.db.std.*;
 
 import java.sql.*;
 

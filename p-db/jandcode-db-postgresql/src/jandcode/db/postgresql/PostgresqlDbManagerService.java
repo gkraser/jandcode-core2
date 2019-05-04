@@ -1,9 +1,9 @@
-package jandcode.db.mariadb;
+package jandcode.db.postgresql;
 
 import jandcode.db.*;
-import jandcode.db.base.*;
+import jandcode.db.std.*;
 
-public class MariadbDbManagerService extends BaseDbManagerService {
+public class PostgresqlDbManagerService extends BaseDbManagerService {
 
     public boolean existDatabase() throws Exception {
         boolean res = false;
@@ -12,7 +12,7 @@ public class MariadbDbManagerService extends BaseDbManagerService {
         try {
             String dbn = getDbSource().getProps().getString(DbSourcePropsConsts.database);
 
-            DbQuery q = dbsys.openQuery("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME=:id", dbn);
+            DbQuery q = dbsys.openQuery("SELECT datname FROM pg_database WHERE upper(datname)=upper(:id)", dbn);
             try {
                 res = !q.eof();
             } finally {
@@ -32,7 +32,7 @@ public class MariadbDbManagerService extends BaseDbManagerService {
 
             dbsys.execQuery("create database " +
                     dbn +
-                    " DEFAULT CHARACTER SET utf8");
+                    " encoding 'UTF8'");
         } finally {
             dbsys.disconnect();
         }

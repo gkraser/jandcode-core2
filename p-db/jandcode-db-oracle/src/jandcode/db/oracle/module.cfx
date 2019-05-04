@@ -1,7 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-    <!--
-        Реализация драйвера находится в модуле jandcode.db.
-        Этот модуль подключается для получения в зависимостях jdbc-драйвера.
-    -->
+
+    <db>
+
+        <dbdriver name="oracle" parent="base" dbtype="oracle"
+                  class="jandcode.db.oracle.OracleDbDriver">
+
+            <dbsource-default
+                    url="jdbc:oracle:thin:@${host}:${port}:${database}"
+                    dbcp.validationQuery="select 1 from dual"
+                    initConnectionSql.0001="ALTER SESSION SET NLS_NUMERIC_CHARACTERS = '. '"
+                    initConnectionSql.0002="ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS'"
+                    port="1521">
+
+                <bean name="jandcode.db.DbManagerService"
+                      class="jandcode.db.oracle.OracleDbManagerService"/>
+
+            </dbsource-default>
+
+            <!-- =================== -->
+
+            <dbdatatype name="smallint" sqltype="number(5)"/>
+            <dbdatatype name="int" sqltype="number(10)"/>
+            <dbdatatype name="long" sqltype="number(19)"/>
+            <dbdatatype name="double" sqltype="number"/>
+            <dbdatatype name="string" sqltype="nvarchar2(${size})"/>
+            <dbdatatype name="memo" sqltype="nclob"/>
+            <dbdatatype name="boolean" sqltype="number(1)"/>
+
+            <dbdatatype name="date"
+                        sqltype="date"/>
+
+            <dbdatatype name="datetime"
+                        sqltype="date"/>
+
+        </dbdriver>
+
+    </db>
+
 </root>
