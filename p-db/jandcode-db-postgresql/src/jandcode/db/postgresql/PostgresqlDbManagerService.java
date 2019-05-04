@@ -1,7 +1,7 @@
 package jandcode.db.postgresql;
 
 import jandcode.db.*;
-import jandcode.db.base.*;
+import jandcode.db.std.*;
 
 public class PostgresqlDbManagerService extends BaseDbManagerService {
 

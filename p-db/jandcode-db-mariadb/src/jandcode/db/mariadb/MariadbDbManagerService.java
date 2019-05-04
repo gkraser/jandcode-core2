@@ -1,7 +1,7 @@
 package jandcode.db.mariadb;
 
 import jandcode.db.*;
-import jandcode.db.base.*;
+import jandcode.db.std.*;
 
 public class MariadbDbManagerService extends BaseDbManagerService {
 

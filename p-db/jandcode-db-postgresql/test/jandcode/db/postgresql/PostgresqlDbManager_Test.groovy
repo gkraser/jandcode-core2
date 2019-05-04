@@ -2,7 +2,7 @@ package jandcode.db.postgresql
 
 import jandcode.core.test.*
 import jandcode.db.*
-import jandcode.db.base.*
+import jandcode.db.std.BaseDbManagerService
 import org.junit.jupiter.api.*
 
 import static org.junit.jupiter.api.Assertions.*

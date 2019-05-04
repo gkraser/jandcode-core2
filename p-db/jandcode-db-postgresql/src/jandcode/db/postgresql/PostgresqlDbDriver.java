@@ -2,7 +2,7 @@ package jandcode.db.postgresql;
 
 import jandcode.commons.variant.*;
 import jandcode.db.*;
-import jandcode.db.base.*;
+import jandcode.db.std.*;
 
 import java.sql.*;
 import java.util.*;
