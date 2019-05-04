@@ -13,15 +13,7 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
     private Conf conf;
 
     private DbSourceProps props = new DbSourcePropsImpl();
-
-    private ThreadLocalDb threadLocalDb = new ThreadLocalDb();
     private BeanFactory beanFactory = new DefaultBeanFactory(this);
-
-    protected class ThreadLocalDb extends ThreadLocal<Db> {
-        protected Db initialValue() {
-            return createDb();
-        }
-    }
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         DbSourceConfBuilder cb = new DbSourceConfBuilder();
@@ -78,10 +70,6 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
 
     public Db createDb() {
         return createDb(false);
-    }
-
-    public Db getDb() {
-        return threadLocalDb.get();
     }
 
     public String getDbType() {
