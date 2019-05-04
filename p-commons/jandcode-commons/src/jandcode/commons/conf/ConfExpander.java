@@ -48,7 +48,7 @@ package jandcode.commons.conf;
  * }</pre>
  * <p>
  * Часть свойств могут быть помечены как "ненаследуемые". Такие свойства удаляются
- * при раскрытии из всех предком и имеют значения только из раскрываемого объекта.
+ * при раскрытии из всех предков и имеют значения только из раскрываемого объекта.
  * Это правило задается методами:
  * {@link ConfExpander#addRuleNotInherited(java.lang.String, java.lang.String)}
  * и {@link ConfExpander#addRuleNotInherited(java.lang.String)}.
