@@ -1,7 +1,6 @@
 package jandcode.db;
 
 import jandcode.core.test.*;
-import jandcode.db.h2.*;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,10 +24,8 @@ public class DbSource_Test extends App_Test {
         utils.outMap(dbs.getProps());
         //
         assertEquals(dbs.getConf().getString("param1"), "1");
-        assertEquals(dbs.getConf().getString("dbdriver"), "h2.mem");
-        assertEquals(dbs.getDbType(), "h2");
-        assertTrue(dbs.getDbDriver() instanceof H2DbDriver);
-
+        assertEquals(dbs.getConf().getString("dbdriver"), "base");
+        assertEquals(dbs.getDbType(), "base");
     }
 
     @Test

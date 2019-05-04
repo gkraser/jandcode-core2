@@ -19,10 +19,6 @@ class P extends ProjectScript {
                         "commons-dbcp2",
                 )
                 depends.dev.add(
-                        "h2",
-                        "mariadb-java-client",
-                        "postgresql",
-                        "ojdbc8"
                 )
             }
         }
