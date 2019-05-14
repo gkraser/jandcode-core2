@@ -18,7 +18,7 @@ dependencies {
     String v, vp
 
     // ant
-    v = '1.10.5'
+    v = '1.10.6'
     compile group: 'org.apache.ant', name: 'ant', version: v
     compile group: 'org.apache.ant', name: 'ant-launcher', version: v
     compile(group: 'org.apache.ant', name: 'ant-junit', version: v) {
@@ -50,7 +50,7 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
 
     // groovy
-    v = '2.5.6'
+    v = '2.5.7'
     compile group: 'org.codehaus.groovy', name: 'groovy', version: v
     compile(group: 'org.codehaus.groovy', name: 'groovy-ant', version: v) {
         exclude group: 'org.apache.ant'
