@@ -24,7 +24,10 @@ class P extends ProjectScript {
             if (UtFile.exists(fn)) {
                 error("Файл ${fn} уже существует")
             }
-            ant.copy(file: wd("template-project-jc.txt"), tofile: fn)
+            String ftxt = UtFile.loadString(new File(wd("template-project-jc.txt")))
+            String pn = UtFile.filename(t.outdir)
+            ftxt = ftxt.replace("#PN#", pn)
+            UtFile.saveString(ftxt, new File(fn))
         }
 
     }
