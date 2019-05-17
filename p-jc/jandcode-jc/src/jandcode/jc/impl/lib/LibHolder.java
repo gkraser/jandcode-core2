@@ -176,4 +176,17 @@ public class LibHolder implements ILibs {
         return null;
     }
 
+    public ListLib getClasspathLibs() {
+        ListLib res = new ListLib();
+        //
+        for (String nm : usedInClasspath) {
+            Lib z = findLib(nm);
+            if (z != null) {
+                res.add(z);
+            }
+        }
+        //
+        return res;
+    }
+
 }

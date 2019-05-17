@@ -220,6 +220,10 @@ public class CtxImpl implements Ctx {
         return libHolder.findLibForModule(moduleName);
     }
 
+    public ListLib getClasspathLibs() {
+        return libHolder.getClasspathLibs();
+    }
+
     // ITempdir
 
     public String getTempdirRoot() {
