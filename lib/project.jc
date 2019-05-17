@@ -38,8 +38,8 @@ class P extends ProjectScript {
     }
 
     void download_ojdbc8() {
-        String vers = "18.3.0.0.0"
-        String url = "https://bitbucket.org/gkraser/jandcode-core2/downloads/ojdbc8-${vers}.jar"
+        String vers = "18.3.0.0"
+        String url = "https://bitbucket.org/gkraser/jandcode-core2/downloads/com.oracle.jdbc-ojdbc8-${vers}.jar"
         String dirDest = wd("_oracle")
         String fnDest = "${dirDest}/ojdbc8-${vers}.jar"
         String fnTemp = "${dirDest}/ojdbc8-${vers}.tmp"
