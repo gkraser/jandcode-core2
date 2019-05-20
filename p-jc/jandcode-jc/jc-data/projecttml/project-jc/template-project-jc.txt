@@ -9,7 +9,7 @@ class P extends ProjectScript {
     }
 
     void onInclude() {
-        project.name = "dummy-project"
+        project.name = "#PN#"
     }
 
 }

@@ -7,6 +7,9 @@ class P extends ProjectScript {
 
     void onInclude() {
         project.name = "lib-builder"
+        //
+        download_ojdbc8()
+        //
         include(GradleTools).with {
             publishDir = "../_jc/${project.name}"
             tempDir = "../temp/${project.name}"
@@ -32,6 +35,30 @@ class P extends ProjectScript {
             }
         }
 
+    }
+
+    void download_ojdbc8() {
+        String vers = "18.3.0.0"
+        String url = "https://bitbucket.org/gkraser/jandcode-core2/downloads/com.oracle.jdbc-ojdbc8-${vers}.jar"
+        String dirDest = wd("_oracle")
+        String fnDest = "${dirDest}/ojdbc8-${vers}.jar"
+        String fnTemp = "${dirDest}/ojdbc8-${vers}.tmp"
+        try {
+            if (UtFile.exists(fnDest)) {
+                return
+            }
+            log.info("download: ${url}...")
+            ut.cleandir(dirDest)
+            ant.get(src: url,
+                    dest: fnTemp,
+                    verbose: true,
+            )
+            ant.copy(file: fnTemp, tofile: fnDest, overwrite: true)
+            ant.delete(file: fnTemp)
+        } catch (e) {
+            log.warn("Не удалось скачать [${url}] в [${fnDest}]. Предоставьте этот файл самостоятельно")
+            throw e
+        }
     }
 
 }

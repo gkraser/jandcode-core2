@@ -3,7 +3,6 @@ package jandcode.jc.std
 import jandcode.commons.*
 import jandcode.commons.simxml.*
 import jandcode.jc.*
-import jandcode.jc.impl.*
 import jandcode.jc.impl.depends.*
 import jandcode.jc.std.idea.*
 
@@ -81,6 +80,12 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
      */
     String groupId
 
+    /**
+     * Включать ли jandcode-jc в зависимости dev по умолчанию.
+     * Нужно для полноценного редактирования jc-файлов.
+     */
+    boolean autoJcDepends = true
+
 
     protected void onInclude() throws Exception {
         if (getIncluded(JavaProject) != null) {
@@ -155,6 +160,15 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
         }
         modules.clear()
         modules.addAll(tmp)
+
+        // автодобавление jc в зависимости
+        if (autoJcDepends) {
+            String libJcName = "jandcode-jc"
+            Lib libJc = ctx.findLib(libJcName)
+            if (libJc != null) {
+                depends.dev.add(libJcName)
+            }
+        }
 
         // gen-src check
         boolean needGenSrc = false

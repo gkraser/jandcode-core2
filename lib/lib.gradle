@@ -18,7 +18,7 @@ dependencies {
     String v, vp
 
     // ant
-    v = '1.10.5'
+    v = '1.10.6'
     compile group: 'org.apache.ant', name: 'ant', version: v
     compile group: 'org.apache.ant', name: 'ant-launcher', version: v
     compile(group: 'org.apache.ant', name: 'ant-junit', version: v) {
@@ -50,7 +50,7 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
 
     // groovy
-    v = '2.5.6'
+    v = '2.5.7'
     compile group: 'org.codehaus.groovy', name: 'groovy', version: v
     compile(group: 'org.codehaus.groovy', name: 'groovy-ant', version: v) {
         exclude group: 'org.apache.ant'
@@ -87,7 +87,7 @@ dependencies {
     compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.1'
 
     // flexmark
-    v = '0.42.6'
+    v = '0.42.8'
     compile group: 'com.vladsch.flexmark', name: 'flexmark', version: v
     compile group: 'com.vladsch.flexmark', name: 'flexmark-formatter', version: v
     compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-gfm-strikethrough', version: v
@@ -117,7 +117,7 @@ dependencies {
     compile group: 'org.apache.poi', name: 'poi-scratchpad', version: v
 
     // lucene
-    v = '8.0.0'
+    v = '8.1.0'
     compile group: 'org.apache.lucene', name: 'lucene-core', version: v
     compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: v
     compile group: 'org.apache.lucene', name: 'lucene-queryparser', version: v

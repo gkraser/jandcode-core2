@@ -78,4 +78,9 @@ public interface ILibs extends IClasspath {
      */
     Lib findLibForModule(String moduleName);
 
+    /**
+     * Все библиотеки, которые были включены в classpath
+     */
+    ListLib getClasspathLibs();
+
 }
