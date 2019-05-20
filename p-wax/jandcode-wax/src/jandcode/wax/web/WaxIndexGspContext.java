@@ -1,4 +1,4 @@
-package jandcode.wax.srv;
+package jandcode.wax.web;
 
 import jandcode.commons.*;
 import jandcode.jsa.jsmodule.*;
@@ -16,7 +16,7 @@ public class WaxIndexGspContext implements IGspContextLinkSet {
     private String title;
     private String cfgJson;
     private String themeName;
-    private String env = "jandcode/wax/index.js";
+    private String env = "jandcode/wax/web/index.js";
     private String main;
 
     public void setGspContext(GspContext gspContext) {

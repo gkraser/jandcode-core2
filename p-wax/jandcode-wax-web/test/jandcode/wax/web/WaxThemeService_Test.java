@@ -1,6 +1,5 @@
-package jandcode.wax;
+package jandcode.wax.web;
 
-import jandcode.wax.srv.*;
 import jandcode.web.test.*;
 import org.junit.jupiter.api.*;
 

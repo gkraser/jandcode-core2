@@ -1,8 +1,8 @@
-package jandcode.wax.srv.impl;
+package jandcode.wax.web.impl;
 
 import jandcode.commons.error.*;
 import jandcode.core.*;
-import jandcode.wax.srv.*;
+import jandcode.wax.web.*;
 import jandcode.web.*;
 
 import java.util.*;

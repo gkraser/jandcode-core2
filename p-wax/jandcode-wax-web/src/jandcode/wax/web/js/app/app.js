@@ -4,7 +4,8 @@
 let _appInst
 let _appInitHandlers = []
 
-export let ob = {a:1}
+export let ob = {a: 1}
+
 export function assignOb(newOb) {
     ob = newOb
 }
@@ -33,7 +34,7 @@ export class App {
         }
     }
 
-    m111(){
+    m111() {
 
     }
 
