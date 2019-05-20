@@ -1,4 +1,4 @@
-<%@ page import="jandcode.wax.web.srv.*; jandcode.web.*; jandcode.commons.*; jandcode.web.gsp.*" %>
+<%@ page import="jandcode.wax.web.*; jandcode.web.*; jandcode.commons.*; jandcode.web.gsp.*" %>
 <!doctype html>
 <%
   BaseGsp th = this

@@ -1,4 +1,4 @@
-package jandcode.wax.web.srv;
+package jandcode.wax.web;
 
 import jandcode.commons.*;
 import jandcode.jsa.jsmodule.*;

@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
-    <bean name="jandcode.wax.web.srv.WaxClientCfgService"
-          class="jandcode.wax.web.srv.impl.WaxClientCfgServiceImpl"/>
-
-    <bean name="jandcode.wax.web.srv.WaxThemeService"
-          class="jandcode.wax.web.srv.impl.WaxThemeServiceImpl"/>
-
-    <!-- ===================================================================== -->
-
     <web>
         <mount-module/>
 
