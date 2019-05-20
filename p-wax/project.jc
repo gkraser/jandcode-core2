@@ -17,6 +17,7 @@ class P extends ProjectScript {
             moduleGroup = "jc-core/p-wax"
             modules = [
                     'jandcode-wax',
+                    'jandcode-wax-web',
                     'jandcode-wax-tst',
                     'jandcode-wax-jc',
             ]

@@ -18,6 +18,7 @@ class P extends ProjectScript {
         include(RootProject).with {
             modules = [
                     "xxx-yyy",
+                    "xxx-yyy-web",
             ]
             depends.dev.add(
                     "jandcode-wax-tst",

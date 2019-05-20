@@ -1,4 +1,4 @@
-package jandcode.wax.srv;
+package jandcode.wax.web.srv;
 
 import java.util.*;
 
