@@ -29,7 +29,8 @@ public class ModuleDefResolverImpl implements ModuleDefResolver {
                     if (resSrc == null) {
                         throw new XError("Модуль {0} [{1}] в исходниках, но для него " +
                                 "не найдено описание исходников в файле {2}. " +
-                                "Необходимо выполнить jc prepare в корневом проекте",
+                                "Необходимо выполнить jc prepare в корневом проекте и убедиться, " +
+                                "что в файле .pathprop указано jandcode.project.root=$'{'path'}'.",
                                 res.getName(), res.getPath(), ModuleDefConsts.FILE_REGISTRY_MODULE_DEF
                         );
                     }
