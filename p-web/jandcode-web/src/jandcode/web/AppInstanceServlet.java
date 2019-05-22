@@ -45,7 +45,7 @@ public class AppInstanceServlet extends HttpServlet implements IAppLink {
             if (app.isDebug() && !app.isTest()) {
                 CheckChangedResourceInfo info = app.bean(CheckChangedResourceService.class).checkChangedResource();
                 if (info.isNeedRestartApp()) {
-                    log.warn("Требуется перезагрузка приложения из-за серьезнах изменений в ресурсах");
+                    log.warn("Требуется перезагрузка приложения из-за серьезных изменений в ресурсах");
                 }
             }
 
