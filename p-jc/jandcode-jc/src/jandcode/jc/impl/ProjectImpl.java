@@ -30,7 +30,7 @@ public class ProjectImpl implements Project {
         this.projectFile = projectFile;
         wd = new DirImpl(UtFile.path(UtFile.abs(projectFile)));
         name = wd.getName();
-        cmHolder =  new CmHolderImpl(this);
+        cmHolder = new CmHolderImpl(this);
         eventHolder = new EventHolder(ctx, this);
     }
 
@@ -176,7 +176,7 @@ public class ProjectImpl implements Project {
 
     @SuppressWarnings("unchecked")
     public <A extends IProjectScript> A getIncluded(Class<A> scriptClass) {
-        return (A) getIncluded(scriptClass.getName());
+        return (A) includedScripts.get(scriptClass.getName());
     }
 
     @SuppressWarnings("unchecked")
