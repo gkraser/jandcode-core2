@@ -40,21 +40,32 @@ class P extends ProjectScript {
     void download_ojdbc8() {
         String vers = "18.3.0.0"
         String url = "https://bitbucket.org/gkraser/jandcode-core2/downloads/com.oracle.jdbc-ojdbc8-${vers}.jar"
+        String fn = "ojdbc8-${vers}.jar"
+        //
         String dirDest = wd("_oracle")
-        String fnDest = "${dirDest}/ojdbc8-${vers}.jar"
-        String fnTemp = "${dirDest}/ojdbc8-${vers}.tmp"
+        String dirCache = UtFile.join(UtFile.getTempdir(), ".jandcode-cache/jc-download-lib")
+        String fnDest = "${dirDest}/${fn}"
+        String fnCache = "${dirCache}/${fn}"
+        String fnTemp = "${fnCache}.tmp"
+        //
         try {
             if (UtFile.exists(fnDest)) {
                 return
             }
+            log.info("resolve: ${fnDest}...")
+            if (UtFile.exists(fnCache)) {
+                ant.copy(file: fnCache, tofile: fnDest)
+                return
+            }
             log.info("download: ${url}...")
-            ut.cleandir(dirDest)
+            ut.cleanfile(fnTemp)
             ant.get(src: url,
                     dest: fnTemp,
                     verbose: true,
             )
-            ant.copy(file: fnTemp, tofile: fnDest, overwrite: true)
+            ant.copy(file: fnTemp, tofile: fnCache, overwrite: true)
             ant.delete(file: fnTemp)
+            ant.copy(file: fnCache, tofile: fnDest)
         } catch (e) {
             log.warn("Не удалось скачать [${url}] в [${fnDest}]. Предоставьте этот файл самостоятельно")
             throw e
