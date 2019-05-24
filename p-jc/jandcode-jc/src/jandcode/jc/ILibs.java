@@ -83,4 +83,12 @@ public interface ILibs extends IClasspath {
      */
     ListLib getClasspathLibs();
 
+    /**
+     * Получить информацию о модуле
+     *
+     * @param moduleName имя модлуля
+     * @return null, если нет такого модуля
+     */
+    LibModuleInfo findModuleInfo(String moduleName);
+
 }
