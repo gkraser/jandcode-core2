@@ -1,4 +1,4 @@
-package jandcode.jc.impl;
+package jandcode.commons.io;
 
 import jandcode.commons.error.*;
 import org.apache.commons.vfs2.*;
