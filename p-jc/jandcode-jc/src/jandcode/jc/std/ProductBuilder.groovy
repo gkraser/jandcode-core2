@@ -116,7 +116,7 @@ class ProductBuilder extends ProjectScript {
      * Получаем builder, копируем его сборку и изменяем.
      */
     ProductBuilder getBuilder(String name) {
-        ProductBuilder b = include(ProductProject).builders.get(name)
+        ProductBuilder b = include(ProductProject).findBuilder(name)
         if (b == null) {
             throw new XError("Не найден ProductBuilder: ${name}")
         }
