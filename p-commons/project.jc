@@ -18,6 +18,7 @@ class P extends ProjectScript {
             modules = [
                     "jandcode-commons",
                     "jandcode-commons-ansifer",
+                    "jandcode-commons-jansi",
                     "jandcode-commons-groovy",
                     "jandcode-commons-moduledef",
             ]
