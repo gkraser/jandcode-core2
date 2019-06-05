@@ -20,16 +20,10 @@ public class UtAnsifer {
     //////
 
     /**
-     * Обрамление строки ansi-кодами для указанного стиля.
-     * Если ansi не инициализирована - преобразования не производится.
-     *
-     * @param styleOrColor каким стилем или цветом. Если имеется зарегистрированный стиль
-     *                     с таким именем, то используется он. Иначе -
-     *                     интерпретируется как цвет.
-     * @param s            какую строку
+     * @see Ansifer#color(java.lang.String, java.lang.String)
      */
     public static String color(String styleOrColor, String s) {
-        return getAnsifer().color(getAnsifer().getStyle(styleOrColor), s);
+        return getAnsifer().color(styleOrColor, s);
     }
 
     /**

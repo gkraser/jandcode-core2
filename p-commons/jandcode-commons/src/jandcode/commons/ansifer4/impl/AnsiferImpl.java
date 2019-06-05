@@ -135,4 +135,9 @@ public class AnsiferImpl implements Ansifer {
         }
         return s;
     }
+
+    public String color(String styleOrColor, String s) {
+        return color(getStyle(styleOrColor), s);
+    }
+
 }

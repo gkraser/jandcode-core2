@@ -18,7 +18,7 @@ UPD2="${JCDIR}/upd2"
 
 UPD_CM_DEPEND=
 UPD_CM_DEPEND="${UPD_CM_DEPEND} ${ROOTDIR}/jandcode-commons/src ${ROOTDIR}/jandcode-commons/project.jc"
-UPD_CM_DEPEND="${UPD_CM_DEPEND} ${ROOTDIR}/jandcode-commons-ansifer/src ${ROOTDIR}/jandcode-commons-ansifer/project.jc"
+UPD_CM_DEPEND="${UPD_CM_DEPEND} ${ROOTDIR}/jandcode-commons-jansi/src ${ROOTDIR}/jandcode-commons-jansi/project.jc"
 UPD_CM_DEPEND="${UPD_CM_DEPEND} ${ROOTDIR}/jandcode-commons-groovy/src ${ROOTDIR}/jandcode-commons-groovy/project.jc"
 UPD_CM_DEPEND="${UPD_CM_DEPEND} ${ROOTDIR}/jandcode-commons-moduledef/src ${ROOTDIR}/jandcode-commons-moduledef/project.jc"
 UPD_CM_DEPEND="${UPD_CM_DEPEND} ${ROOTDIR}/jandcode-jc/src ${ROOTDIR}/jandcode-jc/project.jc"

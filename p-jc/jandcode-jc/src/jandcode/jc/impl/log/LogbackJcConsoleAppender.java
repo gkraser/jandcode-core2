@@ -3,7 +3,7 @@ package jandcode.jc.impl.log;
 import ch.qos.logback.classic.*;
 import ch.qos.logback.classic.spi.*;
 import ch.qos.logback.core.*;
-import jandcode.commons.ansifer.*;
+import jandcode.commons.*;
 
 public class LogbackJcConsoleAppender extends AppenderBase<ILoggingEvent> {
 
@@ -13,8 +13,8 @@ public class LogbackJcConsoleAppender extends AppenderBase<ILoggingEvent> {
     private static String pfxErro = " [E] ";
 
     protected void out(Object msg, String pfx, String msgColor, String pfxColor) {
-        System.out.print(Ansifer.getInst().style(pfxColor, pfx));
-        System.out.println(Ansifer.getInst().style(msgColor, "" + msg));
+        System.out.print(UtAnsifer.color(pfxColor, pfx));
+        System.out.println(UtAnsifer.color(msgColor, "" + msg));
     }
 
     protected void append(ILoggingEvent ev) {

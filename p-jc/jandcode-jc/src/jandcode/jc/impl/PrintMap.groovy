@@ -1,7 +1,6 @@
 package jandcode.jc.impl
 
 import jandcode.commons.*
-import jandcode.commons.ansifer.*
 import jandcode.jc.*
 
 /**
@@ -39,7 +38,7 @@ class PrintMap {
         String idns = "  " + UtString.repeat(" ", indent)
         for (a in map) {
             String k = idns + UtString.padRight(UtString.toString(a.key), mx)
-            print(Ansifer.getInst().style(style, k));
+            print(UtAnsifer.color(style, k));
             print(" = ");
             if (a.value instanceof Collection) {
                 println("")

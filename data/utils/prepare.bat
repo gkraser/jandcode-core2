@@ -14,7 +14,7 @@ set UPD2=%JCDIR%\upd2
 
 set UPD_CM_DEPEND=
 set UPD_CM_DEPEND=%UPD_CM_DEPEND% %ROOTDIR%\p-commons\jandcode-commons\src %ROOTDIR%\p-commons\jandcode-commons\project.jc
-set UPD_CM_DEPEND=%UPD_CM_DEPEND% %ROOTDIR%\p-commons\jandcode-commons-ansifer\src %ROOTDIR%\p-commons\jandcode-commons-ansifer\project.jc
+set UPD_CM_DEPEND=%UPD_CM_DEPEND% %ROOTDIR%\p-commons\jandcode-commons-jansi\src %ROOTDIR%\p-commons\jandcode-commons-jansi\project.jc
 set UPD_CM_DEPEND=%UPD_CM_DEPEND% %ROOTDIR%\p-commons\jandcode-commons-groovy\src %ROOTDIR%\p-commons\jandcode-commons-groovy\project.jc
 set UPD_CM_DEPEND=%UPD_CM_DEPEND% %ROOTDIR%\p-commons\jandcode-commons-moduledef\src %ROOTDIR%\p-commons\jandcode-commons-moduledef\project.jc
 set UPD_CM_DEPEND=%UPD_CM_DEPEND% %ROOTDIR%\p-jc\jandcode-jc\src %ROOTDIR%\p-jc\jandcode-jc\project.jc

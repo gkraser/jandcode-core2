@@ -77,5 +77,16 @@ public interface Ansifer {
      */
     String color(AnsiferStyle style, String s);
 
+    /**
+     * Обрамление строки ansi-кодами для указанного стиля.
+     * Если ansi не инициализирована - преобразования не производится.
+     *
+     * @param styleOrColor каким стилем или цветом. Если имеется зарегистрированный стиль
+     *                     с таким именем, то используется он. Иначе -
+     *                     интерпретируется как цвет.
+     * @param s            какую строку
+     */
+    String color(String styleOrColor, String s);
+
 
 }
