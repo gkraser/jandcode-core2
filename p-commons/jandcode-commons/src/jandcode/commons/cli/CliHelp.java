@@ -5,12 +5,19 @@ import jandcode.commons.*;
 import java.util.*;
 
 /**
- * Формирование помощи по опциям
+ * Формирование помощи по опциям.
+ * Поддерживает подстветку опций.
  */
 public class CliHelp {
 
-    private HashMap<String, Opt> items = new HashMap<String, Opt>();
+    public static final String STYLE_OPT_NAME = "opt-name";
+    public static final String STYLE_OPT_HELP = "opt-help";
+
+    private HashMap<String, Opt> items = new HashMap<>();
     private boolean helpToNextLine;
+    private boolean enableAnsi = false;
+    private String optNameStyle;
+    private String optHelpStyle;
 
     class Opt {
         String name;
@@ -29,6 +36,26 @@ public class CliHelp {
             }
         }
 
+    }
+
+    /**
+     * Создать экземпляр без поддержки ansi
+     */
+    public CliHelp() {
+    }
+
+    /**
+     * Создать экземпляр с поддержкой ansi
+     *
+     * @param optNameStyle имя стиля Ansifer для опции.
+     *                     Если null - то используется 'opt-name'.
+     * @param optHelpStyle имя стиля Ansifer для помощи.
+     *                     Если null - то используется 'opt-help'.
+     */
+    public CliHelp(String optNameStyle, String optHelpStyle) {
+        this.enableAnsi = true;
+        this.optNameStyle = UtString.empty(optNameStyle) ? STYLE_OPT_NAME : optNameStyle;
+        this.optHelpStyle = UtString.empty(optHelpStyle) ? STYLE_OPT_HELP : optHelpStyle;
     }
 
     /**
@@ -127,14 +154,22 @@ public class CliHelp {
      * @return преобразованный текст
      */
     protected String prepareOptionName(String text) {
-        return text;
+        if (enableAnsi) {
+            return UtAnsifer.color(optNameStyle, text);
+        } else {
+            return text;
+        }
     }
 
     /**
      * Подготовка help опции для вывода
      */
     protected String prepareOptionHelp(String text) {
-        return text;
+        if (enableAnsi) {
+            return UtAnsifer.color(optHelpStyle, text);
+        } else {
+            return text;
+        }
     }
 
     /**
