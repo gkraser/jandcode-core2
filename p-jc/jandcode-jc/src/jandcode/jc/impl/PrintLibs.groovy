@@ -1,7 +1,7 @@
 package jandcode.jc.impl
 
 import jandcode.commons.*
-import jandcode.commons.ansifer4.*
+import jandcode.commons.ansifer.*
 import jandcode.jc.*
 
 /**

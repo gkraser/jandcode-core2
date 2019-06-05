@@ -1,4 +1,4 @@
-package jandcode.commons.ansifer4;
+package jandcode.commons.ansifer;
 
 /**
  * Интерфейс для движка ansi-консоли

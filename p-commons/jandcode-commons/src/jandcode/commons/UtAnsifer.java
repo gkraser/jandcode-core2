@@ -1,7 +1,7 @@
 package jandcode.commons;
 
-import jandcode.commons.ansifer4.*;
-import jandcode.commons.ansifer4.impl.*;
+import jandcode.commons.ansifer.*;
+import jandcode.commons.ansifer.impl.*;
 
 /**
  * ansi цвета в консоле.

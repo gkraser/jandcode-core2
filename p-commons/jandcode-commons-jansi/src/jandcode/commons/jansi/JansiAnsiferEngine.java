@@ -1,7 +1,7 @@
 package jandcode.commons.jansi;
 
 import jandcode.commons.*;
-import jandcode.commons.ansifer4.*;
+import jandcode.commons.ansifer.*;
 import org.fusesource.jansi.*;
 
 public class JansiAnsiferEngine implements AnsiferEngine {

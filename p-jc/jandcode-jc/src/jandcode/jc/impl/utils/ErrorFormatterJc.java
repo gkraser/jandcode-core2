@@ -1,7 +1,7 @@
 package jandcode.jc.impl.utils;
 
 import jandcode.commons.*;
-import jandcode.commons.ansifer4.*;
+import jandcode.commons.ansifer.*;
 import jandcode.commons.error.*;
 import jandcode.commons.error.impl.*;
 import jandcode.jc.*;

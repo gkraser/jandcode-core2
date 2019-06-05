@@ -1,31 +1,33 @@
 package jandcode.commons.ansifer;
 
+import jandcode.commons.*;
+
 /**
- * Цвета для Ansifer
+ * ansi цвет
  */
 public enum AnsiferColor {
 
     // обычные
 
-    BLACK(0, false),
-    RED(1, false),
-    GREEN(2, false),
-    YELLOW(3, false),
-    BLUE(4, false),
-    MAGENTA(5, false),
-    CYAN(6, false),
-    WHITE(7, false),
+    black(0, false),
+    red(1, false),
+    green(2, false),
+    yellow(3, false),
+    blue(4, false),
+    magenta(5, false),
+    cyan(6, false),
+    white(7, false),
 
     // яркие
 
-    BLACK_H(0, true),
-    RED_H(1, true),
-    GREEN_H(2, true),
-    YELLOW_H(3, true),
-    BLUE_H(4, true),
-    MAGENTA_H(5, true),
-    CYAN_H(6, true),
-    WHITE_H(7, true);
+    black_h(0, true),
+    red_h(1, true),
+    green_h(2, true),
+    yellow_h(3, true),
+    blue_h(4, true),
+    magenta_h(5, true),
+    cyan_h(6, true),
+    white_h(7, true);
 
     ///
 
@@ -59,7 +61,7 @@ public enum AnsiferColor {
             return null;
         }
         try {
-            return valueOf(s.toUpperCase());
+            return valueOf(UtStrDedup.lower(s));
         } catch (Exception e) {
             return null;
         }

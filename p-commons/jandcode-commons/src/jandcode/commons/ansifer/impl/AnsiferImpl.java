@@ -1,8 +1,8 @@
-package jandcode.commons.ansifer4.impl;
+package jandcode.commons.ansifer.impl;
 
 
 import jandcode.commons.*;
-import jandcode.commons.ansifer4.*;
+import jandcode.commons.ansifer.*;
 
 import java.util.*;
 
