@@ -5,11 +5,11 @@ import jandcode.commons.ansifer4.*;
 public class DummyAnsiferEngine implements AnsiferEngine {
 
     public boolean install() {
-        return true;
+        return false;
     }
 
     public boolean uninstall() {
-        return true;
+        return false;
     }
 
 }

@@ -12,6 +12,9 @@ public class JansiAnsiferEngine implements AnsiferEngine {
         try {
             if (!jansiInstalled) {
 
+                // уюеждаемся, что jansi присутствует
+                UtClass.getClass("org.fusesource.jansi.AnsiConsole");
+
                 // извлекаем нативные библиотеки jansi
                 JansiExtractor q = new JansiExtractor();
                 String nativeLibPath = null;

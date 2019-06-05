@@ -13,7 +13,7 @@ public class AnsiferImpl implements Ansifer {
 
     private static String ESC = "\033[";
     private static String ESC_M = "\033[m";
-    private static String defaultEngineClass = "jandcode.jcincubator.ansifer4.jansi.JansiAnsiferEngine";
+    private static String defaultEngineClass = "jandcode.commons.jansi.JansiAnsiferEngine";
 
     private HashMap<String, AnsiferStyle> styles = new HashMap<>();
     private boolean installed;
@@ -31,6 +31,7 @@ public class AnsiferImpl implements Ansifer {
                 colorTable.put(c, ESC + "3" + c.code() + "m" + ESC + "1m");
             }
         }
+        DefaultStyles.registerDefaultStyles(this);
     }
 
     public AnsiferEngine getEngine() {
