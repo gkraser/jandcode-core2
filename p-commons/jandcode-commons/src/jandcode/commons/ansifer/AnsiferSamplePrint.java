@@ -19,15 +19,16 @@ public class AnsiferSamplePrint {
     public static void printAllColors() {
 
         Ansifer a = UtAnsifer.getAnsifer();
-        a.install();
-
-        ////////
-
-        System.out.println();
-        System.out.println();
-        System.out.println(makeColorTable(a));
-        System.out.println();
-        System.out.println();
+        a.ansiOn();
+        try {
+            System.out.println();
+            System.out.println();
+            System.out.println(makeColorTable(a));
+            System.out.println();
+            System.out.println();
+        } finally {
+            a.ansiOff();
+        }
 
     }
 

@@ -16,9 +16,8 @@ public class AnsiferImpl implements Ansifer {
     private static String defaultEngineClass = "jandcode.commons.jansi.JansiAnsiferEngine";
 
     private HashMap<String, AnsiferStyle> styles = new HashMap<>();
-    private boolean installed;
+    private int levelOn;
     private AnsiferEngine engine;
-    private boolean enabled = true;
     private HashMap<AnsiferColor, String> colorTable = new HashMap<>();
     private HashMap<AnsiferColor, String> backgroundTable = new HashMap<>();
 
@@ -49,38 +48,33 @@ public class AnsiferImpl implements Ansifer {
         return engine;
     }
 
-    public boolean isInstalled() {
-        return installed;
+    public boolean isOn() {
+        return levelOn > 0;
     }
 
-    public void install() {
-        if (installed) {
+    public void ansiOn() {
+        if (levelOn > 0) {
+            levelOn++;
             return;
         }
 
         //
         if (getEngine().install()) {
-            installed = true;
+            levelOn = 1;
         }
     }
 
-    public void uninstall() {
-        if (!installed) {
+    public void ansiOff() {
+        if (levelOn > 1) {
+            levelOn--;
             return;
         }
 
         //
-        if (getEngine().uninstall()) {
-            installed = false;
+        if (levelOn == 1) {
+            getEngine().uninstall();
+            levelOn = 0;
         }
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
     public void registerStyle(String styleName, AnsiferColor color, AnsiferColor background, boolean defaultStyle) {
@@ -117,7 +111,7 @@ public class AnsiferImpl implements Ansifer {
         if (s == null) {
             s = "";
         }
-        if (!installed || !enabled) {
+        if (!isOn()) {
             return s;
         }
 

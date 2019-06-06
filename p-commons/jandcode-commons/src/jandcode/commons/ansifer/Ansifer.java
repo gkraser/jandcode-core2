@@ -8,31 +8,23 @@ import java.util.*;
 public interface Ansifer {
 
     /**
-     * Инсталлирован ли ansi
+     * Включена ли поддержка ansi консоли.
      */
-    boolean isInstalled();
+    boolean isOn();
 
     /**
-     * Инициализация ansi консоли.
+     * Включить поддержку ansi консоли.
      * Если этот метод не вызвать, консоль будет обычной.
+     * Вызовы ansiOn/ansiOff должны быть сбалансированы.
      */
-    void install();
+    void ansiOn();
 
     /**
-     * Деинициализация ansi консоли.
+     * Выключить поддержку ansi консоли.
      * Если этот метод вызвать, консоль будет обычной.
+     * Вызовы ansiOn/ansiOff должны быть сбалансированы.
      */
-    void uninstall();
-
-    /**
-     * Разрешен ли. Можно временно запрещать.
-     */
-    boolean isEnabled();
-
-    /**
-     * Временно разрешить/запретитиь использование ansi.
-     */
-    void setEnabled(boolean enabled);
+    void ansiOff();
 
 
     ////// styles

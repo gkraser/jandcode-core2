@@ -17,9 +17,6 @@ import java.util.*;
 
 public class MainImpl {
 
-    // показывать ли декорации
-    public boolean showDecoration = true;
-
     private boolean verbose;
     private boolean errorShowFullStack;
     private String appdir;
@@ -33,7 +30,6 @@ public class MainImpl {
     boolean needHeader;
 
     private Ansifer ansi = UtAnsifer.getAnsifer();
-    private boolean ansiInstallHere = false;
 
     /**
      * Запуск утилиты с командной строки для вызова в коде или тестах.
@@ -84,9 +80,7 @@ public class MainImpl {
             }
             return false;
         } finally {
-            if (ansiInstallHere) {
-                ansi.uninstall();
-            }
+            ansi.ansiOff();
         }
     }
 
@@ -110,11 +104,8 @@ public class MainImpl {
         if (cli.containsKey(opt)) {
             cli.remove(opt);
         } else {
-            if (!ansi.isInstalled()) {
-                ansiInstallHere = true;
-                ansi.install();
-                new AnsiStyleDef().styleForJc(ansi, cfg);
-            }
+            ansi.ansiOn();
+            new AnsiStyleDef().styleForJc(ansi, cfg);
         }
 
         // настройка консоли
