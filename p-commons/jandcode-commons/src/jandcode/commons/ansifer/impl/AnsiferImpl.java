@@ -102,6 +102,10 @@ public class AnsiferImpl implements Ansifer {
         return new AnsiferStyleImpl(AnsiferColor.fromString(color), AnsiferColor.fromString(background));
     }
 
+    public AnsiferStyle getStyle(AnsiferColor color, AnsiferColor background) {
+        return new AnsiferStyleImpl(color, background);
+    }
+
     public Collection<String> getStyleNames() {
         return styles.keySet();
     }
@@ -131,6 +135,14 @@ public class AnsiferImpl implements Ansifer {
 
     public String color(String styleOrColor, String s) {
         return color(getStyle(styleOrColor), s);
+    }
+
+    public String color(AnsiferColor color, AnsiferColor background, String s) {
+        return color(getStyle(color, background), s);
+    }
+
+    public String color(String color, String background, String s) {
+        return color(getStyle(color, background), s);
     }
 
 }

@@ -53,6 +53,11 @@ public interface Ansifer {
     AnsiferStyle getStyle(String color, String background);
 
     /**
+     * Получить стиль по цвету и фону.
+     */
+    AnsiferStyle getStyle(AnsiferColor color, AnsiferColor background);
+
+    /**
      * Имена зарегистрированных стилей
      */
     Collection<String> getStyleNames();
@@ -80,5 +85,24 @@ public interface Ansifer {
      */
     String color(String styleOrColor, String s);
 
+    /**
+     * Обрамление строки ansi-кодами для указанных цветов.
+     * Если ansi не инициализирована - преобразования не производится.
+     *
+     * @param color      каким цветом
+     * @param background каким фоном
+     * @param s          какую строку
+     */
+    String color(AnsiferColor color, AnsiferColor background, String s);
+
+    /**
+     * Обрамление строки ansi-кодами для указанных цветов.
+     * Если ansi не инициализирована - преобразования не производится.
+     *
+     * @param color      каким цветом
+     * @param background каким фоном
+     * @param s          какую строку
+     */
+    String color(String color, String background, String s);
 
 }

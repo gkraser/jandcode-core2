@@ -36,6 +36,23 @@ public class UtAnsifer {
     //////
 
     /**
+     * @see Ansifer#registerStyle(java.lang.String, jandcode.commons.ansifer.AnsiferColor, jandcode.commons.ansifer.AnsiferColor, boolean)
+     */
+    public static void registerStyle(String styleName, AnsiferColor color, AnsiferColor background, boolean defaultStyle) {
+        getAnsifer().registerStyle(styleName, color, background, defaultStyle);
+    }
+
+    /**
+     * см {@link Ansifer#registerStyle(java.lang.String, jandcode.commons.ansifer.AnsiferColor, jandcode.commons.ansifer.AnsiferColor, boolean)},
+     * где defaultStyle=false
+     */
+    public static void registerStyle(String styleName, AnsiferColor color, AnsiferColor background) {
+        getAnsifer().registerStyle(styleName, color, background, false);
+    }
+
+    //////
+
+    /**
      * @see Ansifer#color(java.lang.String, java.lang.String)
      */
     public static String color(String styleOrColor, String s) {
@@ -43,15 +60,24 @@ public class UtAnsifer {
     }
 
     /**
-     * Обрамление строки ansi-кодами для указанных цветов.
-     * Если ansi не инициализирована - преобразования не производится.
-     *
-     * @param color      каким цветом
-     * @param background каким фоном
-     * @param s          какую строку
+     * @see Ansifer#color(java.lang.String, java.lang.String)
+     */
+    public static String color(AnsiferStyle style, String s) {
+        return getAnsifer().color(style, s);
+    }
+
+    /**
+     * @see Ansifer#color(java.lang.String, java.lang.String, java.lang.String)
      */
     public static String color(String color, String background, String s) {
-        return getAnsifer().color(getAnsifer().getStyle(color, background), s);
+        return getAnsifer().color(color, background, s);
+    }
+
+    /**
+     * @see Ansifer#color(jandcode.commons.ansifer.AnsiferColor, jandcode.commons.ansifer.AnsiferColor, java.lang.String)
+     */
+    public static String color(AnsiferColor color, AnsiferColor background, String s) {
+        return getAnsifer().color(color, background, s);
     }
 
 }
