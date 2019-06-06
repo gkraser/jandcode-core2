@@ -36,15 +36,14 @@ public class JansiAnsiferEngine implements AnsiferEngine {
         }
     }
 
-    public boolean uninstall() {
+    public void uninstall() {
         try {
             if (jansiInstalled) {
                 AnsiConsole.systemUninstall();
                 jansiInstalled = false;
             }
-            return true;
         } catch (Exception e) {
-            return false;
+            //ignore
         }
     }
 

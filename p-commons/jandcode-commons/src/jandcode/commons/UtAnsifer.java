@@ -20,6 +20,22 @@ public class UtAnsifer {
     //////
 
     /**
+     * @see Ansifer#ansiOn()
+     */
+    public static void ansiOn() {
+        getAnsifer().ansiOn();
+    }
+
+    /**
+     * @see Ansifer#ansiOff()
+     */
+    public static void ansiOff() {
+        getAnsifer().ansiOff();
+    }
+
+    //////
+
+    /**
      * @see Ansifer#color(java.lang.String, java.lang.String)
      */
     public static String color(String styleOrColor, String s) {

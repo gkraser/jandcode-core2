@@ -99,7 +99,6 @@ public class AnsiferImpl implements Ansifer {
     }
 
     public AnsiferStyle getStyle(String color, String background) {
-        //todo оптимизация-кеширование?
         return new AnsiferStyleImpl(AnsiferColor.fromString(color), AnsiferColor.fromString(background));
     }
 

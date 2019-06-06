@@ -8,8 +8,7 @@ public class DummyAnsiferEngine implements AnsiferEngine {
         return false;
     }
 
-    public boolean uninstall() {
-        return false;
+    public void uninstall() {
     }
 
 }

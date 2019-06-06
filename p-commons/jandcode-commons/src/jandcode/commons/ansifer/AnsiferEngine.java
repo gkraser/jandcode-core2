@@ -14,9 +14,7 @@ public interface AnsiferEngine {
 
     /**
      * Деинициализация.
-     *
-     * @return true если все прошло успешно
      */
-    boolean uninstall();
+    void uninstall();
 
 }
