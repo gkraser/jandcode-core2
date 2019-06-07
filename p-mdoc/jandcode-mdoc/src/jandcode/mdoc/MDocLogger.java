@@ -12,7 +12,7 @@ public class MDocLogger {
     /**
      * Логгер для jc
      */
-    public static Logger jcLog = LoggerFactory.getLogger("jc.console");
+    public static Logger jcLog = UtLog.getLogConsole();
 
     private static MDocLogger _inst = new MDocLogger();
 

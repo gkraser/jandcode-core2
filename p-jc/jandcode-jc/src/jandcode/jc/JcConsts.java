@@ -72,11 +72,6 @@ public class JcConsts {
      */
     public static final String JC_METADATA_DIR = "_jc";
 
-    /**
-     * Имя логгера logback, через который выводятся информационные сообщения
-     */
-    public static final String LOGGER_CONSOLE = "jc.console";
-
     ////// события
 
     /**
