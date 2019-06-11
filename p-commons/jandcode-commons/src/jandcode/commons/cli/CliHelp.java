@@ -45,6 +45,15 @@ public class CliHelp {
     }
 
     /**
+     * Создать экземпляр с или без поддержки ansi
+     *
+     * @param enableAnsi true - разрешить ansi
+     */
+    public CliHelp(boolean enableAnsi) {
+        this(null, null);
+    }
+
+    /**
      * Создать экземпляр с поддержкой ansi
      *
      * @param optNameStyle имя стиля Ansifer для опции.
