@@ -22,6 +22,7 @@ public class DefaultStyles {
         a.registerStyle("c-gray", AnsiferColor.black_h, null, true);
         a.registerStyle("opt-name", AnsiferColor.cyan, null, true);
         a.registerStyle("opt-help", null, null, true);
+        a.registerStyle("cmd-name", AnsiferColor.yellow, null, true);
     }
 
 }
