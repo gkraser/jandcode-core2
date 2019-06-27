@@ -1,7 +1,6 @@
 package jandcode.commons.named;
 
 import jandcode.commons.*;
-import jandcode.commons.named.*;
 import jandcode.commons.test.*;
 import org.junit.jupiter.api.*;
 

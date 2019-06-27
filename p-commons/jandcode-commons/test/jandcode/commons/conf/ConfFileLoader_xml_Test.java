@@ -51,11 +51,11 @@ public class ConfFileLoader_xml_Test extends CustomConf_Test {
         UtConf.load(x).fromFile(utils.getTestFile("data/xml-inc2.xml"));
         conf.printConf(x);
         //
-        for (Conf x1: x.getConfs()){
-            System.out.println(""+x1.getName()+"=>"+x1.origin());
+        for (Conf x1 : x.getConfs()) {
+            System.out.println("" + x1.getName() + "=>" + x1.origin());
             System.out.println("----");
-            for (Conf x2: x1.getConfs()){
-                System.out.println("     "+x2.getName()+"=>"+x2.origin());
+            for (Conf x2 : x1.getConfs()) {
+                System.out.println("     " + x2.getName() + "=>" + x2.origin());
             }
         }
     }

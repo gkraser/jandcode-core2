@@ -1,6 +1,5 @@
 package jandcode.commons.error;
 
-import jandcode.commons.error.*;
 import jandcode.commons.error.impl.*;
 import jandcode.commons.test.*;
 import org.junit.jupiter.api.*;

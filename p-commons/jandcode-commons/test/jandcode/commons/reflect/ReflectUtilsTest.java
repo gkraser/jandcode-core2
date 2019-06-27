@@ -1,8 +1,6 @@
 package jandcode.commons.reflect;
 
 import jandcode.commons.reflect.impl.*;
-import jandcode.commons.conf.*;
-import jandcode.commons.conf.impl.*;
 import jandcode.commons.test.*;
 import org.junit.jupiter.api.*;
 

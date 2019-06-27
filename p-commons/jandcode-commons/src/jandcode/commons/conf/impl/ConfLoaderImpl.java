@@ -4,8 +4,8 @@ import jandcode.commons.*;
 import jandcode.commons.collect.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.error.*;
-import jandcode.commons.impl.*;
 import jandcode.commons.io.*;
+import jandcode.commons.str.*;
 import org.apache.commons.vfs2.*;
 
 import java.io.*;

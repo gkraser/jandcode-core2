@@ -1,7 +1,6 @@
-package jandcode.commons.impl;
+package jandcode.commons.str;
 
 import jandcode.commons.io.*;
-import jandcode.commons.str.*;
 
 /**
  * Раскрытие подстановок ${x} в строках.
