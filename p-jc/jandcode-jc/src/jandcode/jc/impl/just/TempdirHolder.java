@@ -1,7 +1,6 @@
 package jandcode.jc.impl.just;
 
 import jandcode.commons.*;
-import jandcode.commons.version.*;
 import jandcode.jc.*;
 
 public class TempdirHolder implements ITempdir {
@@ -9,8 +8,7 @@ public class TempdirHolder implements ITempdir {
     private String baseTempPath;
 
     public TempdirHolder() {
-        VersionInfo vi = new VersionInfo("jandcode.jc");
-        String vr = vi.getVersion();
+        String vr = UtVersion.getVersion("jandcode.jc");
         String wd = UtFile.getWorkdir();
         String nm = UtFile.filename(wd);
         if (UtString.empty(nm)) {

@@ -33,13 +33,6 @@ public class VersionInfo {
     }
 
     /**
-     * Инициализирует объекта версией пакета указанного класса
-     */
-    public VersionInfo(Class cls) {
-        init(cls.getPackage().getName());
-    }
-
-    /**
      * Версия
      */
     public String getVersion() {

@@ -7,7 +7,6 @@ import jandcode.commons.error.*;
 import jandcode.commons.io.*;
 import jandcode.commons.stopwatch.*;
 import jandcode.commons.variant.*;
-import jandcode.commons.version.*;
 import jandcode.jc.*;
 import jandcode.jc.impl.log.*;
 import jandcode.jc.impl.utils.*;
@@ -278,8 +277,7 @@ public class MainImpl {
     }
 
     private String version() {
-        VersionInfo vi = new VersionInfo("jandcode.jc");
-        return vi.getVersion();
+        return UtVersion.getVersion("jandcode.jc");
     }
 
     private String delim(String msg) {
