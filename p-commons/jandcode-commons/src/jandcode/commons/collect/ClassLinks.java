@@ -1,4 +1,6 @@
-package jandcode.commons;
+package jandcode.commons.collect;
+
+import jandcode.commons.*;
 
 import java.util.*;
 

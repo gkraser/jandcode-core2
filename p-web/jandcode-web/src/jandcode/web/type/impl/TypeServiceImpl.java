@@ -1,6 +1,7 @@
 package jandcode.web.type.impl;
 
 import jandcode.commons.*;
+import jandcode.commons.collect.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.named.*;
 import jandcode.core.*;
