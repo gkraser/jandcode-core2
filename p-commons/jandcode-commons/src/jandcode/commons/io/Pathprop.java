@@ -1,6 +1,6 @@
-package jandcode.commons;
+package jandcode.commons.io;
 
-import jandcode.commons.io.*;
+import jandcode.commons.*;
 import jandcode.commons.str.*;
 
 import java.io.*;
