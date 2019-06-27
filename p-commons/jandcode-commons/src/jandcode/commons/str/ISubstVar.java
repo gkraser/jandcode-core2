@@ -1,4 +1,6 @@
-package jandcode.commons;
+package jandcode.commons.str;
+
+import jandcode.commons.*;
 
 /**
  * Обработчик переменных в {@link UtString#substVar(java.lang.String, java.lang.String, java.lang.String, ISubstVar)}.
