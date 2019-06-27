@@ -1,4 +1,4 @@
-package jandcode.commons;
+package jandcode.commons.error;
 
 import jandcode.commons.error.*;
 import jandcode.commons.error.impl.*;
