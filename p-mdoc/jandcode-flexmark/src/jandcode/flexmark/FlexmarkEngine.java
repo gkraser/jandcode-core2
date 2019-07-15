@@ -10,7 +10,7 @@ import com.vladsch.flexmark.html.*;
 import com.vladsch.flexmark.parser.*;
 import com.vladsch.flexmark.util.ast.*;
 import com.vladsch.flexmark.util.builder.*;
-import com.vladsch.flexmark.util.options.*;
+import com.vladsch.flexmark.util.data.*;
 import jandcode.commons.error.*;
 import jandcode.flexmark.mdtopic.*;
 import jandcode.flexmark.mdtopic.impl.*;

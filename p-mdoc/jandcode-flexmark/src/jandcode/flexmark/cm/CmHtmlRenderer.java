@@ -2,7 +2,7 @@ package jandcode.flexmark.cm;
 
 import com.vladsch.flexmark.html.*;
 import com.vladsch.flexmark.html.renderer.*;
-import com.vladsch.flexmark.util.options.*;
+import com.vladsch.flexmark.util.data.*;
 
 import java.util.*;
 
@@ -11,7 +11,7 @@ public class CmHtmlRenderer implements NodeRenderer {
     private static String tagName = "cm";
 
     public static class Factory implements NodeRendererFactory {
-        public NodeRenderer create(final DataHolder options) {
+        public NodeRenderer apply(DataHolder options) {
             return new CmHtmlRenderer(options);
         }
     }

@@ -3,7 +3,7 @@ package jandcode.flexmark.codeblock;
 import com.vladsch.flexmark.ast.*;
 import com.vladsch.flexmark.html.*;
 import com.vladsch.flexmark.html.renderer.*;
-import com.vladsch.flexmark.util.options.*;
+import com.vladsch.flexmark.util.data.*;
 import jandcode.commons.*;
 import jandcode.commons.attrparser.*;
 import jandcode.commons.variant.*;
@@ -15,7 +15,7 @@ import static com.vladsch.flexmark.html.renderer.CoreNodeRenderer.*;
 public class CodeBlockExRenderer implements NodeRenderer {
 
     public static class Factory implements NodeRendererFactory {
-        public NodeRenderer create(final DataHolder options) {
+        public NodeRenderer apply(DataHolder options) {
             return new CodeBlockExRenderer(options);
         }
     }
