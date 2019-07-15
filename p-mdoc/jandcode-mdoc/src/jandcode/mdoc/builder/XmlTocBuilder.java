@@ -138,7 +138,7 @@ public class XmlTocBuilder {
         }
         if (checkSelf && root.getTopic() == null) {
             String title = root.getTitle();
-            if (UtString.empty(title)){
+            if (UtString.empty(title)) {
                 title = (root.getName().equals("") ? "no-name" : root.getName()) + " (folder)";
             }
             Topic newTopic = DocUtils.addTopic(

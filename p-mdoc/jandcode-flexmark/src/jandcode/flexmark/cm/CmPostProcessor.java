@@ -2,7 +2,6 @@ package jandcode.flexmark.cm;
 
 import com.vladsch.flexmark.ast.*;
 import com.vladsch.flexmark.parser.block.*;
-import com.vladsch.flexmark.util.*;
 import com.vladsch.flexmark.util.ast.*;
 import com.vladsch.flexmark.util.sequence.*;
 
