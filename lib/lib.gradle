@@ -38,7 +38,7 @@ dependencies {
     compile group: 'org.junit.platform', name: 'junit-platform-console', version: vp
 
     // apache commons
-    compile group: 'org.apache.commons', name: 'commons-vfs2', version: '2.3'
+    compile group: 'org.apache.commons', name: 'commons-vfs2', version: '2.4'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.13'
     compile group: 'org.apache.commons', name: 'commons-compress', version: '1.18'
