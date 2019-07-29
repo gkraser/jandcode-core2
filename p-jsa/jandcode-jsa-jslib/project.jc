@@ -29,11 +29,11 @@ class P extends ProjectScript {
         include(JsaProject).with {
             nodeDepends.putAll(
                     "axios": "0.19.0",
-                    "blueimp-md5": "2.10.0",
+                    "blueimp-md5": "2.11.0",
                     "chai": "4.2.0",
                     "jquery": "3.4.1",
-                    "lodash": "4.17.14",
-                    "mocha": "6.1.4",
+                    "lodash": "4.17.15",
+                    "mocha": "6.2.0",
                     "moment": "2.24.0",
                     "vue": "2.6.10",
                     "vue-router": "3.0.7",
