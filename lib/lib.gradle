@@ -29,8 +29,8 @@ dependencies {
     }
 
     // junit5
-    v = '5.5.0'
-    vp = '1.5.0'  // platform
+    v = '5.5.1'
+    vp = '1.5.1'  // platform
     compile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: v
     compile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: v
     compile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: v
@@ -40,13 +40,13 @@ dependencies {
     // apache commons
     compile group: 'org.apache.commons', name: 'commons-vfs2', version: '2.3'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
-    compile group: 'commons-codec', name: 'commons-codec', version: '1.12'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.13'
     compile group: 'org.apache.commons', name: 'commons-compress', version: '1.18'
     compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
     compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.6.0'
-    compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.6.2'
+    compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.7.0'
     compile group: 'org.apache.commons', name: 'commons-csv', version: '1.7'
-    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.3'
+    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
     compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
 
     // groovy
@@ -87,7 +87,7 @@ dependencies {
     compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.2'
 
     // flexmark
-    v = '0.50.18'
+    v = '0.50.20'
     compile group: 'com.vladsch.flexmark', name: 'flexmark', version: v
     compile group: 'com.vladsch.flexmark', name: 'flexmark-formatter', version: v
     compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-gfm-strikethrough', version: v
@@ -117,7 +117,7 @@ dependencies {
     compile group: 'org.apache.poi', name: 'poi-scratchpad', version: v
 
     // lucene
-    v = '8.1.1'
+    v = '8.2.0'
     compile group: 'org.apache.lucene', name: 'lucene-core', version: v
     compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: v
     compile group: 'org.apache.lucene', name: 'lucene-queryparser', version: v
