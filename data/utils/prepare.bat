@@ -1,5 +1,8 @@
 @echo off
 
+if "%JC_PREPARE_RUN%"=="1" exit /b 0
+set JC_PREPARE_RUN=1
+
 pushd %~dp0
 
 set BLD1=no
@@ -31,7 +34,9 @@ if errorlevel 1 set BLD1=yes
 if "%BLD1%"=="yes" (
     call gradle copyLibs
     if errorlevel 1 exit /b 1
-    call ant build.all
+    call ant build.jc
+    if errorlevel 1 exit /b 1
+    call ../../jc-run.bat -no-ansi showinfo
     if errorlevel 1 exit /b 1
     %UPD_CM% > %UPD1%
 )
