@@ -1,7 +1,7 @@
 package jandcode.mdoc.topic.factory;
 
 import com.vladsch.flexmark.html.*;
-import com.vladsch.flexmark.util.options.*;
+import com.vladsch.flexmark.util.data.*;
 import jandcode.commons.*;
 import jandcode.core.*;
 import jandcode.flexmark.*;

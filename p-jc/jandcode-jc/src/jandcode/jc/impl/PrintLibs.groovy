@@ -14,7 +14,7 @@ class PrintLibs {
 
     PrintLibs(Ctx ctx) {
         this.ctx = ctx
-        ansi = Ansifer.getInst()
+        ansi = UtAnsifer.getAnsifer()
     }
 
     /**
@@ -40,9 +40,9 @@ class PrintLibs {
 
         for (Lib z : tmp) {
             if (mode != 'array') {
-                print(ansi.style("c1", z.getName()));
+                print(ansi.color("c1", z.getName()));
                 print(" ");
-                println(ansi.style("c2", z.getVersion()));
+                println(ansi.color("c2", z.getVersion()));
             } else {
                 println("'${z.getName()}',");
             }
@@ -104,7 +104,7 @@ class PrintLibs {
     void printInfo(String title, String txt) {
         title = UtString.padLeft(title + ":", 12) + " "
         print(title)
-        println(ansi.style("c-gray", txt));
+        println(ansi.color("c-gray", txt));
     }
 
 }

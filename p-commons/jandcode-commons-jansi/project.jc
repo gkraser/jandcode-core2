@@ -1,0 +1,13 @@
+void onInclude() {
+    project.name = "jandcode-commons-jansi"
+    //! еще нет модуля jc !//
+    def jm = include("jandcode.jc.std.JavaProject")
+    //
+    jm.autoJcDepends = false
+    jm.packageRoot = "jandcode.commons.jansi"
+    jm.depends.prod.add(
+            "jandcode-commons",
+            "jansi",
+    )
+    jm.depends.dev.add()
+}

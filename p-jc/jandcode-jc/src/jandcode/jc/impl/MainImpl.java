@@ -4,6 +4,7 @@ import jandcode.commons.*;
 import jandcode.commons.ansifer.*;
 import jandcode.commons.cli.*;
 import jandcode.commons.error.*;
+import jandcode.commons.io.*;
 import jandcode.commons.stopwatch.*;
 import jandcode.commons.variant.*;
 import jandcode.jc.*;
@@ -15,9 +16,6 @@ import java.text.*;
 import java.util.*;
 
 public class MainImpl {
-
-    // показывать ли декорации
-    public boolean showDecoration = true;
 
     private boolean verbose;
     private boolean errorShowFullStack;
@@ -31,8 +29,7 @@ public class MainImpl {
     private String cmName;
     boolean needHeader;
 
-    private Ansifer ansi = Ansifer.getInst();
-    private boolean ansiInstallHere = false;
+    private Ansifer ansi = UtAnsifer.getAnsifer();
 
     /**
      * Запуск утилиты с командной строки для вызова в коде или тестах.
@@ -71,7 +68,7 @@ public class MainImpl {
             } else {
                 prn("");
             }
-            prn(ansi.style("app-footer", stopwatch.toString()));
+            prn(ansi.color("app-footer", stopwatch.toString()));
             //
             return true;
         } catch (Exception e) {
@@ -83,9 +80,7 @@ public class MainImpl {
             }
             return false;
         } finally {
-            if (ansiInstallHere) {
-                Ansifer.getInst().uninstall();
-            }
+            ansi.ansiOff();
         }
     }
 
@@ -109,11 +104,8 @@ public class MainImpl {
         if (cli.containsKey(opt)) {
             cli.remove(opt);
         } else {
-            if (!ansi.isInstalled()) {
-                ansiInstallHere = true;
-                ansi.install();
-                new AnsiStyleDef().styleForJc(ansi, cfg);
-            }
+            ansi.ansiOn();
+            new AnsiStyleDef().styleForJc(ansi, cfg);
         }
 
         // настройка консоли
@@ -285,21 +277,20 @@ public class MainImpl {
     }
 
     private String version() {
-        VersionInfo vi = new VersionInfo("jandcode.jc");
-        return vi.getVersion();
+        return UtVersion.getVersion("jandcode.jc");
     }
 
     private String delim(String msg) {
-        return ansi.style("app-delim", UtString.delim(msg, "~", JcConsts.DELIM_LEN + 5));
+        return ansi.color("app-delim", UtString.delim(msg, "~", JcConsts.DELIM_LEN + 5));
     }
 
     private void appendProp(StringBuilder sb, String n, String v) {
-        sb.append(" * ").append(ansi.style("app-info-name", n)).append(": ").append(ansi.style("app-info-value", v)).append("\n");
+        sb.append(" * ").append(ansi.color("app-info-name", n)).append(": ").append(ansi.color("app-info-value", v)).append("\n");
     }
 
     private String header() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n").append(ansi.style("app-header", copyright())).append("\n\n");
+        sb.append("\n").append(ansi.color("app-header", copyright())).append("\n\n");
         if (!UtString.empty(appdir)) {
             appendProp(sb, "jc-home", appdir);
         }
@@ -325,7 +316,7 @@ public class MainImpl {
     }
 
     private String commonOpt() {
-        CliHelp z = new CliHelpAnsifer("app-opt-name");
+        CliHelp z = new CliHelp("app-opt-name", null);
         z.addOption(JcConsts.OPT_LOG, "Включение логирования. ARG - имя файла в формате logback.\n" +
                 "Можно не указывать, тогда используются настройки по умолчанию", true);
         z.addOption(JcConsts.OPT_VERBOSE, "Включение режима с большим числом сообщений");
@@ -350,11 +341,11 @@ public class MainImpl {
             sb.append("Нет доступных команд").append("\n");
         } else {
             sb.append("Команды:").append("\n");
-            CliHelp h = new CliHelpAnsifer("app-cm-name");
+            CliHelp h = new CliHelp("app-cm-name", null);
             for (Cm cm : res) {
                 String hlp;
                 if (cm.getOpts().size() > 0) {
-                    hlp = ansi.style("app-opt-name", "-h ");
+                    hlp = ansi.color("app-opt-name", "-h ");
                 } else {
                     hlp = "   ";
                 }
@@ -370,14 +361,14 @@ public class MainImpl {
     public String helpCm(Project project, Cm cm) {
         StringBuilder sb = new StringBuilder();
         //
-        sb.append("Команда: ").append(ansi.style("app-cm-name", cm.getName())).append("\n\n");
+        sb.append("Команда: ").append(ansi.color("app-cm-name", cm.getName())).append("\n\n");
         //
         sb.append(cm.getHelp()).append("\n\n");
         //
         sb.append("Общие опции:").append("\n");
         sb.append(commonOpt()).append("\n\n");
         //
-        CliHelp z = new CliHelpAnsifer("opt-name");
+        CliHelp z = new CliHelp("opt-name", null);
         for (CmOpt opt : project.getCm().getOpts(cm, cli)) {
             boolean hasArg = VariantDataType.fromObject(opt.getDefaultValue()) != VariantDataType.BOOLEAN;
             z.addOption(opt.getName(), opt.getHelp(), hasArg);

@@ -1,11 +1,12 @@
 package jandcode.jc.impl.log;
 
+import jandcode.commons.*;
 import jandcode.jc.*;
 import org.slf4j.*;
 
 public class LogImpl implements Log {
 
-    protected static Logger log = LoggerFactory.getLogger(JcConsts.LOGGER_CONSOLE);
+    protected static Logger log = UtLog.getLogConsole();
 
     private Ctx ctx;
     private boolean verbose;

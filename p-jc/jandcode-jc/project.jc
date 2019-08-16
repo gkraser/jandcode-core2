@@ -7,7 +7,7 @@ void onInclude() {
     jm.packageRoot = "jandcode.jc"
     jm.depends.prod.add(
             "jandcode-commons",
-            "jandcode-commons-ansifer",
+            "jandcode-commons-jansi",
             "jandcode-commons-groovy",
             "jandcode-commons-moduledef",
             "ant",

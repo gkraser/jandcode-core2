@@ -3,7 +3,7 @@ package jandcode.flexmark;
 import com.vladsch.flexmark.html.*;
 import com.vladsch.flexmark.parser.*;
 import com.vladsch.flexmark.util.builder.*;
-import com.vladsch.flexmark.util.options.*;
+import com.vladsch.flexmark.util.data.*;
 import jandcode.flexmark.cm.*;
 
 /**

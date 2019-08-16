@@ -69,4 +69,17 @@ class ProductProject extends ProjectScript {
 
     }
 
+    /**
+     * Найти builder по имени
+     */
+    ProductBuilder findBuilder(String name) {
+        List builders = impl(ProductBuilder)
+        for (ProductBuilder b : builders) {
+            if (b.name == name) {
+                return b
+            }
+        }
+        return null
+    }
+
 }

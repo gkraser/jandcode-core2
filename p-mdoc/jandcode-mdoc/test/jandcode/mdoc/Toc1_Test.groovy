@@ -1,6 +1,6 @@
 package jandcode.mdoc
 
-import jandcode.commons.UtFile
+import jandcode.commons.*
 import jandcode.commons.simxml.*
 import jandcode.mdoc.builder.*
 import org.junit.jupiter.api.*

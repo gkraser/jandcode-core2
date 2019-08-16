@@ -1,6 +1,6 @@
 package jandcode.jc.impl.just;
 
-import jandcode.commons.ansifer.*;
+import jandcode.commons.*;
 import org.apache.tools.ant.*;
 
 import java.io.*;
@@ -23,9 +23,9 @@ public class AntLogger extends DefaultLogger {
             if (priority == Project.MSG_WARN) {
                 clr = "ant-warn";
             }
-            message = m.replaceFirst(Ansifer.getInst().style(clr + "-pfx", "$1") + Ansifer.getInst().style(clr, "$2"));
+            message = m.replaceFirst(UtAnsifer.color(clr + "-pfx", "$1") + UtAnsifer.color(clr, "$2"));
         } else {
-            message = Ansifer.getInst().style("ant-info", message);
+            message = UtAnsifer.color("ant-info", message);
         }
         super.printMessage(message, stream, priority);
     }

@@ -189,4 +189,12 @@ public class LibHolder implements ILibs {
         return res;
     }
 
+    public LibModuleInfo findModuleInfo(String moduleName) {
+        Lib lib = findLibForModule(moduleName);
+        if (lib == null) {
+            return null;
+        }
+        return new LibModuleInfoImpl(ctx, lib, moduleName);
+    }
+
 }

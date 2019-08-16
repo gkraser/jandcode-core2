@@ -36,7 +36,7 @@
             <javac encoding="utf-8" debug="true"/>
 
             <src location="${root.dir}/p-commons/jandcode-commons/src"/>
-            <src location="${root.dir}/p-commons/jandcode-commons-ansifer/src"/>
+            <src location="${root.dir}/p-commons/jandcode-commons-jansi/src"/>
             <src location="${root.dir}/p-commons/jandcode-commons-groovy/src"/>
             <src location="${root.dir}/p-commons/jandcode-commons-moduledef/src"/>
             <src location="${root.dir}/p-jc/jandcode-jc/src"/>
@@ -49,7 +49,7 @@
                 <patternset refid="pattern.resource"/>
                 <type type="file"/>
             </fileset>
-            <fileset dir="${root.dir}/p-commons/jandcode-commons-ansifer/src">
+            <fileset dir="${root.dir}/p-commons/jandcode-commons-jansi/src">
                 <patternset refid="pattern.resource"/>
                 <type type="file"/>
             </fileset>
@@ -79,29 +79,5 @@
     </target>
 
     <!-- ===================================================================== -->
-
-    <!-- запускаем свежеоткомпиленный jc, получая таким образом
-         формированние каталога с библиотеками commons и jc
-     -->
-    <target name="build.lib-commons">
-        <java classname="jandcode.jc.Main" fork="true"
-              dir="${root.dir}"
-              failonerror="true">
-            <env key="JC_PATH" value=""/>
-            <jvmarg value="-Djandcode.consolecharset=cp866"/>
-            <jvmarg value="-Djandcode.jc.appdir=${root.dir}"/>
-            <arg line="showinfo -no-ansi"/>
-            <classpath refid="compile-lib"/>
-            <classpath>
-                <pathelement path="${jc.compiled}"/>
-            </classpath>
-        </java>
-    </target>
-
-    <!-- ===================================================================== -->
-
-    <!-- собрать все -->
-    <target name="build.all" depends="build.jc,build.lib-commons">
-    </target>
 
 </project>

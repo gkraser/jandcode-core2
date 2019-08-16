@@ -1,7 +1,5 @@
 package jandcode.commons.reflect;
 
-import jandcode.commons.conf.*;
-
 import java.util.*;
 
 /**

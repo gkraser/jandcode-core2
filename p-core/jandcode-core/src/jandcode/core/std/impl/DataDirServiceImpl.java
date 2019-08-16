@@ -2,8 +2,8 @@ package jandcode.core.std.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
-import jandcode.commons.impl.*;
 import jandcode.commons.named.*;
+import jandcode.commons.str.*;
 import jandcode.core.*;
 import jandcode.core.std.*;
 

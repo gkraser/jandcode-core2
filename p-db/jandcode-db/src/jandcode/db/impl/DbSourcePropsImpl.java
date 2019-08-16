@@ -1,6 +1,7 @@
 package jandcode.db.impl;
 
 import jandcode.commons.*;
+import jandcode.commons.str.*;
 import jandcode.commons.variant.*;
 import jandcode.db.*;
 
