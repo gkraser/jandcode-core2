@@ -70,7 +70,10 @@ public class CtxImpl implements Ctx {
         // грузим корневой проект
         String s = config.getAppdir();
         if (!UtString.empty(s)) {
-            load(s);
+            String pf = resolveProjectFile(s, JcConsts.PROJECT_FILE);
+            if (pf != null) {
+                load(pf);
+            }
         }
 
         // обрабатываем JC_PATH

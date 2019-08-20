@@ -64,7 +64,7 @@ dependencies {
     }
 
     // jansi
-    compile group: 'org.fusesource.jansi', name: 'jansi', version: '1.17.1'
+    compile group: 'org.fusesource.jansi', name: 'jansi', version: '1.18'
 
     // picocli, для groovy
     compile group: 'info.picocli', name: 'picocli', version: '4.0.2'
