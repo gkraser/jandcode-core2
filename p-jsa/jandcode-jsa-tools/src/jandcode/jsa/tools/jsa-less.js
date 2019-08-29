@@ -15,7 +15,8 @@ let tmpFileCounter = 0
 let JsaLessFileManager = function() {
 }
 
-let LessFileManager = require('less/lib/less-node/file-manager')
+let less = require('less')
+let LessFileManager = less.FileManager
 
 JsaLessFileManager.prototype = new LessFileManager();
 JsaLessFileManager.prototype.loadFile = function(filename, currentDirectory, options, environment, callback) {
