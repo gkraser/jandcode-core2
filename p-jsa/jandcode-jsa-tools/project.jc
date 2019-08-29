@@ -40,7 +40,7 @@ class P extends ProjectScript {
                     "fs-extra": "8.1.0",
                     "globby": "10.0.1",
                     "require-from-string": "2.0.2",
-                    "del": "5.0.0",
+                    "del": "5.1.0",
 
                     "less": "3.9.0",
 
