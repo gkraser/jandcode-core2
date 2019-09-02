@@ -41,7 +41,7 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-vfs2', version: '2.4.1'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
     compile group: 'commons-codec', name: 'commons-codec', version: '1.13'
-    compile group: 'org.apache.commons', name: 'commons-compress', version: '1.18'
+    compile group: 'org.apache.commons', name: 'commons-compress', version: '1.19'
     compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
     compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.7.0'
     compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.7.0'
@@ -67,10 +67,10 @@ dependencies {
     compile group: 'org.fusesource.jansi', name: 'jansi', version: '1.18'
 
     // picocli, для groovy
-    compile group: 'info.picocli', name: 'picocli', version: '4.0.2'
+    compile group: 'info.picocli', name: 'picocli', version: '4.0.3'
 
     // slf4j
-    v = '1.7.26'
+    v = '1.7.28'
     compile group: 'org.slf4j', name: 'slf4j-api', version: v
     compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: v
     compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: v
@@ -87,7 +87,7 @@ dependencies {
     compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.3'
 
     // flexmark
-    v = '0.50.26'
+    v = '0.50.32'
     compile group: 'com.vladsch.flexmark', name: 'flexmark', version: v
     compile group: 'com.vladsch.flexmark', name: 'flexmark-formatter', version: v
     compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-gfm-strikethrough', version: v
@@ -102,7 +102,7 @@ dependencies {
     compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 
     // undertow
-    compile(group: 'io.undertow', name: 'undertow-servlet', version: '2.0.25.Final') {
+    compile(group: 'io.undertow', name: 'undertow-servlet', version: '2.0.26.Final') {
         exclude module: 'jboss-annotations-api_1.2_spec'
         exclude module: 'jboss-servlet-api_4.0_spec'
     }
