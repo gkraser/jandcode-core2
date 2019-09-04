@@ -261,6 +261,9 @@ class JavaProject extends ProjectScript implements ILibDepends {
         afterLoad(this.&onAfterLoad)
         afterLoadAll(this.&onAfterLoadAll)
 
+        // utilites
+        include(CreateProject)
+
         // showinfo
         include(Showinfo)
         onEvent(Showinfo.Event_GetInfo, this.&showinfoHandler)
