@@ -74,9 +74,16 @@ public class GroovyMethodExtractor {
         String[] lines = text.split("\n");
         for (MethodDef md : methods) {
             StringBuilder mt = new StringBuilder();
+            int startLine = md.startLine;
+            boolean foundStart = false;
             for (int i = md.startLine; i <= md.stopLine; i++) {
                 String s = lines[i];
-                if (i == md.startLine) {
+                if (!foundStart && s.trim().startsWith("@")) {
+                    startLine++;
+                    continue;
+                }
+                if (i == startLine) {
+                    foundStart = true;
                     int a = s.indexOf('{');
                     if (a != -1) {
                         s = s.substring(a + 1);
