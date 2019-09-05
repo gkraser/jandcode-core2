@@ -1,6 +1,5 @@
 package jandcode.mdoc.cfg.impl;
 
-import jandcode.commons.*;
 import jandcode.commons.conf.*;
 import jandcode.core.*;
 import jandcode.mdoc.cfg.*;
@@ -9,7 +8,7 @@ public class DocCfgServiceImpl extends BaseComp implements DocCfgService {
 
     public FilesetCfg createFilesetCfg(Conf conf) {
         FilesetCfg fs = new FilesetCfg();
-        UtReflect.getUtils().setProps(fs, conf);
+        fs.setProps(conf);
         return fs;
     }
 
