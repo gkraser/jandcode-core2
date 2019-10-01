@@ -55,6 +55,7 @@ public class UndertowRunner implements IWebRunner {
         WebXml wx = new DefaultWebXmlFactory().createWebXml();
         AppInstanceServlet svInst = new AppInstanceServlet();
         svInst.setApp(app);
+        app.startup();
         wx.getServlet(WebConsts.WEB_SERVLET_NAME).setServletInstance(svInst);
         startWebXml(wx);
     }
@@ -144,6 +145,9 @@ public class UndertowRunner implements IWebRunner {
                 }
 
                 public void release() {
+                    if (inst instanceof AppInstanceServlet) {
+                        ((AppInstanceServlet) inst).getApp().shutdown();
+                    }
                 }
             };
         }
