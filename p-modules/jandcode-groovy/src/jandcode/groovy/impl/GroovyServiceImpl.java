@@ -1,7 +1,6 @@
 package jandcode.groovy.impl;
 
 import jandcode.commons.*;
-import jandcode.commons.event.*;
 import jandcode.commons.groovy.*;
 import jandcode.core.*;
 import jandcode.core.std.*;
@@ -10,16 +9,9 @@ import jandcode.groovy.*;
 import java.util.*;
 import java.util.concurrent.*;
 
-public class GroovyServiceImpl extends BaseComp implements GroovyService {
+public class GroovyServiceImpl extends BaseComp implements GroovyService, IAppShutdown {
 
     private Map<String, GroovyCompiler> compilers = new ConcurrentHashMap<>();
-
-    protected void onConfigure(BeanConfig cfg) throws Exception {
-        super.onConfigure(cfg);
-
-        // тушим все экземпляры компиляторов
-        getApp().onEvent(App.Event_AppShutdown.class, this::onAppShutdown);
-    }
 
     public GroovyCompiler getGroovyCompiler(String name) {
         GroovyCompiler res = compilers.get(name);
@@ -41,11 +33,9 @@ public class GroovyServiceImpl extends BaseComp implements GroovyService {
         return res;
     }
 
-    /**
-     * Потушить все экземпляры компиляторов,что бы не загрязняться ими
-     * при частой перезагрузки в рещиме разработки.
-     */
-    protected void onAppShutdown(Event e) throws Exception {
+    public void appShutdown() throws Exception {
+        // Потушить все экземпляры компиляторов,что бы не загрязняться ими
+        // при частой перезагрузки в рещиме разработки.
         for (Map.Entry<String, GroovyCompiler> entry : compilers.entrySet()) {
             UtGroovy.destroyCompiler(entry.getValue());
         }

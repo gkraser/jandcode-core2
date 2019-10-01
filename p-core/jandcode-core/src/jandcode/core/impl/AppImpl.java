@@ -33,6 +33,7 @@ public class AppImpl implements App, IBeanIniter {
     private String appName;
     private EventBus eventBus;
 
+    private int startupLevel;
 
     public void beanInit(Object inst) {
         if (inst instanceof IAppLinkSet) {
@@ -245,7 +246,9 @@ public class AppImpl implements App, IBeanIniter {
         beanFactory.beanConfigure(cfg);
 
         // уведомлям о загрузке
-        fireEvent(new Event_AppLoaded());
+        for (IAppLoaded z : impl(IAppLoaded.class)) {
+            z.appLoaded();
+        }
 
         // готово
     }
@@ -269,6 +272,37 @@ public class AppImpl implements App, IBeanIniter {
 
     public String getAppName() {
         return appName;
+    }
+
+    //////
+
+    public void startup() {
+        this.startupLevel++;
+        if (this.startupLevel == 1) {
+            try {
+                for (IAppStartup z : impl(IAppStartup.class)) {
+                    z.appStartup();
+                }
+            } catch (Exception e) {
+                throw new XErrorWrap(e);
+            }
+        }
+    }
+
+    public void shutdown() {
+        if (this.startupLevel == 0) {
+            return;
+        }
+        this.startupLevel--;
+        if (this.startupLevel == 0) {
+            try {
+                for (IAppShutdown z : impl(IAppShutdown.class)) {
+                    z.appShutdown();
+                }
+            } catch (Exception e) {
+                throw new XErrorWrap(e);
+            }
+        }
     }
 
 }
