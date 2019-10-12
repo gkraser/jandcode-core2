@@ -934,6 +934,14 @@ class JavaProject extends ProjectScript implements ILibDepends {
                 ant.mkdir(dir: dir)
             }
         }
+
+        // также создаем каталоги для генерации, что бы ide их сразу видела
+        for (GenTask t in _genTasks) {
+            if (!UtFile.exists(t.dir)) {
+                ant.mkdir(dir: t.dir)
+            }
+        }
+
     }
 
     void buildHandler() {
