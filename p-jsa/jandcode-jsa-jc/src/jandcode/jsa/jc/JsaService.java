@@ -74,7 +74,7 @@ public class JsaService extends CtxService {
     }
 
     /**
-     * Задачи gulpи для модуля с учетом определений в модулях,
+     * Задачи gulp для модуля с учетом определений в модулях,
      * от которых модуль зависит.
      */
     public Map getGulpTasks(JsaModule m) {
