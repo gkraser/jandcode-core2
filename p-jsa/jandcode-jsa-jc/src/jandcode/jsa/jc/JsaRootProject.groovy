@@ -80,6 +80,13 @@ class JsaRootProject extends ProjectScript {
         // node_modules
         jsaUtils.updateNodeModules(wd(JsaConsts.PACKAGE_JSON))
 
+        // gulpfile
+        String gulpfile = wd("gulpfile.js")
+        if (!UtFile.exists(gulpfile)) {
+            log.warn("Файл ${gulpfile} не существует и будет создан. Не забудьте его закомитить")
+            String srcGulpfile = ctx.service(JcDataService).getFile("jsa/gulp/gulpfile-default.js")
+            ant.copy(file: srcGulpfile, tofile: gulpfile)
+        }
     }
 
     void cmGulpBuild() {
