@@ -28,9 +28,9 @@ class P extends ProjectScript {
         //
         include(JsaProject).with {
             nodeDepends.putAll(
-                    "@babel/cli": "7.6.2",
-                    "@babel/core": "7.6.2",
-                    "@babel/preset-env": "7.6.2",
+                    "@babel/cli": "7.6.4",
+                    "@babel/core": "7.6.4",
+                    "@babel/preset-env": "7.6.3",
                     "@babel/polyfill": "7.6.0",
                     "@babel/plugin-external-helpers": "7.2.0",
 
@@ -48,7 +48,7 @@ class P extends ProjectScript {
                     "vue-template-es2015-compiler": "1.9.1",
 
                     "@vue/babel-helper-vue-jsx-merge-props": "1.0.0",
-                    "@vue/babel-preset-jsx": "1.1.0",
+                    "@vue/babel-preset-jsx": "1.1.1",
 
                     "gulp": "4.0.2",
                     "gulp-babel": "8.0.0",
