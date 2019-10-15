@@ -83,7 +83,7 @@ dependencies {
 
     // jdbc
     compile group: 'org.postgresql', name: 'postgresql', version: '42.2.8'
-    compile group: 'com.h2database', name: 'h2', version: '1.4.199'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.200'
     compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.5.0'
 
     // flexmark
