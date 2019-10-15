@@ -13,6 +13,48 @@ public class FilesetCfg {
     private List<String> excludes = new ArrayList<>();
 
     /**
+     * Установить свойства из map
+     */
+    public void setProps(Map props) {
+        if (props == null) {
+            return;
+        }
+        Object v;
+
+        //
+        v = props.get("dir");
+        if (v != null) {
+            setDir(UtCnv.toString(v));
+        }
+
+        //
+        v = props.get("prefix");
+        if (v != null) {
+            setPrefix(UtCnv.toString(v));
+        }
+
+        //
+        v = props.get("resources");
+        if (v != null) {
+            setResources(UtCnv.toBoolean(v));
+        }
+
+        //
+        v = props.get("includes");
+        if (v != null) {
+            getIncludes().clear();
+            getIncludes().addAll(UtCnv.toList(v));
+        }
+
+        //
+        v = props.get("excludes");
+        if (v != null) {
+            getExcludes().clear();
+            getExcludes().addAll(UtCnv.toList(v));
+        }
+    }
+
+    /**
      * vfs-путь до каталога с исходниками.
      */
     public String getDir() {
@@ -61,34 +103,6 @@ public class FilesetCfg {
      */
     public List<String> getExcludes() {
         return excludes;
-    }
-
-    //////
-
-    public void addInclude(String mask) {
-        getIncludes().add(mask);
-    }
-
-    public void addExclude(String mask) {
-        getExcludes().add(mask);
-    }
-
-    private void assignMasks(List<String> res, String masks) {
-        if (UtString.empty(masks)) {
-            return;
-        }
-        List<String> lst = UtCnv.toList(masks);
-        res.addAll(lst);
-    }
-
-    public void setIncludes(String s) {
-        getIncludes().clear();
-        assignMasks(getIncludes(), s);
-    }
-
-    public void setExcludes(String s) {
-        getExcludes().clear();
-        assignMasks(getExcludes(), s);
     }
 
 }

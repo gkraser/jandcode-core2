@@ -72,7 +72,7 @@ public class AppServlet extends HttpServlet implements IAppLink {
         // уведомляем о конце
         if (app != null) {
             try {
-                app.fireEvent(new App.Event_AppShutdown());
+                app.shutdown();
             } catch (Exception e) {
                 log.error("Error app shutdown", e);
             }
@@ -149,7 +149,7 @@ public class AppServlet extends HttpServlet implements IAppLink {
         webService.setHttpServlet(this);
 
         // уведомляем о старте
-        app.fireEvent(new App.Event_AppStartup());
+        app.startup();
 
         return app;
     }
@@ -170,7 +170,7 @@ public class AppServlet extends HttpServlet implements IAppLink {
 
             // уведомляем о убивании приложения
             try {
-                app.fireEvent(new App.Event_AppShutdown());
+                app.shutdown();
             } catch (Exception e) {
                 showError(e, false);
             }

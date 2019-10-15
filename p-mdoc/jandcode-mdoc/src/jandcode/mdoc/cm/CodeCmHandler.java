@@ -70,10 +70,30 @@ public class CodeCmHandler extends BaseCmHandler {
             throw new XError("Атрибут file не указан");
         }
 
+        String method = null;
         int a = file.indexOf('#');
         if (a != -1) {
+            method = file.substring(a + 1);
+            file = file.substring(0, a);
+        }
+
+        // возможно file - это имя класса
+        if (file.indexOf('/') == -1) {
+            SourceFileHolder sfls = getOutBuilder().getDoc().getSourceFiles();
+            String f1 = file.replace('.', '/');
+            SourceFile sf1 = sfls.find(f1 + ".java");
+            if (sf1 == null) {
+                sf1 = sfls.find(f1 + ".groovy");
+            }
+            if (sf1 != null) {
+                // да, это действительно класс
+                file = "/" + sf1.getPath();
+            }
+        }
+
+        if (method != null) {
             // вызов метода генерации исходного файла
-            return generateSourceFile(file.substring(0, a), file.substring(a + 1), attrs, outFile);
+            return generateSourceFile(file, method, attrs, outFile);
         }
 
         Ref ref = getOutBuilder().getRefResolver().resolveRefInc(file, outFile);

@@ -28,27 +28,27 @@ class P extends ProjectScript {
         //
         include(JsaProject).with {
             nodeDepends.putAll(
-                    "@babel/cli": "7.5.5",
-                    "@babel/core": "7.5.5",
-                    "@babel/preset-env": "7.5.5",
-                    "@babel/polyfill": "7.4.4",
+                    "@babel/cli": "7.6.4",
+                    "@babel/core": "7.6.4",
+                    "@babel/preset-env": "7.6.3",
+                    "@babel/polyfill": "7.6.0",
                     "@babel/plugin-external-helpers": "7.2.0",
 
-                    "cross-env": "5.2.0",
+                    "cross-env": "6.0.3",
                     "find-requires": "1.0.0",
 
                     "fs-extra": "8.1.0",
                     "globby": "10.0.1",
                     "require-from-string": "2.0.2",
-                    "del": "5.0.0",
+                    "del": "5.1.0",
 
-                    "less": "3.9.0",
+                    "less": "3.10.3",
 
                     "vue-template-compiler": "2.6.10",
                     "vue-template-es2015-compiler": "1.9.1",
 
                     "@vue/babel-helper-vue-jsx-merge-props": "1.0.0",
-                    "@vue/babel-preset-jsx": "1.1.0",
+                    "@vue/babel-preset-jsx": "1.1.1",
 
                     "gulp": "4.0.2",
                     "gulp-babel": "8.0.0",

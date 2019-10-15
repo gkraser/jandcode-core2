@@ -94,7 +94,7 @@ class MDocProject extends ProjectScript implements ILibDepends {
     FilesetCfg addSrc(Map params, String dir) {
         FilesetCfg fs = docCfg.addSrc(wd(dir))
         if (params != null) {
-            UtReflect.getUtils().setProps(fs, params)
+            fs.setProps(params)
         }
         return fs
     }

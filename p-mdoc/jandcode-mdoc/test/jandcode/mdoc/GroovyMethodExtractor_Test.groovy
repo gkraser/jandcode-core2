@@ -30,5 +30,21 @@ class AAA {
         println res
     }
 
+    @Test
+    public void extractMethodBodysWithAnnotation1() throws Exception {
+        GroovyMethodExtractor z = new GroovyMethodExtractor()
+        Map res = z.extractMethodBodys("""
+class AAA {
+
+    @Test
+    void m1() {
+       println "2"
+    }
+
+}
+""")
+        println res
+    }
+
 
 }

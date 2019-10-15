@@ -130,4 +130,12 @@ public class AppTestSvc extends BaseTestSvc implements App {
         return getApp().getEventBus();
     }
 
+    public void startup() {
+        getApp().startup();
+    }
+
+    public void shutdown() {
+        getApp().shutdown();
+    }
+
 }

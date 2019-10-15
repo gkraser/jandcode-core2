@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
-    <toc-root topic="index.md">
+    <toc-root topic="./index.md">
         <toc topic="./**/*"/>
     </toc-root>
 
