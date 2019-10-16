@@ -5,11 +5,11 @@ import jandcode.commons.error.*;
 import jandcode.commons.variant.*;
 import jandcode.core.*;
 import jandcode.core.std.*;
+import jandcode.core.web.*;
+import jandcode.core.web.action.*;
 import jandcode.mdoc.*;
 import jandcode.mdoc.builder.*;
 import jandcode.mdoc.source.*;
-import jandcode.web.*;
-import jandcode.web.action.*;
 
 public class MDocAction extends BaseAction {
 

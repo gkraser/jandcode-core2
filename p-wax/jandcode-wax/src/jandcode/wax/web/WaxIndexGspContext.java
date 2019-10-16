@@ -1,8 +1,8 @@
 package jandcode.wax.web;
 
 import jandcode.commons.*;
+import jandcode.core.web.gsp.*;
 import jandcode.jsa.jsmodule.*;
-import jandcode.web.gsp.*;
 
 import java.util.*;
 

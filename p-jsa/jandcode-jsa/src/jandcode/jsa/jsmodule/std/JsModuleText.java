@@ -1,11 +1,11 @@
 package jandcode.jsa.jsmodule.std;
 
 import jandcode.commons.error.*;
+import jandcode.core.web.*;
+import jandcode.core.web.gsp.*;
+import jandcode.core.web.virtfile.*;
 import jandcode.jsa.jsmodule.*;
 import jandcode.jsa.jsmodule.impl.*;
-import jandcode.web.*;
-import jandcode.web.gsp.*;
-import jandcode.web.virtfile.*;
 
 /**
  * Базовый класс для модулей, загружаемых из текстовых файлов с возможной

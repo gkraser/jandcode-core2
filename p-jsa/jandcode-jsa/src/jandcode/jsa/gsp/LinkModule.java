@@ -1,7 +1,7 @@
 package jandcode.jsa.gsp;
 
 import jandcode.commons.*;
-import jandcode.web.gsp.*;
+import jandcode.core.web.gsp.*;
 
 import java.util.*;
 

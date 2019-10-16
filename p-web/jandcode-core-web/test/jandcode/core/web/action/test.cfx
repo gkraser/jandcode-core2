@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-depends module="jandcode.core.web"/>
+
+    <web>
+
+        <action name="x1/a1" class="jandcode.core.web.action.Action1"/>
+        <action name="z1" class="jandcode.core.web.action.Action1"/>
+        <action name="a1" class="jandcode.core.web.action.Action1"/>
+        <action name="x1/b1" class="jandcode.core.web.action.Action1"/>
+        <action name="z1/a/b" class="jandcode.core.web.action.Action1"/>
+
+    </web>
+
+</root>

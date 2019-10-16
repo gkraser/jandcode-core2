@@ -1,4 +1,4 @@
-<%@ page import="jandcode.jsa.jsmodule.*; jandcode.commons.*; jandcode.core.*; jandcode.web.*; jandcode.web.gsp.*;" %>
+<%@ page import="jandcode.core.web.gsp.*; jandcode.jsa.jsmodule.*; jandcode.commons.*; jandcode.core.*; jandcode.core.web.*; jandcode.core.web.gsp.*;" %>
 <%
   BaseGsp th = this
   def svc = th.app.bean(JsModuleService)

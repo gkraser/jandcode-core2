@@ -9,7 +9,7 @@
 
         <!-- вызывается первой, что бы гарантированно получить файл, если он есть  -->
         <action-factory name="mdoc" weight="1000"
-                       class="jandcode.mdoc.web.MDocActionFactory"/>
+                        class="jandcode.mdoc.web.MDocActionFactory"/>
 
         <action name="mdoc"
                 class="jandcode.mdoc.web.MDocAction"/>

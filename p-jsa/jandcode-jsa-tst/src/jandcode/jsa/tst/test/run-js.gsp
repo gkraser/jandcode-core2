@@ -1,4 +1,4 @@
-<%@ page import="jandcode.jsa.tst.test.utils.*; jandcode.web.gsp.*" %>
+<%@ page import="jandcode.jsa.tst.test.utils.*; jandcode.core.web.gsp.*" %>
 <jc:page template="./template-run.gsp">
   <%
     BaseGsp th = this

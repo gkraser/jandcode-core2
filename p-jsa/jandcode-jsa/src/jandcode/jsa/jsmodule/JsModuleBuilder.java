@@ -1,7 +1,7 @@
 package jandcode.jsa.jsmodule;
 
 import jandcode.commons.conf.*;
-import jandcode.web.virtfile.*;
+import jandcode.core.web.virtfile.*;
 
 /**
  * Интерфейс для построения модуля

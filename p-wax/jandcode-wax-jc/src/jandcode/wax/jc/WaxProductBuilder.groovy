@@ -21,7 +21,6 @@ class WaxProductBuilder extends ProductBuilder {
         def cp = createLibCopier()
         cp.add(include(RootProject).modules)
         cp.add(include(RootProject).depends.prod.names)
-        cp.add("jandcode-undertow")
         cp.copyTo("${destDir}/lib")
 
         // дополнительные сгенерированные jar

@@ -1,6 +1,6 @@
 package jandcode.jsa.gsp
 
-import jandcode.web.test.*
+import jandcode.core.web.test.Web_Test
 import org.junit.jupiter.api.*
 
 class LinkModule_Test extends Web_Test {

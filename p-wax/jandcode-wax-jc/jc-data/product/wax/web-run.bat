@@ -8,4 +8,4 @@ set JVM=%JVM% -Djandcode.app.appdir=%~dp0
 set JVM=%JVM% -Djandcode.consolecharset=auto
 set JVM=%JVM% -Dfile.encoding=UTF-8
 
-java %JVM% jandcode.web.WebRunMain %*
+java %JVM% jandcode.core.web.WebRunMain %*

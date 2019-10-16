@@ -1,6 +1,6 @@
 package jandcode.wax.web;
 
-import jandcode.web.test.*;
+import jandcode.core.web.test.*;
 import org.junit.jupiter.api.*;
 
 public class WaxThemeService_Test extends Web_Test {

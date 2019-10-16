@@ -1,4 +1,4 @@
-<%@ page import="jandcode.commons.UtJson; jandcode.jsa.jsmodule.JsModuleBuilder; jandcode.commons.*; jandcode.core.*; jandcode.web.*; jandcode.web.gsp.*;" %>
+<%@ page import="jandcode.core.web.gsp.*; jandcode.commons.*; jandcode.jsa.jsmodule.*; jandcode.core.*; jandcode.core.web.*; jandcode.core.web.gsp.*;" %>
 <%
   BaseGsp th = this
   JsModuleBuilder b = th.inst(JsModuleBuilder)
@@ -9,5 +9,5 @@
   }
 %>
 <script>
-    let dt = '${jandcode.commons.UtDateTime.now()}';
+    let dt = '${UtDateTime.now()}';
 </script>

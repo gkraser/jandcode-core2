@@ -1,10 +1,10 @@
 package jandcode.mdoc.web;
 
 import jandcode.commons.*;
+import jandcode.core.web.*;
+import jandcode.core.web.render.*;
+import jandcode.core.web.virtfile.*;
 import jandcode.mdoc.builder.*;
-import jandcode.web.*;
-import jandcode.web.render.*;
-import jandcode.web.virtfile.*;
 
 public class OutFileRender implements IRender {
 

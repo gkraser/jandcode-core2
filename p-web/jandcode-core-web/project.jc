@@ -1,0 +1,23 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    void onInclude() {
+        //
+        project.name = "jandcode-core-web"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.core.web").with {
+                depends.prod.add(
+                        "javax.servlet-api",
+                        "commons-fileupload",
+                        "jandcode.core.groovy",
+                        "undertow-servlet",
+                )
+            }
+        }
+        //
+    }
+
+}

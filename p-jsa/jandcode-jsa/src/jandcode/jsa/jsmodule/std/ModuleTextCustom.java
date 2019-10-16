@@ -1,8 +1,8 @@
 package jandcode.jsa.jsmodule.std;
 
 import jandcode.commons.*;
-import jandcode.jsa.jsmodule.*;
 import jandcode.core.*;
+import jandcode.jsa.jsmodule.*;
 
 /**
  * Базовый реализатор для разных вариантов IModuleText для клиента

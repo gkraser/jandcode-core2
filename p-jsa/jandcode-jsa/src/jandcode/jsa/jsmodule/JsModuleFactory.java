@@ -2,7 +2,7 @@ package jandcode.jsa.jsmodule;
 
 import jandcode.commons.conf.*;
 import jandcode.core.*;
-import jandcode.web.virtfile.*;
+import jandcode.core.web.virtfile.*;
 
 /**
  * Фабрика модулей

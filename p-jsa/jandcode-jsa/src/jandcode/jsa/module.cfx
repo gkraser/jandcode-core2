@@ -15,7 +15,7 @@
         <!-- монтирование сгенерированных ресурсов jsa -->
         <mount name="jsa-webroot"
                resourcePath="jsa-webroot"
-               class="jandcode.web.std.mount.ResourceMount"
+               class="jandcode.core.web.std.mount.ResourceMount"
         />
 
         <!-- =================== -->

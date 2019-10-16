@@ -1,4 +1,4 @@
-<%@ page import="jandcode.utils.*; jandcode.core.*; jandcode.web.*; jandcode.web.gsp.*;" %>
+<%@ page import="jandcode.core.web.gsp.*; jandcode.utils.*; jandcode.core.*; jandcode.core.web.*; jandcode.core.web.gsp.*;" %>
 <%
   // настройка на среду исполнения
   BaseGsp th = this

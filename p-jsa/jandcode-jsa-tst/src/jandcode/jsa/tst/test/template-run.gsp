@@ -1,4 +1,4 @@
-<%@ page import="jandcode.jsa.tst.test.utils.*; jandcode.web.*; jandcode.jsa.tst.test.*; jandcode.commons.*; jandcode.web.gsp.*" %>
+<%@ page import="jandcode.jsa.tst.test.utils.*; jandcode.core.web.*; jandcode.jsa.tst.test.*; jandcode.commons.*; jandcode.core.web.gsp.*" %>
 <!doctype html>
 <%
   /*

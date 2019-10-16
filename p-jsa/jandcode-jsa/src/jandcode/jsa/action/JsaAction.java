@@ -2,9 +2,9 @@ package jandcode.jsa.action;
 
 import jandcode.commons.*;
 import jandcode.commons.error.impl.*;
+import jandcode.core.web.action.*;
 import jandcode.jsa.jsmodule.*;
 import jandcode.jsa.jsmodule.std.*;
-import jandcode.web.action.*;
 import org.slf4j.*;
 
 import java.util.*;

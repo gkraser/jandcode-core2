@@ -6,8 +6,8 @@ import jandcode.commons.error.*;
 import jandcode.commons.simxml.*;
 import jandcode.commons.variant.*;
 import jandcode.core.*;
-import jandcode.web.*;
-import jandcode.web.virtfile.*;
+import jandcode.core.web.*;
+import jandcode.core.web.virtfile.*;
 
 import java.util.*;
 

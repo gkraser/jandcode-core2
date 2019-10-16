@@ -2,11 +2,11 @@ package jandcode.jsa.gsp;
 
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
+import jandcode.core.*;
+import jandcode.core.web.*;
+import jandcode.core.web.gsp.*;
 import jandcode.jsa.jsmodule.*;
 import jandcode.jsa.jsmodule.impl.*;
-import jandcode.core.*;
-import jandcode.web.*;
-import jandcode.web.gsp.*;
 
 import java.util.*;
 

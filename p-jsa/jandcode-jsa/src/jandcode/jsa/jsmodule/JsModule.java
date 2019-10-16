@@ -1,7 +1,7 @@
 package jandcode.jsa.jsmodule;
 
 import jandcode.core.*;
-import jandcode.web.virtfile.*;
+import jandcode.core.web.virtfile.*;
 
 import java.util.*;
 

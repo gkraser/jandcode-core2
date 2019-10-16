@@ -2,9 +2,9 @@ package jandcode.mdoc.web;
 
 import jandcode.commons.*;
 import jandcode.core.*;
+import jandcode.core.web.*;
+import jandcode.core.web.action.*;
 import jandcode.mdoc.builder.*;
-import jandcode.web.*;
-import jandcode.web.action.*;
 
 /**
  * Если в pathInfo присутствует расширение, считает что возможно это файл,

@@ -7,7 +7,7 @@
   GspTemplateContext th = context
 
   //
-  def request = th.doc.app.bean("jandcode.web.WebService").request
+  def request = th.doc.app.bean("jandcode.core.web.WebService").request
   def hasEditor = (th.doc.app.beanFactory.findBean("jandcode.mdoc.web.CmdRunner") != null) &&
       !UtString.empty(th.topic.sourceFile.realPath)
   def time = System.currentTimeMillis()

@@ -1,8 +1,8 @@
 package jandcode.jsa.tst.test.utils;
 
 import jandcode.commons.*;
-import jandcode.web.gsp.*;
-import jandcode.web.virtfile.*;
+import jandcode.core.web.gsp.*;
+import jandcode.core.web.virtfile.*;
 
 /**
  * Утилиты для использования внутри gsp в tst

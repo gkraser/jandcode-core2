@@ -2,9 +2,12 @@ package jandcode.jsa.tst.test.utils
 
 import jandcode.commons.*
 import jandcode.core.*
-import jandcode.web.*
-import jandcode.web.gsp.*
-import jandcode.web.virtfile.*
+import jandcode.core.web.UtWeb
+import jandcode.core.web.WebService
+import jandcode.core.web.gsp.Gsp
+import jandcode.core.web.gsp.GspContext
+import jandcode.core.web.gsp.IGspContextLinkSet
+import jandcode.core.web.virtfile.VirtFile
 
 import java.util.regex.*
 

@@ -1,4 +1,4 @@
-<%@ page import="jandcode.mdoc.web.*; jandcode.commons.*; jandcode.core.*; jandcode.web.*; jandcode.web.gsp.*;" %>
+<%@ page import="jandcode.mdoc.web.*; jandcode.commons.*; jandcode.core.*; jandcode.core.web.*; jandcode.core.web.gsp.*;" %>
 <%
   BaseGsp th = this
   def apps = th.app.bean(WebMDocService).getRegisterApps()

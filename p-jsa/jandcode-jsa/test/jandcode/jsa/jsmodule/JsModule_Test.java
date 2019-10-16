@@ -1,6 +1,6 @@
 package jandcode.jsa.jsmodule;
 
-import jandcode.web.test.*;
+import jandcode.core.web.test.*;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;

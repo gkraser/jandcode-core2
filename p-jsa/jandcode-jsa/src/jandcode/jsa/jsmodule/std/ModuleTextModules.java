@@ -1,8 +1,8 @@
 package jandcode.jsa.jsmodule.std;
 
+import jandcode.core.*;
 import jandcode.jsa.jsmodule.*;
 import jandcode.jsa.jsmodule.impl.*;
-import jandcode.core.*;
 
 import java.util.*;
 

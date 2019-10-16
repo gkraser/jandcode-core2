@@ -4,11 +4,11 @@ import jandcode.commons.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.error.*;
 import jandcode.commons.named.*;
-import jandcode.jsa.jsmodule.*;
 import jandcode.core.*;
 import jandcode.core.std.*;
-import jandcode.web.*;
-import jandcode.web.virtfile.*;
+import jandcode.core.web.*;
+import jandcode.core.web.virtfile.*;
+import jandcode.jsa.jsmodule.*;
 
 import java.util.*;
 import java.util.concurrent.*;

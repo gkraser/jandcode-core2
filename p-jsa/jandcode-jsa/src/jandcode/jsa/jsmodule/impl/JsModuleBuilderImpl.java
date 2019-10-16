@@ -2,9 +2,9 @@ package jandcode.jsa.jsmodule.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
+import jandcode.core.web.*;
+import jandcode.core.web.virtfile.*;
 import jandcode.jsa.jsmodule.*;
-import jandcode.web.*;
-import jandcode.web.virtfile.*;
 
 import java.util.*;
 
