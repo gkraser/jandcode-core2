@@ -8,20 +8,14 @@ class P extends ProjectScript {
 
     void onInclude() {
         //
-        project.name = "jandcode-groovy"
+        project.name = "jandcode-core-groovy"
         //
         include(JavaProject).with {
-            moduleDef("jandcode.groovy").with {
+            moduleDef("jandcode.core.groovy").with {
                 depends.prod.add(
+                        "jandcode-commons-groovy"
                 )
             }
-            //
-            depends.prod.add(
-                    "jandcode-commons-groovy"
-            )
-            depends.dev.add(
-            )
-            //
         }
     }
 

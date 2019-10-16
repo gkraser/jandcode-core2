@@ -1,4 +1,4 @@
-package jandcode.groovy;
+package jandcode.core.groovy;
 
 import jandcode.commons.groovy.*;
 import jandcode.core.*;

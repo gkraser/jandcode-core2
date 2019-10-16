@@ -6,7 +6,7 @@ import jandcode.commons.error.*;
 import jandcode.commons.groovy.*;
 import jandcode.commons.named.*;
 import jandcode.core.*;
-import jandcode.groovy.*;
+import jandcode.core.groovy.*;
 import jandcode.web.gsp.*;
 import org.apache.commons.vfs2.*;
 
