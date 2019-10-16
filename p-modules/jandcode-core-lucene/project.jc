@@ -3,25 +3,24 @@ import jandcode.jc.std.*
 
 class P extends ProjectScript {
 
+    static beforeLoad = {
+    }
+
     void onInclude() {
         //
-        project.name = "jandcode-lucene"
+        project.name = "jandcode-core-lucene"
         //
         include(JavaProject).with {
-            moduleDef("jandcode.lucene").with {
+            moduleDef("jandcode.core.lucene").with {
                 depends.prod.add(
-                )
-            }
-            //
-            depends.prod.add(
                     "lucene-core",
                     "lucene-queryparser",
                     "lucene-queries",
                     "lucene-analyzers-common",
-            )
-            depends.dev.add(
-            )
-            //
+                )
+                depends.dev.add(
+                )
+            }
         }
     }
 

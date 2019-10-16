@@ -1,4 +1,4 @@
-package jandcode.poi;
+package jandcode.core.poi;
 
 import jandcode.commons.test.*;
 import org.apache.poi.hssf.usermodel.*;
