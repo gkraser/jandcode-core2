@@ -16,10 +16,8 @@ class P extends ProjectScript {
             groupId = "com.jandcode"
             moduleGroup = "jc-core/p-mdoc"
             modules = [
-                    "jandcode-flexmark",
                     "jandcode-mdoc",
                     "jandcode-mdoc-web",
-                    "jandcode-mdoc-ext",
                     "jandcode-mdoc-jc",
             ]
         }
