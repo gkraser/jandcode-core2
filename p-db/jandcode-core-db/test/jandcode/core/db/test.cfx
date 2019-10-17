@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-depends module="jandcode.core.db"/>
+
+    <cfg>
+        <dbsource name="dbSource_byName"
+                  param1="1"/>
+
+        <dbsource name="test.h2"
+                  dbdriver="base"
+                  url="jdbc:h2:mem:${database};DB_CLOSE_DELAY=-1"
+                  database="test_h2"
+        />
+
+        <dbsource name="test1" dbdriver="base"
+                  param1="1"/>
+
+        <dbsource name="props1" dbdriver="base"
+                  p1="P1"
+                  p2="2-${p1}"
+                  p3="3-${p2}"
+        />
+
+    </cfg>
+
+</root>
