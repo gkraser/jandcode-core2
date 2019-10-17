@@ -17,11 +17,11 @@ class P extends ProjectScript {
             moduleGroup = "jc-core/p-db"
             modules = [
                 //
-                'jandcode-db',
-                'jandcode-db-h2',
-                'jandcode-db-mariadb',
-                'jandcode-db-oracle',
-                'jandcode-db-postgresql',
+                'jandcode-core-db',
+                'jandcode-core-db-h2',
+                'jandcode-core-db-mariadb',
+                'jandcode-core-db-oracle',
+                'jandcode-core-db-postgresql',
             ]
         }
     }

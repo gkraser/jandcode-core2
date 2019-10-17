@@ -13,9 +13,9 @@ class P extends ProjectScript {
         include(JavaProject).with {
             moduleDef("jandcode.wax").with {
                 depends.prod.add(
-                        "jandcode.web",
-                        "jandcode.store",
-                        "jandcode.jsa",
+                        "jandcode.core.web",
+                        "jandcode.core.store",
+                        "jandcode.core.jsa",
                 )
             }
         }

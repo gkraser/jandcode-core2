@@ -10,13 +10,25 @@ class P extends ProjectScript {
         include(JavaProject).with {
             moduleDef("jandcode.mdoc").with {
                 depends.prod.add(
-                        "jandcode.groovy",
+                        "jandcode.core.groovy",
                 )
             }
             //
             depends.prod.add(
                     "jandcode-commons",
-                    "jandcode-flexmark",
+
+                    // flexmark
+                    "flexmark",
+                    "flexmark-util",
+                    "flexmark-formatter",
+                    "flexmark-ext-gfm-strikethrough",
+                    "flexmark-ext-tables",
+                    "flexmark-ext-yaml-front-matter",
+                    "flexmark-ext-admonition",
+                    "flexmark-ext-definition",
+                    "flexmark-ext-anchorlink",
+                    "flexmark-ext-attributes",
+                    "log4j-over-slf4j",
             )
             depends.dev.add(
             )

@@ -1,0 +1,29 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+    }
+
+    void onInclude() {
+        //
+        project.name = "jandcode-core-poi"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.core.poi").with {
+                depends.prod.add(
+                    "commons-collections4",
+                    "xmlbeans",
+                    "poi",
+                    "poi-ooxml",
+                    "poi-ooxml-schemas",
+                    "poi-scratchpad",
+                )
+                depends.dev.add(
+                )
+            }
+        }
+    }
+
+}

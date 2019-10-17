@@ -1,0 +1,28 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+    }
+
+    void onInclude() {
+        //
+        project.name = "jandcode-core-dao"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.core.dao").with {
+                depends.prod.add(
+                )
+            }
+            //
+            depends.prod.add(
+                    'javassist'
+            )
+            depends.dev.add(
+            )
+            //
+        }
+    }
+
+}

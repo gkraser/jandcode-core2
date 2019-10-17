@@ -30,7 +30,7 @@ public class UtFile_Test extends Utils_Test {
         assertEquals(UtFile.isAbsolute("\\\\dd\\sss\\s.txt"), true);
         assertEquals(UtFile.isAbsolute("c:dd/"), false);
         assertEquals(UtFile.isAbsolute("c:dd"), false);
-        assertEquals(UtFile.isAbsolute("jar:file:///d:/p/blabla/lala/jandcode-dbm/temp/lib/jandcode-dbm.jar!/jandcode/dbm/model.cfx"), true);
+        assertEquals(UtFile.isAbsolute("jar:file:///d:/p/blabla/lala/jandcode-core-dbm/temp/lib/jandcode-core-dbm.jar!/jandcode/dbm/model.cfx"), true);
     }
 
     @Test

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <bean name="jandcode.core.db.DbDriverService"
+          class="jandcode.core.db.impl.DbDriverServiceImpl"/>
+
+    <bean name="jandcode.core.db.DbService"
+          class="jandcode.core.db.impl.DbServiceImpl"/>
+
+    <!-- ===================================================================== -->
+
+    <db>
+        <dbsource-default>
+
+            <bean name="jandcode.core.db.DbConnectionService"
+                  class="jandcode.core.db.std.PoolingDbConnectionService"/>
+
+            <bean name="connectionService.direct"
+                  class="jandcode.core.db.std.DirectDbConnectionService"/>
+
+            <bean name="jandcode.core.db.DbManagerService"
+                  class="jandcode.core.db.std.BaseDbManagerService"/>
+
+        </dbsource-default>
+
+        <!-- ===================================================================== -->
+
+        <dbdriver name="base" class="jandcode.core.db.std.BaseDbDriver"
+                  dbtype="base">
+
+            <dbsource-default>
+                <!-- конфигурация dbsource по умолчанию для драйвера -->
+            </dbsource-default>
+
+            <!-- =================== -->
+
+            <dbdatatype name="null" class="jandcode.core.db.std.DbDataType_null"
+                        storedatatype="null"/>
+
+            <dbdatatype name="string" class="jandcode.core.db.std.DbDataType_string"
+                        sqltype="varchar(${size})"
+                        storedatatype="string"/>
+
+            <dbdatatype name="int" class="jandcode.core.db.std.DbDataType_int"
+                        sqltype="int"
+                        storedatatype="int"/>
+
+            <dbdatatype name="long" class="jandcode.core.db.std.DbDataType_long"
+                        sqltype="bigint"
+                        storedatatype="long"/>
+
+            <dbdatatype name="smallint" parent="int"
+                        sqltype="smallint"/>
+
+            <dbdatatype name="double" class="jandcode.core.db.std.DbDataType_double"
+                        sqltype="double"
+                        storedatatype="double"/>
+
+            <dbdatatype name="memo" parent="string"
+                        sqltype="clob"
+                        storedatatype="rawstring"/>
+
+            <dbdatatype name="datetime" class="jandcode.core.db.std.DbDataType_datetime"
+                        sqltype="datetime"
+                        storedatatype="datetime"/>
+
+            <dbdatatype name="date" parent="datetime"
+                        sqltype="date"
+                        storedatatype="date"/>
+
+            <dbdatatype name="blob" class="jandcode.core.db.std.DbDataType_blob"
+                        sqltype="blob"
+                        storedatatype="blob"/>
+
+            <dbdatatype name="boolean" parent="smallint"
+                        sqltype="smallint"
+                        storedatatype="boolean"/>
+
+            <dbdatatype name="object"
+                        class="jandcode.core.db.std.DbDataType_object"
+                        storedatatype="object"/>
+
+            <!-- =================== -->
+
+            <type name="null" dbdatatype="null"/>
+
+            <type name="java.lang.CharSequence" dbdatatype="string"/>
+            <type name="java.lang.String" dbdatatype="string"/>
+
+            <type name="java.lang.Long" dbdatatype="long"/>
+            <type name="long" dbdatatype="long"/>
+
+            <type name="java.lang.Integer" dbdatatype="int"/>
+            <type name="int" dbdatatype="int"/>
+
+            <type name="java.lang.Short" dbdatatype="smallint"/>
+            <type name="short" dbdatatype="smallint"/>
+
+            <type name="java.lang.Double" dbdatatype="double"/>
+            <type name="double" dbdatatype="double"/>
+
+            <type name="java.lang.Boolean" dbdatatype="boolean"/>
+            <type name="boolean" dbdatatype="boolean"/>
+
+            <type name="jandcode.commons.datetime.XDateTime" dbdatatype="datetime"/>
+
+            <type name="byte-array" dbdatatype="blob"/>
+
+        </dbdriver>
+
+    </db>
+
+</root>

@@ -16,11 +16,11 @@ class P extends ProjectScript {
             groupId = "com.jandcode"
             moduleGroup = "jc-core/p-modules"
             modules = [
-                    'jandcode-poi',
-                    'jandcode-lucene',
-                    'jandcode-groovy',
-                    'jandcode-store',
-                    'jandcode-dao',
+                    'jandcode-core-poi',
+                    'jandcode-core-lucene',
+                    'jandcode-core-groovy',
+                    'jandcode-core-store',
+                    'jandcode-core-dao',
             ]
         }
     }

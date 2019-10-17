@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-depends module="jandcode.core.db.oracle"/>
+
+    <cfg>
+
+        <dbsource name="test1"
+                  dbdriver="oracle"
+                  host="localhost"
+                  database="xe"
+                  username="c##jc2_db_test"
+                  password="111"
+
+                  system.username="sys as sysdba"
+                  system.password="111"
+        />
+
+        <!-- для тестирования create/drop -->
+        <dbsource name="test.create"
+                  dbdriver="oracle"
+                  host="localhost"
+                  database="xe"
+                  username="c##jc2_db_test_create"
+                  password="111"
+
+                  system.username="sys as sysdba"
+                  system.password="111"
+        />
+
+    </cfg>
+
+</root>

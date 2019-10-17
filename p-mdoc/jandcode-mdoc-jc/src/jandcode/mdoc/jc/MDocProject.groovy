@@ -4,6 +4,7 @@ import jandcode.commons.*
 import jandcode.commons.simxml.*
 import jandcode.commons.variant.*
 import jandcode.core.*
+import jandcode.core.web.undertow.*
 import jandcode.jc.*
 import jandcode.jc.impl.depends.*
 import jandcode.jc.std.*
@@ -11,7 +12,6 @@ import jandcode.mdoc.*
 import jandcode.mdoc.builder.*
 import jandcode.mdoc.cfg.*
 import jandcode.mdoc.web.*
-import jandcode.undertow.*
 
 class MDocProject extends ProjectScript implements ILibDepends {
 

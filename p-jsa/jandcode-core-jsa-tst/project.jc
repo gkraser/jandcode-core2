@@ -1,0 +1,35 @@
+import jandcode.core.jsa.jc.JsaProject
+import jandcode.jc.*
+import jandcode.jc.std.*
+import jandcode.core.jsa.jc.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+        classpath("jandcode-core-jsa-jc")
+    }
+
+    void onInclude() {
+        //
+        project.name = "jandcode-core-jsa-tst"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.core.jsa.tst").with {
+                depends.prod.add(
+                        "jandcode.core.web.tst",
+                        "jandcode.core.jsa.core",
+                )
+            }
+            //
+            depends.prod.add(
+            )
+            depends.dev.add(
+            )
+            //
+        }
+        //
+        include(JsaProject).with {
+        }
+    }
+
+}

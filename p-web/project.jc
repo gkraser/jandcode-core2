@@ -16,10 +16,9 @@ class P extends ProjectScript {
             groupId = "com.jandcode"
             moduleGroup = "jc-core/p-web"
             modules = [
-                    'jandcode-undertow',
-                    'jandcode-web',
-                    'jandcode-web-tst',
-                    'jandcode-web-jc',
+                    'jandcode-core-web',
+                    'jandcode-core-web-tst',
+                    'jandcode-core-web-jc',
             ]
         }
     }

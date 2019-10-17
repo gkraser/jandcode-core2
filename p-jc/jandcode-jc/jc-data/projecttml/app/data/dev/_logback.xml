@@ -13,7 +13,7 @@
 
     <logger name="org.apache" level="OFF"/>
     <logger name="org.eclipse" level="OFF"/>
-    <logger name="jandcode.web.std" level="OFF"/>
+    <logger name="jandcode.core.web.std" level="OFF"/>
     <logger name="jandcode.commons" level="OFF"/>
     <logger name="jandcode.commons.moduledef" level="OFF"/>
 

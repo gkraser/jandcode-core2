@@ -1,4 +1,4 @@
-<%@ page import="jandcode.jsa.utils.*; jandcode.commons.*; jandcode.core.*; jandcode.web.*; jandcode.web.gsp.*;" %>
+<%@ page import="jandcode.core.jsa.utils.*; jandcode.commons.*; jandcode.core.*; jandcode.core.web.*; jandcode.core.web.gsp.*;" %>
 <%
   /*
     Сборник из всех svg-иконок всех модулей.
@@ -9,6 +9,6 @@
   SvgIconGenerator g = th.create(SvgIconGenerator);
   g.add("[*]/images/svgicons/**/*.svg");
 %>
-let jsaBase = require('jandcode.jsa.base')
+let jsaBase = require('jandcode.core.jsa.base')
 module.exports = ${g.generate()}
 jsaBase.svgicon.registerIcons(module.exports)

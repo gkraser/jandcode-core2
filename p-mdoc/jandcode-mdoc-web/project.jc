@@ -11,7 +11,7 @@ class P extends ProjectScript {
             moduleDef("jandcode.mdoc.web").with {
                 depends.prod.add(
                     "jandcode.mdoc",
-                    "jandcode.web",
+                    "jandcode.core.web",
                 )
             }
             //

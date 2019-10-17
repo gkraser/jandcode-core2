@@ -2,8 +2,8 @@ package jandcode.wax.web.impl;
 
 import jandcode.commons.error.*;
 import jandcode.core.*;
+import jandcode.core.web.*;
 import jandcode.wax.web.*;
-import jandcode.web.*;
 
 import java.util.*;
 import java.util.regex.*;
