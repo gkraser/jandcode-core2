@@ -1,4 +1,4 @@
-package jandcode.dao;
+package jandcode.core.dao;
 
 import jandcode.core.*;
 
@@ -20,7 +20,7 @@ public interface DaoManager extends Comp, BeanFactoryOwner, IBeanIniter {
 
     /**
      * Создать экземпляр dao.
-     * Все dao-методы будут выполнятся через механизм {@link DaoManager#invokeMethod(jandcode.dao.DaoMethodDef, java.lang.Object...)}.
+     * Все dao-методы будут выполнятся через механизм {@link DaoManager#invokeMethod(DaoMethodDef, java.lang.Object...)}.
      * При вызове dao-метода создается другой экземпляр dao-класса.
      * Таким образом созданный экземпляр не что иное, как просто удобный способ
      * выполнить invokeMethod.

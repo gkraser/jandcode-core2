@@ -1,7 +1,7 @@
-package jandcode.dao.impl;
+package jandcode.core.dao.impl;
 
 import jandcode.commons.*;
-import jandcode.dao.*;
+import jandcode.core.dao.*;
 
 import java.util.*;
 import java.util.concurrent.*;

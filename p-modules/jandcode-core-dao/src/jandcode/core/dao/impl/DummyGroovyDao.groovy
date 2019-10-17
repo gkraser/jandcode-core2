@@ -1,6 +1,6 @@
-package jandcode.dao.impl
+package jandcode.core.dao.impl
 
-import jandcode.dao.*
+import jandcode.core.dao.*
 
 /**
  * Пустой dao на groovy для определения игнорируемых методов

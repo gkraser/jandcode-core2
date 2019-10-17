@@ -1,8 +1,8 @@
-package jandcode.dao;
+package jandcode.core.dao;
 
+import jandcode.core.dao.data.*;
+import jandcode.core.dao.impl.*;
 import jandcode.core.test.*;
-import jandcode.dao.data.*;
-import jandcode.dao.impl.*;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;

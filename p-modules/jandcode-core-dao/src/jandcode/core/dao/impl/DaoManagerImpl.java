@@ -1,8 +1,8 @@
-package jandcode.dao.impl;
+package jandcode.core.dao.impl;
 
 import jandcode.commons.error.*;
 import jandcode.core.*;
-import jandcode.dao.*;
+import jandcode.core.dao.*;
 
 public class DaoManagerImpl extends BaseComp implements DaoManager {
 

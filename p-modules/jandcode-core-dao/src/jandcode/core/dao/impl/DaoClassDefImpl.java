@@ -1,8 +1,8 @@
-package jandcode.dao.impl;
+package jandcode.core.dao.impl;
 
 import jandcode.commons.error.*;
 import jandcode.commons.named.*;
-import jandcode.dao.*;
+import jandcode.core.dao.*;
 
 import java.lang.reflect.*;
 

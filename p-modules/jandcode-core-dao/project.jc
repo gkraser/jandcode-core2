@@ -8,10 +8,10 @@ class P extends ProjectScript {
 
     void onInclude() {
         //
-        project.name = "jandcode-dao"
+        project.name = "jandcode-core-dao"
         //
         include(JavaProject).with {
-            moduleDef("jandcode.dao").with {
+            moduleDef("jandcode.core.dao").with {
                 depends.prod.add(
                 )
             }

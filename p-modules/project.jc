@@ -20,7 +20,7 @@ class P extends ProjectScript {
                     'jandcode-core-lucene',
                     'jandcode-core-groovy',
                     'jandcode-store',
-                    'jandcode-dao',
+                    'jandcode-core-dao',
             ]
         }
     }

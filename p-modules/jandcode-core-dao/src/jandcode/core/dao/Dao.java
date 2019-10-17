@@ -1,4 +1,4 @@
-package jandcode.dao;
+package jandcode.core.dao;
 
 /**
  * dao

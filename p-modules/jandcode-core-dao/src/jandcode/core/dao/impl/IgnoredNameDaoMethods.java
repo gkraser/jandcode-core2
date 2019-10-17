@@ -1,4 +1,4 @@
-package jandcode.dao.impl;
+package jandcode.core.dao.impl;
 
 import jandcode.commons.collect.*;
 

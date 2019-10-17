@@ -1,6 +1,6 @@
-package jandcode.dao.data;
+package jandcode.core.dao.data;
 
-import jandcode.dao.*;
+import jandcode.core.dao.*;
 
 public class Dao1 extends BaseDao {
 

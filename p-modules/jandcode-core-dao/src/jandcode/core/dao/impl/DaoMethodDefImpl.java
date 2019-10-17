@@ -1,6 +1,6 @@
-package jandcode.dao.impl;
+package jandcode.core.dao.impl;
 
-import jandcode.dao.*;
+import jandcode.core.dao.*;
 
 import java.lang.reflect.*;
 

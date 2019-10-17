@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
-    <x-depends module="jandcode.dao"/>
+    <x-depends module="jandcode.core.dao"/>
 
 
     <dao>
 
         <dao-executor name="default">
             <dao-context name="default">
-                <bean name="jandcode.dao.DaoBean1"
-                      class="jandcode.dao.DaoBean1"/>
+                <bean name="jandcode.core.dao.DaoBean1"
+                      class="jandcode.core.dao.DaoBean1"/>
             </dao-context>
         </dao-executor>
 

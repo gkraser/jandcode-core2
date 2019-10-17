@@ -1,4 +1,4 @@
-package jandcode.dao.data;
+package jandcode.core.dao.data;
 
 public class Dao2 extends Dao1 {
 
