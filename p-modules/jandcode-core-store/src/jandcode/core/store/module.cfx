@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <bean name="jandcode.core.store.StoreService"
+          class="jandcode.core.store.impl.StoreServiceImpl"/>
+
+    <data>
+
+        <storedatatype name="blob"
+                       class="jandcode.core.store.std.StoreDataType_blob"/>
+
+        <storedatatype name="boolean"
+                       class="jandcode.core.store.std.StoreDataType_boolean"/>
+
+        <storedatatype name="date"
+                       class="jandcode.core.store.std.StoreDataType_date"/>
+
+        <storedatatype name="datetime"
+                       class="jandcode.core.store.std.StoreDataType_datetime"/>
+
+        <storedatatype name="double"
+                       class="jandcode.core.store.std.StoreDataType_double"/>
+
+        <storedatatype name="int"
+                       class="jandcode.core.store.std.StoreDataType_int"/>
+
+        <storedatatype name="long"
+                       class="jandcode.core.store.std.StoreDataType_long"/>
+
+        <storedatatype name="null"
+                       class="jandcode.core.store.std.StoreDataType_null"/>
+
+        <storedatatype name="object"
+                       class="jandcode.core.store.std.StoreDataType_object"/>
+
+        <storedatatype name="rawstring"
+                       class="jandcode.core.store.std.StoreDataType_rawstring"/>
+
+        <storedatatype name="string"
+                       class="jandcode.core.store.std.StoreDataType_string"/>
+
+    </data>
+
+</root>

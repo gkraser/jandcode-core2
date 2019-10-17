@@ -3,9 +3,9 @@ package jandcode.db.test
 import jandcode.commons.*
 import jandcode.commons.error.*
 import jandcode.commons.test.*
+import jandcode.core.store.*
 import jandcode.core.test.*
 import jandcode.db.*
-import jandcode.store.*
 
 /**
  * Утилиты для поддержки тестирования модуля db и драйверов на его основе.

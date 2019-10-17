@@ -8,15 +8,11 @@ class P extends ProjectScript {
 
     void onInclude() {
         //
-        project.name = "jandcode-db"
+        project.name = "jandcode-core-store"
         //
         include(JavaProject).with {
-            moduleDef("jandcode.db").with {
+            moduleDef("jandcode.core.store").with {
                 depends.prod.add(
-                        "jandcode.core.store",
-
-                        "commons-pool2",
-                        "commons-dbcp2",
                 )
                 depends.dev.add(
                 )
