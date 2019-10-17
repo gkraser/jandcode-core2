@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <web>
+
+        <!-- требуется извлекать require -->
+        <jsmodule-factory name="jsa.node_modules.moment.locale"
+                          mask="_jsa/_node_modules/moment/locale/*.js"
+                          extractRequire="true"
+                          moduleClass="jandcode.core.jsa.jsmodule.std.JsModuleJs"/>
+
+    </web>
+
+</root>

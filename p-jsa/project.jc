@@ -16,13 +16,13 @@ class P extends ProjectScript {
             moduleGroup = "jc-core/p-jsa"
             groupId = "com.jandcode"
             modules = [
-                    "jandcode-jsa",
-                    "jandcode-jsa-jc",
-                    "jandcode-jsa-tools",
-                    "jandcode-jsa-jslib",
-                    "jandcode-jsa-base",
-                    "jandcode-jsa-core",
-                    "jandcode-jsa-tst",
+                    "jandcode-core-jsa",
+                    "jandcode-core-jsa-jc",
+                    "jandcode-core-jsa-tools",
+                    "jandcode-core-jsa-jslib",
+                    "jandcode-core-jsa-base",
+                    "jandcode-core-jsa-core",
+                    "jandcode-core-jsa-tst",
             ]
         }
     }

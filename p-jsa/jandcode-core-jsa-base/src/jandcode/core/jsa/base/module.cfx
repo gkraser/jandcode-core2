@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <web>
+        <mount-module/>
+
+        <jsa-linkModule
+                boot="jandcode/core/jsa/base/boot.js"
+                core="jandcode/core/jsa/base"
+                boot-inline="jandcode/core/jsa/base/boot-inline.js"
+        />
+
+    </web>
+
+</root>

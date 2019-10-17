@@ -1,11 +1,11 @@
 import jandcode.jc.*
 import jandcode.jc.std.*
-import jandcode.jsa.jc.*
+import jandcode.core.jsa.jc.*
 
 class P extends ProjectScript {
 
     static beforeLoad = {
-        classpath("jandcode-jsa-jc")
+        classpath("jandcode-core-jsa-jc")
     }
 
     void onInclude() {
@@ -16,7 +16,7 @@ class P extends ProjectScript {
             moduleDef("jandcode.wax.web").with {
                 depends.prod.add(
                         "jandcode.wax",
-                        "jandcode.jsa.core",
+                        "jandcode.core.jsa.core",
                 )
                 depends.dev.add(
                 )

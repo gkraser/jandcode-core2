@@ -1,7 +1,7 @@
 package jandcode.wax.jc
 
+import jandcode.core.jsa.jc.*
 import jandcode.jc.std.*
-import jandcode.jsa.jc.*
 
 /**
  * Сборщик продукта для wax-приложения.

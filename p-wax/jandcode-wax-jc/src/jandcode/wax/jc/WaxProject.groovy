@@ -1,11 +1,10 @@
 package jandcode.wax.jc
 
 import jandcode.core.jc.*
-import jandcode.core.web.jc.GenIdea_WebRun
-import jandcode.core.web.jc.WebRun
+import jandcode.core.jsa.jc.*
+import jandcode.core.web.jc.*
 import jandcode.jc.*
 import jandcode.jc.std.*
-import jandcode.jsa.jc.*
 
 /**
  * Поддержка wax-проекта
