@@ -3,7 +3,6 @@ package jandcode.core.test;
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.error.*;
-import jandcode.commons.event.*;
 import jandcode.commons.stopwatch.*;
 import jandcode.commons.test.*;
 import jandcode.core.*;
@@ -124,10 +123,6 @@ public class AppTestSvc extends BaseTestSvc implements App {
 
     public String getAppName() {
         return getApp().getAppName();
-    }
-
-    public EventBus getEventBus() {
-        return getApp().getEventBus();
     }
 
     public void startup() {
