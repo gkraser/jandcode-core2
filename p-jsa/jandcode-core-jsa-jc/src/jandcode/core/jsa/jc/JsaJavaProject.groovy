@@ -5,7 +5,7 @@ import jandcode.commons.error.*
 import jandcode.jc.*
 import jandcode.jc.std.*
 
-class JsaProject extends ProjectScript {
+class JsaJavaProject extends ProjectScript {
 
     /**
      * Зависимости для node. Формат как в package.json dependencies 

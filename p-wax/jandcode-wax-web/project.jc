@@ -22,7 +22,7 @@ class P extends ProjectScript {
                 )
             }
         }
-        include(JsaProject)
+        include(JsaJavaProject)
     }
 
 }

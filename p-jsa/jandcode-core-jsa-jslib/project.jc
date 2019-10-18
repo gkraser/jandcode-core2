@@ -1,5 +1,5 @@
 import jandcode.core.jsa.jc.JsaConsts
-import jandcode.core.jsa.jc.JsaProject
+import jandcode.core.jsa.jc.JsaJavaProject
 import jandcode.jc.*
 import jandcode.jc.std.*
 import jandcode.core.jsa.jc.*
@@ -28,7 +28,7 @@ class P extends ProjectScript {
             //
         }
         //
-        include(JsaProject).with {
+        include(JsaJavaProject).with {
             nodeDepends.putAll(
                     "axios": "0.19.0",
                     "blueimp-md5": "2.12.0",

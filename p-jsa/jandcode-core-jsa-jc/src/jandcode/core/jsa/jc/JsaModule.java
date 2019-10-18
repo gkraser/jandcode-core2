@@ -36,13 +36,13 @@ public interface JsaModule extends INamed {
 
     /**
      * Зависимости для node
-     * (см {@link JsaProject#nodeDepends}
+     * (см {@link JsaJavaProject#nodeDepends}
      */
     Map<String, String> getNodeDepends();
 
     /**
      * Определения задач для gulp
-     * (см {@link JsaProject#gulpTask(Map)}
+     * (см {@link JsaJavaProject#gulpTask(Map)}
      */
     Map<String, Object> getGulpTasks();
 

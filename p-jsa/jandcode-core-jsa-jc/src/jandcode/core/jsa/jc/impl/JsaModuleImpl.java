@@ -35,7 +35,7 @@ public class JsaModuleImpl implements JsaModule {
         if (jm == null) {
             return;  // не java-проект
         }
-        JsaProject jsa = p.getIncluded(JsaProject.class);
+        JsaJavaProject jsa = p.getIncluded(JsaJavaProject.class);
         if (jsa == null) {
             return; // не jsa-проект
         }

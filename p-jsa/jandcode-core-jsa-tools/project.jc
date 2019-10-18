@@ -1,4 +1,4 @@
-import jandcode.core.jsa.jc.JsaProject
+import jandcode.core.jsa.jc.JsaJavaProject
 import jandcode.jc.*
 import jandcode.jc.std.*
 import jandcode.core.jsa.jc.*
@@ -27,7 +27,7 @@ class P extends ProjectScript {
             //
         }
         //
-        include(JsaProject).with {
+        include(JsaJavaProject).with {
             nodeDepends.putAll(
                     "@babel/cli": "7.6.4",
                     "@babel/core": "7.6.4",
