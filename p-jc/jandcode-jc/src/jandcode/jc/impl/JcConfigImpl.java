@@ -1,54 +1,18 @@
 package jandcode.jc.impl;
 
 import jandcode.commons.*;
-import jandcode.commons.conf.*;
 import jandcode.commons.error.*;
 import jandcode.jc.*;
 import jandcode.jc.impl.lib.*;
 
-import java.text.*;
 import java.util.*;
 
 public class JcConfigImpl implements JcConfig {
 
-    private Conf conf = UtConf.create();
     private String appdir;
     private List<String> autoLoadProjects;
 
-    public Conf getConf() {
-        return conf;
-    }
-
     //////
-
-    public void load(String workdir) throws Exception {
-        // чистим
-        this.conf.clear();
-
-        // загружаем конфиг по умолчанию
-        UtConf.load(this.conf).fromRes("res:jandcode/jc/jc-cfg-default.cfx");
-
-        // загружаем из каталога пользователя
-        String fn = UtFile.getHomedir() + "/.config/jandcode/" + JcConsts.CONFIG_FILE;
-        joinFile(fn);
-    }
-
-    protected void joinFile(String fn) {
-        if (UtString.empty(fn)) {
-            return;
-        }
-        if (!UtFile.exists(fn)) {
-            return;
-        }
-        try {
-            Conf r = UtConf.create();
-            UtConf.load(r).fromFile(fn);
-            this.conf.join(r);
-        } catch (Exception e) {
-            System.out.println(MessageFormat.format("WARNING! Ошибка при загрузке конфигурации {0}", fn));
-            System.out.println(UtError.createErrorInfo(e).getText());
-        }
-    }
 
     public String getAppdir() {
         if (this.appdir == null) {

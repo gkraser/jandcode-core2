@@ -12,8 +12,7 @@ public class Main {
      */
     public static void main(String[] args) throws Exception {
         MainImpl main = new MainImpl();
-        String appdir = System.getProperty(JcConsts.PROP_APP_DIR);
-        if (!main.run(args, appdir, null, false)) {
+        if (!main.run(args, null, null, false)) {
             System.exit(1);
         }
     }

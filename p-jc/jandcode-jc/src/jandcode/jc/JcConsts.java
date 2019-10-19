@@ -39,11 +39,6 @@ public class JcConsts {
     public static final String JC_ROOT_FILE = ".jc-root";
 
     /**
-     * Имя файла с конфигурацией
-     */
-    public static final String CONFIG_FILE = "jc-cfg.cfx";
-
-    /**
      * Каталог со библиотеками внутри проекта по умолчанию
      */
     public static final String LIB_DIR = "lib";

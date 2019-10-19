@@ -1,18 +1,11 @@
 package jandcode.jc;
 
-import jandcode.commons.conf.*;
-
 import java.util.*;
 
 /**
  * config для jc
  */
 public interface JcConfig {
-
-    /**
-     * Конфигурация
-     */
-    Conf getConf();
 
     /**
      * Каталог, в котором установлен jc

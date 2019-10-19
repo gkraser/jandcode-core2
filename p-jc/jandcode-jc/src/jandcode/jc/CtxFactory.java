@@ -24,7 +24,7 @@ public class CtxFactory {
                     Ctx ctx = new CtxImpl(true);
 
                     try {
-                        JcConfig cfg = JcConfigFactory.load("");
+                        JcConfig cfg = JcConfigFactory.create();
                         ctx.applyConfig(cfg);
                     } catch (Exception e) {
                         throw new XErrorWrap(e);
