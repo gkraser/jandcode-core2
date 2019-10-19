@@ -161,6 +161,10 @@ public class ScriptHolder implements IScripts {
                 if (!UtString.empty(text.trim())) {
                     // имеем текст closure
 
+                    if (ctx.getConfig().isRunAsProduct()) {
+                        ctx.getLog().warn("beforeLoad скрипт используется в product-mode: " + filename);
+                    }
+                    
                     text = UtString.normalizeIndent(text).trim();
 
                     String scdir = ctx.getTempdir("beforeLoadScripts");

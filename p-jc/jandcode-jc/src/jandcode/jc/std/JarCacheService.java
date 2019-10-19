@@ -117,6 +117,9 @@ public class JarCacheService extends CtxService {
     }
 
     private JarEntry getJarEntry(String jarFile) {
+        if (getCtx().getConfig().isRunAsProduct()) {
+            getCtx().getLog().warn("jar кешируется в product-mode: " + jarFile);
+        }
         JarEntry e = cache.get(jarFile);
         if (e == null) {
             e = new JarEntry(jarFile);
