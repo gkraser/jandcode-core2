@@ -23,4 +23,13 @@ public interface JcConfig {
      */
     List<String> getAutoLoadProjects();
 
+    /**
+     * Режим запуска: продукт. В этом режиме запускается для обеспечения
+     * работы в качестве запускалки команд в готовом продукте.
+     * По умолчанию: false.
+     */
+    boolean isRunAsProduct();
+
+    void setRunAsProduct(boolean v);
+
 }

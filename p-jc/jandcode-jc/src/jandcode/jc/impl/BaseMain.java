@@ -210,13 +210,17 @@ public abstract class BaseMain {
         sb.append(" * ").append(ansi.color("app-info-name", n)).append(": ").append(ansi.color("app-info-value", v)).append("\n");
     }
 
-    protected String header() {
+    protected String header(boolean showHome, boolean showProjectPath) {
         StringBuilder sb = new StringBuilder();
         sb.append("\n").append(ansi.color("app-header", copyright())).append("\n\n");
-        if (!UtString.empty(appdir)) {
-            appendProp(sb, "jc-home", appdir);
+        if (showHome) {
+            if (!UtString.empty(appdir)) {
+                appendProp(sb, "jc-home", appdir);
+            }
         }
-        appendProp(sb, "project", projectPath);
+        if (showProjectPath) {
+            appendProp(sb, "project", projectPath);
+        }
         return UtString.trimLast(sb.toString());
     }
 
@@ -239,16 +243,16 @@ public abstract class BaseMain {
 
     protected String commonOpt() {
         CliHelp z = new CliHelp("app-opt-name", null);
+        commonOptBuild(z);
+        return z.toString();
+    }
+
+    protected void commonOptBuild(CliHelp z) {
         z.addOption(JcConsts.OPT_LOG, "Включение логирования. ARG - имя файла в формате logback.\n" +
                 "Можно не указывать, тогда используются настройки по умолчанию", true);
         z.addOption(JcConsts.OPT_VERBOSE, "Включение режима с большим числом сообщений");
-        z.addOption(JcConsts.OPT_PROJECTFILE, "Имя файла проекта. По умолчанию " + JcConsts.PROJECT_FILE + " в текущем каталоге",
-                true);
         z.addOption(JcConsts.OPT_HELP, "Помощь по команде");
         z.addOption(JcConsts.OPT_NOANSI, "Отключить разукрашенный вывод");
-        z.addOption(JcConsts.OPT_CSC, "Очистить кеш скриптов");
-        z.addOption(JcConsts.OPT_ENV_PROD, "Включить режим production (ctx.env.prod=true)");
-        return z.toString();
     }
 
     public String help(Project project) {

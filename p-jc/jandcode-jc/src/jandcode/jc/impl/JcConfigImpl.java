@@ -11,6 +11,7 @@ public class JcConfigImpl implements JcConfig {
 
     private String appdir;
     private List<String> autoLoadProjects;
+    private boolean runAsProduct;
 
     //////
 
@@ -82,4 +83,13 @@ public class JcConfigImpl implements JcConfig {
         }
         return this.autoLoadProjects;
     }
+
+    public boolean isRunAsProduct() {
+        return runAsProduct;
+    }
+
+    public void setRunAsProduct(boolean runAsProduct) {
+        this.runAsProduct = runAsProduct;
+    }
+
 }

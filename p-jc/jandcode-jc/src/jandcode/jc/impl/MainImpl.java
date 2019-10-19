@@ -1,6 +1,7 @@
 package jandcode.jc.impl;
 
 import jandcode.commons.*;
+import jandcode.commons.cli.*;
 import jandcode.commons.error.*;
 import jandcode.jc.*;
 import jandcode.jc.impl.log.*;
@@ -9,7 +10,7 @@ import jandcode.jc.std.*;
 public class MainImpl extends BaseMain {
 
     protected void doRun() throws Exception {
-        String s, opt;
+        String opt;
 
         ///////////// предварительная настройка ////////////
 
@@ -42,7 +43,7 @@ public class MainImpl extends BaseMain {
 
         // заголовок
         if (needHeader) {
-            prn(header());
+            prn(header(true, true));
         }
 
         // конфигурируем logback, которые будет принимать все консольные логи
@@ -129,5 +130,12 @@ public class MainImpl extends BaseMain {
         // все
     }
 
+    protected void commonOptBuild(CliHelp z) {
+        super.commonOptBuild(z);
+        z.addOption(JcConsts.OPT_PROJECTFILE, "Имя файла проекта. По умолчанию " + JcConsts.PROJECT_FILE + " в текущем каталоге",
+                true);
+        z.addOption(JcConsts.OPT_CSC, "Очистить кеш скриптов");
+        z.addOption(JcConsts.OPT_ENV_PROD, "Включить режим production (ctx.env.prod=true)");
+    }
 
 }

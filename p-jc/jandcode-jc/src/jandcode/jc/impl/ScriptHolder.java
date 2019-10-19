@@ -37,9 +37,11 @@ public class ScriptHolder implements IScripts {
                     compiler = UtGroovy.createCompiler();
 
                     // cache
-                    String cacheDir = ctx.getTempdir("classes");
-                    ctx.debug(MessageFormat.format("classes cache dir set to [{0}]", cacheDir));
-                    compiler.setCompiledCacheDir(cacheDir);
+                    if (!ctx.getConfig().isRunAsProduct()) {
+                        String cacheDir = ctx.getTempdir("classes");
+                        ctx.debug(MessageFormat.format("classes cache dir set to [{0}]", cacheDir));
+                        compiler.setCompiledCacheDir(cacheDir);
+                    }
                 }
             }
         }
