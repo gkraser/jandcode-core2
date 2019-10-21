@@ -1,4 +1,4 @@
-package jandcode.core.apex.jc.impl
+package jandcode.core.apex.jc
 
 import jandcode.commons.*
 import jandcode.jc.*
