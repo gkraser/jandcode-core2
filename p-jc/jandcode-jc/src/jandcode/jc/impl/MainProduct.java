@@ -7,6 +7,8 @@ import jandcode.jc.impl.log.*;
 
 public class MainProduct extends BaseMain {
 
+    private String mainInclude;
+
     /**
      * Запуск утилиты с командной строки. Вызывается из os.
      */
@@ -34,9 +36,11 @@ public class MainProduct extends BaseMain {
         grabOpt_verbose();
 
         //
-        String mainInclude = System.getProperty("jandcode.jc.include");
         if (UtString.empty(mainInclude)) {
-            throw new XError("Неопределено свойство include");
+            mainInclude = System.getProperty("jandcode.jc.include");
+            if (UtString.empty(mainInclude)) {
+                throw new XError("Неопределено свойство jandcode.jc.include");
+            }
         }
 
         // имя команды
@@ -99,5 +103,17 @@ public class MainProduct extends BaseMain {
         // все
     }
 
+    //////
+
+    /**
+     * Установить главный скрипт
+     */
+    public void setMainInclude(String mainInclude) {
+        this.mainInclude = mainInclude;
+    }
+
+    public String getMainInclude() {
+        return mainInclude;
+    }
 
 }
