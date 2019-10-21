@@ -6,16 +6,16 @@ import jandcode.jc.std.*
 
 class AjcGenerator extends ProjectScript {
 
-    void generateAjc(String mainClass) {
-        generateAjcBat()
+    void generateAjc(String batFile, String mainClass) {
+        generateAjcBat(batFile)
         generateAjcPrepareBat(mainClass)
     }
 
-    void generateAjcBat() {
-        String ajcBatFile = wd("ajc.bat")
+    void generateAjcBat(batFile) {
+        String ajcBatFile = wd(batFile)
         if (!UtFile.exists(ajcBatFile)) {
             log.warn("Файл ${ajcBatFile} не существует и будет создан. Не забудьте его закомитить")
-            String srcAjcBatFile = ctx.service(JcDataService).getFile("apex/ajc-default.bat")
+            String srcAjcBatFile = ctx.service(JcDataService).getFile("apex/ajc/ajc-default.bat")
             String txt = UtFile.loadString(srcAjcBatFile)
             UtFile.saveString(txt, new File(ajcBatFile))
         }
@@ -24,7 +24,7 @@ class AjcGenerator extends ProjectScript {
     void generateAjcPrepareBat(String mainClass) {
         String ajcPrepareBat = wd("_jc/ajc-prepare.bat")
 
-        String srcAjcPrepareBatFile = ctx.service(JcDataService).getFile("apex/ajc-prepare-default.bat")
+        String srcAjcPrepareBatFile = ctx.service(JcDataService).getFile("apex/ajc/ajc-prepare-default.bat")
         String txt = UtFile.loadString(srcAjcPrepareBatFile)
 
         LibDepends deps = create(LibDependsUtils).getDepends(project)
