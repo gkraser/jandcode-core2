@@ -27,6 +27,22 @@ public class ListLib extends DefaultNamedList<Lib> {
     }
 
     /**
+     * Возвращает список classpath для всех библиотек в списке
+     * без перекомпиляции.
+     */
+    public List<String> getClasspathRaw() {
+        List<String> res = new ArrayList<String>();
+        for (Lib z : this) {
+            String cp = z.getClasspathRaw();
+            if (UtString.empty(cp)) {
+                continue;
+            }
+            res.add(cp);
+        }
+        return res;
+    }
+
+    /**
      * Отсортировать список по зависимостям.
      * Если библиотека находится в списке зависимостей другой библиотеки,
      * она будет выше в списке.

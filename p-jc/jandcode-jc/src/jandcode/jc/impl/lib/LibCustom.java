@@ -62,6 +62,10 @@ public abstract class LibCustom implements Lib {
         return getJar();
     }
 
+    public String getClasspathRaw() {
+        return getClasspath();
+    }
+
     public String getJar() {
         if (jar == null) {
             jar = "";
