@@ -8,18 +8,6 @@ import jandcode.jc.std.idea.*
 
 class ApexRootProject extends ProjectScript {
 
-    public static final String DEFAULT_AJC_BAT = "ajc.bat"
-
-    /**
-     * Класс с методом main, который запускает приложение
-     */
-    String ajcLauncher = "ajcLauncher_NOT_DEFINED"
-
-    /**
-     * Батник для запуска приложения
-     */
-    String ajcBat = DEFAULT_AJC_BAT
-
     protected void onInclude() throws Exception {
         include(RootProject)
         include(AppProject)
@@ -34,6 +22,20 @@ class ApexRootProject extends ProjectScript {
         onEvent(GenIdea.Event_GenIpr, this.&genIprHandler)
 
     }
+
+    //////
+
+    public static final String DEFAULT_AJC_BAT = "ajc.bat"
+
+    /**
+     * Класс с методом main, который запускает приложение
+     */
+    String ajcLauncher = "ajcLauncher_NOT_DEFINED"
+
+    /**
+     * Батник для запуска приложения
+     */
+    String ajcBat = DEFAULT_AJC_BAT
 
     void prepareHandler() {
         log "prepare apex"

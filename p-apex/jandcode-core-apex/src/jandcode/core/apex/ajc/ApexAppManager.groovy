@@ -17,6 +17,7 @@ class ApexAppManager extends ProjectScript {
     App getApp() {
         if (_app == null) {
             String appCfx = wd("app.cfx")
+            log.info("load app from [${appCfx}]")
             ut.stopwatch.start("load app")
             _app = AppLoader.load(appCfx)
             ut.stopwatch.stop("load app")
