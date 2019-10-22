@@ -4,6 +4,9 @@ import jandcode.commons.*;
 import jandcode.jc.*;
 import jandcode.jc.impl.*;
 
+/**
+ * Запускалка jc в product-режиме
+ */
 public class ApexJcMain extends MainProduct {
 
     public void run(String[] args, String mainInclude) {

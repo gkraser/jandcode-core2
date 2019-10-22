@@ -3,6 +3,9 @@ package jandcode.core.apex.ajc
 import jandcode.core.*
 import jandcode.jc.*
 
+/**
+ * Поддержка App
+ */
 class ApexAppManager extends ProjectScript {
 
     private App _app

@@ -4,6 +4,9 @@ import jandcode.core.*
 import jandcode.core.web.undertow.*
 import jandcode.jc.*
 
+/**
+ * Команды для web-приложения
+ */
 class ApexWebCmds extends ApexJcScript {
 
     protected void onInclude() throws Exception {
