@@ -33,7 +33,10 @@ class ApexWebCmds extends ApexJcScript {
         println(r.getUrl())
         println(ut.makeDelim(""))
 
-        r.start(app);
+        // конфигурим логи для приложения
+        include(ApexAppManager).reconfigureLog()
+
+        r.start(app)
 
         // останавливаемся тут, иначе jc доходит до остановки и сбрасывает ansi
         while (true) {
