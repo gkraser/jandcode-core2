@@ -12,6 +12,7 @@ class ApexRootProject extends ProjectScript {
         include(RootProject)
         include(AppProject)
         include(ApexProductBuilder)
+        include(GenIdea_RunJc)
 
         // prepare
         include(PrepareProject)

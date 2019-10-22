@@ -99,7 +99,6 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
 
         // utilites
         include(CreateProject)
-        include(GenIdea_RunJc)
 
         // showinfo
         include(Showinfo)
