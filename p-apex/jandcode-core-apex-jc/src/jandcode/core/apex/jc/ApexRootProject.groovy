@@ -63,7 +63,7 @@ class ApexRootProject extends ProjectScript {
         ApexIdeaUtils aie = include(ApexIdeaUtils)
         //
         aie.addRunConfig_ajc(x, "ajc", "")
-        aie.addRunConfig_ajc(x, "web-run", "web-run")
+        aie.addRunConfig_ajc(x, "web-run", "web-run -p:8080 -c:jc")
     }
 
 }

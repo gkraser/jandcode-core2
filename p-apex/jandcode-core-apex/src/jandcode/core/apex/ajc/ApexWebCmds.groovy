@@ -12,8 +12,8 @@ class ApexWebCmds extends ApexJcScript {
     protected void onInclude() throws Exception {
 
         cm.add("web-run", "Запуск web-приложения", this.&cmWebRun,
-                cm.opt("p", null, "Порт (по умолчанию 8080)"),
-                cm.opt("c", null, "Контекст (по умолчанию '/jc')"),
+                cm.opt("p", 8080, "Порт (по умолчанию 8080)"),
+                cm.opt("c", "jc", "Контекст (по умолчанию '/jc')"),
         )
 
     }
