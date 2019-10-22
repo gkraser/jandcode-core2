@@ -235,10 +235,12 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
     }
 
     void cmCompile() {
+        checkDependsLibCompiled()
         forModulesExecCm('compile')
     }
 
     void cmCompileTest() {
+        checkDependsLibCompiled()
         forModulesExecCm('compile-test')
     }
 
@@ -446,7 +448,16 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
     }
 
     void buildHandler() {
+        checkDependsLibCompiled()
         forModulesExecCm('build')
+    }
+
+    /**
+     * Убеждаемся, что все зависимые библиотеки скомпилированы
+     */
+    void checkDependsLibCompiled() {
+        ListLib rlibs = depends.all.libsAll
+        rlibs.classpath
     }
 
 }
