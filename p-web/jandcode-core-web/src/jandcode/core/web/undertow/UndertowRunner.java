@@ -15,7 +15,7 @@ import javax.servlet.http.*;
 /**
  * Запускалка undertow-сервера
  */
-public class UndertowRunner implements IWebRunner {
+public class UndertowRunner {
 
     private int port = 8080;
     private String context = "/jc";
