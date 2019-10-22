@@ -32,7 +32,7 @@ class ApexAppManager extends ProjectScript {
     /**
      * Переконфигурация логирования.
      * Вызывается при фактическом запуске приложения.
-     * Концигурирует из файлов _logback.xml (приоритет) или из logback.xml.
+     * Конфигурирует из файлов _logback.xml (приоритет) или из logback.xml.
      */
     void reconfigureLog() {
         String f = wd("_${logFile}")
