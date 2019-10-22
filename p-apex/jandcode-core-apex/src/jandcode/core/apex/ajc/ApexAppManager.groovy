@@ -37,7 +37,7 @@ class ApexAppManager extends ProjectScript {
     void reconfigureLog() {
         String f = wd("_${logFile}")
         if (!UtFile.exists(f)) {
-            f = wd("_${logFile}")
+            f = wd(logFile)
         }
         if (!UtFile.exists(f)) {
             return

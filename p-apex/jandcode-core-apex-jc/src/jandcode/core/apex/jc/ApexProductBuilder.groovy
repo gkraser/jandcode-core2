@@ -2,6 +2,7 @@ package jandcode.core.apex.jc
 
 import jandcode.commons.*
 import jandcode.commons.simxml.*
+import jandcode.core.jsa.jc.*
 import jandcode.core.web.webxml.*
 import jandcode.jc.std.*
 
@@ -27,11 +28,17 @@ class ApexProductBuilder extends ProductBuilder {
         cp.copyTo("${destDir}/lib")
 
         // дополнительные сгенерированные jar
-        //todo jsa
-        //ant.copy(file: getIncluded(JsaRootProject).getFileJsaWebrootJar(), todir: "${destDir}/lib")
+        if (getIncluded(JsaRootProject) != null) {
+            ant.copy(file: getIncluded(JsaRootProject).getFileJsaWebrootJar(), todir: "${destDir}/lib")
+        }
 
         // app
         ant.copy(file: wd("app.cfx"), todir: "${destDir}")
+
+        // logback
+        if (UtFile.exists(wd("logback.xml"))) {
+            ant.copy(file: wd("logback.xml"), todir: "${destDir}")
+        }
 
         // bat
         makeAjcBat()
