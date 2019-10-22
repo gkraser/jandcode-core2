@@ -1,6 +1,8 @@
 package jandcode.core.apex.jc
 
 import jandcode.commons.*
+import jandcode.commons.simxml.*
+import jandcode.core.web.webxml.*
 import jandcode.jc.std.*
 
 /**
@@ -34,6 +36,9 @@ class ApexProductBuilder extends ProductBuilder {
         // bat
         makeAjcBat()
 
+        // bat
+        makeWebXml()
+
         // pathprop
         makePathpropFile()
 
@@ -53,6 +58,13 @@ class ApexProductBuilder extends ProductBuilder {
         String txt = UtFile.loadString(destAjcBat)
         txt = txt.replace("set MAIN=?", "set MAIN=${arp.ajcLauncher}")
         UtFile.saveString(txt, new File(destAjcBat))
+    }
+
+    void makeWebXml() {
+        String wxFile = "${destDir}/web.xml"
+        WebXml wx = new DefaultWebXmlFactory().createWebXml()
+        SimXml x = new WebXmlUtils().saveToXml(wx)
+        x.save().toFile(wxFile)
     }
 
 }
