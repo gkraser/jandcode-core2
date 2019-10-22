@@ -18,6 +18,7 @@ class P extends ProjectScript {
             modules = [
                     'jandcode-core-apex',
                     'jandcode-core-apex-jc',
+                    'jandcode-core-apex-jsa',
                     'jandcode-core-apex-tst',
             ]
         }

@@ -1,4 +1,5 @@
 import jandcode.core.apex.jc.*
+import jandcode.core.jsa.jc.*
 import jandcode.jc.*
 import jandcode.jc.std.*
 
@@ -24,6 +25,9 @@ class P extends ProjectScript {
             depends.dev.add(
                     "jandcode-core-apex-tst"
             )
+        }
+        //
+        include(JsaRootProject).with {
         }
     }
 

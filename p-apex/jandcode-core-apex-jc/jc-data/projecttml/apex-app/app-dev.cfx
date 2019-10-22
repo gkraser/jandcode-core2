@@ -5,4 +5,10 @@
 
     <x-depends module="jandcode.core.apex.tst"/>
 
+    <web>
+        <mount name="jsa-webroot-dev"
+               realPath="#{path}/_gen/jsa-webroot"
+        />
+    </web>
+
 </root>

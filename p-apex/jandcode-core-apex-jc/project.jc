@@ -15,6 +15,7 @@ class P extends ProjectScript {
                 depends.prod.add(
                         "jandcode-core-jc",
                         "jandcode-core-web-jc",
+                        "jandcode-core-jsa-jc",
                 )
                 depends.dev.add(
                 )
