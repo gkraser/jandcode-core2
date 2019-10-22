@@ -1,6 +1,6 @@
 package jandcode.core.apex.jc
 
-
+import jandcode.commons.*
 import jandcode.core.jc.*
 import jandcode.jc.*
 import jandcode.jc.std.*
@@ -40,6 +40,21 @@ class ApexRootProject extends ProjectScript {
     void prepareHandler() {
         log "prepare apex"
         create(AjcGenerator).generateAjc(ajcBat, ajcLauncher)
+
+        // logback
+        if (UtFile.exists(wd("logback.xml")) && !UtFile.exists(wd("_logback.xml"))) {
+            ant.copy(file: wd("logback.xml"), tofile: wd("_logback.xml"))
+        }
+
+        // _app.cfx
+        if (!UtFile.exists(wd("_app.cfx"))) {
+            UtFile.saveString("""\
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+</root>
+""", new File(wd("_app.cfx")))
+        }
+
     }
 
     void genIprHandler(GenIdea.Event_GenIpr e) {
