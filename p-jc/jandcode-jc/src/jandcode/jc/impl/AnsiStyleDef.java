@@ -1,9 +1,6 @@
 package jandcode.jc.impl;
 
-import jandcode.commons.*;
 import jandcode.commons.ansifer.*;
-import jandcode.commons.conf.*;
-import jandcode.jc.*;
 
 /**
  * Настройка стилей для консоли.
@@ -35,35 +32,6 @@ public class AnsiStyleDef {
         a.registerStyle("c-gray", AnsiferColor.black_h, null, false);
         a.registerStyle("opt-name", AnsiferColor.cyan, null, false);
         a.registerStyle("opt-help", null, null, false);
-    }
-
-    /**
-     * Настройка стилей из конфигурации
-     */
-    public void styleForJc(Ansifer a, JcConfig cfg) {
-        // defaults
-        styleForJc(a);
-
-        // config
-        for (Conf st : cfg.getConf().getConfs("color-style")) {
-            String s;
-
-            AnsiferColor color = null;
-            AnsiferColor background = null;
-
-            s = st.getString("color");
-            if (!UtString.empty(s)) {
-                color = AnsiferColor.fromString(s);
-            }
-
-            s = st.getString("background");
-            if (!UtString.empty(s)) {
-                background = AnsiferColor.fromString(s);
-            }
-
-            //
-            a.registerStyle(st.getName(), color, background, false);
-        }
     }
 
 }

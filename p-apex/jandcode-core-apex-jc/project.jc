@@ -1,0 +1,26 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+    }
+
+    void onInclude() {
+        //
+        project.name = "jandcode-core-apex-jc"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.core.apex.jc").with {
+                depends.prod.add(
+                        "jandcode-core-apex",
+                        "jandcode-core-jc",
+                        "jandcode-core-jsa-jc",
+                )
+                depends.dev.add(
+                )
+            }
+        }
+    }
+
+}

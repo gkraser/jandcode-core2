@@ -1,18 +1,11 @@
 package jandcode.jc;
 
-import jandcode.commons.conf.*;
-
 import java.util.*;
 
 /**
  * config для jc
  */
 public interface JcConfig {
-
-    /**
-     * Конфигурация
-     */
-    Conf getConf();
 
     /**
      * Каталог, в котором установлен jc
@@ -29,5 +22,14 @@ public interface JcConfig {
      * проект.
      */
     List<String> getAutoLoadProjects();
+
+    /**
+     * Режим запуска: продукт. В этом режиме запускается для обеспечения
+     * работы в качестве запускалки команд в готовом продукте.
+     * По умолчанию: false.
+     */
+    boolean isRunAsProduct();
+
+    void setRunAsProduct(boolean v);
 
 }

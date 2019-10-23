@@ -1,13 +1,12 @@
 package jandcode.core;
 
 import jandcode.commons.conf.*;
-import jandcode.commons.event.*;
 
 /**
  * Приложение.
  * Конфигурация приложения доступна через метод {@link IConfLink#getConf()}.
  */
-public interface App extends IConfLink, BeanFactoryOwner, EventBusOwner {
+public interface App extends IConfLink, BeanFactoryOwner {
 
     /**
      * Модули приложения

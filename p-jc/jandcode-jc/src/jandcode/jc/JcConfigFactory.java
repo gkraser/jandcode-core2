@@ -8,15 +8,12 @@ import jandcode.jc.impl.*;
 public class JcConfigFactory {
 
     /**
-     * Загрузить конфигурацию для указанного рабочего каталога
+     * Создать экземпляр конфигурации
      *
-     * @param workdir рабочий каталог
      * @return загруженная конфигурация
      */
-    public static JcConfig load(String workdir) throws Exception {
-        JcConfigImpl res = new JcConfigImpl();
-        res.load(workdir);
-        return res;
+    public static JcConfig create() throws Exception {
+        return new JcConfigImpl();
     }
 
 }

@@ -7,11 +7,21 @@
     </component>
 
     <component name="ProjectView">
+        <navigator proportions="" version="1">
+            <showExcludedFiles Scope="false" ProjectPane="false" />
+            <foldersAlwaysOnTop value="true" />
+        </navigator>
         <panes>
             <pane id="ProjectPane">
                 <option name="show-excluded-files" value="false"/>
             </pane>
         </panes>
+    </component>
+
+    <component name="ToolWindowManager">
+        <layout>
+            <window_info active="true" id="Project" visible="true" />
+        </layout>
     </component>
 
 </project>

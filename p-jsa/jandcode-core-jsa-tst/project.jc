@@ -1,7 +1,6 @@
-import jandcode.core.jsa.jc.JsaProject
+import jandcode.core.jsa.jc.*
 import jandcode.jc.*
 import jandcode.jc.std.*
-import jandcode.core.jsa.jc.*
 
 class P extends ProjectScript {
 
@@ -28,7 +27,7 @@ class P extends ProjectScript {
             //
         }
         //
-        include(JsaProject).with {
+        include(JsaJavaProject).with {
         }
     }
 

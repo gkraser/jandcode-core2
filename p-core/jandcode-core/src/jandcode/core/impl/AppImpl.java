@@ -3,7 +3,6 @@ package jandcode.core.impl;
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.error.*;
-import jandcode.commons.event.*;
 import jandcode.commons.moduledef.*;
 import jandcode.core.*;
 import org.apache.commons.vfs2.*;
@@ -31,7 +30,6 @@ public class AppImpl implements App, IBeanIniter {
 
     private BeanFactory beanFactory;
     private String appName;
-    private EventBus eventBus;
 
     private int startupLevel;
 
@@ -144,10 +142,6 @@ public class AppImpl implements App, IBeanIniter {
         return props;
     }
 
-    public EventBus getEventBus() {
-        return eventBus;
-    }
-
     //////
 
     private void loadAppConf() throws Exception {
@@ -236,9 +230,6 @@ public class AppImpl implements App, IBeanIniter {
         } else {
             this.appName = UtFile.filename(this.appdir);
         }
-
-        // создаем event
-        eventBus = new DefaultEventBus();
 
         // создаем bean
         beanFactory = new DefaultBeanFactory(this);

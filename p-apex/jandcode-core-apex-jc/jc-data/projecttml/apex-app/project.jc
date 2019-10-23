@@ -1,0 +1,37 @@
+import jandcode.core.apex.jc.*
+import jandcode.core.jsa.jc.*
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+        classpath("jandcode-core-apex-jc")
+    }
+
+    void onInclude() {
+        //
+        project.name = "xxx-yyy"
+        project.version = include(HgVersion)
+        //
+        include(ApexRootProject).with {
+            ajcLauncher = "xxx.yyy.main.ajc.AppLauncher"
+        }
+        //
+        include(RootProject).with {
+            modules = [
+                    "xxx-yyy-main",
+            ]
+            depends.dev.add(
+                    "jandcode-core-apex-tst"
+            )
+        }
+        //
+        include(JsaRootProject).with {
+        }
+        //
+        include(ApexProductBuilder).with {
+        }
+    }
+
+}

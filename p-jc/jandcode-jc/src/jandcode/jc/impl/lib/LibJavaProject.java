@@ -41,6 +41,10 @@ public class LibJavaProject extends LibCustom {
         return javaProject.getDirCompiled();
     }
 
+    public String getClasspathRaw() {
+        return javaProject.getDirCompiled();
+    }
+
     public String getJar() {
         javaProject.recompileJar();
         return javaProject.getFileJar();

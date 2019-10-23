@@ -209,7 +209,7 @@ class Ut extends ProjectScript {
         }
         try {
             List<String> res = []
-            if (UtFile.isWindows()){
+            if (UtFile.isWindows()) {
                 res = ut.runcmd(cmd: "where ${cmd}", saveout: true, showout: false, err: true)
             } else {
                 res = ut.runcmd(cmd: "which ${cmd}", saveout: true, showout: false, err: true)

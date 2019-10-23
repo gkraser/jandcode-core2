@@ -68,26 +68,30 @@ public class CtxImpl implements Ctx {
         // загружаем
 
         // грузим корневой проект
-        String s = config.getAppdir();
-        if (!UtString.empty(s)) {
-            String pf = resolveProjectFile(s, JcConsts.PROJECT_FILE);
-            if (pf != null) {
-                load(pf);
+        if (!config.isRunAsProduct()) {
+            String s = config.getAppdir();
+            if (!UtString.empty(s)) {
+                String pf = resolveProjectFile(s, JcConsts.PROJECT_FILE);
+                if (pf != null) {
+                    load(pf);
+                }
             }
         }
 
         // обрабатываем JC_PATH
-        for (String pp1 : config.getAutoLoadProjects()) {
-            String pp2 = resolveProjectFile(UtFile.getWorkdir(), pp1);
-            if (pp2 != null) {
-                try {
-                    debug("load project from " + JcConsts.ENV_JC_PATH + " variable: " + pp2);
-                    load(pp2);
-                } catch (Exception e) {
-                    ErrorInfo ei = UtError.createErrorInfo(e);
-                    String msg = MessageFormat.format("Ошибка при загрузке проекта [{0}], указанного в переменной {1}: {2}",
-                            pp2, JcConsts.ENV_JC_PATH, ei.getText());
-                    warn(msg);
+        if (!config.isRunAsProduct()) {
+            for (String pp1 : config.getAutoLoadProjects()) {
+                String pp2 = resolveProjectFile(UtFile.getWorkdir(), pp1);
+                if (pp2 != null) {
+                    try {
+                        debug("load project from " + JcConsts.ENV_JC_PATH + " variable: " + pp2);
+                        load(pp2);
+                    } catch (Exception e) {
+                        ErrorInfo ei = UtError.createErrorInfo(e);
+                        String msg = MessageFormat.format("Ошибка при загрузке проекта [{0}], указанного в переменной {1}: {2}",
+                                pp2, JcConsts.ENV_JC_PATH, ei.getText());
+                        warn(msg);
+                    }
                 }
             }
         }
