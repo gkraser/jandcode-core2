@@ -30,12 +30,17 @@ class ApexRootProject extends ProjectScript {
     /**
      * Класс с методом main, который запускает приложение
      */
-    String ajcLauncher = "ajcLauncher_NOT_DEFINED"
+    String ajcLauncher = "ajcLauncher-NOT-DEFINED"
 
     /**
      * Батник для запуска приложения
      */
     String ajcBat = DEFAULT_AJC_BAT
+
+    /**
+     * Главный модуль приложения
+     */
+    String mainModule = "mainModule-NOT-DEFINED"
 
     void prepareHandler() {
         log "prepare apex"

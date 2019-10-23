@@ -15,6 +15,7 @@ class P extends ProjectScript {
         project.version = include(HgVersion)
         //
         include(ApexRootProject).with {
+            mainModule = "xxx.yyy.main"
             ajcLauncher = "xxx.yyy.main.ajc.AppLauncher"
         }
         //
