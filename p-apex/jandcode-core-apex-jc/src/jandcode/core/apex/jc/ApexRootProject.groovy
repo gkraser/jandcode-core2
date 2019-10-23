@@ -43,7 +43,8 @@ class ApexRootProject extends ProjectScript {
     String mainModule = "mainModule-NOT-DEFINED"
 
     void prepareHandler() {
-        log "prepare apex"
+        log "apex prepare for: ${project.name}"
+
         create(AjcGenerator).generateAjc(ajcBat, ajcLauncher)
 
         // logback
