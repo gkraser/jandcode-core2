@@ -11,7 +11,6 @@ class ApexRootProject extends ProjectScript {
     protected void onInclude() throws Exception {
         include(RootProject)
         include(AppProject)
-        include(ApexProductBuilder)
         include(GenIdea_RunJc)
 
         // prepare

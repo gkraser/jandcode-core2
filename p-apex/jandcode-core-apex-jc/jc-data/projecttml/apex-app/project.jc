@@ -29,6 +29,9 @@ class P extends ProjectScript {
         //
         include(JsaRootProject).with {
         }
+        //
+        include(ApexProductBuilder).with {
+        }
     }
 
 }
