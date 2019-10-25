@@ -36,7 +36,7 @@ public interface JsaModule extends INamed {
 
     /**
      * Зависимости для node
-     * (см {@link JsaJavaProject#nodeDepends}
+     * (см {@link JsaJavaProject#getNodeDepends()}
      */
     Map<String, String> getNodeDepends();
 
