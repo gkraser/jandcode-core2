@@ -4,6 +4,12 @@
     <bean name="jandcode.core.jsa.jsmodule.JsModuleService"
           class="jandcode.core.jsa.jsmodule.impl.JsModuleServiceImpl"/>
 
+    <bean name="jandcode.core.jsa.theme.JsaThemeService"
+          class="jandcode.core.jsa.theme.impl.JsaThemeServiceImpl"/>
+
+    <bean name="jandcode.core.jsa.cfg.JsaClientCfgService"
+          class="jandcode.core.jsa.cfg.impl.JsaClientCfgServiceImpl"/>
+
     <web>
 
         <action name="jsa"
