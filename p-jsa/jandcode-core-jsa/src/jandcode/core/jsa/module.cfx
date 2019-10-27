@@ -13,6 +13,18 @@
     <bean name="jandcode.core.jsa.cfg.StdClientCfgProvider"
           class="jandcode.core.jsa.cfg.StdClientCfgProvider"/>
 
+    <bean name="jandcode.core.jsa.cfg.JsaCfg" cfg="cfg/jsa"
+          class="jandcode.core.jsa.cfg.impl.JsaCfgImpl"/>
+
+
+    <cfg>
+        <jsa
+                linkModuleBoot="not-defined-linkModuleBoot"
+                envModule=""
+                defaultTheme=""
+        />
+    </cfg>
+
     <web>
 
         <action name="jsa"
@@ -53,21 +65,6 @@
                           moduleClass="jandcode.core.jsa.jsmodule.std.JsModuleJs"/>
 
         <!-- =================== -->
-
-        <!--
-             Особые модули для работы gsp jc:linkModule.
-             Эти модули вставляются в текст при первом использовании jc:linkModule.
-
-             модуль boot. Этот модуль должен содержать инфраструктуру модульной
-             системы и поддержку сгенеренных модулей (к примеру он должен содержать
-             babelHelpers-инструменты).
-             Он будет вставлен первым первым тегом script как ссылка на текст js-текст.
-             Его содержимое не является модулем.
-
-             -->
-        <jsa-linkModule
-                boot=""
-        />
 
     </web>
 

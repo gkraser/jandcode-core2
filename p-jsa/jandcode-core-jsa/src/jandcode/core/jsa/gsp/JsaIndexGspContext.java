@@ -16,13 +16,18 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
 
     private GspContext gspContext;
     private String title;
-    private String env = "jandcode/core/jsa/base";
+    private String env;
     private String main;
     private String cfgJson;
-    private String theme = "std";
+    private String theme;
 
     public void setGspContext(GspContext gspContext) {
         this.gspContext = gspContext;
+
+        //
+        JsaCfg jsaCfg = gspContext.getApp().bean(JsaCfg.class);
+        this.env = jsaCfg.getEnvModule();
+        this.theme = jsaCfg.getDefaultTheme();
     }
 
     //////

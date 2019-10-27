@@ -1,8 +1,8 @@
 package jandcode.core.jsa.gsp;
 
 import jandcode.commons.*;
-import jandcode.commons.conf.*;
 import jandcode.core.*;
+import jandcode.core.jsa.cfg.*;
 import jandcode.core.jsa.jsmodule.*;
 import jandcode.core.jsa.jsmodule.impl.*;
 import jandcode.core.web.*;
@@ -39,8 +39,7 @@ public class LinkModuleManager extends BaseComp {
 
         if (first) {
             // первый вывод
-            Conf linkModConf = getApp().getConf().getConf("web/jsa-linkModule");
-            String mBoot = linkModConf.getString("boot");
+            String mBoot = getApp().bean(JsaCfg.class).getLinkModuleBoot();
 
             joiner.addModule(mi.path);
 
