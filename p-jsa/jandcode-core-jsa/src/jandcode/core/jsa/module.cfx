@@ -10,6 +10,9 @@
     <bean name="jandcode.core.jsa.cfg.JsaClientCfgService"
           class="jandcode.core.jsa.cfg.impl.JsaClientCfgServiceImpl"/>
 
+    <bean name="jandcode.core.jsa.cfg.StdClientCfgProvider"
+          class="jandcode.core.jsa.cfg.StdClientCfgProvider"/>
+
     <web>
 
         <action name="jsa"

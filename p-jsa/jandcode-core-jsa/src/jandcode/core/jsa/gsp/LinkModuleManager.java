@@ -123,6 +123,12 @@ public class LinkModuleManager extends BaseComp {
         g.out("<script src=\"");
         g.out(href);
         g.out("\"></script>\n");
+
+        // критически важная информация
+        g.out("<script>");
+        g.out("Jc.baseUrl='");
+        g.out(((BaseGsp) g).ref("/"));
+        g.out("';</script>\n");
     }
 
     private void outLinkBootInline(Gsp g, String mod) {
