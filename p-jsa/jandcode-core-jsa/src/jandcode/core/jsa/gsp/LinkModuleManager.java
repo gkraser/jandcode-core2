@@ -42,7 +42,6 @@ public class LinkModuleManager extends BaseComp {
             Conf linkModConf = getApp().getConf().getConf("web/jsa-linkModule");
             String mBoot = linkModConf.getString("boot");
             String mCore = linkModConf.getString("core");
-            String mBootInline = linkModConf.getString("boot-inline");
 
             if (!UtString.empty(mCore)) {
                 joiner.addModule(mCore);
@@ -58,9 +57,6 @@ public class LinkModuleManager extends BaseComp {
 
             outLink(g, inc, exc);
 
-            if (!UtString.empty(mBootInline)) {
-                outLinkBootInline(g, mBootInline);
-            }
         } else {
 
             ModuleJoiner tmpJoiner = new ModuleJoiner(getApp().bean(JsModuleService.class));
@@ -129,14 +125,6 @@ public class LinkModuleManager extends BaseComp {
         g.out("Jc.baseUrl='");
         g.out(((BaseGsp) g).ref("/"));
         g.out("';</script>\n");
-    }
-
-    private void outLinkBootInline(Gsp g, String mod) {
-        JsModuleService svc = getApp().bean(JsModuleService.class);
-        JsModule bim = svc.getModule(mod);
-        g.out("<script>\n");
-        g.out(bim.getText().trim());
-        g.out("</script>\n");
     }
 
 }
