@@ -3,6 +3,7 @@ package jandcode.core.jsa.gsp;
 import jandcode.commons.*;
 import jandcode.core.jsa.cfg.*;
 import jandcode.core.jsa.jsmodule.*;
+import jandcode.core.jsa.theme.*;
 import jandcode.core.web.gsp.*;
 
 import java.util.*;
@@ -15,9 +16,10 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
 
     private GspContext gspContext;
     private String title;
-    private String env = "jandcode/core/apex/jsa/index.js";   //todo env!
+    private String env = "jandcode/core/jsa/base";
     private String main;
     private String cfgJson;
+    private String theme = "std";
 
     public void setGspContext(GspContext gspContext) {
         this.gspContext = gspContext;
@@ -70,10 +72,23 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
      */
     public List<String> getModules() {
         List<String> res = new ArrayList<>();
-        res.add(getEnv());
-        if (!UtString.empty(getMain())) {
-            res.add(getMain());
+        String s;
+
+        s = getEnv();
+        if (!UtString.empty(s)) {
+            res.add(s);
         }
+
+        s = getTheme();
+        if (!UtString.empty(s)) {
+            res.add(s);
+        }
+
+        s = getMain();
+        if (!UtString.empty(s)) {
+            res.add(s);
+        }
+
         return res;
     }
 
@@ -88,6 +103,28 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
             this.cfgJson = UtJson.toJson(cfgSvc.grabClientCfg());
         }
         return this.cfgJson;
+    }
+
+    //////
+
+    /**
+     * Установить тему как имя темы или файл с темой
+     */
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+
+    /**
+     * js-файл с темой
+     */
+    public String getTheme() {
+        if (UtString.empty(theme)) {
+            return null;
+        }
+        if (theme.indexOf('/') != -1) {
+            return theme;
+        }
+        return gspContext.getApp().bean(JsaThemeService.class).findThemeFile(theme);
     }
 
     //////

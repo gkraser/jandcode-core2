@@ -41,11 +41,7 @@ public class LinkModuleManager extends BaseComp {
             // первый вывод
             Conf linkModConf = getApp().getConf().getConf("web/jsa-linkModule");
             String mBoot = linkModConf.getString("boot");
-            String mCore = linkModConf.getString("core");
 
-            if (!UtString.empty(mCore)) {
-                joiner.addModule(mCore);
-            }
             joiner.addModule(mi.path);
 
             Collection<JsModule> inc = joiner.getTop();

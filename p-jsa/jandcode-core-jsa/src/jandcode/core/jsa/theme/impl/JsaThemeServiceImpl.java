@@ -1,6 +1,5 @@
 package jandcode.core.jsa.theme.impl;
 
-import jandcode.commons.error.*;
 import jandcode.core.*;
 import jandcode.core.jsa.theme.*;
 import jandcode.core.web.*;
@@ -18,19 +17,8 @@ public class JsaThemeServiceImpl extends BaseComp implements JsaThemeService {
         return getThemes().keySet();
     }
 
-    public String getDefaultThemeName() {
-        return "std";
-    }
-
-    public String getThemeFile(String name) {
-        String res = getThemes().get(name);
-        if (res == null) {
-            res = getThemes().get(getDefaultThemeName());
-            if (res == null) {
-                throw new XError("Не найдена тема {0}", name);
-            }
-        }
-        return res;
+    public String findThemeFile(String name) {
+        return getThemes().get(name);
     }
 
     //////

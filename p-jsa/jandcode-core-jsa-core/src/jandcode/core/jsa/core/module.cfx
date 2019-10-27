@@ -3,11 +3,6 @@
 
     <web>
         <mount-module/>
-
-        <jsa-linkModule
-                core="jandcode/core/jsa/core"
-        />
-
     </web>
 
 </root>

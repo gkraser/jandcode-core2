@@ -18,13 +18,9 @@ public interface JsaThemeService extends Comp {
     Collection<String> getThemeNames();
 
     /**
-     * Имя темы по умолчанию (std).
+     * Найти js-файл с темой по имени темы.
+     * Если такой темы нет, возвращается null.
      */
-    String getDefaultThemeName();
-
-    /**
-     * Имя js-файла с темой. Если такой темы нет, возвращается тема по умолчанию.
-     */
-    String getThemeFile(String name);
+    String findThemeFile(String name);
 
 }

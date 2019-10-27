@@ -6,7 +6,6 @@
 
         <jsa-linkModule
                 boot="jandcode/core/jsa/base/boot.js"
-                core="jandcode/core/jsa/base"
         />
 
     </web>
