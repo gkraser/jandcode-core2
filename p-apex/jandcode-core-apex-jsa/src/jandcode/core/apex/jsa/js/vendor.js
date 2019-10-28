@@ -1,8 +1,8 @@
 //
 import * as jsaBase from 'jandcode.core.jsa.base'
-import * as jsaCore from 'jandcode.core.jsa.core'
+import * as jsaVue from 'jandcode.core.jsa.vue'
 
 export {
     jsaBase,
-    jsaCore,
+    jsaVue,
 }

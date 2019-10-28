@@ -16,7 +16,7 @@ class P extends ProjectScript {
             moduleDef("jandcode.core.jsa.tst").with {
                 depends.prod.add(
                         "jandcode.core.web.tst",
-                        "jandcode.core.jsa.core",
+                        "jandcode.core.jsa.vue",
                 )
             }
             //

@@ -10,7 +10,7 @@
             <template #tb-main>
                 <template v-if="logoTml==0">
                     <jc-toolbar-logo
-                            url="jandcode/core/jsa/core/_tst/pages/images/icons/logo3.svg"
+                            url="jandcode/core/jsa/vue/_tst/pages/images/icons/logo3.svg"
                     />
                     <jc-toolbar-title text="Sanqbox" text2="это просто sandbox"
                     />
@@ -18,7 +18,7 @@
 
                 <template v-if="logoTml==1">
                     <jc-toolbar-logo
-                            url="jandcode/core/jsa/core/_tst/pages/images/icons/logo3.svg"
+                            url="jandcode/core/jsa/vue/_tst/pages/images/icons/logo3.svg"
                     />
                     <jc-toolbar-title text="Sanqbox"
                     />
@@ -26,7 +26,7 @@
 
                 <template v-if="logoTml==2">
                     <jc-toolbar-logo
-                            url="jandcode/core/jsa/core/_tst/pages/images/icons/logo3.svg"
+                            url="jandcode/core/jsa/vue/_tst/pages/images/icons/logo3.svg"
                     />
                 </template>
 

@@ -10,10 +10,10 @@ class P extends ProjectScript {
 
     void onInclude() {
         //
-        project.name = "jandcode-core-jsa-core"
+        project.name = "jandcode-core-jsa-vue"
         //
         include(JavaProject).with {
-            moduleDef("jandcode.core.jsa.core").with {
+            moduleDef("jandcode.core.jsa.vue").with {
                 depends.prod.add(
                         "jandcode.core.jsa.base",
                 )

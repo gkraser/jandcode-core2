@@ -79,26 +79,26 @@
                 <jc-toolbar-logo icon="bus"
                                  @click="logoClick"/>
                 <jc-action text="Action1"/>
-                <jc-toolbar-logo url="jandcode/core/jsa/core/_tst/pages/images/logo1.png"
+                <jc-toolbar-logo url="jandcode/core/jsa/vue/_tst/pages/images/logo1.png"
                                  @click="logoClick"/>
                 <jc-action text="Action2"/>
-                <jc-toolbar-logo url="jandcode/core/jsa/core/_tst/pages/images/logo3.svg"
+                <jc-toolbar-logo url="jandcode/core/jsa/vue/_tst/pages/images/logo3.svg"
                                  @click="logoClick"/>
                 <jc-action text="Action3"/>
                 <jc-toolbar-logo
-                        url="jandcode/core/jsa/core/_tst/pages/images/logo5-long.png"
+                        url="jandcode/core/jsa/vue/_tst/pages/images/logo5-long.png"
                         @click="logoClick"/>
                 <jc-action text="Action4"/>
                 <jc-toolbar-logo
-                        url="jandcode/core/jsa/core/_tst/pages/images/logo6-long.svg"
+                        url="jandcode/core/jsa/vue/_tst/pages/images/logo6-long.svg"
                         @click="logoClick"/>
                 <jc-action text="Action5"/>
             </jc-toolbar>
             <jc-toolbar>
-                <jc-toolbar-logo url="jandcode/core/jsa/core/_tst/pages/images/logo1.png"
+                <jc-toolbar-logo url="jandcode/core/jsa/vue/_tst/pages/images/logo1.png"
                                  @click="logoClick"/>
                 <jc-toolbar-title text="Sandbox" @click="logoClick"/>
-                <jc-toolbar-logo url="jandcode/core/jsa/core/_tst/pages/images/logo1.png"
+                <jc-toolbar-logo url="jandcode/core/jsa/vue/_tst/pages/images/logo1.png"
                 />
                 <jc-toolbar-title text="Sanqbox" text2="это просто sandbox"
                 />

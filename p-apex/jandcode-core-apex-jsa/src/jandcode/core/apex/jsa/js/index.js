@@ -1,5 +1,5 @@
 //
 import './vendor'
 export * from 'jandcode.core.jsa.base'
-export * from 'jandcode.core.jsa.core'
+export * from 'jandcode.core.jsa.vue'
 

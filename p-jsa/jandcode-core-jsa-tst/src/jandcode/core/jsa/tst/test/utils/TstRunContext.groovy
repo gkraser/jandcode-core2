@@ -120,7 +120,7 @@ class TstRunContext implements IGspContextLinkSet {
         }
         if (!theme) {
             // темы не найдены, используем стандартную
-            theme = "jandcode/core/jsa/core/css/theme-std.js"
+            theme = "jandcode/core/jsa/vue/css/theme-std.js"
         }
 
         // общая среда
@@ -135,7 +135,7 @@ class TstRunContext implements IGspContextLinkSet {
             }
         }
         if (!env) {
-            env = "jandcode/core/jsa/core/index.js"
+            env = "jandcode/core/jsa/vue/index.js"
         }
 
         //

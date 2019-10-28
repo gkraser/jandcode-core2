@@ -16,7 +16,7 @@ class P extends ProjectScript {
             moduleDef("jandcode.core.apex.jsa").with {
                 depends.prod.add(
                         "jandcode.core.apex",
-                        "jandcode.core.jsa.core",
+                        "jandcode.core.jsa.vue",
                 )
                 depends.dev.add(
                 )

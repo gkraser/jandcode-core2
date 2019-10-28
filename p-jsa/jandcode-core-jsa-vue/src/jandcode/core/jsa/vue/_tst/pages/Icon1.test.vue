@@ -19,15 +19,15 @@
             <h3>By url</h3>
             <div class="bg">
                 <span>Это png</span>
-                <jc-icon url="jandcode/core/jsa/core/_tst/pages/images/logo1.png"></jc-icon>
+                <jc-icon url="jandcode/core/jsa/vue/_tst/pages/images/logo1.png"></jc-icon>
                 <span>Это svg</span>
-                <jc-icon url="jandcode/core/jsa/core/_tst/pages/images/logo3.svg"></jc-icon>
+                <jc-icon url="jandcode/core/jsa/vue/_tst/pages/images/logo3.svg"></jc-icon>
                 <template v-for="sz in iconSizesPx()">
                     <span>{{sz}}px</span>
-                    <jc-icon url="jandcode/core/jsa/core/_tst/pages/images/logo1.png"
+                    <jc-icon url="jandcode/core/jsa/vue/_tst/pages/images/logo1.png"
                              :style="{width:''+sz+'px',height:''+sz+'px'}" :class="'qaz3'"
                     ></jc-icon>
-                    <jc-icon url="jandcode/core/jsa/core/_tst/pages/images/logo3.svg"
+                    <jc-icon url="jandcode/core/jsa/vue/_tst/pages/images/logo3.svg"
                              :style="{width:''+sz+'px',height:''+sz+'px'}" :class="'qaz2'"
                     ></jc-icon>
                 </template>

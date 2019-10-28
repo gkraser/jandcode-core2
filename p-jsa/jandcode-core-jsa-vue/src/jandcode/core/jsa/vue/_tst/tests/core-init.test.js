@@ -1,5 +1,5 @@
 import * as test from 'jandcode.core.jsa.base/test'
-import 'jandcode.core.jsa.core'
+import 'jandcode.core.jsa.vue'
 
 let assert = test.assert
 
