@@ -1,4 +1,12 @@
+import './index'
+import App from './App'
+
 export function run() {
-    console.info("app runned");
-    document.body.insertAdjacentHTML("afterBegin", "<h1>app runned</h1>");
+    var vm = new Vue({
+        render(h) {
+            return h(App)
+        }
+    })
+    vm.$mount("#jc-app")
 }
+

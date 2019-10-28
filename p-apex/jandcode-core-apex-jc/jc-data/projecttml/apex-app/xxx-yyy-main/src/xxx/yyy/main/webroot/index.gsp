@@ -1,9 +1,9 @@
-<%@ page import="jandcode.core.apex.jsa.gsp.*; jandcode.core.web.*; jandcode.commons.*; jandcode.core.web.gsp.*" %>
+<%@ page import="jandcode.core.jsa.gsp.*; jandcode.core.web.*; jandcode.commons.*; jandcode.core.web.gsp.*" %>
 <!doctype html>
 <%
   BaseGsp th = this
   //
-  def ctx = th.inst(ApexIndexGspContext)
+  def ctx = th.inst(JsaIndexGspContext)
   //
   ctx.title = "XxxYyy"
   ctx.main = "xxx.yyy.main/js/main.js"
