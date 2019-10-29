@@ -30,7 +30,7 @@ public interface LibDepends {
     NamedList<LibDependsGroup> getGroups();
 
     /**
-     * Запускает проверку: все имена библиотек должны быть быблиотеками
+     * Запускает проверку: все имена библиотек должны быть библиотеками
      */
     void validate();
 

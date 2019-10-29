@@ -1,8 +1,8 @@
 package jandcode.core.jsa.gsp;
 
 import jandcode.commons.*;
-import jandcode.commons.conf.*;
 import jandcode.core.*;
+import jandcode.core.jsa.cfg.*;
 import jandcode.core.jsa.jsmodule.*;
 import jandcode.core.jsa.jsmodule.impl.*;
 import jandcode.core.web.*;
@@ -39,14 +39,8 @@ public class LinkModuleManager extends BaseComp {
 
         if (first) {
             // первый вывод
-            Conf linkModConf = getApp().getConf().getConf("web/jsa-linkModule");
-            String mBoot = linkModConf.getString("boot");
-            String mCore = linkModConf.getString("core");
-            String mBootInline = linkModConf.getString("boot-inline");
+            String mBoot = getApp().bean(JsaCfg.class).getLinkModuleBoot();
 
-            if (!UtString.empty(mCore)) {
-                joiner.addModule(mCore);
-            }
             joiner.addModule(mi.path);
 
             Collection<JsModule> inc = joiner.getTop();
@@ -58,9 +52,6 @@ public class LinkModuleManager extends BaseComp {
 
             outLink(g, inc, exc);
 
-            if (!UtString.empty(mBootInline)) {
-                outLinkBootInline(g, mBootInline);
-            }
         } else {
 
             ModuleJoiner tmpJoiner = new ModuleJoiner(getApp().bean(JsModuleService.class));
@@ -123,14 +114,12 @@ public class LinkModuleManager extends BaseComp {
         g.out("<script src=\"");
         g.out(href);
         g.out("\"></script>\n");
-    }
 
-    private void outLinkBootInline(Gsp g, String mod) {
-        JsModuleService svc = getApp().bean(JsModuleService.class);
-        JsModule bim = svc.getModule(mod);
-        g.out("<script>\n");
-        g.out(bim.getText().trim());
-        g.out("</script>\n");
+        // критически важная информация
+        g.out("<script>");
+        g.out("Jc.baseUrl='");
+        g.out(((BaseGsp) g).ref("/"));
+        g.out("';</script>\n");
     }
 
 }

@@ -10,13 +10,12 @@ class P extends ProjectScript {
 
     void onInclude() {
         //
-        project.name = "jandcode-core-jsa-tst"
+        project.name = "jandcode-core-jsa-vue"
         //
         include(JavaProject).with {
-            moduleDef("jandcode.core.jsa.tst").with {
+            moduleDef("jandcode.core.jsa.vue").with {
                 depends.prod.add(
-                        "jandcode.core.web.tst",
-                        "jandcode.core.jsa.vue",
+                        "jandcode.core.jsa.base",
                 )
             }
             //
@@ -28,6 +27,8 @@ class P extends ProjectScript {
         }
         //
         include(JsaJavaProject).with {
+            gulpTask(name: "vue", provide: true, globs: ["**/*.vue"])
+            gulpTask(name: "less", provide: true, globs: ["**/*-style.less", "css/theme-*.less"])
         }
     }
 

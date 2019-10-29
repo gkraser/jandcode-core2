@@ -1,4 +1,4 @@
-import {Vue} from 'jandcode.core.jsa.core'
+import {Vue} from 'jandcode.core.jsa.vue'
 import './comp/index'
 
 /**

@@ -1,9 +1,11 @@
+import jandcode.core.jsa.jc.*
 import jandcode.jc.*
 import jandcode.jc.std.*
 
 class P extends ProjectScript {
 
     static beforeLoad = {
+        classpath("jandcode-core-jsa-jc")
     }
 
     void onInclude() {
@@ -14,12 +16,14 @@ class P extends ProjectScript {
             moduleDef("jandcode.core.apex.jsa").with {
                 depends.prod.add(
                         "jandcode.core.apex",
-                        "jandcode.core.jsa.core",
+                        "jandcode.core.jsa.vue",
                 )
                 depends.dev.add(
                 )
             }
         }
+        //
+        include(JsaJavaProject)
     }
 
 }
