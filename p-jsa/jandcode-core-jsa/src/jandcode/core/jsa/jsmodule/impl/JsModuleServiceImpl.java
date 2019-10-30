@@ -20,6 +20,7 @@ public class JsModuleServiceImpl extends BaseComp implements JsModuleService, IC
     private ModuleNameResolver moduleNameResolver;
     private List<JsModuleFactory> moduleFactorys = new ArrayList<>();
     private NamedList<ModuleCfg> moduleCfgs = new DefaultNamedList<>();
+    private Map<String, String> moduleMapping = new HashMap<>();
 
     class ModuleCfg extends Named {
         Conf conf;
@@ -47,6 +48,19 @@ public class JsModuleServiceImpl extends BaseComp implements JsModuleService, IC
             moduleFactorys.add(0, ft);
         }
 
+        // mapping
+        for (Conf r : webRt.getConfs("jsmodule-mapping")) {
+            String src = r.getString("src");
+            String dest = r.getString("dest");
+            if (UtString.empty(src)) {
+                throw new XError("src empty in jsmodule-mapping: {0}", r.origin());
+            }
+            if (UtString.empty(dest)) {
+                throw new XError("dest empty in jsmodule-mapping: {0}", r.origin());
+            }
+            this.moduleMapping.put(src, dest);
+        }
+
         // module cfg
         for (Conf r : webRt.getConfs("jsmodule")) {
             ModuleCfg mcfg = new ModuleCfg(r);
@@ -69,7 +83,12 @@ public class JsModuleServiceImpl extends BaseComp implements JsModuleService, IC
     }
 
     public String resolveModuleName(String name) {
-        return this.moduleNameResolver.resolveModuleName(name);
+        String mappingName = this.moduleMapping.get(name);
+        if (mappingName == null) {
+            return this.moduleNameResolver.resolveModuleName(name);
+        } else {
+            return this.moduleNameResolver.resolveModuleName(mappingName);
+        }
     }
 
     public List<JsModule> getModules(String paths) {
