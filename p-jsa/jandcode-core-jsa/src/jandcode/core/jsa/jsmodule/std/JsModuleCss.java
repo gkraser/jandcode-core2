@@ -2,6 +2,8 @@ package jandcode.core.jsa.jsmodule.std;
 
 import jandcode.commons.*;
 import jandcode.core.jsa.jsmodule.*;
+import jandcode.core.jsa.utils.*;
+import jandcode.core.web.*;
 
 import java.util.*;
 
@@ -9,6 +11,8 @@ import java.util.*;
  * Модуль css
  */
 public class JsModuleCss extends JsModuleText {
+
+    private boolean urlRebase;
 
     protected void onInit(JsModuleBuilder b) throws Exception {
         super.onInit(b);
@@ -18,6 +22,14 @@ public class JsModuleCss extends JsModuleText {
         String txt = b.getText();
         txt = txt.replace("\r", "");
         Map<String, Object> res = new LinkedHashMap<>();
+
+        if (isUrlRebase()) {
+            CssUrlRebase rb = new CssUrlRebase();
+            WebService webSvc = getApp().bean(WebService.class);
+            String prefix = webSvc.getRequest().ref("/");  //todo получить ref вне request
+            txt = rb.rebase(txt, UtFile.path(getName()), "/", prefix);
+        }
+
         res.put("text", txt);
 
         List<String> reqs = new ArrayList<>();
@@ -35,4 +47,11 @@ public class JsModuleCss extends JsModuleText {
         return s.replaceAll("<style.*?>", "").replaceAll("</style>", "");
     }
 
+    public boolean isUrlRebase() {
+        return urlRebase;
+    }
+
+    public void setUrlRebase(boolean urlRebase) {
+        this.urlRebase = urlRebase;
+    }
 }
