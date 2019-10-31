@@ -91,13 +91,24 @@
                 страница, которая и показывается клиенту.
                 Если файл шаблона не найден, используется шаблон из templateDefault
 
-
                 Если шаблон не указан, показывается как есть (для html)
+
+                В шаблоне доступны аргументы (args):
+
+                    path: виртуальный путь запускаемого файла
 
                 template: имя gsp-файла с шаблоном страниц, без пути
                 templateDefault: полный виртуальный путь до файла шаблона по умолчанию
             -->
-            <run-file name="html" mask="**/*.html" template="" templateDefault=""/>
+            <run-file name="html" mask="**/*.html"
+                      template=""
+                      templateDefault=""
+            />
+
+            <run-file name="js" mask="**/*.test.js"
+                      template="run-js.gsp"
+                      templateDefault="jandcode/core/web/tst/run-js.gsp"
+            />
 
         </tst>
 
