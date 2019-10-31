@@ -24,7 +24,6 @@
 <div id="jc-app"></div>
 <script>
     Jc.cfg.set(${ctx.cfgJson})
-    Jc.cfg.set({tst: ${tstCtx.cfgJson}})
     Jc.ready(function() {
         require('${ctx.env}').runVue('${ctx.main}')
     })

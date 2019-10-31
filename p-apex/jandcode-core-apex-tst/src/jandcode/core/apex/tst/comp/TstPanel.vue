@@ -7,7 +7,7 @@
                 <div class="tst-panel--value-small"><a :href="'?path='+cfg.filePath">{{cfg.filePath}}/</a>
                 </div>
                 <span class="tst-panel--divider" :style="{flex:1}"></span>
-                <div class="tst-panel--value-small">Theme (<b>{{curThemeName}}</b>):</div>
+                <div class="tst-panel--value-small">Theme:</div>
                 <select v-model="curTheme">
                     <option v-for="theme in cfg.themes">{{theme.path}}</option>
                 </select>
@@ -46,7 +46,6 @@
                 fontSizeMax: 38,
                 fontSize: 13,
                 curTheme: Jc.cfg.tst.theme,
-                curThemeName: Jc.cfg.theme.name,
             }
         },
         created() {
