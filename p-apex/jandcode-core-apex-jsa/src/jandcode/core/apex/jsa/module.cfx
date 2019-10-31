@@ -10,6 +10,37 @@
 
     <web>
         <mount-module/>
+
+        <!-- vue -->
+
+        <jsmodule-mapping name="jandcode.core.apex.jsa.vue"
+                          src="vue"
+                          dest="vue/dist/vue"/>
+
+        <jsmodule-mapping name="jandcode.core.apex.jsa.vue-router"
+                          src="vue-router"
+                          dest="vue-router/dist/vue-router"/>
+
+        <jsmodule-mapping name="jandcode.core.apex.jsa.vuex"
+                          src="vuex"
+                          dest="vuex/dist/vuex"/>
+
+        <!-- quasar -->
+
+        <jsmodule-factory name="jandcode.core.apex.jsa.quasar-js"
+                          mask="_jsa/_node_modules/quasar/dist/*.js"
+                          extractRequire="true"
+                          moduleClass="jandcode.core.jsa.jsmodule.std.JsModuleJs"/>
+
+        <jsmodule-factory name="jandcode.core.apex.jsa.quasar-css-extras"
+                          mask="_jsa/_node_modules/@quasar/**/*.css"
+                          urlRebase="true"
+                          moduleClass="jandcode.core.jsa.jsmodule.std.JsModuleCss"/>
+
+        <jsmodule-mapping name="jandcode.core.apex.jsa.quasar"
+                          src="quasar"
+                          dest="quasar/dist/quasar.umd.js"/>
+
     </web>
 
 </root>

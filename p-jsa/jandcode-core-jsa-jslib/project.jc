@@ -35,9 +35,6 @@ class P extends ProjectScript {
                     "lodash": "4.17.15",
                     "mocha": "6.2.2",
                     "moment": "2.24.0",
-                    "vue": "2.6.10",
-                    "vue-router": "3.1.3",
-                    "vuex": "3.1.1"
             )
             //
             def globs = nodeDepends.keySet().collect {
@@ -70,20 +67,6 @@ class P extends ProjectScript {
                     "moment/min/**/*.js",
                     "moment/locale/ru.js",
 
-                    //
-                    "vue/dist/*.js",
-                    "!vue/dist/*.common.*",
-                    "!vue/dist/*.esm.*",
-
-                    //
-                    "vue-router/dist/*.js",
-                    "!vue-router/dist/*.common.*",
-                    "!vue-router/dist/*.esm.*",
-
-                    //
-                    "vuex/dist/*.js",
-                    "!vuex/dist/*.common.*",
-                    "!vuex/dist/*.esm.*",
 
             )
             gulpTask(name: "nm", globs: globs)
