@@ -13,12 +13,14 @@
   <meta charset="UTF-8">
   <title>${ctx.title}</title>
   <link rel="icon" href="data:,">
-  <jc:linkModule module="${ctx.modules}"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
+<jc:linkModule module="${ctx.modules}"/>
 <div id="jc-app"></div>
 <script>
+    Jc.cfg.set(${ctx.cfgJson})
     Jc.ready(function() {
         require('${ctx.main}').run()
     })
