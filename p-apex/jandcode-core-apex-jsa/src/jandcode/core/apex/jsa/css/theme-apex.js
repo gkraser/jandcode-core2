@@ -4,10 +4,3 @@ import '[*]/css/module-apex.js'
 
 Jc.requireCss(cssQuasar)
 Jc.requireCss(css)
-
-Jc.cfg.set({
-    theme: {
-        name: 'apex'
-    }
-})
-
