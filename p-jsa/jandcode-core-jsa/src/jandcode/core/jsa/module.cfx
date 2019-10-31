@@ -64,6 +64,16 @@
                           extractRequire="false"
                           moduleClass="jandcode.core.jsa.jsmodule.std.JsModuleJs"/>
 
+        <!--
+
+        маппинг имен модулей
+
+        <jcmodule-mapping
+                name="i"
+                src="vue"
+                dest="vue/dist/vue"/>
+        -->
+
         <!-- =================== -->
 
     </web>

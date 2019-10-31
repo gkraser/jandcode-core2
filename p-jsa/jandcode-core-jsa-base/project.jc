@@ -16,7 +16,7 @@ class P extends ProjectScript {
             moduleDef("jandcode.core.jsa.base").with {
                 depends.prod.add(
                         "jandcode.core.jsa",
-                        "jandcode.core.jsa.jslib",
+                        "jandcode.core.jsa.tools",
                 )
             }
             //
@@ -28,6 +28,30 @@ class P extends ProjectScript {
         }
         //
         include(JsaJavaProject).with {
+            nodeDepends.putAll(
+                    "jquery": "3.4.1",
+
+                    // for tests
+                    "chai": "4.2.0",
+                    "mocha": "6.2.2",
+            )
+            //
+            def globs = nodeDepends.keySet().collect {
+                it + "/" + JsaConsts.PACKAGE_JSON
+            }
+            globs.addAll(
+                    //
+                    "jquery/dist/**/*",
+                    "!jquery/**/*.map",
+
+                    //
+                    "chai/chai.js",
+
+                    //
+                    "mocha/mocha.*",
+            )
+            gulpTask(name: "nm", globs: globs)
+
             gulpTask(name: "js", provide: true, globs: ["**/*.js"])
             gulpTask(name: "babelHelpers", globs: ["js/boot/babelHelpers.js"])
         }

@@ -1,0 +1,9 @@
+@font-face {
+  src: url('../ab');
+  src: url('../a?b');
+  src: url("../ab");
+  src: url("../a?b");
+  src: url(../ab);
+  src: url(../a?b);
+}
+

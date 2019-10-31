@@ -3,6 +3,21 @@
 
     <web>
         <mount-module/>
+
+        <tst>
+
+            <run-file name="js" mask="**/*.test.js"
+                      template="run-js.gsp"
+                      templateDefault="jandcode/core/apex/tst/run-js.gsp"
+            />
+
+            <run-file name="vue" mask="**/*.test.vue"
+                      template="run-vue.gsp"
+                      templateDefault="jandcode/core/apex/tst/run-vue.gsp"
+            />
+
+        </tst>
+
     </web>
 
 </root>
