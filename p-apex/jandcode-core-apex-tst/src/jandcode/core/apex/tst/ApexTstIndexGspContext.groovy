@@ -12,6 +12,7 @@ import jandcode.core.web.gsp.*
 class ApexTstIndexGspContext implements IGspContextLinkSet {
 
     private GspContext gspContext
+    private String title
 
     void setGspContext(GspContext gspContext) {
         this.gspContext = gspContext;
@@ -48,4 +49,16 @@ class ApexTstIndexGspContext implements IGspContextLinkSet {
         return UtJson.toJson(getCfg())
     }
 
+    String getTitle() {
+        if (UtString.empty(title)) {
+            JsaIndexGspContext ctx = gspContext.inst(JsaIndexGspContext)
+            String main = ctx.main
+            return UtFile.filename(main) + " - " + main
+        }
+        return title
+    }
+
+    void setTitle(String title) {
+        this.title = title
+    }
 }

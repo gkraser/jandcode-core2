@@ -6,15 +6,17 @@
   def ctx = th.inst(JsaIndexGspContext)
   def tstCtx = th.inst(ApexTstIndexGspContext)
   //
-  ctx.title = th.args.path
+  String path = th.context.rootGsp.args.path
+  String runMethod = th.args.runMethod
+
   ctx.env = "jandcode.core.apex.tst/tst-runner"
-  ctx.main = th.args.path
+  ctx.main = path
   ctx.theme = "apex"
 %>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>${ctx.title}</title>
+  <title>${tstCtx.title}</title>
   <link rel="icon" href="data:,">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -24,8 +26,9 @@
 <div id="jc-app"></div>
 <script>
     Jc.cfg.set(${ctx.cfgJson})
+    Jc.cfg.set({tst: ${tstCtx.cfgJson}})
     Jc.ready(function() {
-        require('${ctx.env}').runVue('${ctx.main}')
+        require('${ctx.env}').${runMethod}('${ctx.main}')
     })
 </script>
 </body>
