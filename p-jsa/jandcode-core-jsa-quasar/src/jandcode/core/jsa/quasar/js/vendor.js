@@ -1,10 +1,14 @@
 //
 import * as jsaBase from 'jandcode.core.jsa.base'
 import * as jsaVue from 'jandcode.core.jsa.vue'
-import * as jsaQuasar from 'jandcode.core.jsa.quasar'
+//
+import 'vue'
+import Quasar from 'quasar'
 
+//
 export {
+    Quasar,
     jsaBase,
     jsaVue,
-    jsaQuasar,
 }
+

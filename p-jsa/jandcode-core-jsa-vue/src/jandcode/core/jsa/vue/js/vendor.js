@@ -1,8 +1,8 @@
 //
 import * as jsaBase from 'jandcode.core.jsa.base'
 //
-import Vue from 'vue/dist/vue'
-import VueRouter from 'vue-router/dist/vue-router'
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
 //
 export {

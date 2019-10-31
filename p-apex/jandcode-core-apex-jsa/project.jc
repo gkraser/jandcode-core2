@@ -17,6 +17,7 @@ class P extends ProjectScript {
                 depends.prod.add(
                         "jandcode.core.apex",
                         "jandcode.core.jsa.vue",
+                        "jandcode.core.jsa.quasar",
                 )
                 depends.dev.add(
                 )

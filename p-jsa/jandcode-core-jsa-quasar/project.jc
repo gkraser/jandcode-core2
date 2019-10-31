@@ -1,0 +1,55 @@
+import jandcode.core.jsa.jc.*
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+        classpath("jandcode-core-jsa-jc")
+    }
+
+    void onInclude() {
+        //
+        project.name = "jandcode-core-jsa-quasar"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.core.jsa.quasar").with {
+                depends.prod.add(
+                        "jandcode.core.jsa.vue",
+                )
+                depends.dev.add(
+                )
+            }
+        }
+        //
+        include(JsaJavaProject).with {
+            nodeDepends.putAll(
+                    "quasar": "1.2.7",
+                    "@quasar/extras": "1.3.2",
+            )
+            //
+            def globs = nodeDepends.keySet().collect {
+                it + "/" + JsaConsts.PACKAGE_JSON
+            }
+            globs.addAll(
+                    //
+                    "quasar/dist/*.js",
+                    "quasar/dist/*.css",
+                    "quasar/dist/icon-set/*",
+                    "quasar/dist/lang/ru.*",
+                    "!quasar/dist/*.common.*",
+                    "!quasar/dist/*.esm.*",
+                    "!quasar/dist/*.rtl.*",
+                    "!quasar/dist/*.ie.*",
+
+                    //
+                    "@quasar/extras/material-icons/**/*",
+
+            )
+            gulpTask(name: "nm", globs: globs)
+
+        }
+
+    }
+
+}

@@ -3,6 +3,16 @@
 
     <web>
         <mount-module/>
+
+
+        <jsmodule-mapping name="jandcode.core.jsa.vue-vue"
+                          src="vue"
+                          dest="vue/dist/vue"/>
+
+        <jsmodule-mapping name="jandcode.core.jsa.vue-vue-router"
+                          src="vue-router"
+                          dest="vue-router/dist/vue-router"/>
+
     </web>
 
 </root>
