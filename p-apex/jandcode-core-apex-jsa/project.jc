@@ -73,6 +73,7 @@ class P extends ProjectScript {
                     
             )
             gulpTask(name: "nm", globs: globs)
+            gulpTask(name: "quasar-css")
 
             gulpTask(name: "vue", provide: true, globs: ["**/*.vue"])
             gulpTask(name: "less", provide: true, globs: ["**/*-style.less", "css/theme-*.less"])
