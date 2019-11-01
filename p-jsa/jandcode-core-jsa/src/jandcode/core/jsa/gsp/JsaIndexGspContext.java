@@ -20,6 +20,7 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
     private String main;
     private String cfgJson;
     private String theme;
+    private List<String> otherModules = new ArrayList<>();
 
     public void setGspContext(GspContext gspContext) {
         this.gspContext = gspContext;
@@ -73,6 +74,18 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
     //////
 
     /**
+     * Добавить дополнительный модуль
+     */
+    public void addModule(String moduleName) {
+        if (UtString.empty(moduleName)) {
+            return;
+        }
+        this.otherModules.add(resolveModule(moduleName));
+    }
+
+    //////
+
+    /**
      * Список модулей, которые нужно включить в linkModule
      */
     public List<String> getModules() {
@@ -93,6 +106,8 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
         if (!UtString.empty(s)) {
             res.add(s);
         }
+
+        res.addAll(this.otherModules);
 
         return res;
     }

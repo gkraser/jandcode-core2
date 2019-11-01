@@ -7,11 +7,11 @@
   def tstCtx = th.inst(ApexTstIndexGspContext)
   //
   String path = th.context.rootGsp.args.path
-  String runMethod = th.args.runMethod
-
+  //
   ctx.env = "jandcode.core.apex.tst/tst-runner"
   ctx.main = path
   ctx.theme = "apex"
+  ctx.addModule(tstCtx.envTstJs)
 %>
 <html>
 <head>
@@ -28,7 +28,7 @@
     Jc.cfg.set(${ctx.cfgJson})
     Jc.cfg.set({tst: ${tstCtx.cfgJson}})
     Jc.ready(function() {
-        require('${ctx.env}').${runMethod}('${ctx.main}')
+        require('${ctx.env}').runModule('${ctx.main}')
     })
 </script>
 </body>
