@@ -3,7 +3,9 @@ package jandcode.core.apex.tst
 import jandcode.commons.*
 import jandcode.core.jsa.gsp.*
 import jandcode.core.jsa.theme.*
+import jandcode.core.web.*
 import jandcode.core.web.gsp.*
+import jandcode.core.web.virtfile.*
 
 /**
  * Сервисные методы для использования в index.gsp и аналогичных файлах,
@@ -61,4 +63,29 @@ class ApexTstIndexGspContext implements IGspContextLinkSet {
     void setTitle(String title) {
         this.title = title
     }
+
+    /**
+     * Возвращает полное имя модуля env-tst.js начиная с каталога теста.
+     * Если такого файла нет, возвращается null
+     */
+    String getEnvTstJs() {
+        JsaIndexGspContext ctx = gspContext.inst(JsaIndexGspContext)
+        String main = ctx.main
+
+        WebService webSvc = gspContext.getApp().bean(WebService)
+
+        String template = "env-tst.js"
+        String cp = UtFile.path(main)
+        while (!UtString.empty(cp)) {
+            String fn = UtVDir.join(cp, template)
+            VirtFile ft = webSvc.findFile(fn)
+            if (ft != null) {
+                return ft.getPath()
+            }
+            cp = UtFile.path(cp)
+        }
+        return null
+
+    }
+
 }

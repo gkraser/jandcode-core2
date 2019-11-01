@@ -7,10 +7,11 @@
   def tstCtx = th.inst(ApexTstIndexGspContext)
   //
   String path = th.context.rootGsp.args.path
-
+  //
   ctx.env = "jandcode.core.apex.tst/tst-runner"
   ctx.main = path
   ctx.theme = "apex"
+  ctx.addModule(tstCtx.envTstJs)
 %>
 <html>
 <head>
