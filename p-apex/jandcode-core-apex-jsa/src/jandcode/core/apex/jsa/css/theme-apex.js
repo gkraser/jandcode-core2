@@ -1,4 +1,4 @@
-import cssQuasar from 'quasar/dist/quasar.css'
+import cssQuasar from './quasar-style.scss'
 import css from './theme-apex.less'
 import '[*]/css/module-apex.js'
 
