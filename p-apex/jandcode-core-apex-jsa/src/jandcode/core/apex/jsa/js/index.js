@@ -1,5 +1,5 @@
 //
-import {Vue, VueRouter, Quasar} from './vendor'
+import {Vue, VueRouter, Quasar, jsaBase} from './vendor'
 
 export * from 'jandcode.core.jsa.base'
 
@@ -22,6 +22,16 @@ Quasar.lang.set(qLangRu)
 window.Vue = Vue
 window.VueRouter = VueRouter
 window.Quasar = Quasar
+
+// утилиты для экземпляров vue
+let $jc = {
+
+    url(u) {
+        return jsaBase.url.ref(u)
+    }
+
+}
+Vue.prototype.$jc = $jc
 
 export {
     Vue,
