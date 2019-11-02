@@ -54,6 +54,16 @@
                           compiledOnly="true"
                           moduleClass="jandcode.core.jsa.jsmodule.std.JsModuleCss"/>
 
+        <jsmodule-factory name="scss"
+                          mask="**/*.scss"
+                          compiledOnly="true"
+                          moduleClass="jandcode.core.jsa.jsmodule.std.JsModuleCss"/>
+
+        <jsmodule-factory name="sass"
+                          mask="**/*.sass"
+                          compiledOnly="true"
+                          moduleClass="jandcode.core.jsa.jsmodule.std.JsModuleCss"/>
+
         <jsmodule-factory name="vue"
                           mask="**/*.vue"
                           compiledOnly="true"

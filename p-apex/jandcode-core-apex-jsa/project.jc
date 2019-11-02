@@ -57,6 +57,8 @@ class P extends ProjectScript {
                     //
                     "quasar/dist/*.js",
                     "quasar/dist/*.css",
+                    "quasar/dist/*.sass",
+                    "quasar/dist/*.styl",
                     "quasar/dist/icon-set/*",
                     "quasar/dist/lang/ru.*",
                     "!quasar/dist/*.common.*",
@@ -76,6 +78,7 @@ class P extends ProjectScript {
 
             gulpTask(name: "vue", provide: true, globs: ["**/*.vue"])
             gulpTask(name: "less", provide: true, globs: ["**/*-style.less", "css/theme-*.less"])
+            gulpTask(name: "sass", provide: true, globs: ["**/*-style.scss", "css/theme-*.scss"])
 
         }
     }

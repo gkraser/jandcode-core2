@@ -4,4 +4,5 @@ module.exports = function(g) {
     require('./jsa-gulp-vue')(g)
     require('./jsa-gulp-nm')(g)
     require('./jsa-gulp-less')(g)
+    require('./jsa-gulp-sass')(g)
 }
