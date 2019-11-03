@@ -7,7 +7,6 @@ jandcode-core-jsa-utils
 import * as base from './base'
 import * as cnv from './cnv'
 import * as dom from './dom'
-import * as svgicon from './svgicon'
 import * as url from './url'
 import * as popup from './popup'
 import {popupManager} from './popup'
@@ -23,7 +22,6 @@ export {
     base,
     cnv,
     dom,
-    svgicon,
     url,
     popup,
     popupManager,
