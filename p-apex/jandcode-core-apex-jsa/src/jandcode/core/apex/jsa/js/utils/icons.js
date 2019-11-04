@@ -14,7 +14,7 @@ let _icons = {}
  * @return {{}}
  */
 export function getQuasarIconName(name) {
-    if (!name) {
+    if (!jsaBase.isString(name)) {
         return name
     }
     if (name.startsWith('img:')) {
