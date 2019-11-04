@@ -6,6 +6,7 @@
 
 import {jsaBase} from '../vendor'
 
+const ICON_PREFIX = 'jc:'
 let _icons = {}
 
 /**
@@ -20,12 +21,19 @@ export function getQuasarIconName(name) {
     if (name.startsWith('img:')) {
         return 'img:' + jsaBase.url.ref(name.substring(4))
     }
-    let ic = _icons[name]
-    if (ic) {
-        if (ic.indexOf(':') !== -1) {
-            return getQuasarIconName(ic)
+    if (name.startsWith(ICON_PREFIX)) {
+        let jcname = name.substring(ICON_PREFIX.length)
+        let ic = _icons[jcname]
+        if (ic) {
+            if (ic.startsWith('img:')) {
+                return 'img:' + jsaBase.url.ref(ic.substring(4))
+            } else {
+                return ic
+            }
         } else {
-            return ic
+            if (Jc.cfg.debug) {
+                console.warn("Not registren icon: ", name);
+            }
         }
     }
     return name
