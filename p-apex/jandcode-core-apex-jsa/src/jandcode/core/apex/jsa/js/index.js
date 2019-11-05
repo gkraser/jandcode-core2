@@ -41,7 +41,13 @@ Vue.prototype.$jc = $jc
  * Иконка по имени
  */
 Vue.prototype.$q.iconMapFn = function(iconName) {
-    let a = utils.icons.getQuasarIconName(iconName)
+    let a = utils.icons.fixIconUrl(iconName)
+    if (a) {
+        return {
+            icon: a
+        }
+    }
+    a = utils.icons.getIcon(iconName)
     if (a) {
         return {
             icon: a
