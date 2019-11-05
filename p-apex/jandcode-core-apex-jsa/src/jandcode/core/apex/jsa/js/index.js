@@ -34,15 +34,24 @@ let $jc = {
         return jsaBase.url.ref(u)
     },
 
-    /**
-     * Иконка по имени
-     */
-    icon(name) {
-        return utils.icons.getQuasarIconName(name)
-    }
-
 }
 Vue.prototype.$jc = $jc
+
+/**
+ * Иконка по имени
+ */
+Vue.prototype.$q.iconMapFn = function(iconName) {
+    let a = utils.icons.getQuasarIconName(iconName)
+    if (a) {
+        return {
+            icon: a
+        }
+    }
+}
+
+// fix
+require('./fix/fix-iconMapFn')
+
 
 export {
     Vue,
