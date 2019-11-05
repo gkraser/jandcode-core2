@@ -4,6 +4,9 @@ import * as utils from './utils'
 
 export * from 'jandcode.core.jsa.base'
 
+// иконки
+import './icons/std'
+
 // vue
 Vue.config.productionTip = false
 Vue.config.devtools = false
