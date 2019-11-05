@@ -116,7 +116,12 @@
         module.loaded = true
 
         // вызываем функцию модуля
-        module.modFunc.call(module.exports, module.exports, internalRequire, module, module.name, module.name)
+        let dirname = module.name
+        let a = dirname.lastIndexOf('/')
+        if (a !== -1) {
+            dirname = dirname.substring(0, a)
+        }
+        module.modFunc.call(module.exports, module.exports, internalRequire, module, module.name, dirname)
 
         internalRequire = null
 
