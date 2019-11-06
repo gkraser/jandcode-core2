@@ -14,6 +14,8 @@ let _icons = {
     [ICON_UNKNOWN]: ' ',  // для material icon - это как бы неизвестная иконка
 }
 
+let _holderUnregistredIcons = {}
+
 /**
  * Для иконки вида 'img:URL' превращает url в абсолютный
  * и возвращает полученную иконку 'img:NEWURL'.
@@ -89,17 +91,16 @@ export function quasar_iconMapFn(iconName) {
     }
 
     if (Jc.cfg.debug) {
-        // уведомление в отладочном режиме только
-        console.warn('Unregistred icon:', iconName)
+        // уведомление в отладочном режиме и только раз
+        if (!_holderUnregistredIcons[iconName]) {
+            console.warn('Unregistred icon:', iconName)
+            _holderUnregistredIcons[iconName] = 1
+        }
     }
 
-    // регистрируем как неизвестную
-    let unknownIcon = getIcon(ICON_UNKNOWN)
-    registerIcons({
-        [iconName]: unknownIcon
-    })
+    // возвращаем как неизвестную
     return {
-        icon: unknownIcon
+        icon: getIcon(ICON_UNKNOWN)
     }
 }
 

@@ -17,6 +17,7 @@ let icons = {
 
     //
     'mail': 'mail',
+    'inbox': 'inbox',
 }
 
 ///
