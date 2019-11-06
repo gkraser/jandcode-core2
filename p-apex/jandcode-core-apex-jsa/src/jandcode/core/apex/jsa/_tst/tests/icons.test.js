@@ -8,15 +8,7 @@ describe(__filename, function() {
 
     it("1", function() {
         console.info(m.getIcons());
-        m.registerIcons({
-            'a':'b'
-        })
     })
-
-    it("2", function() {
-        console.info(m.getIcons());
-    })
-
 
 })
 
