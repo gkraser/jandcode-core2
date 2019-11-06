@@ -17,7 +17,7 @@ const jsaSupport = require('./jsa-support');
 function sass_imp(url, prev, done) {
 
     if (url.indexOf('*') !== -1) {
-        let currentDirectory = path.dirname(url)
+        let currentDirectory = path.dirname(prev)
         let files = jsaSupport.expandPath(url, currentDirectory, true)
         let fstr = ''
         for (let f of files) {

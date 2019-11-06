@@ -92,6 +92,7 @@ function resolveAlias(path) {
  * Раскрывает путь с '*' и возвращает массив путей
  * @param pt Распознается:
  *   [*]/MASK - во всех модулях, MASK относительно каталога модуля
+ *   [*]/MASK|reverse - во всех модулях, MASK относительно каталога модуля, реверсивный
  *   MASK     - относительно basedir
  * @param basedir относительно какого каталога искать
  * @param absolute true - выдавать абсолютные пути
@@ -104,7 +105,19 @@ function expandPath(pt, basedir, absolute) {
     }
     if (pt.startsWith("[*]/")) {
         pt = pt.substring(4)
-        for (let m of modulesReverse) {
+        let modList = modulesReverse
+
+        // реверсивный список: базовые в конце
+        let ppos = pt.lastIndexOf('|')
+        if (ppos !== -1) {
+            let param = pt.substring(ppos + 1)
+            pt = pt.substring(0, ppos)
+            if (param === 'reverse') {
+                modList = modules
+            }
+        }
+
+        for (let m of modList) {
             let fnd = globby.sync(pt, {cwd: m.modulePath, absolute: absolute})
             for (let fnd1 of fnd) {
                 if (absolute) {
