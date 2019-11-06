@@ -16,6 +16,9 @@ let icons = {
     'info': 'info',
 
     //
+    'app.logo': 'img:jandcode/core/apex/jsa/images/icons/app-logo.svg',
+
+    //
     'mail': 'mail',
     'inbox': 'inbox',
 }

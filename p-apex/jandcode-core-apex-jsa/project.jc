@@ -55,6 +55,9 @@ class P extends ProjectScript {
                     "!vuex/dist/*.esm.*",
 
                     //
+                    "@vue/babel-helper-vue-jsx-merge-props/**/*",
+
+                    //
                     "quasar/dist/*.js",
                     "quasar/dist/*.css",
                     "quasar/dist/*.sass",
