@@ -6,6 +6,7 @@ export * from 'jandcode.core.jsa.base'
 
 // иконки
 import './icons/std'
+import {quasarIconSet} from './icons/quasar-iconSet'
 
 // vue
 Vue.config.productionTip = false
@@ -44,19 +45,12 @@ Vue.prototype.$jc = $jc
  * Иконка по имени
  */
 Vue.prototype.$q.iconMapFn = function(iconName) {
-    let a = utils.icons.fixIconUrl(iconName)
-    if (a) {
-        return {
-            icon: a
-        }
-    }
-    a = utils.icons.getIcon(iconName)
-    if (a) {
-        return {
-            icon: a
-        }
-    }
+    return utils.icons.quasar_iconMapFn(iconName)
 }
+
+// меняем iconSet на свой
+Vue.prototype.$q.iconSet = quasarIconSet
+
 
 // fix
 require('./fix/fix-iconMapFn')

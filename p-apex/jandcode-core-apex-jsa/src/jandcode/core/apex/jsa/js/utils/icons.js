@@ -7,9 +7,11 @@
 import {jsaBase} from '../vendor'
 
 const ICON_EMPTY = 'empty'
+const ICON_UNKNOWN = 'unknown'
 
 let _icons = {
-    'empty': ' ',  // для material icon - это как бы пустая иконка
+    [ICON_EMPTY]: ' ',    // для material icon - это как бы пустая иконка
+    [ICON_UNKNOWN]: ' ',  // для material icon - это как бы неизвестная иконка
 }
 
 /**
@@ -58,6 +60,47 @@ export function registerIcons(icons) {
  */
 export function getIcons() {
     return _icons
+}
+
+/**
+ *Реализация quasar.iconMapFn по умолчанию
+ */
+export function quasar_iconMapFn(iconName) {
+    let a = fixIconUrl(iconName)
+    if (a) {
+        return {
+            icon: a
+        }
+    }
+
+    if (iconName.startsWith(' ')) {
+        if (iconName.trim() === '') {
+            return {
+                icon: getIcon(ICON_EMPTY)
+            }
+        }
+    }
+
+    a = getIcon(iconName)
+    if (a) {
+        return {
+            icon: a
+        }
+    }
+
+    if (Jc.cfg.debug) {
+        // уведомление в отладочном режиме только
+        console.warn('Unregistred icon:', iconName)
+    }
+
+    // регистрируем как неизвестную
+    let unknownIcon = getIcon(ICON_UNKNOWN)
+    registerIcons({
+        [iconName]: unknownIcon
+    })
+    return {
+        icon: unknownIcon
+    }
 }
 
 
