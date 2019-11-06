@@ -7,11 +7,29 @@ const cached = require('gulp-cached')
 const debug = require('gulp-debug');
 const findRequires = require('find-requires')
 const Vinyl = require('vinyl');
+const path = require('path');
 
 const sass = require('gulp-sass')
 sass.compiler = require('node-sass')
 
 const jsaSupport = require('./jsa-support');
+
+function sass_imp(url, prev, done) {
+
+    if (url.indexOf('*') !== -1) {
+        let currentDirectory = path.dirname(url)
+        let files = jsaSupport.expandPath(url, currentDirectory, true)
+        let fstr = ''
+        for (let f of files) {
+            fstr += '@import "' + f + '";\n';
+        }
+        done({contents: fstr})
+        return
+    }
+
+    url = jsaSupport.resolveAlias(url)
+    done({file: url})
+}
 
 function sass_taskFactory(g, taskName, module, taskParams) {
     let globs = g.makeGlobs(module, taskParams)
@@ -23,11 +41,6 @@ function sass_taskFactory(g, taskName, module, taskParams) {
     }
 
     //
-    function sass_imp(url, prev, done) {
-        url = jsaSupport.resolveAlias(url)
-        done({file: url})
-    }
-
     gulp.task(taskName, function() {
         let lastRun = gulp.lastRun(taskName)
 
