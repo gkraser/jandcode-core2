@@ -35,6 +35,11 @@
     let nm = 'jc-side-menu-item'
     let nmMenu = JcSideMenu.name
 
+    export let cfg = {
+        insetPaddingStart: 16,
+        insetPaddingLevel: 32,
+    }
+
     export default {
         name: nm,
         props: {
@@ -78,7 +83,7 @@
 
             style() {
                 if (this.level > 0) {
-                    let pad = (16 + this.level * 32) + 'px'
+                    let pad = (cfg.insetPaddingStart + this.level * cfg.insetPaddingLevel) + 'px'
                     return {
                         'padding-left': pad
                     }

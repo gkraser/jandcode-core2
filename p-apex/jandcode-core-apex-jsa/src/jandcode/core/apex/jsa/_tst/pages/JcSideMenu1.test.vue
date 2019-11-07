@@ -34,7 +34,8 @@
 
         <q-page-container>
             <q-page class="q-pa-lg">
-                <q-btn color="primary" label="Theme1" @click="theme1change"/>
+
+                <q-toggle label="Theme1" left-label v-model="sideClasses.theme1"/>
 
                 <q-btn color="teal" label="items1" @click="curItemsName='items1'"/>
                 <q-btn color="teal" label="itemsNoIcon"
@@ -97,11 +98,7 @@
                 return this[this.curItemsName]
             }
         },
-        methods: {
-            theme1change() {
-                this.sideClasses.theme1 = !this.sideClasses.theme1
-            }
-        }
+        methods: {}
     }
 </script>
 
