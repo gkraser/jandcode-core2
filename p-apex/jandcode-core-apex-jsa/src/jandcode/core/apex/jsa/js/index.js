@@ -5,9 +5,9 @@ import * as utils from './utils'
 export * from 'jandcode.core.jsa.base'
 
 // компоненты
-import * as components from './comp'
+import * as components from './components'
 
-export * from './comp'
+export * from './components'
 
 utils.comps.registerComponents(components)
 
