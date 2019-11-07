@@ -220,6 +220,5 @@
     Jc.moduleDef = moduleDef
     Jc.getModules = getModules
     Jc.findModule = findModule
-    Jc.baseUrl = '/';
     window.require = require
 })();

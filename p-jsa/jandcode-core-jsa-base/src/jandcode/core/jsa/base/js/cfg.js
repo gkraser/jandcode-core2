@@ -43,7 +43,7 @@ cfg.set({
     /**
      * Базовый url для добавления в начало загружаемых url. Должен заканчиваться '/'
      */
-    baseUrl: Jc.baseUrl || '/',
+    baseUrl: '/',
 
     /**
      * Среда выполнения debug/release
@@ -52,6 +52,11 @@ cfg.set({
 
 })
 
+if (Jc.__cfg__) {
+    // есть конфигурация по умолчанию
+    cfg.set(Jc.__cfg__)
+    delete Jc.__cfg__
+}
 
 export default cfg;
 
