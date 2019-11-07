@@ -16,11 +16,18 @@ let icons = {
     'info': 'info',
 
     //
-    'app.logo': 'img:jandcode/core/apex/jsa/images/icons/app-logo.svg',
+    'caret-down': 'arrow_drop_down',
+    'caret-up': 'arrow_drop_up',
+    'caret-right': 'arrow_right',
+    'caret-left': 'arrow_left',
+
+    //
+    'app-logo': 'img:jandcode/core/apex/jsa/images/icons/app-logo.svg',
 
     //
     'mail': 'mail',
     'inbox': 'inbox',
+    'user': 'account_box',
 }
 
 ///
