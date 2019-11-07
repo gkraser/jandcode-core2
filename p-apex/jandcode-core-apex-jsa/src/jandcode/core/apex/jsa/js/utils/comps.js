@@ -4,6 +4,8 @@
 
 ----------------------------------------------------------------------------- */
 
+import {Vue} from '../vendor'
+
 function _isCompCheckType(name, type) {
     return type === name;
 }
@@ -79,3 +81,17 @@ export function getEl(from) {
     if (from.$el instanceof Element) return from.$el;
     return null;
 }
+
+/**
+ * Регистрация компонентов
+ * @param comps набор компонентов. Каждый компонент, имеющий name будет зарегистрирован
+ */
+export function registerComponents(comps) {
+    for (let key in comps) {
+        let comp = comps[key];
+        if (comp.name) {
+            Vue.component(comp.name, comp)
+        }
+    }
+}
+

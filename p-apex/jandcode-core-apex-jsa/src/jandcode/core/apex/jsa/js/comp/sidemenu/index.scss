@@ -1,0 +1,47 @@
+.jc-side-menu {
+
+  font-size: 13px;
+
+  .q-list--dense > .q-item, .q-item--dense {
+    min-height: 28px;
+  }
+
+  .q-item__section--avatar {
+    min-width: 24px;
+    padding-right: 12px;
+
+    & > .q-icon {
+      font-size: 20px;
+    }
+
+  }
+
+}
+
+/*
+    // пример настройки
+    -jc-side-menu {
+
+        &.q-list .jc-menu-item--level-0 {
+            color: red;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        .jc-menu-item--list-level-1 {
+            background-color: gray;
+        }
+
+        .jc-menu-item--list-level-2 {
+            background-color: silver;
+        }
+
+        &.q-list .jc-menu-item--level-2 {
+            color: green;
+            padding-top: 18px;
+            padding-bottom: 18px;
+        }
+
+    }
+
+ */

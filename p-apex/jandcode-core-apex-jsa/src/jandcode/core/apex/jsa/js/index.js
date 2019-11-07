@@ -4,6 +4,13 @@ import * as utils from './utils'
 
 export * from 'jandcode.core.jsa.base'
 
+// компоненты
+import * as components from './comp'
+
+export * from './comp'
+
+utils.comps.registerComponents(components)
+
 // иконки
 import './icons/std'
 import {quasarIconSet} from './icons/quasar-iconSet'
@@ -39,6 +46,8 @@ let $jc = {
     },
 
 }
+$jc.cfg = Jc.cfg
+
 Vue.prototype.$jc = $jc
 
 /**
@@ -55,11 +64,12 @@ Vue.prototype.$q.iconSet = quasarIconSet
 // fix
 require('./fix/fix-iconMapFn')
 
-
 export {
     Vue,
     VueRouter,
     Quasar,
     utils,
+    components,
 }
+
 
