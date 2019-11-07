@@ -61,9 +61,6 @@ Vue.prototype.$q.iconMapFn = function(iconName) {
 Vue.prototype.$q.iconSet = quasarIconSet
 
 
-// fix
-// require('./fix/fix-iconMapFn')
-
 export {
     Vue,
     VueRouter,
