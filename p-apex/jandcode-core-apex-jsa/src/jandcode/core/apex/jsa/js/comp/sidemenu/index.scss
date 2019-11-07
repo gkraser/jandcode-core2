@@ -20,23 +20,23 @@
 
 /*
     // пример настройки
-    -jc-side-menu {
+    .jc-side-menu {
 
-        &.q-list .jc-menu-item--level-0 {
+        &.q-list .jc-side-menu-item--level-0 {
             color: red;
             padding-top: 8px;
             padding-bottom: 8px;
         }
 
-        .jc-menu-item--list-level-1 {
+        .jc-side-menu-item--list-level-1 {
             background-color: gray;
         }
 
-        .jc-menu-item--list-level-2 {
+        .jc-side-menu-item--list-level-2 {
             background-color: silver;
         }
 
-        &.q-list .jc-menu-item--level-2 {
+        &.q-list .jc-side-menu-item--level-2 {
             color: green;
             padding-top: 18px;
             padding-bottom: 18px;

@@ -20,20 +20,27 @@
         </q-header>
 
         <q-drawer v-model="left" show-if-above
-                  side="left" bordered content-class="bg-grey-1"
+                  side="left" bordered :content-class="sideClasses"
                   :width="leftWidth">
             <q-scroll-area class="fit">
 
                 <q-item-label header>Главное меню</q-item-label>
 
-                <TestMenu1 :items="items1" :levels="3"/>
+                <TestMenu1 :items="items" :levels="3"/>
 
 
             </q-scroll-area>
         </q-drawer>
 
         <q-page-container>
-            <q-page>
+            <q-page class="q-pa-lg">
+                <q-btn color="primary" label="Theme1" @click="theme1change"/>
+
+                <q-btn color="teal" label="items1" @click="curItemsName='items1'"/>
+                <q-btn color="teal" label="itemsNoIcon"
+                       @click="curItemsName='itemsNoIcon'"/>
+                <q-btn color="teal" label="itemsFs" @click="curItemsName='itemsFs'"/>
+
                 <div v-for="n in 20" style="padding:20px">{{n}}</div>
             </q-page>
         </q-page-container>
@@ -55,30 +62,78 @@
                 left: false,
                 leftWidth: 300,
 
+                sideClasses: {
+                    'bg-grey-1': true,
+                    'theme1': false
+                },
+
+                curItemsName: 'items1',
+
                 items1: [
-                    {text: 'Элемент 111с font', icon: 'font1'},
+                    {text: 'Элемент c font', icon: 'font1'},
                     {text: 'Элемент без иконки', icon: '', defaultOpened: false},
                     {text: 'Элемент с svg', icon: 'svg1'},
                     {text: 'Элемент с png', icon: 'png1'},
                 ],
+
                 itemsNoIcon: [
-                    {text: 'Элемент 111с font'},
-                    {text: 'Элемент без иконки'},
-                    {text: 'Элемент с svg'},
-                    {text: 'Элемент с png'},
+                    {text: 'Элемент 1'},
+                    {text: 'Элемент 2'},
+                    {text: 'Элемент 3'},
+                    {text: 'Элемент 4'},
                 ],
+
                 itemsFs: [
-                    {text: 'Элемент 111с font', icon: 'folder'},
-                    {text: 'Элемент без иконки', icon: 'folder', defaultOpened: true},
-                    {text: 'Элемент с svg', icon: 'file'},
-                    {text: 'Элемент с png', icon: 'file'},
+                    {text: 'Папка 1', icon: 'folder'},
+                    {text: 'Папка 2', icon: 'folder'},
+                    {text: 'Файл 3', icon: 'file'},
+                    {text: 'Файл 4', icon: 'file'},
                 ],
 
             }
         },
+        computed: {
+            items() {
+                return this[this.curItemsName]
+            }
+        },
+        methods: {
+            theme1change() {
+                this.sideClasses.theme1 = !this.sideClasses.theme1
+            }
+        }
     }
 </script>
 
 <style lang="scss">
+
+    .theme1 {
+
+        .jc-side-menu {
+
+            &.q-list .jc-side-menu-item--level-0 {
+                color: red;
+                padding-top: 8px;
+                padding-bottom: 8px;
+            }
+
+            .jc-side-menu-item--list-level-1 {
+                background-color: gray;
+            }
+
+            .jc-side-menu-item--list-level-2 {
+                background-color: silver;
+            }
+
+            &.q-list .jc-side-menu-item--level-2 {
+                color: green;
+                padding-top: 18px;
+                padding-bottom: 18px;
+            }
+
+        }
+
+    }
+
 </style>
 
