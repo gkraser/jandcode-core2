@@ -14,6 +14,11 @@ let icons = {
     'menu': 'menu',
     'error': 'error',
     'info': 'info',
+    'cancel': 'cancel',
+
+    'ins': 'add',
+    'del': 'remove',
+    'upd': 'edit',
 
     //
     'caret-down': 'arrow_drop_down',
@@ -28,6 +33,11 @@ let icons = {
     'mail': 'mail',
     'inbox': 'inbox',
     'user': 'account_box',
+    'admin': 'supervisor_account',
+    'calendar': 'calendar_today',
+    'clear': 'clear',
+    'find': 'search',
+
 }
 
 ///
