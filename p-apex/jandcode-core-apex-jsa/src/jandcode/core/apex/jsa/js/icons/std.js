@@ -39,9 +39,6 @@ let icons = {
     'caret-left': 'arrow_left',
 
     //
-    'app-logo': 'img:jandcode/core/apex/jsa/images/app-logo.svg',
-
-    //
     'mail': 'mail',
     'inbox': 'inbox',
     'user': 'account_box',
