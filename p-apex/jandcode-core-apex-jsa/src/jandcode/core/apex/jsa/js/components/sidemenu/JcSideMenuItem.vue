@@ -1,5 +1,5 @@
 <template>
-    <q-item v-if="!hasItems()" clickable :disable="disable"
+    <q-item v-if="!hasItems" clickable :disable="disable"
             :dense="true" :style="style" :class="classes" @click="onClick"
             :to="to" :replace="replace" exact>
         <q-item-section avatar>
@@ -95,6 +95,9 @@
                 }
             },
 
+            hasItems() {
+                return !!this.$slots.default
+            },
 
             defaultOpenedValue() {
                 return this.defaultOpened
@@ -138,10 +141,6 @@
 
         },
         methods: {
-            hasItems() {
-                return !!this.$slots.default
-            },
-
             onClick(ev) {
                 this.$emit('click', ev, this)
             }
