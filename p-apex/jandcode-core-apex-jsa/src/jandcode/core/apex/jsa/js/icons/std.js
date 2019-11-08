@@ -37,6 +37,7 @@ let icons = {
     'calendar': 'calendar_today',
     'clear': 'clear',
     'find': 'search',
+    'home': 'home',
 
 }
 
