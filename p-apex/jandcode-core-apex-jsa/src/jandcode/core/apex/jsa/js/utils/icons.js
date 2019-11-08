@@ -4,7 +4,8 @@
 
 ----------------------------------------------------------------------------- */
 
-import {jsaBase} from '../vendor'
+import {jsaBase, Vue} from '../vendor'
+import {getSvgIconId} from './svgicons'
 
 const ICON_EMPTY = 'empty'
 const ICON_UNKNOWN = 'unknown'
@@ -15,6 +16,10 @@ let _icons = {
 }
 
 let _holderUnregistredIcons = {}
+
+// для svg иконок
+let vmDummy = new Vue({})
+let h = vmDummy.$createElement
 
 /**
  * Для иконки вида 'img:URL' превращает url в абсолютный
@@ -85,8 +90,26 @@ export function quasar_iconMapFn(iconName) {
 
     a = getIcon(iconName)
     if (a) {
-        return {
-            icon: a
+        if (a.startsWith('svg:')) {
+            // svg иконка
+            let b = a.substring(4)
+            b = getSvgIconId(b)
+            if (b) {
+                return {
+                    cls: 'jc-svgicon',
+                    content: h('svg', [h('use', {attrs: {"href": '#' + b}})])
+                }
+            } else {
+                // не зарегистрирована svg
+                if (!_holderUnregistredIcons[a]) {
+                    console.warn('Unregistred svg icon:', a, 'for', iconName)
+                    _holderUnregistredIcons[a] = 1
+                }
+            }
+        } else {
+            return {
+                icon: a
+            }
         }
     }
 

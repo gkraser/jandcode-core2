@@ -14,7 +14,8 @@
                                         <jc-side-menu-item v-bind="item"
                                                            :text="item.text+' (exp)'">
                                             <template v-for="item in itemsLevel(4)">
-                                                <jc-side-menu-item v-bind="item" @click="onClick"/>
+                                                <jc-side-menu-item v-bind="item"
+                                                                   @click="onClick"/>
                                             </template>
                                         </jc-side-menu-item>
                                     </template>

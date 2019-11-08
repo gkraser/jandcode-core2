@@ -2,11 +2,23 @@
 ----------------------------------------------------------------------------- */
 
 import {registerIcons} from '../utils/icons'
+import {registerSvgIcons} from '../utils/svgicons'
 
 import {quasarIcons} from './quasar-iconSet'
+import svgIconsAll from './svgicons-all.js'
 
+// quasar icons
 registerIcons(quasarIcons)
 
+// svg icons
+registerSvgIcons(svgIconsAll)
+let svgicons = {}
+for (let nm in svgIconsAll) {
+    svgicons[nm] = 'svg:' + nm
+}
+registerIcons(svgicons)
+
+// явно зарегистрированные
 let icons = {
     'unknown': 'sentiment_very_dissatisfied',
 
@@ -27,7 +39,7 @@ let icons = {
     'caret-left': 'arrow_left',
 
     //
-    'app-logo': 'img:jandcode/core/apex/jsa/images/icons/app-logo.svg',
+    'app-logo': 'img:jandcode/core/apex/jsa/images/app-logo.svg',
 
     //
     'mail': 'mail',
