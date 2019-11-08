@@ -1,6 +1,6 @@
 <template>
     <q-item v-if="!hasItems()" clickable :disable="disable"
-            :dense="true" :style="style" :class="classes">
+            :dense="true" :style="style" :class="classes" @click="onClick">
         <q-item-section avatar>
             <q-icon :name="iconValue"/>
         </q-item-section>
@@ -13,7 +13,8 @@
                       :default-opened="defaultOpenedValue"
                       :group="groupValue"
                       :headerStyle="style"
-                      :headerClass="classes">
+                      :headerClass="classes"
+                      @click="onClick">
         <template v-slot:header>
             <q-item-section avatar>
                 <q-icon :name="iconValue"/>
@@ -137,6 +138,9 @@
                 return !!this.$slots.default
             },
 
+            onClick(ev) {
+                this.$emit('click', ev, this)
+            }
         }
     }
 </script>

@@ -26,7 +26,7 @@
 
                 <q-item-label header>Главное меню</q-item-label>
 
-                <TestMenu1 :items="items" :levels="3"/>
+                <TestMenu1 :items="items" :levels="3" @click="onClick"/>
 
 
             </q-scroll-area>
@@ -98,7 +98,11 @@
                 return this[this.curItemsName]
             }
         },
-        methods: {}
+        methods: {
+            onClick(ev, th) {
+                console.info("click", arguments);
+            }
+        }
     }
 </script>
 

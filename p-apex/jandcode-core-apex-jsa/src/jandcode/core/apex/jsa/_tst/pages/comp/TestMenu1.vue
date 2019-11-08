@@ -1,20 +1,20 @@
 <template>
     <jc-side-menu :bordered="bordered" class="col">
         <template v-for="item in itemsLevel(1)">
-            <jc-side-menu-item v-bind="item"/>
+            <jc-side-menu-item v-bind="item" @click="onClick"/>
             <template v-if="levels>=2">
                 <jc-side-menu-item v-bind="item" :text="item.text+' (exp)'">
                     <template v-for="item in itemsLevel(2)">
-                        <jc-side-menu-item v-bind="item"/>
+                        <jc-side-menu-item v-bind="item" @click="onClick"/>
                         <template v-if="levels>=3">
                             <jc-side-menu-item v-bind="item" :text="item.text+' (exp)'">
                                 <template v-for="item in itemsLevel(3)">
-                                    <jc-side-menu-item v-bind="item"/>
+                                    <jc-side-menu-item v-bind="item" @click="onClick"/>
                                     <template v-if="levels>=4">
                                         <jc-side-menu-item v-bind="item"
                                                            :text="item.text+' (exp)'">
                                             <template v-for="item in itemsLevel(4)">
-                                                <jc-side-menu-item v-bind="item"/>
+                                                <jc-side-menu-item v-bind="item" @click="onClick"/>
                                             </template>
                                         </jc-side-menu-item>
                                     </template>
@@ -65,7 +65,12 @@
                     res.push(n)
                 }
                 return res
+            },
+
+            onClick(ev, it) {
+                this.$emit('click', ev, it)
             }
+
         }
 
     }
