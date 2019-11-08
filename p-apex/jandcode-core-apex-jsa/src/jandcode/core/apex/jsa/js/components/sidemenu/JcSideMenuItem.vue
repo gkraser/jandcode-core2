@@ -1,6 +1,7 @@
 <template>
     <q-item v-if="!hasItems()" clickable :disable="disable"
-            :dense="true" :style="style" :class="classes" @click="onClick">
+            :dense="true" :style="style" :class="classes" @click="onClick"
+            :to="to" :replace="replace">
         <q-item-section avatar>
             <q-icon :name="iconValue"/>
         </q-item-section>
@@ -60,7 +61,10 @@
             defaultOpened: {
                 type: Boolean,
                 default: false
-            }
+            },
+
+            to: [Object, String],
+            replace: Boolean,
         },
         data() {
             return {
