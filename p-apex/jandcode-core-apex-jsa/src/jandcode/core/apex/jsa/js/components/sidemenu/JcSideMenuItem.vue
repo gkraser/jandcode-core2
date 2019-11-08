@@ -1,7 +1,7 @@
 <template>
     <q-item v-if="!hasItems()" clickable :disable="disable"
             :dense="true" :style="style" :class="classes" @click="onClick"
-            :to="to" :replace="replace">
+            :to="to" :replace="replace" exact>
         <q-item-section avatar>
             <q-icon :name="iconValue"/>
         </q-item-section>
