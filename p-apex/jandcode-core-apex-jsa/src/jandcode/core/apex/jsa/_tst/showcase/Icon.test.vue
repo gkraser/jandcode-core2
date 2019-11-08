@@ -18,15 +18,19 @@
                             <q-color v-model="colorIcon"/>
                         </q-popup-proxy>
                     </q-btn>
-                    <q-input
-                            v-model.number="iconSize"
-                            type="number"
-                            dense outlined
-                            class="col-2"
-                            label="Размер иконки"
-                            :min="20"
-                            :max="120"
-                            :debounce="500"
+                    <q-btn-toggle
+                            v-model="iconSize"
+                            toggle-color="primary"
+                            class="col-3"
+                            :flat="true"
+                            :options="[
+                                {label: '16', value: 16},
+                                {label: '24', value: 24},
+                                {label: '32', value: 32},
+                                {label: '48', value: 48},
+                                {label: '64', value: 64},
+                                {label: '128', value: 128}
+                            ]"
                     />
                     <q-checkbox v-model="iconBorder" label="Рамка" class="col-1"/>
                 </div>
@@ -177,6 +181,13 @@
 
             & .value {
                 color: brown;
+            }
+        }
+
+        .q-btn-group {
+            .q-btn{
+               padding-left: 4px;
+               padding-right: 4px;
             }
         }
 
