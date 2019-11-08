@@ -17,6 +17,7 @@ import java.util.*;
 public class SvgIconGenerator extends BaseComp {
 
     private Set<String> paths = new LinkedHashSet<>();
+    private List<VirtFile> usingFiles = new ArrayList<>();
 
     /**
      * Добавить виртуальный путь иконок.
@@ -31,6 +32,8 @@ public class SvgIconGenerator extends BaseComp {
         WebService svc = getApp().bean(WebService.class);
         StringBuilder sb = new StringBuilder();
         Map<String, VirtFile> byNames = new LinkedHashMap<>();
+
+        this.usingFiles = new ArrayList<>();
 
         // выявляем иконки с перекрытием
         for (String p : paths) {
@@ -51,11 +54,20 @@ public class SvgIconGenerator extends BaseComp {
             } else {
                 first = false;
             }
+            this.usingFiles.add(entry.getValue());
             appendIconFile(sb, entry.getKey(), entry.getValue());
         }
         sb.append("\n}");
 
         return sb.toString();
+    }
+
+    /**
+     * Список файлов, которые участвовали в генерации.
+     * Заполняется после вызова generate.
+     */
+    public List<VirtFile> getUsingFiles() {
+        return usingFiles;
     }
 
     private void appendIconFile(StringBuilder sb, String nm, VirtFile f) {
