@@ -122,6 +122,9 @@ public abstract class JsModuleImpl extends BaseComp implements JsModule {
                 FileObject fo = f.getFileObject();
                 if (fo != null) {
                     fo = fo.getParent();
+                    if (!fo.exists()) {
+                        return true;
+                    }
                     if (fo.getContent().getLastModifiedTime() > getCreateTime()) {
                         return true;
                     }
