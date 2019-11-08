@@ -112,10 +112,25 @@
 
         .jc-side-menu {
 
-            &.q-list .jc-side-menu-item--level-0 {
+            .jc-side-menu-item--level-0 {
                 color: red;
                 padding-top: 8px;
                 padding-bottom: 8px;
+
+                .q-item__section--avatar {
+                    .q-icon {
+                        font-size: 44px;
+                    }
+                }
+
+            }
+
+            .jc-side-menu-item--level-1 {
+                .q-item__section--avatar {
+                    .q-icon {
+                        font-size: 10px;
+                    }
+                }
             }
 
             .jc-side-menu-item--list-level-1 {
@@ -126,7 +141,7 @@
                 background-color: silver;
             }
 
-            &.q-list .jc-side-menu-item--level-2 {
+            .jc-side-menu-item--level-2 {
                 color: green;
                 padding-top: 18px;
                 padding-bottom: 18px;
