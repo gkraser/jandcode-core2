@@ -168,7 +168,7 @@
      * Подключение css
      * @param css если строка - считается именем модуля css, если нет '{',
      * иначе - текстом css. Если объект, то это содержимое модуля css
-     * в формате {text:cssText, requires:[], css: true}
+     * в формате {text:cssText, css: true}
      */
     function requireCss(css) {
         let _css = css
@@ -178,7 +178,7 @@
                 _css = require(_css)
             } else {
                 // это текст css
-                _css = {text: css, requires: [], css: true}
+                _css = {text: css, css: true}
             }
         }
 
@@ -192,13 +192,6 @@
         }
 
         _css._used = true
-
-        // сначала все зависимые
-        if (_css.requires) {
-            for (let req of _css.requires) {
-                requireCss(req)
-            }
-        }
 
         appendCssTag(_css.text, _css.filename)
     }
