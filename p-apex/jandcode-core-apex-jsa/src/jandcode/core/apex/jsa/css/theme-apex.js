@@ -3,4 +3,4 @@
 import css from './theme-apex.scss'
 import '[*]/css/module-apex.js'
 
-Jc.requireCss(css)
+Jc.requireCss(css, 'theme')
