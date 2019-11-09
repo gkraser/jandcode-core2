@@ -4,12 +4,9 @@
 
 ----------------------------------------------------------------------------- */
 
-import cfg from './cfg'
+import './cfg' // обязательно!
 
 // глобальный экземпляр пространства имен
 let globalNs = window.Jc = window.Jc || {}
-
-// настраиваем
-globalNs.cfg = cfg;
 
 export default globalNs;

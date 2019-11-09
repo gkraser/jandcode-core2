@@ -122,7 +122,7 @@ public class LinkModuleManager extends BaseComp {
         if (getApp().isDebug()) {
             initailCfg.put("debug", true);
         }
-        g.out("Jc.__cfg__=");
+        g.out("Jc.cfg=");
         g.out(UtJson.toJson(initailCfg));
         g.out(";");
         g.out("</script>\n");

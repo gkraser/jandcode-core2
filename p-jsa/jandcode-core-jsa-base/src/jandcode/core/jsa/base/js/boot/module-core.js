@@ -220,5 +220,6 @@
     Jc.moduleDef = moduleDef
     Jc.getModules = getModules
     Jc.findModule = findModule
+    Jc.cfg = {}
     window.require = require
 })();

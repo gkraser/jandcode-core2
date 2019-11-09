@@ -82,11 +82,9 @@ cfg.set({
 
 })
 
-if (Jc.__cfg__) {
-    // есть конфигурация по умолчанию
-    cfg.set(Jc.__cfg__)
-    delete Jc.__cfg__
-}
+// забираем что уже есть и делаем себяглобальной
+cfg.set(Jc.cfg)
+Jc.cfg = cfg
 
 export default cfg;
 
