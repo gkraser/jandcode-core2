@@ -101,7 +101,7 @@ public class LinkModuleManager extends BaseComp {
             g.out(inc);
             g.out(" exclude=");
             g.out(exc);
-            g.out(" -->\n");
+            g.out(" -->\n\n");
         }
     }
 
@@ -126,6 +126,9 @@ public class LinkModuleManager extends BaseComp {
         g.out(UtJson.toJson(initailCfg));
         g.out(";");
         g.out("</script>\n");
+        if (getApp().isDebug()) {
+            g.out("\n");
+        }
     }
 
 }

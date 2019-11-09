@@ -154,6 +154,9 @@
         cssIdx++;
         if (filename) {
             css = css + "\n/*# sourceURL=jc-jsa:///inline-styles/[" + cssIdx + "]/" + filename + "*/";
+            if (Jc.cfg.debug) {
+                styleTag.dataset.path = filename
+            }
         } else {
             css = css + "\n/*# sourceURL=jc-jsa:///inline-styles/style-" + cssIdx + ".css*/";
         }
