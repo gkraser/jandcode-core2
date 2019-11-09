@@ -2,21 +2,13 @@
 ----------------------------------------------------------------------------- */
 
 import {registerIcons} from '../utils/icons'
-import {registerSvgIcons} from '../utils/svgicons'
-
 import {quasarIcons} from './quasar-iconSet'
 import svgIconsAll from './svgicons-all.js'
 
 // quasar icons
 registerIcons(quasarIcons)
-
 // svg icons
-registerSvgIcons(svgIconsAll)
-let svgicons = {}
-for (let nm in svgIconsAll) {
-    svgicons[nm] = 'svg:' + nm
-}
-registerIcons(svgicons)
+registerIcons(svgIconsAll)
 
 // явно зарегистрированные
 let icons = {

@@ -5,7 +5,7 @@
 ----------------------------------------------------------------------------- */
 
 import {jsaBase, Vue} from '../vendor'
-import {getSvgIconId} from './svgicons'
+import {getSvgIconId, registerSvgIcon} from './svgicons'
 
 const ICON_EMPTY = 'empty'
 const ICON_UNKNOWN = 'unknown'
@@ -45,7 +45,8 @@ export function getIcon(name) {
 
 /**
  * Регистрация иконок
- * @param icons Объект, в котором ключ - имя иконки, значение - иконка
+ * @param icons Объект, в котором ключ - имя иконки, значение - иконка.
+ * Если иконка - текст svg, то дополнительно регистрируется svg-иконка.
  */
 export function registerIcons(icons) {
     if (!icons) {
@@ -53,6 +54,11 @@ export function registerIcons(icons) {
     }
     for (let nm in icons) {
         let v = icons[nm]
+        if (v.startsWith('<svg')) {
+            // svg иконка
+            registerSvgIcon(nm, v)
+            v = 'svg:' + nm
+        }
         let a = fixIconUrl(v)
         if (a) {
             _icons[nm] = a
