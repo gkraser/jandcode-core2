@@ -8,3 +8,7 @@ export {
     svgicons,
 }
 
+// модули на верхний уровень
+export * from './icons'
+export * from './comps'
+
