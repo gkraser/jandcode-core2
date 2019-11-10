@@ -8,7 +8,7 @@
                        icon="menu" @click="left = !left"/>
 
                 <slot name="title">
-                    <q-btn flat no-caps no-wrap :ripple="false" @click="doCmd('home')">
+                    <q-btn flat no-caps no-wrap :ripple="false" @click="callOwn('home')">
                         <q-icon :name="icon" size="32px" color="orange"/>
                         <q-toolbar-title shrink>
                             {{title}}
@@ -44,45 +44,20 @@
 </template>
 
 <script>
+    import {BaseAppMixin} from './mixins'
+
     export default {
         components: {},
-        props: {
-            title: {
-                default: 'Без заголовка'
-            },
-            icon: {
-                default: 'app-logo'
-            }
-        },
+        mixins: [BaseAppMixin],
+        props: {},
         data() {
             return {
                 left: false,
                 leftWidth: 280,
             }
         },
-        methods: {
-
-            /**
-             * Выполнить метод cmd с аргументами args
-             * у родителя компонента, если у него есть такой метод.
-             * Если у него нету а есть у меня - выполнить мой.
-             *
-             * @param cmd
-             * @param args
-             * @return {*}
-             */
-            doCmd(cmd, ...args) {
-                let own = this.$parent;
-                if (own) {
-                    if (own[cmd]) {
-                        return own[cmd](...args)
-                    }
-                }
-                if (this[cmd]) {
-                    return this[cmd](...args)
-                }
-            }
-        }
+        computed: {},
+        methods: {}
     }
 </script>
 
