@@ -1,19 +1,13 @@
 //
 import {Vue, VueRouter, Quasar, jsaBase} from './vendor'
 import * as utils from './utils'
-
-export * from 'jandcode.core.jsa.base'
-
-// компоненты
+import * as baseapp from './baseapp'
 import * as components from './components'
-
-export * from './components'
-
-utils.comps.registerComponents(components)
-
-// иконки
 import './icons/std'
 import {quasarIconSet} from './icons/quasar-iconSet'
+
+//
+utils.comps.registerComponents(components)
 
 // vue
 Vue.config.productionTip = false
@@ -60,6 +54,10 @@ Vue.prototype.$q.iconMapFn = function(iconName) {
 // меняем iconSet на свой
 Vue.prototype.$q.iconSet = quasarIconSet
 
+//////
+
+export * from 'jandcode.core.jsa.base'
+export * from './components'
 
 export {
     Vue,
@@ -67,6 +65,8 @@ export {
     Quasar,
     utils,
     components,
+    baseapp,
 }
+
 
 
