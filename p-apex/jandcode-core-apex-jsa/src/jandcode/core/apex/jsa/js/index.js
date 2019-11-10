@@ -28,6 +28,7 @@ Quasar.lang.set(qLangRu)
 window.Vue = Vue
 window.VueRouter = VueRouter
 window.Quasar = Quasar
+Jc.apex = exports
 
 // утилиты для экземпляров vue
 let $jc = {

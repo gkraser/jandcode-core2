@@ -39,6 +39,7 @@ let icons = {
     'clear': 'clear',
     'find': 'search',
     'home': 'home',
+    'close': 'close',
 
 }
 
