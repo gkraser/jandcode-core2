@@ -8,7 +8,7 @@
                        icon="menu" @click="left = !left"/>
 
                 <slot name="title">
-                    <q-btn flat no-caps no-wrap :ripple="false" @click="callOwn('home')">
+                    <q-btn flat no-caps no-wrap :ripple="false" @click="callApp('home')">
                         <q-icon :name="icon" size="32px" color="orange"/>
                         <q-toolbar-title shrink>
                             {{title}}

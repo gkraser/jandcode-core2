@@ -16,34 +16,34 @@ export let BaseAppMixin = {
     computed: {
 
         /**
-         * Владелец. Компонент-приложение.
+         * Компонент приложение.
          */
-        own() {
-            let own = this.$parent
-            if (!own) {
+        app() {
+            let a = this.$parent
+            if (!a) {
                 throw new Error("baseapp не может быть без родителя")
             }
-            return own
+            return a
         }
     },
 
     methods: {
 
         /**
-         * Выполнить метод cmd с аргументами args
-         * у владельца компонента, если у него есть такой метод.
+         * Выполнить метод methodName с аргументами args
+         * у приложения, если у него есть такой метод.
          * Если у него нету а есть у меня - выполнить мой.
          *
-         * @param cmd
+         * @param methodName
          * @param args
          * @return {*}
          */
-        callOwn(cmd, ...args) {
-            if (this.own[cmd]) {
-                return this.own[cmd](...args)
+        callApp(methodName, ...args) {
+            if (this.app[methodName]) {
+                return this.app[methodName](...args)
             }
-            if (this[cmd]) {
-                return this[cmd](...args)
+            if (this[methodName]) {
+                return this[methodName](...args)
             }
         }
     }
@@ -69,7 +69,7 @@ export let AppMixin = {
             }
             return a
         }
-        
+
     },
 
 }
