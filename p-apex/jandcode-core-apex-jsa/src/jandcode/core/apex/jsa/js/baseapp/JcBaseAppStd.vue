@@ -25,11 +25,23 @@
         </q-header>
 
         <q-drawer v-model="left" show-if-above
-                  side="left" bordered content-class="jc-app--left"
+                  side="left" bordered content-class="jc-app--side jc-app--left"
                   :width="leftWidth">
             <q-scroll-area class="fit">
 
                 <slot name="left">
+                </slot>
+
+            </q-scroll-area>
+        </q-drawer>
+
+        <q-drawer v-model="right" behavior="mobile"
+                  no-swipe-open no-swipe-close no-swipe-backdrop
+                  side="right" bordered content-class="jc-app--side jc-app--right"
+                  :width="rightWidth">
+            <q-scroll-area class="fit">
+
+                <slot name="right">
                 </slot>
 
             </q-scroll-area>
@@ -54,6 +66,8 @@
             return {
                 left: false,
                 leftWidth: 280,
+                right: false,
+                rightWidth: 280,
             }
         },
         computed: {},
