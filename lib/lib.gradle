@@ -117,7 +117,7 @@ dependencies {
     compile group: 'org.apache.poi', name: 'poi-scratchpad', version: v
 
     // lucene
-    v = '8.2.0'
+    v = '8.3.0'
     compile group: 'org.apache.lucene', name: 'lucene-core', version: v
     compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: v
     compile group: 'org.apache.lucene', name: 'lucene-queryparser', version: v

@@ -13,6 +13,7 @@ const fse = require('fs-extra')
 const path = require('path')
 
 const lessCompiler = require('less')
+const sassCompiler = require('node-sass')
 
 const jsaSupport = require('./jsa-support');
 const jsaVue = require('./jsa-vue');
@@ -49,10 +50,34 @@ function vue_taskFactory(g, taskName, module, taskParams) {
             return outRes.css.toString();
         }
 
+        function sass_imp(url, prev, done) {
+            let isTilda = url.startsWith('~')
+            url = jsaSupport.resolveAlias(url)
+            if (prev === 'stdin' && !isTilda) {
+                let pt = path.dirname(file.path)
+                url = path.resolve(pt, url)
+                let ext = path.extname(url)
+                if (!ext) {
+                    url += '.scss'
+                }
+            }
+            return {file: url}
+        }
+
+        function sass_compiler(text) {
+            let sassResult = sassCompiler.renderSync({
+                data: text,
+                includePaths: jsaSupport.resolvePaths,
+                importer: sass_imp
+            });
+            return sassResult.css.toString();
+        }
+
         try {
             let text = file.contents.toString()
             let jsText = jsaVue.compileVue(text, g.babelConfig, {
                 less: less_compiler,
+                scss: sass_compiler,
             })
             file.contents = Buffer.from(jsText)
         } catch(e) {

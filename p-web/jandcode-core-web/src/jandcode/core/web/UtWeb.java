@@ -8,6 +8,7 @@ import jandcode.core.*;
 import jandcode.core.web.virtfile.*;
 
 import javax.servlet.http.*;
+import java.net.*;
 import java.time.*;
 import java.util.*;
 
@@ -253,6 +254,17 @@ public class UtWeb {
         }
         //
         return res;
+    }
+
+
+    /**
+     * Кодирование спецсимволов в url.
+     * Кроме '/'!
+     */
+    public static String encodeUrl(String uri) throws Exception {
+        String s = URLEncoder.encode(uri, UtString.UTF8);
+        s = s.replace("%2F", "/");
+        return s;
     }
 
 }

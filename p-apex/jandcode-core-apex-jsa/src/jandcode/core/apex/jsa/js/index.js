@@ -1,7 +1,13 @@
 //
-import {Vue, VueRouter, Quasar} from './vendor'
+import {Vue, VueRouter, Quasar, jsaBase} from './vendor'
+import * as utils from './utils'
+import * as baseapp from './baseapp'
+import * as components from './components'
+import './icons/std'
+import {quasarIconSet} from './icons/quasar-iconSet'
 
-export * from 'jandcode.core.jsa.base'
+//
+utils.comps.registerComponents(components)
 
 // vue
 Vue.config.productionTip = false
@@ -22,10 +28,46 @@ Quasar.lang.set(qLangRu)
 window.Vue = Vue
 window.VueRouter = VueRouter
 window.Quasar = Quasar
+Jc.apex = exports
+
+// утилиты для экземпляров vue
+let $jc = {
+
+    /**
+     * Преобразование url в baseUrl
+     */
+    url(u) {
+        return jsaBase.url.ref(u)
+    },
+
+}
+$jc.cfg = Jc.cfg
+
+Vue.prototype.$jc = $jc
+
+/**
+ * Иконка по имени
+ */
+Vue.prototype.$q.iconMapFn = function(iconName) {
+    return utils.icons.quasar_iconMapFn(iconName)
+}
+
+// меняем iconSet на свой
+Vue.prototype.$q.iconSet = quasarIconSet
+
+//////
+
+export * from 'jandcode.core.jsa.base'
+export * from './components'
 
 export {
     Vue,
     VueRouter,
     Quasar,
+    utils,
+    components,
+    baseapp,
 }
+
+
 

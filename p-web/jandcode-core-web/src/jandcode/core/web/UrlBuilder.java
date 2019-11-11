@@ -155,13 +155,13 @@ public class UrlBuilder {
                     if (!first) {
                         sb.append('&');
                     }
-                    sb.append(URLEncoder.encode(en.getKey(), UtString.UTF8));
+                    sb.append(UtWeb.encodeUrl(en.getKey()));
                     if (!UtString.empty(en.getValue())) {
-                        sb.append("=").append(URLEncoder.encode(en.getValue(), UtString.UTF8));
+                        sb.append("=").append(UtWeb.encodeUrl(en.getValue()));
                     }
                     first = false;
                 }
-            } catch (UnsupportedEncodingException e) {
+            } catch (Exception e) {
                 throw new XErrorWrap(e);
             }
         }

@@ -4,7 +4,8 @@ import './comp'
 /**
  * Запуск модуля
  * @param moduleName имя модуля.
- *        Должен иметь метод run, быть vue-модулем или описывать тесты mocha.
+ *        Должен иметь метод run, или экспортировать vue-компонент с именем 'vue',
+ *        или быть vue-модулем (расшрение vue), или описывать тесты mocha.
  */
 export function runModule(moduleName) {
     Jc.loadModule([moduleName], function() {
@@ -12,8 +13,8 @@ export function runModule(moduleName) {
         if (main.run) {
             main.run()
 
-        } else if (moduleName.endsWith(".vue")) {
-            let p = main.default || main
+        } else if (moduleName.endsWith(".vue") || main.vue) {
+            let p = main.vue || main.default || main
             //
             let vm = new Vue({
                 el: '#jc-app',

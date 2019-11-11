@@ -15,6 +15,7 @@ public class SvgIconGenerator_Test extends Web_Test {
         String s = g.generate();
         System.out.println(s);
         assertTrue(s.indexOf("'caret-down':") != -1);
+        System.out.println(g.getUsingFiles());
     }
 
 

@@ -33,6 +33,9 @@
         <gsp name="jc/linkModule"
              class="jandcode.core.jsa.gsp.LinkModule"/>
 
+        <gsp name="jc/svgicons-js"
+             path="res:jandcode/core/jsa/gsp/svgicons-js.gsp"/>
+
         <!-- монтирование сгенерированных ресурсов jsa -->
         <mount name="jsa-webroot"
                resourcePath="jsa-webroot"
@@ -51,6 +54,16 @@
 
         <jsmodule-factory name="less"
                           mask="**/*.less"
+                          compiledOnly="true"
+                          moduleClass="jandcode.core.jsa.jsmodule.std.JsModuleCss"/>
+
+        <jsmodule-factory name="scss"
+                          mask="**/*.scss"
+                          compiledOnly="true"
+                          moduleClass="jandcode.core.jsa.jsmodule.std.JsModuleCss"/>
+
+        <jsmodule-factory name="sass"
+                          mask="**/*.sass"
                           compiledOnly="true"
                           moduleClass="jandcode.core.jsa.jsmodule.std.JsModuleCss"/>
 

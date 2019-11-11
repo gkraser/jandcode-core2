@@ -98,4 +98,15 @@ public class UrlBuilder_Test extends Utils_Test {
         assertEquals(z.toString(), "");
     }
 
+    @Test
+    public void testSlash1() throws Exception {
+        z.append("c/a");
+        z.append("b=4&e=a/5");
+        Map p = new HashMap();
+        p.put("pp1", 22);
+        p.put("pp2", "a/v/d/");
+        z.append(p);
+        assertEquals(z.toString(), "c/a?b=4&e=a/5&pp1=22&pp2=a/v/d/");
+    }
+
 }

@@ -5,3 +5,10 @@
 jandcode-core-jsa-vue--2019-10-31.zip
     Собственные компоненты на vue перед переходом на quasar
 
+svgicons--2019-11-03.zip
+    Реализация svgicons для jsa-base
+
+
+
+
+

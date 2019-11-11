@@ -1,11 +1,9 @@
 /* svg-иконки
 ----------------------------------------------------------------------------- */
 
-import * as base from './base'
+import {jsaBase} from '../vendor'
 
-// private vars
-
-// dom узел, где будут храниться иконкт
+// dom узел, где будут храниться иконки
 let _placeHolder = null
 
 // зарегистрированные иконки
@@ -17,9 +15,6 @@ let _iconsChanged = false
 // прификс для id
 const ID_PREFIX = 'jc-svgicon-'
 
-// пустая иконка
-const EMPTY_ICON = 'empty'
-
 //////
 
 /**
@@ -27,9 +22,9 @@ const EMPTY_ICON = 'empty'
  * @param name имя иконки
  * @param svgtext svg-текст иконки
  */
-export function registerIcon(name, svgtext) {
+export function registerSvgIcon(name, svgtext) {
     _iconsChanged = true;
-    let id = base.nextId(ID_PREFIX + name + '-');
+    let id = jsaBase.nextId(ID_PREFIX + name + '-');
     _icons[name] = {
         text: svg2symbol(svgtext, id),
         id: id,
@@ -41,13 +36,14 @@ export function registerIcon(name, svgtext) {
  * Регистрация svg-иконок
  * @param cfg ключ - имя, значение - svg-текст
  */
-export function registerIcons(cfg) {
+export function registerSvgIcons(cfg) {
     if (!cfg) {
         return
     }
     for (let key in cfg) {
-        registerIcon(key, cfg[key])
+        registerSvgIcon(key, cfg[key])
     }
+    _initIcons()
 }
 
 /**
@@ -59,7 +55,7 @@ function _initIcons() {
     }
     if (!_placeHolder) {
         _placeHolder = document.createElement('div');
-        _placeHolder.id = base.nextId(ID_PREFIX);
+        _placeHolder.id = jsaBase.nextId(ID_PREFIX);
         _placeHolder.style.display = 'none';
         document.body.appendChild(_placeHolder);
     }
@@ -81,38 +77,25 @@ function _initIcons() {
 
 /**
  * Возвращает id указанной иконки.
- * Если иконки нет - возвращается пустая иконка.
+ * Если иконки нет - возвращается null.
  */
-export function iconId(iconName) {
+export function getSvgIconId(iconName) {
     _initIcons();
     let ic = _icons[iconName];
     if (!ic) {
-        ic = _icons[EMPTY_ICON];
-        if (!ic) {
-            return '';
-        }
+        return null
     }
-    return ic.id;
-}
-
-/**
- * Текст html для иконки
- * @param iconName имя иконки
- * @return {string}
- */
-export function iconHtml(iconName) {
-    let icId = iconId(iconName);
-    return '<svg><use xlink:href="#' + icId + '"></use></svg>';
+    return ic.id
 }
 
 /**
  * Возвращает список имен зарегистрированных иконок
  * @return {Array}
  */
-export function getIconNames() {
-    let res = [];
+export function getSvgIconNames() {
+    let res = []
     for (let n in _icons) {
-        res.push(n);
+        res.push(n)
     }
     return res;
 }
@@ -156,16 +139,4 @@ function svg2symbol(svgtext, id) {
 
     return s;
 }
-
-/**
- * Возвращает dom узел с иконками
- * @return {Element}
- */
-export function getPlaceHolder() {
-    _initIcons()
-    return _placeHolder
-}
-
-// регистрируем пустую иконку
-registerIcon(EMPTY_ICON, '<svg viewBox="0 0 48 48"></svg>')
 

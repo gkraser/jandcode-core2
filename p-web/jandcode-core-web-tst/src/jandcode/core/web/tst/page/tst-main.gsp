@@ -3,6 +3,7 @@
 <html>
 <%
   BaseGsp th = this
+  th.request.disableCache()
 %>
 <head>
   <meta charset="UTF-8">

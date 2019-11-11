@@ -6,6 +6,7 @@ import jandcode.commons.error.*;
 import jandcode.core.*;
 import jandcode.core.jsa.jsmodule.*;
 import jandcode.core.web.virtfile.*;
+import org.apache.commons.vfs2.*;
 
 import java.util.*;
 
@@ -112,10 +113,33 @@ public abstract class JsModuleImpl extends BaseComp implements JsModule {
     }
 
     public boolean isModified() {
-        for (VirtFile f : this.modifyDepends) {
-            if (f.getLastModTime() > getCreateTime()) {
-                return true;
+        try {
+            for (VirtFile f : this.modifyDepends) {
+                if (f.getLastModTime() > getCreateTime()) {
+                    return true;
+                }
             }
+
+            if (getFile().isTmlBased()) {
+                // файл основан на шаблонах, проверяем и папки на измененность
+
+                for (VirtFile f : this.modifyDepends) {
+                    FileObject fo = f.getFileObject();
+                    if (fo != null) {
+                        fo = fo.getParent();
+                        if (!fo.exists()) {
+                            return true;
+                        }
+                        if (fo.getContent().getLastModifiedTime() > getCreateTime()) {
+                            return true;
+                        }
+                    }
+                }
+
+            }
+
+        } catch (Exception e) {
+            throw new XErrorWrap(e);
         }
         return false;
     }

@@ -17,8 +17,6 @@ public class JsModuleCss extends JsModuleText {
     protected void onInit(JsModuleBuilder b) throws Exception {
         super.onInit(b);
 
-        //todo require для css нужно брать и только из оригинального текста
-
         String txt = b.getText();
         txt = txt.replace("\r", "");
         Map<String, Object> res = new LinkedHashMap<>();
@@ -30,11 +28,8 @@ public class JsModuleCss extends JsModuleText {
             txt = rb.rebase(txt, UtFile.path(getName()), "/", prefix);
         }
 
-        res.put("text", txt);
-
-        List<String> reqs = new ArrayList<>();
-        res.put("requires", reqs);
         res.put("css", true);
+        res.put("text", txt);
 
         StringBuilder sb = new StringBuilder();
         sb.append("module.exports = ").append(UtJson.toJson(res)).append(";\n");
