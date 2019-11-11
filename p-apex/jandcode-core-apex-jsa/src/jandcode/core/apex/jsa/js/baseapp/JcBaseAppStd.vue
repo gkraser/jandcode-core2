@@ -1,76 +1,28 @@
 <template>
-    <q-layout view="hHh Lpr fff" class="jc-app">
-
-        <q-header elevated class="jc-app--header">
-            <q-toolbar>
-
-                <q-btn dense flat
-                       icon="menu" @click="left = !left"/>
-
-                <slot name="title">
-                    <q-btn flat no-caps no-wrap :ripple="false" @click="callApp('home')">
-                        <q-icon :name="icon" size="32px"/>
-                        <q-toolbar-title shrink>
-                            {{title}}
-                        </q-toolbar-title>
-                    </q-btn>
-                </slot>
-
-                <q-space/>
-
-                <slot name="toolbar">
-                </slot>
-
-            </q-toolbar>
-        </q-header>
-
-        <q-drawer v-model="left" show-if-above
-                  side="left" bordered content-class="jc-app--side jc-app--left"
-                  :width="leftWidth">
-            <q-scroll-area class="fit">
-
-                <slot name="left">
-                </slot>
-
-            </q-scroll-area>
-        </q-drawer>
-
-        <q-drawer v-model="right" behavior="mobile"
-                  no-swipe-open no-swipe-close no-swipe-backdrop
-                  side="right" bordered content-class="jc-app--side jc-app--right"
-                  :width="rightWidth">
-            <q-scroll-area class="fit">
-
-                <slot name="right">
-                </slot>
-
-            </q-scroll-area>
-        </q-drawer>
-
-        <q-page-container class="jc-app--main">
-            <slot name="main">
-            </slot>
-        </q-page-container>
-
-    </q-layout>
+    <App :app="this">
+    </App>
 </template>
 
 <script>
-    import {BaseAppMixin} from './mixins'
+    import App from "./JcBaseAppStd-App"
 
     export default {
-        components: {},
-        mixins: [BaseAppMixin],
-        props: {},
+        components: {
+            App: App
+        },
         data() {
             return {
+                title: 'Без заголовка',
+                icon: 'app-logo',
                 left: false,
                 leftWidth: 280,
                 right: false,
                 rightWidth: 280,
             }
         },
-        computed: {},
-        methods: {}
+        methods: {
+            home() {
+            }
+        }
     }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <BaseApp :title="$jc.cfg.tst.fileNameBase" :class="appClasses">
+    <App :app="this" :class="appClasses">
 
         <template #title>
         </template>
@@ -16,10 +16,11 @@
         <template #main>
             <q-page class="q-pa-lg">
                 <q-toggle label="Theme1" left-label v-model="appClasses.theme1"/>
+                <q-toggle label="right" left-label v-model="right"/>
             </q-page>
         </template>
 
-    </BaseApp>
+    </App>
 </template>
 
 <script>
@@ -27,14 +28,16 @@
     import TestMenu1 from './comp/TestMenu1'
 
     export default {
+        extends: apex.baseapp.JcBaseAppStd,
+
         components: {
-            BaseApp: apex.baseapp.JcBaseAppStd,
             TestMenu1
         },
 
-        mixins: [apex.baseapp.AppMixin],
+        created() {
+            this.title = this.$jc.cfg.tst.fileNameBase
+        },
 
-        props: {},
         data() {
             return {
                 appClasses: {
@@ -48,13 +51,8 @@
                 ],
             }
         },
-        created() {
-        },
         computed: {},
-        methods: {
-            home() {
-            }
-        }
+        methods: {}
     }
 </script>
 
