@@ -22,6 +22,9 @@
         },
         methods: {
             home() {
+                if (this.$router) {
+                    this.$router.push("/")
+                }
             }
         }
     }
