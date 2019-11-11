@@ -71,6 +71,8 @@
 
         .jc-app--left {
 
+            background-color: $grey-1;
+
             .jc-side-menu {
 
                 font-size: 13px;
