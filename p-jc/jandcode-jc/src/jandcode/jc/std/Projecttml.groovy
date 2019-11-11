@@ -69,6 +69,7 @@ class Projecttml extends ProjectScript {
             "**/_gen", "**/_gen/**/*",
             "**/*.iws", "**/*.iml", "**/*.ipr", "**/*.log",
             "**/*.tmp", "**/Thumbs.db",
+            "**/node_modules", "**/node_modules/**/*",
     ]
 
     ////// утилиты
