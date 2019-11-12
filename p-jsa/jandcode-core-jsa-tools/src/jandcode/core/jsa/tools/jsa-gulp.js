@@ -36,6 +36,9 @@ class JsaGulpBuilder {
         // фабрики задач
         this.taskFactorys = {}
 
+        // задачи prepare
+        this.prepareTasks = []
+
         // задачи build
         this.buildTasks = []
 
@@ -76,7 +79,7 @@ class JsaGulpBuilder {
             fs.mkdirSync(th.buildPath, {recursive: true})
             cb()
         })
-        this.buildTasks.push('clean:build')
+        this.prepareTasks.push('clean:build')
 
         this._initAddons()
         this._initModuleTasks()
@@ -98,7 +101,7 @@ class JsaGulpBuilder {
             fn(this)
         }
 
-        gulp.task("build", gulp.series(...this.buildTasks))
+        gulp.task("build", gulp.series(...this.prepareTasks.concat(this.buildTasks)))
 
         gulp.task("watch", gulp.series('build', watchMark, watchTasks))
 
@@ -124,7 +127,11 @@ class JsaGulpBuilder {
                     throw new Error("task factory [" + taskParams.factory + "] not found (module: " + module.name + ")");
                 }
                 taskFactory(this, gulpTaskName, module, taskParams)
-                this.addBuildTask(gulpTaskName)
+                if (taskParams.factory === 'nm') {
+                    this.addPrepareTask(gulpTaskName)
+                } else {
+                    this.addBuildTask(gulpTaskName)
+                }
             }
         }
     }
@@ -133,6 +140,14 @@ class JsaGulpBuilder {
 
     registerTaskFactory(name, fn) {
         this.taskFactorys[name] = fn
+    }
+
+    addPrepareTask(taskName) {
+        if (gulp.task(taskName)) {
+            if (this.prepareTasks.indexOf(taskName) === -1) {
+                this.prepareTasks.push(taskName)
+            }
+        }
     }
 
     addBuildTask(taskName) {
