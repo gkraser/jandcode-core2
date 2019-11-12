@@ -77,4 +77,14 @@ class JsaJavaProject extends ProjectScript {
         this.gulpTasks[data.name] = data
     }
 
+    /**
+     * Определение зависимостей для node.
+     * Формат как в package.json dependencies.
+     */
+    void nodeDepends(Map deps) {
+        if (deps == null) {
+            return
+        }
+        this.nodeDepends.putAll(deps)
+    }
 }

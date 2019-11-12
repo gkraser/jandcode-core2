@@ -28,7 +28,7 @@ class P extends ProjectScript {
         }
         //
         include(JsaJavaProject).with {
-            nodeDepends.putAll(
+            nodeDepends(
                     "jquery": "3.4.1",
 
                     // for tests
