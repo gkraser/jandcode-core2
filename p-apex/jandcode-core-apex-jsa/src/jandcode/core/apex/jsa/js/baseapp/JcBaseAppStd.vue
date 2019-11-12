@@ -1,5 +1,5 @@
 <template>
-    <App :app="this">
+    <App>
     </App>
 </template>
 
@@ -23,7 +23,7 @@
         methods: {
             home() {
                 if (this.$router) {
-                    this.$router.push("/")
+                    this.$router.push("/", () => {})
                 }
             }
         }

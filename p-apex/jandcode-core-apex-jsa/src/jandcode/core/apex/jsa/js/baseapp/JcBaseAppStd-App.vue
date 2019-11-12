@@ -57,8 +57,10 @@
 
 <script>
     export default {
-        props: {
-            app: Object
+        computed: {
+            app() {
+                return this.$parent
+            }
         }
     }
 </script>

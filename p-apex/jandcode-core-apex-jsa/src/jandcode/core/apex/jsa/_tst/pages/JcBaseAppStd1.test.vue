@@ -1,5 +1,5 @@
 <template>
-    <App :app="this" :class="appClasses">
+    <App :class="appClasses">
 
         <template #title>
         </template>
