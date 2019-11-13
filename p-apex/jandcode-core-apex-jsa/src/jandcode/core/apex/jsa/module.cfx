@@ -27,11 +27,6 @@
 
         <!-- quasar -->
 
-        <jsmodule-factory name="jandcode.core.apex.jsa.quasar-js"
-                          mask="_jsa/_node_modules/quasar/dist/*.js"
-                          extractRequire="true"
-                          moduleClass="jandcode.core.jsa.jsmodule.std.JsModuleJs"/>
-
         <jsmodule-factory name="jandcode.core.apex.jsa.quasar-css-extras"
                           mask="_jsa/_node_modules/@quasar/**/*.css"
                           urlRebase="true"

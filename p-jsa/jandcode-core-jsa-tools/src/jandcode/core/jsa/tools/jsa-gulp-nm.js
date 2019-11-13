@@ -1,4 +1,7 @@
 const gulp = require('gulp')
+const findRequires = require('find-requires')
+const through2 = require('through2').obj;
+const Vinyl = require('vinyl');
 
 function nm_taskFactory(g, taskName, module, taskParams) {
     let globs = g.makeGlobs(g.nodeModulesPath, taskParams)
@@ -11,7 +14,46 @@ function nm_taskFactory(g, taskName, module, taskParams) {
     })
 }
 
+function nmExtractRequire_taskFactory(g, taskName, module, taskParams) {
+    let globs = g.makeGlobs(g.buildPathNodeModules, {globs: ['**/*.js']})
+
+    gulp.task(taskName, function() {
+        let lastRun = gulp.lastRun(taskName)
+
+        return gulp.src(globs, {base: g.buildPathNodeModules})
+        // extract requires
+            .pipe(through2(function(file, enc, callback) {
+                let src = file.contents.toString()
+                let a = src.lastIndexOf('require(')
+                if (a === -1) {
+                    callback()  // точно нет require
+                    return
+                }
+                let b = src.indexOf(')', a)
+                if (b === -1) {
+                    callback()  // точно нет require
+                    return
+                }
+                src = src.substring(0, b + 1) // уменьшаем размер для анализа! быстрее станет...
+                let r = findRequires(src)
+                let rfile = new Vinyl({
+                    cwd: file.cwd,
+                    base: file.base,
+                    path: file.path + '--compiled-req',
+                    contents: Buffer.from(JSON.stringify(r))
+                });
+                if (r.length === 0) {
+                    callback()
+                } else {
+                    callback(null, rfile)
+                }
+            }))
+            .pipe(gulp.dest(g.buildPathCompiledNodeModules))
+    })
+}
+
 ///
 module.exports = function(g) {
     g.registerTaskFactory("nm", nm_taskFactory)
+    g.registerTaskFactory("nm-extract-require", nmExtractRequire_taskFactory)
 }

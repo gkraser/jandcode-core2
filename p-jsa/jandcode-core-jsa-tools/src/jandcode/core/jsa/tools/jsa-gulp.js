@@ -49,6 +49,9 @@ class JsaGulpBuilder {
         // куда собирать скомпиленное
         this.buildPathCompiled = this.buildPath + '/_jsa/_compiled'
 
+        // куда собирать скомпиленное node_modules
+        this.buildPathCompiledNodeModules = this.buildPath + '/_jsa/_compiled/_jsa/_node_modules'
+
         // куда собирать скомпиленное
         this.buildPathNodeModules = this.buildPath + '/_jsa/_node_modules'
 
