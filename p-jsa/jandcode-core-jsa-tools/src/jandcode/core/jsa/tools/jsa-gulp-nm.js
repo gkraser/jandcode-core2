@@ -2,6 +2,7 @@ const gulp = require('gulp')
 const findRequires = require('find-requires')
 const through2 = require('through2').obj;
 const Vinyl = require('vinyl');
+const fs = require('fs');
 
 function nm_taskFactory(g, taskName, module, taskParams) {
     let globs = g.makeGlobs(g.nodeModulesPath, taskParams)
@@ -52,8 +53,23 @@ function nmExtractRequire_taskFactory(g, taskName, module, taskParams) {
     })
 }
 
+function nmModuleMapping_taskFactory(g, taskName, module, taskParams) {
+    gulp.task(taskName, function(callback) {
+        let mapping = taskParams.mapping;
+        for (let m in mapping) {
+            let mMap = mapping[m]
+            let fileText = "module.exports = require('" + mMap + "')"
+            let reqText = '["' + mMap + '"]'
+            fs.writeFileSync(g.buildPathNodeModules + '/' + m + '.js', fileText)
+            fs.writeFileSync(g.buildPathCompiledNodeModules + '/' + m + '.js--compiled-req', reqText)
+        }
+        callback()
+    })
+}
+
 ///
 module.exports = function(g) {
     g.registerTaskFactory("nm", nm_taskFactory)
     g.registerTaskFactory("nm-extract-require", nmExtractRequire_taskFactory)
+    g.registerTaskFactory("nm-module-mapping", nmModuleMapping_taskFactory)
 }

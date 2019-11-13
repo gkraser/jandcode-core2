@@ -138,4 +138,27 @@ class JsaJavaProject extends ProjectScript {
             }
         }
     }
+
+    /**
+     * mapping модулей node.
+     * ключ - имя модуля.
+     * знакчение - путь до модуля, как его будут видеть остальные модули.
+     */
+    void nodeModuleMapping(Map data) {
+        if (data == null || data.size() == 0) {
+            return
+        }
+        //
+        Map gt = gulpTasks['nm-module-mapping']
+        if (!gt) {
+            gulpTask(name: "nm-module-mapping", stage: 'afterBuild', mapping: [:])
+            gt = gulpTasks['nm-module-mapping']
+        }
+        for (item in data) {
+            String lib = item.key
+            String mapLib = item.value
+            gt.mapping[lib] = mapLib
+        }
+    }
+
 }

@@ -81,6 +81,12 @@ class P extends ProjectScript {
                     ],
 
             )
+            nodeModuleMapping(
+                    "vue": "vue/dist/vue",
+                    "vuex": "vuex/dist/vuex",
+                    "vue-router": "vue-router/dist/vue-router",
+                    "quasar": "quasar/dist/quasar.umd.js",
+            )
 
             gulpTask(name: "vue", provide: true, globs: ["**/*.vue"])
             gulpTask(name: "sass", provide: true, globs: ["**/*-style.scss", "css/theme-*.scss"])
