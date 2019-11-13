@@ -56,6 +56,8 @@ class JsaJavaProject extends ProjectScript {
      *
      * @param data.name имя задачи
      * @param data.factory фабрика создания задачи (см jsa-gulp.js)
+     * @param data.stage на каком этапе сборки запускать (prepare, build, afterBuild).
+     *        По умолчанию - build
      * @param data.provide при значении true задача наследуется всеми модулями,
      *        которые зависят от этого модуля
      * @param data.globs список масок включаемых файлов (относительно корня модуля)
@@ -67,6 +69,9 @@ class JsaJavaProject extends ProjectScript {
         }
         if (UtString.empty(data.factory)) {
             data.factory = data.name
+        }
+        if (UtString.empty(data.stage)) {
+            data.stage = "build"
         }
         if (data.globs == null) {
             data.globs = []
@@ -107,7 +112,7 @@ class JsaJavaProject extends ProjectScript {
         //
         Map gt = gulpTasks['nm']
         if (!gt) {
-            gulpTask(name: "nm", globs: [])
+            gulpTask(name: "nm", stage: 'prepare', globs: [])
             gt = gulpTasks['nm']
         }
         List globs = gt.globs
