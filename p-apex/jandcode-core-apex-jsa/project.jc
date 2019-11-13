@@ -35,49 +35,52 @@ class P extends ProjectScript {
                     "axios": "0.19.0",
             )
             //
-            def globs = nodeDepends.keySet().collect {
-                it + "/" + JsaConsts.PACKAGE_JSON
-            }
-            globs.addAll(
-                    //
-                    "vue/dist/*.js",
-                    "!vue/dist/*.common.*",
-                    "!vue/dist/*.esm.*",
+            nodeDependsClient(
+                    "vue": [
+                            "dist/*.js",
+                            "!dist/*.common.*",
+                            "!dist/*.esm.*",
+                    ],
 
-                    //
-                    "vue-router/dist/*.js",
-                    "!vue-router/dist/*.common.*",
-                    "!vue-router/dist/*.esm.*",
+                    "vue-router": [
+                            "dist/*.js",
+                            "!dist/*.common.*",
+                            "!dist/*.esm.*",
+                    ],
 
-                    //
-                    "vuex/dist/*.js",
-                    "!vuex/dist/*.common.*",
-                    "!vuex/dist/*.esm.*",
+                    "vuex": [
+                            "dist/*.js",
+                            "!dist/*.common.*",
+                            "!dist/*.esm.*",
+                    ],
 
-                    //
-                    "@vue/babel-helper-vue-jsx-merge-props/**/*",
+                    "@vue/babel-helper-vue-jsx-merge-props": [
+                            "**/*",
+                    ],
 
-                    //
-                    "quasar/dist/*.js",
-                    "quasar/dist/*.css",
-                    "quasar/dist/*.sass",
-                    "quasar/dist/*.styl",
-                    "quasar/dist/icon-set/*",
-                    "quasar/dist/lang/ru.*",
-                    "!quasar/dist/*.common.*",
-                    "!quasar/dist/*.esm.*",
-                    "!quasar/dist/*.rtl.*",
-                    "!quasar/dist/*.ie.*",
+                    "quasar": [
+                            "dist/*.js",
+                            "dist/*.css",
+                            "dist/*.sass",
+                            "dist/*.styl",
+                            "dist/icon-set/*",
+                            "dist/lang/ru.*",
+                            "!dist/*.common.*",
+                            "!dist/*.esm.*",
+                            "!dist/*.rtl.*",
+                            "!dist/*.ie.*",
+                    ],
 
-                    //
-                    "@quasar/extras/material-icons/**/*",
+                    "@quasar/extras": [
+                            "material-icons/**/*",
+                    ],
 
-                    //
-                    "axios/dist/**/*",
-                    "!axios/**/*.map",
-                    
+                    "axios": [
+                            "dist/**/*",
+                            "!**/*.map",
+                    ],
+
             )
-            gulpTask(name: "nm", globs: globs)
 
             gulpTask(name: "vue", provide: true, globs: ["**/*.vue"])
             gulpTask(name: "sass", provide: true, globs: ["**/*-style.scss", "css/theme-*.scss"])

@@ -52,7 +52,7 @@ class JsaJavaProject extends ProjectScript {
 
     /**
      * Определение задачи gulp для модуля.
-     * Параметры зависят от фабрики, которая будет создавть задачу.
+     * Параметры зависят от фабрики, которая будет создавать задачу.
      *
      * @param data.name имя задачи
      * @param data.factory фабрика создания задачи (см jsa-gulp.js)
@@ -80,11 +80,57 @@ class JsaJavaProject extends ProjectScript {
     /**
      * Определение зависимостей для node.
      * Формат как в package.json dependencies.
+     * Ключ - имя библиотеки, значение - версия.
      */
     void nodeDepends(Map deps) {
         if (deps == null) {
             return
         }
         this.nodeDepends.putAll(deps)
+    }
+
+    /**
+     * Определение файлов из node_modules, которые будут доступны для клиентского
+     * приложения. Формат:
+     *
+     * Ключ - имя каталога в node_modules.
+     * Может быть пустой строкой, тогда маски задаются относительно каталога
+     * node_modules.
+     *
+     * Значение - массив масок относительно этого каталога.
+     * Если маска начинается с '!', то это exclude.
+     */
+    void nodeDependsClient(Map data) {
+        if (data == null || data.size() == 0) {
+            return
+        }
+        //
+        Map gt = gulpTasks['nm']
+        if (!gt) {
+            gulpTask(name: "nm", globs: [])
+            gt = gulpTasks['nm']
+        }
+        List globs = gt.globs
+        //
+        for (item in data) {
+            String dir = item.key
+            if (!(item.value instanceof List)) {
+                throw new XError("Список масок для ключа ${dir} должен быть списком")
+            }
+            List masks = item.value
+            if (dir != "" && !dir.endsWith("/")) {
+                dir = dir + "/"
+            }
+            if (dir != "") {
+                globs.add(dir + JsaConsts.PACKAGE_JSON)
+            }
+            for (String m in masks) {
+                if (m.startsWith("!")) {
+                    globs.add("!" + dir + m.substring(1))
+                } else {
+                    globs.add(dir + m)
+                }
+            }
+        }
     }
 }
