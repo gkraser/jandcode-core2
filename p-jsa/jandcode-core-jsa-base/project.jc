@@ -28,7 +28,7 @@ class P extends ProjectScript {
         }
         //
         include(JsaJavaProject).with {
-            nodeDepends.putAll(
+            nodeDepends(
                     "jquery": "3.4.1",
 
                     // for tests
@@ -36,24 +36,22 @@ class P extends ProjectScript {
                     "mocha": "6.2.2",
             )
             //
-            def globs = nodeDepends.keySet().collect {
-                it + "/" + JsaConsts.PACKAGE_JSON
-            }
-            globs.addAll(
-                    //
-                    "jquery/dist/**/*",
-                    "!jquery/**/*.map",
-
-                    //
-                    "chai/chai.js",
-
-                    //
-                    "mocha/mocha.*",
+            nodeDependsClient(
+                    "jquery": [
+                            "dist/**/*",
+                            "!**/*.map",
+                    ],
+                    "chai": [
+                            "chai.js",
+                    ],
+                    "mocha": [
+                            "mocha.*",
+                    ],
             )
-            gulpTask(name: "nm", globs: globs)
 
             gulpTask(name: "js", provide: true, globs: ["**/*.js"])
             gulpTask(name: "babelHelpers", globs: ["js/boot/babelHelpers.js"])
+            gulpTask(name: "nm-extract-require", stage: 'afterBuild')
         }
     }
 

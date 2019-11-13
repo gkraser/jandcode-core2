@@ -33,6 +33,7 @@ class ApexTstIndexGspContext implements IGspContextLinkSet {
         cfg.path = main
         cfg.fileName = UtFile.filename(main)
         cfg.filePath = UtFile.path(main)
+        cfg.fileNameBase = UtFile.removeExt(UtFile.removeExt(cfg.fileName))
 
         cfg.theme = ctx.theme
 

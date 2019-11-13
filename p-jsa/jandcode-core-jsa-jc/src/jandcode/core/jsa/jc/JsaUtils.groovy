@@ -230,6 +230,7 @@ ${aliases}
             sb.append("m.libName = '${mi.name}'\n")
             sb.append("m.pakPath = '${mi.moduleDef.name.replace('.', '/')}'\n")
             sb.append("m.srcPath = '${norm(mi.srcPath)}'\n")
+            sb.append("m.isSource = ${mi.lib.sourceProject != null}\n")
 
             sb.append("m.nodeDepends = ${JsaUtJson.toJson(mi.getNodeDepends())}\n")
             sb.append("m.gulpTasks = ${JsaUtJson.toJson(ctx.service(JsaService).getGulpTasks(mi))}\n")

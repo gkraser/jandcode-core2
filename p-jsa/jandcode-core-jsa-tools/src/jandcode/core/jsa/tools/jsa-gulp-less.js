@@ -18,9 +18,11 @@ function less_taskFactory(g, taskName, module, taskParams) {
     let globs = g.makeGlobs(module, taskParams)
 
     // вынужденная мера: отслеживаем все less во всех модулях
-    for (let m of jsaSupport.modules) {
-        let gm = g.makeGlobs(m, {globs: ['**/*.less']})
-        g.addWatchTask(taskName, gm)
+    if (module.isSource) {
+        for (let m of jsaSupport.modules) {
+            let gm = g.makeGlobs(m, {globs: ['**/*.less']})
+            g.addWatchTask(taskName, gm)
+        }
     }
 
     gulp.task(taskName, function() {

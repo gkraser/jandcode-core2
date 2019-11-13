@@ -35,9 +35,11 @@ function sass_taskFactory(g, taskName, module, taskParams) {
     let globs = g.makeGlobs(module, taskParams)
 
     // вынужденная мера: отслеживаем все scss/sass во всех модулях
-    for (let m of jsaSupport.modules) {
-        let gm = g.makeGlobs(m, {globs: ['**/*.scss', '**/*.sass']})
-        g.addWatchTask(taskName, gm)
+    if (module.isSource) {
+        for (let m of jsaSupport.modules) {
+            let gm = g.makeGlobs(m, {globs: ['**/*.scss', '**/*.sass']})
+            g.addWatchTask(taskName, gm)
+        }
     }
 
     //

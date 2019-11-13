@@ -36,14 +36,21 @@ class JsaGulpBuilder {
         // фабрики задач
         this.taskFactorys = {}
 
-        // задачи build
-        this.buildTasks = []
+        // задачи по этапам
+        this.buildTasksByStage = {
+            prepare: [],
+            build: [],
+            afterBuild: [],
+        }
 
         // куда собирать
         this.buildPath = path.resolve('_gen/jsa-webroot')
 
         // куда собирать скомпиленное
         this.buildPathCompiled = this.buildPath + '/_jsa/_compiled'
+
+        // куда собирать скомпиленное node_modules
+        this.buildPathCompiledNodeModules = this.buildPath + '/_jsa/_compiled/_jsa/_node_modules'
 
         // куда собирать скомпиленное
         this.buildPathNodeModules = this.buildPath + '/_jsa/_node_modules'
@@ -76,7 +83,7 @@ class JsaGulpBuilder {
             fs.mkdirSync(th.buildPath, {recursive: true})
             cb()
         })
-        this.buildTasks.push('clean:build')
+        this.addBuildTask('clean:build', 'prepare')
 
         this._initAddons()
         this._initModuleTasks()
@@ -98,7 +105,13 @@ class JsaGulpBuilder {
             fn(this)
         }
 
-        gulp.task("build", gulp.series(...this.buildTasks))
+        let buildTasks = [].concat(
+            this.buildTasksByStage.prepare,
+            this.buildTasksByStage.build,
+            this.buildTasksByStage.afterBuild
+        )
+
+        gulp.task("build", gulp.series(...buildTasks))
 
         gulp.task("watch", gulp.series('build', watchMark, watchTasks))
 
@@ -124,7 +137,7 @@ class JsaGulpBuilder {
                     throw new Error("task factory [" + taskParams.factory + "] not found (module: " + module.name + ")");
                 }
                 taskFactory(this, gulpTaskName, module, taskParams)
-                this.addBuildTask(gulpTaskName)
+                this.addBuildTask(gulpTaskName, taskParams.stage)
             }
         }
     }
@@ -135,10 +148,14 @@ class JsaGulpBuilder {
         this.taskFactorys[name] = fn
     }
 
-    addBuildTask(taskName) {
+    addBuildTask(taskName, stage) {
         if (gulp.task(taskName)) {
-            if (this.buildTasks.indexOf(taskName) === -1) {
-                this.buildTasks.push(taskName)
+            if (!stage) {
+                stage = 'build'
+            }
+            let lst = this.buildTasksByStage[stage]
+            if (lst.indexOf(taskName) === -1) {
+                lst.push(taskName)
             }
         }
     }

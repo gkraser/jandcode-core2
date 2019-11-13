@@ -4,5 +4,4 @@ export {
     JcBaseAppStd
 }
 
-export * from './mixins'
 
