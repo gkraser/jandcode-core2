@@ -24,7 +24,9 @@ function vue_taskFactory(g, taskName, module, taskParams) {
 
     let globs = g.makeGlobs(module, taskParams)
 
-    g.addWatchTask(taskName, globs)
+    if (module.isSource) {
+        g.addWatchTask(taskName, globs)
+    }
 
     function vue(file, enc, callback) {
 

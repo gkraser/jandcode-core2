@@ -11,7 +11,9 @@ const Vinyl = require('vinyl');
 function js_taskFactory(g, taskName, module, taskParams) {
     let globs = g.makeGlobs(module, taskParams)
 
-    g.addWatchTask(taskName, globs)
+    if (module.isSource) {
+        g.addWatchTask(taskName, globs)
+    }
 
     gulp.task(taskName, function() {
         let lastRun = gulp.lastRun(taskName)

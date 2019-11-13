@@ -54,6 +54,13 @@ class JsaModuleInfo {
         return this._config.gulpTasks;
     }
 
+    /**
+     * true - тодуль в исходниках
+     */
+    get isSource() {
+        return this._config.isSource;
+    }
+
 }
 
 /**
