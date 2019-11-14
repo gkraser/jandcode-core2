@@ -5,10 +5,12 @@
 
 <script>
     import Page from "./JcBaseFrame-Page"
+    import Dialog from "./JcBaseFrame-Dialog"
 
     export default {
         components: {
-            Page: Page
+            Page: Page,
+            Dialog: Dialog,
         },
         data() {
             return {
