@@ -17,32 +17,32 @@
 
 <script>
     import FramePage1 from './FramePage1'
-    
+
     export default {
-        components:{
+        components: {
             FramePage1,
         },
         props: {},
         data() {
             return {
-                frame1:{
-                    title:'Заголовок 1',
-                    title2:'Заголовок 2',
+                frame1: {
+                    title: 'Заголовок 1',
+                    title2: 'Заголовок 2',
                     icon: 'frame',
                 },
-                frame2:{
-                    title:'Заголовок 11',
-                    title2:'Заголовок 12',
+                frame2: {
+                    title: 'Заголовок 11',
+                    title2: 'Заголовок 12',
                     icon: '',
                 },
-                frame3:{
-                    title:'Заголовок 11',
-                    title2:'',
+                frame3: {
+                    title: 'Заголовок 11',
+                    title2: '',
                     icon: 'frame',
                 },
-                frame4:{
-                    title:'Заголовок 11',
-                    title2:'',
+                frame4: {
+                    title: 'Заголовок 11',
+                    title2: '',
                     icon: '',
                 }
             }
@@ -55,6 +55,7 @@
     .main {
         padding: 20px;
     }
+
     .f1 {
         border: 1px solid green;
         margin-bottom: 10px;

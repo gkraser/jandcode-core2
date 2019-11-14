@@ -1,6 +1,5 @@
 <template>
     <Page>
-
         <template #toolbar>
             <q-btn v-for="b in tb" :icon="b.icon" dense flat/>
         </template>
@@ -36,9 +35,9 @@
         data() {
             return {
                 tb: [
-                    {icon: 'frame'},
-                    {icon: 'tools'},
-                    {icon: 'admin'},
+                    {icon: 'bus'},
+                    {icon: 'setup'},
+                    {icon: 'user'},
                 ]
             }
         }
