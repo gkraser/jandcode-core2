@@ -59,6 +59,7 @@ Vue.prototype.$q.iconSet = quasarIconSet
 
 export * from 'jandcode.core.jsa.base'
 export * from './components'
+export * from './modules'
 
 export {
     Vue,
