@@ -1,10 +1,11 @@
-import JcBaseAppStd from './JcBaseAppStd'
-import JcBaseFrame from './JcBaseFrame'
+import JcDecor from './JcDecor'
+import JcApp from './JcApp'
+import JcFrame from './JcFrame'
 
-export * from './base-decor'
 
 export {
-    JcBaseAppStd,
-    JcBaseFrame,
+    JcDecor,
+    JcApp,
+    JcFrame,
 }
 

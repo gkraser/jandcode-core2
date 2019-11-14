@@ -185,9 +185,9 @@
         }
 
         .q-btn-group {
-            .q-btn{
-               padding-left: 4px;
-               padding-right: 4px;
+            .q-btn {
+                padding-left: 4px;
+                padding-right: 4px;
             }
         }
 

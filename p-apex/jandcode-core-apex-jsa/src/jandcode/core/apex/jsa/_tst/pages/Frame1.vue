@@ -16,7 +16,7 @@
     import * as baseapp from '../../js/baseapp'
 
     export default {
-        extends: baseapp.JcBaseFrame,
+        extends: baseapp.JcFrame,
         props: {
             interior: {
                 default: 'Page'

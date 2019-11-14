@@ -3,10 +3,10 @@
 
         <q-bar class="jc-frame-page--header">
 
-            <q-icon :name="frame.icon||' '"/>
+            <q-icon :name="own.icon||' '"/>
 
             <div class="jc-frame-page--title">
-                {{frame.title}}
+                {{own.title}}
             </div>
 
             <q-space/>
@@ -27,9 +27,9 @@
 </template>
 
 <script>
-    import {JcBaseDecorFrame} from "./base-decor"
+    import JcDecor from "./JcDecor"
 
     export default {
-        extends: JcBaseDecorFrame,
+        extends: JcDecor,
     }
 </script>

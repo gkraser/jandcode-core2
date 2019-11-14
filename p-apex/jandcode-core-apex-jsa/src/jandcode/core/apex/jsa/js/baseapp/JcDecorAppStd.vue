@@ -5,13 +5,13 @@
             <q-toolbar>
 
                 <q-btn dense flat
-                       icon="menu" @click="app.left = !app.left"/>
+                       icon="menu" @click="own.left = !own.left"/>
 
                 <slot name="title">
-                    <q-btn flat no-caps no-wrap :ripple="false" @click="app.home()">
-                        <q-icon :name="app.icon" size="32px"/>
+                    <q-btn flat no-caps no-wrap :ripple="false" @click="own.home()">
+                        <q-icon :name="own.icon" size="32px"/>
                         <q-toolbar-title shrink>
-                            {{app.title}}
+                            {{own.title}}
                         </q-toolbar-title>
                     </q-btn>
                 </slot>
@@ -24,9 +24,9 @@
             </q-toolbar>
         </q-header>
 
-        <q-drawer v-model="app.left" show-if-above
+        <q-drawer v-model="own.left" show-if-above
                   side="left" bordered content-class="jc-app--side jc-app--left"
-                  :width="app.leftWidth">
+                  :width="own.leftWidth">
             <q-scroll-area class="fit">
 
                 <slot name="left">
@@ -35,10 +35,10 @@
             </q-scroll-area>
         </q-drawer>
 
-        <q-drawer v-model="app.right" behavior="mobile"
+        <q-drawer v-model="own.right" behavior="mobile"
                   no-swipe-open no-swipe-close no-swipe-backdrop
                   side="right" bordered content-class="jc-app--side jc-app--right"
-                  :width="app.rightWidth">
+                  :width="own.rightWidth">
             <q-scroll-area class="fit">
 
                 <slot name="right">
@@ -56,9 +56,9 @@
 </template>
 
 <script>
-    import {JcBaseDecorApp} from "./base-decor"
+    import JcDecor from "./JcDecor"
 
     export default {
-        extends: JcBaseDecorApp,
+        extends: JcDecor,
     }
 </script>
