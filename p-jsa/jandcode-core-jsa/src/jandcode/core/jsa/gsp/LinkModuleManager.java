@@ -117,13 +117,13 @@ public class LinkModuleManager extends BaseComp {
 
         // критически важная информация
         g.out("<script>");
-        Map<String, Object> initailCfg = new LinkedHashMap<>();
-        initailCfg.put("baseUrl", ((BaseGsp) g).ref("/"));
+        Map<String, Object> initialCfg = new LinkedHashMap<>();
+        initialCfg.put("baseUrl", ((BaseGsp) g).ref("/"));
         if (getApp().isDebug()) {
-            initailCfg.put("debug", true);
+            initialCfg.put("debug", true);
         }
         g.out("Jc.cfg=");
-        g.out(UtJson.toJson(initailCfg));
+        g.out(UtJson.toJson(initialCfg));
         g.out(";");
         g.out("</script>\n");
         if (getApp().isDebug()) {
