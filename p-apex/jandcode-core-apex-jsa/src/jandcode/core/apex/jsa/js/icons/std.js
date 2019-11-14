@@ -40,6 +40,7 @@ let icons = {
     'find': 'search',
     'home': 'home',
     'close': 'close',
+    'frame': 'web_asset',
 
 }
 

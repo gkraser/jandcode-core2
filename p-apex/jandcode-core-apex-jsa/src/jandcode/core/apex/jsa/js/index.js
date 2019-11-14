@@ -1,7 +1,6 @@
 //
 import {Vue, VueRouter, Quasar, jsaBase} from './vendor'
 import * as utils from './utils'
-import * as baseapp from './baseapp'
 import * as components from './components'
 import './icons/std'
 import {quasarIconSet} from './icons/quasar-iconSet'
@@ -60,6 +59,7 @@ Vue.prototype.$q.iconSet = quasarIconSet
 export * from 'jandcode.core.jsa.base'
 export * from './components'
 export * from './modules'
+export * from './baseapp'
 
 export {
     Vue,
@@ -67,7 +67,6 @@ export {
     Quasar,
     utils,
     components,
-    baseapp,
 }
 
 

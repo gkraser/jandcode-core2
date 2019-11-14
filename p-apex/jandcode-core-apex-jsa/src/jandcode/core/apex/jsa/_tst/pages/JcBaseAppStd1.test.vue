@@ -28,7 +28,7 @@
     import TestMenu1 from './comp/TestMenu1'
 
     export default {
-        extends: apex.baseapp.JcBaseAppStd,
+        extends: apex.JcBaseAppStd,
 
         components: {
             TestMenu1
