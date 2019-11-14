@@ -1,5 +1,5 @@
 <template>
-    <Page>
+    <component :is="interior">
         <template #toolbar>
             <q-btn v-for="b in tb" :icon="b.icon" dense flat/>
         </template>
@@ -9,7 +9,7 @@
                 Контент
             </q-card-section>
         </q-card>
-    </Page>
+    </component>
 </template>
 
 <script>
@@ -18,6 +18,9 @@
     export default {
         extends: baseapp.JcBaseFrame,
         props: {
+            interior: {
+                default: 'Page'
+            },
             params: {
                 type: Object,
                 default: function() {

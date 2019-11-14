@@ -1,34 +1,29 @@
 <template>
-    <div class="jc-frame-page bg-white">
-        <q-toolbar-title class="jc-frame-page--header">
-            <q-item>
-                <q-item-section v-if="frame.icon" class="jc-frame-page--icon"
-                                avatar>
-                    <q-icon :name="frame.icon||' '"/>
-                </q-item-section>
-                <q-item-section>
-                    <q-item-label class="jc-frame-page--title">
-                        {{frame.title}}
-                    </q-item-label>
-                    <q-item-label v-if="frame.title2" class="jc-frame-page--title2"
-                                  caption>
-                        {{frame.title2}}
-                    </q-item-label>
-                </q-item-section>
-                <q-item-section side>
-                    <q-toolbar>
-                        <slot name="toolbar">
-                        </slot>
-                    </q-toolbar>
-                </q-item-section>
-            </q-item>
-        </q-toolbar-title>
+    <q-card class="jc-frame-dialog">
 
-        <div class="jc-frame-page--body">
+        <q-bar class="jc-frame-page--header">
+
+            <q-icon :name="frame.icon||' '"/>
+
+            <div class="jc-frame-page--title">
+                {{frame.title}}
+            </div>
+
+            <q-space/>
+
+            <slot name="toolbar">
+            </slot>
+
+            <q-btn dense flat icon="close" v-close-popup>
+                <q-tooltip>Close</q-tooltip>
+            </q-btn>
+        </q-bar>
+
+        <q-card-section class="jc-frame-page--body">
             <slot name="default">
             </slot>
-        </div>
-    </div>
+        </q-card-section>
+    </q-card>
 </template>
 
 <script>
