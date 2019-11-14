@@ -1,5 +1,5 @@
 <template>
-    <div class="jc-frame-page">
+    <div class="jc-frame-page bg-white">
         <q-toolbar-title class="jc-frame-page--header">
             <q-item>
                 <q-item-section v-if="frame.icon" class="jc-frame-page--icon"
