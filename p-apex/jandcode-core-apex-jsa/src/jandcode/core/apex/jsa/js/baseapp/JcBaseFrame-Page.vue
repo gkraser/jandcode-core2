@@ -36,11 +36,9 @@
 </template>
 
 <script>
+    import {JcBaseDecorFrame} from "./base-decor"
+
     export default {
-        computed: {
-            frame() {
-                return this.$parent
-            }
-        }
+        extends: JcBaseDecorFrame,
     }
 </script>

@@ -56,11 +56,9 @@
 </template>
 
 <script>
+    import {JcBaseDecorApp} from "./base-decor"
+
     export default {
-        computed: {
-            app() {
-                return this.$parent
-            }
-        }
+        extends: JcBaseDecorApp,
     }
 </script>
