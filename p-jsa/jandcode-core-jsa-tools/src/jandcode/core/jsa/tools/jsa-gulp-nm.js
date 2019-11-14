@@ -3,6 +3,7 @@ const findRequires = require('find-requires')
 const through2 = require('through2').obj;
 const Vinyl = require('vinyl');
 const fs = require('fs');
+const jsaSupport = require('./jsa-support');
 
 function nm_taskFactory(g, taskName, module, taskParams) {
     let globs = g.makeGlobs(g.nodeModulesPath, taskParams)
@@ -15,14 +16,27 @@ function nm_taskFactory(g, taskName, module, taskParams) {
     })
 }
 
+/**
+ * Определение масок для extractRequire
+ */
+function nmExtractRequireGlobs_taskFactory(g, taskName, module, taskParams) {
+    module.nmExtractRequireGlobs = taskParams.globs
+}
+
 function nmExtractRequire_taskFactory(g, taskName, module, taskParams) {
-    let globs = g.makeGlobs(g.buildPathNodeModules, {globs: ['**/*.js']})
+    let globsBundle = ['**/*.js']
+    for (let m of jsaSupport.modules) {
+        if (m.nmExtractRequireGlobs) {
+            globsBundle.push(...m.nmExtractRequireGlobs)
+        }
+    }
+
+    let globs = g.makeGlobs(g.buildPathNodeModules, {globs: globsBundle})
 
     gulp.task(taskName, function() {
         let lastRun = gulp.lastRun(taskName)
 
         return gulp.src(globs, {base: g.buildPathNodeModules})
-        // extract requires
             .pipe(through2(function(file, enc, callback) {
                 let src = file.contents.toString()
                 let a = src.lastIndexOf('require(')
@@ -70,6 +84,7 @@ function nmModuleMapping_taskFactory(g, taskName, module, taskParams) {
 ///
 module.exports = function(g) {
     g.registerTaskFactory("nm", nm_taskFactory)
+    g.registerTaskFactory("nm-extract-require-globs", nmExtractRequireGlobs_taskFactory)
     g.registerTaskFactory("nm-extract-require", nmExtractRequire_taskFactory)
     g.registerTaskFactory("nm-module-mapping", nmModuleMapping_taskFactory)
 }

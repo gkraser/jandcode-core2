@@ -48,6 +48,11 @@ class P extends ProjectScript {
                             "mocha.*",
                     ],
             )
+            //
+            nodeExtractRequire(
+                    "!chai/**/*.js",
+                    "!mocha/**/*.js",
+            )
 
             gulpTask(name: "js", provide: true, globs: ["**/*.js"])
             gulpTask(name: "babelHelpers", globs: ["js/boot/babelHelpers.js"])

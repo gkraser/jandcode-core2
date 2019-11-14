@@ -63,9 +63,16 @@ class JsaJavaProject extends ProjectScript {
      * @param data.globs список масок включаемых файлов (относительно корня модуля)
      *        и исключаемых (должны начинатся с '!')
      */
-    void gulpTask(Map data) {
+    Map gulpTask(Map data) {
         if (UtString.empty(data.name)) {
             throw new XError("Параметр name не указан")
+        }
+        Map t = this.gulpTasks[data.name]
+        if (t != null) {
+            if (data.size() > 1) {
+                throw new XError("Попытка переопределения gulpTask: ${data.name}")
+            }
+            return t  // уже существует
         }
         if (UtString.empty(data.factory)) {
             data.factory = data.name
@@ -110,10 +117,11 @@ class JsaJavaProject extends ProjectScript {
             return
         }
         //
-        Map gt = gulpTasks['nm']
+        String taskName = 'nm'
+        Map gt = gulpTasks[taskName]
         if (!gt) {
-            gulpTask(name: "nm", stage: 'prepare', globs: [])
-            gt = gulpTasks['nm']
+            gulpTask(name: taskName, stage: 'prepare')
+            gt = gulpTasks[taskName]
         }
         List globs = gt.globs
         //
@@ -149,15 +157,39 @@ class JsaJavaProject extends ProjectScript {
             return
         }
         //
-        Map gt = gulpTasks['nm-module-mapping']
+        String taskName = 'nm-module-mapping'
+        Map gt = gulpTasks[taskName]
         if (!gt) {
-            gulpTask(name: "nm-module-mapping", stage: 'afterBuild', mapping: [:])
-            gt = gulpTasks['nm-module-mapping']
+            gulpTask(name: taskName, stage: 'afterBuild', mapping: [:])
+            gt = gulpTasks[taskName]
         }
         for (item in data) {
             String lib = item.key
             String mapLib = item.value
             gt.mapping[lib] = mapLib
+        }
+    }
+
+    /**
+     * Список масок файлов в клиентских node_modules, для которых нужно
+     * extract-require. По умолчанию - все попавшие *.js.
+     * Поэтому в этом методе указываем маски, которые не нуждаются в обработке
+     * в виде масок исключений '!mask'.
+     */
+    void nodeExtractRequire(Object... data) {
+        if (data == null || data.size() == 0) {
+            return
+        }
+        //
+        String taskName = 'nm-extract-require-globs'
+        Map gt = gulpTasks[taskName]
+        if (!gt) {
+            gulpTask(name: taskName)
+            gt = gulpTasks[taskName]
+        }
+        List globs = gt.globs
+        for (item in data) {
+            globs.add(item)
         }
     }
 
