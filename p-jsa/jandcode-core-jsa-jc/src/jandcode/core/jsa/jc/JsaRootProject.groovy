@@ -18,8 +18,8 @@ class JsaRootProject extends ProjectScript {
 
     protected void onInclude() throws Exception {
 
-        cm.add("gulp-build", "Выполнить gulp build", this.&cmGulpBuild)
-        cm.add("gulp-watch", "Выполнить gulp watch", this.&cmGulpWatch)
+        cm.add("jsa-build", "Выполнить сборку клиенского кода (gulp build)", this.&cmJsaBuild)
+        cm.add("jsa-watch", "Собрать и следить за изменениями клиенского кода (gulp watch)", this.&cmJsaWatch)
 
         // для RootProject
         afterLoad {
@@ -89,7 +89,7 @@ class JsaRootProject extends ProjectScript {
         }
     }
 
-    void cmGulpBuild() {
+    void cmJsaBuild() {
         cm.exec("prepare")
 
         String env = ""
@@ -111,7 +111,7 @@ class JsaRootProject extends ProjectScript {
         }
     }
 
-    void cmGulpWatch() {
+    void cmJsaWatch() {
         cm.exec("prepare")
 
         String env = ""
@@ -200,7 +200,7 @@ class JsaRootProject extends ProjectScript {
     //////
 
     void buildHandler() {
-        cm.exec("gulp-build")
+        cm.exec("jsa-build")
     }
 
 }
