@@ -2,6 +2,7 @@ package jandcode.core.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
+import jandcode.commons.env.*;
 import jandcode.commons.error.*;
 import jandcode.commons.event.*;
 import jandcode.commons.moduledef.*;
@@ -24,7 +25,7 @@ public class AppImpl implements App, IBeanIniter {
     private Conf conf;
     private String appdir;
     private String workdir;
-    private boolean debug;
+    private Env env;
     private boolean test;
     private List<ConfSource> confSources;
     protected Map<String, Object> props = new LinkedHashMap<>();
@@ -102,7 +103,7 @@ public class AppImpl implements App, IBeanIniter {
         }
         this.test = test;
         this.appConfFile = f.toString();
-
+        this.env = new DefaultEnv(true, this.test);
         //                       
         loadAppConf();
     }
@@ -132,11 +133,15 @@ public class AppImpl implements App, IBeanIniter {
     }
 
     public boolean isDebug() {
-        return debug;
+        return getEnv().isDev();
     }
 
     public boolean isTest() {
         return test;
+    }
+
+    public Env getEnv() {
+        return env;
     }
 
     public Map<String, Object> getProps() {
@@ -147,7 +152,9 @@ public class AppImpl implements App, IBeanIniter {
 
     private void loadAppConf() throws Exception {
 
+        // для начала каталогом приложения считаем каталог с конфигурацией приложения
         String appConfPath = UtFile.path(UtFile.vfsPathToLocalPath(appConfFile));
+        this.appdir = appConfPath;
 
         // resolver
         ModuleDefResolver moduleDefResolver = UtModuleDef.createModuleDefResolver();
@@ -157,7 +164,20 @@ public class AppImpl implements App, IBeanIniter {
         EventHandler<ModuleHolderImpl.Event_ModuleConfLoaded> handlerCfgLoaded = (e) -> {
             if (AppConsts.MODULE_APP.equals(e.getModuleDef().getName())) {
                 // загрузка модуля app, остальные модули еще не грузились
-                // todo
+                Conf conf = e.getModuleDefConfig().getConf();
+
+                // env
+                String envValue = conf.getString("app/env");
+                if ("dev".equals(envValue)) {
+                    this.env = new DefaultEnv(false, this.test);
+                }
+
+                // если <app appdir="DIR"/> определено, устанавливаем appdir
+                String s = conf.getString("app/appdir");
+                if (!UtString.empty(s)) {
+                    this.appdir = UtFile.abs(UtFile.vfsPathToLocalPath(s));
+                }
+
             }
         };
         tmpMh.getEventBus().onEvent(ModuleHolderImpl.Event_ModuleConfLoaded.class, handlerCfgLoaded);
@@ -168,29 +188,17 @@ public class AppImpl implements App, IBeanIniter {
         // app
         Module appModule = tmpMh.addModule(UtModuleDef.createModuleDef(AppConsts.MODULE_APP, appConfPath, "", appConfFile));
 
+        // убиарем подписчика
         tmpMh.getEventBus().unEvent(ModuleHolderImpl.Event_ModuleConfLoaded.class, handlerCfgLoaded);
 
         // загружено все, включая все зависимости
-
-        appdir = UtFile.vfsPathToLocalPath(UtFile.path(appConfFile));
-        // если <app appdir=""/> определено, устанавливаем
-        String s = appModule.getConf().getString("app/appdir");
-        if (!UtString.empty(s)) {
-            appdir = UtFile.abs(UtFile.vfsPathToLocalPath(s));
-        }
 
         // загрузка закончена
         moduleHolder = tmpMh;
         conf = UtConf.create();   // временная!
 
-        // debug берем только из app.conf, не из объединенной!
-        s = appModule.getConf().getString("app/debug");
-        if (!UtString.empty(s)) {
-            this.debug = UtCnv.toBoolean(s);
-        }
-
+        //
         workdir = UtFile.getWorkdir();
-
 
         // создаем обработчики conf
         List<AppConfHandlerItem> appConfHandlerItems = new ArrayList<>();
@@ -233,8 +241,8 @@ public class AppImpl implements App, IBeanIniter {
             confSources.add(rs);
         }
 
-        // name
-        s = UtVDir.normalize(getConf().getString("app/appname"));
+        // appname
+        String s = UtVDir.normalize(getConf().getString("app/appname"));
         if (!UtString.empty(s)) {
             this.appName = s;
         } else {

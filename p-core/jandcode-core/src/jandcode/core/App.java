@@ -1,6 +1,7 @@
 package jandcode.core;
 
 import jandcode.commons.conf.*;
+import jandcode.commons.env.*;
 
 /**
  * Приложение.
@@ -29,19 +30,29 @@ public interface App extends IConfLink, BeanFactoryOwner {
     String getAppConfFile();
 
     /**
-     * Имя приложения
+     * Имя приложения.
+     * Это идентификатор приложения, не заголовок.
+     * По умолчанию - имя каталога приложения.
+     * Используется как ключ в случае необходимости идентификации приложения.
      */
     String getAppName();
 
     /**
      * Возвращает признак отладочного режима
      */
+    @Deprecated
     boolean isDebug();
 
     /**
      * Признак тестовой среды: приложение создано в unittest.
      */
+    @Deprecated
     boolean isTest();
+
+    /**
+     * Среда работы приложение (dev/prod/test).
+     */
+    Env getEnv();
 
     /**
      * Запуск приложения.
