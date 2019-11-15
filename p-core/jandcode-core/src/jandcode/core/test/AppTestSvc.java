@@ -106,14 +106,6 @@ public class AppTestSvc extends BaseTestSvc implements App {
         return getApp().getAppConfFile();
     }
 
-    public boolean isDebug() {
-        return getApp().isDebug();
-    }
-
-    public boolean isTest() {
-        return getApp().isTest();
-    }
-
     public Env getEnv() {
         return getApp().getEnv();
     }

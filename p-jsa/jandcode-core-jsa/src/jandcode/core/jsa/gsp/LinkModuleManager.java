@@ -96,7 +96,7 @@ public class LinkModuleManager extends BaseComp {
         g.out("<script src=\"");
         g.out(href);
         g.out("\"></script>");
-        if (getApp().isDebug() || getApp().isTest()) {
+        if (getApp().getEnv().isDev() || getApp().getEnv().isTest()) {
             g.out("\n<!-- include=");
             g.out(inc);
             g.out(" exclude=");
@@ -119,14 +119,14 @@ public class LinkModuleManager extends BaseComp {
         g.out("<script>");
         Map<String, Object> initialCfg = new LinkedHashMap<>();
         initialCfg.put("baseUrl", ((BaseGsp) g).ref("/"));
-        if (getApp().isDebug()) {
-            initialCfg.put("debug", true);
+        if (getApp().getEnv().isDev()) {
+            initialCfg.put("envDev", true);
         }
         g.out("Jc.cfg=");
         g.out(UtJson.toJson(initialCfg));
         g.out(";");
         g.out("</script>\n");
-        if (getApp().isDebug()) {
+        if (getApp().getEnv().isDev()) {
             g.out("\n");
         }
     }

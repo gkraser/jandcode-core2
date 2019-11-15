@@ -11,8 +11,8 @@ public class StdClientCfgProvider extends BaseComp implements JsaClientCfgProvid
 
     public void grabClientCfg(Map<String, Object> cfg) throws Exception {
         // debug
-        if (getApp().isDebug()) {
-            cfg.put("debug", true);
+        if (getApp().getEnv().isDev()) {
+            cfg.put("envDev", true);
         }
     }
 

@@ -41,8 +41,8 @@ public class WebServiceImpl extends BaseComp implements WebService {
         String s;
 
         // logger
-        if (getApp().isDebug()) {
-            s = "debug";
+        if (getApp().getEnv().isDev()) {
+            s = "dev";
         } else {
             s = "production";
         }

@@ -181,7 +181,7 @@ public class JsModuleServiceImpl extends BaseComp implements JsModuleService, IC
     public void checkChangedResource(CheckChangedResourceInfo info) throws Exception {
         // простая реализация: считаем что в production состав файлов не меняется вообще
         // в debug - если хоть один asset изменился - просто очищаем кеш
-        if (getApp().isDebug() && !getApp().isTest()) {
+        if (getApp().getEnv().isDev() && !getApp().getEnv().isTest()) {
             boolean mod = false;
             for (JsModule a : modules.values()) {
                 if (a.isModified()) {

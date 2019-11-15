@@ -6,7 +6,7 @@
           bean.autoCreate="true">
 
         <!-- реализация RequestLogger -->
-        <requestLogger name="debug"
+        <requestLogger name="dev"
                        class="jandcode.core.web.logger.RequestLoggerDebug"/>
         <requestLogger name="production"
                        class="jandcode.core.web.logger.RequestLoggerDefault"/>

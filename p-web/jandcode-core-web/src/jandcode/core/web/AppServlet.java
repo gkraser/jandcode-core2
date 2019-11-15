@@ -137,8 +137,8 @@ public class AppServlet extends HttpServlet implements IAppLink {
         App app = AppLoader.load(appConfFile);
         sw.stop();
         log.info("appdir: " + app.getAppdir());
-        if (app.isDebug()) {
-            log.info("app.debug=true");
+        if (app.getEnv().isDev()) {
+            log.info("app.env.dev=true");
         }
         log.info(sw.toString());
 
@@ -187,7 +187,7 @@ public class AppServlet extends HttpServlet implements IAppLink {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             // проверяем необходимость перегрузки приложения в отладочном режиме
-            if (app.isDebug() && !app.isTest() && !reloadAppWork) {
+            if (app.getEnv().isDev() && !app.getEnv().isTest() && !reloadAppWork) {
                 CheckChangedResourceInfo info = app.bean(CheckChangedResourceService.class).checkChangedResource();
                 if (info.isNeedRestartApp()) {
                     try {

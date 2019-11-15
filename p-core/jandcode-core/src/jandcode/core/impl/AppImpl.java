@@ -132,14 +132,6 @@ public class AppImpl implements App, IBeanIniter {
         return appConfFile;
     }
 
-    public boolean isDebug() {
-        return getEnv().isDev();
-    }
-
-    public boolean isTest() {
-        return test;
-    }
-
     public Env getEnv() {
         return env;
     }
@@ -268,7 +260,7 @@ public class AppImpl implements App, IBeanIniter {
      * Иначе - null. Работает только в отладочном режиме.
      */
     public String findModifyRtSource() {
-        if (!isDebug() || confSources == null) {
+        if (!getEnv().isDev() || confSources == null) {
             return null;
         }
         for (ConfSource rs : confSources) {

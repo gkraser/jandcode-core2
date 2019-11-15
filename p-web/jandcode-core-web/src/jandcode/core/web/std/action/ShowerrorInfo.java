@@ -67,7 +67,7 @@ public class ShowerrorInfo {
      * true - работаем в отладочном режиме
      */
     public boolean isDebug() {
-        return getRequest().getApp().isDebug();
+        return getRequest().getApp().getEnv().isDev();
     }
 
     /**

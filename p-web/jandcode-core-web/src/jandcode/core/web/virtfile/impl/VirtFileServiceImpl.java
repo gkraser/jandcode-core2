@@ -99,7 +99,7 @@ public class VirtFileServiceImpl extends BaseComp implements VirtFileService {
     public void checkChangedResource(CheckChangedResourceInfo info) throws Exception {
         // простая реализация: считаем что в production состав файлов не меняется вообще
         // в debug просто ощищаем кеш
-        if (getApp().isDebug() && !getApp().isTest()) {
+        if (getApp().getEnv().isDev() && !getApp().getEnv().isTest()) {
             virtFS.clearCache();
         }
     }

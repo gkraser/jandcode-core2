@@ -77,7 +77,7 @@ class AppProject extends ProjectScript implements ILibDependsGrab {
         m['appConfFile'] = a.appConfFile
         m['appdir'] = a.appdir
         m['workdir'] = a.workdir
-        m['debug'] = a.debug
+        m['env.dev'] = a.env.dev
         ut.printMap(m)
 
         //

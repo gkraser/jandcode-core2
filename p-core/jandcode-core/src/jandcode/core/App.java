@@ -38,18 +38,6 @@ public interface App extends IConfLink, BeanFactoryOwner {
     String getAppName();
 
     /**
-     * Возвращает признак отладочного режима
-     */
-    @Deprecated
-    boolean isDebug();
-
-    /**
-     * Признак тестовой среды: приложение создано в unittest.
-     */
-    @Deprecated
-    boolean isTest();
-
-    /**
      * Среда работы приложение (dev/prod/test).
      */
     Env getEnv();
