@@ -9,7 +9,7 @@
 
                 <slot name="title">
                     <q-btn flat no-caps no-wrap :ripple="false" @click="own.home()">
-                        <q-icon :name="own.icon" size="32px"/>
+                        <q-icon v-if="hasIcon" :name="own.icon" size="32px"/>
                         <q-toolbar-title shrink>
                             {{own.title}}
                         </q-toolbar-title>

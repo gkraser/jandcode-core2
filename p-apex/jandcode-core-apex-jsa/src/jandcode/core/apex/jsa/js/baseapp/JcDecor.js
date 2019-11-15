@@ -10,7 +10,15 @@ export default {
          */
         own() {
             return this.$parent
+        },
+
+        /**
+         * Есть ли иконка
+         */
+        hasIcon() {
+            return this.own.icon && !this.own.icon.startsWith(' ')
         }
+
     }
 
 }

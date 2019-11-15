@@ -3,7 +3,7 @@
 
         <q-bar class="jc-frame-page--header">
 
-            <q-icon :name="own.icon||' '"/>
+            <q-icon v-if="hasIcon" :name="own.icon"/>
 
             <div class="jc-frame-page--title">
                 {{own.title}}

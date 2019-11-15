@@ -5,9 +5,9 @@
 
             <q-toolbar-title shrink>
                 <q-item>
-                    <q-item-section v-if="own.icon" class="jc-frame-page--icon"
+                    <q-item-section v-if="hasIcon" class="jc-frame-page--icon"
                                     avatar>
-                        <q-icon :name="own.icon||' '"/>
+                        <q-icon :name="own.icon"/>
                     </q-item-section>
                     <q-item-section>
                         <q-item-label class="jc-frame-page--title">
