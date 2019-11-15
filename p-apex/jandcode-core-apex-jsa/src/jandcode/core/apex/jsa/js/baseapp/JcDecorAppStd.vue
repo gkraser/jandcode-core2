@@ -56,9 +56,9 @@
 </template>
 
 <script>
-    import JcDecor from "./JcDecor"
+    import JcDecorApp from "./JcDecorApp"
 
     export default {
-        extends: JcDecor,
+        extends: JcDecorApp,
     }
 </script>

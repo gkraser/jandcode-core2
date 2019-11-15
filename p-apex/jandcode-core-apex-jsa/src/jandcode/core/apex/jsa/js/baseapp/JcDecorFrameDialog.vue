@@ -27,9 +27,9 @@
 </template>
 
 <script>
-    import JcDecor from "./JcDecor"
+    import JcDecorFrame from "./JcDecorFrame"
 
     export default {
-        extends: JcDecor,
+        extends: JcDecorFrame,
     }
 </script>
