@@ -27,9 +27,11 @@ public class CtxImpl implements Ctx {
     private ServiceHolder serviceHolder;
     private boolean runtimeCtx;
     private EnvImpl env;
+    private Vars vars;
 
 
     public CtxImpl() {
+        this.vars = new VarsImpl();
         this.config = new JcConfigImpl();
         this.eventHolder = new EventHolder(this, null);
         this.log = new LogImpl(this);
@@ -97,6 +99,12 @@ public class CtxImpl implements Ctx {
         }
 
         // готово
+    }
+
+    //////
+
+    public Vars getVars() {
+        return vars;
     }
 
     ////// ILog

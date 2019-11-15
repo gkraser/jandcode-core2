@@ -26,4 +26,10 @@ public interface Ctx extends IEvents, ILog, IScripts, IProjects,
      */
     void applyConfig(JcConfig config);
 
+    /**
+     * Map с набором переменных проекта.
+     * Можно свободно писать и читать.
+     */
+    Vars getVars();
+
 }

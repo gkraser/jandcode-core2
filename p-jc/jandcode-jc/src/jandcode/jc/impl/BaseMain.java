@@ -176,6 +176,7 @@ public abstract class BaseMain {
             String cacheDir = ctx.getTempdirRoot();
             ctx.getLog().info(MessageFormat.format("clear script cache [{0}]", cacheDir));
             UtFile.cleanDir(cacheDir);
+            cli.remove(opt);
         }
     }
 
@@ -190,6 +191,12 @@ public abstract class BaseMain {
                 cli.containsKey(JcConsts.OPT_HELP2)) {
             needHeader = true;
         }
+    }
+
+    /**
+     * Сбор остальныйх глобальных опций. ctx уже создан.
+     */
+    protected void grabOpt_other() {
     }
 
     ////// help
