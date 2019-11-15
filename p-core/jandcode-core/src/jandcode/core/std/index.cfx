@@ -33,7 +33,7 @@
 
             Каждый узел path объявляет поименнованный путь.
 
-            Если имеется атрибут path.debug, то он используется при запуске
+            Если имеется атрибут path.dev, то он используется при запуске
             приложения в отладочном режиме вместо атрибута path
 
             Подстановки:
@@ -60,7 +60,7 @@
 
         -->
 
-        <path name="root" path="${appdir}/datadir" path.debug="${appdir}/temp/datadir"/>
+        <path name="root" path="${appdir}/datadir" path.dev="${appdir}/temp/datadir"/>
         <path name="temp" path="${tempdir}/.${appname}"/>
         <path name="temp.workdir" path="${temp}/${workdir.key}"/>
 

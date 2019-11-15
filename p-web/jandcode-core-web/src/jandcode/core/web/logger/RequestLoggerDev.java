@@ -9,7 +9,7 @@ import javax.servlet.http.*;
 
 
 /**
- * Логгер для запроса для debug-режима.
+ * Логгер для запроса для dev-режима.
  * Выводит в log для класса {@link Request}
  * Требует некоторой настройки в log:
  * <pre>{@code
@@ -17,7 +17,7 @@ import javax.servlet.http.*;
  * }</pre>
  * Здесь %X{request} - это отступ и идентификатор запроса.
  */
-public class RequestLoggerDebug implements RequestLogger {
+public class RequestLoggerDev implements RequestLogger {
 
     protected static Logger log = LoggerFactory.getLogger(Request.class);
 

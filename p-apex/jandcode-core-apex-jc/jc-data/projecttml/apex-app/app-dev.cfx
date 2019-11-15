@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
-    <app debug="true"/>
+    <app env="dev"/>
 
     <x-depends module="jandcode.core.apex.tst"/>
 

@@ -7,7 +7,7 @@
 
         <!-- реализация RequestLogger -->
         <requestLogger name="dev"
-                       class="jandcode.core.web.logger.RequestLoggerDebug"/>
+                       class="jandcode.core.web.logger.RequestLoggerDev"/>
         <requestLogger name="production"
                        class="jandcode.core.web.logger.RequestLoggerDefault"/>
 

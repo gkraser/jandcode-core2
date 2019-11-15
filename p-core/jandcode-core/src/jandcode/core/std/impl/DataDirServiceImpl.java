@@ -103,7 +103,7 @@ public class DataDirServiceImpl extends BaseComp implements DataDirService {
         String name = conf.getName();
         String path = "";
         if (getApp().getEnv().isDev()) {
-            path = conf.getString("path.debug");
+            path = conf.getString("path.dev");
         }
         if (UtString.empty(path)) {
             path = conf.getString("path");

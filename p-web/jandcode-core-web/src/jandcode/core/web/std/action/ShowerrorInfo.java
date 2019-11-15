@@ -66,7 +66,7 @@ public class ShowerrorInfo {
     /**
      * true - работаем в отладочном режиме
      */
-    public boolean isDebug() {
+    public boolean isEnvDev() {
         return getRequest().getApp().getEnv().isDev();
     }
 
@@ -103,7 +103,7 @@ public class ShowerrorInfo {
      * Пустая строка, если нет скриптов
      */
     public String getScriptText() {
-        if (!isDebug()) {
+        if (!isEnvDev()) {
             return "";
         }
         if (scriptText == null) {
@@ -122,7 +122,7 @@ public class ShowerrorInfo {
      * Пустая строка, если нет стека
      */
     public String getStackText() {
-        if (!isDebug()) {
+        if (!isEnvDev()) {
             return "";
         }
         if (stackText == null) {
@@ -141,7 +141,7 @@ public class ShowerrorInfo {
      * Пустая строка, если нет стека
      */
     public String getStackFullText() {
-        if (!isDebug()) {
+        if (!isEnvDev()) {
             return "";
         }
         if (stackFullText == null) {
@@ -163,8 +163,8 @@ public class ShowerrorInfo {
 
         res.put("code", getCode());
         res.put("text", getText());
-        if (isDebug()) {
-            res.put("debug", isDebug());
+        if (isEnvDev()) {
+            res.put("envDev", isEnvDev());
 
             String s;
 

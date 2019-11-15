@@ -76,9 +76,9 @@ cfg.set({
     baseUrl: '/',
 
     /**
-     * Среда выполнения debug/release
+     * Среда выполнения dev/prod
      */
-    debug: false,
+    envDev: false,
 
 })
 

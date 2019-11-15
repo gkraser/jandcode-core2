@@ -110,6 +110,6 @@ function error(err, doThrow) {
  */
 export function errorShow(err) {
     let e = errorCreate(err)
-    let devMode = cfg.debug
+    let devMode = cfg.envDev
     console.error('Error:', e.getMessage(devMode));
 }

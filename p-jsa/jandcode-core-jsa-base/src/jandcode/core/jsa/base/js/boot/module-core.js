@@ -156,7 +156,7 @@
         cssIdx++;
         if (filename) {
             css = css + "\n/*# sourceURL=jc-jsa:///inline-styles/[" + cssIdx + "]/" + filename + "*/";
-            if (Jc.cfg.debug) {
+            if (Jc.cfg.envDev) {
                 styleTag.dataset.path = filename
             }
         } else {
@@ -165,7 +165,7 @@
         styleTag.innerHTML = css;
 
         if (place === 'theme') {
-            if (Jc.cfg.debug) {
+            if (Jc.cfg.envDev) {
                 styleTag.dataset.place = 'theme'
             }
             if (themeStyleTag) {

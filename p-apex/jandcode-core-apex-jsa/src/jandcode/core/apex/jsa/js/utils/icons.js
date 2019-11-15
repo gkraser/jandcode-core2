@@ -119,7 +119,7 @@ export function quasar_iconMapFn(iconName) {
         }
     }
 
-    if (Jc.cfg.debug) {
+    if (Jc.cfg.envDev) {
         // уведомление в отладочном режиме и только раз
         if (!_holderUnregistredIcons[iconName]) {
             console.warn('Unregistred icon:', iconName)
