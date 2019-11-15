@@ -18,6 +18,8 @@ class JsaRootProject extends ProjectScript {
 
     protected void onInclude() throws Exception {
 
+        include(JsaShowlibs)
+        
         cm.add("jsa-build", "Выполнить сборку клиенского кода (gulp build)", this.&cmJsaBuild)
         cm.add("jsa-watch", "Собрать и следить за изменениями клиенского кода (gulp watch)", this.&cmJsaWatch)
 
