@@ -3,6 +3,7 @@ package jandcode.core.impl;
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.error.*;
+import jandcode.commons.event.*;
 import jandcode.commons.moduledef.*;
 import jandcode.core.*;
 import org.apache.commons.vfs2.*;
@@ -153,12 +154,21 @@ public class AppImpl implements App, IBeanIniter {
         moduleDefResolver.addWorkDir(appConfPath);
 
         ModuleHolderImpl tmpMh = new ModuleHolderImpl(this, moduleDefResolver);
+        EventHandler<ModuleHolderImpl.Event_ModuleConfLoaded> handlerCfgLoaded = (e) -> {
+            if (AppConsts.MODULE_APP.equals(e.getModuleDef().getName())) {
+                // загрузка модуля app, остальные модули еще не грузились
+                // todo
+            }
+        };
+        tmpMh.getEventBus().onEvent(ModuleHolderImpl.Event_ModuleConfLoaded.class, handlerCfgLoaded);
 
         // ядро
         tmpMh.addModule(moduleDefResolver.getModuleDef("jandcode.core"));
 
         // app
         Module appModule = tmpMh.addModule(UtModuleDef.createModuleDef(AppConsts.MODULE_APP, appConfPath, "", appConfFile));
+
+        tmpMh.getEventBus().unEvent(ModuleHolderImpl.Event_ModuleConfLoaded.class, handlerCfgLoaded);
 
         // загружено все, включая все зависимости
 
