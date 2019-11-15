@@ -1,6 +1,6 @@
-/* Тема apex
+/* Тема base
 ----------------------------------------------------------------------------- */
-import css from './theme-apex.scss'
-import '[*]/css/module-apex.js'
+import css from './theme-std.scss'
+import '[*]/css/module-std.js'
 
 Jc.requireCss(css, 'theme')

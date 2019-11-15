@@ -59,7 +59,7 @@
 <style lang="scss">
 
 
-    @import "../../css/apex/vars.scss";
+    @import "../../css/base/vars.scss";
 
     .theme1 {
         .jc-app--header.q-header {
