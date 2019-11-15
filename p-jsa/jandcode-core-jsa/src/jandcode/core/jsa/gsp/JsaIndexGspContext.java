@@ -4,7 +4,9 @@ import jandcode.commons.*;
 import jandcode.core.jsa.cfg.*;
 import jandcode.core.jsa.jsmodule.*;
 import jandcode.core.jsa.theme.*;
+import jandcode.core.web.*;
 import jandcode.core.web.gsp.*;
+import jandcode.core.web.virtfile.*;
 
 import java.util.*;
 
@@ -145,6 +147,33 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
             return theme;
         }
         return gspContext.getApp().bean(JsaThemeService.class).findThemeFile(theme);
+    }
+
+    /**
+     * Получить и проверить тему.
+     *
+     * @param theme        тема
+     * @param defaultTheme тема по умолчанию, если theme не существует или пустая
+     * @return тема
+     */
+    public String resolveTheme(String theme, String defaultTheme) {
+        if (UtString.empty(theme)) {
+            return defaultTheme;
+        }
+        WebService webSvc = gspContext.getApp().bean(WebService.class);
+        if (theme.indexOf('/') != -1) {
+            VirtFile f = webSvc.findFile(theme);
+            if (f == null) {
+                return defaultTheme;
+            } else {
+                return f.getPath();
+            }
+        }
+        String s = gspContext.getApp().bean(JsaThemeService.class).findThemeFile(theme);
+        if (UtString.empty(s)) {
+            return defaultTheme;
+        }
+        return theme;
     }
 
     //////

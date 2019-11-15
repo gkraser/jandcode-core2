@@ -10,7 +10,7 @@
   //
   ctx.env = "jandcode.core.apex.tst/tst-runner"
   ctx.main = path
-  ctx.theme = "std"
+  ctx.theme = ctx.resolveTheme(th.request.params.getString('theme'), "std")
   ctx.addModule(tstCtx.envTstJs)
 %>
 <html>
