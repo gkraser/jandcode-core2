@@ -19,9 +19,9 @@ describe(__filename, function() {
         let css3 = {css: true, filename: 'css3.css', text: '.t{color:blue}'};
         let css4 = {css: true, filename: 'css4.css', text: '.t{color:black}'};
         Jc.requireCss(theme1, 'theme')
-        Jc.requireCss(css2)
-        Jc.requireCss(css3)
-        Jc.requireCss(css4, 'after-theme')
+        Jc.requireCss(css2, 'before-theme')
+        Jc.requireCss(css3, 'before-theme')
+        Jc.requireCss(css4)
     })
 
 })

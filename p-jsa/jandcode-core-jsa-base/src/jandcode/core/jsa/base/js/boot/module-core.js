@@ -183,7 +183,7 @@
                 document.head.appendChild(styleTag);
             }
             themeStyleTag = styleTag
-        } else if (place !== 'after-theme') {
+        } else if (place === 'before-theme') {
             if (beforeThemeStyleTag) {
                 // тема есть
                 beforeThemeStyleTag.parentNode.insertBefore(styleTag, beforeThemeStyleTag.nextSibling);
@@ -204,9 +204,9 @@
      * в формате {text:cssText, css: true}
      * @param place может быть :
      * teme: определяет тему. Заменяет предыдущую тему,если она была
-     * after-theme: вставляет после темы и может перекрывать что угодно
-     * Не указано: если тема была определена, вставляет до темы, если не определена -
+     * before-theme: если тема была определена, вставляет до темы, если не определена -
      * то в конец. Причем чем раньше вставлен, тем выше приоритет!
+     * Не указано: после темы и может перекрывать что угодно
      */
     function requireCss(css, place) {
         let _css = css
