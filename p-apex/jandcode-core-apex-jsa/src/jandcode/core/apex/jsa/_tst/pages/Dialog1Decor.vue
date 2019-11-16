@@ -1,5 +1,5 @@
 <template>
-    <q-card class="jc-frame-dialog" style1="flex-grow:1">
+    <q-card class="jc-frame-dialog">
 
         <q-bar class="jc-frame-page--header">
 
@@ -19,7 +19,7 @@
             </q-btn>
         </q-bar>
 
-        <q-card-section class="jc-frame-page--body scroll" style="max-height: 50vh" _style="overflow: auto">
+        <q-card-section class="jc-frame-page--body">
             <slot name="default">
             </slot>
         </q-card-section>

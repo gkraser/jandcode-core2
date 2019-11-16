@@ -14,12 +14,13 @@
 
 <script>
     import {apex} from './vendor'
+    import Dialog1Decor from './Dialog1Decor'
     import Dialog1Decor1 from './Dialog1Decor1'
 
     let mixinDecor = {
         mixins: [apex.JcFrame],
         components: {
-            Dialog: Dialog1Decor1
+            Dialog: Dialog1Decor
         },
     }
 

@@ -40,19 +40,18 @@
         background-color: #f3ffd3;
         display: flex;
         flex-direction: column;
-        flex-grow:1;
-        //height: 200px;
-        overflow: auto;
+        //flex-grow:1;
+        //overflow: auto;
     }
 
     .jc-frame-page--header, .jc-frame-page--footer {
         background-color: bisque;
     }
 
-    .jc-frame-page--body{
+    .jc-frame-page--body {
         background-color: #d1deff;
         overflow: auto;
-        flex-grow:1;
+        //flex-grow:1;
         //height: 200px;
     }
 </style>
