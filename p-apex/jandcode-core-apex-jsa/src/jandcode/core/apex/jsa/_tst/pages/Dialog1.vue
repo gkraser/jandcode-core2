@@ -1,5 +1,5 @@
 <template>
-    <Dialog size="max1">
+    <Dialog size="max1" buttons="ync">
         Это диалог.
         <q-btn label="Другой" @click="show1"/>
         <q-btn label="cnt" @click="cnt==1?cnt=20:cnt=1"/>

@@ -28,8 +28,10 @@
 
         <div class="jc-frame--footer row q-gutter-x-sm q-pa-sm">
             <q-space/>
-            <q-btn label="Ок"/>
-            <q-btn label="Отмена"/>
+            <template v-for="b in footerRightButtons">
+                <q-btn :label="b.label" :color="b.color" :icon="b.icon"
+                       :flat="flatButtons"/>
+            </template>
         </div>
 
     </q-card>
@@ -37,7 +39,7 @@
 
 <script>
     import JcDecorFrame from './JcDecorFrame'
-    import {dialogButtons} from './frame'
+    import {getDialogButtons} from './frame'
 
 
     export default {
@@ -45,9 +47,12 @@
         props: {
             size: {
                 default: null
+            },
+            buttons: {
+                default: 'ok-cancel',
             }
         },
-        
+
         computed: {
             classes() {
                 let res = [
@@ -59,6 +64,12 @@
                     res.push('jc-decor-dialog--size__' + s)
                 }
                 return res;
+            },
+            footerRightButtons() {
+                return getDialogButtons(this.buttons)
+            },
+            flatButtons() {
+                return this.$jc.cfg.theme.dialog.flatButtons
             }
         }
     }
