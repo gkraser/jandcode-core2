@@ -2,9 +2,9 @@
 ----------------------------------------------------------------------------- */
 import css from './std-theme.scss'
 
-import themeCfg from './std-config'
+let config = require('[*]/css/std-config.js')
 
 export default {
     css: css,
-    cfg: [themeCfg]
+    config: config
 }

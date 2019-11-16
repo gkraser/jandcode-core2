@@ -5,7 +5,7 @@ import * as cnv from './cnv'
 
 let API_THEME = {
     css: Object,
-    cfg: Array | Object
+    config: Array | Object
 }
 
 /**
