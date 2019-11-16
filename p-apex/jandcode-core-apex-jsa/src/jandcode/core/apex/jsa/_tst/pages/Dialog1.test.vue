@@ -19,7 +19,7 @@
         data() {
             return {}
         },
-        mounted(){
+        mounted() {
             this.show1()
         },
         methods: {
@@ -32,26 +32,19 @@
 
 <style lang="scss">
     .jc-dialog-frame-place {
-        background-color: #ffd0a4;
         display: flex;
     }
 
-    .jc-frame-dialog{
-        background-color: #f3ffd3;
+    .jc-frame-dialog {
         display: flex;
         flex-direction: column;
-        //flex-grow:1;
-        //overflow: auto;
     }
 
     .jc-frame-page--header, .jc-frame-page--footer {
-        background-color: bisque;
+        flex-shrink: 0;
     }
 
     .jc-frame-page--body {
-        background-color: #d1deff;
         overflow: auto;
-        //flex-grow:1;
-        //height: 200px;
     }
 </style>
