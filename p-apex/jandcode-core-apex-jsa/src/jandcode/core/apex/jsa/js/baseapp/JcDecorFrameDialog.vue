@@ -1,11 +1,11 @@
 <template>
-    <q-card class="jc-frame-dialog">
+    <q-card class="jc-frame jc-decor-dialog">
 
-        <q-bar class="jc-frame-page--header">
+        <q-bar class="jc-frame--header">
 
             <q-icon v-if="hasIcon" :name="own.icon"/>
 
-            <div class="jc-frame-page--title">
+            <div class="jc-frame--title">
                 {{own.title}}
             </div>
 
@@ -19,10 +19,15 @@
             </q-btn>
         </q-bar>
 
-        <q-card-section class="jc-frame-page--body">
+        <q-card-section class="jc-frame--body">
             <slot name="default">
             </slot>
         </q-card-section>
+
+        <q-bar class="jc-frame--footer">
+            footer
+        </q-bar>
+
     </q-card>
 </template>
 

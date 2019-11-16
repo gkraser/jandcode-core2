@@ -4,9 +4,20 @@
         <q-btn label="Другой" @click="show1"/>
         <q-btn label="cnt" @click="cnt==1?cnt=20:cnt=1"/>
         
-        <div :style="{width:''+size+'px'}">
+        <div :style="{width1:''+(size)+'px'}">
             Место
-            <div v-for="n in cnt" style="padding:20px">{{n}}</div>
+
+            <q-banner class="bg-primary text-white" style="width:1800px">
+                Unfortunately, 
+                <template v-slot:action>
+                    <q-btn flat color="white" label="Dismiss" />
+                    <q-btn flat color="white" label="Update Credit Card" />
+                </template>
+            </q-banner>
+
+            <div v-for="n in cnt" style="padding:20px">
+                {{n}}
+            </div>
 
         </div>
     </Dialog>
@@ -20,7 +31,7 @@
     let mixinDecor = {
         mixins: [apex.JcFrame],
         components: {
-            Dialog: Dialog1Decor
+            //Dialog: Dialog1Decor
         },
     }
 

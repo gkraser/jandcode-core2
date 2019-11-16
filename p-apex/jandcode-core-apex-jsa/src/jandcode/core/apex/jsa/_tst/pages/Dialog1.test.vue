@@ -31,6 +31,7 @@
 </script>
 
 <style lang="scss">
+    /*
     .jc-dialog-frame-place {
         display: flex;
     }
@@ -47,4 +48,6 @@
     .jc-frame-page--body {
         overflow: auto;
     }
+    */
+     
 </style>
