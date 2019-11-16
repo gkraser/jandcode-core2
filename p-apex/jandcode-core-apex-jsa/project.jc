@@ -97,7 +97,7 @@ class P extends ProjectScript {
             )
 
             gulpTask(name: "vue", provide: true, globs: ["**/*.vue"])
-            gulpTask(name: "sass", provide: true, globs: ["**/*-style.scss", "css/theme-*.scss"])
+            gulpTask(name: "sass", provide: true, globs: ["**/*-style.scss", "css/*-theme.scss"])
 
         }
     }

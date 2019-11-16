@@ -1,7 +1,10 @@
 /* Тема base
 ----------------------------------------------------------------------------- */
-import css from './theme-base.scss'
+import css from './std-theme.scss'
+
+import themeCfg from './std-config'
 
 export default {
-    css: css
+    css: css,
+    cfg: [themeCfg]
 }
