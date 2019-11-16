@@ -3,7 +3,7 @@ import JcDecorApp from './JcDecorApp'
 import JcDecorFrame from './JcDecorFrame'
 import JcApp from './JcApp'
 import JcFrame from './JcFrame'
-
+import * as frame from './frame'
 
 export {
     JcDecor,
@@ -11,5 +11,6 @@ export {
     JcDecorFrame,
     JcApp,
     JcFrame,
+    frame,
 }
 
