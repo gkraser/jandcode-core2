@@ -13,6 +13,7 @@ export let dialogButtons = {
     'close': {label: 'Закрыть', name: 'close', color: 'secondary'},
     'yes': {label: 'Да', name: 'yes', color: 'positive'},
     'no': {label: 'Нет', name: 'no', color: 'negative'},
+    'save': {label: 'Сохранить', name: 'save', color: 'positive'},
 }
 
 
@@ -20,6 +21,8 @@ export let dialogButtonGroups = {
     'ok': ['ok', 'cancel'],
     'close': ['close'],
     'yn': ['yes', 'no'],
+    'ync': ['yes', 'no', 'cancel'],
+    'save': ['save', 'cancel'],
 }
 
 function showDialog(frameComp, params) {
