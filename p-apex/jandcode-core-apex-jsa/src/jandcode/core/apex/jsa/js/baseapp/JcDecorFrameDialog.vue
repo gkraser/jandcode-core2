@@ -24,15 +24,21 @@
             </slot>
         </q-card-section>
 
-        <q-bar class="jc-frame--footer">
-            footer
-        </q-bar>
+        <q-separator/>
+
+        <div class="jc-frame--footer row q-gutter-x-sm q-pa-sm">
+            <q-space/>
+            <q-btn label="Ок"/>
+            <q-btn label="Отмена"/>
+        </div>
 
     </q-card>
 </template>
 
 <script>
-    import JcDecorFrame from "./JcDecorFrame"
+    import JcDecorFrame from './JcDecorFrame'
+    import {dialogButtons} from './frame'
+
 
     export default {
         extends: JcDecorFrame,
@@ -41,6 +47,7 @@
                 default: null
             }
         },
+        
         computed: {
             classes() {
                 let res = [

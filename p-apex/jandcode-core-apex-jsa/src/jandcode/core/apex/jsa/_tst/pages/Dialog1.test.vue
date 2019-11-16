@@ -31,4 +31,12 @@
 </script>
 
 <style lang="scss">
+    .jc-frame--footer{
+        //padding: 40px;
+
+        &.q-gutter-x-sm > *, &.q-gutter-sm > * {
+            //margin-left: 68px;
+        }
+
+    }
 </style>
