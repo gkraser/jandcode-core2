@@ -103,13 +103,22 @@
         // эта функция используется для require внутри модуля
         // она обеспечивает поддержку requireMap
         let internalRequire = function(name) {
+            let hasStar = name.indexOf('*') !== -1
             let newName = module.requireMap[name] || name
             if (Array.isArray(newName)) {
-                let last = {};
+                let last = {}
+                let bundle = hasStar ? [] : null
                 for (let m of newName) {
                     last = require(m)
+                    if (hasStar) {
+                        bundle.push(last)
+                    }
                 }
-                return last
+                if (hasStar) {
+                    return bundle
+                } else {
+                    return last
+                }
             }
             return require(newName)
         }
