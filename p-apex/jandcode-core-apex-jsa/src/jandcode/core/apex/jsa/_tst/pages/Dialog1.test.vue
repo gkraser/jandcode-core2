@@ -31,23 +31,4 @@
 </script>
 
 <style lang="scss">
-    /*
-    .jc-dialog-frame-place {
-        display: flex;
-    }
-
-    .jc-frame-dialog {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .jc-frame-page--header, .jc-frame-page--footer {
-        flex-shrink: 0;
-    }
-
-    .jc-frame-page--body {
-        overflow: auto;
-    }
-    */
-     
 </style>

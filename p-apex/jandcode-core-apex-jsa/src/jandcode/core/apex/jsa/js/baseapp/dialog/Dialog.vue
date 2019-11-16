@@ -1,5 +1,6 @@
 <template>
-    <q-dialog ref="dialogInst" @before-show="beforeShowDialog" @hide="onHideDialog">
+    <q-dialog ref="dialogInst" @before-show="beforeShowDialog" @hide="onHideDialog"
+              content-class="jc-dialog">
         <DialogFramePlace :own="this">
         </DialogFramePlace>
     </q-dialog>

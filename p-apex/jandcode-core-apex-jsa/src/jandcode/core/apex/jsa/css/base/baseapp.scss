@@ -6,6 +6,15 @@
   display: flex;
 }
 
+// диалог (q-dialog)
+.jc-dialog {
+
+  .q-dialog__inner--minimized > div {
+    max-width: inherit;
+  }
+
+}
+
 // декоратор для диалогов
 .jc-decor-dialog {
 
@@ -20,8 +29,14 @@
 
   .jc-frame--body {
     overflow: auto;
+    flex-grow: 1;
   }
 
+  &--size__max {
+    height: calc(100vh - 48px);
+    max-height: calc(100vh - 48px);
+    width: 100vw;
+  }
 
 }
 

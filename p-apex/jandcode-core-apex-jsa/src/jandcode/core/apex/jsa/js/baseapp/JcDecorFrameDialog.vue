@@ -1,5 +1,5 @@
 <template>
-    <q-card class="jc-frame jc-decor-dialog">
+    <q-card :class="classes">
 
         <q-bar class="jc-frame--header">
 
@@ -36,5 +36,23 @@
 
     export default {
         extends: JcDecorFrame,
+        props: {
+            size: {
+                default: null
+            }
+        },
+        computed: {
+            classes() {
+                let res = [
+                    'jc-frame',
+                    'jc-decor-dialog',
+                ]
+                if (this.size) {
+                    let s = '' + this.size
+                    res.push('jc-decor-dialog--size__' + s)
+                }
+                return res;
+            }
+        }
     }
 </script>

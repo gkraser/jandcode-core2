@@ -1,17 +1,17 @@
 <template>
-    <Dialog>
+    <Dialog size="max">
         Это диалог.
         <q-btn label="Другой" @click="show1"/>
         <q-btn label="cnt" @click="cnt==1?cnt=20:cnt=1"/>
-        
+
         <div :style="{width1:''+(size)+'px'}">
             Место
 
-            <q-banner class="bg-primary text-white" style="width:1800px">
-                Unfortunately, 
+            <q-banner class="bg-primary text-white" style1="width:1800px">
+                Unfortunately,
                 <template v-slot:action>
-                    <q-btn flat color="white" label="Dismiss" />
-                    <q-btn flat color="white" label="Update Credit Card" />
+                    <q-btn flat color="white" label="Dismiss"/>
+                    <q-btn flat color="white" label="Update Credit Card"/>
                 </template>
             </q-banner>
 
@@ -25,8 +25,6 @@
 
 <script>
     import {apex} from './vendor'
-    import Dialog1Decor from './Dialog1Decor'
-    import Dialog1Decor1 from './Dialog1Decor1'
 
     let mixinDecor = {
         mixins: [apex.JcFrame],
@@ -41,7 +39,7 @@
         props: {
             size: {
                 type: Number,
-                default: 500
+                default: 1500
             }
         },
         destroyed() {
@@ -49,7 +47,7 @@
         },
         data() {
             return {
-                cnt: 20
+                cnt: 1
             }
         },
         methods: {
