@@ -22,6 +22,10 @@ public class LinkModuleManager extends BaseComp {
         public ModuleItem(String path) {
             this.path = path;
         }
+
+        boolean isScript() {
+            return this.path.contains("<script");
+        }
     }
 
     public int addModules(String path) {
@@ -30,12 +34,20 @@ public class LinkModuleManager extends BaseComp {
     }
 
     public void outLink(Gsp g, int key) {
+        ModuleItem mi = moduleItems.get(key);
+        if (mi.isScript()) {
+            g.out(mi.path);
+            g.out("\n");
+            if (getApp().getEnv().isDev()) {
+                g.out("\n");
+            }
+            return;
+        }
+
         boolean first = joiner == null;
         if (joiner == null) {
             joiner = new ModuleJoiner(getApp().bean(JsModuleService.class));
         }
-
-        ModuleItem mi = moduleItems.get(key);
 
         if (first) {
             // первый вывод

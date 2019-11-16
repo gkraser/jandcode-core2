@@ -102,6 +102,7 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
         s = getTheme();
         if (!UtString.empty(s)) {
             res.add(s);
+            res.add("<script>Jc.applyTheme('" + s + "')</script>");
         }
 
         s = getMain();

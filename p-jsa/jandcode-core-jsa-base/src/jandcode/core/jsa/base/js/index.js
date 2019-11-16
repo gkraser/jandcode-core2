@@ -14,6 +14,7 @@ import * as ajax from './ajax'
 import * as moduleLoader from './moduleLoader'
 import * as error from './error'
 import * as funcs from './funcs'
+import * as theme from './theme'
 import cfg from './cfg'
 import Jc from './globalNs'
 import {jQuery} from './vendor'
@@ -28,6 +29,7 @@ export {
     ajax,
     error,
     funcs,
+    theme,
     cfg,
     Jc,
     jQuery,
@@ -43,5 +45,6 @@ export * from './error'
 Jc.ready = base.ready;
 Jc.loadModule = moduleLoader.loadModule
 Jc.errorShow = error.errorShow
+Jc.applyTheme = theme.applyTheme
 window.$ = jQuery
 window.jQuery = jQuery
