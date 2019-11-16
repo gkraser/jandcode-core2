@@ -2,10 +2,11 @@
     <Dialog>
         Это диалог.
         <q-btn label="Другой" @click="show1"/>
-
+        <q-btn label="cnt" @click="cnt==1?cnt=20:cnt=1"/>
+        
         <div :style="{width:''+size+'px'}">
             Место
-            <div v-for="n in 10" style="padding:20px">{{n}}</div>
+            <div v-for="n in cnt" style="padding:20px">{{n}}</div>
 
         </div>
     </Dialog>
@@ -13,9 +14,18 @@
 
 <script>
     import {apex} from './vendor'
+    import Dialog1Decor1 from './Dialog1Decor1'
+
+    let mixinDecor = {
+        mixins: [apex.JcFrame],
+        components: {
+            Dialog: Dialog1Decor1
+        },
+    }
 
     let Comp = {
-        extends: apex.JcFrame,
+        //extends: apex.JcFrame,
+        mixins: [mixinDecor],
         props: {
             size: {
                 type: Number,
@@ -26,7 +36,9 @@
             console.info("Frame destroyed");
         },
         data() {
-            return {}
+            return {
+                cnt: 20
+            }
         },
         methods: {
             show1() {
