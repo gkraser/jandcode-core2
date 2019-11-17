@@ -17,7 +17,7 @@
 </head>
 
 <body>
-<jc:linkModule module="${ctx.modules}"/>
+<% ctx.linkModules() %>
 <div id="jc-app"></div>
 <script>
     Jc.cfg.set(${ctx.cfgJson})

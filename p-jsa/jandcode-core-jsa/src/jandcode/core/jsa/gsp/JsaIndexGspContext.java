@@ -115,6 +115,39 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
         return res;
     }
 
+    /**
+     * Вывод в gsp текста подключения модулей
+     */
+    public void linkModules() throws Exception {
+        BaseGsp gsp = gspContext.getCurrentGsp();
+
+        String s;
+        Map<String, String> params = new HashMap<>();
+        s = getEnv();
+
+        if (!UtString.empty(s)) {
+            params.put("module", s);
+            gsp.outTag("jc/linkModule", params);
+        }
+
+        s = getTheme();
+        if (!UtString.empty(s)) {
+            params.put("module", s);
+            gsp.outTag("jc/linkModule", params);
+            gsp.out("<script>Jc.applyTheme('" + s + "')</script>\n");
+            if (gspContext.getApp().getEnv().isDev()) {
+                gsp.out("\n");
+            }
+        }
+
+        s = getMain();
+        if (!UtString.empty(s)) {
+            params.put("module", s);
+            gsp.outTag("jc/linkModule", params);
+        }
+
+    }
+
     //////
 
     /**
