@@ -19,8 +19,7 @@
 
     // для css
     let cssIdx = 0
-    let themeStyleTag
-    let beforeThemeStyleTag
+    let cssPlaces = {}
 
     /**
      * Определение модуля.
@@ -158,10 +157,9 @@
         }
     }
 
-    function appendCssTag(css, filename, place) {
+    function appendCssTag(css, filename, place, group) {
         let styleTag = document.createElement("style");
         styleTag.rel = 'stylesheet'
-        styleTag.type = 'text/css'
         cssIdx++;
         if (filename) {
             css = css + "\n/*# sourceURL=jc-jsa:///inline-styles/[" + cssIdx + "]/" + filename + "*/";
@@ -171,39 +169,34 @@
         } else {
             css = css + "\n/*# sourceURL=jc-jsa:///inline-styles/style-" + cssIdx + ".css*/";
         }
+        if (group) {
+            styleTag.dataset.group = group
+        }
         styleTag.innerHTML = css;
 
-        if (place === 'theme') {
-            if (Jc.cfg.envDev) {
-                styleTag.dataset.place = 'theme'
-            }
-            if (themeStyleTag) {
-                // была уже тема
-                themeStyleTag.parentNode.replaceChild(styleTag, themeStyleTag);
-            } else {
-                // вставляем метку 
-                beforeThemeStyleTag = document.createElement("style");
-                beforeThemeStyleTag.rel = 'stylesheet'
-                beforeThemeStyleTag.type = 'text/css'
-                beforeThemeStyleTag.dataset.place = 'before-theme'
-                document.head.appendChild(beforeThemeStyleTag);
-
-                // тема
-                document.head.appendChild(styleTag);
-            }
-            themeStyleTag = styleTag
-        } else if (place === 'before-theme') {
-            if (beforeThemeStyleTag) {
-                // тема есть
-                beforeThemeStyleTag.parentNode.insertBefore(styleTag, beforeThemeStyleTag.nextSibling);
-            } else {
-                // темы нет
-                document.head.appendChild(styleTag);
-            }
-
+        let tagPlace = cssPlaces[place]
+        if (tagPlace) {
+            tagPlace.parentNode.insertBefore(styleTag, tagPlace);
         } else {
             document.head.appendChild(styleTag);
         }
+    }
+
+    /**
+     * Зарегистрировать место внедрения css-тегов
+     * @param place имя
+     */
+    function defineCssPlace(place) {
+        let tag = cssPlaces[place]
+        if (tag) {
+            return tag
+        }
+        tag = document.createElement("style");
+        tag.rel = 'stylesheet'
+        tag.dataset.place = place
+        document.head.appendChild(tag);
+        cssPlaces[place] = tag
+        return tag
     }
 
     /**
@@ -240,7 +233,7 @@
 
         _css._used = true
 
-        appendCssTag(_css.text, _css.filename, place)
+        appendCssTag(_css.text, _css.filename, place, _css.group)
     }
 
     /**
@@ -260,6 +253,7 @@
     Jc.require = require
     Jc.requireAll = requireAll
     Jc.requireCss = requireCss
+    Jc.defineCssPlace = defineCssPlace
     Jc.moduleDef = moduleDef
     Jc.getModules = getModules
     Jc.findModule = findModule
