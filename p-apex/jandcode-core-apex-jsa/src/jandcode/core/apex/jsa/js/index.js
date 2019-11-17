@@ -18,9 +18,6 @@ Vue.use(VueRouter)
 // quasar icons
 let qIconsCss = require('@quasar/extras/material-icons/material-icons.css')
 Jc.requireCss(qIconsCss)
-// roboto font
-let qRobotoFontCss = require('@quasar/extras/roboto-font/roboto-font.css')
-Jc.requireCss(qRobotoFontCss)
 
 // quasar lang
 let qLangRu = require('quasar/dist/lang/ru.umd.min.js')

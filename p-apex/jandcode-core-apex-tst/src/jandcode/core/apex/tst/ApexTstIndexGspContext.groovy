@@ -42,6 +42,11 @@ class ApexTstIndexGspContext implements IGspContextLinkSet {
             cfg.themes.add([name: themeName, path: themeSvc.findThemeFile(themeName)])
         }
 
+        cfg.themesByName = [:]
+        for (themeName in themeSvc.getThemeNames()) {
+            cfg.themesByName[themeName] = [name: themeName, path: themeSvc.findThemeFile(themeName)]
+        }
+
         return cfg
     }
 
