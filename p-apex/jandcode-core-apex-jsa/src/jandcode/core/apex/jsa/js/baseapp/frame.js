@@ -4,7 +4,7 @@
 import {jsaBase, Vue} from '../vendor'
 import Dialog from './dialog/Dialog'
 
-// настроки темы по умолчанию
+// настройки темы по умолчанию
 jsaBase.cfg.setDefault({
     theme: {
         dialog: {

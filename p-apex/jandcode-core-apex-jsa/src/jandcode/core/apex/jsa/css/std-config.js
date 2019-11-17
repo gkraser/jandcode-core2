@@ -1,5 +1,5 @@
 export default {
     dialog: {
-        //flatButtons: false
+        // flatButtons: false
     }
 }
