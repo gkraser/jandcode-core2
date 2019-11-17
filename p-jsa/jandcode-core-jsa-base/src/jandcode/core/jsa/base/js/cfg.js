@@ -19,12 +19,20 @@ function copyCfgObject(ob) {
 function escapeCfgProps(ob) {
     delete ob['set']
     delete ob['setDefault']
+    delete ob['__values']
+    delete ob['__valuesDefault']
 }
 
 /**
  * Конфигурация
  */
 class Cfg {
+
+
+    constructor() {
+        this.__values = {}
+        this.__valuesDefault = {}
+    }
 
     /**
      * Установить свойства конфигурации с помощью объекта.
@@ -38,7 +46,8 @@ class Cfg {
         if (!cnv.isObject(cfg)) {
             throw new Error('Cfg.set: need object')
         }
-        base.extend(true, this, copyCfgObject(cfg))
+        base.extend(true, this.__values, copyCfgObject(cfg))
+        base.extend(true, this, this.__valuesDefault, this.__values)
     }
 
     /**
@@ -54,10 +63,8 @@ class Cfg {
         if (!cnv.isObject(cfg)) {
             throw new Error('Cfg.set: need object')
         }
-        let tmp = copyCfgObject(cfg)
-        base.extend(true, tmp, this)
-        escapeCfgProps(tmp)
-        base.extend(true, this, tmp)
+        base.extend(true, this.__valuesDefault, copyCfgObject(cfg))
+        base.extend(true, this, this.__valuesDefault, this.__values)
     }
 
 }

@@ -2,6 +2,11 @@
 ----------------------------------------------------------------------------- */
 
 import * as cnv from './cnv'
+import cfg from './cfg'
+
+cfg.set({
+    theme: {}
+})
 
 let API_THEME = {
     css: Object,
