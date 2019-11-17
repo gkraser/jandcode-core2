@@ -146,6 +146,11 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
             gsp.outTag("jc/linkModule", params);
         }
 
+        for (String m : otherModules) {
+            params.put("module", m);
+            gsp.outTag("jc/linkModule", params);
+        }
+
     }
 
     //////
