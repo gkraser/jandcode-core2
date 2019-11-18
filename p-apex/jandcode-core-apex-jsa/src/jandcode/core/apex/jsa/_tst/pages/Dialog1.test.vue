@@ -7,10 +7,19 @@
 </template>
 
 <script>
-    import {apex} from './vendor'
+    import {apex, dao} from './vendor'
 
     import Dialog1 from './Dialog1'
     import DialogOnXxx1 from './DialogOnXxx1'
+
+    function daoFake(ctx) {
+        setTimeout(function() {
+            let res = {
+                a: 1, b: 2
+            }
+            ctx.resolve(res)
+        }, 2000)
+    }
 
 
     export default {
@@ -32,9 +41,17 @@
             show2() {
                 apex.frame.showDialog({
                     frame: DialogOnXxx1,
-                    onOk: function(frame) {
+                    onOk: async function(frame) {
                         console.info("OK!", frame);
                         //return false
+
+                        let res = await dao.invoke(daoFake)
+
+                        if (res.a === 1) {
+                            console.warn("ERROR ok");
+                            return false
+                        }
+
                     }
                 })
             }
