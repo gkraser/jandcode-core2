@@ -41,6 +41,10 @@
             show2() {
                 apex.frame.showDialog({
                     frame: DialogOnXxx1,
+                    onCancel1: function() {
+                        console.info("out CCCCC");
+                        //return false
+                    },
                     onOk: async function(frame) {
                         console.info("OK!", frame);
                         //return false

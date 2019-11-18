@@ -1,5 +1,5 @@
 <template>
-    <Dialog>
+    <Dialog :buttons="['ok','yes',{label: 'Нет11111', cmd: 'cancel1', color: 'negative'}]">
         Hello
     </Dialog>
 </template>
@@ -56,7 +56,16 @@
                         console.info("then in onOk", ctx);
                         //return false
                     })
+            },
+
+            onCancel1(){
+                console.info("CCCC");
+                // if (true) {
+                //     return false;
+                // }
+
             }
+
         },
     }
 </script>
