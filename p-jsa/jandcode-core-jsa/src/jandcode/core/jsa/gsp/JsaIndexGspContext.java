@@ -118,7 +118,7 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
     /**
      * Вывод в gsp текста подключения модулей
      */
-    public void linkModules() throws Exception {
+    public void outLinkModules() throws Exception {
         BaseGsp gsp = gspContext.getCurrentGsp();
 
         String s;
