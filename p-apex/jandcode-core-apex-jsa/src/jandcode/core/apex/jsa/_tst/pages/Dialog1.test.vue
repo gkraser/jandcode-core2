@@ -2,6 +2,7 @@
     <div>
         dialogs
         <q-btn label="show1" @click="show1"/>
+        <q-btn label="DialogOnXxx1" @click="show2"/>
     </div>
 </template>
 
@@ -9,22 +10,27 @@
     import {apex} from './vendor'
 
     import Dialog1 from './Dialog1'
+    import DialogOnXxx1 from './DialogOnXxx1'
 
 
     export default {
         components: {
-            Dialog1
+            Dialog1,
+            DialogOnXxx1,
         },
         props: {},
         data() {
             return {}
         },
         mounted() {
-            this.show1()
+            this.show2()
         },
         methods: {
             show1() {
                 apex.frame.showDialog({frame:Dialog1})
+            },
+            show2() {
+                apex.frame.showDialog({frame:DialogOnXxx1})
             }
         }
     }
