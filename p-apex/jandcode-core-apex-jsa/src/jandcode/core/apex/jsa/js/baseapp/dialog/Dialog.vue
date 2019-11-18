@@ -30,6 +30,10 @@
                 this.$refs.dialogInst.show()
             },
 
+            hideDialog() {
+                this.$refs.dialogInst.hide()
+            },
+
             beforeShowDialog() {
                 console.info("Dialog beforeShowDialog");
             },

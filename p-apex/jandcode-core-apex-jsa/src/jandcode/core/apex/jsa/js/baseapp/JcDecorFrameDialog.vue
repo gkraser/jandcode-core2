@@ -14,9 +14,7 @@
             <slot name="toolbar">
             </slot>
 
-            <q-btn dense flat icon="close" v-close-popup>
-                <q-tooltip>Close</q-tooltip>
-            </q-btn>
+            <q-btn dense flat icon="close" @click="own.closeFrame('cancel')"/>
         </q-bar>
 
         <q-card-section class="jc-frame--body">
@@ -30,7 +28,7 @@
             <q-space/>
             <template v-for="b in footerRightButtons">
                 <q-btn :label="b.label" :color="b.color" :icon="b.icon"
-                       :flat="flatButtons"/>
+                       :flat="flatButtons" @click="own.closeFrame(b.cmd)"/>
             </template>
         </div>
 

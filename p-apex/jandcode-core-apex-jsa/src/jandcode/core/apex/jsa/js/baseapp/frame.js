@@ -17,12 +17,12 @@ jsaBase.cfg.setDefault({
  * Настройки кнопок для диалогов
  */
 export let dialogButtons = {
-    'ok': {label: 'Ок', cm: 'ok', color: 'positive'},
-    'cancel': {label: 'Отмена', cm: 'cancel', color: 'negative'},
-    'close': {label: 'Закрыть', cm: 'cancel', color: 'secondary'},
-    'yes': {label: 'Да', cm: 'yes', color: 'positive'},
-    'no': {label: 'Нет', cm: 'no', color: 'secondary'},
-    'save': {label: 'Сохранить', cm: 'ok', color: 'positive'},
+    'ok': {label: 'Ок', cmd: 'ok', color: 'positive'},
+    'cancel': {label: 'Отмена', cmd: 'cancel', color: 'negative'},
+    'close': {label: 'Закрыть', cmd: 'cancel', color: 'secondary'},
+    'yes': {label: 'Да', cmd: 'yes', color: 'positive'},
+    'no': {label: 'Нет', cmd: 'no', color: 'secondary'},
+    'save': {label: 'Сохранить', cmd: 'ok', color: 'positive'},
 }
 
 
@@ -65,7 +65,62 @@ export function getDialogButtons(buttons) {
     return res
 }
 
-function showDialog(frameComp, params) {
+class Shower {
+
+    constructor(params) {
+        // копия параметров
+        this.params = jsaBase.extend({}, params)
+
+        // свойства для фрейма
+        this.props = jsaBase.extend({}, params.props)
+
+        // компонент фрейма
+        this.frame = this.params.frame
+    }
+
+    showFrame() {
+    }
+
+    /**
+     * Закрыть фрейм с указанной командой
+     * @param cmd
+     */
+    closeFrame(cmd) {
+    }
+}
+
+class ShowerDialog extends Shower {
+
+    showFrame() {
+        let th = this
+
+        let FrameCompCls = Vue.extend(th.frame)
+        th.frameInst = new FrameCompCls({propsData: th.props})
+        th.frameInst.shower = th
+        th.frameInst.$mount()
+
+        let DialogCls = Vue.extend(Dialog)
+        th.dialogInst = new DialogCls({propsData: {frameInst: th.frameInst}})
+        th.dialogInst.$on('dialog-close', function() {
+            console.info("hook dialog-close", arguments);
+            th.frameInst.$destroy()
+            th.dialogInst.$destroy()
+        })
+        th.dialogInst.$mount()
+
+        th.dialogInst.showDialog()
+
+        console.info("frameInst", th.frameInst);
+    }
+
+    closeFrame(cmd) {
+        console.info("shower close frame with cmd", cmd);
+        this.dialogInst.hideDialog()
+    }
+
+}
+
+function showDialog_OLD(frameComp, params) {
     params = jsaBase.extend({}, params)
     let props = jsaBase.extend({}, params.props)
 
@@ -87,6 +142,10 @@ function showDialog(frameComp, params) {
     console.info("frameInst", frameInst);
 }
 
+function showDialog(params) {
+    let shower = new ShowerDialog(params)
+    shower.showFrame()
+}
 
 export {
     showDialog,

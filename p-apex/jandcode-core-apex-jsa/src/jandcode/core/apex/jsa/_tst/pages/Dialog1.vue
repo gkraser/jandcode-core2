@@ -54,7 +54,7 @@
             show1() {
                 console.info("this.$options", this.$options);
                 console.info("Cmp", Comp);
-                apex.frame.showDialog(Comp, {props: {size: this.size - 100}})
+                apex.frame.showDialog({frame:Comp, props: {size: this.size - 100}})
             }
         }
     }

@@ -24,7 +24,7 @@
         },
         methods: {
             show1() {
-                apex.frame.showDialog(Dialog1)
+                apex.frame.showDialog({frame:Dialog1})
             }
         }
     }
