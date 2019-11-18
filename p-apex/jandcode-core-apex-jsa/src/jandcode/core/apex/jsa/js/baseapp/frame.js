@@ -3,6 +3,7 @@
 
 import {jsaBase, Vue} from '../vendor'
 import Dialog from './dialog/Dialog'
+import upperFirst from 'lodash/upperFirst'
 
 // настройки темы по умолчанию
 jsaBase.cfg.setDefault({
@@ -102,20 +103,52 @@ class ShowerDialog extends Shower {
         let DialogCls = Vue.extend(Dialog)
         th.dialogInst = new DialogCls({propsData: {frameInst: th.frameInst}})
         th.dialogInst.$on('dialog-close', function() {
-            console.info("hook dialog-close", arguments);
             th.frameInst.$destroy()
+            th.frameInst.shower = null
             th.dialogInst.$destroy()
         })
         th.dialogInst.$mount()
 
         th.dialogInst.showDialog()
-
-        console.info("frameInst", th.frameInst);
     }
 
     closeFrame(cmd) {
-        console.info("shower close frame with cmd", cmd);
-        this.dialogInst.hideDialog()
+        let th = this
+
+        if (!cmd) {
+            cmd = 'cancel'
+        }
+        let handlerName = 'on' + upperFirst(cmd)
+
+        let handleProcess = (handlerResult) => {
+            if (handlerResult === false) {
+                // закрывать нельзя
+            } else if (handlerResult instanceof Promise) {
+                // ждем окончания promise
+                handlerResult.then((result) => {
+                    if (result === false) {
+                        // promise вернул false, закрывать нельзя
+                        return
+                    }
+                    this.dialogInst.hideDialog()
+                })
+            } else {
+                // можно закрывать
+                this.dialogInst.hideDialog()
+            }
+        }
+
+        if (jsaBase.isFunction(this.params[handlerName])) {
+            // есть обработчик onXxx
+            handleProcess(this.params[handlerName](this.frameInst, cmd))
+
+        } else if (jsaBase.isFunction(this.params.onCmd)) {
+            handleProcess(this.params.onCmd(this.frameInst, cmd))
+
+        } else {
+            // нет обработчиков
+            this.dialogInst.hideDialog()
+        }
     }
 
 }

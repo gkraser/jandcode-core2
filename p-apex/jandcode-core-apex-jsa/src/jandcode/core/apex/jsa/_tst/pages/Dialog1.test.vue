@@ -27,17 +27,23 @@
         },
         methods: {
             show1() {
-                apex.frame.showDialog({frame:Dialog1})
+                apex.frame.showDialog({frame: Dialog1})
             },
             show2() {
-                apex.frame.showDialog({frame:DialogOnXxx1})
+                apex.frame.showDialog({
+                    frame: DialogOnXxx1,
+                    onOk: function(frame) {
+                        console.info("OK!", frame);
+                        //return false
+                    }
+                })
             }
         }
     }
 </script>
 
 <style lang="scss">
-    .jc-frame--footer{
+    .jc-frame--footer {
         //padding: 40px;
 
         &.q-gutter-x-sm > *, &.q-gutter-sm > * {

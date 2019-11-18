@@ -16,12 +16,6 @@
         props: {
             frameInst: Object
         },
-        mounted() {
-            console.info("Dialog mounted");
-        },
-        destroyed() {
-            console.info("Dialog destroyed");
-        },
         data() {
             return {}
         },
@@ -35,11 +29,9 @@
             },
 
             beforeShowDialog() {
-                console.info("Dialog beforeShowDialog");
             },
 
             onHideDialog() {
-                console.info("Dialog hide");
                 this.$emit('dialog-close', this)
             }
         }

@@ -30,7 +30,6 @@ export default {
         closeFrame(cmd) {
             let th = this
 
-            console.info("closeFrame with cmd", cmd);
             if (!cmd) {
                 cmd = 'cancel'
             }
@@ -39,21 +38,17 @@ export default {
             let handleProcess = (handlerResult) => {
                 if (handlerResult === false) {
                     // закрывать нельзя
-                    console.info("NO need close");
-                    return
                 } else if (handlerResult instanceof Promise) {
-                    console.info("promise wait");
-                    // ждем окончания
+                    // ждем окончания promise
                     handlerResult.then((result) => {
-                        console.info("promise then");
                         if (result === false) {
+                            // promise вернул false, закрывать нельзя
                             return
                         }
                         th.shower.closeFrame(cmd)
                     })
                 } else {
                     // можно закрывать
-                    console.info("need close");
                     th.shower.closeFrame(cmd)
                 }
             }
@@ -66,8 +61,7 @@ export default {
                 handleProcess(this.onCmd(cmd))
 
             } else {
-                // не обработчиков
-                console.info("need close no handlers");
+                // нет обработчиков
                 th.shower.closeFrame(cmd)
             }
 

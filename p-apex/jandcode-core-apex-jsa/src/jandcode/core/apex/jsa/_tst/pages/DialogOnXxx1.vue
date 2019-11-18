@@ -29,6 +29,10 @@
         data() {
             return {}
         },
+        destroyed() {
+            console.info("Frame destroyed");
+        },
+
         methods: {
             onOk1() {
                 console.info("onOk in dialog");
@@ -39,7 +43,7 @@
                         //return false
                     })
             },
-            async onOk() {
+            async onOk2() {
                 console.info("async onOk in dialog");
                 let a = await dao.invoke(daoFakeErr)
                 console.info("async then in onOk", a);
