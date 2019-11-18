@@ -110,11 +110,22 @@ class ShowerDialog extends Shower {
         th.dialogInst.$mount()
 
         th.dialogInst.showDialog()
+
+        return th.frameInst
     }
 
     closeFrame(cmd) {
-        let th = this
+        // сначала события самого фпейма
+        this.__closeFrameProcess(cmd, this.frameInst, () => {
+            // фрейм разрешил закрытся
+            this.__closeFrameProcess(cmd, this.params, () => {
+                // обработчики в параметрах разрешили закрытся
+                this.dialogInst.hideDialog()
+            })
+        })
+    }
 
+    __closeFrameProcess(cmd, eventsOwner, fnClose) {
         if (!cmd) {
             cmd = 'cancel'
         }
@@ -130,24 +141,24 @@ class ShowerDialog extends Shower {
                         // promise вернул false, закрывать нельзя
                         return
                     }
-                    this.dialogInst.hideDialog()
+                    fnClose()
                 })
             } else {
                 // можно закрывать
-                this.dialogInst.hideDialog()
+                fnClose()
             }
         }
 
-        if (jsaBase.isFunction(this.params[handlerName])) {
+        if (jsaBase.isFunction(eventsOwner[handlerName])) {
             // есть обработчик onXxx
-            handleProcess(this.params[handlerName](this.frameInst, cmd))
+            handleProcess(eventsOwner[handlerName](this.frameInst, cmd))
 
-        } else if (jsaBase.isFunction(this.params.onCmd)) {
-            handleProcess(this.params.onCmd(this.frameInst, cmd))
+        } else if (jsaBase.isFunction(eventsOwner.onCmd)) {
+            handleProcess(eventsOwner.onCmd(this.frameInst, cmd))
 
         } else {
             // нет обработчиков
-            this.dialogInst.hideDialog()
+            fnClose()
         }
     }
 
@@ -155,7 +166,7 @@ class ShowerDialog extends Shower {
 
 function showDialog(params) {
     let shower = new ShowerDialog(params)
-    shower.showFrame()
+    return shower.showFrame()
 }
 
 export {
