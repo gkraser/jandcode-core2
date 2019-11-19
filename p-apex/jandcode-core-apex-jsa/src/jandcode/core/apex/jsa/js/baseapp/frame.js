@@ -5,6 +5,10 @@ import {jsaBase, Vue} from '../vendor'
 import Dialog from './dialog/Dialog'
 import upperFirst from 'lodash/upperFirst'
 
+
+// опция initFrame будет выглядеть как массив (аналогично другим life-cycle hookd)
+Vue.config.optionMergeStrategies.initFrame = Vue.config.optionMergeStrategies.created
+
 // настройки темы по умолчанию
 jsaBase.cfg.setDefault({
     theme: {
@@ -77,6 +81,9 @@ class Shower {
 
         // компонент фрейма
         this.frame = this.params.frame
+
+        // экземпляр фрейма
+        this.frameInst = null
     }
 
     showFrame() {
@@ -88,6 +95,21 @@ class Shower {
      */
     closeFrame(cmd) {
     }
+
+    /**
+     * Инициализация фрейма.
+     * Вызов initFrame
+     */
+    async initFrame(callback) {
+        let initFrameArr = this.frameInst.$options['initFrame']
+        if (initFrameArr) {
+            for (let fn of initFrameArr) {
+                await fn.call(this.frameInst)
+            }
+        }
+        callback()
+    }
+
 }
 
 class ShowerDialog extends Shower {
@@ -98,18 +120,21 @@ class ShowerDialog extends Shower {
         let FrameCompCls = Vue.extend(th.frame)
         th.frameInst = new FrameCompCls({propsData: th.props})
         th.frameInst.shower = th
-        th.frameInst.$mount()
 
-        let DialogCls = Vue.extend(Dialog)
-        th.dialogInst = new DialogCls({propsData: {frameInst: th.frameInst}})
-        th.dialogInst.$on('dialog-close', function() {
-            th.frameInst.$destroy()
-            th.frameInst.shower = null
-            th.dialogInst.$destroy()
+        th.initFrame(() => {
+            th.frameInst.$mount()
+
+            let DialogCls = Vue.extend(Dialog)
+            th.dialogInst = new DialogCls({propsData: {frameInst: th.frameInst}})
+            th.dialogInst.$on('dialog-close', function() {
+                th.frameInst.$destroy()
+                th.frameInst.shower = null
+                th.dialogInst.$destroy()
+            })
+            th.dialogInst.$mount()
+
+            th.dialogInst.showDialog()
         })
-        th.dialogInst.$mount()
-
-        th.dialogInst.showDialog()
 
         return th.frameInst
     }
