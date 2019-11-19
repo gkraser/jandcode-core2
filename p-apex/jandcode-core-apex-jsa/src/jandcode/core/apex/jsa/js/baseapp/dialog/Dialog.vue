@@ -1,5 +1,6 @@
 <template>
-    <q-dialog ref="dialogInst" @before-show="beforeShowDialog" @hide="onHideDialog"
+    <q-dialog ref="dialogInst"
+              @hide="onHideDialog"
               content-class="jc-dialog">
         <DialogFramePlace :own="this">
         </DialogFramePlace>
@@ -7,7 +8,23 @@
 </template>
 
 <script>
-    import DialogFramePlace from './DialogFramePlace'
+
+    // Место для фрейма в диалоге
+    let DialogFramePlace = {
+        props: {
+            own: Object,
+        },
+
+        render(h) {
+            return h('div', {style: {display: 'none'}})
+        },
+
+        mounted() {
+            // монтируем фрейм вместо себя
+            this.$el.parentNode.appendChild(this.own.frameInst.$el)
+            this.$el.parentNode.removeChild(this.$el)
+        },
+    }
 
     export default {
         components: {
@@ -26,9 +43,6 @@
 
             hideDialog() {
                 this.$refs.dialogInst.hide()
-            },
-
-            beforeShowDialog() {
             },
 
             onHideDialog() {
