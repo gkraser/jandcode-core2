@@ -17,7 +17,9 @@ describe(__filename, function() {
 
     function showDialog(frameParams, showParams) {
         let FrameComp = makeFrame(frameParams)
-        return apex.frame.showDialog()
+        showParams = Object.assign({}, showParams)
+        showParams.frame = FrameComp
+        return apex.frame.showDialog(showParams)
     }
 
     it("1", function(cb) {
