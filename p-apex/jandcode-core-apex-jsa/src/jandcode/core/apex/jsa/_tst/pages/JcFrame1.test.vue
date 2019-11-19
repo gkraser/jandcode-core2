@@ -43,7 +43,7 @@
         props: {},
         data() {
             return {
-                interior: 'Dialog',
+                interior: 'Page',
                 frame1: {
                     title: 'Заголовок 1',
                     title2: 'Заголовок 2',

@@ -17,7 +17,7 @@
             <q-btn dense flat icon="close" @click="own.closeFrame('cancel')"/>
         </q-bar>
 
-        <q-card-section class="jc-frame--body">
+        <q-card-section class="jc-frame--body" :class="bodyClass" :style="bodyStyle">
             <slot name="default">
             </slot>
         </q-card-section>

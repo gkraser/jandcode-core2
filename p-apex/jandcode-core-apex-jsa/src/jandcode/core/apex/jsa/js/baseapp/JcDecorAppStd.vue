@@ -48,10 +48,8 @@
         </q-drawer>
 
         <q-page-container class="jc-app--main">
-            <q-page>
-                <slot name="main">
-                </slot>
-            </q-page>
+            <slot name="main">
+            </slot>
         </q-page-container>
 
     </q-layout>

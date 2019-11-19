@@ -1,5 +1,5 @@
 <template>
-    <div class="jc-frame jc-decor-page">
+    <component :is="rootComponentName" class="jc-frame jc-decor-page">
 
         <q-toolbar v-if="hasTitle" class="jc-frame--header">
 
@@ -28,11 +28,11 @@
 
         </q-toolbar>
 
-        <div class="jc-frame--body">
+        <div class="jc-frame--body" :class="bodyClass" :style="bodyStyle">
             <slot name="default">
             </slot>
         </div>
-    </div>
+    </component>
 </template>
 
 <script>
@@ -40,5 +40,18 @@
 
     export default {
         extends: JcDecorFrame,
+
+        inject: {
+            pageContainer: {
+                default: false
+            },
+        },
+
+        computed: {
+            rootComponentName() {
+                return this.pageContainer ? 'q-page' : 'div'
+            }
+        }
+
     }
 </script>
