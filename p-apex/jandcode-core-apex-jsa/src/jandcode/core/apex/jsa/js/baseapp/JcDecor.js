@@ -17,6 +17,13 @@ export default {
          */
         hasIcon() {
             return this.own.icon && !this.own.icon.startsWith(' ')
+        },
+
+        /**
+         * Есть ли заголовок
+         */
+        hasTitle() {
+            return !!this.own.title
         }
 
     }

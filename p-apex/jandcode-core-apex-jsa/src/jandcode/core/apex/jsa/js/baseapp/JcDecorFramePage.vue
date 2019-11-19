@@ -1,7 +1,7 @@
 <template>
-    <div class="jc-frame-page">
+    <q-page class="jc-frame-page">
 
-        <q-toolbar class="jc-frame-page--header">
+        <q-toolbar v-if="hasTitle" class="jc-frame-page--header">
 
             <q-toolbar-title shrink>
                 <q-item>
@@ -28,11 +28,11 @@
 
         </q-toolbar>
 
-        <div class="jc-frame-page--body">
+        <div class="jc-frame-page--body q-pa-md">
             <slot name="default">
             </slot>
         </div>
-    </div>
+    </q-page>
 </template>
 
 <script>

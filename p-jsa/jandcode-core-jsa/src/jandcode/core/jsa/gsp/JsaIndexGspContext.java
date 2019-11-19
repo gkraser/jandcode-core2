@@ -20,7 +20,7 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
     private String title;
     private String env;
     private String main;
-    private String cfgJson;
+    private Map<String, Object> cfg;
     private String theme;
     private List<String> otherModules = new ArrayList<>();
 
@@ -156,14 +156,21 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
     //////
 
     /**
+     * Конфигурация для клиента
+     */
+    public Map<String, Object> getCfg() {
+        if (this.cfg == null) {
+            JsaClientCfgService cfgSvc = gspContext.getApp().bean(JsaClientCfgService.class);
+            this.cfg = cfgSvc.grabClientCfg();
+        }
+        return this.cfg;
+    }
+
+    /**
      * Конфигурация для клиента в виде json-строки
      */
     public String getCfgJson() {
-        if (this.cfgJson == null) {
-            JsaClientCfgService cfgSvc = gspContext.getApp().bean(JsaClientCfgService.class);
-            this.cfgJson = UtJson.toJson(cfgSvc.grabClientCfg());
-        }
-        return this.cfgJson;
+        return UtJson.toJson(getCfg());
     }
 
     //////
@@ -186,6 +193,21 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
             return theme;
         }
         return gspContext.getApp().bean(JsaThemeService.class).findThemeFile(theme);
+    }
+
+    /**
+     * Возвращает конфигурацию со списком всех доступных тем
+     */
+    public Map<String, Object> getThemesCfg() {
+        JsaThemeService themeSvc = gspContext.getApp().bean(JsaThemeService.class);
+        Map<String, Object> res = new LinkedHashMap<>();
+        for (String themeName : themeSvc.getThemeNames()) {
+            Map<String, Object> it = new LinkedHashMap<>();
+            it.put("name", themeName);
+            it.put("path", themeSvc.findThemeFile(themeName));
+            res.put(themeName, it);
+        }
+        return res;
     }
 
     /**

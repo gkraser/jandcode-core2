@@ -13,9 +13,9 @@ export default {
 
     data() {
         return {
-            title: 'Без заголовка',
-            title2: '',
-            icon: 'frame',
+            title: null,
+            title2: null,
+            icon: null,
         }
     },
 

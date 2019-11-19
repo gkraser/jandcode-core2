@@ -23,7 +23,7 @@
         },
         methods: {
             changeTheme(name) {
-                let theme = Jc.cfg.tst.themesByName[name]
+                let theme = Jc.cfg.tst.themes[name]
                 apex.theme.applyTheme(theme.path)
             }
         }

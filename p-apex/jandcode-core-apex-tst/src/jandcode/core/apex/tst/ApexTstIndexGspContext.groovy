@@ -15,6 +15,7 @@ class ApexTstIndexGspContext implements IGspContextLinkSet {
 
     private GspContext gspContext
     private String title
+    private Map cfg
 
     void setGspContext(GspContext gspContext) {
         this.gspContext = gspContext;
@@ -24,29 +25,22 @@ class ApexTstIndexGspContext implements IGspContextLinkSet {
      * Конфигурация для передачи в gsp
      */
     Map getCfg() {
-        JsaIndexGspContext ctx = gspContext.inst(JsaIndexGspContext)
-        JsaThemeService themeSvc = gspContext.getApp().bean(JsaThemeService)
+        if (cfg == null) {
+            cfg = [:]
 
-        String main = ctx.main
+            JsaIndexGspContext ctx = gspContext.inst(JsaIndexGspContext)
 
-        Map cfg = [:]
-        cfg.path = main
-        cfg.fileName = UtFile.filename(main)
-        cfg.filePath = UtFile.path(main)
-        cfg.fileNameBase = UtFile.removeExt(UtFile.removeExt(cfg.fileName))
+            String main = ctx.main
 
-        cfg.theme = ctx.theme
+            cfg.path = main
+            cfg.fileName = UtFile.filename(main)
+            cfg.filePath = UtFile.path(main)
+            cfg.fileNameBase = UtFile.removeExt(UtFile.removeExt(cfg.fileName))
 
-        cfg.themes = []
-        for (themeName in themeSvc.getThemeNames()) {
-            cfg.themes.add([name: themeName, path: themeSvc.findThemeFile(themeName)])
+            cfg.theme = ctx.theme
+            cfg.themes = ctx.themesCfg
+
         }
-
-        cfg.themesByName = [:]
-        for (themeName in themeSvc.getThemeNames()) {
-            cfg.themesByName[themeName] = [name: themeName, path: themeSvc.findThemeFile(themeName)]
-        }
-
         return cfg
     }
 
