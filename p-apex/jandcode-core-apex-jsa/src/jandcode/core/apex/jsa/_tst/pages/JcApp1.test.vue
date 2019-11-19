@@ -13,11 +13,9 @@
             <TestMenu1 :items="items1" :levels="3"/>
         </template>
 
-        <template #main>
-            <q-page class="q-pa-lg">
-                <q-toggle label="right" left-label v-model="right"/>
-            </q-page>
-        </template>
+        <q-page class="q-pa-lg">
+            <q-toggle label="right" left-label v-model="right"/>
+        </q-page>
 
     </App>
 </template>

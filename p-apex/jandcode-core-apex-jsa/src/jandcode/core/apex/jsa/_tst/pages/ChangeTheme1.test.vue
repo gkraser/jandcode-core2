@@ -1,10 +1,9 @@
 <template>
     <App>
-        <template #main>
-            <div class="q-pa-md">
-                <q-btn v-for="t in $jc.cfg.tst.themes" :label="t.name" @click="changeTheme(t.name)"/>
-            </div>
-        </template>
+        <div class="q-pa-md">
+            <q-btn v-for="t in $jc.cfg.tst.themes" :label="t.name"
+                   @click="changeTheme(t.name)"/>
+        </div>
     </App>
 </template>
 
