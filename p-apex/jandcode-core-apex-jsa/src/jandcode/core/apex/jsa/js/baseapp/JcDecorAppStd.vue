@@ -49,7 +49,7 @@
 
         <q-page-container class="jc-app--main">
             <q-page>
-                <slot name="default">
+                <slot name="main">
                 </slot>
             </q-page>
         </q-page-container>
