@@ -40,3 +40,12 @@
 
 }
 
+// декоратор для страниц
+.jc-decor-page {
+
+  .jc-frame--body {
+    padding: map-get($space-md, "y") map-get($space-md, "x")
+  }
+
+}
+
