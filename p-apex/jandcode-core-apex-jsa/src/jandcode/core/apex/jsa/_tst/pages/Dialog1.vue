@@ -1,8 +1,10 @@
 <template>
-    <Dialog size="max1" buttons="ync">
+    <Dialog :size="size" buttons="ync">
         Это диалог.
-        <q-btn label="Другой" @click="show1"/>
-        <q-btn label="cnt" @click="cnt==1?cnt=20:cnt=1"/>
+        <q-btn label="Другой" no-caps @click="show1"/>
+        <q-btn label="cnt" no-caps @click="cnt==1?cnt=20:cnt=1"/>
+        <q-btn label="size:max" no-caps @click="size='max'"/>
+        <q-btn label="size:norm" no-caps @click="size=''"/>
 
         <div :style="{width1:''+(size)+'px'}">
             Место
@@ -38,8 +40,8 @@
         mixins: [mixinDecor],
         props: {
             size: {
-                type: Number,
-                default: 1500
+                type: String,
+                default: ''
             }
         },
         created() {

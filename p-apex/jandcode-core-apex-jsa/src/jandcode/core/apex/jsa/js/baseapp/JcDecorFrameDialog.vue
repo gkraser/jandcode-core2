@@ -22,8 +22,6 @@
             </slot>
         </q-card-section>
 
-        <q-separator/>
-
         <div class="jc-frame--footer row q-gutter-x-sm q-pa-sm">
             <q-space/>
             <template v-for="b in footerRightButtons">

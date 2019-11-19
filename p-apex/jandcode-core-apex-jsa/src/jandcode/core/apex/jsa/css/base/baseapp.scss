@@ -1,20 +1,6 @@
 /* Стили для baseapp и фреймов
 ----------------------------------------------------------------------------- */
 
-// место для фрейма внутри диалога
-.jc-dialog-frame-place {
-  display: flex;
-}
-
-// диалог (q-dialog)
-.jc-dialog {
-
-  .q-dialog__inner--minimized > div {
-    max-width: inherit;
-  }
-
-}
-
 // декоратор для диалогов
 .jc-decor-dialog {
 
@@ -32,9 +18,10 @@
     flex-grow: 1;
   }
 
-  &--size__max {
+  &.jc-decor-dialog--size__max {
     height: calc(100vh - 48px);
     max-height: calc(100vh - 48px);
+    max-width: calc(100vw - 48px);
     width: 100vw;
   }
 
