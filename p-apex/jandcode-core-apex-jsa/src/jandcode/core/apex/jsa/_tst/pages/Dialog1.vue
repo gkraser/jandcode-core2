@@ -42,6 +42,10 @@
                 default: 1500
             }
         },
+        created() {
+            this.title = "Заголовок диалога"
+            this.icon = "frame"
+        },
         destroyed() {
             console.info("Frame destroyed");
         },

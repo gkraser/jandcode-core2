@@ -32,7 +32,7 @@
             return {}
         },
         mounted() {
-            this.show2()
+            this.show1()
         },
         methods: {
             show1() {
