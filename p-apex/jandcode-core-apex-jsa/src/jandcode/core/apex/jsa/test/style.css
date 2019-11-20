@@ -17,6 +17,9 @@
 .tst-wrapper--mocha {
   flex-grow: 1;
   flex-shrink: 0;
+  overflow: auto;
+  height: 100vh;
+  max-height: 100vh;
 }
 
 .tst-wrapper--jc-app {
@@ -26,6 +29,8 @@
 
   min-width: 50vw;
   max-width: 50vw;
+  height: 100vh;
+  max-height: 100vh;
 }
 
 .tst-hide {

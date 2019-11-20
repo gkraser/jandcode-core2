@@ -76,7 +76,7 @@ hideBody()
  * @param Comp компонент, может быть просто строкой-шаблоном
  * @param params параметры:
  * @param params.props свойства, которые будут переданы при рендеринге
- * @return {Vue|*}
+ * @return {Vue|*} отрендеренный компонент
  */
 export function vueMount(Comp, params) {
     if (apex.isString(Comp)) {
@@ -85,11 +85,41 @@ export function vueMount(Comp, params) {
         }
     }
     params = Object.assign({}, params)
-    params.props = Object.assign({}, params.props)
+
+    let CompMixin = {
+        methods: {
+            setProps(props) {
+                if (!props) {
+                    return
+                }
+                if (apex.isObject(props)) {
+                    let dest = this.$parent.rootProps
+                    for (let pn in props) {
+                        let v = props[pn]
+                        this.$set(dest, pn, v)
+                    }
+                    this.$parent.$forceUpdate()
+                    this.$forceUpdate()
+                    console.info("updated");
+                }
+            }
+        }
+    }
+
+    let Comp1 = {
+        mixins: [CompMixin, Comp]
+    }
+
     //
     let vm = new Vue({
+        data() {
+            let props = Object.assign({}, params.props)
+            return {
+                rootProps: props,
+            }
+        },
         render(h) {
-            return h(Comp, {props: params.props})
+            return h(Comp1, {props: this.rootProps})
         }
     })
     vm.$mount()
@@ -102,5 +132,5 @@ export function vueMount(Comp, params) {
     el.appendChild(vm.$el)
     body.appendChild(el)
 
-    return vm
+    return vm.$children[0]
 }

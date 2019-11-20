@@ -63,10 +63,50 @@ describe('tst1.test.js', function() {
 
     it("render big", function() {
         let vm = test.vueMount(`<div>
-    <div v-for="n in 5" class="no-wrap" style="min-width:1500px">
-        <q-btn v-for="m in 12" :label="'Button-'+n+':'+m"/>
+    <div v-for="n in 20" class="no-wrap" style="min-width:1500px" :key="n">
+        <q-btn v-for="m in 12" :label="'Button-'+n+':'+m" :key="m"/>
     </div>
 </div>`)
+    })
+
+    it("check values", function(cb) {
+        let Comp = {
+            template: `<div>{{value1}}-{{value2}}</div>`,
+            props: ['p1'],
+            created() {
+                this.value1 = this.value1 + this.p1
+            },
+            data() {
+                return {
+                    value1: '1'
+                }
+            },
+            computed: {
+                value2() {
+                    return this.value1 + this.p1 + '!'
+                }
+            }
+
+        }
+        let vm = test.vueMount(Comp, {
+            props: {
+                p1: '2'
+            }
+        })
+        test.assert.equal(vm.value1, '12')
+        test.assert.equal(vm.value2, '122!')
+
+        vm.setProps({p1: '333'})
+
+        // пока еще не равно
+        test.assert.equal(vm.value2, '122!')
+
+        Vue.nextTick(function() {
+            // а теперь равно
+            test.assert.equal(vm.value2, '12333!')
+            cb()
+        })
+
     })
 
 })
