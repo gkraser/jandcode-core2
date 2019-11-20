@@ -40,10 +40,10 @@
         data() {
             return {
                 items1: [
-                    {text: 'Элемент c font', icon: 'font1'},
-                    {text: 'Элемент без иконки', icon: '', defaultOpened: false},
-                    {text: 'Элемент с svg', icon: 'svg1'},
-                    {text: 'Элемент с png', icon: 'png1'},
+                    {label: 'Элемент c font', icon: 'font1'},
+                    {label: 'Элемент без иконки', icon: '', defaultOpened: false},
+                    {label: 'Элемент с svg', icon: 'svg1'},
+                    {label: 'Элемент с png', icon: 'png1'},
                 ],
             }
         },
