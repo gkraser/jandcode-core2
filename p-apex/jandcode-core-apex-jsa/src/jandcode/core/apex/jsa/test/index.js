@@ -40,4 +40,12 @@ export function initUi() {
     });
 }
 
+export function pauseAfterEach(msec) {
+    afterEach(function(cb) {
+        setTimeout(function() {
+            cb()
+        }, msec || 250)
+    })
+}
+
 hideJcApp()

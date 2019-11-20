@@ -5,6 +5,7 @@ let assert = test.assert
 describe("comp.test.js", function() {
 
     test.initUi()
+    test.pauseAfterEach()
 
     it("1", function() {
         let vm = new Vue({
