@@ -75,7 +75,7 @@ hideBody()
  * Возвращает экземпляр Vue
  * @param Comp компонент, может быть просто строкой-шаблоном
  * @param params параметры:
- * @param params.props свойства, которые будут переданы при рендеринге
+ * @param params.propsData свойства, которые будут переданы при рендеринге
  * @return {Vue|*} отрендеренный компонент
  */
 export function vueMount(Comp, params) {
@@ -88,20 +88,11 @@ export function vueMount(Comp, params) {
 
     let CompMixin = {
         methods: {
-            setProps(props) {
-                if (!props) {
-                    return
+            async setPropsData(props) {
+                for (let pn in props) {
+                    this.$set(this.$parent.propsData, pn, props[pn])
                 }
-                if (apex.isObject(props)) {
-                    let dest = this.$parent.rootProps
-                    for (let pn in props) {
-                        let v = props[pn]
-                        this.$set(dest, pn, v)
-                    }
-                    this.$parent.$forceUpdate()
-                    this.$forceUpdate()
-                    console.info("updated");
-                }
+                await this.$nextTick()
             }
         }
     }
@@ -113,13 +104,12 @@ export function vueMount(Comp, params) {
     //
     let vm = new Vue({
         data() {
-            let props = Object.assign({}, params.props)
             return {
-                rootProps: props,
+                propsData: Object.assign({}, params.propsData),
             }
         },
         render(h) {
-            return h(Comp1, {props: this.rootProps})
+            return h(Comp1, {props: this.propsData})
         }
     })
     vm.$mount()

@@ -1,7 +1,7 @@
 import {apex, test} from './vendor'
 
 /*
-    Демонстрация поддержки тестирования
+    Демонстрация поддержки тестирования 
  */
 
 describe('tst1.test.js', function() {
@@ -9,10 +9,12 @@ describe('tst1.test.js', function() {
     test.initUi()
     test.pauseAfterEach()
 
+
     it("out html", function() {
         let body = test.getBody()
         body.innerHTML = '<div>Hello<b>bold</b>!</div>'
     })
+
 
     it("append el", function() {
         let body = test.getBody()
@@ -20,6 +22,7 @@ describe('tst1.test.js', function() {
         z.innerHTML = '<div>Hello2<b>bold</b>!</div>'
         body.appendChild(z)
     })
+
 
     it("render vue comp from comp", function() {
         let Comp = {
@@ -47,12 +50,13 @@ describe('tst1.test.js', function() {
         ]
         for (let c of colors) {
             let vm = test.vueMount(Comp, {
-                props: {
+                propsData: {
                     colorProp: c
                 }
             })
         }
     })
+
 
     it("render vue comp from template", function() {
         let vm = test.vueMount(`<div>
@@ -60,6 +64,7 @@ describe('tst1.test.js', function() {
     <q-btn label="Button2" color="accent"/>
 </div>`)
     })
+
 
     it("render big", function() {
         let vm = test.vueMount(`<div>
@@ -69,7 +74,8 @@ describe('tst1.test.js', function() {
 </div>`)
     })
 
-    it("check values", function(cb) {
+
+    it("check values", async function() {
         let Comp = {
             template: `<div>{{value1}}-{{value2}}</div>`,
             props: ['p1'],
@@ -89,23 +95,16 @@ describe('tst1.test.js', function() {
 
         }
         let vm = test.vueMount(Comp, {
-            props: {
+            propsData: {
                 p1: '2'
             }
         })
         test.assert.equal(vm.value1, '12')
         test.assert.equal(vm.value2, '122!')
-
-        vm.setProps({p1: '333'})
-
-        // пока еще не равно
-        test.assert.equal(vm.value2, '122!')
-
-        Vue.nextTick(function() {
-            // а теперь равно
-            test.assert.equal(vm.value2, '12333!')
-            cb()
-        })
+        //
+        await vm.setPropsData({p1: '333'})
+        //
+        test.assert.equal(vm.value2, '12333!')
 
     })
 

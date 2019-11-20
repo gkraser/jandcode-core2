@@ -1,7 +1,5 @@
 import {apex, test} from './vendor'
 
-let assert = test.assert
-
 describe("dialog.test.js", function() {
 
     function makeFrame(params) {
@@ -38,7 +36,7 @@ describe("dialog.test.js", function() {
 
         setTimeout(() => {
             frame.closeFrame('ok')
-            assert.equal(s, '12')
+            test.assert.equal(s, '12')
             cb()
         }, 1)
 
@@ -54,7 +52,7 @@ describe("dialog.test.js", function() {
                 this.tag1 = true // маркер this
             },
             async initFrame() {
-                assert.ok(this.tag1)
+                test.assert.ok(this.tag1)
                 await new Promise(function(resolve) {
                     s += '0'
                     resolve()
@@ -66,7 +64,7 @@ describe("dialog.test.js", function() {
         let frame = showDialog({
             extends: Comp1,
             initFrame() {
-                assert.ok(this.tag1)
+                test.assert.ok(this.tag1)
                 s += '2'
             }
         }, {})
@@ -74,7 +72,7 @@ describe("dialog.test.js", function() {
         setTimeout(() => {
             console.info("frame", frame);
             frame.closeFrame('ok')
-            assert.equal(s, '012')
+            test.assert.equal(s, '012')
             cb()
         }, 1)
 
