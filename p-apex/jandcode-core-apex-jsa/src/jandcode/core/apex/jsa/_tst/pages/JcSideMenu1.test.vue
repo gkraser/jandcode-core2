@@ -71,24 +71,24 @@
                 curItemsName: 'items1',
 
                 items1: [
-                    {text: 'Элемент c font', icon: 'font1'},
-                    {text: 'Элемент без иконки', icon: '', defaultOpened: false},
-                    {text: 'Элемент с svg', icon: 'svg1'},
-                    {text: 'Элемент с png', icon: 'png1'},
+                    {label: 'Элемент c font', icon: 'font1'},
+                    {label: 'Элемент без иконки', icon: '', defaultOpened: false},
+                    {label: 'Элемент с svg', icon: 'svg1'},
+                    {label: 'Элемент с png', icon: 'png1'},
                 ],
 
                 itemsNoIcon: [
-                    {text: 'Элемент 1'},
-                    {text: 'Элемент 2'},
-                    {text: 'Элемент 3'},
-                    {text: 'Элемент 4'},
+                    {label: 'Элемент 1'},
+                    {label: 'Элемент 2'},
+                    {label: 'Элемент 3'},
+                    {label: 'Элемент 4'},
                 ],
 
                 itemsFs: [
-                    {text: 'Папка 1', icon: 'folder'},
-                    {text: 'Папка 2', icon: 'folder'},
-                    {text: 'Файл 3', icon: 'file'},
-                    {text: 'Файл 4', icon: 'file'},
+                    {label: 'Папка 1', icon: 'folder'},
+                    {label: 'Папка 2', icon: 'folder'},
+                    {label: 'Файл 3', icon: 'file'},
+                    {label: 'Файл 4', icon: 'file'},
                 ],
 
             }

@@ -22,9 +22,6 @@ export function runModule(moduleName) {
             })
 
         } else if (window.mocha) {
-            let elMocha = document.createElement('div')
-            elMocha.id = 'mocha'
-            document.body.appendChild(elMocha)
             mocha.run()
 
         } else {

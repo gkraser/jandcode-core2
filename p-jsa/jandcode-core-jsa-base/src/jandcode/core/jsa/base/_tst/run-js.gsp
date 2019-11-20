@@ -21,6 +21,7 @@
 <body>
 <% ctx.outLinkModules() %>
 <div id="jc-app"></div>
+<div id="mocha"></div>
 <script>
     Jc.cfg.set(${ctx.cfgJson})
     Jc.ready(function() {
@@ -28,9 +29,6 @@
         if (main.run) {
             main.run()
         } else if (window.mocha) {
-            let elMocha = document.createElement('div')
-            elMocha.id = 'mocha'
-            document.body.appendChild(elMocha)
             mocha.run()
         } else {
             throw new Error("No run() or mocha.run()")

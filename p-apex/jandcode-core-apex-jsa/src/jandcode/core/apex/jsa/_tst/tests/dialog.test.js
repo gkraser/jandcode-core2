@@ -1,6 +1,4 @@
-import * as test from './vendor'
-
-import * as apex from '../../js'
+import {apex, test} from './vendor'
 
 let assert = test.assert
 

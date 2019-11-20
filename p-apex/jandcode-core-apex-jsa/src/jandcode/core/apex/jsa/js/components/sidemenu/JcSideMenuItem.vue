@@ -6,7 +6,7 @@
             <q-icon :name="iconValue"/>
         </q-item-section>
         <q-item-section>
-            {{text}}
+            {{label}}
         </q-item-section>
     </q-item>
     <q-expansion-item v-else :dense="true" :dense-toggle="true"
@@ -21,7 +21,7 @@
                 <q-icon :name="iconValue"/>
             </q-item-section>
             <q-item-section>
-                {{text}}
+                {{label}}
             </q-item-section>
         </template>
         <q-list :dense="true" :class="classesList">
@@ -50,7 +50,7 @@
                 default: ''
             },
 
-            text: {
+            label: {
                 type: String
             },
 

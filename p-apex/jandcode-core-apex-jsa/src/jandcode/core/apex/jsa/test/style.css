@@ -1,0 +1,31 @@
+
+#mocha {
+  margin: 0;
+  padding: 20px;
+}
+
+#mocha-stats {
+  position: relative;
+  top: inherit;
+  right: inherit;
+}
+
+.tst-wrapper {
+  display: flex;
+}
+
+.tst-wrapper--mocha {
+  flex-grow: 1;
+}
+
+.tst-wrapper--jc-app {
+  border-left: 1px solid silver;
+  padding: 16px;
+  overflow: auto;
+
+  min-width: 50vw;
+}
+
+.tst-hide {
+  display: none;
+}

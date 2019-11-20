@@ -1,4 +1,4 @@
-import * as test from './vendor'
+import {apex, test} from './vendor'
 
 import * as m from '../../js/utils/icons'
 
