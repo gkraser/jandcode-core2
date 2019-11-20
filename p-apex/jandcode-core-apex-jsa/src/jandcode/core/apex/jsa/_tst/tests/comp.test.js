@@ -30,6 +30,8 @@ describe("comp.test.js", function() {
             template: `<q-btn label="hello3"/>`
         }
 
+        let mnt = test.vueMount(Comp)
+
         let vm = new Vue({
             render(h) {
                 return h(Comp)
