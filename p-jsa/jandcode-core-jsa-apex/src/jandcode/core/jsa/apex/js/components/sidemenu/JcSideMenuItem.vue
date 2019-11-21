@@ -35,7 +35,6 @@
     import JcSideMenu from './JcSideMenu'
 
     let nm = 'jc-side-menu-item'
-    let nmMenu = JcSideMenu.name
 
     export let cfg = {
         insetPaddingStart: 16,
@@ -66,6 +65,11 @@
             to: [Object, String],
             replace: Boolean,
         },
+
+        inject: {
+            parentMenu: {default: null}
+        },
+
         data() {
             return {
                 group: jsaBase.nextId(nm)
@@ -104,9 +108,8 @@
             },
 
             groupValue() {
-                let parentMenu = utils.comps.findCompUp(this.$parent, nmMenu)
-                if (parentMenu) {
-                    if (!parentMenu.accordion) {
+                if (this.parentMenu) {
+                    if (!this.parentMenu.accordion) {
                         return
                     }
                 }
@@ -116,8 +119,8 @@
                     return parentItem.group
                 }
 
-                if (parentMenu) {
-                    return parentMenu.group
+                if (this.parentMenu) {
+                    return this.parentMenu.group
                 }
 
             },
@@ -143,7 +146,7 @@
         methods: {
             onClick(ev) {
                 this.$emit('click', ev, this)
-            }
+            },
         }
     }
 </script>

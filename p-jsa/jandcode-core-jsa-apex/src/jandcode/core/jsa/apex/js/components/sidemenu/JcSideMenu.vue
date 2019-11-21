@@ -22,11 +22,19 @@
                 default: true
             }
         },
+
         data() {
             return {
                 group: jsaBase.nextId(nm)
             }
         },
+
+        provide() {
+            return {
+                parentMenu: this
+            }
+        },
+
         computed: {
 
             classes() {
@@ -36,5 +44,6 @@
             },
 
         },
+
     }
 </script>
