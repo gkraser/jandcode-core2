@@ -10,12 +10,11 @@ class P extends ProjectScript {
 
     void onInclude() {
         //
-        project.name = "jandcode-core-apex-jsa"
+        project.name = "jandcode-core-jsa-apex"
         //
         include(JavaProject).with {
             moduleDef("jandcode.core.apex.jsa").with {
                 depends.prod.add(
-                        "jandcode.core.apex",
                         "jandcode.core.jsa.base",
                 )
                 depends.dev.add(
