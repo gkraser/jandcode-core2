@@ -2,7 +2,6 @@ package jandcode.core.jsa.tst
 
 import jandcode.commons.*
 import jandcode.core.jsa.gsp.*
-import jandcode.core.jsa.theme.*
 import jandcode.core.web.*
 import jandcode.core.web.gsp.*
 import jandcode.core.web.virtfile.*
@@ -11,7 +10,7 @@ import jandcode.core.web.virtfile.*
  * Сервисные методы для использования в index.gsp и аналогичных файлах,
  * которые формируют стартовый html-файл приложения для выполнения _tst/run.
  */
-class ApexTstIndexGspContext implements IGspContextLinkSet {
+class TstIndexGspContext implements IGspContextLinkSet {
 
     private GspContext gspContext
     private String title

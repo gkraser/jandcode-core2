@@ -4,7 +4,7 @@
   BaseGsp th = this
   //
   def ctx = th.inst(JsaIndexGspContext)
-  def tstCtx = th.inst(ApexTstIndexGspContext)
+  def tstCtx = th.inst(TstIndexGspContext)
   //
   String path = th.context.rootGsp.args.path
   //
