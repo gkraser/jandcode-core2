@@ -1,35 +1,35 @@
 <template>
-    <q-layout view="hHh lpR fFf">
+    <App>
 
-        <q-header elevated class="bg-primary text-white">
-            <q-toolbar>
-                <q-btn dense flat round icon="menu" @click="left = !left"/>
+        <template #title>
+        </template>
 
-                <q-toolbar-title>
-                    XxxYyy
-                </q-toolbar-title>
-            </q-toolbar>
-        </q-header>
+        <template #toolbar>
+        </template>
 
-        <q-drawer show-if-above v-model="left"
-                  side="left" bordered content-class="bg-grey-2">
-        </q-drawer>
+        <template #left>
+        </template>
 
-        <q-page-container>
+        <template #main>
             <router-view></router-view>
-        </q-page-container>
+        </template>
 
-    </q-layout>
+    </App>
 </template>
 
 <script>
+    import {apex} from './vendor'
+
     export default {
+        extends: apex.JcApp,
         components: {},
         props: {},
-        data() {
-            return {
-                left: false,
-            }
+        created() {
+            this.title = "XxxYyy";
         },
+        data() {
+            return {}
+        },
+        methods: {}
     }
 </script>

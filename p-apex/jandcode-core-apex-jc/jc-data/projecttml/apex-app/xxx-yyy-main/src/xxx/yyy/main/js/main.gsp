@@ -17,8 +17,8 @@
 </head>
 
 <body>
-<% ctx.outLinkModules() %>
 <div id="jc-app"></div>
+<% ctx.outLinkModules() %>
 <script>
     Jc.cfg.set(${ctx.cfgJson})
     Jc.ready(function() {
