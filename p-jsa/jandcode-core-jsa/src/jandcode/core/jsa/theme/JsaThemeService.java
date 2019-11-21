@@ -8,7 +8,6 @@ import java.util.*;
  * Поддержка тем.
  * <p>
  * Темой является файл в модуле с именем 'css/THEMENAME-theme.js'.
- * Его импорт - инициализация темы.
  */
 public interface JsaThemeService extends Comp {
 
