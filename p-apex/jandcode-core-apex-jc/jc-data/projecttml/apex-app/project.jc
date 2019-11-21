@@ -20,9 +20,9 @@ class P extends ProjectScript {
         }
         //
         include(RootProject).with {
-            modules = [
+            modules(
                     "xxx-yyy-main",
-            ]
+            )
             depends.dev.add(
                     "jandcode-core-jsa-tst"
             )
