@@ -12,7 +12,6 @@ import * as popup from './popup'
 import * as ajax from './ajax'
 import * as moduleLoader from './moduleLoader'
 import * as error from './error'
-import * as funcs from './funcs'
 import * as theme from './theme'
 import cfg from './cfg'
 import Jc from './globalNs'
@@ -23,7 +22,6 @@ export {
     url,
     popup,
     ajax,
-    funcs,
     theme,
     cfg,
     jQuery,
