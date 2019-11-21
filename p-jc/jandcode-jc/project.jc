@@ -5,12 +5,12 @@ void onInclude() {
     //
     jm.autoJcDepends = false
     jm.packageRoot = "jandcode.jc"
-    jm.depends.prod.add(
+    jm.depends.prod(
             "jandcode-commons",
             "jandcode-commons-jansi",
             "jandcode-commons-groovy",
             "jandcode-commons-moduledef",
             "ant",
     )
-    jm.depends.dev.add()
+    jm.depends.dev()
 }

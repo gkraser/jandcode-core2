@@ -10,11 +10,11 @@ class P extends ProjectScript {
         include(JavaProject).with {
             packageRoot = "jandcode.jc.junit"
             autoJcDepends = false
-            depends.prod.add(
+            depends.prod(
                     "jandcode-jc",
                     "junit-platform-console",
             )
-            depends.dev.add(
+            depends.dev(
             )
             //
         }

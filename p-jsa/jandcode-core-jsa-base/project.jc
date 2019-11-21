@@ -14,15 +14,15 @@ class P extends ProjectScript {
         //
         include(JavaProject).with {
             moduleDef("jandcode.core.jsa.base").with {
-                depends.prod.add(
+                depends.prod(
                         "jandcode.core.jsa",
                         "jandcode.core.jsa.tools",
                 )
             }
             //
-            depends.prod.add(
+            depends.prod(
             )
-            depends.dev.add(
+            depends.dev(
             )
             //
         }

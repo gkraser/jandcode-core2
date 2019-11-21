@@ -12,14 +12,14 @@ class P extends ProjectScript {
         //
         include(JavaProject).with {
             moduleDef("jandcode.core.dao").with {
-                depends.prod.add(
+                depends.prod(
                 )
             }
             //
-            depends.prod.add(
+            depends.prod(
                     'javassist'
             )
-            depends.dev.add(
+            depends.dev(
             )
             //
         }

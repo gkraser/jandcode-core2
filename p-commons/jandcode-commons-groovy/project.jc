@@ -5,7 +5,7 @@ void onInclude() {
     //
     jm.autoJcDepends = false
     jm.packageRoot = "jandcode.commons.groovy"
-    jm.depends.prod.add(
+    jm.depends.prod(
             "jandcode-commons",
             "groovy",
             "groovy-ant",
@@ -13,5 +13,5 @@ void onInclude() {
             "groovy-xml",
             "groovy-templates",
     )
-    jm.depends.dev.add()
+    jm.depends.dev()
 }
