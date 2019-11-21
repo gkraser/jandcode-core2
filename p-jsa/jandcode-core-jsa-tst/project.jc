@@ -13,10 +13,10 @@ class P extends ProjectScript {
         project.name = "jandcode-core-jsa-tst"
         //
         include(JavaProject).with {
-            moduleDef("jandcode.core.apex.tst").with {
+            moduleDef("jandcode.core.jsa.tst").with {
                 depends.prod.add(
-                        "jandcode.core.apex.jsa",
                         "jandcode.core.web.tst",
+                        "jandcode.core.jsa.apex",
                 )
                 depends.dev.add(
                 )

@@ -24,7 +24,7 @@ class P extends ProjectScript {
                     "xxx-yyy-main",
             ]
             depends.dev.add(
-                    "jandcode-core-apex-tst"
+                    "jandcode-core-jsa-tst"
             )
         }
         //

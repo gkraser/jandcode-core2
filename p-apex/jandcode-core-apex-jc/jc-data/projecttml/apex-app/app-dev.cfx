@@ -3,7 +3,7 @@
 
     <app env="dev"/>
 
-    <x-depends module="jandcode.core.apex.tst"/>
+    <x-depends module="jandcode.core.jsa.tst"/>
 
     <web>
         <mount name="jsa-webroot-dev"
