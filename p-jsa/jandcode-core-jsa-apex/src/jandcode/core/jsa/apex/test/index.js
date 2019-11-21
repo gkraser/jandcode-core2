@@ -101,6 +101,9 @@ export function vueMount(Comp, params) {
         mixins: [CompMixin, Comp]
     }
 
+    // функциональный ли?
+    let functional = Comp.functional
+
     //
     let vm = new Vue({
         data() {
@@ -109,13 +112,26 @@ export function vueMount(Comp, params) {
             }
         },
         render(h) {
-            return h(Comp1, {props: this.propsData})
+            let z = h(Comp1, {props: this.propsData})
+            if (functional) {
+                return h('div', [
+                    z
+                ])
+            } else {
+                return z
+            }
         }
     })
     vm.$mount()
 
     //
     let body = getBody()
+
+    if (body.childElementCount > 0) {
+        let el = document.createElement('div')
+        el.classList.add('tst-vuecomp-separator')
+        body.appendChild(el)
+    }
 
     let el = document.createElement('div')
     el.classList.add('tst-vuecomp')
