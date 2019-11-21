@@ -15,12 +15,12 @@ class P extends ProjectScript {
         include(RootProject).with {
             groupId = "com.jandcode"
             moduleGroup = "jc-core/p-commons"
-            modules = [
+            modules(
                     "jandcode-commons",
                     "jandcode-commons-jansi",
                     "jandcode-commons-groovy",
                     "jandcode-commons-moduledef",
-            ]
+            )
         }
 
     }
