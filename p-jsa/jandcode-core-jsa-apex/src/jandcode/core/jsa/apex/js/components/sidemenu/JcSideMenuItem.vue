@@ -9,13 +9,14 @@
             {{label}}
         </q-item-section>
     </q-item>
-    <q-expansion-item v-else :dense="true" :dense-toggle="true"
+    <q-expansion-item v-else ref="expansionItem" :dense="true" :dense-toggle="true"
                       expand-separator1 :disable="disable"
-                      :default-opened="defaultOpenedValue"
+                      :value="opened"
                       :group="groupValue"
                       :headerStyle="style"
                       :headerClass="classes"
-                      @click="onClick">
+                      @click="onClick"
+                      @input="onInput">
         <template v-slot:header>
             <q-item-section avatar>
                 <q-icon :name="iconValue"/>
@@ -57,7 +58,7 @@
                 type: Boolean
             },
 
-            defaultOpened: {
+            opened: {
                 type: Boolean,
                 default: false
             },
@@ -72,7 +73,7 @@
 
         data() {
             return {
-                group: jsaBase.nextId(nm)
+                group: jsaBase.nextId(nm),
             }
         },
         computed: {
@@ -101,10 +102,6 @@
 
             hasItems() {
                 return !!this.$slots.default
-            },
-
-            defaultOpenedValue() {
-                return this.defaultOpened
             },
 
             groupValue() {
@@ -146,6 +143,13 @@
         methods: {
             onClick(ev) {
                 this.$emit('click', ev, this)
+            },
+            onInput(val) {
+                if (this.$listeners.input) {
+                    this.$emit('input', val)
+                } else {
+                    this.$refs.expansionItem.showing = val
+                }
             },
         }
     }

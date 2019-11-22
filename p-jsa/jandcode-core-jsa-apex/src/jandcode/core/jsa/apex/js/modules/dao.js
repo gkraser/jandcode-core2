@@ -51,7 +51,7 @@ class DaoService {
                 if (result != null) {
                     if (jsaBase.isArray(result)) {
                         ctx.result = {data: result}
-                    } else if (jsaBase.isObject(result)) {
+                    } else if (jsaBase.isObject(result)) {   //todo isObject(new Class())==false!!! учесть
                         ctx.result = result
                     } else {
                         ctx.result = {value: result}

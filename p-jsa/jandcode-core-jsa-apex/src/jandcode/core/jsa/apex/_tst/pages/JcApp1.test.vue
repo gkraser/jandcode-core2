@@ -41,7 +41,7 @@
             return {
                 items1: [
                     {label: 'Элемент c font', icon: 'font1'},
-                    {label: 'Элемент без иконки', icon: '', defaultOpened: false},
+                    {label: 'Элемент без иконки', icon: '', opened: false},
                     {label: 'Элемент с svg', icon: 'svg1'},
                     {label: 'Элемент с png', icon: 'png1'},
                 ],

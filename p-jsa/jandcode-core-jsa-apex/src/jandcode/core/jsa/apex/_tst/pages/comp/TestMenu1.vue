@@ -32,7 +32,7 @@
 <script>
     let itemsDefault = [
         {label: 'Элемент с font', icon: 'font1'},
-        {label: 'Элемент без иконки', icon: '', defaultOpened: true},
+        {label: 'Элемент без иконки', icon: '', opened: true},
         {label: 'Элемент с svg', icon: 'svg1'},
         {label: 'Элемент с png', icon: 'png1'},
     ]
@@ -58,9 +58,9 @@
                 for (let item of !!this.items ? this.items : itemsDefault) {
                     let n = Object.assign({}, item)
                     n.label = '(' + level + ') ' + n.label
-                    if (n.defaultOpened) {
+                    if (n.opened) {
                         if (level != 1) {
-                            n.defaultOpened = false
+                            n.opened = false
                         }
                     }
                     res.push(n)

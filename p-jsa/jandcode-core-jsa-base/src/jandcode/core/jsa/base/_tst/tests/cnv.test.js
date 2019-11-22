@@ -9,6 +9,11 @@ describe("utils/cnv", function() {
         assert.isOk(m.isObject({}));
         assert.isOk(m.isObject({a: 1}));
         assert.isOk(!m.isObject(new Date()));
+
+        class Z1 {}
+
+        let z1 = new Z1()
+        assert.notOk(m.isObject(z1));
     })
 
     it("isNumChar", function() {

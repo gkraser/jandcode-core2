@@ -10,7 +10,11 @@ import styleCss from './style.css'
 // css
 Jc.requireCss(styleCss)
 
-export let defaultPauseAfterEach = 250
+/**
+ * Пауза по умолчанию
+ * @type {number}
+ */
+export let defaultPause = 250
 
 Vue.config.errorHandler = function(err, vm, info) {
     console.error(`[Vue error]: ${err}${info}`)
@@ -62,7 +66,16 @@ export function pauseAfterEach(msec) {
     afterEach(function(cb) {
         setTimeout(function() {
             cb()
-        }, msec || defaultPauseAfterEach)
+        }, msec || defaultPause)
+    })
+}
+
+export function pause(msec) {
+    msec = msec || defaultPause
+    return new Promise(function(resolve) {
+        setTimeout(function() {
+            resolve()
+        }, msec)
     })
 }
 
