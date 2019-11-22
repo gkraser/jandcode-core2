@@ -37,9 +37,6 @@ function deepCopy(to, from, override, createProp) {
     }
 }
 
-/**
- * @type Vue
- */
 export let CfgStore = {
 
     render() {},
