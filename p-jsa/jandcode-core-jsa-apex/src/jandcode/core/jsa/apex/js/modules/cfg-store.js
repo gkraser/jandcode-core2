@@ -45,7 +45,7 @@ export let CfgStore = {
         this.__cfgDefault = {}
         this.__cfgLoaded = {}
         this.configKey = __filename
-        this.autoSave = true
+        this.autoSave = false
         this.$watch('cfg', this.onChangeCfg, {
             deep: true
         })

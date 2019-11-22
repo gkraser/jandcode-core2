@@ -10,7 +10,7 @@ describe('cfg-store1.test.js', function() {
             window.localStorage.removeItem(key)
         }
         let z = m.createCfgStore(key)
-        z.autoSave = false
+        test.assert.ok(z.autoSave === false)
         return z
     }
 
@@ -118,7 +118,7 @@ describe('cfg-store1.test.js', function() {
 
         test.assert.equal(z.cfg.b.c, 222)
         test.assert.equal(z.cfg.b.e.f, 444)
-        
+
         //
         z.reset('xx.yy') // такого пути нет
         test.assert.equal(z.cfg.b.c, 222)
