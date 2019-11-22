@@ -1,4 +1,4 @@
-import 'jandcode.core.jsa.apex'
+import * as apex from 'jandcode.core.jsa.apex'
 import './comp'
 
 /**
@@ -16,9 +16,11 @@ export function runModule(moduleName) {
         } else if (moduleName.endsWith(".vue") || main.vue) {
             let p = main.vue || main.default || main
             //
-            let vm = new Vue({
-                el: '#jc-app',
-                render: h => h(p)
+            apex.app.run().then(() => {
+                let vm = new Vue({
+                    el: '#jc-app',
+                    render: h => h(p)
+                })
             })
 
         } else if (window.mocha) {
