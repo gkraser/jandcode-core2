@@ -14,7 +14,7 @@ export default {
             title: 'Без заголовка',
             icon: 'app-logo',
 
-            left: false,
+            left: true,
             leftWidth: 280,
 
             right: false,

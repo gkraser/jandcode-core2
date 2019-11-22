@@ -24,7 +24,7 @@
             </q-toolbar>
         </q-header>
 
-        <q-drawer v-model="own.left" show-if-above
+        <q-drawer v-model="own.left"
                   side="left" bordered content-class="jc-app--side jc-app--left"
                   :width="own.leftWidth">
             <q-scroll-area class="fit">
