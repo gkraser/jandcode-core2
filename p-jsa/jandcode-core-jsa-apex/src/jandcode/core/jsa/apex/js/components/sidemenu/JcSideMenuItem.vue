@@ -145,10 +145,14 @@
                 this.$emit('click', ev, this)
             },
             onInput(val) {
+                let oldVal = this.$refs.expansionItem.showing
                 if (this.$listeners.input) {
                     this.$emit('input', val)
                 } else {
                     this.$refs.expansionItem.showing = val
+                }
+                if (this.parentMenu && oldVal !== val) {
+                    this.parentMenu.$emit('opened-change', this)
                 }
             },
         }

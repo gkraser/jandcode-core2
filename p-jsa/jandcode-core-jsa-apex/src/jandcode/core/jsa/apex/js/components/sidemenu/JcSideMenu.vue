@@ -9,6 +9,15 @@
 
     let nm = 'jc-side-menu'
 
+    /*
+
+    doc:
+
+    event:opened-change
+        Изменилось opened у какого-то  дочернего
+
+     */
+
     export default {
         name: nm,
         props: {
