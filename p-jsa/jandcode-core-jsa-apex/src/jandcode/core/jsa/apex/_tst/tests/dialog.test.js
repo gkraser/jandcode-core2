@@ -2,6 +2,8 @@ import {apex, test} from './vendor'
 
 describe("dialog.test.js", function() {
 
+    test.initUi()
+
     function makeFrame(params) {
         let Comp = {
             extends: apex.JcFrame,
@@ -15,8 +17,7 @@ describe("dialog.test.js", function() {
         let FrameComp = makeFrame(frameParams)
         showParams = Object.assign({}, showParams)
         showParams.frame = FrameComp
-        console.info("showParams", showParams);
-        return apex.frame.showDialog(showParams)
+        return apex.showDialog(showParams)
     }
 
     it("onOk", function(cb) {
@@ -70,7 +71,6 @@ describe("dialog.test.js", function() {
         }, {})
 
         setTimeout(() => {
-            console.info("frame", frame);
             frame.closeFrame('ok')
             test.assert.equal(s, '012')
             cb()
@@ -78,6 +78,23 @@ describe("dialog.test.js", function() {
 
     })
 
+    it("props-data", async function() {
+        let frame = showDialog({
+            props: {
+                p1: {
+                    default: '1'
+                }
+            }
+        }, {
+            propsData: {
+                p1: '123'
+            }
+        })
+
+        test.assert.equal(frame.p1, '123')
+
+        frame.closeFrame('ok')
+    })
 
 })
 

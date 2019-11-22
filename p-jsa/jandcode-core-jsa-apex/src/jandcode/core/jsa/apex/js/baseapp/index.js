@@ -11,6 +11,7 @@ import JcApp from './JcApp'
 import JcFrame from './JcFrame'
 import * as frame from './frame'
 
+
 export {
     JcDecor,
     JcDecorApp,
@@ -23,3 +24,7 @@ export {
     frame,
 }
 
+// на верхний уровень
+export {
+    showDialog
+} from './frame'

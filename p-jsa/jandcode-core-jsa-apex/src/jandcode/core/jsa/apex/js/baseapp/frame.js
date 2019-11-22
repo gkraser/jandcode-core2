@@ -70,14 +70,14 @@ export function getDialogButtons(buttons) {
     return res
 }
 
-class Shower {
+export class Shower {
 
     constructor(params) {
         // копия параметров
         this.params = jsaBase.extend({}, params)
 
         // свойства для фрейма
-        this.props = jsaBase.extend({}, params.props)
+        this.propsData = jsaBase.extend({}, params.propsData)
 
         // компонент фрейма
         this.frame = this.params.frame
@@ -112,13 +112,13 @@ class Shower {
 
 }
 
-class ShowerDialog extends Shower {
+export class ShowerDialog extends Shower {
 
     showFrame() {
         let th = this
 
         let FrameCompCls = Vue.extend(th.frame)
-        th.frameInst = new FrameCompCls({propsData: th.props})
+        th.frameInst = new FrameCompCls({propsData: th.propsData})
         th.frameInst.shower = th
 
         th.initFrame(() => {
@@ -189,11 +189,8 @@ class ShowerDialog extends Shower {
 
 }
 
-function showDialog(params) {
+export function showDialog(params) {
     let shower = new ShowerDialog(params)
     return shower.showFrame()
 }
 
-export {
-    showDialog,
-}

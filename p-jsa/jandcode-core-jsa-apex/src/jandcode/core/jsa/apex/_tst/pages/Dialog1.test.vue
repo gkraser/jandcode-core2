@@ -36,10 +36,10 @@
         },
         methods: {
             show1() {
-                apex.frame.showDialog({frame: Dialog1})
+                apex.showDialog({frame: Dialog1})
             },
             show2() {
-                apex.frame.showDialog({
+                apex.showDialog({
                     frame: DialogOnXxx1,
                     onCancel1: function() {
                         console.info("out CCCCC");
