@@ -1,5 +1,6 @@
 //
-import {Vue, VueRouter, Quasar, jsaBase} from './vendor'
+import {Vue, VueRouter} from './modules/vue'
+import {Quasar, jsaBase} from './vendor'
 import * as utils from './utils'
 import * as components from './components'
 import './icons/std'
@@ -7,13 +8,6 @@ import {quasarIconSet} from './icons/quasar-iconSet'
 
 //
 utils.comps.registerComponents(components)
-
-// vue
-Vue.config.productionTip = false
-Vue.config.devtools = false
-
-//
-Vue.use(VueRouter)
 
 // quasar icons
 let qIconsCss = require('@quasar/extras/material-icons/material-icons.css')
@@ -24,25 +18,8 @@ let qLangRu = require('quasar/dist/lang/ru.umd.min.js')
 Quasar.lang.set(qLangRu)
 
 // глобализация
-window.Vue = Vue
-window.VueRouter = VueRouter
 window.Quasar = Quasar
 Jc.apex = exports
-
-// утилиты для экземпляров vue
-let $jc = {
-
-    /**
-     * Преобразование url в baseUrl
-     */
-    url(u) {
-        return jsaBase.url.ref(u)
-    },
-
-}
-$jc.cfg = Jc.cfg
-
-Vue.prototype.$jc = $jc
 
 /**
  * Иконка по имени
@@ -68,6 +45,3 @@ export {
     utils,
     components,
 }
-
-
-

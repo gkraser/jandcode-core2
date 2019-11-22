@@ -4,6 +4,7 @@
 
  */
 
+import {Vue} from './vue'
 import {jsaBase} from '../vendor'
 import lodashGet from 'lodash/get'
 import lodashSet from 'lodash/set'
@@ -36,6 +37,9 @@ function deepCopy(to, from, override, createProp) {
     }
 }
 
+/**
+ * @type Vue
+ */
 export let CfgStore = {
 
     render() {},
@@ -52,6 +56,11 @@ export let CfgStore = {
 
     data() {
         return {
+
+            /**
+             * Конфигурация
+             * @member {Object} CfgStore#cfg
+             */
             cfg: {}
         }
     },
