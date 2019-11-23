@@ -36,7 +36,6 @@ export * from './error'
 // глобализация
 Jc.ready = base.ready;
 Jc.loadModule = moduleLoader.loadModule
-Jc.errorShow = error.errorShow
 Jc.applyTheme = theme.applyTheme
 window.$ = jQuery
 window.jQuery = jQuery

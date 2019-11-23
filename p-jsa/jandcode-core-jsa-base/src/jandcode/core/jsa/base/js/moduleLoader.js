@@ -7,7 +7,6 @@
 
 import * as cnv from './cnv'
 import * as ajax from './ajax'
-import * as error from './error'
 
 // модули, которые уже были загружены
 let _usedModules = {}
@@ -84,8 +83,7 @@ export function loadModule(modules, callback) {
     // при ошибке
     function onError(err) {
         console.error("Jc.loadModule", notUsed, err);
-        error.errorShow(err)
-        //todo?
+        throw err
     }
 
     // обработка requires

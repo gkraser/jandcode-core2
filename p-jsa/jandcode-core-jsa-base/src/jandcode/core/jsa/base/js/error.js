@@ -89,27 +89,3 @@ function errorCreate(err) {
     return e;
 }
 
-/**
- * Метод вызывается в catch для регистрации/показа ошибки.
- * Автоматически отправляет дальше (throw) вариант ошибки JcError
- */
-function error(err, doThrow) {
-    let e = errorCreate(err);
-    if (!e.handled) {
-        e.handled = true;
-        errorShow(e);
-    }
-    if (doThrow || doThrow === undefined) {
-        throw e;
-    }
-}
-
-/**
- * Стандартный механизм для показа ошибки
- * @param err ошибка
- */
-export function errorShow(err) {
-    let e = errorCreate(err)
-    let devMode = cfg.envDev
-    console.error('Error:', e.getMessage(devMode));
-}
