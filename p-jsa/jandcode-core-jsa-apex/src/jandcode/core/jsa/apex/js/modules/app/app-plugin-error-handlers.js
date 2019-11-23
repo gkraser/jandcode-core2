@@ -40,6 +40,11 @@ export default {
             showError(message)
         }
 
+        window.addEventListener("unhandledrejection", function(event) {
+            console.error('[Promise error]:', event.reason)
+            //console.error(event)
+            showError(event.reason)
+        });
     }
 
 }
