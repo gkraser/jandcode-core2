@@ -83,11 +83,11 @@ export function loadModule(modules) {
         // при ошибке
         function onError(err) {
             if (err.response) {
-                let e = error.errorCreate(err.response.data)
+                let e = error.createError(err.response.data)
                 console.error("Jc.loadModule", e.getMessage(), notUsed, err);
                 reject(e)
             } else {
-                let e = error.errorCreate(err)
+                let e = error.createError(err)
                 reject(e)
             }
         }

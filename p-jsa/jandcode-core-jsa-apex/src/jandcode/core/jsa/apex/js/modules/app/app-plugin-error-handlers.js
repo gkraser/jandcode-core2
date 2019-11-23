@@ -4,7 +4,7 @@
 import {Vue, Quasar, jsaBase} from '../../vendor'
 
 function showError(err) {
-    let e = jsaBase.errorCreate(err)
+    let e = jsaBase.createError(err)
     console.error(e);
     Quasar.Notify.create({
         position: 'top-right',

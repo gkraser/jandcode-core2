@@ -90,7 +90,7 @@ export class JcError {
  * Создает объект JcError из err, если err не JcError.
  * Возвращает или новый объект JcError или err, если err это JcError
  */
-export function errorCreate(err) {
+export function createError(err) {
     let e = err;
     if (!(err instanceof JcError)) {
         e = new JcError({err: err});
