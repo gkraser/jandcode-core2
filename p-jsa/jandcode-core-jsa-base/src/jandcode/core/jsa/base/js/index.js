@@ -8,21 +8,20 @@ import * as base from './base'
 import * as dom from './dom'
 import * as url from './url'
 import * as popup from './popup'
-import * as ajax from './ajax'
 import * as moduleLoader from './moduleLoader'
 import * as theme from './theme'
 import cfg from './cfg'
 import Jc from './globalNs'
-import {jQuery} from './vendor'
+import {jQuery, axios} from './vendor'
 
 export {
     dom,
     url,
     popup,
-    ajax,
     theme,
     cfg,
     jQuery,
+    axios,
 }
 
 // модули на верхний уровень

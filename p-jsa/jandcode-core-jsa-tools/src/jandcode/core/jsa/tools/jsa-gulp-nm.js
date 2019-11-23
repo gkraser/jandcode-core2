@@ -69,6 +69,7 @@ function nmExtractRequire_taskFactory(g, taskName, module, taskParams) {
 
 function nmModuleMapping_taskFactory(g, taskName, module, taskParams) {
     gulp.task(taskName, function(callback) {
+        fs.mkdirSync(g.buildPathCompiledNodeModules, {recursive: true})
         let mapping = taskParams.mapping;
         for (let m in mapping) {
             let mMap = mapping[m]

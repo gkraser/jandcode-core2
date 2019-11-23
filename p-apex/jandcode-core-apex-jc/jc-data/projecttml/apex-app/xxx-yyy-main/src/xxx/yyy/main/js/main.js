@@ -1,4 +1,4 @@
-import './vendor'
+import {apex} from './vendor'
 import App from './App'
 
 import Main from './pages/Main'
@@ -13,13 +13,15 @@ export function run() {
         routes: routes
     })
 
-    let vm = new Vue({
-        router: router,
-        render(h) {
-            return h(App)
-        }
+    apex.app.run().then(() => {
+        let vm = new Vue({
+            router: router,
+            render(h) {
+                return h(App)
+            }
+        })
+        vm.$mount("#jc-app")
     })
-    vm.$mount("#jc-app")
 
 }
 

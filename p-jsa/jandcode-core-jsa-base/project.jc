@@ -30,6 +30,7 @@ class P extends ProjectScript {
         include(JsaJavaProject).with {
             nodeDepends(
                     "jquery": "3.4.1",
+                    "axios": "0.19.0",
 
                     // for tests
                     "chai": "4.2.0",
@@ -41,9 +42,16 @@ class P extends ProjectScript {
                             "dist/**/*",
                             "!**/*.map",
                     ],
+
+                    "axios": [
+                            "dist/**/*",
+                            "!**/*.map",
+                    ],
+
                     "chai": [
                             "chai.js",
                     ],
+
                     "mocha": [
                             "mocha.*",
                     ],
@@ -52,6 +60,11 @@ class P extends ProjectScript {
             nodeExtractRequire(
                     "!chai/**/*.js",
                     "!mocha/**/*.js",
+            )
+            //
+            nodeModuleMapping(
+                    "jquery": "jquery/dist/jquery.slim.js",
+                    "axios": "axios/dist/axios",
             )
 
             gulpTask(name: "js", provide: true, globs: ["**/*.js"])

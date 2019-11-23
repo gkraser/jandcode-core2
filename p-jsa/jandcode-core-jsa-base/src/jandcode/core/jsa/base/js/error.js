@@ -33,6 +33,8 @@ export class JcError {
         if (config) {
             Object.assign(this, config)
         }
+
+        this.message = this.getMessage()
     }
 
     /**
@@ -42,35 +44,42 @@ export class JcError {
         let e = this.err;
         let m = "";
         let s;
+
+        function parseTextError(s) {
+            let m = s
+            let s1 = s.substr(0, ERROR_AJAX_PREFIX.length);
+            if (s1 === ERROR_AJAX_PREFIX) {
+                m = s.substring(ERROR_AJAX_PREFIX.length);
+            } else {
+                let rr = s.match(/<body.*?>((\n|\r|.)*?)<\/body>/);
+                if (rr) s = rr[1];
+                if (!devMode) {
+                    rr = s.match(/<div class="error-text">((\n|\r|.)*?)<\/div>/);
+                    if (rr) {
+                        m = rr[1];
+                    } else {
+                        m = s
+                    }
+                } else {
+                    m = s;
+                }
+            }
+            return m
+        }
+
+
         if (e instanceof Error) {
             return "" + e.message;
+
+        } else if (cnv.isString(e)) {
+            return parseTextError(e)
+
         } else if (e.status && e.statusText) {
             // response
             s = e.responseText;
-            if (s) {
-                // есть текст
-                let s1 = s.substr(0, ERROR_AJAX_PREFIX.length);
-                if (s1 === ERROR_AJAX_PREFIX) {
-                    m = s.substring(ERROR_AJAX_PREFIX.length);
-                } else {
-                    let rr = s.match(/<body.*?>((\n|\r|.)*?)<\/body>/);
-                    if (rr) s = rr[1];
-                    if (!devMode) {
-                        rr = s.match(/<div class="error-text">((\n|\r|.)*?)<\/div>/);
-                        if (rr) {
-                            m = rr[1];
-                        } else {
-                            m = "" + e.status + ": " + e.statusText;
-                        }
-                    } else {
-                        m = s;
-                    }
-                }
-                //
+            if (cnv.isString(s)) {
+                return parseTextError(s)
             }
-            return m;
-        } else if (cnv.isString(e)) {
-            return e;
         }
         return "" + e;
     }

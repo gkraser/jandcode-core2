@@ -4,9 +4,13 @@ import {test, jsaBase} from './vendor'
 
 describe(__filename, function() {
 
-    it("error-load-1", function() {
-        Jc.loadModule('xxx')
-        throw 'Не отработало'
+    it("error-load-1", async function() {
+        try {
+            await Jc.loadModule('xxx')
+            throw new Error('неожиданно')
+        } catch(e) {
+            // ignore
+        }
     })
 
 })

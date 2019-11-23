@@ -8,7 +8,7 @@ import './comp'
  *        или быть vue-модулем (расшрение vue), или описывать тесты mocha.
  */
 export function runModule(moduleName) {
-    Jc.loadModule([moduleName], function() {
+    Jc.loadModule([moduleName]).then(function() {
         let main = require(moduleName)
         if (main.run) {
             main.run()

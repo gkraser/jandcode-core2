@@ -1,14 +1,16 @@
 /* Обработка ошибок
 ----------------------------------------------------------------------------- */
 
-import {Vue, Quasar} from '../../vendor'
+import {Vue, Quasar, jsaBase} from '../../vendor'
 
 function showError(err) {
+    let e = jsaBase.errorCreate(err)
+    console.error(e);
     Quasar.Notify.create({
         position: 'top-right',
         multiLine: true,
         color: 'negative',
-        message: '' + err,
+        message: '' + e.message,
         icon: 'error',
         actions: [
             {label: 'Закрыть', color: 'yellow'},
@@ -24,15 +26,13 @@ export default {
     beforeRun(app) {
 
         Vue.config.errorHandler = function(err, vm, info) {
-            console.error(`Apex: [Vue error]: ${err} ${info}`)
-            console.error(err);
-            showError(err)
+            let msg = `Apex: [Vue error]: ${err} ${info}`
+            showError(msg)
         }
 
         Vue.config.warnHandler = function(err, vm, info) {
-            console.error(`Apex: [Vue warn]: ${err} ${info}`)
-            console.error(err);
-            showError(err)
+            let msg = `Apex: [Vue warn]: ${err} ${info}`
+            showError(msg)
         }
 
         window.onerror = function(message, url, line, col, error) {
@@ -42,7 +42,6 @@ export default {
 
         window.addEventListener("unhandledrejection", function(event) {
             console.error('[Promise error]:', event.reason)
-            //console.error(event)
             showError(event.reason)
         });
     }
