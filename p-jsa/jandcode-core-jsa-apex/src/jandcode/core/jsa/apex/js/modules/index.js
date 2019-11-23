@@ -1,6 +1,7 @@
 export * from './dao'
 export * from './cfg-store'
 export * from './app'
+export * from './msgbox'
 
 // инициализируем приложение
 import {app} from './app'
