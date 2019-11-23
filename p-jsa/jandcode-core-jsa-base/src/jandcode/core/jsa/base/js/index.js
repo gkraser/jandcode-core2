@@ -5,13 +5,11 @@ jandcode-core-jsa-utils
 ----------------------------------------------------------------------------- */
 
 import * as base from './base'
-import * as cnv from './cnv'
 import * as dom from './dom'
 import * as url from './url'
 import * as popup from './popup'
 import * as ajax from './ajax'
 import * as moduleLoader from './moduleLoader'
-import * as error from './error'
 import * as theme from './theme'
 import cfg from './cfg'
 import Jc from './globalNs'

@@ -12,7 +12,7 @@ import cfg from './cfg'
 /**
  * Объект "ошибка"
  */
-class JcError {
+export class JcError {
 
     constructor(config) {
         /**
@@ -81,7 +81,7 @@ class JcError {
  * Создает объект JcError из err, если err не JcError.
  * Возвращает или новый объект JcError или err, если err это JcError
  */
-function errorCreate(err) {
+export function errorCreate(err) {
     let e = err;
     if (!(err instanceof JcError)) {
         e = new JcError({err: err});
