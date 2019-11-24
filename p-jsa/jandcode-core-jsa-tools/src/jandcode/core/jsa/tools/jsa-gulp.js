@@ -201,7 +201,7 @@ class JsaGulpBuilder {
         return gulpif(th.watchWorking, plumber({
             errorHandler: notify.onError(function(err) {
                 return {
-                    title: 'Error in gulp-watch',
+                    title: 'Error in watch',
                     message: err.message
                 }
             })

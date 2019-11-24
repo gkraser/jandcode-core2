@@ -12,13 +12,13 @@ class P extends ProjectScript {
         //
         include(JavaProject).with {
             moduleDef("jandcode.core.lucene").with {
-                depends.prod.add(
+                depends.prod(
                     "lucene-core",
                     "lucene-queryparser",
                     "lucene-queries",
                     "lucene-analyzers-common",
                 )
-                depends.dev.add(
+                depends.dev(
                 )
             }
         }

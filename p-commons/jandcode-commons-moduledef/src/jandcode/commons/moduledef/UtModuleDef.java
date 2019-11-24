@@ -5,6 +5,8 @@ import jandcode.commons.conf.*;
 import jandcode.commons.moduledef.impl.*;
 import org.apache.commons.vfs2.*;
 
+import java.util.*;
+
 /**
  * Статические утилиты для ModuleDef
  */
@@ -35,11 +37,12 @@ public class UtModuleDef {
      *
      * @param moduleDef         для какого {@link ModuleDef} загрузить конфигурацию
      * @param moduleDefResolver какой {@link ModuleDefResolver} использовать, если нужно
+     * @param vars              переменные, которые будут доступны при загрузке
      * @return загруженный экземпляр конфигурации
      * @throws Exception
      */
     public static ModuleDefConfig loadModuleDefConfig(ModuleDef moduleDef,
-            ModuleDefResolver moduleDefResolver) throws Exception {
+            ModuleDefResolver moduleDefResolver, Map<String, String> vars) throws Exception {
 
         if (moduleDefResolver == null) {
             moduleDefResolver = createModuleDefResolver();
@@ -48,7 +51,7 @@ public class UtModuleDef {
         ModuleDefConfig res = new ModuleDefConfigImpl();
 
         ConfLoader ldr = UtConf.createLoader(res.getConf());
-        ldr.registerPlugin(new ModuleDefConfLoaderPlugin(moduleDef, res, moduleDefResolver));
+        ldr.registerPlugin(new ModuleDefConfLoaderPlugin(moduleDef, res, moduleDefResolver, vars));
 
         // загружаем дескриптор модуля первым, если он присутсвует
         FileObject moduleInfoFile;

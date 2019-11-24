@@ -12,11 +12,11 @@ class P extends ProjectScript {
         //
         include(JavaProject).with {
             moduleDef("jandcode.core.db.mariadb").with {
-                depends.prod.add(
+                depends.prod(
                         "jandcode.core.db",
                         "mariadb-java-client",
                 )
-                depends.dev.add(
+                depends.dev(
                 )
             }
         }

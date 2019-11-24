@@ -1,6 +1,7 @@
 package jandcode.core;
 
 import jandcode.commons.*;
+import jandcode.commons.moduledef.*;
 
 /**
  * Константы
@@ -30,13 +31,27 @@ public class AppConsts {
 
 
     /**
-     * Каталог приложения. Определяется переменной PROP_APP_DIR.
-     * Если она не определена, возвращается текущий рабочий каталог.
+     * Выяснить каталог приложения.
+     * Определяется переменной PROP_APP_DIR.
+     * Если она не определена, ищется pathprop {@link ModuleDefConsts#PROP_PROJECT_ROOT}.
+     * Если она не определена, defaultAppDir.
+     *
+     * @param defaultAppDir каталог по умолчанию, если не удалось определить.
+     *                      Если null, то принимается как workDir
      */
-    public static String getAppdir() {
+    public static String resolveAppdir(String defaultAppDir) {
+        if (defaultAppDir == null) {
+            defaultAppDir = UtFile.getWorkdir();
+        }
+
         String appdir = System.getProperty(PROP_APP_DIR);
+
         if (UtString.empty(appdir)) {
-            appdir = UtFile.getWorkdir();
+            appdir = UtFile.getPathprop(ModuleDefConsts.PROP_PROJECT_ROOT, defaultAppDir);
+        }
+
+        if (UtString.empty(appdir)) {
+            appdir = defaultAppDir;
         }
         return UtFile.abs(appdir);
     }

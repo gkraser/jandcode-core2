@@ -12,7 +12,7 @@ class P extends ProjectScript {
         //
         include(JavaProject).with {
             moduleDef("jandcode.core.groovy").with {
-                depends.prod.add(
+                depends.prod(
                         "jandcode-commons-groovy"
                 )
             }

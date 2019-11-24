@@ -16,9 +16,9 @@ class P extends ProjectScript {
         include(AppProject)
         //
         include(RootProject).with {
-            modules = [
+            modules(
                     "xxx-yyy",
-            ]
+            )
         }
         //
     }

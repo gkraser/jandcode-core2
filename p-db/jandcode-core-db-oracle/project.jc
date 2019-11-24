@@ -12,11 +12,11 @@ class P extends ProjectScript {
         //
         include(JavaProject).with {
             moduleDef("jandcode.core.db.oracle").with {
-                depends.prod.add(
+                depends.prod(
                         "jandcode.core.db",
                         "ojdbc8",
                 )
-                depends.dev.add(
+                depends.dev(
                 )
             }
         }

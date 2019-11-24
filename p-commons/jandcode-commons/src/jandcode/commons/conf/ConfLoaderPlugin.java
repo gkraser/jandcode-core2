@@ -35,4 +35,13 @@ public interface ConfLoaderPlugin {
      */
     void afterLoad() throws Exception;
 
+    /**
+     * Вычислить выражение.
+     * Используется в x-if и x-if-not.
+     *
+     * @param expr выражение
+     * @return null, если не известное выражение
+     */
+    Object evalExpression(Conf expr);
+
 }

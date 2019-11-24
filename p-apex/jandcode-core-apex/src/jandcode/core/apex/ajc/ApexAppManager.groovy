@@ -18,7 +18,10 @@ class ApexAppManager extends ProjectScript {
      */
     App getApp() {
         if (_app == null) {
-            String appCfx = wd("app.cfx")
+            String appCfx = ctx.vars.get(ApexJcMain.VAR_APP_FILE)
+            if (UtString.empty(appCfx)) {
+                appCfx = wd("app.cfx")
+            }
             log.info("load app from [${appCfx}]")
             ut.stopwatch.start("load app")
             _app = AppLoader.load(appCfx)

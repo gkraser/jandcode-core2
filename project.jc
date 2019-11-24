@@ -18,7 +18,7 @@ class P extends ProjectScript {
         //
         include(RootProject).with {
             groupId = "com.jandcode"
-            modules = [
+            modules(
                     "p-commons",
                     "p-jc",
                     "p-core",
@@ -28,7 +28,7 @@ class P extends ProjectScript {
                     "p-jsa",
                     "p-mdoc",
                     "p-apex",
-            ]
+            )
         }
         //
         include(ThisProductBuilder).with {

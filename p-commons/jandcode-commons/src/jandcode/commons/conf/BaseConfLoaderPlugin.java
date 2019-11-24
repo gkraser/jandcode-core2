@@ -36,4 +36,8 @@ public abstract class BaseConfLoaderPlugin implements ConfLoaderPlugin {
     public void afterLoad() throws Exception {
     }
 
+    public Object evalExpression(Conf expr) {
+        return null;
+    }
+
 }

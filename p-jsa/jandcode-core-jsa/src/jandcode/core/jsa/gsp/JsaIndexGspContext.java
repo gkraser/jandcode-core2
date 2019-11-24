@@ -4,7 +4,9 @@ import jandcode.commons.*;
 import jandcode.core.jsa.cfg.*;
 import jandcode.core.jsa.jsmodule.*;
 import jandcode.core.jsa.theme.*;
+import jandcode.core.web.*;
 import jandcode.core.web.gsp.*;
+import jandcode.core.web.virtfile.*;
 
 import java.util.*;
 
@@ -18,7 +20,7 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
     private String title;
     private String env;
     private String main;
-    private String cfgJson;
+    private Map<String, Object> cfg;
     private String theme;
     private List<String> otherModules = new ArrayList<>();
 
@@ -100,6 +102,7 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
         s = getTheme();
         if (!UtString.empty(s)) {
             res.add(s);
+            res.add("<script>Jc.applyTheme('" + s + "')</script>");
         }
 
         s = getMain();
@@ -112,17 +115,62 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
         return res;
     }
 
+    /**
+     * Вывод в gsp текста подключения модулей
+     */
+    public void outLinkModules() throws Exception {
+        BaseGsp gsp = gspContext.getCurrentGsp();
+
+        String s;
+        Map<String, String> params = new HashMap<>();
+        s = getEnv();
+
+        if (!UtString.empty(s)) {
+            params.put("module", s);
+            gsp.outTag("jc/linkModule", params);
+        }
+
+        s = getTheme();
+        if (!UtString.empty(s)) {
+            params.put("module", s);
+            gsp.outTag("jc/linkModule", params);
+            gsp.out("<script>Jc.applyTheme('" + s + "')</script>\n");
+            if (gspContext.getApp().getEnv().isDev()) {
+                gsp.out("\n");
+            }
+        }
+
+        s = getMain();
+        if (!UtString.empty(s)) {
+            params.put("module", s);
+            gsp.outTag("jc/linkModule", params);
+        }
+
+        for (String m : otherModules) {
+            params.put("module", m);
+            gsp.outTag("jc/linkModule", params);
+        }
+
+    }
+
     //////
+
+    /**
+     * Конфигурация для клиента
+     */
+    public Map<String, Object> getCfg() {
+        if (this.cfg == null) {
+            JsaClientCfgService cfgSvc = gspContext.getApp().bean(JsaClientCfgService.class);
+            this.cfg = cfgSvc.grabClientCfg();
+        }
+        return this.cfg;
+    }
 
     /**
      * Конфигурация для клиента в виде json-строки
      */
     public String getCfgJson() {
-        if (this.cfgJson == null) {
-            JsaClientCfgService cfgSvc = gspContext.getApp().bean(JsaClientCfgService.class);
-            this.cfgJson = UtJson.toJson(cfgSvc.grabClientCfg());
-        }
-        return this.cfgJson;
+        return UtJson.toJson(getCfg());
     }
 
     //////
@@ -145,6 +193,48 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
             return theme;
         }
         return gspContext.getApp().bean(JsaThemeService.class).findThemeFile(theme);
+    }
+
+    /**
+     * Возвращает конфигурацию со списком всех доступных тем
+     */
+    public Map<String, Object> getThemesCfg() {
+        JsaThemeService themeSvc = gspContext.getApp().bean(JsaThemeService.class);
+        Map<String, Object> res = new LinkedHashMap<>();
+        for (String themeName : themeSvc.getThemeNames()) {
+            Map<String, Object> it = new LinkedHashMap<>();
+            it.put("name", themeName);
+            it.put("path", themeSvc.findThemeFile(themeName));
+            res.put(themeName, it);
+        }
+        return res;
+    }
+
+    /**
+     * Получить и проверить тему.
+     *
+     * @param theme        тема
+     * @param defaultTheme тема по умолчанию, если theme не существует или пустая
+     * @return тема
+     */
+    public String resolveTheme(String theme, String defaultTheme) {
+        if (UtString.empty(theme)) {
+            return defaultTheme;
+        }
+        WebService webSvc = gspContext.getApp().bean(WebService.class);
+        if (theme.indexOf('/') != -1) {
+            VirtFile f = webSvc.findFile(theme);
+            if (f == null) {
+                return defaultTheme;
+            } else {
+                return f.getPath();
+            }
+        }
+        String s = gspContext.getApp().bean(JsaThemeService.class).findThemeFile(theme);
+        if (UtString.empty(s)) {
+            return defaultTheme;
+        }
+        return theme;
     }
 
     //////

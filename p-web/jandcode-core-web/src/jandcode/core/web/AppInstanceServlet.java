@@ -42,7 +42,7 @@ public class AppInstanceServlet extends HttpServlet implements IAppLink {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             // проверяем необходимость перегрузки приложения в отладочном режиме
-            if (app.isDebug() && !app.isTest()) {
+            if (app.getEnv().isDev() && !app.getEnv().isTest()) {
                 CheckChangedResourceInfo info = app.bean(CheckChangedResourceService.class).checkChangedResource();
                 if (info.isNeedRestartApp()) {
                     log.warn("Требуется перезагрузка приложения из-за серьезных изменений в ресурсах");

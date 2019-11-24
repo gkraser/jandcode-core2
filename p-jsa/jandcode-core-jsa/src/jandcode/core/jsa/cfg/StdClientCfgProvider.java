@@ -10,10 +10,7 @@ import java.util.*;
 public class StdClientCfgProvider extends BaseComp implements JsaClientCfgProvider {
 
     public void grabClientCfg(Map<String, Object> cfg) throws Exception {
-        // debug
-        if (getApp().isDebug()) {
-            cfg.put("debug", true);
-        }
+        //todo а нужно ли тут что-нибудь?
     }
 
 }

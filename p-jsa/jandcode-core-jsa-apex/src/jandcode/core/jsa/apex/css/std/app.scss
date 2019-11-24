@@ -1,0 +1,64 @@
+/* app
+----------------------------------------------------------------------------- */
+
+.jc-app--header.q-header {
+  background-color: $lime-1;
+  color: $grey-7;
+}
+
+.jc-app--side {
+
+  background-color: $grey-1;
+
+  .jc-side-menu {
+
+    font-size: 13px;
+
+    .q-list--dense > .q-item, .q-item--dense {
+      min-height: 28px;
+    }
+
+    .q-item__section--avatar {
+      min-width: 24px;
+      padding-right: 12px;
+
+      .q-icon {
+        font-size: 20px;
+      }
+
+    }
+
+    color: $grey-9;
+
+    .q-item__section--avatar {
+      .q-icon {
+        opacity: 0.6;
+        color: $orange-6;
+        font-size: 18px;
+      }
+    }
+
+    .jc-side-menu-item--level-0 {
+      font-size: 14px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+
+      .q-item__section--avatar {
+        .q-icon {
+          font-size: 24px;
+        }
+      }
+
+    }
+
+    .jc-side-menu-item--list-level-1 {
+      background-color: $grey-2;
+    }
+
+  }
+}
+
+.jc-app--main {
+  background-color: $grey-1;
+}
+

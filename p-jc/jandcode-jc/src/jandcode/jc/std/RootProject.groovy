@@ -1,6 +1,7 @@
 package jandcode.jc.std
 
 import jandcode.commons.*
+import jandcode.commons.error.*
 import jandcode.commons.simxml.*
 import jandcode.jc.*
 import jandcode.jc.impl.depends.*
@@ -30,20 +31,16 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
 
     }
 
-    private List _modules = []
+    private List<Project> _modules = []
+    private List _modulesTmp = []
 
     /**
      * Список модулей проекта в правильном порядке (сначала зависимые, потом зависящие).
-     * При инициализации проекта - имена каталогов модулей относительно
-     * корневого проекта. После инициализации - ссылки на проекты модулей.
+     * Доступно после загрузки проекта.
+     * Только для чтения.
      */
-    List getModules() {
+    List<Project> getModules() {
         return _modules
-    }
-
-    void setModules(Collection modules) {
-        this._modules.clear()
-        this._modules.addAll(modules)
     }
 
     /**
@@ -137,9 +134,12 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
     }
 
     void onAfterLoad() {
-        List tmp = []
-        for (mname in modules) {
-            Project m
+        if (this._modules.size() > 0) {
+            throw new XError("Модули в проект нужно добавлять через вызов modules(), \n" +
+                    "нарпямую modules изменять нельзя")
+        }
+        for (mname in this._modulesTmp) {
+            Project m = null
             if (mname instanceof String) {
                 // загружаем модуль
                 m = load(mname)
@@ -148,17 +148,15 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
                 m = mname
 
             } else {
-                error("В modules можно указывать только строки или проекты")
+                error("В modules() можно указывать только строки или проекты")
             }
-            tmp.add(m)
+            _modules.add(m)
 
             // что бы можно было gen-idea делать
             if (m.impl(ILibDepends).size() == 0) {
                 m.include(DummyImlProject)
             }
         }
-        modules.clear()
-        modules.addAll(tmp)
 
         // автодобавление jc в зависимости
         if (autoJcDepends) {
@@ -459,4 +457,18 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
         rlibs.classpath
     }
 
+    ////// modules
+
+    /**
+     * Добавить модули в проект.
+     * Модуль должен быть каталогом, относительно каталога проекта.
+     */
+    void modules(Object... data) {
+        if (data == null || data.size() == 0) {
+            return
+        }
+        this._modulesTmp.addAll(data)
+    }
+
 }
+

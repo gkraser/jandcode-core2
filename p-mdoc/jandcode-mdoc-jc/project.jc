@@ -10,12 +10,12 @@ class P extends ProjectScript {
         include(JavaProject).with {
             packageRoot = "jandcode.mdoc.jc"
             //
-            depends.prod.add(
+            depends.prod(
                     "jandcode-jc",
                     "jandcode-mdoc",
                     "jandcode-mdoc-web",
             )
-            depends.dev.add(
+            depends.dev(
             )
             //
         }

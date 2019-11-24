@@ -2,6 +2,7 @@ package jandcode.core.test;
 
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
+import jandcode.commons.env.*;
 import jandcode.commons.error.*;
 import jandcode.commons.stopwatch.*;
 import jandcode.commons.test.*;
@@ -105,12 +106,8 @@ public class AppTestSvc extends BaseTestSvc implements App {
         return getApp().getAppConfFile();
     }
 
-    public boolean isDebug() {
-        return getApp().isDebug();
-    }
-
-    public boolean isTest() {
-        return getApp().isTest();
+    public Env getEnv() {
+        return getApp().getEnv();
     }
 
     public Conf getConf() {

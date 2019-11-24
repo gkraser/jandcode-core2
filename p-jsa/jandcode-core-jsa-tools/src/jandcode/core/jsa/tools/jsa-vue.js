@@ -74,7 +74,7 @@ function compileVue(text, babelConfig, styleCompilers) {
             res +=
                 'var __CSS__ = {css: true, filename: __filename, text: ' + JSON.stringify(stres) + '}\n' +
                 'var __BFC__ = __OPT__.beforeCreate;\n' +
-                '__OPT__.beforeCreate = function() {Jc.requireCss(__CSS__);' +
+                '__OPT__.beforeCreate = function() {Jc.requireCss(__CSS__, __OPT__.requireCss_place);' +
                 'if (__BFC__) __BFC__.call(this);}\n'
         }
     }

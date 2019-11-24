@@ -6,8 +6,8 @@ let assert = test.assert
 describe("index", function() {
 
     it("test 1", function() {
-        assert.ok('base' in m);
-        assert.ok('nextId' in m.base);
+        assert.notOk('base' in m);
+        assert.ok('nextId' in m);
     })
 
 })

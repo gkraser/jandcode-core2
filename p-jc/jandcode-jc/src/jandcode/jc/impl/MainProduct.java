@@ -69,6 +69,9 @@ public class MainProduct extends BaseMain {
         // инициализируем
         ctx.applyConfig(cfg);
 
+        // собираем остальные опции, ctx уже создан
+        grabOpt_other();
+
         // создаем проект
         Project project = new ProjectImpl(ctx, UtFile.join(cfg.getAppdir(), "dummy.jc"));
         project.include(mainInclude);

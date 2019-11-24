@@ -5,9 +5,9 @@ void onInclude() {
     //
     jm.autoJcDepends = false
     jm.packageRoot = "jandcode.commons.jansi"
-    jm.depends.prod.add(
+    jm.depends.prod(
             "jandcode-commons",
             "jansi",
     )
-    jm.depends.dev.add()
+    jm.depends.dev()
 }

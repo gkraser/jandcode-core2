@@ -2,7 +2,9 @@ package jandcode.core.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
+import jandcode.commons.env.*;
 import jandcode.commons.error.*;
+import jandcode.commons.event.*;
 import jandcode.commons.moduledef.*;
 import jandcode.core.*;
 import org.apache.commons.vfs2.*;
@@ -23,7 +25,7 @@ public class AppImpl implements App, IBeanIniter {
     private Conf conf;
     private String appdir;
     private String workdir;
-    private boolean debug;
+    private Env env;
     private boolean test;
     private List<ConfSource> confSources;
     protected Map<String, Object> props = new LinkedHashMap<>();
@@ -101,7 +103,7 @@ public class AppImpl implements App, IBeanIniter {
         }
         this.test = test;
         this.appConfFile = f.toString();
-
+        this.env = new DefaultEnv(true, this.test);
         //                       
         loadAppConf();
     }
@@ -130,12 +132,8 @@ public class AppImpl implements App, IBeanIniter {
         return appConfFile;
     }
 
-    public boolean isDebug() {
-        return debug;
-    }
-
-    public boolean isTest() {
-        return test;
+    public Env getEnv() {
+        return env;
     }
 
     public Map<String, Object> getProps() {
@@ -146,41 +144,62 @@ public class AppImpl implements App, IBeanIniter {
 
     private void loadAppConf() throws Exception {
 
-        String appConfPath = UtFile.path(UtFile.vfsPathToLocalPath(appConfFile));
+        // определяем каталог приложения
+        this.appdir = AppConsts.resolveAppdir(
+                UtFile.path(UtFile.vfsPathToLocalPath(appConfFile))
+        );
 
         // resolver
         ModuleDefResolver moduleDefResolver = UtModuleDef.createModuleDefResolver();
-        moduleDefResolver.addWorkDir(appConfPath);
+        moduleDefResolver.addWorkDir(this.appdir);
 
-        ModuleHolderImpl tmpMh = new ModuleHolderImpl(this, moduleDefResolver);
+        Map<String, String> vars = new LinkedHashMap<>();
+        vars.put("env", this.env.isProd() ? "prod" : "dev");
+        vars.put("env.test", "" + this.env.isTest());
 
-        // ядро
-        tmpMh.addModule(moduleDefResolver.getModuleDef("jandcode.core"));
+        ModuleHolderImpl tmpMh = new ModuleHolderImpl(this, moduleDefResolver, vars);
+        EventHandler<ModuleHolderImpl.Event_ModuleConfLoaded> handlerCfgLoaded = (e) -> {
+            if (AppConsts.MODULE_APP.equals(e.getModuleDef().getName())) {
+                // загрузка модуля app, остальные модули еще не грузились
+                Conf conf = e.getModuleDefConfig().getConf();
+
+                // забираем все переменные
+                vars.putAll(e.getModuleDefConfig().getConfVars());
+
+                // формируем новую среду
+                this.env = new DefaultEnv(!"dev".equals(vars.get("env")), this.test);
+
+                // формируем окончательный набор переменных
+                vars.put("env", this.env.isProd() ? "prod" : "dev");
+                vars.put("env.test", "" + this.env.isTest());
+
+                // если <app appdir="DIR"/> определено, устанавливаем appdir
+                String s = conf.getString("app/appdir");
+                if (!UtString.empty(s)) {
+                    this.appdir = UtFile.abs(UtFile.vfsPathToLocalPath(s));
+                }
+
+            }
+        };
+        tmpMh.getEventBus().onEvent(ModuleHolderImpl.Event_ModuleConfLoaded.class, handlerCfgLoaded);
 
         // app
-        Module appModule = tmpMh.addModule(UtModuleDef.createModuleDef(AppConsts.MODULE_APP, appConfPath, "", appConfFile));
+        ModuleDef appModuleDef = UtModuleDef.createModuleDef(AppConsts.MODULE_APP, this.appdir, "", appConfFile);
+        // автоматически добавляем core в зависимости
+        appModuleDef.getDepends().add(0, "jandcode.core");
+        tmpMh.addModule(appModuleDef);
+
+        // убираем подписчика
+        tmpMh.getEventBus().unEvent(ModuleHolderImpl.Event_ModuleConfLoaded.class, handlerCfgLoaded);
 
         // загружено все, включая все зависимости
-
-        appdir = UtFile.vfsPathToLocalPath(UtFile.path(appConfFile));
-        // если <app appdir=""/> определено, устанавливаем
-        String s = appModule.getConf().getString("app/appdir");
-        if (!UtString.empty(s)) {
-            appdir = UtFile.abs(UtFile.vfsPathToLocalPath(s));
-        }
 
         // загрузка закончена
         moduleHolder = tmpMh;
         conf = UtConf.create();   // временная!
 
-        // debug берем только из app.conf, не из объединенной!
-        s = appModule.getConf().getString("app/debug");
-        if (!UtString.empty(s)) {
-            this.debug = UtCnv.toBoolean(s);
-        }
-
+        //
         workdir = UtFile.getWorkdir();
-
 
         // создаем обработчики conf
         List<AppConfHandlerItem> appConfHandlerItems = new ArrayList<>();
@@ -223,8 +242,8 @@ public class AppImpl implements App, IBeanIniter {
             confSources.add(rs);
         }
 
-        // name
-        s = UtVDir.normalize(getConf().getString("app/appname"));
+        // appname
+        String s = UtVDir.normalize(getConf().getString("app/appname"));
         if (!UtString.empty(s)) {
             this.appName = s;
         } else {
@@ -250,7 +269,7 @@ public class AppImpl implements App, IBeanIniter {
      * Иначе - null. Работает только в отладочном режиме.
      */
     public String findModifyRtSource() {
-        if (!isDebug() || confSources == null) {
+        if (!getEnv().isDev() || confSources == null) {
             return null;
         }
         for (ConfSource rs : confSources) {

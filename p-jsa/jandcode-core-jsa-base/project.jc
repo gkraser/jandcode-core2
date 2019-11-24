@@ -14,15 +14,15 @@ class P extends ProjectScript {
         //
         include(JavaProject).with {
             moduleDef("jandcode.core.jsa.base").with {
-                depends.prod.add(
+                depends.prod(
                         "jandcode.core.jsa",
                         "jandcode.core.jsa.tools",
                 )
             }
             //
-            depends.prod.add(
+            depends.prod(
             )
-            depends.dev.add(
+            depends.dev(
             )
             //
         }
@@ -30,6 +30,7 @@ class P extends ProjectScript {
         include(JsaJavaProject).with {
             nodeDepends(
                     "jquery": "3.4.1",
+                    "axios": "0.19.0",
 
                     // for tests
                     "chai": "4.2.0",
@@ -41,12 +42,29 @@ class P extends ProjectScript {
                             "dist/**/*",
                             "!**/*.map",
                     ],
+
+                    "axios": [
+                            "dist/**/*",
+                            "!**/*.map",
+                    ],
+
                     "chai": [
                             "chai.js",
                     ],
+
                     "mocha": [
                             "mocha.*",
                     ],
+            )
+            //
+            nodeExtractRequire(
+                    "!chai/**/*.js",
+                    "!mocha/**/*.js",
+            )
+            //
+            nodeModuleMapping(
+                    "jquery": "jquery/dist/jquery.slim.js",
+                    "axios": "axios/dist/axios",
             )
 
             gulpTask(name: "js", provide: true, globs: ["**/*.js"])

@@ -30,7 +30,7 @@
 
   String gText = g.generate()
 
-  if (th.app.debug) {
+  if (th.app.env.dev) {
     JsModuleBuilder b = th.inst(JsModuleBuilder)
     for (f in g.usingFiles) {
       b.addModifyDepend(f.path)

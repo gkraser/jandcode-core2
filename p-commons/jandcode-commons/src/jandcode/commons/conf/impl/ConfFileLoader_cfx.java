@@ -3,6 +3,7 @@ package jandcode.commons.conf.impl;
 import jandcode.commons.*;
 import jandcode.commons.collect.*;
 import jandcode.commons.conf.*;
+import jandcode.commons.error.*;
 import jandcode.commons.io.*;
 import org.xml.sax.*;
 import org.xml.sax.ext.*;
@@ -18,6 +19,12 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
     // префикс для функций
     public static final String FUNC_PREFIX = "x-"; //NON-NLS
 
+    // функция if
+    public static final String FUNC_IF = "if"; //NON-NLS
+
+    // функция if-not
+    public static final String FUNC_IF_NOT = "if-not"; //NON-NLS
+
     // имя атрибута, в котором хранится имя узла, т.к. это имя неправильное xml-имя
     public static final String ATTR_X_NAME = "x-name"; //NON-NLS
 
@@ -29,6 +36,7 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
     private StringBuilder buffer;
     private StackList<StackItem> stack;
     Locator locator;
+    private int ignoreLevel = 0;
 
     class StackItem {
         StackItem prev;
@@ -93,6 +101,12 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
 
     public void startElement(String uri, String localName, String qName,
             Attributes attributes) throws SAXException {
+
+        if (ignoreLevel > 0) {
+            ignoreLevel++;
+            return;
+        }
+
         StackItem cur;
         if (stack.size() == 0) {
             cur = new StackItem(null, qName);
@@ -138,13 +152,38 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
             }
         }
 
+        // x-if
+        if (cur.func != null) {
+            if (cur.func.equals(FUNC_IF) || cur.func.equals(FUNC_IF_NOT)) {
+                boolean trueValue = cur.func.equals(FUNC_IF);
+                Object v = loader.evalExpression(cur.getConf());
+                if (v instanceof Boolean) {
+                    Boolean vb = (Boolean) v;
+                    if (vb == trueValue) {
+                        cur.conf = cur.prev.getConf();
+                    } else {
+                        ignoreLevel = 1;
+                    }
+                } else {
+                    throw new XError("Выражение должно возвращать boolean");
+                }
+            }
+        }
+
+
     }
 
     public void characters(char ch[], int start, int length) throws SAXException {
+        if (ignoreLevel > 0) {
+            return;
+        }
         buffer.append(ch, start, length);
     }
 
     public void comment(char ch[], int start, int length) throws SAXException {
+        if (ignoreLevel > 0) {
+            return;
+        }
         StringBuilder sb = new StringBuilder();
         sb.append(ch, start, length);
         String s = sb.toString().trim();
@@ -158,6 +197,9 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
     }
 
     protected void assignValue() {
+        if (ignoreLevel > 0) {
+            return;
+        }
         if (buffer.length() == 0) {
             return;
         }
@@ -172,6 +214,13 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
 
     public void endElement(String uri, String localName, String qName)
             throws SAXException {
+        if (ignoreLevel > 0) {
+            ignoreLevel--;
+            if (ignoreLevel > 0) {
+                return;
+            }
+        }
+
         assignValue();
         StackItem cur = stack.pop();
         StackItem prev = stack.last();

@@ -9,12 +9,12 @@ class P extends ProjectScript {
         //
         include(JavaProject).with {
             moduleDef("jandcode.mdoc").with {
-                depends.prod.add(
+                depends.prod(
                         "jandcode.core.groovy",
                 )
             }
             //
-            depends.prod.add(
+            depends.prod(
                     "jandcode-commons",
 
                     // flexmark
@@ -30,7 +30,7 @@ class P extends ProjectScript {
                     "flexmark-ext-attributes",
                     "log4j-over-slf4j",
             )
-            depends.dev.add(
+            depends.dev(
             )
             //
         }

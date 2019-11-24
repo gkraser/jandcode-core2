@@ -5,7 +5,7 @@ void onInclude() {
     //
     jm.autoJcDepends = false
     jm.packageRoot = "jandcode.commons"
-    jm.depends.prod.add(
+    jm.depends.prod(
             "commons-io",
             "commons-vfs2",
             "gson",
@@ -16,5 +16,5 @@ void onInclude() {
             "logback-core",
             "logback-classic",
     )
-    jm.depends.dev.add()
+    jm.depends.dev()
 }

@@ -17,8 +17,8 @@
       <td>${th.app.appdir}</td>
     </tr>
     <tr>
-      <td>debug</td>
-      <td>${th.app.isDebug()}</td>
+      <td>env.dev</td>
+      <td>${th.app.env.dev}</td>
     </tr>
     <tr>
       <td>servlet name</td>

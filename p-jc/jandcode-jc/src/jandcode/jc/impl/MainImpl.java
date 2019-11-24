@@ -74,6 +74,9 @@ public class MainImpl extends BaseMain {
         // инициализируем и там же загружаем корневой проект, если есть
         ctx.applyConfig(cfg);
 
+        // сбор остальных опций
+        grabOpt_other();
+
         // загружаем рабочий проект
         Project project;
         String projectPathResolved = ctx.resolveProjectFile(workdir, projectPath);

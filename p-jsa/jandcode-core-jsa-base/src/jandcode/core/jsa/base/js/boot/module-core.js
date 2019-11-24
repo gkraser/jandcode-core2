@@ -19,8 +19,7 @@
 
     // для css
     let cssIdx = 0
-    let themeStyleTag
-    let beforeThemeStyleTag
+    let cssPlaces = {}
 
     /**
      * Определение модуля.
@@ -103,13 +102,22 @@
         // эта функция используется для require внутри модуля
         // она обеспечивает поддержку requireMap
         let internalRequire = function(name) {
+            let hasStar = name.indexOf('*') !== -1
             let newName = module.requireMap[name] || name
             if (Array.isArray(newName)) {
-                let last = {};
+                let last = {}
+                let bundle = hasStar ? [] : null
                 for (let m of newName) {
                     last = require(m)
+                    if (hasStar) {
+                        bundle.push(last)
+                    }
                 }
-                return last
+                if (hasStar) {
+                    return bundle
+                } else {
+                    return last
+                }
             }
             return require(newName)
         }
@@ -149,52 +157,46 @@
         }
     }
 
-    function appendCssTag(css, filename, place) {
+    function appendCssTag(css, filename, place, group) {
         let styleTag = document.createElement("style");
         styleTag.rel = 'stylesheet'
-        styleTag.type = 'text/css'
         cssIdx++;
         if (filename) {
             css = css + "\n/*# sourceURL=jc-jsa:///inline-styles/[" + cssIdx + "]/" + filename + "*/";
-            if (Jc.cfg.debug) {
+            if (Jc.cfg.envDev) {
                 styleTag.dataset.path = filename
             }
         } else {
             css = css + "\n/*# sourceURL=jc-jsa:///inline-styles/style-" + cssIdx + ".css*/";
         }
+        if (group) {
+            styleTag.dataset.group = group
+        }
         styleTag.innerHTML = css;
 
-        if (place === 'theme') {
-            if (Jc.cfg.debug) {
-                styleTag.dataset.place = 'theme'
-            }
-            if (themeStyleTag) {
-                // была уже тема
-                themeStyleTag.parentNode.replaceChild(styleTag, themeStyleTag);
-            } else {
-                // вставляем метку 
-                beforeThemeStyleTag = document.createElement("style");
-                beforeThemeStyleTag.rel = 'stylesheet'
-                beforeThemeStyleTag.type = 'text/css'
-                beforeThemeStyleTag.dataset.place = 'before-theme'
-                document.head.appendChild(beforeThemeStyleTag);
-
-                // тема
-                document.head.appendChild(styleTag);
-            }
-            themeStyleTag = styleTag
-        } else if (place !== 'after-theme') {
-            if (beforeThemeStyleTag) {
-                // тема есть
-                beforeThemeStyleTag.parentNode.insertBefore(styleTag, beforeThemeStyleTag.nextSibling);
-            } else {
-                // темы нет
-                document.head.appendChild(styleTag);
-            }
-
+        let tagPlace = cssPlaces[place]
+        if (tagPlace) {
+            tagPlace.parentNode.insertBefore(styleTag, tagPlace);
         } else {
             document.head.appendChild(styleTag);
         }
+    }
+
+    /**
+     * Зарегистрировать место внедрения css-тегов
+     * @param place имя
+     */
+    function defineCssPlace(place) {
+        let tag = cssPlaces[place]
+        if (tag) {
+            return tag
+        }
+        tag = document.createElement("style");
+        tag.rel = 'stylesheet'
+        tag.dataset.place = place
+        document.head.appendChild(tag);
+        cssPlaces[place] = tag
+        return tag
     }
 
     /**
@@ -202,13 +204,12 @@
      * @param css если строка - считается именем модуля css, если нет '{',
      * иначе - текстом css. Если объект, то это содержимое модуля css
      * в формате {text:cssText, css: true}
-     * @param place может быть :
-     * teme: определяет тему. Заменяет предыдущую тему,если она была
-     * after-theme: вставляет после темы и может перекрывать что угодно
-     * Не указано: если тема была определена, вставляет до темы, если не определена -
-     * то в конец. Причем чем раньше вставлен, тем выше приоритет!
+     * @param place место вставки
      */
     function requireCss(css, place) {
+        if (place) {
+            Jc.defineCssPlace(place)
+        }
         let _css = css
         if (typeof _css === 'string') {
             if (_css.indexOf('{') === -1) {
@@ -231,7 +232,7 @@
 
         _css._used = true
 
-        appendCssTag(_css.text, _css.filename, place)
+        appendCssTag(_css.text, _css.filename, place, _css.group)
     }
 
     /**
@@ -251,6 +252,7 @@
     Jc.require = require
     Jc.requireAll = requireAll
     Jc.requireCss = requireCss
+    Jc.defineCssPlace = defineCssPlace
     Jc.moduleDef = moduleDef
     Jc.getModules = getModules
     Jc.findModule = findModule

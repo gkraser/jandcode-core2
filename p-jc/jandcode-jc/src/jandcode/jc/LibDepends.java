@@ -41,11 +41,27 @@ public interface LibDepends {
     LibDependsGroup getProd();
 
     /**
+     * Добавить диблиотеки в группу prod.
+     * Алиас для getProd().add().
+     */
+    default void prod(Object... libNames) {
+        getProd().add(libNames);
+    }
+
+    /**
      * Группа: dev.
      * Библиотеки в этой группе используются только при разработке конкретного модуля,
      * например в тестах. Не используются вне модуля.
      */
     LibDependsGroup getDev();
+
+    /**
+     * Добавить диблиотеки в группу dev.
+     * Алиас для getDev().add().
+     */
+    default void dev(Object... libNames) {
+        getDev().add(libNames);
+    }
 
     /**
      * Группа: all.

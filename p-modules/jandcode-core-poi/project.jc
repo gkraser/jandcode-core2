@@ -12,7 +12,7 @@ class P extends ProjectScript {
         //
         include(JavaProject).with {
             moduleDef("jandcode.core.poi").with {
-                depends.prod.add(
+                depends.prod(
                     "commons-collections4",
                     "xmlbeans",
                     "poi",
@@ -20,7 +20,7 @@ class P extends ProjectScript {
                     "poi-ooxml-schemas",
                     "poi-scratchpad",
                 )
-                depends.dev.add(
+                depends.dev(
                 )
             }
         }

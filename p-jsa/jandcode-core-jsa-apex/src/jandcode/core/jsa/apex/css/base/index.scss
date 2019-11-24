@@ -1,0 +1,16 @@
+/* Стили
+----------------------------------------------------------------------------- */
+
+// svg иконки
+.q-icon {
+  svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+  }
+}
+
+@import "baseapp";
+
+// компоненты
+@import "../../js/components/index";

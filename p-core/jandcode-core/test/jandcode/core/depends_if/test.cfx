@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <x-if-not env.test="true">
+        <x-depends module="jandcode.core"/>
+        <a>
+            <x-depends module="jandcode.core"/>
+        </a>
+    </x-if-not>
+</root>

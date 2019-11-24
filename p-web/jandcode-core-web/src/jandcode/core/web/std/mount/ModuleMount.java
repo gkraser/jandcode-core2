@@ -51,7 +51,7 @@ public class ModuleMount extends BaseMount implements IMountProvider {
                 // счетчик сгенеренных
                 int numgen = 0;
 
-                if (genSrcExists && !getApp().isTest()) {
+                if (genSrcExists && !getApp().getEnv().isTest()) {
                     // если исходники не сгенерированы,
                     // просто создаем каталоги. Но не в тестах.
                     FileObject f = UtFile.getFileObject(sm.getSrcGenPaths().get(0));

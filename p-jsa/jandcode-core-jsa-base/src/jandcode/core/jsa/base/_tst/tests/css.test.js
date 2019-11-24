@@ -4,24 +4,35 @@ let assert = test.assert
 
 describe(__filename, function() {
 
-    it("change theme", function() {
-        let notheme1 = {css: true, filename: 'notheme1.css', text: '.t{color:brown}'};
-        let theme1 = {css: true, filename: 'theme1.css', text: '.t{color:red}'};
-        let theme2 = {css: true, filename: 'theme2.css', text: '.t{color:green}'};
-        Jc.requireCss(notheme1)
-        Jc.requireCss(theme1, 'theme')
-        Jc.requireCss(theme2, 'theme')
+    function css(name) {
+        return {css: true, filename: name + '.css', text: '.t{color:name}', group: 'g1'}
+    }
+
+    function clearCss() {
+        let a
+        a = document.querySelectorAll("style[data-group=g1]")
+        a.forEach(n => n.parentNode.removeChild(n))
+    }
+
+    Jc.defineCssPlace('p1')
+    Jc.defineCssPlace('p2')
+
+    beforeEach(function() {
+        clearCss()
+    });
+
+    it("no places", function() {
+        Jc.requireCss(css('1'))
+        Jc.requireCss(css('2'))
     })
 
-    it("after theme", function() {
-        let theme1 = {css: true, filename: 'theme1.css', text: '.t{color:red}'};
-        let css2 = {css: true, filename: 'css2.css', text: '.t{color:green}'};
-        let css3 = {css: true, filename: 'css3.css', text: '.t{color:blue}'};
-        let css4 = {css: true, filename: 'css4.css', text: '.t{color:black}'};
-        Jc.requireCss(theme1, 'theme')
-        Jc.requireCss(css2)
-        Jc.requireCss(css3)
-        Jc.requireCss(css4, 'after-theme')
+    it("places", function() {
+        Jc.requireCss(css('1'))
+        Jc.requireCss(css('2'))
+        Jc.requireCss(css('3'), 'p1')
+        Jc.requireCss(css('4'), 'p1')
+        Jc.requireCss(css('5'), 'p2')
+        Jc.requireCss(css('6'), 'p2')
     })
 
 })

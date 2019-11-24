@@ -1,5 +1,6 @@
 package jandcode.core.impl;
 
+import jandcode.commons.event.*;
 import jandcode.commons.moduledef.*;
 import jandcode.commons.named.*;
 import jandcode.core.*;
@@ -8,15 +9,43 @@ import java.util.*;
 
 public class ModuleHolderImpl implements ModuleHolder {
 
+    /**
+     * Событие возникает при загрузке конфигурации модуля
+     */
+    public static class Event_ModuleConfLoaded implements Event {
+        ModuleDef moduleDef;
+        ModuleDefConfig moduleDefConfig;
+
+        public Event_ModuleConfLoaded(ModuleDef moduleDef, ModuleDefConfig moduleDefConfig) {
+            this.moduleDef = moduleDef;
+            this.moduleDefConfig = moduleDefConfig;
+        }
+
+        public ModuleDef getModuleDef() {
+            return moduleDef;
+        }
+
+        public ModuleDefConfig getModuleDefConfig() {
+            return moduleDefConfig;
+        }
+    }
+
     protected App app;
     protected HashSet<String> used = new HashSet<>();
     protected NamedList<Module> items = new DefaultNamedList<>();
     protected List<String> files = new ArrayList<>();
     protected ModuleDefResolver moduleDefResolver;
+    private EventBus eventBus = new DefaultEventBus();
+    private Map<String, String> vars;
 
-    public ModuleHolderImpl(App app, ModuleDefResolver moduleDefResolver) {
+    public ModuleHolderImpl(App app, ModuleDefResolver moduleDefResolver, Map<String, String> vars) {
         this.app = app;
         this.moduleDefResolver = moduleDefResolver;
+        this.vars = vars;
+    }
+
+    public EventBus getEventBus() {
+        return eventBus;
     }
 
     /**
@@ -31,7 +60,8 @@ public class ModuleHolderImpl implements ModuleHolder {
         used.add(moduleDef.getName());
 
         // загружаем конфигурацию модуля
-        ModuleDefConfig mConf = UtModuleDef.loadModuleDefConfig(moduleDef, moduleDefResolver);
+        ModuleDefConfig mConf = UtModuleDef.loadModuleDefConfig(moduleDef, moduleDefResolver, vars);
+        getEventBus().fireEvent(new Event_ModuleConfLoaded(moduleDef, mConf));
 
         // загружаем зависимости из ModuleDef
         for (String dep : moduleDef.getDepends()) {

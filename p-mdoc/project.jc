@@ -15,11 +15,11 @@ class P extends ProjectScript {
         include(RootProject).with {
             groupId = "com.jandcode"
             moduleGroup = "jc-core/p-mdoc"
-            modules = [
+            modules(
                     "jandcode-mdoc",
                     "jandcode-mdoc-web",
                     "jandcode-mdoc-jc",
-            ]
+            )
         }
     }
 

@@ -1,0 +1,98 @@
+import jandcode.core.jsa.jc.*
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+        classpath("jandcode-core-jsa-jc")
+    }
+
+    void onInclude() {
+        //
+        project.name = "jandcode-core-jsa-apex"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.core.jsa.apex").with {
+                depends.prod(
+                        "jandcode.core.jsa.base",
+                )
+                depends.dev(
+                )
+            }
+        }
+        //
+        include(JsaJavaProject).with {
+            nodeDepends(
+                    "vue": "2.6.10",
+                    "vue-router": "3.1.3",
+                    "vuex": "3.1.2",
+
+                    "quasar": "1.4.5",
+                    "@quasar/extras": "1.3.3",
+
+                    "lodash": "4.17.15",
+            )
+            //
+            nodeDependsClient(
+                    "vue": [
+                            "dist/*.js",
+                            "!dist/*.common.*",
+                            "!dist/*.esm.*",
+                    ],
+
+                    "vue-router": [
+                            "dist/*.js",
+                            "!dist/*.common.*",
+                            "!dist/*.esm.*",
+                    ],
+
+                    "vuex": [
+                            "dist/*.js",
+                            "!dist/*.common.*",
+                            "!dist/*.esm.*",
+                    ],
+
+                    "@vue/babel-helper-vue-jsx-merge-props": [
+                            "**/*",
+                    ],
+
+                    "quasar": [
+                            "dist/*.js",
+                            "dist/*.css",
+                            "dist/*.sass",
+                            "dist/*.styl",
+                            "dist/icon-set/*",
+                            "dist/lang/ru.*",
+                            "!dist/*.common.*",
+                            "!dist/*.esm.*",
+                            "!dist/*.rtl.*",
+                            "!dist/*.ie.*",
+                    ],
+
+                    "@quasar/extras": [
+                            "material-icons/**/*",
+                            "roboto*/**/*",
+                            "animate/**/*",
+                    ],
+
+                    "lodash": [
+                            "**/*",
+                            "!fp/**/*"
+                    ],
+
+            )
+            nodeModuleMapping(
+                    "vue": "vue/dist/vue",
+                    "vuex": "vuex/dist/vuex",
+                    "vue-router": "vue-router/dist/vue-router",
+                    "quasar": "quasar/dist/quasar.umd.js",
+            )
+
+            gulpTask(name: "vue", provide: true, globs: ["**/*.vue"])
+            gulpTask(name: "sass", provide: true, globs: ["**/*-style.scss", "css/*-theme.scss"])
+
+        }
+    }
+
+}

@@ -47,5 +47,14 @@ public class DataDir_Test extends App_Test {
         System.out.println(s);
     }
 
+    @Test
+    public void test_devPath() throws Exception {
+        String s;
+        s = svc.getPath("root").replace('\\', '/');
+        System.out.println(s);
+        assertTrue(s.endsWith("temp/datadir"));
+
+    }
+
 
 }

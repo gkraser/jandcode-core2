@@ -10,11 +10,11 @@ class P extends ProjectScript {
         include(JavaProject).with {
             moduleDef("jandcode.core")
             //
-            depends.prod.add(
+            depends.prod(
                     "jandcode-commons",
                     "jandcode-commons-moduledef",
             )
-            depends.dev.add(
+            depends.dev(
             )
             //
         }

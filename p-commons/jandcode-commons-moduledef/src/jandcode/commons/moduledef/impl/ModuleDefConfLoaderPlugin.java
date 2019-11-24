@@ -6,6 +6,7 @@ import jandcode.commons.error.*;
 import jandcode.commons.moduledef.*;
 import org.apache.commons.vfs2.*;
 
+import java.util.*;
 import java.util.regex.*;
 
 /**
@@ -18,11 +19,28 @@ public class ModuleDefConfLoaderPlugin extends BaseConfLoaderPlugin {
     private ModuleDef moduleDef;
     private ModuleDefResolver moduleDefResolver;
     private ModuleDefConfig config;
+    private Map<String, String> vars;
 
-    public ModuleDefConfLoaderPlugin(ModuleDef moduleDef, ModuleDefConfig config, ModuleDefResolver moduleDefResolver) {
+    public ModuleDefConfLoaderPlugin(ModuleDef moduleDef, ModuleDefConfig config,
+            ModuleDefResolver moduleDefResolver, Map<String, String> vars) {
         this.moduleDef = moduleDef;
         this.moduleDefResolver = moduleDefResolver;
         this.config = config;
+        this.vars = vars;
+    }
+
+    public void initPlugin(ConfLoaderContext loader) throws Exception {
+        super.initPlugin(loader);
+        //
+        if (this.vars != null) {
+            loader.getVars().putAll(this.vars);
+        }
+    }
+
+    public void afterLoad() throws Exception {
+        super.afterLoad();
+        //
+        this.config.getConfVars().putAll(getLoader().getVars());
     }
 
     /**

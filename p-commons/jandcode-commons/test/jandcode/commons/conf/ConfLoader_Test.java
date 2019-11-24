@@ -3,6 +3,8 @@ package jandcode.commons.conf;
 import jandcode.commons.*;
 import org.junit.jupiter.api.*;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class ConfLoader_Test extends CustomConf_Test {
 
     @Test
@@ -28,5 +30,19 @@ public class ConfLoader_Test extends CustomConf_Test {
         //
         conf.printConf(x);
     }
+
+    @Test
+    public void set1() throws Exception {
+        Conf x = UtConf.create();
+        ConfLoader ldr = UtConf.createLoader(x);
+        //
+        String f = utils.getTestFile("data/set1.cfx");
+        ldr.load().fromFile(f);
+        //
+        conf.printConf(x);
+        assertEquals(x.getString("a/v1"), "11");
+        assertEquals(x.getString("a/v2"), "");
+    }
+
 
 }

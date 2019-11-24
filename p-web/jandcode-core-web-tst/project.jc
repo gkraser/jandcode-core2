@@ -9,7 +9,7 @@ class P extends ProjectScript {
         //
         include(JavaProject).with {
             moduleDef("jandcode.core.web.tst").with {
-                depends.prod.add(
+                depends.prod(
                         "jandcode.core.web",
                 )
             }
