@@ -152,17 +152,29 @@ public class AppImpl implements App, IBeanIniter {
         ModuleDefResolver moduleDefResolver = UtModuleDef.createModuleDefResolver();
         moduleDefResolver.addWorkDir(appConfPath);
 
-        ModuleHolderImpl tmpMh = new ModuleHolderImpl(this, moduleDefResolver);
+        Map<String, String> vars = new LinkedHashMap<>();
+        vars.put("env", this.env.isProd() ? "prod" : "dev");
+        vars.put("env.test", "" + this.env.isTest());
+        vars.put("env.prod", "" + this.env.isProd());
+        vars.put("env.dev", "" + this.env.isDev());
+
+        ModuleHolderImpl tmpMh = new ModuleHolderImpl(this, moduleDefResolver, vars);
         EventHandler<ModuleHolderImpl.Event_ModuleConfLoaded> handlerCfgLoaded = (e) -> {
             if (AppConsts.MODULE_APP.equals(e.getModuleDef().getName())) {
                 // загрузка модуля app, остальные модули еще не грузились
                 Conf conf = e.getModuleDefConfig().getConf();
 
-                // env
-                String envValue = conf.getString("app/env");
-                if ("dev".equals(envValue)) {
-                    this.env = new DefaultEnv(false, this.test);
-                }
+                // забираем все переменные
+                vars.putAll(e.getModuleDefConfig().getConfVars());
+
+                // формируем новую среду
+                this.env = new DefaultEnv(!"dev".equals(vars.get("env")), this.test);
+
+                // формируем окончательный набор переменных
+                vars.put("env", this.env.isProd() ? "prod" : "dev");
+                vars.put("env.test", "" + this.env.isTest());
+                vars.put("env.prod", "" + this.env.isProd());
+                vars.put("env.dev", "" + this.env.isDev());
 
                 // если <app appdir="DIR"/> определено, устанавливаем appdir
                 String s = conf.getString("app/appdir");

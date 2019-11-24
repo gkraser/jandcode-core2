@@ -18,7 +18,7 @@ public class ModuleCfx_Test extends Utils_Test {
                 utils.getTestFile("module1"),
                 modulePak,
                 utils.getTestFile("module1/module.cfx"));
-        ModuleDefConfig mc = UtModuleDef.loadModuleDefConfig(md, null);
+        ModuleDefConfig mc = UtModuleDef.loadModuleDefConfig(md, null, null);
         Conf conf = mc.getConf();
 //        String s = UtConf.save(conf).toString();
 //        System.out.println(s);

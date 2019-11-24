@@ -36,10 +36,12 @@ public class ModuleHolderImpl implements ModuleHolder {
     protected List<String> files = new ArrayList<>();
     protected ModuleDefResolver moduleDefResolver;
     private EventBus eventBus = new DefaultEventBus();
+    private Map<String, String> vars;
 
-    public ModuleHolderImpl(App app, ModuleDefResolver moduleDefResolver) {
+    public ModuleHolderImpl(App app, ModuleDefResolver moduleDefResolver, Map<String, String> vars) {
         this.app = app;
         this.moduleDefResolver = moduleDefResolver;
+        this.vars = vars;
     }
 
     public EventBus getEventBus() {
@@ -58,7 +60,7 @@ public class ModuleHolderImpl implements ModuleHolder {
         used.add(moduleDef.getName());
 
         // загружаем конфигурацию модуля
-        ModuleDefConfig mConf = UtModuleDef.loadModuleDefConfig(moduleDef, moduleDefResolver);
+        ModuleDefConfig mConf = UtModuleDef.loadModuleDefConfig(moduleDef, moduleDefResolver, vars);
         getEventBus().fireEvent(new Event_ModuleConfLoaded(moduleDef, mConf));
 
         // загружаем зависимости из ModuleDef

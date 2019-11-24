@@ -4,6 +4,8 @@ import jandcode.commons.*;
 import jandcode.core.test.*;
 import org.junit.jupiter.api.*;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class AppTest_Test extends App_Test {
 
     @Test
@@ -20,6 +22,12 @@ public class AppTest_Test extends App_Test {
             System.out.println(m.getName() + " => " + m.getCls());
         }
         System.out.println(UtConf.save(app.getConf()).toString());
+    }
+
+    @Test
+    public void testEnv() throws Exception {
+        assertEquals(app.getEnv().isDev(), true);
+        assertEquals(app.getEnv().isTest(), true);
     }
 
 

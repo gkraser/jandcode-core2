@@ -24,4 +24,9 @@ public interface ModuleDefConfig {
      */
     List<String> getDepends();
 
+    /**
+     * Переменные, которые были определены в конфигурации в процессе загрузки
+     */
+    Map<String, String> getConfVars();
+
 }
