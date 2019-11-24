@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
-    <app env="dev"/>
+    <x-set env="dev"/>
 
-    <x-depends module="jandcode.core.jsa.tst"/>
+    <x-if-not env.test="true">
+        <x-depends module="jandcode.core.jsa.tst"/>
+    </x-if-not>
 
     <web>
         <mount name="jsa-webroot-dev"
