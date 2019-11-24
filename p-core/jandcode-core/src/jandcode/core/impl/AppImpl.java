@@ -182,13 +182,13 @@ public class AppImpl implements App, IBeanIniter {
         };
         tmpMh.getEventBus().onEvent(ModuleHolderImpl.Event_ModuleConfLoaded.class, handlerCfgLoaded);
 
-        // ядро
-        tmpMh.addModule(moduleDefResolver.getModuleDef("jandcode.core"));
-
         // app
-        Module appModule = tmpMh.addModule(UtModuleDef.createModuleDef(AppConsts.MODULE_APP, appConfPath, "", appConfFile));
+        ModuleDef appModuleDef = UtModuleDef.createModuleDef(AppConsts.MODULE_APP, appConfPath, "", appConfFile);
+        // автоматически добавляем core в зависимости
+        appModuleDef.getDepends().add(0, "jandcode.core");
+        tmpMh.addModule(appModuleDef);
 
-        // убиарем подписчика
+        // убираем подписчика
         tmpMh.getEventBus().unEvent(ModuleHolderImpl.Event_ModuleConfLoaded.class, handlerCfgLoaded);
 
         // загружено все, включая все зависимости
