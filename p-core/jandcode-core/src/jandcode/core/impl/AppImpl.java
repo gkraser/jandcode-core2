@@ -155,8 +155,6 @@ public class AppImpl implements App, IBeanIniter {
         Map<String, String> vars = new LinkedHashMap<>();
         vars.put("env", this.env.isProd() ? "prod" : "dev");
         vars.put("env.test", "" + this.env.isTest());
-        vars.put("env.prod", "" + this.env.isProd());
-        vars.put("env.dev", "" + this.env.isDev());
 
         ModuleHolderImpl tmpMh = new ModuleHolderImpl(this, moduleDefResolver, vars);
         EventHandler<ModuleHolderImpl.Event_ModuleConfLoaded> handlerCfgLoaded = (e) -> {
@@ -173,8 +171,6 @@ public class AppImpl implements App, IBeanIniter {
                 // формируем окончательный набор переменных
                 vars.put("env", this.env.isProd() ? "prod" : "dev");
                 vars.put("env.test", "" + this.env.isTest());
-                vars.put("env.prod", "" + this.env.isProd());
-                vars.put("env.dev", "" + this.env.isDev());
 
                 // если <app appdir="DIR"/> определено, устанавливаем appdir
                 String s = conf.getString("app/appdir");

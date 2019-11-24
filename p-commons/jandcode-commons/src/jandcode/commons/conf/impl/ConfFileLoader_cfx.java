@@ -36,6 +36,7 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
     private StringBuilder buffer;
     private StackList<StackItem> stack;
     Locator locator;
+    private int ignoreLevel = 0;
 
     class StackItem {
         StackItem prev;
@@ -45,9 +46,6 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
         String comment;
         Conf conf;
         int lineNum;
-
-        // игнорировать и исключить из обработки как сомого, так и всех потомков
-        boolean ignore;
 
         public StackItem(StackItem prev, String name) {
             this.prev = prev;
@@ -103,6 +101,12 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
 
     public void startElement(String uri, String localName, String qName,
             Attributes attributes) throws SAXException {
+
+        if (ignoreLevel > 0) {
+            ignoreLevel++;
+            return;
+        }
+
         StackItem cur;
         if (stack.size() == 0) {
             cur = new StackItem(null, qName);
@@ -158,7 +162,7 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
                     if (vb == trueValue) {
                         cur.conf = cur.prev.getConf();
                     } else {
-                        cur.ignore = true;
+                        ignoreLevel = 1;
                     }
                 } else {
                     throw new XError("Выражение должно возвращать boolean");
@@ -170,14 +174,14 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
     }
 
     public void characters(char ch[], int start, int length) throws SAXException {
-        if (stack.last().ignore) {
+        if (ignoreLevel > 0) {
             return;
         }
         buffer.append(ch, start, length);
     }
 
     public void comment(char ch[], int start, int length) throws SAXException {
-        if (stack.last().ignore) {
+        if (ignoreLevel > 0) {
             return;
         }
         StringBuilder sb = new StringBuilder();
@@ -193,7 +197,7 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
     }
 
     protected void assignValue() {
-        if (stack.last().ignore) {
+        if (ignoreLevel > 0) {
             return;
         }
         if (buffer.length() == 0) {
@@ -210,16 +214,19 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
 
     public void endElement(String uri, String localName, String qName)
             throws SAXException {
+        if (ignoreLevel > 0) {
+            ignoreLevel--;
+            if (ignoreLevel > 0) {
+                return;
+            }
+        }
+
         assignValue();
         StackItem cur = stack.pop();
         StackItem prev = stack.last();
 
         if (prev == null) {
             return; // корень закрылся
-        }
-
-        if (cur.ignore) {
-            return;
         }
 
         if (cur.comment != null) {
