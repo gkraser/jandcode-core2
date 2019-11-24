@@ -30,6 +30,19 @@ public interface ConfLoaderContext extends ConfLoader {
     String getAbsPath(String path);
 
     /**
+     * Произвольные переменные.
+     */
+    Map<String, String> getVars();
+
+    /**
+     * Возвращает значение переменной.
+     *
+     * @param varName имя переменной
+     * @return null, пустую строку, если нет такой переменной
+     */
+    String getVar(String varName);
+
+    /**
      * Раскрыть все переменные
      *
      * @param s исходная строка с переменными
@@ -44,6 +57,15 @@ public interface ConfLoaderContext extends ConfLoader {
      * @param context  в контексте какого объекта нужно выполнить
      */
     void execFunc(String funcName, Conf params, Conf context);
+
+    /**
+     * Вычислить выражение.
+     * Используется в x-if и x-if-not.
+     *
+     * @param expr выражение
+     * @return null, если не известное выражение
+     */
+    Object evalExpression(Conf expr);
 
     /**
      * Добавить информацию о том, откуда взялось свойство.

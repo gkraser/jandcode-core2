@@ -29,6 +29,9 @@ public class ConfLoaderImpl implements ConfLoaderContext {
     // раскрытие переменных #{x}
     private SubstVarParser varExpander = new VarExpander();
 
+    // перемнные
+    private Map<String, String> vars = new LinkedHashMap<>();
+
     protected Conf root;
 
     class VarExpander extends SubstVarParser {
@@ -39,14 +42,11 @@ public class ConfLoaderImpl implements ConfLoaderContext {
 
         public String onSubstVar(String v) {
             try {
-                String s;
-                for (ConfLoaderPlugin p : plugins) {
-                    s = p.getVar(v);
-                    if (s != null) {
-                        return s;
-                    }
+                String res = getVar(v);
+                if (res == null) {
+                    res = "";
                 }
-                return "";
+                return res;
             } catch (Exception e) {
                 throw new XErrorWrap(e);
             }
@@ -151,6 +151,25 @@ public class ConfLoaderImpl implements ConfLoaderContext {
         return loadedFiles;
     }
 
+    public Map<String, String> getVars() {
+        return vars;
+    }
+
+    public String getVar(String varName) {
+        String s;
+        try {
+            for (ConfLoaderPlugin p : plugins) {
+                s = p.getVar(varName);
+                if (s != null) {
+                    return s;
+                }
+            }
+        } catch (Exception e) {
+            throw new XErrorMark(e, "переменная " + varName);
+        }
+        return vars.get(varName);
+    }
+
     public String expandVars(String s) {
         if (s == null) {
             return "";
@@ -174,6 +193,20 @@ public class ConfLoaderImpl implements ConfLoaderContext {
             }
         }
         throw new XError("Неизвестная функция [{0}]", funcName);
+    }
+
+    public Object evalExpression(Conf expr) {
+        for (ConfLoaderPlugin p : plugins) {
+            try {
+                Object v = p.evalExpression(expr);
+                if (v != null) {
+                    return v;
+                }
+            } catch (Exception e) {
+                throw new XErrorMark(e, MessageFormat.format("выражение [{0}]", expr));
+            }
+        }
+        throw new XError("Неизвестное выражение [{0}]", expr);
     }
 
     ////// include

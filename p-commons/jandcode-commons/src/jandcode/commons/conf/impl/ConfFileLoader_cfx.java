@@ -3,6 +3,7 @@ package jandcode.commons.conf.impl;
 import jandcode.commons.*;
 import jandcode.commons.collect.*;
 import jandcode.commons.conf.*;
+import jandcode.commons.error.*;
 import jandcode.commons.io.*;
 import org.xml.sax.*;
 import org.xml.sax.ext.*;
@@ -17,6 +18,12 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
 
     // префикс для функций
     public static final String FUNC_PREFIX = "x-"; //NON-NLS
+
+    // функция if
+    public static final String FUNC_IF = "if"; //NON-NLS
+
+    // функция if-not
+    public static final String FUNC_IF_NOT = "if-not"; //NON-NLS
 
     // имя атрибута, в котором хранится имя узла, т.к. это имя неправильное xml-имя
     public static final String ATTR_X_NAME = "x-name"; //NON-NLS
@@ -38,6 +45,9 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
         String comment;
         Conf conf;
         int lineNum;
+
+        // игнорировать и исключить из обработки как сомого, так и всех потомков
+        boolean ignore;
 
         public StackItem(StackItem prev, String name) {
             this.prev = prev;
@@ -138,13 +148,38 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
             }
         }
 
+        // x-if
+        if (cur.func != null) {
+            if (cur.func.equals(FUNC_IF) || cur.func.equals(FUNC_IF_NOT)) {
+                boolean trueValue = cur.func.equals(FUNC_IF);
+                Object v = loader.evalExpression(cur.getConf());
+                if (v instanceof Boolean) {
+                    Boolean vb = (Boolean) v;
+                    if (vb == trueValue) {
+                        cur.conf = cur.prev.getConf();
+                    } else {
+                        cur.ignore = true;
+                    }
+                } else {
+                    throw new XError("Выражение должно возвращать boolean");
+                }
+            }
+        }
+
+
     }
 
     public void characters(char ch[], int start, int length) throws SAXException {
+        if (stack.last().ignore) {
+            return;
+        }
         buffer.append(ch, start, length);
     }
 
     public void comment(char ch[], int start, int length) throws SAXException {
+        if (stack.last().ignore) {
+            return;
+        }
         StringBuilder sb = new StringBuilder();
         sb.append(ch, start, length);
         String s = sb.toString().trim();
@@ -158,6 +193,9 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
     }
 
     protected void assignValue() {
+        if (stack.last().ignore) {
+            return;
+        }
         if (buffer.length() == 0) {
             return;
         }
@@ -178,6 +216,10 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
 
         if (prev == null) {
             return; // корень закрылся
+        }
+
+        if (cur.ignore) {
+            return;
         }
 
         if (cur.comment != null) {
