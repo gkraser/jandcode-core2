@@ -144,13 +144,14 @@ public class AppImpl implements App, IBeanIniter {
 
     private void loadAppConf() throws Exception {
 
-        // для начала каталогом приложения считаем каталог с конфигурацией приложения
-        String appConfPath = UtFile.path(UtFile.vfsPathToLocalPath(appConfFile));
-        this.appdir = appConfPath;
+        // определяем каталог приложения
+        this.appdir = AppConsts.resolveAppdir(
+                UtFile.path(UtFile.vfsPathToLocalPath(appConfFile))
+        );
 
         // resolver
         ModuleDefResolver moduleDefResolver = UtModuleDef.createModuleDefResolver();
-        moduleDefResolver.addWorkDir(appConfPath);
+        moduleDefResolver.addWorkDir(this.appdir);
 
         Map<String, String> vars = new LinkedHashMap<>();
         vars.put("env", this.env.isProd() ? "prod" : "dev");
@@ -183,7 +184,7 @@ public class AppImpl implements App, IBeanIniter {
         tmpMh.getEventBus().onEvent(ModuleHolderImpl.Event_ModuleConfLoaded.class, handlerCfgLoaded);
 
         // app
-        ModuleDef appModuleDef = UtModuleDef.createModuleDef(AppConsts.MODULE_APP, appConfPath, "", appConfFile);
+        ModuleDef appModuleDef = UtModuleDef.createModuleDef(AppConsts.MODULE_APP, this.appdir, "", appConfFile);
         // автоматически добавляем core в зависимости
         appModuleDef.getDepends().add(0, "jandcode.core");
         tmpMh.addModule(appModuleDef);
