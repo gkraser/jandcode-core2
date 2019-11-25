@@ -3,7 +3,7 @@ package jandcode.core.jsa.jsmodule.std;
 import jandcode.commons.*;
 import jandcode.core.jsa.jsmodule.*;
 import jandcode.core.jsa.utils.*;
-import jandcode.core.web.*;
+import org.slf4j.*;
 
 import java.util.*;
 
@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class JsModuleCss extends JsModuleText {
 
-    private boolean urlRebase;
+    protected static Logger log = LoggerFactory.getLogger(JsModuleCss.class);
 
     protected void onInit(JsModuleBuilder b) throws Exception {
         super.onInit(b);
@@ -21,11 +21,22 @@ public class JsModuleCss extends JsModuleText {
         txt = txt.replace("\r", "");
         Map<String, Object> res = new LinkedHashMap<>();
 
-        if (isUrlRebase()) {
+        if (txt.indexOf("url(") != -1) {
+            if (log.isInfoEnabled()) {
+                log.info("rebaseUrl for: " + getName());
+            }
             CssUrlRebase rb = new CssUrlRebase();
-            WebService webSvc = getApp().bean(WebService.class);
-            String prefix = webSvc.getRequest().ref("/");  //todo получить ref вне request
-            txt = rb.rebase(txt, UtFile.path(getName()), "/", prefix);
+            String prefix = "~~BASEURL~~";
+            String newTxt = rb.rebase(txt, UtFile.path(getName()), "/", prefix);
+
+            if (rb.isReplaced()) {
+                res.put("rebaseUrl", prefix);
+                txt = newTxt;
+            } else {
+                if (log.isInfoEnabled()) {
+                    log.info("not need rebaseUrl for: " + getName());
+                }
+            }
         }
 
         res.put("css", true);
@@ -42,11 +53,4 @@ public class JsModuleCss extends JsModuleText {
         return s.replaceAll("<style.*?>", "").replaceAll("</style>", "");
     }
 
-    public boolean isUrlRebase() {
-        return urlRebase;
-    }
-
-    public void setUrlRebase(boolean urlRebase) {
-        this.urlRebase = urlRebase;
-    }
 }

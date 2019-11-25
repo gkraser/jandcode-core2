@@ -232,7 +232,12 @@
 
         _css._used = true
 
-        appendCssTag(_css.text, _css.filename, place, _css.group)
+        let cssText = _css.text
+        if (_css.rebaseUrl) {
+            cssText = cssText.replace(new RegExp(_css.rebaseUrl, 'g'), Jc.cfg.baseUrl)
+        }
+
+        appendCssTag(cssText, _css.filename, place, _css.group)
     }
 
     /**
