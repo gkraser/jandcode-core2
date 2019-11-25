@@ -6,6 +6,7 @@
 
     // глобальное пространство имен Jc
     window.Jc = window.Jc || {}
+    window.Jc.cfg = window.Jc.cfg || {}
     let Jc = window.Jc
 
     // все модули
@@ -261,6 +262,5 @@
     Jc.moduleDef = moduleDef
     Jc.getModules = getModules
     Jc.findModule = findModule
-    Jc.cfg = {}
     window.require = require
 })();
