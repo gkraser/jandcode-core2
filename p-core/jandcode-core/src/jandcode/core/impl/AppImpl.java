@@ -151,7 +151,7 @@ public class AppImpl implements App, IBeanIniter {
 
         // resolver
         ModuleDefResolver moduleDefResolver = UtModuleDef.createModuleDefResolver();
-        moduleDefResolver.addWorkDir(this.appdir);
+        moduleDefResolver.addWorkDir(this.appdir); //todo только в env.source!
 
         Map<String, String> vars = new LinkedHashMap<>();
         vars.put("appdir", this.appdir);

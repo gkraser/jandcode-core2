@@ -75,11 +75,6 @@ public class UtFile_Test extends Utils_Test {
     }
 
     @Test
-    public void test_getPathprop() throws Exception {
-        System.out.println(UtFile.getPathprop(UtilsConsts.PATHPROP_COREROOT, utils.getTestPath()));
-    }
-
-    @Test
     public void test_getPathprops() throws Exception {
         System.out.println(UtFile.getPathprops(utils.getTestPath()));
     }
