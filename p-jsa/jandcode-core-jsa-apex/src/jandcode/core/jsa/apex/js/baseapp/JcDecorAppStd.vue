@@ -1,7 +1,7 @@
 <template>
     <q-layout view="hHh Lpr fff" class="jc-app">
 
-        <q-header elevated class="jc-app--header">
+        <q-header :elevated="false" class="jc-app--header">
             <q-toolbar>
 
                 <q-btn dense flat
@@ -24,7 +24,7 @@
             </q-toolbar>
         </q-header>
 
-        <q-drawer v-model="own.left"
+        <q-drawer v-model="own.left" :elevated="false"
                   side="left" bordered content-class="jc-app--side jc-app--left"
                   :width="own.leftWidth">
             <q-scroll-area class="fit">
@@ -35,7 +35,7 @@
             </q-scroll-area>
         </q-drawer>
 
-        <q-drawer v-model="own.right" behavior="mobile"
+        <q-drawer v-model="own.right" behavior="mobile" :elevated="false"
                   no-swipe-open no-swipe-close no-swipe-backdrop
                   side="right" bordered content-class="jc-app--side jc-app--right"
                   :width="own.rightWidth">
