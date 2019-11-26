@@ -46,9 +46,6 @@ class ApexProductBuilder extends ProductBuilder {
         // bat
         makeWebXml()
 
-        // pathprop
-        makePathpropFile()
-
         // version
         makeVersionFile()
     }

@@ -55,7 +55,7 @@ class Projecttml extends ProjectScript {
      */
     List textfiles = [
             "java", "txt", "xml", "properties", "groovy", "xconf",
-            "gsp", "html", "htm", "css", "jsp", "jc", "xc", "js", "pathprop", "cfx",
+            "gsp", "html", "htm", "css", "jsp", "jc", "xc", "js", "cfx",
             "vue"
     ]
 
