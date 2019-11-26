@@ -61,7 +61,7 @@
         <path name="temp" path="${tempdir}/.${appname}"/>
         <path name="temp.workdir" path="${temp}/${workdir.key}"/>
 
-        <x-if env="dev">
+        <x-if env.source="true">
             <path name="root" path="${appdir}/temp/datadir"/>
         </x-if>
 

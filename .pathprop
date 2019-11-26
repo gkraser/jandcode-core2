@@ -1,6 +1,0 @@
-#
-# 'jandcode' root dir. Needed to run the tests. If test runs outside this dir, put this file on level up relative
-# workdir and specify the full path for 'jandcode'. ${path} replace on dir with .pathprop
-#
-jandcode.core.root=${path}
-jandcode.project.root=${path}

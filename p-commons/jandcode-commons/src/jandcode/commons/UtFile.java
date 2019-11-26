@@ -726,22 +726,6 @@ public class UtFile {
         svr.save().toFile(file);
     }
 
-    ////// pathprop
-
-    /**
-     * @see Pathprop#getPathprop(java.lang.String, java.lang.String)
-     */
-    public static String getPathprop(String propName, String path) {
-        return Pathprop.getInst().getPathprop(propName, path);
-    }
-
-    /**
-     * @see Pathprop#getPathprops(java.lang.String)
-     */
-    public static Map<String, String> getPathprops(String path) {
-        return Pathprop.getInst().getPathprops(path);
-    }
-
     //////
 
     /**

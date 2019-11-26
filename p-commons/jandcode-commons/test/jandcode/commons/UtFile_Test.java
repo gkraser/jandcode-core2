@@ -75,11 +75,6 @@ public class UtFile_Test extends Utils_Test {
     }
 
     @Test
-    public void test_getPathprops() throws Exception {
-        System.out.println(UtFile.getPathprops(utils.getTestPath()));
-    }
-
-    @Test
     public void test_join() throws Exception {
         assertEquals(UtFile.join("aa", "bb"), "aa\\bb");
         assertEquals(UtFile.join("aa", "bb", "cc"), "aa\\bb\\cc");

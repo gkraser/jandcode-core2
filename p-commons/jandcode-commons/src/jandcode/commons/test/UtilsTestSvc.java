@@ -57,7 +57,7 @@ public class UtilsTestSvc extends BaseTestSvc {
     //////
 
     /**
-     * Возвращает каталог, в котором лежит скомпилированные класс теста
+     * Возвращает каталог, в котором лежит скомпилированный класс теста
      */
     public String getTestPath() {
         String fn = getTestFile(getTest().getClass().getSimpleName() + ".class"); //NON-NLS
