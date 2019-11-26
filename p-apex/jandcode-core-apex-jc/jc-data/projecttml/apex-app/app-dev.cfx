@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
-    <x-if-not env.test="true">
+    <x-if env.test="false" env.dev="true">
         <x-depends module="jandcode.core.jsa.tst"/>
-    </x-if-not>
+    </x-if>
 
     <web>
         <mount name="jsa-webroot-dev"
