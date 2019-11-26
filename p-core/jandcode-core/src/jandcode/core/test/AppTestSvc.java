@@ -30,8 +30,6 @@ public class AppTestSvc extends BaseTestSvc implements App {
     public void setUp() throws Exception {
         this.utils = testSvc(UtilsTestSvc.class);
         this.stopwatch = testSvc(StopwatchTestSvc.class);
-        // активируем приложение
-        activateApp();
     }
 
     public void activateApp(String appConfFile) throws Exception {
@@ -85,6 +83,13 @@ public class AppTestSvc extends BaseTestSvc implements App {
      * Текущее приложение
      */
     public App getApp() {
+        if (app == null) {
+            try {
+                activateApp();
+            } catch (Exception e) {
+                throw new XErrorMark(e, "activateApp");
+            }
+        }
         return app;
     }
 
