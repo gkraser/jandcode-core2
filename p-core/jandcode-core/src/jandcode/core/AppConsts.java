@@ -31,9 +31,9 @@ public class AppConsts {
     /**
      * Файл, описывающий среду.
      * Он же используется как маркер корня приложения,
-     * если явно не задана {@link AppConsts#PROP_APP_DIR}
+     * если явно не задано значение для {@link AppConsts#PROP_APP_DIR}.
      */
-    public static final String FILE_ENV = ".env";
+    public static final String FILE_ENV = UtilsConsts.FILE_ENV;
 
     /**
      * Выяснить каталог приложения.

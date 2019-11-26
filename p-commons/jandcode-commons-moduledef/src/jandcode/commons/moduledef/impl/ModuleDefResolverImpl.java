@@ -15,6 +15,7 @@ public class ModuleDefResolverImpl implements ModuleDefResolver {
 
     // модули в исходниках
     private NamedList<ModuleDef> sourceModules = new DefaultNamedList<>();
+    private boolean sourceModulesLoaded;
 
     private NamedList<ModuleDef> cachedItems = new DefaultNamedList<>();
 
@@ -27,11 +28,21 @@ public class ModuleDefResolverImpl implements ModuleDefResolver {
                     // модуль в исходниках
                     ModuleDef resSrc = sourceModules.find(res.getName());
                     if (resSrc == null) {
-                        throw new XError("Модуль {0} [{1}] в исходниках, но для него " +
-                                "не найдено описание исходников в файле {2}. " +
-                                "Необходимо выполнить jc prepare в корневом проекте.",
-                                res.getName(), res.getPath(), ModuleDefConsts.FILE_REGISTRY_MODULE_DEF
-                        );
+                        if (sourceModulesLoaded) {
+                            throw new XError("Модуль {0} [{1}] в исходниках, но для него " +
+                                    "не найдено описание исходников в файле {2}. " +
+                                    "Необходимо выполнить jc prepare в корневом проекте.",
+                                    res.getName(), res.getPath(), ModuleDefConsts.FILE_REGISTRY_MODULE_DEF
+                            );
+                        } else {
+                            throw new XError("Модуль {0} [{1}] в исходниках, но загрузка " +
+                                    "файла {2} не была произведена. Укажите среду {3}=true в файле {4}.",
+                                    res.getName(), res.getPath(),
+                                    ModuleDefConsts.FILE_REGISTRY_MODULE_DEF,
+                                    UtilsConsts.PROP_ENV_SOURCE, UtilsConsts.FILE_ENV
+                            );
+
+                        }
                     }
                     res = resSrc;
                 }
@@ -63,6 +74,7 @@ public class ModuleDefResolverImpl implements ModuleDefResolver {
                 log.info("load module defs from " + f);
                 List<ModuleDef> tmp = ModuleDefUtilsImpl.loadModuleDefsFromConfFile(f);
                 sourceModules.addAll(tmp);
+                sourceModulesLoaded = true;
                 log.info("load module defs from path: ok");
             } catch (Exception e) {
                 throw new XErrorMark(e, "file: " + f);

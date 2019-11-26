@@ -21,6 +21,14 @@
       <td>${th.app.env.dev}</td>
     </tr>
     <tr>
+      <td>env.source</td>
+      <td>${th.app.env.source}</td>
+    </tr>
+    <tr>
+      <td>env.test</td>
+      <td>${th.app.env.test}</td>
+    </tr>
+    <tr>
       <td>servlet name</td>
       <td>${th.request.httpServlet.getServletName()}</td>
     </tr>

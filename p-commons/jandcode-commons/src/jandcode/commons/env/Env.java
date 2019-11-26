@@ -1,28 +1,35 @@
 package jandcode.commons.env;
 
+import jandcode.commons.variant.*;
+
 /**
  * Среда исполнения (prod/dev)
  */
 public interface Env {
 
     /**
-     * Режим разработки.
-     * Альтернатива: <code>!isProd()</code>.
+     * Среда разработки.
+     * Проект запускается в режиме отладки.
      */
     boolean isDev();
 
     /**
-     * Режим production.
-     * Альтернатива: <code>!isDev()</code>.
+     * Среда в исходниках.
+     * Проект запускается из исходников.
      */
-    boolean isProd();
+    boolean isSource();
 
     /**
-     * Режим тестов.
+     * Среда тестов.
      * Означает, что сейчас запускаются тесты.
-     * Этот параметр устанавливается независито от
-     * {@link Env#isProd()} и {@link Env#isDev()}
      */
     boolean isTest();
+
+    /**
+     * Все доступные свойства среды.
+     * Сюда включены все System.properties, System.getenv() и определенные средой значения.
+     * Приоритет (первый побеждает): System.properties -> System.getenv() -> определенные средой.
+     */
+    IVariantMap getProperties();
 
 }

@@ -77,15 +77,10 @@ public class ModuleDefConfLoaderPlugin extends BaseConfLoaderPlugin {
             return moduleDef.getName();
         }
 
-        if ("appdir".equals(var)) {
-            String v = null;
-            if (vars != null) {
-                v = vars.get("appdir");
+        if (vars != null) {
+            if (vars.containsKey(var)) {
+                return vars.get(var);
             }
-            if (v == null) {
-                throw new XError("Переменная appdir не определена");
-            }
-            return v;
         }
 
         Matcher m = P_MODULE.matcher(var);

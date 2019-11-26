@@ -1,45 +1,42 @@
 package jandcode.commons.env;
 
+import jandcode.commons.variant.*;
+
+import java.util.*;
+
 /**
  * Реализация {@link Env} по умолчанию.
  */
 public class DefaultEnv implements Env {
 
-    private boolean prod;
+    private boolean dev;
+    private boolean source;
     private boolean test;
+    private IVariantMap properties = new VariantMap();
 
-    /**
-     * Среда prod=true, test=false
-     */
-    public DefaultEnv() {
-        this(true, false);
-    }
-
-    /**
-     * Среда prod, test=false
-     */
-    public DefaultEnv(boolean prod) {
-        this(prod, false);
-    }
-
-    /**
-     * Среда prod, test
-     */
-    public DefaultEnv(boolean prod, boolean test) {
-        this.prod = prod;
+    public DefaultEnv(boolean dev, boolean source, boolean test, Map<String, Object> properties) {
+        this.dev = dev;
+        this.source = source;
         this.test = test;
+        if (properties != null) {
+            this.properties.putAll(properties);
+        }
     }
 
     public boolean isDev() {
-        return !prod;
+        return dev;
     }
 
-    public boolean isProd() {
-        return prod;
+    public boolean isSource() {
+        return source;
     }
 
     public boolean isTest() {
         return test;
+    }
+
+    public IVariantMap getProperties() {
+        return properties;
     }
 
 }
