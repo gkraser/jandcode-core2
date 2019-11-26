@@ -1,10 +1,11 @@
 /* Тема base
 ----------------------------------------------------------------------------- */
-import css from './base-theme.scss'
+import cssQuasar from './base/z-quasar-style.scss'
+import css from './base-theme.less'
 
 let config = require('[*]/css/base-config.js')
 
 export default {
-    css: css,
+    css: [cssQuasar, css],
     config: config
 }
