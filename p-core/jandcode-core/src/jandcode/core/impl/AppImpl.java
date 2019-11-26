@@ -154,6 +154,7 @@ public class AppImpl implements App, IBeanIniter {
         moduleDefResolver.addWorkDir(this.appdir);
 
         Map<String, String> vars = new LinkedHashMap<>();
+        vars.put("appdir", this.appdir);
         vars.put("env", this.env.isProd() ? "prod" : "dev");
         vars.put("env.test", "" + this.env.isTest());
 
@@ -172,13 +173,6 @@ public class AppImpl implements App, IBeanIniter {
                 // формируем окончательный набор переменных
                 vars.put("env", this.env.isProd() ? "prod" : "dev");
                 vars.put("env.test", "" + this.env.isTest());
-
-                // если <app appdir="DIR"/> определено, устанавливаем appdir
-                String s = conf.getString("app/appdir");
-                if (!UtString.empty(s)) {
-                    this.appdir = UtFile.abs(UtFile.vfsPathToLocalPath(s));
-                }
-
             }
         };
         tmpMh.getEventBus().onEvent(ModuleHolderImpl.Event_ModuleConfLoaded.class, handlerCfgLoaded);
