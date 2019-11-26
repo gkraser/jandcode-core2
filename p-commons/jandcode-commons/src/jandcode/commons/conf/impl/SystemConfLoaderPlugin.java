@@ -14,12 +14,6 @@ public class SystemConfLoaderPlugin extends BaseConfLoaderPlugin {
         if (var.equals("path")) {
             return getVar_path();
 
-        } else if (var.startsWith("pathup:")) { //NON-NLS
-            return getVar_pathup(UtString.removePrefix(var, "pathup:")); //NON-NLS
-
-        } else if (var.startsWith("pathprop:")) { //NON-NLS
-            return getVar_pathprop(UtString.removePrefix(var, "pathprop:")); //NON-NLS
-
         } else {
             return System.getProperty(var);
         }
@@ -81,21 +75,6 @@ public class SystemConfLoaderPlugin extends BaseConfLoaderPlugin {
 
     private String getVar_path() {
         return getLoader().getAbsPath("");
-    }
-
-    private String getVar_pathup(String s) {
-        String p = UtFile.vfsPathToLocalPath(getLoader().getAbsPath(""));
-        String f = UtFile.findFileUp(s, p);
-        if (f == null) {
-            return p;
-        } else {
-            return UtFile.path(f);
-        }
-    }
-
-    private String getVar_pathprop(String s) {
-        String p = UtFile.vfsPathToLocalPath(getLoader().getAbsPath(""));
-        return UtFile.getPathprop(s, p);
     }
 
 }
