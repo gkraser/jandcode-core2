@@ -11,6 +11,9 @@ import JcApp from './JcApp'
 import JcFrame from './JcFrame'
 import * as frame from './frame'
 
+frame.componentHolder.set('app.App', JcDecorAppStd)
+frame.componentHolder.set('frame.Page', JcDecorFramePage)
+frame.componentHolder.set('frame.Dialog', JcDecorFrameDialog)
 
 export {
     JcDecor,

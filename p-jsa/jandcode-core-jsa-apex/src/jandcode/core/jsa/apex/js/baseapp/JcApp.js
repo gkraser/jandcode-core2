@@ -1,4 +1,5 @@
 import App from './JcDecorAppStd'
+import {componentHolder} from './frame'
 
 /**
  * Базовый компонент-предок для приложения.
@@ -7,6 +8,10 @@ export default {
 
     components: {
         App: App
+    },
+
+    created() {
+        componentHolder.updateComponents(this, 'app')
     },
 
     data() {
