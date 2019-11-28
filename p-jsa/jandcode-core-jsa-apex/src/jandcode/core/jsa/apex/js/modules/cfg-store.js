@@ -80,7 +80,9 @@ export let CfgStore = {
                     return // нет значения по умолчанию, путь не правильный?
                 }
                 if (!jsaBase.isObject(subDefault)) {
-                    return // это не объект
+                    // это просто значение, берем из default, т.к. в cfg оно уже точно есть
+                    lodashSet(this.cfg, path, subDefault)
+                    return
                 }
                 let subCfg = lodashGet(this.cfg, path)
                 if (subCfg === undefined) {
