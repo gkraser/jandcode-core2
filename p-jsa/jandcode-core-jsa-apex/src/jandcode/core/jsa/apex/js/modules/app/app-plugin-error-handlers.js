@@ -6,16 +6,19 @@ import {Vue, Quasar, jsaBase} from '../../vendor'
 function showError(err) {
     let e = jsaBase.createError(err)
     console.error(e);
-    Quasar.Notify.create({
-        position: 'top-right',
-        multiLine: true,
-        color: 'negative',
-        message: '' + e.message,
-        icon: 'error',
-        actions: [
-            {label: 'Закрыть', color: 'yellow'},
-        ]
-    })
+    setTimeout(function() {
+        // внутри timeout, а то иногда warn приводит к зацикливанию
+        Quasar.Notify.create({
+            position: 'top-right',
+            multiLine: true,
+            color: 'negative',
+            message: '' + e.message,
+            icon: 'error',
+            actions: [
+                {label: 'Закрыть', color: 'yellow'},
+            ]
+        })
+    }, 50)
 }
 
 export default {
