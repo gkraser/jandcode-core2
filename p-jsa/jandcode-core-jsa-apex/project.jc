@@ -72,7 +72,6 @@ class P extends ProjectScript {
 
                     "@quasar/extras": [
                             "material-icons/**/*",
-                            "roboto*/**/*",
                             "animate/**/*",
                     ],
 
