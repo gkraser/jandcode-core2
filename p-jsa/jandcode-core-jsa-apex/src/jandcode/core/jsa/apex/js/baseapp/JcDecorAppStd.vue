@@ -8,8 +8,8 @@
                         <jc-action
                                 icon="menu" @click="own.left = !own.left"/>
                         <slot name="title">
-                            <jc-toolbar-logo :icon="own.icon"/>
-                            <jc-toolbar-title :text="own.title"/>
+                            <jc-toolbar-logo :icon="own.icon" @click="own.home()"/>
+                            <jc-toolbar-title :text="own.title" @click="own.home()"/>
                         </slot>
                     </jc-toolbar>
                 </slot>

@@ -1,10 +1,8 @@
 <template>
     <q-btn v-else :class="classes" flat no-caps no-wrap
            align="left" :to="to" :replace="replace" :type="typeTag"
-           v-on="$listeners" v-close-popup="isMenuItem && !hasSubMenu">
-        <q-icon v-if="leftIcon" :name="leftIcon" class="on-left"/>
-        <div class="jc-action--label">{{label}}</div>
-        <q-icon v-if="rightIcon" :name="rightIcon" class="on-right"/>
+           v-on="$listeners" v-close-popup="isMenuItem && !hasSubMenu"
+           :label="label" :icon="leftIcon" :icon-right="rightIcon">
         <template v-if="hasSubMenu">
             <q-menu content-class="jc-action--menu"
                     :anchor="isMenuItem?'top right':null"
@@ -38,14 +36,7 @@
             classes() {
                 let res = ['jc-action']
                 if (this.isMenuItem) {
-                    res.push('jc-action--icon-with-label')
                     res.push('jc-action--menuitem')
-                } else if (this.icon && !this.label) {
-                    res.push('jc-action--icon-only')
-                } else if (this.icon && this.label) {
-                    res.push('jc-action--icon-with-label')
-                } else {
-                    res.push('jc-action--label-only')
                 }
                 if (this.hasSubMenu) {
                     res.push('jc-action--dropdown')

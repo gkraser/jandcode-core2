@@ -12,23 +12,21 @@
     min-height: 1.4em;
   }
 
+  .q-icon {
+    font-size: 1.5em;
+    margin-right: 0;
+  }
+
   .on-right {
     font-size: 20px;
     margin-left: 2px;
     opacity: 0.5;
   }
 
-  .q-icon {
-    font-size: 1.5em;
-    margin-right: 0;
-  }
-
-  &--icon-with-label {
-    .q-icon.on-left {
-      font-size: 16px;
-      opacity: 0.4;
-      margin-right: 6px;
-    }
+  .on-left {
+    font-size: 16px;
+    opacity: 0.4;
+    margin-right: 6px;
   }
 
   &--dropdown {
@@ -46,16 +44,18 @@
       padding-bottom: 4px;
     }
 
-    .jc-action--label {
-      flex-grow: 1;
-      text-align: left;
+    .q-btn__content {
+      div {
+        flex-grow: 1;
+        text-align: left;
+      }
     }
 
-    .q-icon.on-left {
+    .on-left {
       margin-right: 12px;
     }
 
-    .q-icon.on-right {
+    .on-right {
       margin-left: 6px;
     }
 
