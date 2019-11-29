@@ -3,22 +3,24 @@
 
         <q-header :elevated="false" class="jc-app--header">
             <q-toolbar>
-
-                <q-btn dense flat
-                       icon="menu" @click="own.left = !own.left"/>
-
-                <slot name="title">
-                    <q-btn flat no-caps no-wrap :ripple="false" @click="own.home()">
-                        <q-icon v-if="hasIcon" :name="own.icon" size="32px"/>
-                        <q-toolbar-title shrink>
-                            {{own.title}}
-                        </q-toolbar-title>
-                    </q-btn>
+                <slot name="toolbar-left">
+                    <jc-toolbar>
+                        <jc-action
+                                icon="menu" @click="own.left = !own.left"/>
+                        <slot name="title">
+                            <jc-toolbar-logo :icon="own.icon"/>
+                            <jc-toolbar-title :text="own.title"/>
+                        </slot>
+                    </jc-toolbar>
                 </slot>
 
                 <q-space/>
 
-                <slot name="toolbar">
+                <slot name="toolbar-right">
+                    <jc-toolbar>
+                        <slot name="toolbar">
+                        </slot>
+                    </jc-toolbar>
                 </slot>
 
             </q-toolbar>

@@ -1,0 +1,147 @@
+/* action
+----------------------------------------------------------------------------- */
+
+.jc-action {
+
+  &.q-btn--rectangle {
+    border-radius: 0;
+  }
+
+  .q-btn__wrapper {
+    padding: 8px 12px;
+    min-height: 1.4em;
+  }
+
+  .on-right {
+    font-size: 20px;
+    margin-left: 2px;
+    opacity: 0.5;
+  }
+
+  .q-icon {
+    font-size: 1.5em;
+    margin-right: 0;
+  }
+
+  &--icon-with-label {
+    .q-icon.on-left {
+      font-size: 16px;
+      opacity: 0.4;
+      margin-right: 6px;
+    }
+  }
+
+  &--dropdown {
+    .q-btn__wrapper {
+      padding-right: 2px;
+    }
+  }
+
+  ////// menu item
+
+  &--menuitem {
+
+    .q-btn__wrapper {
+      padding-top: 4px;
+      padding-bottom: 4px;
+    }
+
+    .jc-action--label {
+      flex-grow: 1;
+      text-align: left;
+    }
+
+    .q-icon.on-left {
+      margin-right: 12px;
+    }
+
+    .q-icon.on-right {
+      margin-left: 6px;
+    }
+
+  }
+
+  ////// menu
+
+  &--menu {
+    .q-separator {
+      height: 1px;
+    }
+  }
+
+  ////// badge
+
+  .q-badge--floating {
+    top: 0;
+    right: 0;
+  }
+
+}
+
+
+/* toolbar logo
+----------------------------------------------------------------------------- */
+
+.jc-toolbar-logo {
+
+  .q-icon {
+    font-size: 32px;
+  }
+
+}
+
+/* toolbar title
+----------------------------------------------------------------------------- */
+
+.jc-toolbar-title {
+
+  line-height: 1;
+  font-size: 21px;
+
+  .jc-toolbar-title--text {
+  }
+
+  .jc-toolbar-title--text1 {
+  }
+
+  .jc-toolbar-title--text2 {
+    font-size: 12px;
+    opacity: 0.6;
+  }
+
+}
+
+/* toolbar
+----------------------------------------------------------------------------- */
+
+.jc-toolbar {
+
+  & > * {
+    margin-left: 16px;
+  }
+
+  & > .jc-action {
+    margin-left: 0;
+  }
+
+  & > :not(.jc-action) + .jc-action {
+    margin-left: 16px;
+  }
+
+  & > .q-separator {
+    margin-left: 2px;
+  }
+
+  & > .q-separator + .jc-action {
+    margin-left: 2px;
+  }
+
+  & > .jc-toolbar-logo + .jc-toolbar-title {
+    margin-left: 8px;
+  }
+
+  & > *:first-child {
+    margin-left: 0;
+  }
+
+}
