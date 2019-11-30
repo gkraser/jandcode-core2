@@ -1,6 +1,8 @@
 /* Некоторые настройки приложения по умолчанию
 ----------------------------------------------------------------------------- */
 
+import {AppService} from '../app'
+
 import {Vue} from '../vue'
 import {createCfgStore, CfgStore} from '../cfg-store'
 
@@ -9,20 +11,20 @@ import {createCfgStore, CfgStore} from '../cfg-store'
  * @member {CfgStore} App#cfgStore
  */
 
-export default {
+export class CfgStoreService extends AppService {
 
-    init(app) {
+    onCreate() {
         let cfgStore = createCfgStore('apex.app')
-        app.cfgStore = cfgStore
+        this.app.cfgStore = cfgStore
         Vue.prototype.$jc.cfgStore = cfgStore
-    },
+    }
 
-    beforeRun(app) {
-        app.cfgStore.load()
-        app.cfgStore.autoSave = true
+    onRun() {
+        console.info("onRun CfgStoreService");
+        this.app.cfgStore.load()
+        this.app.cfgStore.autoSave = true   //todo autoSave должно приложение ставить, если ему это нужно
     }
 
 }
-
 
 
