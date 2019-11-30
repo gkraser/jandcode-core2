@@ -15,6 +15,7 @@ export class App {
     constructor() {
         this.__runned = false
         this.__services = []
+        this.services = {}
     }
 
     /**
@@ -88,13 +89,18 @@ export class App {
      * @return {Promise<void>}
      */
     async run() {
-        this.__runned = false
-        this.__services = []
+        if (this.__runned) {
+            throw new Error("Приложение уже запущено")
+        }
 
         //
         for (let svcClass of __registredServices) {
             let svc = new svcClass(this)
             this.__services.push(svc)
+            let name = svc.getName()
+            if (name) {
+                this.services[name] = svc
+            }
         }
 
         //
@@ -134,6 +140,18 @@ export class AppService {
 
     constructor(app) {
         this.app = app
+    }
+
+    /**
+     * Имя сервиса
+     * @return {*}
+     */
+    getName() {
+        let name = this.constructor.name
+        if (!name) {
+            return null
+        }
+        return name.substring(0, 1).toLowerCase() + name.substring(1)
     }
 
     /**

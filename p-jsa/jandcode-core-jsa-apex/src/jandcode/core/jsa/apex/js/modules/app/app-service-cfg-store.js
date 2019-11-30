@@ -20,9 +20,7 @@ export class CfgStoreService extends AppService {
     }
 
     onRun() {
-        console.info("onRun CfgStoreService");
         this.app.cfgStore.load()
-        this.app.cfgStore.autoSave = true   //todo autoSave должно приложение ставить, если ему это нужно
     }
 
 }
