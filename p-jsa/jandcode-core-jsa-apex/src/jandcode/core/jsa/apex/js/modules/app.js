@@ -33,6 +33,10 @@ export class App {
         if (this.__runned) {
             let svc = new serviceClass(this)
             this.__services.push(svc)
+            let name = svc.getName()
+            if (name) {
+                this.services[name] = svc
+            }
             svc.onCreate()
             svc.onInit()
             svc.onRun()
