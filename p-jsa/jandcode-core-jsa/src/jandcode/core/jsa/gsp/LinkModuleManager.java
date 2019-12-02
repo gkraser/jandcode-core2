@@ -116,6 +116,9 @@ public class LinkModuleManager extends BaseComp {
         if (getApp().getEnv().isDev()) {
             initialCfg.put("envDev", true);
         }
+        if (getApp().getEnv().isSource()) {
+            initialCfg.put("envSource", true);
+        }
         g.out("Jc.cfg=");
         g.out(UtJson.toJson(initialCfg));
         g.out(";");
