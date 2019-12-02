@@ -16,7 +16,6 @@ export class CfgStoreService extends AppService {
     onCreate() {
         let cfgStore = createCfgStore('apex.app')
         this.app.cfgStore = cfgStore
-        Vue.prototype.$jc.cfgStore = cfgStore
     }
 
     onRun() {
