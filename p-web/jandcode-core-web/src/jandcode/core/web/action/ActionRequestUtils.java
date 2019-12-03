@@ -1,8 +1,8 @@
-package jandcode.core.web;
+package jandcode.core.web.action;
 
 import jandcode.commons.*;
 import jandcode.commons.variant.*;
-import jandcode.core.web.action.*;
+import jandcode.core.web.*;
 import jandcode.core.web.gsp.*;
 import jandcode.core.web.impl.*;
 
@@ -14,9 +14,9 @@ import java.util.*;
  * Реализует интерфейсы IVariantNamed, IVariantNamedDefault через прокси к getParams().
  * Т.е. getString("name") эквивалентно getParams().getString("name").
  */
-public class RequestUtils extends RequestWrapper implements IVariantNamed, IVariantNamedDefault {
+public class ActionRequestUtils extends RequestWrapper implements IVariantNamed, IVariantNamedDefault {
 
-    public RequestUtils(Request request) {
+    public ActionRequestUtils(Request request) {
         super(request);
     }
 
@@ -98,9 +98,9 @@ public class RequestUtils extends RequestWrapper implements IVariantNamed, IVari
         }
 
         Class[] prms = m.getParameterTypes();
-        if (prms.length == 1 && ActionMethodWrapper.class.isAssignableFrom(prms[0])) {
+        if (prms.length == 1 && ActionMethodExecutor.class.isAssignableFrom(prms[0])) {
             // есть wrapper
-            ActionMethodWrapper wrap = (ActionMethodWrapper) getApp().create(prms[0]);
+            ActionMethodExecutor wrap = (ActionMethodExecutor) getApp().create(prms[0]);
             wrap.execActionMethod(inst, m);
         } else {
             Object res = m.invoke(inst);
@@ -129,7 +129,7 @@ public class RequestUtils extends RequestWrapper implements IVariantNamed, IVari
                 }
                 Class[] prms = mt.getParameterTypes();
                 if (prms.length > 0) {
-                    if (!(prms.length == 1 && ActionMethodWrapper.class.isAssignableFrom(prms[0]))) {
+                    if (!(prms.length == 1 && ActionMethodExecutor.class.isAssignableFrom(prms[0]))) {
                         continue;
                     }
                 }

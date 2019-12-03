@@ -6,7 +6,7 @@ import java.lang.reflect.*;
  * Если action имеет один параметр с наследником этого типа,
  * то создается этот экземпляр и ему делегируется выполнения метода action.
  */
-public interface ActionMethodWrapper {
+public interface ActionMethodExecutor {
 
     /**
      * Выполнить метод action

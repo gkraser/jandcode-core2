@@ -2,7 +2,7 @@ package jandcode.core.web.action;
 
 import java.lang.reflect.*;
 
-public class ActionMethodWrapper1 implements ActionMethodWrapper {
+public class ActionMethodExecutor1 implements ActionMethodExecutor {
 
     String prefix = "??";
     String data;
