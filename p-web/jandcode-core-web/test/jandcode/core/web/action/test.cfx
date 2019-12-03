@@ -11,6 +11,8 @@
         <action name="x1/b1" class="jandcode.core.web.action.Action1"/>
         <action name="z1/a/b" class="jandcode.core.web.action.Action1"/>
 
+        <action name="actionMethod" class="jandcode.core.web.action.ActionMethod1"/>
+
     </web>
 
 </root>
