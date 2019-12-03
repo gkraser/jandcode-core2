@@ -1,4 +1,6 @@
-package jandcode.core.web.action;
+package jandcode.core.web.action.data;
+
+import jandcode.core.web.action.*;
 
 import java.lang.reflect.*;
 

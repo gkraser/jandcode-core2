@@ -5,8 +5,8 @@
 
     <web>
 
-        <action name="a1" class="jandcode.core.web.action.Action1"/>
-        <action name="a11" class="jandcode.core.web.action.Action1"/>
+        <action name="a1" class="jandcode.core.web.action.data.Action1"/>
+        <action name="a11" class="jandcode.core.web.action.data.Action1"/>
 
         <render name="r1" class="jandcode.core.web.render.Render1"/>
         <render name="r11" class="jandcode.core.web.render.Render1"/>
