@@ -15,9 +15,9 @@ public class ActionMethodExecutor1 implements ActionMethodExecutor {
         this.data = data;
     }
 
-    public void execActionMethod(Object inst, Method method) throws Exception {
-        method.invoke(inst, this);
+    public void execActionMethod(BaseAction action, Method method) throws Exception {
+        method.invoke(action, this);
         String s = prefix + data + "}}";
-        ((BaseAction) inst).getReq().render(s);
+        ((BaseAction) action).getReq().render(s);
     }
 }

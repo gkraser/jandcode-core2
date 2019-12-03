@@ -91,7 +91,7 @@ public class ActionRequestUtils extends RequestWrapper implements IVariantNamed,
      * @param inst для какого экземпляра
      * @param name имя метода
      */
-    public void execActionMethod(Object inst, String name) throws Exception {
+    public void execActionMethod(BaseAction inst, String name) throws Exception {
         Method m = findActionMethod(inst, name);
         if (m == null) {
             throw new HttpError(404, "action method not found: " + name);

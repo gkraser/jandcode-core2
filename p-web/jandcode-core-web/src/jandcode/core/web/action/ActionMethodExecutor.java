@@ -11,9 +11,9 @@ public interface ActionMethodExecutor {
     /**
      * Выполнить метод action
      *
-     * @param inst   экземпляр action (обычно {@link BaseAction})
+     * @param action экземпляр action
      * @param method метод, который нужно выполнить в inst
      */
-    void execActionMethod(Object inst, Method method) throws Exception;
+    void execActionMethod(BaseAction action, Method method) throws Exception;
 
 }
