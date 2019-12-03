@@ -96,11 +96,19 @@ public class RequestUtils extends RequestWrapper implements IVariantNamed, IVari
         if (m == null) {
             throw new HttpError(404, "action method not found: " + name);
         }
-        Object res = m.invoke(inst);
-        if (m.getReturnType() != void.class) {
-            // если метод может возвратить значение
-            // то безусловно рендерим то, что метод возвратил
-            render(res);
+
+        Class[] prms = m.getParameterTypes();
+        if (prms.length == 1 && ActionMethodWrapper.class.isAssignableFrom(prms[0])) {
+            // есть wrapper
+            ActionMethodWrapper wrap = (ActionMethodWrapper) getApp().create(prms[0]);
+            wrap.execActionMethod(inst, m);
+        } else {
+            Object res = m.invoke(inst);
+            if (m.getReturnType() != void.class) {
+                // если метод может возвратить значение
+                // то безусловно рендерим то, что метод возвратил
+                render(res);
+            }
         }
     }
 
@@ -119,8 +127,11 @@ public class RequestUtils extends RequestWrapper implements IVariantNamed, IVari
                 if (!Modifier.isPublic(md)) {
                     continue;
                 }
-                if (mt.getParameterTypes().length > 0) {
-                    continue;
+                Class[] prms = mt.getParameterTypes();
+                if (prms.length > 0) {
+                    if (!(prms.length == 1 && ActionMethodWrapper.class.isAssignableFrom(prms[0]))) {
+                        continue;
+                    }
                 }
                 if (!mt.getName().equalsIgnoreCase(name)) {
                     continue;

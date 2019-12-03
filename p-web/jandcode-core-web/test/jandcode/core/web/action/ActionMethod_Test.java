@@ -16,6 +16,9 @@ public class ActionMethod_Test extends Web_Test {
 
         s = web.execRequest("actionMethod/m2");
         assertEquals(s, "m2-render");
+
+        s = web.execRequest("actionMethod/m3");
+        assertEquals(s, "**m3-render}}");
     }
 
 

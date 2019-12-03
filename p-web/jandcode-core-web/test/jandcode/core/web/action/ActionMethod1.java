@@ -10,4 +10,9 @@ public class ActionMethod1 extends BaseAction {
         return "m2-render";
     }
 
+    public void m3(ActionMethodWrapper1 wrap) throws Exception {
+        wrap.setPrefix("**");
+        wrap.setData("m3-render");
+    }
+
 }
