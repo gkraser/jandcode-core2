@@ -2,6 +2,8 @@ package jandcode.core.dao;
 
 import jandcode.core.*;
 
+import java.util.*;
+
 /**
  * Менеджер dao
  */
@@ -27,5 +29,10 @@ public interface DaoManager extends Comp, BeanFactoryOwner, IBeanIniter {
      */
     <A> A createDao(Class<A> cls);
 
+    /**
+     * Список зарегистрированных фильтров.
+     * Только для чтения.
+     */
+    Collection<DaoFilter> getDaoFilters();
 
 }

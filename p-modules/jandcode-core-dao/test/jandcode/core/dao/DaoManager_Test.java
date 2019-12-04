@@ -65,5 +65,15 @@ public class DaoManager_Test extends App_Test {
         assertTrue(z2.isDao2());
     }
 
+    //////
+
+    @Test
+    public void filters1() throws Exception {
+        DaoManager m = app.create(app.getConf().getConf("dao/dao-manager/test1"), DaoManagerImpl.class);
+        Dao1 d = m.createDao(Dao1.class);
+        d.isDao2();
+
+    }
+
 
 }
