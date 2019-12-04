@@ -38,7 +38,7 @@ public class DaoProxyFactory {
                 if (enableNotDaoMethods.contains(thisMethod.getName())) {
                     return proceed.invoke(self, args);
                 }
-                throw new XError("Метод [{0}] класса [{1}] не является методом dao", thisMethod, daoClassDef.getCls().getName());
+                throw new XError("Метод [{0}] класса [{1}] не является методом dao", thisMethod.getName(), daoClassDef.getCls().getName());
             }
         }
 
