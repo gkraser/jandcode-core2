@@ -5,14 +5,14 @@
 
 
     <dao>
-
-        <dao-executor name="default">
-            <dao-context name="default">
-                <bean name="jandcode.core.dao.DaoBean1"
-                      class="jandcode.core.dao.DaoBean1"/>
-            </dao-context>
-        </dao-executor>
-
+        <dao-manager name="filters1">
+            <filter name="filter1"
+                    class="jandcode.core.dao.data.Filter1"/>
+            <filter name="filter0"
+                    class="jandcode.core.dao.data.Filter1" weight="1"/>
+            <filter name="filter2"
+                    class="jandcode.core.dao.data.Filter1"/>
+        </dao-manager>
     </dao>
 
 </root>

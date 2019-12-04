@@ -1,6 +1,7 @@
 package jandcode.core.web.test;
 
 import jandcode.commons.*;
+import jandcode.commons.error.*;
 import jandcode.commons.test.*;
 import jandcode.core.test.*;
 import jandcode.core.web.*;
@@ -97,8 +98,12 @@ public class WebTestSvc extends BaseTestSvc {
     /**
      * Обработать запрос
      */
-    public void handleRequest(Request request) throws Throwable {
-        ((WebServiceImpl) getWebService()).handleRequest(request);
+    public void handleRequest(Request request) {
+        try {
+            ((WebServiceImpl) getWebService()).handleRequest(request);
+        } catch (Throwable e) {
+            throw new XErrorWrap(e);
+        }
     }
 
     /**
@@ -112,7 +117,7 @@ public class WebTestSvc extends BaseTestSvc {
     /**
      * Выполнить запрос и вернуть результат как строку с обрезанными пробелами
      */
-    public String execRequest(String uri, Map params) throws Throwable {
+    public String execRequest(String uri, Map params) {
         Request r = createRequest(uri, params);
         handleRequest(r);
         return getOutText(r);
@@ -121,7 +126,7 @@ public class WebTestSvc extends BaseTestSvc {
     /**
      * Выполнить запрос и вернуть результат как строку с обрезанными пробелами
      */
-    public String execRequest(String uri) throws Throwable {
+    public String execRequest(String uri) {
         return execRequest(uri, null);
     }
 

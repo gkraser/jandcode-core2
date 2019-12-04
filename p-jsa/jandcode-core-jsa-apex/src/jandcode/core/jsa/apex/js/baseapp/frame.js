@@ -5,6 +5,7 @@ import {jsaBase, Vue} from '../vendor'
 import Dialog from './dialog/Dialog'
 import upperFirst from 'lodash/upperFirst'
 
+import {ComponentHolder} from './component-holder'
 
 // опция initFrame будет выглядеть как массив (аналогично другим life-cycle hookd)
 Vue.config.optionMergeStrategies.initFrame = Vue.config.optionMergeStrategies.created
@@ -14,9 +15,16 @@ jsaBase.cfg.setDefault({
     theme: {
         dialog: {
             flatButtons: false
-        }
+        },
+        componentHolder: {}
     }
 })
+
+/**
+ * Хранилище компонентов
+ * @type {ComponentHolder}
+ */
+export let componentHolder = new ComponentHolder()
 
 /**
  * Настройки кнопок для диалогов

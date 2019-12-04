@@ -25,7 +25,6 @@ public class CtxImpl implements Ctx {
     private EventHolder eventHolder;
     private TempdirHolder tempdirHolder;
     private ServiceHolder serviceHolder;
-    private boolean runtimeCtx;
     private EnvImpl env;
     private Vars vars;
 
@@ -43,15 +42,6 @@ public class CtxImpl implements Ctx {
         this.antHolder = new AntHolder(this);
         this.projectHolder = new ProjectHolder(this);
         this.libHolder = new LibHolder(this);
-    }
-
-    public CtxImpl(boolean runtimeCtx) {
-        this();
-        this.runtimeCtx = runtimeCtx;
-    }
-
-    public boolean isRuntimeCtx() {
-        return runtimeCtx;
     }
 
     ////// config

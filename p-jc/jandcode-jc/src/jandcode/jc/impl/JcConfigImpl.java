@@ -3,7 +3,6 @@ package jandcode.jc.impl;
 import jandcode.commons.*;
 import jandcode.commons.error.*;
 import jandcode.jc.*;
-import jandcode.jc.impl.lib.*;
 
 import java.util.*;
 
@@ -23,37 +22,14 @@ public class JcConfigImpl implements JcConfig {
     }
 
     protected String resolveAppdir() {
-
-        // из свойства
         String s = System.getProperty(JcConsts.PROP_APP_DIR);
         if (!UtString.empty(s)) {
             return s;
         }
 
-        // по местоположению jar
-        String coreJarFile = LibUtils.findJarFileByClassname("jandcode.jc.Project");
-        if (coreJarFile != null) {
-            String corePath = UtFile.path(coreJarFile);
-            String dn = UtFile.filename(corePath);
-            if ("lib".equals(dn)) {
-                // jar лежит в каталоге lib и этого достаточно
-                return UtFile.abs(corePath + "/..");
-            }
-        }
-
-        // по свойству .pathprop
-        String root1 = UtFile.getPathprop(UtilsConsts.PATHPROP_COREROOT, "");
-        if (!UtString.empty(root1)) {
-            root1 = UtFile.abs(root1);
-            if (UtFile.exists(root1)) {
-                return root1;
-            }
-        }
-
         throw new XError("Не удалось определить каталог с jandcode-jc. Его местоположение " +
-                "должно быть указано либо в системной переменной [{0}], либо в переменной pathprop [{1}], " +
-                "либо файл jandcode-jc.jar должен быть расположен в каталоге lib бинарного дистрибутива.",
-                JcConsts.PROP_APP_DIR, UtilsConsts.PATHPROP_COREROOT);
+                "должно быть указано в системной переменной [{0}]",
+                JcConsts.PROP_APP_DIR);
 
     }
 

@@ -103,7 +103,7 @@ public class AppImpl implements App, IBeanIniter {
         }
         this.test = test;
         this.appConfFile = f.toString();
-        this.env = new DefaultEnv(true, this.test);
+        this.env = new DefaultEnv(false, false, this.test, null);
         //                       
         loadAppConf();
     }
@@ -148,37 +148,24 @@ public class AppImpl implements App, IBeanIniter {
         this.appdir = AppConsts.resolveAppdir(
                 UtFile.path(UtFile.vfsPathToLocalPath(appConfFile))
         );
+        this.env = UtEnv.loadEnv(UtFile.join(this.appdir, AppConsts.FILE_ENV), this.test);
 
         // resolver
         ModuleDefResolver moduleDefResolver = UtModuleDef.createModuleDefResolver();
-        moduleDefResolver.addWorkDir(this.appdir);
+        if (this.env.isSource()) {
+            moduleDefResolver.addWorkDir(this.appdir);
+        }
 
         Map<String, String> vars = new LinkedHashMap<>();
-        vars.put("env", this.env.isProd() ? "prod" : "dev");
+        vars.put("appdir", this.appdir);
         vars.put("env.test", "" + this.env.isTest());
+        vars.put("env.source", "" + this.env.isSource());
+        vars.put("env.dev", "" + this.env.isDev());
 
         ModuleHolderImpl tmpMh = new ModuleHolderImpl(this, moduleDefResolver, vars);
         EventHandler<ModuleHolderImpl.Event_ModuleConfLoaded> handlerCfgLoaded = (e) -> {
             if (AppConsts.MODULE_APP.equals(e.getModuleDef().getName())) {
                 // загрузка модуля app, остальные модули еще не грузились
-                Conf conf = e.getModuleDefConfig().getConf();
-
-                // забираем все переменные
-                vars.putAll(e.getModuleDefConfig().getConfVars());
-
-                // формируем новую среду
-                this.env = new DefaultEnv(!"dev".equals(vars.get("env")), this.test);
-
-                // формируем окончательный набор переменных
-                vars.put("env", this.env.isProd() ? "prod" : "dev");
-                vars.put("env.test", "" + this.env.isTest());
-
-                // если <app appdir="DIR"/> определено, устанавливаем appdir
-                String s = conf.getString("app/appdir");
-                if (!UtString.empty(s)) {
-                    this.appdir = UtFile.abs(UtFile.vfsPathToLocalPath(s));
-                }
-
             }
         };
         tmpMh.getEventBus().onEvent(ModuleHolderImpl.Event_ModuleConfLoaded.class, handlerCfgLoaded);

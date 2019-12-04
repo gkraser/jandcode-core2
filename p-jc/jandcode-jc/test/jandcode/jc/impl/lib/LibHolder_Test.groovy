@@ -1,6 +1,6 @@
 package jandcode.jc.impl.lib
 
-import jandcode.commons.*
+
 import jandcode.jc.*
 import org.junit.jupiter.api.*
 
@@ -11,7 +11,7 @@ class LibHolder_Test extends CustomProjectTestCase {
     @Test
     public void test_1() throws Exception {
         prepareRealCtx()
-        String root1 = UtFile.join(UtFile.getPathprop(UtilsConsts.PATHPROP_COREROOT, ""), "")
+        String root1 = getJcAppdir()
         ctx.load(root1)
         Project p = load("workdir1")
         def lst = p.ctx.getLibs("jandcode-jc")

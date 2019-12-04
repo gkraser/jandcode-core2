@@ -1,14 +1,25 @@
 package jandcode.commons;
 
+import jandcode.commons.env.*;
+
 /**
  * Константы
  */
 public class UtilsConsts {
 
     /**
-     * Переменная pathprop, где хранится ссылка на корень проекта jandcode-core.
-     * Для использования в тестах вне среды core.
+     * Файл, описывающий среду.
      */
-    public static final String PATHPROP_COREROOT = "jandcode.core.root";
+    public static final String FILE_ENV = ".env";
+
+    /**
+     * Свойство, которое определяет {@link Env#isSource()}
+     */
+    public static final String PROP_ENV_SOURCE = "jandcode.env.source";
+
+    /**
+     * Свойство, которое определяет {@link Env#isDev()}
+     */
+    public static final String PROP_ENV_DEV = "jandcode.env.dev";
 
 }

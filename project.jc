@@ -73,6 +73,8 @@ class P extends ProjectScript {
             }
             ant.copy(file: wd("jc.bat"), todir: destDir, overwrite: true, preservelastmodified: true)
             ant.copy(file: wd("jc-env.bat"), todir: destDir, overwrite: true, preservelastmodified: true)
+            ant.copy(file: wd("jc.sh"), todir: destDir, overwrite: true, preservelastmodified: true)
+            ant.copy(file: wd("jc-env.sh"), todir: destDir, overwrite: true, preservelastmodified: true)
 
             // формирование jc-run
             def libCore = ctx.getLib("jandcode-jc").sourceProject.include(JavaProject)
@@ -86,6 +88,16 @@ class P extends ProjectScript {
                 s1 += "set CP=%CP%;%JCLIBDIR%\\${z}.jar\n"
             }
             jcrunFileText = jcrunFileText.replace("rem CP", s1)
+            UtFile.saveString(jcrunFileText, jcrunFile)
+
+            // jc-run.sh
+            jcrunFile = new File(destDir + "/jc-run.sh")
+            jcrunFileText = UtFile.loadString(jcrunFile)
+            s1 = ""
+            for (z in libCoreNames) {
+                s1 += "CP=\${CP}:\${JCLIBDIR}/${z}.jar\n"
+            }
+            jcrunFileText = jcrunFileText.replace("# CP", s1)
             UtFile.saveString(jcrunFileText, jcrunFile)
 
             //

@@ -10,8 +10,10 @@ import java.util.regex.*;
 public class CssUrlRebase {
 
     protected static Pattern PAT_URL = Pattern.compile("(url\\s*\\()(.*?)(\\))", Pattern.CASE_INSENSITIVE);
+    private boolean replaced;
 
     public String rebase(String src, String srcFolder, String destFolder, String prefix) {
+        this.replaced = false;
         if (destFolder.equals(srcFolder)) {
             return src;
         }
@@ -42,6 +44,13 @@ public class CssUrlRebase {
 
     }
 
+    /**
+     * Были ли произведены замены в rebase
+     */
+    public boolean isReplaced() {
+        return replaced;
+    }
+
     private String rebaseUrl(String url, String srcFolder, String destFolder, String prefix) {
         if (UtString.empty(url)) {
             return "";
@@ -49,6 +58,9 @@ public class CssUrlRebase {
         if (url.indexOf(':') != -1) {
             return url; // будем считать его абсолютным
         }
+
+        this.replaced = true;
+
         String s = url;
         String p = null;
         char q = s.charAt(0);

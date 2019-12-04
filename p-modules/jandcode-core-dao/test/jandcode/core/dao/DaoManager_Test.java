@@ -40,8 +40,46 @@ public class DaoManager_Test extends App_Test {
             z.getContext();
             fail();
         } catch (Exception e) {
-            // ignore
+            System.out.println("Только dao методы можно вызывать вне процесса исполнения dao");
+            System.out.println("context не существут вне вызова dao");
+            utils.showError(e);
         }
+
+    }
+
+    @Test
+    public void groovy1() throws Exception {
+        DaoManager m = app.create(DaoManagerImpl.class);
+        DaoGroovy1 z = m.createDao(DaoGroovy1.class);
+        z.dummy1();
+    }
+
+    @Test
+    public void isDao2() throws Exception {
+        DaoManager m = app.create(DaoManagerImpl.class);
+        //
+        Dao1 z1 = m.createDao(Dao1.class);
+        assertFalse(z1.isDao2());
+        //
+        Dao2 z2 = m.createDao(Dao2.class);
+        assertTrue(z2.isDao2());
+    }
+
+    //////
+
+    @Test
+    public void filters1() throws Exception {
+        DaoManager m = app.create(app.getConf().getConf("dao/dao-manager/filters1"), DaoManagerImpl.class);
+        Dao1 d = m.createDao(Dao1.class);
+        d.isDao2();
+
+    }
+
+    @Test
+    public void filters1_1() throws Exception {
+        DaoManager m = app.bean(DaoService.class).getDaoManager("filters1");
+        Dao1 d = m.createDao(Dao1.class);
+        d.isDao2();
     }
 
 

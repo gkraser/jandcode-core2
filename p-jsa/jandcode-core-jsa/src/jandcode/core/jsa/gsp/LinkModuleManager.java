@@ -107,6 +107,24 @@ public class LinkModuleManager extends BaseComp {
     private void outLinkBoot(Gsp g, String mod) {
         WebService webSvc = g.getApp().bean(WebService.class);
         Request request = webSvc.getRequest();
+
+        // критически важная информация
+        g.out("<script>");
+        g.out("window.Jc=window.Jc||{};window.Jc.cfg=window.Jc.cfg||{};");
+        Map<String, Object> initialCfg = new LinkedHashMap<>();
+        initialCfg.put("baseUrl", ((BaseGsp) g).ref("/"));
+        if (getApp().getEnv().isDev()) {
+            initialCfg.put("envDev", true);
+        }
+        if (getApp().getEnv().isSource()) {
+            initialCfg.put("envSource", true);
+        }
+        g.out("Jc.cfg=");
+        g.out(UtJson.toJson(initialCfg));
+        g.out(";");
+        g.out("</script>\n");
+
+        // boot
         Map<String, String> params = new LinkedHashMap<>();
         params.put("p", mod);
         String href = request.ref("jsa/s", params);
@@ -114,17 +132,6 @@ public class LinkModuleManager extends BaseComp {
         g.out(href);
         g.out("\"></script>\n");
 
-        // критически важная информация
-        g.out("<script>");
-        Map<String, Object> initialCfg = new LinkedHashMap<>();
-        initialCfg.put("baseUrl", ((BaseGsp) g).ref("/"));
-        if (getApp().getEnv().isDev()) {
-            initialCfg.put("envDev", true);
-        }
-        g.out("Jc.cfg=");
-        g.out(UtJson.toJson(initialCfg));
-        g.out(";");
-        g.out("</script>\n");
         if (getApp().getEnv().isDev()) {
             g.out("\n");
         }

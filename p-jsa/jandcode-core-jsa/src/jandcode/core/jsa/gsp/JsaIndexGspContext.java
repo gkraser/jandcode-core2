@@ -199,12 +199,20 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
      * Возвращает конфигурацию со списком всех доступных тем
      */
     public Map<String, Object> getThemesCfg() {
+        String curTheme = getTheme();
+        if (curTheme == null) {
+            curTheme = "";
+        }
         JsaThemeService themeSvc = gspContext.getApp().bean(JsaThemeService.class);
         Map<String, Object> res = new LinkedHashMap<>();
         for (String themeName : themeSvc.getThemeNames()) {
             Map<String, Object> it = new LinkedHashMap<>();
             it.put("name", themeName);
-            it.put("path", themeSvc.findThemeFile(themeName));
+            String pt = themeSvc.findThemeFile(themeName);
+            it.put("path", pt);
+            if (curTheme.equals(pt)) {
+                it.put("current", true);
+            }
             res.put(themeName, it);
         }
         return res;

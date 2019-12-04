@@ -170,20 +170,4 @@ class ProductBuilder extends ProjectScript {
         ant.echo(message: "", file: "${destDir}/${JcConsts.JC_ROOT_FILE}")
     }
 
-    /**
-     * Создать файл .pathprop в корне продукта
-     * @param items дополнительные элементы в .pathprop
-     */
-    void makePathpropFile(Map items = null) {
-        Map m = ['jandcode.project.root': '${path}']
-        if (items != null) {
-            m.putAll(items)
-        }
-        String txt = ""
-        for (en in m) {
-            txt += en.key + "=" + en.value + "\n"
-        }
-        ant.echo(message: txt, file: "${destDir}/.pathprop")
-    }
-
 }

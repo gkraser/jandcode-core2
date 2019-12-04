@@ -43,19 +43,6 @@ JsaLessFileManager.prototype.loadFile = function(filename, currentDirectory, opt
     return LessFileManager.prototype.loadFile.call(this, filename, currentDirectory, options, environment, callback)
 }
 
-////// jsa preprocessor
-
-let JsaLessPreProcessor = function() {}
-JsaLessPreProcessor.prototype = {
-    process: function(src, extra) {
-        let s = handleJcDirectives(src, extra)
-        if (!s) {
-            return src;
-        }
-        return s;
-    }
-}
-
 ////// plugin
 
 function JsaLessPlugin(options) {

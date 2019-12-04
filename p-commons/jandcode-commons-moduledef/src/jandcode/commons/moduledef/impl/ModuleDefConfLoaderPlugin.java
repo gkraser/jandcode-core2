@@ -77,6 +77,12 @@ public class ModuleDefConfLoaderPlugin extends BaseConfLoaderPlugin {
             return moduleDef.getName();
         }
 
+        if (vars != null) {
+            if (vars.containsKey(var)) {
+                return vars.get(var);
+            }
+        }
+
         Matcher m = P_MODULE.matcher(var);
         if (m.find()) {
             String var1 = m.group(1);

@@ -53,8 +53,6 @@ public class DataDir_Test extends App_Test {
         s = svc.getPath("root").replace('\\', '/');
         System.out.println(s);
         assertTrue(s.endsWith("temp/datadir"));
-
     }
-
 
 }

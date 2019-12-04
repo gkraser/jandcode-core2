@@ -30,5 +30,11 @@ public class AppTest_Test extends App_Test {
         assertEquals(app.getEnv().isTest(), true);
     }
 
+    @Test
+    public void testAppdir() throws Exception {
+        String s = app.getConf().getString("appdir-test/appdir");
+        System.out.println(s);
+    }
+
 
 }

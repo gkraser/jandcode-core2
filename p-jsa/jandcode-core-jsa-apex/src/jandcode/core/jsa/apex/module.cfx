@@ -10,14 +10,6 @@
 
     <web>
         <mount-module/>
-
-        <!-- quasar -->
-
-        <jsmodule-factory name="jandcode.core.jsa.apex.quasar-css-extras"
-                          mask="_jsa/_node_modules/@quasar/**/*.css"
-                          urlRebase="true"
-                          moduleClass="jandcode.core.jsa.jsmodule.std.JsModuleCss"/>
-
     </web>
 
 </root>

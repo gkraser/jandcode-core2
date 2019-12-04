@@ -9,7 +9,7 @@ import jandcode.core.web.*;
  */
 public abstract class BaseAction extends BaseComp implements IAction {
 
-    private RequestUtils requestUtils;
+    private ActionRequestUtils requestUtils;
 
     //////
 
@@ -17,7 +17,7 @@ public abstract class BaseAction extends BaseComp implements IAction {
      * Реализация {@link IAction}. Этот метод не нужно перекрывать.
      */
     public void exec(Request request) throws Exception {
-        this.requestUtils = new RequestUtils(request);
+        this.requestUtils = new ActionRequestUtils(request);
         onExec();
     }
 
@@ -37,7 +37,7 @@ public abstract class BaseAction extends BaseComp implements IAction {
     /**
      * Запрос {@link Request} и утилиты для него
      */
-    public RequestUtils getReq() {
+    public ActionRequestUtils getReq() {
         return requestUtils;
     }
 

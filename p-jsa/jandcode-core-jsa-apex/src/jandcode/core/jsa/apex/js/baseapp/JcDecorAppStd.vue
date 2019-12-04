@@ -1,30 +1,32 @@
 <template>
     <q-layout view="hHh Lpr fff" class="jc-app">
 
-        <q-header elevated class="jc-app--header">
+        <q-header :elevated="false" class="jc-app--header">
             <q-toolbar>
-
-                <q-btn dense flat
-                       icon="menu" @click="own.left = !own.left"/>
-
-                <slot name="title">
-                    <q-btn flat no-caps no-wrap :ripple="false" @click="own.home()">
-                        <q-icon v-if="hasIcon" :name="own.icon" size="32px"/>
-                        <q-toolbar-title shrink>
-                            {{own.title}}
-                        </q-toolbar-title>
-                    </q-btn>
+                <slot name="toolbar-left">
+                    <jc-toolbar>
+                        <jc-action
+                                icon="menu" @click="own.left = !own.left"/>
+                        <slot name="title">
+                            <jc-toolbar-logo :icon="own.icon" @click="own.home()"/>
+                            <jc-toolbar-title :text="own.title" @click="own.home()"/>
+                        </slot>
+                    </jc-toolbar>
                 </slot>
 
                 <q-space/>
 
-                <slot name="toolbar">
+                <slot name="toolbar-right">
+                    <jc-toolbar>
+                        <slot name="toolbar">
+                        </slot>
+                    </jc-toolbar>
                 </slot>
 
             </q-toolbar>
         </q-header>
 
-        <q-drawer v-model="own.left"
+        <q-drawer v-model="own.left" :elevated="false"
                   side="left" bordered content-class="jc-app--side jc-app--left"
                   :width="own.leftWidth">
             <q-scroll-area class="fit">
@@ -35,7 +37,7 @@
             </q-scroll-area>
         </q-drawer>
 
-        <q-drawer v-model="own.right" behavior="mobile"
+        <q-drawer v-model="own.right" behavior="mobile" :elevated="false"
                   no-swipe-open no-swipe-close no-swipe-backdrop
                   side="right" bordered content-class="jc-app--side jc-app--right"
                   :width="own.rightWidth">

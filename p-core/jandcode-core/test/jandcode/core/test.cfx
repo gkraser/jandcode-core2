@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
-    <x-set env="dev"/>
-
     <app appname="#{module}"/>
 
     <app-conf-handler name="h-app" class="jandcode.core.AppConfHandler1"/>
@@ -19,6 +17,9 @@
 
     <castForDefault name="a1"/>
     <castForDefault name="a2" class="jandcode.core.Beans_Test.Real1"/>
+
+    <appdir-test
+        appdir="#{appdir}"/>
 
     <datadir>
 

@@ -55,7 +55,7 @@ class Projecttml extends ProjectScript {
      */
     List textfiles = [
             "java", "txt", "xml", "properties", "groovy", "xconf",
-            "gsp", "html", "htm", "css", "jsp", "jc", "xc", "js", "pathprop", "cfx",
+            "gsp", "html", "htm", "css", "jsp", "jc", "xc", "js", "cfx",
             "vue"
     ]
 
@@ -121,21 +121,36 @@ class Projecttml extends ProjectScript {
             nameTemplate = project.name
         }
         String[] ar = nameTemplate.split("\\-")
-        if (ar.length != 2) {
-            error("Имя проекта должно быть в формате [name1-name2]")
+        if (ar.length < 2) {
+            error("Имя проекта должно быть в формате набора имен с разделителем '-'")
         }
-        String n1 = ar[0]
-        String n2 = ar[1]
         // замены
         def pname = args.getString("n", UtFile.filename(outdir))
         def Pname = UtString.camelCase(pname)
         def pak = args.getString("p", UtString.unCamelCase(Pname, (char) '.'))
         //
-        replaces["${n1}-${n2}"] = pname
-        replaces["${UtString.capFirst(n1)}${UtString.capFirst(n2)}"] = Pname
-        replaces["${n1}.${n2}"] = pak
-        replaces["${n1}/${n2}"] = pak.replace(".", "/")
-        replaces["${n1}_${n2}"] = pak.replace(".", "_")
+
+        def keyMaker = { String delim, boolean capFirst = false ->
+            String s = ""
+            for (part in ar) {
+                if (s.length() > 0) {
+                    s += delim
+                }
+                if (capFirst) {
+                    s += UtString.capFirst(part)
+                } else {
+                    s += part
+                }
+            }
+            return s
+        }
+
+        replaces[keyMaker("-")] = pname
+        replaces[keyMaker("", true)] = Pname
+        replaces[keyMaker(".")] = pak
+        replaces[keyMaker("/")] = pak.replace(".", "/")
+        replaces[keyMaker("_")] = pak.replace(".", "_")
+
     }
 
 }

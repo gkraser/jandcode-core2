@@ -99,7 +99,7 @@ class XmlTocBuilder_Test extends CustomMDoc_Test {
         String s = """<root>
     <toc-root topic="index">
         <toc topic="commons/index">
-            <toc topic="./pathprop"/>
+            <toc topic="./test"/>
             <toc topic="./*"/>
         </toc>
     </toc-root>

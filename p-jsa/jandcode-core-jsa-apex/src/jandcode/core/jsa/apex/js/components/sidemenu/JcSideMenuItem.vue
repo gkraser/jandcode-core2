@@ -1,6 +1,6 @@
 <template>
     <q-item v-if="!hasItems" clickable :disable="disable"
-            :dense="true" :style="style" :class="classes" @click="onClick"
+            :style="style" :class="classes" @click="onClick"
             :to="to" :replace="replace" exact>
         <q-item-section avatar>
             <q-icon :name="iconValue"/>
@@ -9,7 +9,7 @@
             {{label}}
         </q-item-section>
     </q-item>
-    <q-expansion-item v-else ref="expansionItem" :dense="true" :dense-toggle="true"
+    <q-expansion-item v-else ref="expansionItem"
                       expand-separator1 :disable="disable"
                       :value="opened"
                       :group="groupValue"
@@ -25,7 +25,7 @@
                 {{label}}
             </q-item-section>
         </template>
-        <q-list :dense="true" :class="classesList">
+        <q-list :class="classesList">
             <slot></slot>
         </q-list>
     </q-expansion-item>

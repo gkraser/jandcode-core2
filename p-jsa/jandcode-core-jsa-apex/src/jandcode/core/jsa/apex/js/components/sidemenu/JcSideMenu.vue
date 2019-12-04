@@ -1,5 +1,5 @@
 <template>
-    <q-list :class="classes" :dense="true" :bordered="bordered">
+    <q-list :class="classes" :bordered="bordered">
         <slot></slot>
     </q-list>
 </template>

@@ -114,6 +114,9 @@
         <render name="virtfile.gsp.js"
                 class="jandcode.core.web.gsp.impl.render.GspJsVirtFileRender"/>
 
+        <render name="json"
+                class="jandcode.core.web.std.render.JsonRender"/>
+
         <!-- =================== -->
 
         <type name="java.lang.Object"
@@ -124,6 +127,12 @@
 
         <type name="org.apache.commons.vfs2.FileObject"
               render="virtfile"/>
+
+        <type name="java.util.Map"
+              render="json"/>
+
+        <type name="java.util.List"
+              render="json"/>
 
         <!-- =================== -->
 

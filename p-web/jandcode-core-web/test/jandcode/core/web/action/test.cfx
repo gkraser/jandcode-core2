@@ -5,11 +5,14 @@
 
     <web>
 
-        <action name="x1/a1" class="jandcode.core.web.action.Action1"/>
-        <action name="z1" class="jandcode.core.web.action.Action1"/>
-        <action name="a1" class="jandcode.core.web.action.Action1"/>
-        <action name="x1/b1" class="jandcode.core.web.action.Action1"/>
-        <action name="z1/a/b" class="jandcode.core.web.action.Action1"/>
+        <action name="x1/a1" class="jandcode.core.web.action.data.Action1"/>
+        <action name="z1" class="jandcode.core.web.action.data.Action1"/>
+        <action name="a1" class="jandcode.core.web.action.data.Action1"/>
+        <action name="x1/b1" class="jandcode.core.web.action.data.Action1"/>
+        <action name="z1/a/b" class="jandcode.core.web.action.data.Action1"/>
+
+        <action name="actionMethod" class="jandcode.core.web.action.data.ActionMethod1"/>
+        <action name="actionRender" class="jandcode.core.web.action.data.ActionRender1"/>
 
     </web>
 

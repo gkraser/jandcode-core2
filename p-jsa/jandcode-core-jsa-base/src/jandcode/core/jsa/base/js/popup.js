@@ -3,17 +3,13 @@
 popup
 Всплывающие объекты
 
+Если используете, подключите jandcode/core/jsa/base/js/css/popup.css
+
 ----------------------------------------------------------------------------- */
 
 import * as base from './base'
 import * as cnv from './cnv'
 import * as dom from './dom'
-
-import css from './css/popup.css'
-
-if (Jc && Jc.requireCss) {
-    Jc.requireCss(css)
-}
 
 /**
  * Базовый z-index для контейнеров popup

@@ -78,6 +78,10 @@
                       href="jandcode/core/web/tst/tools/appservlets.html"
                       title="Running jandcode.core.web.AppServlet"/>
 
+                <item name="env-properties"
+                      href="jandcode/core/web/tst/tools/env-properties.html"
+                      title="App.getEnv().getProperties()"/>
+
             </menu>
 
             <!-- игнорируемый файлы, такие не показываются в tst -->

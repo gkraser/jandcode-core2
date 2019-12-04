@@ -1,5 +1,6 @@
 import Page from './JcDecorFramePage'
 import Dialog from './JcDecorFrameDialog'
+import {componentHolder} from './frame'
 
 /**
  * Базовый предок для фреймов
@@ -9,6 +10,10 @@ export default {
     components: {
         Page: Page,
         Dialog: Dialog,
+    },
+
+    created() {
+        componentHolder.updateComponents(this, 'frame')
     },
 
     data() {

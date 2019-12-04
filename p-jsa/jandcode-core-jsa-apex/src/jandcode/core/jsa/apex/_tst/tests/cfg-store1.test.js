@@ -131,5 +131,28 @@ describe('cfg-store1.test.js', function() {
 
     })
 
+    it("reset-value-1", function() {
+        let z = create(this.test.title)
+        z.applyDefault({
+            a: 1,
+            b: {
+                c: 2,
+                d: 3,
+                e: {
+                    f: 4,
+                    g: 5
+                }
+            }
+        })
+        z.cfg.b.c = 222
+        z.cfg.b.e.f = 444
+
+        //
+        test.assert.equal(z.cfg.b.e.f, 444)
+        z.reset('b.e.f')
+        test.assert.equal(z.cfg.b.e.f, 4)
+
+    })
+
 })
 

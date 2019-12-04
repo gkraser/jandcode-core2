@@ -6,10 +6,8 @@ export * from './msgbox'
 // инициализируем приложение
 import {app} from './app'
 
-// плагины для приложения
-import AppPluginCfgStore from './app/app-plugin-cfg-store'
-import AppPluginErrorHandlers from './app/app-plugin-error-handlers'
+import {CfgStoreService} from './app/app-service-cfg-store'
+import {ErrorHandlersService} from './app/app-service-error-handlers'
 
-
-app.use(AppPluginErrorHandlers)
-app.use(AppPluginCfgStore)
+app.registerService(ErrorHandlersService)
+app.registerService(CfgStoreService)

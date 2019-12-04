@@ -28,7 +28,7 @@ class P extends ProjectScript {
                     "vue-router": "3.1.3",
                     "vuex": "3.1.2",
 
-                    "quasar": "1.4.5",
+                    "quasar": "1.5.4",
                     "@quasar/extras": "1.3.3",
 
                     "lodash": "4.17.15",
@@ -72,7 +72,6 @@ class P extends ProjectScript {
 
                     "@quasar/extras": [
                             "material-icons/**/*",
-                            "roboto*/**/*",
                             "animate/**/*",
                     ],
 
@@ -91,6 +90,7 @@ class P extends ProjectScript {
 
             gulpTask(name: "vue", provide: true, globs: ["**/*.vue"])
             gulpTask(name: "sass", provide: true, globs: ["**/*-style.scss", "css/*-theme.scss"])
+            gulpTask(name: "less", provide: true, globs: ["**/*-style.less", "css/*-theme.less"])
 
         }
     }

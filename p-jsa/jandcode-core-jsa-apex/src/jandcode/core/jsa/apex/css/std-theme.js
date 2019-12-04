@@ -1,11 +1,11 @@
 /* Тема std
 ----------------------------------------------------------------------------- */
-import css from './std-theme.scss'
-import robotoFontCss from '@quasar/extras/roboto-font/roboto-font.css'
+import cssQuasar from './std/z-quasar-style.scss'
+import css from './std-theme.less'
 
 let config = require('[*]/css/std-config.js')
 
 export default {
-    css: [robotoFontCss, css],
+    css: [cssQuasar, css],
     config: config
 }

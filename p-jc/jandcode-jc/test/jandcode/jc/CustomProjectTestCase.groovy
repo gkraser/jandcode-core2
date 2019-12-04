@@ -2,6 +2,7 @@ package jandcode.jc
 
 import groovy.transform.*
 import jandcode.commons.*
+import jandcode.commons.error.*
 import jandcode.commons.test.*
 import jandcode.jc.impl.*
 import org.junit.jupiter.api.*
@@ -16,6 +17,14 @@ abstract class CustomProjectTestCase extends Utils_Test {
         }
     }
 
+    String getJcAppdir() {
+        String s = System.getProperty(JcConsts.PROP_APP_DIR);
+        if (!UtString.empty(s)) {
+            return s;
+        }
+        throw new XError("Переменная не установлена: ${JcConsts.PROP_APP_DIR}")
+    }
+
     @BeforeEach
     public void setUp() throws Exception {
         super.setUp();
@@ -24,12 +33,12 @@ abstract class CustomProjectTestCase extends Utils_Test {
     }
 
     protected void prepareRealCtx() {
-        String root1 = UtFile.join(UtFile.getPathprop(UtilsConsts.PATHPROP_COREROOT, ""), "")
+        String root1 = UtFile.join(getJcAppdir(), "")
         ctx.addLibDir(root1 + "/_jc/lib-builder")
     }
 
     protected String basepath(String path) {
-        String basepath = UtFile.join(UtFile.getPathprop(UtilsConsts.PATHPROP_COREROOT, ""), "p-jc/jandcode-jc/test.projects")
+        String basepath = UtFile.join(getJcAppdir(), "p-jc/jandcode-jc/test.projects")
         return UtFile.join(basepath, path)
     }
 
@@ -65,8 +74,7 @@ abstract class CustomProjectTestCase extends Utils_Test {
      * Имитация запуска jc в указанном каталоге с указанными аргументами
      */
     void run(String workdir, List args) {
-        String basepath = UtFile.join(UtFile.getPathprop(UtilsConsts.PATHPROP_COREROOT, ""), "p-jc/jandcode-jc/test.projects")
-        workdir = UtFile.join(basepath, workdir)
+        workdir = basepath(workdir)
         MainImpl main = new MainImpl();
         main.run(args as String[], workdir, workdir, true);
     }

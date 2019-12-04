@@ -67,6 +67,7 @@ class JUnitRunner extends ProjectScript implements IJUnitRunner {
 
             String jvmArgs = ""
             jvmArgs += " -cp ${cp_s}"
+            jvmArgs += " -D${JcConsts.PROP_APP_DIR}=${ctx.getConfig().getAppdir()}"
 
             String cmd = "java ${jvmArgs} ${cn} ${appArgs}"
 
