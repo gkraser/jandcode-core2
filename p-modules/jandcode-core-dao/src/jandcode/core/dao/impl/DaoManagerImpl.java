@@ -39,6 +39,8 @@ public class DaoManagerImpl extends BaseComp implements DaoManager {
         // создаем параметр для филтров
         DaoFilterParamsImpl filterParams = new DaoFilterParamsImpl(context, daoInst);
 
+        //todo четкие правила для вызова филтров, особенно в случае ошибок
+
         try {
             // сначала все фильтры before
             for (int i = 0; i < this.daoFilters.size(); i++) {
