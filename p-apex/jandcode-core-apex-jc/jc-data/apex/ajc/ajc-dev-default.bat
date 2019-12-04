@@ -1,8 +1,9 @@
 @echo off
 set WD=%~dp0
-if not exist %~dp0_jc\ajc-prepare.bat (
+set P1=%WD%/_jc/ajc-prepare.bat
+if not exist %P1% (
     call jc prepare
 )
-call %~dp0_jc\ajc-prepare.bat %*
+call %P1% %*
 java %JVM% %JC_JVM% %MAIN% %*
 

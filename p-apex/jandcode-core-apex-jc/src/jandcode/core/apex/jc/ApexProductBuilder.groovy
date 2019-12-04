@@ -15,9 +15,6 @@ class ApexProductBuilder extends ProductBuilder {
         // собираем проект
         buildProject()
 
-        // копируем встроенный шаблон содержимого каталога продукта
-        copyFolderToDestDir(ctx.service(JcDataService).getFile("apex/product"))
-
         // копируем шаблон содержимого каталога продукта из проекта
         copyFolderToDestDir("data/product")
 
@@ -42,6 +39,7 @@ class ApexProductBuilder extends ProductBuilder {
 
         // bat
         makeAjcBat()
+        makeAjcSh()
 
         // bat
         makeWebXml()
@@ -53,14 +51,24 @@ class ApexProductBuilder extends ProductBuilder {
     void makeAjcBat() {
         ApexRootProject arp = include(ApexRootProject)
         String destAjcBat = "${destDir}/${arp.ajcBat}"
-
-        if (arp.ajcBat != ApexRootProject.DEFAULT_AJC_BAT) {
-            ant.move(file: "${destDir}/${ApexRootProject.DEFAULT_AJC_BAT}",
-                    tofile: destAjcBat)
+        if (UtFile.exists(destAjcBat)) {
+            return
         }
+        String srcAjcBatFile = ctx.service(JcDataService).getFile("apex/ajc/ajc-product-default.bat")
+        String txt = UtFile.loadString(srcAjcBatFile)
+        txt = txt.replace("MAIN=?", "MAIN=${arp.ajcLauncher}")
+        UtFile.saveString(txt, new File(destAjcBat))
+    }
 
-        String txt = UtFile.loadString(destAjcBat)
-        txt = txt.replace("set MAIN=?", "set MAIN=${arp.ajcLauncher}")
+    void makeAjcSh() {
+        ApexRootProject arp = include(ApexRootProject)
+        String destAjcBat = "${destDir}/${UtFile.removeExt(arp.ajcBat) + '.sh'}"
+        if (UtFile.exists(destAjcBat)) {
+            return
+        }
+        String srcAjcBatFile = ctx.service(JcDataService).getFile("apex/ajc/ajc-product-default.sh")
+        String txt = UtFile.loadString(srcAjcBatFile)
+        txt = txt.replace("MAIN=?", "MAIN=${arp.ajcLauncher}")
         UtFile.saveString(txt, new File(destAjcBat))
     }
 
