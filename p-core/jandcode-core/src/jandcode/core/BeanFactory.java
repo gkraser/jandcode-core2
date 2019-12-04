@@ -11,7 +11,7 @@ public interface BeanFactory extends IBeanFactory, IBeanIniter, IBeanAccess, IBe
 
     /**
      * Возвращает копию списка бинов.
-     * Обычно используется в dev-режиме для нализа состояния хранилища.
+     * Обычно используется в dev-режиме для анализа состояния хранилища.
      * В production не используется.
      */
     List<BeanDef> getBeans();
