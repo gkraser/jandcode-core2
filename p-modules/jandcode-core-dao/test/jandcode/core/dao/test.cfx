@@ -5,7 +5,7 @@
 
 
     <dao>
-        <dao-manager name="test1">
+        <dao-manager name="filters1">
             <filter name="filter1"
                     class="jandcode.core.dao.data.Filter1"/>
             <filter name="filter0"

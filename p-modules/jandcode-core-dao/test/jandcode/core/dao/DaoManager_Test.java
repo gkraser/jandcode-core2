@@ -69,10 +69,17 @@ public class DaoManager_Test extends App_Test {
 
     @Test
     public void filters1() throws Exception {
-        DaoManager m = app.create(app.getConf().getConf("dao/dao-manager/test1"), DaoManagerImpl.class);
+        DaoManager m = app.create(app.getConf().getConf("dao/dao-manager/filters1"), DaoManagerImpl.class);
         Dao1 d = m.createDao(Dao1.class);
         d.isDao2();
 
+    }
+
+    @Test
+    public void filters1_1() throws Exception {
+        DaoManager m = app.bean(DaoService.class).getDaoManager("filters1");
+        Dao1 d = m.createDao(Dao1.class);
+        d.isDao2();
     }
 
 

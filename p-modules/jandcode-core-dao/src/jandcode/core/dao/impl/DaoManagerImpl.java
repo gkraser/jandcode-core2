@@ -85,7 +85,9 @@ public class DaoManagerImpl extends BaseComp implements DaoManager {
     }
 
     public void beanInit(Object inst) {
-        //todo а надо?
+        if (inst instanceof IDaoManagerLinkSet) {
+            ((IDaoManagerLinkSet) inst).setDaoManager(this);
+        }
     }
 
     public List<DaoFilter> getDaoFilters() {
