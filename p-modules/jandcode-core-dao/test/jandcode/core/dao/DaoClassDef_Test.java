@@ -26,10 +26,5 @@ public class DaoClassDef_Test extends App_Test {
         prnClass(cd);
     }
 
-    @Test
-    public void ignored1() throws Exception {
-        //ignoredNameDaoMethods = new IgnoredNameDaoMethods();
-    }
-
 
 }

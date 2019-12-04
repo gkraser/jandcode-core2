@@ -9,4 +9,9 @@ public class Dao1 extends BaseDao {
         return a + b;
     }
 
+    @DaoMethod
+    public boolean isDao2() {
+        return this instanceof Dao2;
+    }
+
 }
