@@ -21,8 +21,8 @@ public class DaoContextImpl implements DaoContext {
     }
 
     public void beanInit(Object inst) {
-        if (inst instanceof Dao) {
-            ((Dao) inst).setContext(this);
+        if (inst instanceof IDaoContextLinkSet) {
+            ((IDaoContextLinkSet) inst).setContext(this);
         }
     }
 }

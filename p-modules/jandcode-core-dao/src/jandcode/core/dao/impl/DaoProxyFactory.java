@@ -2,8 +2,8 @@ package jandcode.core.dao.impl;
 
 import jandcode.commons.error.*;
 import jandcode.core.dao.*;
-import javassist.util.proxy.*;
 import javassist.util.proxy.Proxy;
+import javassist.util.proxy.*;
 
 import java.lang.reflect.*;
 import java.util.*;
