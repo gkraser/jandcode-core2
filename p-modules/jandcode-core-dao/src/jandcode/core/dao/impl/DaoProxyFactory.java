@@ -10,6 +10,15 @@ import java.util.*;
 
 public class DaoProxyFactory {
 
+    // не dao-методы, которые можно вызывать для экземпляра dao
+    // вынужденная мера, groovy например дергает getMetaClass,
+    // когда вызов groovy-dao идет из groovy-метода
+    private static Set<String> enableNotDaoMethods = new HashSet<>();
+
+    static {
+        enableNotDaoMethods.add("getMetaClass");
+    }
+
     private DaoManager daoManager;
     private Map<Class, Class> proxyClasses = new HashMap<>();
 
@@ -26,6 +35,9 @@ public class DaoProxyFactory {
             if (md != null) {
                 return daoManager.invokeMethod(md, args);
             } else {
+                if (enableNotDaoMethods.contains(thisMethod.getName())) {
+                    return proceed.invoke(self, args);
+                }
                 throw new XError("Метод [{0}] класса [{1}] не является методом dao", thisMethod, daoClassDef.getCls().getName());
             }
         }
