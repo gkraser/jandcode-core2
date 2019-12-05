@@ -1,5 +1,5 @@
-import Page from './JcDecorFramePage'
-import Dialog from './JcDecorFrameDialog'
+import Page from '../components/decor/JcDecorFramePage'
+import Dialog from '../components/decor/JcDecorFrameDialog'
 import {componentHolder} from './frame'
 
 /**

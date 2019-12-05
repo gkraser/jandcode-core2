@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    import JcDecorFrame from "./JcDecorFrame"
+    import JcDecorFrame from "../../baseapp/JcDecorFrame"
 
     export default {
         extends: JcDecorFrame,

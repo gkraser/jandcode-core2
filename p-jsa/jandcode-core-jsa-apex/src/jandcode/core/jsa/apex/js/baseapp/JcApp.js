@@ -1,4 +1,4 @@
-import App from './JcDecorAppStd'
+import App from '../components/decor/JcDecorAppStd'
 import {componentHolder} from './frame'
 
 /**
