@@ -3,7 +3,13 @@
 //
 /* variables
 ----------------------------------------------------------------------------- */
-//
+$typography-font-family: 'Tahoma', 'Roboto', '-apple-system', 'Helvetica Neue', Helvetica, Arial, sans-serif !default;
+$body-font-size: 13px !default;
+$button-font-size: 13px !default;
+$input-font-size: 13px !default;
+
+$button-line-height: 1.5 !default;
+
 /* quasar
 ----------------------------------------------------------------------------- */
 @import "../base/z-quasar-style";
