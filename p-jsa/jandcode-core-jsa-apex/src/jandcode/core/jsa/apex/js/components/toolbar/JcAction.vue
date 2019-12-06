@@ -1,5 +1,5 @@
 <template>
-    <q-btn v-else :class="classes" :flat="inToolbar || isMenuItem" no-caps no-wrap
+    <jc-btn :class="classes" :flat="inToolbar || isMenuItem" no-caps no-wrap
            align="left" :to="to" :replace="replace" :type="typeTag"
            v-on="$listeners" v-close-popup="isMenuItem && !hasSubMenu"
            :label="label" :icon="leftIcon" :icon-right="rightIcon">
@@ -12,7 +12,7 @@
                 </div>
             </q-menu>
         </template>
-    </q-btn>
+    </jc-btn>
 </template>
 
 <script>
