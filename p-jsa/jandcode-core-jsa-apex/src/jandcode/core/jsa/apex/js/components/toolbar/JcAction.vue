@@ -1,9 +1,12 @@
 <template>
-    <jc-btn :class="classes" :flat="inToolbar || isMenuItem"
+    <jc-btn v-on="$listeners"
+            v-bind="$attrs"
+            v-close-popup="isMenuItem && !hasSubMenu"
+            :class="classes"
+            :flat="inToolbar || isMenuItem"
             align="left"
-            v-on="$listeners" v-close-popup="isMenuItem && !hasSubMenu"
-            :label="label" :icon="leftIcon" :icon-right="rightIcon"
-            v-bind="$attrs">
+            :icon="leftIcon"
+            :icon-right="rightIcon">
         <template v-if="hasSubMenu">
             <q-menu content-class="jc-action--menu"
                     :anchor="isMenuItem?'top right':null"
@@ -20,7 +23,6 @@
     export default {
         name: 'jc-action',
         props: {
-            label: {},
             icon: {default: null},
         },
         provide() {
