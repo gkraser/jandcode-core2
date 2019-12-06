@@ -11,6 +11,11 @@
         data() {
             return {}
         },
+        provide() {
+            return {
+                inToolbar: true
+            }
+        },
         methods: {},
         computed: {
             classes() {
