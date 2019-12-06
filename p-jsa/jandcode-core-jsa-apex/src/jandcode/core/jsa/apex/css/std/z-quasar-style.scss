@@ -10,16 +10,60 @@ $input-font-size: 13px !default;
 
 $button-line-height: 1.5 !default;
 
-$primary: #4072a8 !default;
-$secondary: #26A69A !default;
-$accent: #9C27B0 !default;
-$dark: #1d1d1d !default;
+/* original
+$primary   : #027BE3 !default
+$secondary : #26A69A !default
+$accent    : #9C27B0 !default
+$dark      : #1d1d1d !default
 
-$positive: #21BA45 !default;
-$negative: #C10015 !default;
-$info: #31CCEC !default;
-$warning: #F2C037 !default;
+$positive  : #21BA45 !default
+$negative  : #C10015 !default
+$info      : #31CCEC !default
+$warning   : #F2C037 !default
+*/
+
+$primary   : #4072a8 !default
+$secondary : #26A69A !default
+$accent    : #9C27B0 !default
+$dark      : #1d1d1d !default
+
+$positive  : #21BA45 !default
+$negative  : #C10015 !default
+$info      : #31CCEC !default
+$warning   : #F2C037 !default
+
 
 /* quasar
 ----------------------------------------------------------------------------- */
 @import "../base/z-quasar-style";
+
+/* формируем перменные для css
+----------------------------------------------------------------------------- */
+
+:root {
+  --q-color-primary--dark: #{darken($primary, 10%)};
+  --q-color-primary--light: #{lighten($primary, 10%)};
+
+  --q-color-secondary--dark: #{darken($secondary, 10%)};
+  --q-color-secondary--light: #{lighten($secondary, 10%)};
+
+  --q-color-accent--dark: #{darken($accent, 10%)};
+  --q-color-accent--light: #{lighten($accent, 10%)};
+
+  --q-color-dark--dark: #{darken($dark, 10%)};
+  --q-color-dark--light: #{lighten($dark, 10%)};
+
+  --q-color-positive--dark: #{darken($positive, 10%)};
+  --q-color-positive--light: #{lighten($positive, 10%)};
+
+  --q-color-negative--dark: #{darken($negative, 10%)};
+  --q-color-negative--light: #{lighten($negative, 10%)};
+
+  --q-color-info--dark: #{darken($info, 10%)};
+  --q-color-info--light: #{lighten($info, 10%)};
+
+  --q-color-warning--dark: #{darken($warning, 10%)};
+  --q-color-warning--light: #{lighten($warning, 10%)};
+
+}
+
