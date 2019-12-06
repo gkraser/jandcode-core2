@@ -7,6 +7,25 @@ function isAttrTrue(v) {
     return true
 }
 
+/*
+
+    Дополнительные свойства:
+
+    kind: String
+
+
+ */
+
+export let config = {
+    kind: {
+        primary: 'primary',
+        success: 'success',
+        danger: 'danger',
+        warning: 'warning',
+        info: 'info',
+    }
+}
+
 export default {
     name: 'jc-btn',
     functional: true,
@@ -19,6 +38,9 @@ export default {
         // маркер обычной кнопки, для настройки цвета
         if (!isAttrTrue(ctx.props.flat) && !isAttrTrue(ctx.props.outline) && !ctx.props.color) {
             data.class.push('jc-btn--normal')
+            if (ctx.props.kind) {
+                data.class.push('jc-btn--' + ctx.props.kind)
+            }
         }
         //
 

@@ -19,14 +19,56 @@
 
   &--normal {
     background-color: @grey-2;
-    //color: black;
 
     .q-btn__wrapper:before {
-       border: 1px solid @grey-4;
+      border: 1px solid @grey-4;
     }
-
   }
 
+  &--primary {
+    background-color: @q-color-primary;
+    color: white;
+
+    .q-btn__wrapper:before {
+      border: 1px solid @q-color-primary--dark;
+    }
+  }
+
+  &--success {
+    background-color: @q-color-positive;
+    color: white;
+
+    .q-btn__wrapper:before {
+      border: 1px solid @q-color-positive--dark;
+    }
+  }
+
+  &--danger {
+    background-color: @q-color-negative;
+    color: white;
+
+    .q-btn__wrapper:before {
+      border: 1px solid @q-color-negative--dark;
+    }
+  }
+
+  &--warning {
+    background-color: @q-color-warning;
+    color: white;
+
+    .q-btn__wrapper:before {
+      border: 1px solid @q-color-warning--dark;
+    }
+  }
+
+  &--info {
+    background-color: @q-color-info;
+    color: white;
+
+    .q-btn__wrapper:before {
+      border: 1px solid @q-color-info--dark;
+    }
+  }
 
 }
 
