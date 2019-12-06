@@ -1,8 +1,9 @@
 <template>
-    <jc-btn :class="classes" :flat="inToolbar || isMenuItem" no-caps no-wrap
-           align="left" :to="to" :replace="replace" :type="typeTag"
-           v-on="$listeners" v-close-popup="isMenuItem && !hasSubMenu"
-           :label="label" :icon="leftIcon" :icon-right="rightIcon">
+    <jc-btn :class="classes" :flat="inToolbar || isMenuItem"
+            align="left"
+            v-on="$listeners" v-close-popup="isMenuItem && !hasSubMenu"
+            :label="label" :icon="leftIcon" :icon-right="rightIcon"
+            v-bind="$attrs">
         <template v-if="hasSubMenu">
             <q-menu content-class="jc-action--menu"
                     :anchor="isMenuItem?'top right':null"
@@ -21,8 +22,6 @@
         props: {
             label: {},
             icon: {default: null},
-            to: {},
-            replace: {},
         },
         provide() {
             return {
@@ -66,13 +65,6 @@
             },
             hasSubMenu() {
                 return !!this.$slots.default;
-            },
-            typeTag() {
-                if (this.$listeners.click) {
-                    return null
-                } else {
-                    return 'a'
-                }
             },
         }
     }

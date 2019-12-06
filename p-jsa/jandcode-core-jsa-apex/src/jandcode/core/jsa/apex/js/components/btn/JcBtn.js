@@ -33,6 +33,7 @@ export default {
         let data = adaptCtxData(ctx)
         data.class.push('jc-btn')
         data.attrs['no-caps'] = true
+        data.attrs['no-wrap'] = true
         data.attrs['unelevated'] = true
 
         // маркер обычной кнопки, для настройки цвета
@@ -42,7 +43,13 @@ export default {
                 data.class.push('jc-btn--' + ctx.props.kind)
             }
         }
-        //
+
+        // если тип явно не установлен, и нет click - ставим 'a'
+        if (!data.attrs.type) {
+            if (!(ctx.listeners.click)) {
+                data.attrs.type = 'a'
+            }
+        }
 
         return h('q-btn', ctx.data, ctx.children)
     }
