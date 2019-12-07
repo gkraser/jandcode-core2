@@ -38,11 +38,18 @@ export default {
     functional: true,
     render(h, ctx) {
         let data = adaptCtxData(ctx)
+
         data.class.push('jc-btn')
-        //todo только если не усановлено явно
-        data.attrs['no-caps'] = true
-        data.attrs['no-wrap'] = true
-        data.attrs['unelevated'] = true
+
+        if (data.attrs['no-caps'] == null) {
+            data.attrs['no-caps'] = true
+        }
+        if (data.attrs['no-wrap'] == null) {
+            data.attrs['no-wrap'] = true
+        }
+        if (data.attrs['unelevated'] == null) {
+            data.attrs['unelevated'] = true
+        }
 
         //
         if (!isAttrTrue(ctx.props.flat) && !isAttrTrue(ctx.props.outline)) {
