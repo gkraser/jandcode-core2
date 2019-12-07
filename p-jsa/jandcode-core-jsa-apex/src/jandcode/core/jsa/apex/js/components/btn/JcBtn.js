@@ -7,23 +7,8 @@ function isAttrTrue(v) {
     return true
 }
 
-/*
 
-    Дополнительные свойства:
-
-    kind: String
-
-
- */
-
-let config = {
-    kind: {
-        primary: 'primary',
-        success: 'success',
-        danger: 'danger',
-        warning: 'warning',
-        info: 'info',
-    },
+export let config = {
     color: {
         primary: {
             color: 'primary',
@@ -54,15 +39,23 @@ export default {
     render(h, ctx) {
         let data = adaptCtxData(ctx)
         data.class.push('jc-btn')
+        //todo только если не усановлено явно
         data.attrs['no-caps'] = true
         data.attrs['no-wrap'] = true
         data.attrs['unelevated'] = true
 
-        // маркер обычной кнопки, для настройки цвета
-        if (!isAttrTrue(ctx.props.flat) && !isAttrTrue(ctx.props.outline) && !ctx.props.color) {
+        //
+        if (!isAttrTrue(ctx.props.flat) && !isAttrTrue(ctx.props.outline)) {
+            // обычная кнопка, у меня - с рамкой
             data.class.push('jc-btn--normal')
-            if (ctx.props.kind) {
-                data.class.push('jc-btn--' + ctx.props.kind)
+            let color = ctx.props.color
+            if (color) {
+                let colorDef = config.color[color]
+                if (colorDef) {
+                    data.attrs['color'] = colorDef.color
+                    data.attrs['textColor'] = colorDef.textColor
+                    data.class.push('jc-btn--' + color)
+                }
             }
         }
 
