@@ -51,18 +51,24 @@ export default {
             data.attrs['unelevated'] = true
         }
 
+        let color = ctx.props.color
+        let colorDef
+        if (color) {
+            colorDef = config.color[color]
+            if (colorDef) {
+                data.attrs['color'] = colorDef.color
+                data.attrs['textColor'] = colorDef.textColor
+            }
+        }
+
         //
-        if (!isAttrTrue(ctx.props.flat) && !isAttrTrue(ctx.props.outline)) {
+        if (!isAttrTrue(ctx.props.flat) &&
+            !isAttrTrue(ctx.props.outline) &&
+            !isAttrTrue(ctx.props.round)) {
             // обычная кнопка, у меня - с рамкой
             data.class.push('jc-btn--normal')
-            let color = ctx.props.color
-            if (color) {
-                let colorDef = config.color[color]
-                if (colorDef) {
-                    data.attrs['color'] = colorDef.color
-                    data.attrs['textColor'] = colorDef.textColor
-                    data.class.push('jc-btn--' + color)
-                }
+            if (colorDef) {
+                data.class.push('jc-btn--' + color)
             }
         }
 
