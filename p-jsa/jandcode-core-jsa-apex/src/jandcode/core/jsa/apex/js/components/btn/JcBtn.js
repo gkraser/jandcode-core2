@@ -16,13 +16,35 @@ function isAttrTrue(v) {
 
  */
 
-export let config = {
+let config = {
     kind: {
         primary: 'primary',
         success: 'success',
         danger: 'danger',
         warning: 'warning',
         info: 'info',
+    },
+    color: {
+        primary: {
+            color: 'primary',
+            textColor: 'white',
+        },
+        success: {
+            color: 'positive',
+            textColor: 'white',
+        },
+        danger: {
+            color: 'negative',
+            textColor: 'white',
+        },
+        warning: {
+            color: 'warning',
+            textColor: 'white',
+        },
+        info: {
+            color: 'info',
+            textColor: 'white',
+        },
     }
 }
 
