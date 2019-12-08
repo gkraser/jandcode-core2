@@ -184,7 +184,7 @@ class JsaJavaProject extends ProjectScript {
         String taskName = 'nm-extract-require-globs'
         Map gt = gulpTasks[taskName]
         if (!gt) {
-            gulpTask(name: taskName)
+            gulpTask(name: taskName, stage: 'prepare')
             gt = gulpTasks[taskName]
         }
         List globs = gt.globs
