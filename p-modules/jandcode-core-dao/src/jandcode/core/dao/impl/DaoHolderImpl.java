@@ -74,28 +74,36 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
             String pakPfx = pak + ".";
             for (ReflectClazz clazz : lst) {
                 Class cls = clazz.getCls();
-                if (BaseDao.class.isAssignableFrom(cls)) {
-                    String nm = UtString.removePrefix(cls.getName(), pakPfx);
-                    if (nm == null) {
-                        // так не должно быть...
-                        continue;
-                    }
-                    nm = nm.replace('.', '/');
-                    String nm1 = UtString.removeSuffix(nm, "_Dao");
-                    if (nm1 != null) {
-                        nm = nm1;
+                if (Dao.class.isAssignableFrom(cls)) {
+
+                    //
+                    String cn = cls.getSimpleName();
+                    String cn1 = UtString.removeSuffix(cn, "_Dao");
+                    if (cn1 != null) {
+                        cn = cn1;
                     } else {
-                        nm1 = UtString.removeSuffix(nm, "Dao");
-                        if (nm1 != null) {
-                            nm = nm1;
+                        cn1 = UtString.removeSuffix(cn, "Dao");
+                        if (cn1 != null) {
+                            cn = cn1;
                         }
                     }
-                    nm = UtString.uncapFirst(nm);
+                    cn = UtString.uncapFirst(cn);
+
+                    //
+                    String pn = cls.getPackage().getName();
+                    String pn1 = UtString.removePrefix(pn, pakPfx);
+                    if (pn1 != null) {
+                        pn = pn1 + "/";
+                    } else {
+                        pn = "";
+                    }
+
+                    cn = pn + cn;
                     //
                     DaoClassDef cd = svc.getDaoClassDef(cls);
                     //
                     for (DaoMethodDef md : cd.getMethods()) {
-                        addItem(namePrefix + nm + "/" + md.getName(), cls, md.getName(), daoManager);
+                        addItem(namePrefix + cn + "/" + md.getName(), cls, md.getName(), daoManager);
                     }
                 }
             }

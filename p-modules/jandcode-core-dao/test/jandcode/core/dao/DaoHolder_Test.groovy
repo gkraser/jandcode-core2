@@ -1,5 +1,6 @@
 package jandcode.core.dao
 
+import jandcode.core.dao.data.*
 import jandcode.core.dao.data.recursive_pak.*
 import jandcode.core.test.*
 import org.junit.jupiter.api.*
@@ -45,6 +46,16 @@ class DaoHolder_Test extends App_Test {
         assertEquals(
                 h.items.get("pfx/fold1/fold2/f1").methodDef.cls,
                 Dao11.class
+        )
+
+        assertEquals(
+                h.items.get("pfx/recursive_pak/mySuper2/test1").methodDef.cls,
+                MySuper2Dao.class
+        )
+
+        assertEquals(
+                h.items.get("pfx/mySuper1/test1").methodDef.cls,
+                MySuper1Dao.class
         )
 
     }
