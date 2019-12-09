@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Менеджер dao
  */
-public interface DaoManager extends Comp, BeanFactoryOwner, IBeanIniter {
+public interface DaoManager extends Comp, IBeanFactoryOwner {
 
     /**
      * Выполнить dao-метод.

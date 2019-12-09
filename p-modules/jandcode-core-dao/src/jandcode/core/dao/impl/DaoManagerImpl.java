@@ -8,7 +8,7 @@ import jandcode.core.dao.*;
 
 import java.util.*;
 
-public class DaoManagerImpl extends BaseComp implements DaoManager {
+public class DaoManagerImpl extends BaseComp implements DaoManager, IBeanIniter {
 
     private BeanFactory beanFactory = new DefaultBeanFactory(this);
     private DaoProxyFactory daoProxyFactory = new DaoProxyFactory(this);
@@ -17,6 +17,9 @@ public class DaoManagerImpl extends BaseComp implements DaoManager {
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
+
+        //
+        getBeanFactory().beanConfigure(cfg);
 
         // регистрируем все бины в отсортированном виде
         List<Conf> filtersConf = UtConf.sortByWeight(cfg.getConf().getConfs("filter"));

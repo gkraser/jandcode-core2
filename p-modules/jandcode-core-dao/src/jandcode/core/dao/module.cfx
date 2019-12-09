@@ -4,4 +4,9 @@
     <bean name="jandcode.core.dao.DaoService"
           class="jandcode.core.dao.impl.DaoServiceImpl"/>
 
+    <dao>
+        <dao-manager name="default">
+        </dao-manager>
+    </dao>
+
 </root>

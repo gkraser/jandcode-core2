@@ -8,6 +8,7 @@ public class Filter1 extends BaseDaoFilter {
 
     public void beforeInvoke(DaoFilterParams p) {
         assertNotNull(getDaoManager());
+        assertNotNull(getApp());
         System.out.println("beforeInvoke: " + getName());
     }
 
