@@ -30,7 +30,7 @@ public class DaoManagerImpl extends BaseComp implements DaoManager, IBeanIniter 
 
     }
 
-    public Object invokeMethod(DaoMethodDef method, Object... args) throws Exception {
+    public Object invokeDao(DaoMethodDef method, Object... args) throws Exception {
 
         // создаем контекст
         DaoContext context = createDaoContext();

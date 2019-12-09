@@ -33,7 +33,7 @@ public class DaoProxyFactory {
         public Object invoke(Object self, Method thisMethod, Method proceed, Object[] args) throws Throwable {
             DaoMethodDef md = daoClassDef.getMethods().find(thisMethod.getName());
             if (md != null) {
-                return daoManager.invokeMethod(md, args);
+                return daoManager.invokeDao(md, args);
             } else {
                 if (enableNotDaoMethods.contains(thisMethod.getName())) {
                     return proceed.invoke(self, args);

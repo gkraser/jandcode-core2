@@ -15,10 +15,10 @@ public class DaoManager_Groovy_Test extends App_Test {
         DaoManager m = app.create(DaoManagerImpl.class);
         DaoClassDef c = new DaoClassDefImpl(Dao2.class);
 
-        Object res = m.invokeMethod(c.getMethods().get("sum2"), 2, 4);
+        Object res = m.invokeDao(c.getMethods().get("sum2"), 2, 4);
         System.out.println("res2=" + res);
 
-        res = m.invokeMethod(c.getMethods().get("sum"), 2, 4);
+        res = m.invokeDao(c.getMethods().get("sum"), 2, 4);
         System.out.println("res=" + res);
 
     }

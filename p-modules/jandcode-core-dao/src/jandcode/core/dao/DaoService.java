@@ -19,4 +19,14 @@ public interface DaoService extends Comp {
      */
     Collection<String> getDaoManagerNames();
 
+    /**
+     * Получить {@link DaoHolder} по имени
+     */
+    DaoHolder getDaoHolder(String name);
+
+    /**
+     * Имена зарегистрированных {@link DaoHolder}
+     */
+    Collection<String> getDaoHolderNames();
+
 }

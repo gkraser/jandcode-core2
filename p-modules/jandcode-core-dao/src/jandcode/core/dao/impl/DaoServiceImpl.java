@@ -59,4 +59,14 @@ public class DaoServiceImpl extends BaseComp implements DaoService {
         return daoManagers.getNames();
     }
 
+    public DaoHolder getDaoHolder(String name) {
+        // todo: not implemented getDaoHolder
+        return null;
+    }
+
+    public Collection<String> getDaoHolderNames() {
+        // todo: not implemented getDaoHolderNames
+        return null;
+    }
+
 }
