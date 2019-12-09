@@ -63,18 +63,18 @@ public class DaoServiceImpl extends BaseComp implements DaoService {
 
         // формируем раскрытую conf для dao-invoker
         Conf xExp = UtConf.create();
-        xExp.setValue("dao-invoker", getApp().getConf().getConf("dao/dao-invoker"));
+        xExp.setValue("daoInvoker", getApp().getConf().getConf("dao/daoInvoker"));
 
         ConfExpander exp = UtConf.createExpander(xExp);
 
         //
-        Conf confDaoInvoker = exp.expand("dao-invoker");
+        Conf confDaoInvoker = exp.expand("daoInvoker");
         for (Conf x : confDaoInvoker.getConfs()) {
             daoInvokers.add(new DaoInvokerDef(x));
         }
 
         //
-        for (Conf x : getApp().getConf().getConfs("dao/dao-holder")) {
+        for (Conf x : getApp().getConf().getConfs("dao/daoHolder")) {
             daoHolders.add(new DaoHolderDef(x));
         }
 

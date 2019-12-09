@@ -44,7 +44,7 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
         Collection<Conf> childs = x.getConfs("item");
         String className = x.getString("class");
         String methodName = x.getString("method");
-        String daoInvoker = x.getString("dao-invoker", null);
+        String daoInvoker = x.getString("daoInvoker", null);
         String pak = x.getString("package");
         boolean recursive = x.getBoolean("recursive", true);
 

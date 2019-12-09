@@ -64,7 +64,10 @@ class DaoHolder_Test extends App_Test {
     public void invoke1() throws Exception {
         DaoService svc = app.bean(DaoService.class)
         DaoHolder h = svc.getDaoHolder("test1");
+        //
         assertEquals(h.getDaoInvokerName(), "filters1")
+        assertNull(h.getItems().get("d1/p1").getDaoInvokerName())
+        //
         Object a = h.invokeDao("d1/p1", 5, 6)
         assertEquals(a, 11)
     }
