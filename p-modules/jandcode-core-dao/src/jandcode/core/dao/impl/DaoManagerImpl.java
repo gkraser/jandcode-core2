@@ -72,6 +72,10 @@ public class DaoManagerImpl extends BaseComp implements DaoManager, IBeanIniter 
         return filterParams.getResult();
     }
 
+    public DaoClassDef getDaoClassDef(Class cls) {
+        return daoClassDefFactory.getDaoClassDef(cls);
+    }
+
     public <A> A createDao(Class<A> cls) {
         DaoClassDef cd = daoClassDefFactory.getDaoClassDef(cls);
         try {

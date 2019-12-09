@@ -24,6 +24,20 @@ public class DaoManager_Test extends App_Test {
     }
 
     @Test
+    public void test11() throws Exception {
+
+        DaoManager m = app.create(DaoManagerImpl.class);
+        DaoClassDef c = m.getDaoClassDef(Dao2.class);
+
+        Object res = m.invokeMethod(c.getMethods().get("sum2"), 2, 4);
+        System.out.println("res2=" + res);
+
+        res = m.invokeMethod(c.getMethods().get("sum"), 2, 4);
+        System.out.println("res=" + res);
+
+    }
+
+    @Test
     public void test2() throws Exception {
 
         DaoManager m = app.create(DaoManagerImpl.class);

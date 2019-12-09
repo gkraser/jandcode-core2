@@ -19,6 +19,12 @@ public interface DaoManager extends Comp, IBeanFactoryOwner {
      */
     Object invokeMethod(DaoMethodDef method, Object... args) throws Exception;
 
+    /**
+     * Возвращает описание dao-класса
+     *
+     * @param cls dao-класс
+     */
+    DaoClassDef getDaoClassDef(Class cls);
 
     /**
      * Создать экземпляр dao.
