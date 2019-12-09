@@ -17,13 +17,4 @@ public abstract class BaseDaoFilter extends BaseComp implements DaoFilter, IDaoI
         this.daoInvoker = daoInvoker;
     }
 
-    public void beforeInvoke(DaoFilterParams p) {
-    }
-
-    public void afterInvoke(DaoFilterParams p) {
-    }
-
-    public void errorInvoke(DaoFilterParams p) {
-    }
-
 }

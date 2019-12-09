@@ -6,18 +6,11 @@ package jandcode.core.dao;
 public interface DaoFilter {
 
     /**
-     * Вызывается перед выполнением dao
+     * Вызывается для каждого типа фильтра по необходимости
+     *
+     * @param type тип фильтра
+     * @param p    параметры
      */
-    void beforeInvoke(DaoFilterParams p);
-
-    /**
-     * Вызывается после выполнения dao
-     */
-    void afterInvoke(DaoFilterParams p);
-
-    /**
-     * Вызывается при ошибке выполнения
-     */
-    void errorInvoke(DaoFilterParams p);
+    void execDaoFilter(DaoFilterType type, DaoFilterParams p);
 
 }

@@ -46,7 +46,7 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter 
         try {
             // сначала все фильтры before
             for (int i = 0; i < this.daoFilters.size(); i++) {
-                this.daoFilters.get(i).beforeInvoke(filterParams);
+                this.daoFilters.get(i).execDaoFilter(DaoFilterType.before, filterParams);
             }
 
             // затем оригинальный метод
@@ -55,14 +55,14 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter 
 
             // затем все фильтры after, в обратном порядке
             for (int i = this.daoFilters.size() - 1; i >= 0; i--) {
-                this.daoFilters.get(i).afterInvoke(filterParams);
+                this.daoFilters.get(i).execDaoFilter(DaoFilterType.after, filterParams);
             }
 
         } catch (Throwable e) {
 
             // при ошибке error, в обратном порядке
             for (int i = this.daoFilters.size() - 1; i >= 0; i--) {
-                this.daoFilters.get(i).afterInvoke(filterParams);
+                this.daoFilters.get(i).execDaoFilter(DaoFilterType.error, filterParams);
             }
 
             throw e;
