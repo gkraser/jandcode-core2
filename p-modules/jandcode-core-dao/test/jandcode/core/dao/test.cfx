@@ -13,6 +13,24 @@
             <filter name="filter2"
                     class="jandcode.core.dao.data.Filter1"/>
         </dao-manager>
+
+        <dao-holder name="test1" dao-manager="filters1">
+            <item name="i" package="jandcode.core.dao.data"/>
+            <item name="pfx" package="jandcode.core.dao.data">
+                <item name="c1/p1" class="jandcode.core.dao.data.recursive_pak.Dao11"
+                      method="sum"/>
+                <item name="fold1">
+                    <item name="fold2">
+                        <item name="f1" class="jandcode.core.dao.data.recursive_pak.Dao11"
+                              method="sum"/>
+                    </item>
+                </item>
+            </item>
+
+            <item name="d1/p1" class="jandcode.core.dao.data.recursive_pak.Dao11"
+                  method="sum"/>
+
+        </dao-holder>
     </dao>
 
 </root>
