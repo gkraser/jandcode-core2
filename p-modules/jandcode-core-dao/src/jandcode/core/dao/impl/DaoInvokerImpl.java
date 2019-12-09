@@ -8,7 +8,7 @@ import jandcode.core.dao.*;
 
 import java.util.*;
 
-public class DaoManagerImpl extends BaseComp implements DaoManager, IBeanIniter {
+public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter {
 
     private BeanFactory beanFactory = new DefaultBeanFactory(this);
     private DaoProxyFactory daoProxyFactory = new DaoProxyFactory(this);
@@ -89,8 +89,8 @@ public class DaoManagerImpl extends BaseComp implements DaoManager, IBeanIniter 
     }
 
     public void beanInit(Object inst) {
-        if (inst instanceof IDaoManagerLinkSet) {
-            ((IDaoManagerLinkSet) inst).setDaoManager(this);
+        if (inst instanceof IDaoInvokerLinkSet) {
+            ((IDaoInvokerLinkSet) inst).setDaoInvoker(this);
         }
     }
 

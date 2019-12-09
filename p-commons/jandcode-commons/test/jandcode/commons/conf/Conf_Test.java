@@ -30,6 +30,17 @@ public class Conf_Test extends CustomConf_Test {
     }
 
     @Test
+    public void caseSent1() throws Exception {
+        Conf x = UtConf.create();
+        x.setValue("str", "s1");
+        x.setValue("sTr", "s2");
+
+        conf.printConf(x);
+        assertEquals(x.getString("str"), "s1");
+        assertEquals(x.getString("sTr"), "s2");
+    }
+
+    @Test
     public void objProp1() throws Exception {
         Conf x = UtConf.create();
         x.setValue("a", 1);

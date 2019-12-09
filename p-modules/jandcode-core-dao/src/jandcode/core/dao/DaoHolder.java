@@ -25,9 +25,9 @@ public interface DaoHolder extends Comp {
     NamedList<DaoHolderItem> getItems();
 
     /**
-     * Какой {@link DaoManager} используется для выполнения.
+     * Какой {@link DaoInvoker} используется для выполнения.
      */
-    String getDaoManagerName();
+    String getDaoInvokerName();
 
     /**
      * Добавить dao.
@@ -35,11 +35,11 @@ public interface DaoHolder extends Comp {
      * @param name           имя dao
      * @param className      имя dao-класса
      * @param methodName     имя dao-метода
-     * @param daoManagerName имя dao-менеджера. Можно передать null, тогда будет
+     * @param daoInvokerName имя dao-менеджера. Можно передать null, тогда будет
      *                       использован тот, который установлен по умолчанию для
      *                       {@link DaoHolder}.
      */
-    DaoHolderItem addItem(String name, String className, String methodName, String daoManagerName);
+    DaoHolderItem addItem(String name, String className, String methodName, String daoInvokerName);
 
     /**
      * Добавить dao.
@@ -47,11 +47,11 @@ public interface DaoHolder extends Comp {
      * @param name           имя dao
      * @param cls            dao-класс
      * @param methodName     имя dao-метода
-     * @param daoManagerName имя dao-менеджера. Можно передать null, тогда будет
+     * @param daoInvokerName имя dao-менеджера. Можно передать null, тогда будет
      *                       использован тот, который установлен по умолчанию для
      *                       {@link DaoHolder}.
      */
-    DaoHolderItem addItem(String name, Class cls, String methodName, String daoManagerName);
+    DaoHolderItem addItem(String name, Class cls, String methodName, String daoInvokerName);
 
     /**
      * Добавить элемент из конфигурации.
@@ -67,7 +67,7 @@ public interface DaoHolder extends Comp {
      *     суффикс 'Dao' или '_Dao'. Первый символ имени будет строчный.
      *     Например для класса 'my.pak.MySuperDao' будет использоваться имя 'mySuper'</li>
      *     <li>recursive: true (по умолчанию) - package будетсканировать рекурсивно</li>
-     *     <li>dao-manager: имя dao-менеджера для этого dao. Обычно не указывается,
+     *     <li>dao-invoker: имя dao-исполнителя для этого dao. Обычно не указывается,
      *     тогда будет использован тот,что зарегистрирован по умолчанию для holder</li>
      *     <li>item: дочерние элементы такой же структуры.</li>
      * </ul>

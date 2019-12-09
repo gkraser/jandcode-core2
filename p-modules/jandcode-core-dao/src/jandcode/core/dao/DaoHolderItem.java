@@ -14,8 +14,8 @@ public interface DaoHolderItem extends INamed {
     DaoMethodDef getMethodDef();
 
     /**
-     * Какой {@link DaoManager} используется для выполнения.
+     * Какой {@link DaoInvoker} используется для выполнения.
      */
-    String getDaoManagerName();
+    String getDaoInvokerName();
 
 }

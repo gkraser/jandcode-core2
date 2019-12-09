@@ -11,23 +11,23 @@ import java.util.*;
 public class DaoServiceImpl extends BaseComp implements DaoService {
 
     private DaoClassDefFactory daoClassDefFactory = new DaoClassDefFactory();
-    private NamedList<DaoManagerDef> daoManagers = new DefaultNamedList<>("DaoManager [{0}] not found");
+    private NamedList<DaoInvokerDef> daoInvokers = new DefaultNamedList<>("DaoInvoker [{0}] not found");
     private NamedList<DaoHolderDef> daoHolders = new DefaultNamedList<>("DaoHolder [{0}] not found");
 
-    class DaoManagerDef extends Named {
+    class DaoInvokerDef extends Named {
         Conf conf;
-        DaoManager inst;
+        DaoInvoker inst;
 
-        DaoManagerDef(Conf conf) {
+        DaoInvokerDef(Conf conf) {
             setName(conf.getName());
             this.conf = conf;
         }
 
-        DaoManager getInst() {
+        DaoInvoker getInst() {
             if (this.inst == null) {
                 synchronized (this) {
                     if (this.inst == null) {
-                        this.inst = getApp().create(this.conf, DaoManagerImpl.class);
+                        this.inst = getApp().create(this.conf, DaoInvokerImpl.class);
                     }
                 }
             }
@@ -61,16 +61,16 @@ public class DaoServiceImpl extends BaseComp implements DaoService {
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
 
-        // формируем раскрытую conf для dao-manager
+        // формируем раскрытую conf для dao-invoker
         Conf xExp = UtConf.create();
-        xExp.setValue("dao-manager", getApp().getConf().getConf("dao/dao-manager"));
+        xExp.setValue("dao-invoker", getApp().getConf().getConf("dao/dao-invoker"));
 
         ConfExpander exp = UtConf.createExpander(xExp);
 
         //
-        Conf confDaoManager = exp.expand("dao-manager");
-        for (Conf x : confDaoManager.getConfs()) {
-            daoManagers.add(new DaoManagerDef(x));
+        Conf confDaoInvoker = exp.expand("dao-invoker");
+        for (Conf x : confDaoInvoker.getConfs()) {
+            daoInvokers.add(new DaoInvokerDef(x));
         }
 
         //
@@ -80,12 +80,12 @@ public class DaoServiceImpl extends BaseComp implements DaoService {
 
     }
 
-    public DaoManager getDaoManager(String name) {
-        return daoManagers.get(name).getInst();
+    public DaoInvoker getDaoInvoker(String name) {
+        return daoInvokers.get(name).getInst();
     }
 
-    public Collection<String> getDaoManagerNames() {
-        return daoManagers.getNames();
+    public Collection<String> getDaoInvokerNames() {
+        return daoInvokers.getNames();
     }
 
     public DaoHolder getDaoHolder(String name) {

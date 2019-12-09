@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class Filter1 extends BaseDaoFilter {
 
     public void beforeInvoke(DaoFilterParams p) {
-        assertNotNull(getDaoManager());
+        assertNotNull(getDaoInvoker());
         assertNotNull(getApp());
         System.out.println("beforeInvoke: " + getName());
     }

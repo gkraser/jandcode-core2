@@ -10,14 +10,14 @@ import java.util.*;
 public interface DaoService extends Comp {
 
     /**
-     * Получить {@link DaoManager} по имени
+     * Получить {@link DaoInvoker} по имени
      */
-    DaoManager getDaoManager(String name);
+    DaoInvoker getDaoInvoker(String name);
 
     /**
-     * Имена зарегистрированных {@link DaoManager}
+     * Имена зарегистрированных {@link DaoInvoker}
      */
-    Collection<String> getDaoManagerNames();
+    Collection<String> getDaoInvokerNames();
 
     /**
      * Получить {@link DaoHolder} по имени

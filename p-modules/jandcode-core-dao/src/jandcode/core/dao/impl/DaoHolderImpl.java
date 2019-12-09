@@ -13,7 +13,7 @@ import java.util.*;
 public class DaoHolderImpl extends BaseComp implements DaoHolder {
 
     private NamedList<DaoHolderItem> items;
-    private String daoManagerName;
+    private String daoInvokerName;
 
     public DaoHolderImpl() {
         this.items = new DefaultNamedList<>();
@@ -44,7 +44,7 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
         Collection<Conf> childs = x.getConfs("item");
         String className = x.getString("class");
         String methodName = x.getString("method");
-        String daoManager = x.getString("dao-manager", null);
+        String daoInvoker = x.getString("dao-invoker", null);
         String pak = x.getString("package");
         boolean recursive = x.getBoolean("recursive", true);
 
@@ -60,12 +60,12 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
                 if (!hasName) {
                     throw new XError("Имя не указано");
                 }
-                addItem(name, className, methodName, daoManager);
+                addItem(name, className, methodName, daoInvoker);
             } else {
                 Class cls = UtClass.getClass(className);
                 DaoClassDef cd = svc.getDaoClassDef(cls);
                 for (DaoMethodDef md : cd.getMethods()) {
-                    addItem(namePrefix + md.getName(), cls, md.getName(), daoManager);
+                    addItem(namePrefix + md.getName(), cls, md.getName(), daoInvoker);
                 }
             }
 
@@ -103,7 +103,7 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
                     DaoClassDef cd = svc.getDaoClassDef(cls);
                     //
                     for (DaoMethodDef md : cd.getMethods()) {
-                        addItem(namePrefix + cn + "/" + md.getName(), cls, md.getName(), daoManager);
+                        addItem(namePrefix + cn + "/" + md.getName(), cls, md.getName(), daoInvoker);
                     }
                 }
             }
@@ -119,11 +119,11 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
 
     public Object invokeDao(String name, Object... args) throws Exception {
         DaoHolderItem d = items.get(name);
-        String dmn = d.getDaoManagerName();
+        String dmn = d.getDaoInvokerName();
         if (UtString.empty(dmn)) {
-            dmn = getDaoManagerName();
+            dmn = getDaoInvokerName();
         }
-        DaoManager dm = getApp().bean(DaoService.class).getDaoManager(dmn);
+        DaoInvoker dm = getApp().bean(DaoService.class).getDaoInvoker(dmn);
         return dm.invokeDao(d.getMethodDef(), args);
     }
 
@@ -131,24 +131,24 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
         return items;
     }
 
-    public String getDaoManagerName() {
-        if (UtString.empty(daoManagerName)) {
+    public String getDaoInvokerName() {
+        if (UtString.empty(daoInvokerName)) {
             return "default";
         }
-        return daoManagerName;
+        return daoInvokerName;
     }
 
-    public void setDaoManagerName(String daoManagerName) {
-        this.daoManagerName = daoManagerName;
+    public void setDaoInvokerName(String daoInvokerName) {
+        this.daoInvokerName = daoInvokerName;
     }
 
-    public DaoHolderItem addItem(String name, String className, String methodName, String daoManagerName) {
-        return addItem(name, UtClass.getClass(className), methodName, daoManagerName);
+    public DaoHolderItem addItem(String name, String className, String methodName, String daoInvokerName) {
+        return addItem(name, UtClass.getClass(className), methodName, daoInvokerName);
     }
 
-    public DaoHolderItem addItem(String name, Class cls, String methodName, String daoManagerName) {
+    public DaoHolderItem addItem(String name, Class cls, String methodName, String daoInvokerName) {
         DaoClassDef cd = getApp().bean(DaoService.class).getDaoClassDef(cls);
-        DaoHolderItemImpl item = new DaoHolderItemImpl(name, cd.getMethods().get(methodName), daoManagerName);
+        DaoHolderItemImpl item = new DaoHolderItemImpl(name, cd.getMethods().get(methodName), daoInvokerName);
         this.items.add(item);
         return item;
     }

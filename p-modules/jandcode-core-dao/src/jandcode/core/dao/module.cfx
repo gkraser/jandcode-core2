@@ -5,10 +5,10 @@
           class="jandcode.core.dao.impl.DaoServiceImpl"/>
 
     <dao>
-        <dao-manager name="default">
-        </dao-manager>
+        <dao-invoker name="default">
+        </dao-invoker>
 
-        <dao-holder name="default">
+        <dao-holder name="default" dao-invoker="default">
         </dao-holder>
     </dao>
 

@@ -19,7 +19,7 @@ public class DaoProxyFactory {
         enableNotDaoMethods.add("getMetaClass");
     }
 
-    private DaoManager daoManager;
+    private DaoInvoker daoInvoker;
     private Map<Class, Class> proxyClasses = new HashMap<>();
 
     class DaoMethodHandler implements MethodHandler {
@@ -33,7 +33,7 @@ public class DaoProxyFactory {
         public Object invoke(Object self, Method thisMethod, Method proceed, Object[] args) throws Throwable {
             DaoMethodDef md = daoClassDef.getMethods().find(thisMethod.getName());
             if (md != null) {
-                return daoManager.invokeDao(md, args);
+                return daoInvoker.invokeDao(md, args);
             } else {
                 if (enableNotDaoMethods.contains(thisMethod.getName())) {
                     return proceed.invoke(self, args);
@@ -44,8 +44,8 @@ public class DaoProxyFactory {
 
     }
 
-    public DaoProxyFactory(DaoManager daoManager) {
-        this.daoManager = daoManager;
+    public DaoProxyFactory(DaoInvoker daoInvoker) {
+        this.daoInvoker = daoInvoker;
     }
 
     public Class getDaoProxyClass(DaoClassDef daoClassDef) {
