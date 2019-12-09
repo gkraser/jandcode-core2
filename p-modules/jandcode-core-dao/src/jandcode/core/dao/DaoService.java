@@ -29,4 +29,11 @@ public interface DaoService extends Comp {
      */
     Collection<String> getDaoHolderNames();
 
+    /**
+     * Возвращает описание dao-класса
+     *
+     * @param cls dao-класс
+     */
+    DaoClassDef getDaoClassDef(Class cls);
+
 }

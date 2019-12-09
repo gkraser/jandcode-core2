@@ -5,7 +5,7 @@ import jandcode.core.*;
 /**
  * Контекст исполнения dao
  */
-public interface DaoContext extends IAppLink, BeanFactoryOwner, IBeanIniter {
+public interface DaoContext extends IAppLink, BeanFactoryOwner {
 
     /**
      * Время начала выполнения dao.

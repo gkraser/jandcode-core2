@@ -1,11 +1,13 @@
 package jandcode.core.dao;
 
+import jandcode.core.*;
+
 import java.util.*;
 
 /**
  * Хранилище зарегистрированных dao
  */
-public interface DaoHolder {
+public interface DaoHolder extends Comp {
 
     /**
      * Выполнить dao-метод.

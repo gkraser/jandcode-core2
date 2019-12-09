@@ -2,20 +2,23 @@ package jandcode.core.dao.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.named.*;
+import jandcode.core.*;
 import jandcode.core.dao.*;
 
 import java.util.*;
 
-public class DaoHolderImpl implements DaoHolder {
+public class DaoHolderImpl extends BaseComp implements DaoHolder {
 
     private NamedList<DaoHolderItem> items;
-    private DaoService daoService;
     private String daoManagerName;
 
-    public DaoHolderImpl(DaoService daoService) {
+    public DaoHolderImpl() {
         this.items = new DefaultNamedList<>();
-        this.items.setNotFoundMessage("Не найден dao-метод {0} в хранилище {1}", this);
-        this.daoService = daoService;
+        this.items.setNotFoundMessage("Не найден dao-метод {0} в dao-хранилище {1}", this);
+    }
+
+    protected void onConfigure(BeanConfig cfg) throws Exception {
+        super.onConfigure(cfg);
     }
 
     public Object invokeDao(String name, Object... args) throws Exception {
@@ -24,7 +27,7 @@ public class DaoHolderImpl implements DaoHolder {
         if (UtString.empty(dmn)) {
             dmn = getDaoManagerName();
         }
-        DaoManager dm = daoService.getDaoManager(dmn);
+        DaoManager dm = getApp().bean(DaoService.class).getDaoManager(dmn);
         return dm.invokeDao(d.getMethodDef(), args);
     }
 

@@ -12,7 +12,6 @@ public class DaoManagerImpl extends BaseComp implements DaoManager, IBeanIniter 
 
     private BeanFactory beanFactory = new DefaultBeanFactory(this);
     private DaoProxyFactory daoProxyFactory = new DaoProxyFactory(this);
-    private DaoClassDefFactory daoClassDefFactory = new DaoClassDefFactory();
     private List<DaoFilter> daoFilters = new ArrayList<>();
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
@@ -21,7 +20,7 @@ public class DaoManagerImpl extends BaseComp implements DaoManager, IBeanIniter 
         //
         getBeanFactory().beanConfigure(cfg);
 
-        // регистрируем все бины в отсортированном виде
+        // регистрируем все фильтры в отсортированном виде
         List<Conf> filtersConf = UtConf.sortByWeight(cfg.getConf().getConfs("filter"));
         for (Conf fc : filtersConf) {
             DaoFilter filter = (DaoFilter) getBeanFactory().create(fc);
@@ -42,7 +41,7 @@ public class DaoManagerImpl extends BaseComp implements DaoManager, IBeanIniter 
         // создаем параметр для филтров
         DaoFilterParamsImpl filterParams = new DaoFilterParamsImpl(context, daoInst);
 
-        //todo четкие правила для вызова филтров, особенно в случае ошибок
+        //todo четкие правила для вызова фильтров, особенно в случае ошибок
 
         try {
             // сначала все фильтры before
@@ -72,12 +71,8 @@ public class DaoManagerImpl extends BaseComp implements DaoManager, IBeanIniter 
         return filterParams.getResult();
     }
 
-    public DaoClassDef getDaoClassDef(Class cls) {
-        return daoClassDefFactory.getDaoClassDef(cls);
-    }
-
     public <A> A createDao(Class<A> cls) {
-        DaoClassDef cd = daoClassDefFactory.getDaoClassDef(cls);
+        DaoClassDef cd = getApp().bean(DaoService.class).getDaoClassDef(cls);
         try {
             return (A) daoProxyFactory.createDaoProxyInst(cd);
         } catch (Exception e) {

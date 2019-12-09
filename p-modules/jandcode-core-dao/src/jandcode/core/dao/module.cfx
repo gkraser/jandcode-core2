@@ -7,6 +7,9 @@
     <dao>
         <dao-manager name="default">
         </dao-manager>
+
+        <dao-holder name="default">
+        </dao-holder>
     </dao>
 
 </root>

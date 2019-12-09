@@ -3,7 +3,7 @@ package jandcode.core.dao.impl;
 import jandcode.core.*;
 import jandcode.core.dao.*;
 
-public class DaoContextImpl implements DaoContext {
+public class DaoContextImpl implements DaoContext, IBeanIniter {
 
     private App app;
     private BeanFactory beanFactory = new DefaultBeanFactory(this);

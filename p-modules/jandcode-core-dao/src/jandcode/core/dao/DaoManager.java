@@ -19,13 +19,6 @@ public interface DaoManager extends Comp, IBeanFactoryOwner {
     Object invokeDao(DaoMethodDef method, Object... args) throws Exception;
 
     /**
-     * Возвращает описание dao-класса
-     *
-     * @param cls dao-класс
-     */
-    DaoClassDef getDaoClassDef(Class cls);
-
-    /**
      * Создать экземпляр dao.
      * Все dao-методы будут выполнятся через механизм {@link DaoManager#invokeDao(DaoMethodDef, java.lang.Object...)}.
      * При вызове dao-метода создается другой экземпляр dao-класса.
