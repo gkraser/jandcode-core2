@@ -11,7 +11,6 @@ class P extends ProjectScript {
             moduleDef("jandcode.core.web").with {
                 depends.prod(
                         "javax.servlet-api",
-                        "commons-fileupload",
                         "jandcode.core.groovy",
                         "undertow-servlet",
                 )
