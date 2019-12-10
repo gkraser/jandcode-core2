@@ -11,6 +11,11 @@ import jandcode.jc.std.*
  */
 class ApexProductBuilder extends ProductBuilder {
 
+    /**
+     * Дополнительные библиотеки для включения в product
+     */
+    List includeLibs = []
+
     void onExec() {
         // собираем проект
         buildProject()
@@ -22,6 +27,7 @@ class ApexProductBuilder extends ProductBuilder {
         def cp = createLibCopier()
         cp.add(include(RootProject).modules)
         cp.add(include(RootProject).depends.prod.names)
+        cp.add(includeLibs)
         cp.copyTo("${destDir}/lib")
 
         // дополнительные сгенерированные jar
