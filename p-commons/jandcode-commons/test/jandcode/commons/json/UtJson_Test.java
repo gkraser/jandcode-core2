@@ -1,5 +1,6 @@
 package jandcode.commons.json;
 
+import com.google.gson.*;
 import jandcode.commons.*;
 import jandcode.commons.test.*;
 import org.junit.jupiter.api.*;
@@ -42,5 +43,13 @@ public class UtJson_Test extends Utils_Test {
         assertEquals(b.get(1).getClass(), Double.class);
         assertEquals(b.get(2).getClass(), Double.class);
     }
+
+    @Test
+    public void jsonElement1() throws Exception {
+        JsonElement a = UtJson.fromJson("{\"a\":1}", JsonElement.class);
+        assertEquals(a.isJsonObject(), true);
+        assertEquals(a.isJsonArray(), false);
+    }
+
 
 }

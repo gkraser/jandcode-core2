@@ -61,5 +61,11 @@ public class JsonEngine {
         return getGson().fromJson(s, Object.class);
     }
 
+    /**
+     * Конвертация json-строки в объект указанного типа
+     */
+    public <T> T fromJson(String s, Class<T> classOfT) {
+        return getGson().fromJson(s, classOfT);
+    }
 
 }

@@ -33,6 +33,13 @@ public class UtJson {
         return jsonEngine.fromJson(s);
     }
 
+    /**
+     * Конвертация json-строки в объект указанного типа
+     */
+    public static <T> T fromJson(String s, Class<T> classOfT) {
+        return jsonEngine.fromJson(s, classOfT);
+    }
+
     //////
 
     /**
