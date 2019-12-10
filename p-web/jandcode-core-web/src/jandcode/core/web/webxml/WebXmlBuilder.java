@@ -55,6 +55,14 @@ public class WebXmlBuilder {
         }
     }
 
+    public void setMultipartConfig(WebXml.Servlet sv) {
+        WebXml.MultipartConfig mc = sv.getMultipartConfig();
+        if (mc == null) {
+            mc = new WebXml.MultipartConfig();
+            sv.setMultipartConfig(mc);
+        }
+    }
+
     private void addErrorPage(String location, int errorCode, String exceptionType) {
         WebXml.ErrorPage p = new WebXml.ErrorPage();
         p.setLocation(location);

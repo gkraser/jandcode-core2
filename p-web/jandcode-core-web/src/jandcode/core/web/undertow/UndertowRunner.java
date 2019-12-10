@@ -10,6 +10,7 @@ import jandcode.core.*;
 import jandcode.core.web.*;
 import jandcode.core.web.webxml.*;
 
+import javax.servlet.*;
 import javax.servlet.http.*;
 
 /**
@@ -90,6 +91,17 @@ public class UndertowRunner {
                     servletInfo.addMapping(m.getUrlPattern());
                 }
             }
+
+            WebXml.MultipartConfig mpc = sv.getMultipartConfig();
+            if (mpc != null) {
+                servletInfo.setMultipartConfig(new MultipartConfigElement(
+                        mpc.getLocation(),
+                        mpc.getMaxFileSize(),
+                        mpc.getMaxRequestSize(),
+                        mpc.getFileSizeThreshold()
+                ));
+            }
+
             servletBuilder.addServlet(servletInfo);
         }
 

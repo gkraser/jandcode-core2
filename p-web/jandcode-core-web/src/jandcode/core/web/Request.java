@@ -286,4 +286,20 @@ public interface Request extends IAppLink {
      */
     void disableCache();
 
+
+    ////// parts (multipart/form-data)
+
+    /**
+     * Возвращает {@link Part} из запроса.
+     * см. {@link HttpServletRequest#getPart(java.lang.String)}
+     */
+    Part getPart(String name);
+
+    /**
+     * Возвращает коллекцию {@link Part} из запроса.
+     * см. {@link HttpServletRequest#getParts()}
+     */
+    Collection<Part> getParts();
+
+
 }
