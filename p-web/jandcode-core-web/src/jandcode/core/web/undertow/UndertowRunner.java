@@ -54,9 +54,7 @@ public class UndertowRunner {
      */
     public void start(App app) throws Exception {
         WebXml wx = new DefaultWebXmlFactory().createWebXml();
-        AppInstanceServlet svInst = new AppInstanceServlet();
-        svInst.setApp(app);
-        app.startup();
+        AppServlet svInst = new AppServlet(app);
         wx.getServlet(WebConsts.WEB_SERVLET_NAME).setServletInstance(svInst);
         startWebXml(wx);
     }
@@ -157,9 +155,6 @@ public class UndertowRunner {
                 }
 
                 public void release() {
-                    if (inst instanceof AppInstanceServlet) {
-                        ((AppInstanceServlet) inst).getApp().shutdown();
-                    }
                 }
             };
         }
