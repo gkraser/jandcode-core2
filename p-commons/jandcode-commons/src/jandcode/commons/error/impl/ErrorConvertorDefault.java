@@ -29,6 +29,7 @@ public class ErrorConvertorDefault implements ErrorConvertor {
         filter.add("oracle.jdbc"); //NON-NLS
         filter.add("groovy.lang"); //NON-NLS
         filter.add("org.codehaus.groovy"); //NON-NLS
+        filter.add("io.undertow"); //NON-NLS
     }
 
     public String getText(Throwable e) {

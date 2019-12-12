@@ -52,9 +52,11 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter 
         try {
             // сначала все фильтры before
             // засекаем filterPos, который выполнили последним (для обработки ошибок)
-            for (int i = 0; i < this.daoFilters.size(); i++) {
-                filterPos = i;
-                this.daoFilters.get(i).execDaoFilter(DaoFilterType.before, filterParams);
+            if (this.daoFilters.size() > 0) {
+                for (int i = 0; i < this.daoFilters.size(); i++) {
+                    filterPos = i;
+                    this.daoFilters.get(i).execDaoFilter(DaoFilterType.before, filterParams);
+                }
             }
 
             // затем оригинальный метод
@@ -63,9 +65,11 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter 
 
             // затем все фильтры after, в обратном порядке
             // засекаем filterPos, который выполнили последним (для обработки ошибок)
-            for (int i = this.daoFilters.size() - 1; i >= 0; i--) {
-                filterPos = i;
-                this.daoFilters.get(i).execDaoFilter(DaoFilterType.after, filterParams);
+            if (this.daoFilters.size() > 0) {
+                for (int i = this.daoFilters.size() - 1; i >= 0; i--) {
+                    filterPos = i;
+                    this.daoFilters.get(i).execDaoFilter(DaoFilterType.after, filterParams);
+                }
             }
 
             daoLogger.logStop(filterParams);
@@ -78,12 +82,14 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter 
             // при ошибке error, в обратном порядке
             // начиная с последнего выполненного before
             // ошибки внутри фильтров игнорируем и логгируем
-            for (int i = filterPos; i >= 0; i--) {
-                try {
-                    this.daoFilters.get(i).execDaoFilter(DaoFilterType.error, filterParams);
-                } catch (Exception ex) {
-                    if (log.isErrorEnabled()) {
-                        log.error("Error in dao-error filter " + this.daoFilters.get(i).getClass().getName(), e);
+            if (this.daoFilters.size() > 0) {
+                for (int i = filterPos; i >= 0; i--) {
+                    try {
+                        this.daoFilters.get(i).execDaoFilter(DaoFilterType.error, filterParams);
+                    } catch (Exception ex) {
+                        if (log.isErrorEnabled()) {
+                            log.error("Error in dao-error filter " + this.daoFilters.get(i).getClass().getName(), e);
+                        }
                     }
                 }
             }
