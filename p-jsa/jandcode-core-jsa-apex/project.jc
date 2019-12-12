@@ -28,7 +28,7 @@ class P extends ProjectScript {
                     "vue-router": "3.1.3",
                     "vuex": "3.1.2",
 
-                    "quasar": "1.5.8",
+                    "quasar": "1.5.9",
                     "@quasar/extras": "1.3.3",
 
                     "lodash": "4.17.15",
