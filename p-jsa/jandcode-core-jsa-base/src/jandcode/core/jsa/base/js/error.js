@@ -80,6 +80,9 @@ export class JcError {
             if (cnv.isString(s)) {
                 return parseTextError(s)
             }
+            
+        } else if (e.message) {
+            return e.message
         }
         return "" + e;
     }
