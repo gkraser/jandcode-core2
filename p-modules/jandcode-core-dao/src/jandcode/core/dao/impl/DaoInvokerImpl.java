@@ -34,6 +34,9 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter 
 
     public Object invokeDao(DaoMethodDef method, Object... args) throws Exception {
 
+        DaoService daoService = getApp().bean(DaoService.class);
+        DaoLogger daoLogger = daoService.getDaoLogger();
+
         // создаем контекст
         DaoContext context = createDaoContext();
         context.getBeanFactory().setParentBeanFactory(getBeanFactory());
@@ -41,9 +44,10 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter 
         // создаем экземпляр dao
         Object daoInst = context.create(method.getCls());
 
-        // создаем параметр для филтров
-        DaoFilterParamsImpl filterParams = new DaoFilterParamsImpl(context, daoInst);
+        // создаем параметр для фильтров
+        DaoFilterParamsImpl filterParams = new DaoFilterParamsImpl(context, daoInst, method);
 
+        daoLogger.logStart(filterParams);
         int filterPos = 0;
         try {
             // сначала все фильтры before
@@ -64,7 +68,12 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter 
                 this.daoFilters.get(i).execDaoFilter(DaoFilterType.after, filterParams);
             }
 
+            daoLogger.logStop(filterParams);
+
         } catch (Throwable e) {
+
+            // запоминаем ошибку
+            filterParams.setException(e);
 
             // при ошибке error, в обратном порядке
             // начиная с последнего выполненного before
@@ -74,7 +83,7 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter 
                     this.daoFilters.get(i).execDaoFilter(DaoFilterType.error, filterParams);
                 } catch (Exception ex) {
                     if (log.isErrorEnabled()) {
-                        log.error("Error in dao-after filter " + this.daoFilters.get(i).getClass().getName(), e);
+                        log.error("Error in dao-error filter " + this.daoFilters.get(i).getClass().getName(), e);
                     }
                 }
             }

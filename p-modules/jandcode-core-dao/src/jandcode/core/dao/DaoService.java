@@ -36,4 +36,9 @@ public interface DaoService extends Comp {
      */
     DaoClassDef getDaoClassDef(Class cls);
 
+    /**
+     * logger для процесса исполнения dao
+     */
+    DaoLogger getDaoLogger();
+
 }

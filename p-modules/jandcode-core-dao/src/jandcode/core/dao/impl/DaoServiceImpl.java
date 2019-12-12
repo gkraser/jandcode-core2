@@ -13,6 +13,7 @@ public class DaoServiceImpl extends BaseComp implements DaoService {
     private DaoClassDefFactory daoClassDefFactory = new DaoClassDefFactory();
     private NamedList<DaoInvokerDef> daoInvokers = new DefaultNamedList<>("DaoInvoker [{0}] not found");
     private NamedList<DaoHolderDef> daoHolders = new DefaultNamedList<>("DaoHolder [{0}] not found");
+    private DaoLogger daoLogger;
 
     class DaoInvokerDef extends Named {
         Conf conf;
@@ -61,6 +62,9 @@ public class DaoServiceImpl extends BaseComp implements DaoService {
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
 
+        // logger
+        this.daoLogger = (DaoLogger) getApp().create(cfg.getConf().getConf("daoLogger/default"));
+
         // формируем раскрытую conf для dao-invoker
         Conf xExp = UtConf.create();
         xExp.setValue("daoInvoker", getApp().getConf().getConf("dao/daoInvoker"));
@@ -100,4 +104,7 @@ public class DaoServiceImpl extends BaseComp implements DaoService {
         return daoClassDefFactory.getDaoClassDef(cls);
     }
 
+    public DaoLogger getDaoLogger() {
+        return daoLogger;
+    }
 }

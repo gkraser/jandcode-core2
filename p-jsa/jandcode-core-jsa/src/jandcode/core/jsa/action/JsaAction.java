@@ -33,9 +33,7 @@ public class JsaAction extends BaseAction {
     }
 
     protected void renderError(Exception e) {
-        String msg = new ErrorFormatterDefault(true, true, false).
-                getMessage(UtError.createErrorInfo(e));
-        log.error("ERROR =>\n\n" + msg + "\n");
+        getReq().setException(e);
         render(new ModuleTextError(getApp(), e));
     }
 

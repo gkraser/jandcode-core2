@@ -8,10 +8,14 @@ public class DaoFilterParamsImpl implements DaoFilterParams {
     private Object daoInst;
     private Object result;
     private Throwable exception;
+    private DaoMethodDef daoMethodDef;
+    private long startTime;
 
-    public DaoFilterParamsImpl(DaoContext context, Object daoInst) {
+    public DaoFilterParamsImpl(DaoContext context, Object daoInst, DaoMethodDef daoMethodDef) {
         this.context = context;
         this.daoInst = daoInst;
+        this.daoMethodDef = daoMethodDef;
+        this.startTime = System.currentTimeMillis();
     }
 
     public DaoContext getContext() {
@@ -20,6 +24,14 @@ public class DaoFilterParamsImpl implements DaoFilterParams {
 
     public Object getDaoInst() {
         return daoInst;
+    }
+
+    public DaoMethodDef getDaoMethodDef() {
+        return daoMethodDef;
+    }
+
+    public long getStartTime() {
+        return startTime;
     }
 
     public Object getResult() {

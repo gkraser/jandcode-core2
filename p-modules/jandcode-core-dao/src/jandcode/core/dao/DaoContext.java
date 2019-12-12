@@ -7,9 +7,4 @@ import jandcode.core.*;
  */
 public interface DaoContext extends IAppLink, BeanFactoryOwner {
 
-    /**
-     * Время начала выполнения dao.
-     */
-    long getStartTime();
-
 }
