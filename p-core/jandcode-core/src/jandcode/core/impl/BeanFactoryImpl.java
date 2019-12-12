@@ -31,7 +31,7 @@ public class BeanFactoryImpl implements BeanFactory {
         protected boolean prototype;
         protected String name;
         protected Conf conf;
-        protected volatile boolean busy;
+        protected volatile long busy;
 
         public BeanDefImpl(String name, Class cls, Conf conf) {
             this.name = name;
@@ -68,19 +68,21 @@ public class BeanFactoryImpl implements BeanFactory {
 
         public Object getInst() {
             if (inst == null) {
-                if (busy) {
-                    throw new XError("Обращение к bean [{0}] в процессе его создания", getName());
+                if (busy != 0) {
+                    if (busy == Thread.currentThread().getId()) {
+                        throw new XError("Обращение к bean [{0}] в процессе его создания", getName());
+                    }
                 }
                 if (prototype) {
                     throw new XError("bean [{0}] является прототипом и нельзя получить его экземпляр", getName());
                 }
                 synchronized (this) {
                     if (inst == null) {
-                        busy = true;
+                        busy = Thread.currentThread().getId();
                         try {
                             inst = createInst();
                         } finally {
-                            busy = false;
+                            busy = 0;
                         }
                     }
                 }
