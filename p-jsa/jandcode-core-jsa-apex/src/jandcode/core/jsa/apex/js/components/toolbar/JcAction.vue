@@ -5,6 +5,7 @@
             :class="classes"
             :flat="inToolbar || isMenuItem"
             align="left"
+            :stretch="isMenuItem?true:stretch"
             :icon="leftIcon"
             :icon-right="rightIcon">
         <template v-if="hasSubMenu">
@@ -24,6 +25,7 @@
         name: 'jc-action',
         props: {
             icon: {default: null},
+            stretch: {default: null},
         },
         provide() {
             return {
