@@ -44,7 +44,7 @@ class P extends ProjectScript {
 
                     "less": "3.10.3",
 
-                    "vue-template-compiler": "2.6.10",
+                    "vue-template-compiler": "2.6.11",
                     "vue-template-es2015-compiler": "1.9.1",
 
                     "@vue/babel-helper-vue-jsx-merge-props": "1.0.0",
