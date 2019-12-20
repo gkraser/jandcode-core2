@@ -28,9 +28,9 @@ class P extends ProjectScript {
         //
         include(JsaJavaProject).with {
             nodeDepends(
-                    "@babel/cli": "7.7.5",
-                    "@babel/core": "7.7.5",
-                    "@babel/preset-env": "7.7.6",
+                    "@babel/cli": "7.7.7",
+                    "@babel/core": "7.7.7",
+                    "@babel/preset-env": "7.7.7",
                     "@babel/polyfill": "7.7.0",
                     "@babel/plugin-external-helpers": "7.7.4",
 
@@ -63,7 +63,7 @@ class P extends ProjectScript {
                     "through2": "3.0.1",
                     "vinyl": "2.2.0",
 
-                    "postcss": "7.0.24",
+                    "postcss": "7.0.25",
                     "gulp-postcss": "8.0.0",
 
                     "node-sass": "4.13.0",
