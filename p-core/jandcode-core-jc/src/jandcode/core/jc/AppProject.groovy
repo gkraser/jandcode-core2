@@ -83,7 +83,7 @@ class AppProject extends ProjectScript implements ILibDependsGrab {
         //
         println ut.makeDelim("modules")
         m = [:]
-        for (Module module : a.modules) {
+        for (ModuleInst module : a.modules) {
             m[module.name] = module.path
         }
         ut.printMap(m)

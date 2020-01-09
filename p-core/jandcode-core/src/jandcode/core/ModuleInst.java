@@ -10,7 +10,7 @@ import java.util.*;
  * Модуль. Представляет собой ссылку на экземпляр ModuleDef адаптированной для
  * работы в рамках приложений.
  */
-public interface Module extends INamed, IAppLink, IConfLink {
+public interface ModuleInst extends INamed, IAppLink, IConfLink {
 
     /**
      * Имя модуля

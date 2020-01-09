@@ -52,7 +52,7 @@ class MDocTestSvc extends BaseAppTestSvc {
      * Путь в каталоге test-data
      */
     String getTestDataPath(String subPath = "") {
-        Module mod = app.getModules().get("jandcode.mdoc");
+        ModuleInst mod = app.getModules().get("jandcode.mdoc");
         String path = UtFile.join(mod.getSourceInfo().getProjectPath(), "test-data");
         if (!UtString.empty(subPath)) {
             path = UtFile.join(path, subPath)

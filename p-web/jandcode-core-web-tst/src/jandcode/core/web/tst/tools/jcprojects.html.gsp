@@ -3,7 +3,7 @@
   <%
     BaseGsp th = this
     //
-    List<Module> srcModules = []
+    List<ModuleInst> srcModules = []
     for (m in th.app.modules) {
       if (m.sourceInfo.isSource()) {
         srcModules.add(m)

@@ -9,7 +9,7 @@ public class ModuleSubHolderImpl implements ModuleSubHolder {
 
     protected ModuleHolder own;
     protected HashSet<String> used = new HashSet<>();
-    protected NamedList<Module> items = new DefaultNamedList<>();
+    protected NamedList<ModuleInst> items = new DefaultNamedList<>();
 
     public ModuleSubHolderImpl(ModuleHolder own) {
         this.own = own;
@@ -22,7 +22,7 @@ public class ModuleSubHolderImpl implements ModuleSubHolder {
         //
         used.add(moduleName);
         //
-        Module m = own.get(moduleName);
+        ModuleInst m = own.get(moduleName);
 
         for (String dep : m.getDepends()) {
             add(dep);
@@ -37,11 +37,11 @@ public class ModuleSubHolderImpl implements ModuleSubHolder {
         items.remove(moduleName);
     }
 
-    public Iterator<Module> iterator() {
+    public Iterator<ModuleInst> iterator() {
         return items.iterator();
     }
 
-    public Module find(String name) {
+    public ModuleInst find(String name) {
         return items.find(name);
     }
 

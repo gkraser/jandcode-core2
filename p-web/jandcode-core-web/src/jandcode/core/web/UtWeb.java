@@ -89,9 +89,9 @@ public class UtWeb {
     /**
      * Возвращает список модулей, которые примонтированы через web/mount-module
      */
-    public static List<Module> getMountModules(App app) {
-        List<Module> res = new ArrayList<>();
-        for (Module module : app.getModules()) {
+    public static List<ModuleInst> getMountModules(App app) {
+        List<ModuleInst> res = new ArrayList<>();
+        for (ModuleInst module : app.getModules()) {
             if (isMountModule(module)) {
                 res.add(module);
             }
@@ -107,20 +107,20 @@ public class UtWeb {
      * @param baseModuleName с какого модуля начинать
      * @param includeBase    включать ли сам baseModuleName в список
      */
-    public static List<Module> getMountModules(App app, String baseModuleName, boolean includeBase) {
-        List<Module> res = new ArrayList<>();
+    public static List<ModuleInst> getMountModules(App app, String baseModuleName, boolean includeBase) {
+        List<ModuleInst> res = new ArrayList<>();
 
         ModuleSubHolder sh = app.getModules().createSubHolder();
         if (includeBase) {
             sh.add(baseModuleName);
         } else {
-            Module m = app.getModules().get(baseModuleName);
+            ModuleInst m = app.getModules().get(baseModuleName);
             for (String depend : m.getDepends()) {
                 sh.add(depend);
             }
         }
 
-        for (Module module : sh) {
+        for (ModuleInst module : sh) {
             if (isMountModule(module)) {
                 res.add(module);
             }
@@ -131,7 +131,7 @@ public class UtWeb {
     /**
      * Примонтирован ли модуль через web/mount-module
      */
-    public static boolean isMountModule(Module module) {
+    public static boolean isMountModule(ModuleInst module) {
         Conf mmrt = module.getConf().findConf(CONF_MOUNT_MODULE);
         return (mmrt != null);
     }
@@ -161,7 +161,7 @@ public class UtWeb {
         if (wm != null) {
             // путь начинается с [*], перебираем для всех модулей
             wm = UtVDir.normalize(wm);
-            for (Module m : getMountModules(app)) {
+            for (ModuleInst m : getMountModules(app)) {
                 String p = UtVDir.join(m.getVPath(), wm);
                 List<String> tmp = expandPath(app, p);
                 for (String tmpPath : tmp) {
@@ -181,7 +181,7 @@ public class UtWeb {
                 // путь начинается с [MODULE-NAME], перебираем для модуля и его зависимостей
                 String mn = path.substring(1, b);
                 String pt = UtVDir.normalize(path.substring(b + 1));
-                for (Module m : getMountModules(app, mn, true)) {
+                for (ModuleInst m : getMountModules(app, mn, true)) {
                     String p = UtVDir.join(m.getVPath(), pt);
                     List<String> tmp = expandPath(app, p);
                     for (String tmpPath : tmp) {
@@ -227,7 +227,7 @@ public class UtWeb {
      *
      * @return null, если нет модуля
      */
-    public static Module findModuleForPath(App app, String path) {
+    public static ModuleInst findModuleForPath(App app, String path) {
         WebService svc = app.bean(WebService.class);
         //
         VirtFile vf = svc.findFile(path);
@@ -240,8 +240,8 @@ public class UtWeb {
         }
         // Ищем модуль с самым длинным путем, внури которого
         // лежит искомый файл
-        Module res = null;
-        for (Module m : app.getModules()) {
+        ModuleInst res = null;
+        for (ModuleInst m : app.getModules()) {
             if (rp.startsWith(m.getPath() + "/")) {
                 if (res != null) {
                     if (m.getPath().length() > res.getPath().length()) {

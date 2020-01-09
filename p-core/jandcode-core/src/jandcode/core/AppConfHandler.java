@@ -10,9 +10,9 @@ import jandcode.commons.conf.*;
  * {@code <app-conf-handler name="NAME" class="CLASS" ANY-ATTR="ANY-VALUE"/>}
  * </pre>
  * Каждый обработчик вызывается сначала для каждого модуля:
- * {@link AppConfHandler#handleModuleConf(Module, Module, Conf)},
+ * {@link AppConfHandler#handleModuleConf(ModuleInst, ModuleInst, Conf)},
  * затем создается конфигурация приложения app.getConf() и каждый обработчик вызывается для
- * приложения: {@link AppConfHandler#handleAppConf(App, Module, Conf)}
+ * приложения: {@link AppConfHandler#handleAppConf(App, ModuleInst, Conf)}
  */
 public interface AppConfHandler {
 
@@ -24,7 +24,7 @@ public interface AppConfHandler {
      * @param moduleOwner модуль, в котором был объявлен тег с обработчиком
      * @param conf        конфигурация. Тег app-conf-handler, в котором описан обработчик
      */
-    void handleModuleConf(Module module, Module moduleOwner, Conf conf) throws Exception;
+    void handleModuleConf(ModuleInst module, ModuleInst moduleOwner, Conf conf) throws Exception;
 
     /**
      * Обработчик для приложения
@@ -34,6 +34,6 @@ public interface AppConfHandler {
      * @param moduleOwner модуль, в котором был объявлен тег с обработчиком
      * @param conf        конфигурация. Тег app-conf-handler, в котором описан обработчик
      */
-    void handleAppConf(App app, Module moduleOwner, Conf conf) throws Exception;
+    void handleAppConf(App app, ModuleInst moduleOwner, Conf conf) throws Exception;
 
 }

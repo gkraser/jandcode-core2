@@ -40,7 +40,7 @@ public class ModuleMount extends BaseMount implements IMountProvider {
     public List<Mount> loadMounts() throws Exception {
         List<Mount> res = new ArrayList<>();
 
-        for (Module module : UtWeb.getMountModules(getApp())) {
+        for (ModuleInst module : UtWeb.getMountModules(getApp())) {
             Conf mmrt = module.getConf().findConf(UtWeb.CONF_MOUNT_MODULE);
 
             if (mmrt.getBoolean("default", true)) {
