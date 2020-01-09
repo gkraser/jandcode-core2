@@ -48,7 +48,7 @@ public class ResourceMount extends BaseMount implements IMountProvider {
         List<Mount> res = new ArrayList<>();
 
         int n = 0;
-        Enumeration<URL> en = getClass().getClassLoader().getResources(resourcePath);
+        Enumeration<URL> en = UtClass.getClassLoader().getResources(resourcePath);
         while (en.hasMoreElements()) {
             URL r = en.nextElement();
             FileObject f = UtFile.getFileObject(r.toString());

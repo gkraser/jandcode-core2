@@ -63,7 +63,7 @@ public class UndertowRunner {
     public void startWebXml(WebXml wx) throws Exception {
 
         DeploymentInfo servletBuilder = Servlets.deployment()
-                .setClassLoader(this.getClass().getClassLoader())
+                .setClassLoader(UtClass.getClassLoader())
                 .setContextPath(this.context)
                 .setDeploymentName("jandcode-core-web-app.war");
 

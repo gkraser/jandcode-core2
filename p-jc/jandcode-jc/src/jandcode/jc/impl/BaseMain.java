@@ -43,6 +43,9 @@ public abstract class BaseMain {
      */
     public boolean run(String[] args, String appdir, String workdir, boolean throwError) {
         try {
+            // фиксим addClasspath для java>=9
+            UtClass.fixAddClasspath();
+
             // отключаем логирование для начала
             UtLog.logOff();
 
