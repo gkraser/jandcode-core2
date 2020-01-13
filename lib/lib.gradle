@@ -49,7 +49,7 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
 
     // groovy
-    v = '2.5.8'
+    v = '3.0.0-rc-2'
     compile group: 'org.codehaus.groovy', name: 'groovy', version: v
     compile(group: 'org.codehaus.groovy', name: 'groovy-ant', version: v) {
         exclude group: 'org.apache.ant'
