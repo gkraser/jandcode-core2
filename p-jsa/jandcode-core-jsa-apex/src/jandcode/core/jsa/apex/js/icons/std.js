@@ -25,10 +25,10 @@ let icons = {
     'upd': 'edit',
 
     //
-    'caret-down': 'arrow_drop_down',
-    'caret-up': 'arrow_drop_up',
-    'caret-right': 'arrow_right',
-    'caret-left': 'arrow_left',
+    'caret-down': 'svg:caret-down',
+    'caret-up': 'svg:caret-up',
+    'caret-right': 'svg:caret-right',
+    'caret-left': 'svg:caret-left',
 
     //
     'mail': 'mail',

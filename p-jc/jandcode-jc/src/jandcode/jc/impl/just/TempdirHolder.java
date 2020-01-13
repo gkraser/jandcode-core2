@@ -11,10 +11,11 @@ public class TempdirHolder implements ITempdir {
         String vr = UtVersion.getVersion("jandcode.jc");
         String wd = UtFile.getWorkdir();
         String nm = UtFile.filename(wd);
+        String cv = System.getProperty("java.class.version");
         if (UtString.empty(nm)) {
             nm = "root";
         }
-        nm = nm + "--" + UtString.md5Str(vr + "|" + wd);
+        nm = nm + "--" + UtString.md5Str(vr + "|" + wd + "|" + cv);
         baseTempPath = UtFile.join(getTempdirRoot(), "wd", nm);
     }
 

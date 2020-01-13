@@ -1,8 +1,13 @@
 <template>
-    <q-btn v-else :class="classes" flat no-caps no-wrap
-           align="left" :to="to" :replace="replace" :type="typeTag"
-           v-on="$listeners" v-close-popup="isMenuItem && !hasSubMenu"
-           :label="label" :icon="leftIcon" :icon-right="rightIcon">
+    <jc-btn v-on="$listeners"
+            v-bind="$attrs"
+            v-close-popup="isMenuItem && !hasSubMenu"
+            :class="classes"
+            :flat="inToolbar || isMenuItem"
+            align="left"
+            :stretch="isMenuItem?true:stretch"
+            :icon="leftIcon"
+            :icon-right="rightIcon">
         <template v-if="hasSubMenu">
             <q-menu content-class="jc-action--menu"
                     :anchor="isMenuItem?'top right':null"
@@ -12,17 +17,15 @@
                 </div>
             </q-menu>
         </template>
-    </q-btn>
+    </jc-btn>
 </template>
 
 <script>
     export default {
         name: 'jc-action',
         props: {
-            label: {},
             icon: {default: null},
-            to: {},
-            replace: {},
+            stretch: {default: null},
         },
         provide() {
             return {
@@ -30,7 +33,8 @@
             }
         },
         inject: {
-            isMenuItem: {default: false}
+            isMenuItem: {default: false},
+            inToolbar: {default: false},
         },
         computed: {
             classes() {
@@ -65,13 +69,6 @@
             },
             hasSubMenu() {
                 return !!this.$slots.default;
-            },
-            typeTag() {
-                if (this.$listeners.click) {
-                    return null
-                } else {
-                    return 'a'
-                }
             },
         }
     }

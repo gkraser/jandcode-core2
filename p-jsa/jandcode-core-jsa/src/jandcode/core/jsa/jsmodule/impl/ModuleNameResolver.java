@@ -35,7 +35,7 @@ public class ModuleNameResolver {
 
         boolean isModule = false;
         // модуль?
-        Module mod = svc.getApp().getModules().find(name);
+        ModuleInst mod = svc.getApp().getModules().find(name);
         if (mod != null) {
             // вариант: 'jandcode.core.jsa', превращаем в путь
             name = name.replace('.', '/');

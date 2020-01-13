@@ -93,7 +93,9 @@ class JavaCompiler extends ProjectScript {
                 for (s in srcs) {
                     src(path: s)
                 }
-                javac(debug: debug, encoding: encoding)
+                javac(debug: debug, encoding: encoding) {
+                    compilerarg(value:"-Jclasspath=${cp_s}")
+                }
             }
 
         }

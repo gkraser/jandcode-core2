@@ -4,7 +4,7 @@
 
 ----------------------------------------------------------------------------- */
 
-import {Vue} from '../vendor'
+import {Vue, jsaBase} from '../vendor'
 
 function _isCompCheckType(name, type) {
     return type === name;
@@ -95,3 +95,33 @@ export function registerComponents(comps) {
     }
 }
 
+function adaptCtxClasses(ctx) {
+    let ar = ctx.data.class
+    if (jsaBase.isArray(ctx.data.class)) {
+        return ctx.data.class
+    }
+    if (ctx.data.class == null) {
+        ctx.data.class = []
+    } else {
+        ctx.data.class = [ctx.data.class]
+    }
+    return ctx.data.class
+}
+
+function adaptCtxAttrs(ctx) {
+    if (ctx.data.attrs == null) {
+        ctx.data.attrs = {}
+    }
+    return ctx.data.attrs
+}
+
+/**
+ * Адаптировать ctx функционального компонента для модификации
+ * @param ctx контекст функционального компонента
+ * @return {*} свойство ctx.data
+ */
+export function adaptCtxData(ctx) {
+    adaptCtxAttrs(ctx)
+    adaptCtxClasses(ctx)
+    return ctx.data
+}

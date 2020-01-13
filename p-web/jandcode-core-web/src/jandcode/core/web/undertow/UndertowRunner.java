@@ -10,6 +10,7 @@ import jandcode.core.*;
 import jandcode.core.web.*;
 import jandcode.core.web.webxml.*;
 
+import javax.servlet.*;
 import javax.servlet.http.*;
 
 /**
@@ -53,9 +54,7 @@ public class UndertowRunner {
      */
     public void start(App app) throws Exception {
         WebXml wx = new DefaultWebXmlFactory().createWebXml();
-        AppInstanceServlet svInst = new AppInstanceServlet();
-        svInst.setApp(app);
-        app.startup();
+        AppServlet svInst = new AppServlet(app);
         wx.getServlet(WebConsts.WEB_SERVLET_NAME).setServletInstance(svInst);
         startWebXml(wx);
     }
@@ -64,7 +63,7 @@ public class UndertowRunner {
     public void startWebXml(WebXml wx) throws Exception {
 
         DeploymentInfo servletBuilder = Servlets.deployment()
-                .setClassLoader(this.getClass().getClassLoader())
+                .setClassLoader(UtClass.getClassLoader())
                 .setContextPath(this.context)
                 .setDeploymentName("jandcode-core-web-app.war");
 
@@ -90,6 +89,17 @@ public class UndertowRunner {
                     servletInfo.addMapping(m.getUrlPattern());
                 }
             }
+
+            WebXml.MultipartConfig mpc = sv.getMultipartConfig();
+            if (mpc != null) {
+                servletInfo.setMultipartConfig(new MultipartConfigElement(
+                        mpc.getLocation(),
+                        mpc.getMaxFileSize(),
+                        mpc.getMaxRequestSize(),
+                        mpc.getFileSizeThreshold()
+                ));
+            }
+
             servletBuilder.addServlet(servletInfo);
         }
 
@@ -145,9 +155,6 @@ public class UndertowRunner {
                 }
 
                 public void release() {
-                    if (inst instanceof AppInstanceServlet) {
-                        ((AppInstanceServlet) inst).getApp().shutdown();
-                    }
                 }
             };
         }

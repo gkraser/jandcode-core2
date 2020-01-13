@@ -9,10 +9,6 @@ public abstract class BaseDao extends BaseComp implements Dao {
 
     private DaoContext context;
 
-    public App getApp() {
-        return getContext().getApp();
-    }
-
     public DaoContext getContext() {
         return context;
     }

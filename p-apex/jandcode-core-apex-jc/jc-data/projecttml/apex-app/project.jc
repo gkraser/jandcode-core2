@@ -23,7 +23,7 @@ class P extends ProjectScript {
             modules(
                     "xxx-yyy-main",
             )
-            depends.dev.add(
+            depends.dev(
                     "jandcode-core-jsa-tst"
             )
         }

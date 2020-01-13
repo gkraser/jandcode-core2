@@ -5,7 +5,7 @@ import jandcode.commons.error.*;
 /**
  * Хранилище модулей.
  */
-public interface ModuleHolder extends Iterable<Module> {
+public interface ModuleHolder extends Iterable<ModuleInst> {
 
     /**
      * Поиск модуля по имени
@@ -13,7 +13,7 @@ public interface ModuleHolder extends Iterable<Module> {
      * @param name имя модуля
      * @return null, если не найден
      */
-    Module find(String name);
+    ModuleInst find(String name);
 
     /**
      * Поиск модуля по имени
@@ -21,8 +21,8 @@ public interface ModuleHolder extends Iterable<Module> {
      * @param name имя модуля
      * @return ошибка, если не найден
      */
-    default Module get(String name) {
-        Module m = find(name);
+    default ModuleInst get(String name) {
+        ModuleInst m = find(name);
         if (m == null) {
             throw new XError("Модуль {0} не найден", name);
         }

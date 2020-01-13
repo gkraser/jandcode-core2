@@ -35,7 +35,7 @@ public class GroovyCompilerImpl implements GroovyCompiler {
                     if (compiledCacheDir != null) {
                         cc.setTargetDirectory(compiledCacheDir);
                     }
-                    gcl = new GroovyClassLoader(getClass().getClassLoader(), cc);
+                    gcl = new GroovyClassLoader(UtClass.getClassLoader(), cc);
                 }
             }
         }

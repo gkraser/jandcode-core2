@@ -20,7 +20,11 @@ export class ErrorHandlersService extends AppService {
         }
 
         window.onerror = function(message, url, line, col, error) {
-            console.error(`[Fatal error]: ${message} [${line}:${col}] ${url}`)
+            let msg = `[Fatal error]: ${message} [${line}:${col}] ${url}`
+            if (th.ignoreError(msg)) {
+                return
+            }
+            console.error(msg)
             th.showError(message)
         }
 
@@ -32,6 +36,16 @@ export class ErrorHandlersService extends AppService {
     }
 
     //////
+
+    ignoreError(message) {
+        if (!message) {
+            return false
+        }
+        if (message.indexOf('ResizeObserver loop limit exceeded') !== -1) {
+            return true
+        }
+        return false
+    }
 
     showError(err) {
         let e = jsaBase.createError(err)

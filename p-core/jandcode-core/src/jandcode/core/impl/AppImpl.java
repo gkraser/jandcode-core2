@@ -70,10 +70,10 @@ public class AppImpl implements App, IBeanIniter {
     class AppConfHandlerItem {
 
         Conf conf;
-        Module moduleOwner;
+        ModuleInst moduleOwner;
         AppConfHandler handler;
 
-        public AppConfHandlerItem(Conf conf, Module moduleOwner) {
+        public AppConfHandlerItem(Conf conf, ModuleInst moduleOwner) {
             this.conf = conf;
             this.moduleOwner = moduleOwner;
             try {
@@ -83,7 +83,7 @@ public class AppImpl implements App, IBeanIniter {
             }
         }
 
-        public void handleAppConf(Module module) throws Exception {
+        public void handleAppConf(ModuleInst module) throws Exception {
             if (module == null) {
                 // для приложения
                 handler.handleAppConf(AppImpl.this, this.moduleOwner, this.conf);
@@ -190,7 +190,7 @@ public class AppImpl implements App, IBeanIniter {
 
         // создаем обработчики conf
         List<AppConfHandlerItem> appConfHandlerItems = new ArrayList<>();
-        for (Module m : moduleHolder) {
+        for (ModuleInst m : moduleHolder) {
             for (Conf x : m.getConf().getConfs(AppConsts.APP_CONF_HANDLER)) {
                 AppConfHandlerItem it = new AppConfHandlerItem(x, m);
                 appConfHandlerItems.add(it);
@@ -199,7 +199,7 @@ public class AppImpl implements App, IBeanIniter {
 
         if (appConfHandlerItems.size() > 0) {
             // выполняем обработчики для модулей
-            for (Module m : moduleHolder) {
+            for (ModuleInst m : moduleHolder) {
                 for (AppConfHandlerItem it : appConfHandlerItems) {
                     it.handleAppConf(m);
                 }
@@ -210,7 +210,7 @@ public class AppImpl implements App, IBeanIniter {
 
         // объединяем для App.getConf()
         Conf tmpRt = UtConf.create();
-        for (Module m : tmpMh) {
+        for (ModuleInst m : tmpMh) {
             tmpRt.join(m.getConf());
         }
         conf = tmpRt; // окончательная

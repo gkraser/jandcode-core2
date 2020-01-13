@@ -1,13 +1,47 @@
-/* app
------------------------------------------------------------------------------ */
 @import "./vars";
 
-.jc-app--header.q-header {
-  background-color: #fafbfc;
-  color: #6c757d;
-  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+.jc-decor-app {
+  .jc-app--header.q-header {
+    background-color: #fafbfc;
+    color: #6c757d;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+  }
 }
 
+.jc-app--header {
+
+  .jc-toolbar {
+
+    .q-btn {
+
+      .q-icon {
+        font-size: 42px;
+      }
+
+      .q-icon.on-left {
+        font-size: 16px;
+        opacity: 0.4;
+        margin-right: 6px;
+      }
+
+      .q-icon.on-right {
+        //font-size: 20px;
+        //margin-left: 2px;
+        //opacity: 0.5;
+      }
+
+    }
+
+  }
+
+}
+
+.q-icon + .q-icon {
+  color: red;
+}
+
+
+/*
 .jc-app--side {
 
   background-color: @grey-1;
@@ -61,10 +95,17 @@
 }
 
 
+ */
+
 /* card
 ----------------------------------------------------------------------------- */
 
+/*
 .q-card {
   box-shadow: none;
   border: 1px solid #c9ccce;
 }
+
+*/
+
+

@@ -17,6 +17,9 @@ public class DefaultWebXmlFactory implements WebXmlFactory {
         b.addInitParam(sv, "log", "_logback.xml");
 
         //
+        b.setMultipartConfig(sv);
+
+        //
         b.addErrorPage("/showerror");
 
         return x;

@@ -1,6 +1,5 @@
 package jandcode.core.dao.impl;
 
-import jandcode.commons.*;
 import jandcode.core.dao.*;
 
 import java.util.*;
@@ -20,11 +19,6 @@ public class DaoClassDefFactory {
             daoClasses.put(cls, res);
         }
         return res;
-    }
-
-    public DaoClassDef getDaoClassDef(String className) {
-        Class cls = UtClass.getClass(className);
-        return getDaoClassDef(cls);
     }
 
 }

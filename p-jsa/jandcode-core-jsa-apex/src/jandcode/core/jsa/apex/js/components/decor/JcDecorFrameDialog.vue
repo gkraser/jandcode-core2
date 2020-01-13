@@ -34,8 +34,8 @@
 </template>
 
 <script>
-    import JcDecorFrame from './JcDecorFrame'
-    import {getDialogButtons} from './frame'
+    import JcDecorFrame from '../../baseapp/JcDecorFrame'
+    import {getDialogButtons} from '../../baseapp/frame'
 
 
     export default {

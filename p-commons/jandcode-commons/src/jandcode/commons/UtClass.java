@@ -20,6 +20,46 @@ public class UtClass {
     private static HashSet<String> classpathCache = new HashSet<String>();
 
     /**
+     * ClassLoader наследник от {@link URLClassLoader}.
+     * Этот ClassLoader нужен для динамического добавления элементов в
+     * classpath в java>=9.
+     */
+    public static class JcURLClassLoader extends URLClassLoader {
+
+        public JcURLClassLoader(ClassLoader parent) {
+            super(new URL[]{}, parent);
+        }
+
+        public void addURL(URL url) {
+            super.addURL(url);
+        }
+
+    }
+
+    /**
+     * Метод фиксит проблему динамического добавления элементов в classpath в java>=9.
+     * Для этого создается новый ClassLoader, наследник от {@link URLClassLoader}
+     * и устанавливается как "context class loader".
+     * Этот метод нужно вызывать наиболее близко к началу выполнения кода,
+     * который потенциально будет изменять classpath в runtime.
+     */
+    public static void fixAddClasspath() {
+        ClassLoader curLdr = Thread.currentThread().getContextClassLoader();
+        if (!(curLdr instanceof JcURLClassLoader)) {
+            JcURLClassLoader newLdr = new JcURLClassLoader(curLdr);
+            Thread.currentThread().setContextClassLoader(newLdr);
+        }
+    }
+
+    /**
+     * Возвращает {@link ClassLoader} Thread.currentThread().getContextClassLoader().
+     * Используется для получения ClassLoader в рамках соглашения в jandcode.
+     */
+    public static ClassLoader getClassLoader() {
+        return Thread.currentThread().getContextClassLoader();
+    }
+
+    /**
      * Сбор классов в указанных packages.
      * Сканируются: public, !abstract, !member
      *
@@ -221,11 +261,12 @@ public class UtClass {
                 return false;
             }
             //
-            URLClassLoader urlClassLoader = (URLClassLoader) Thread.currentThread().getContextClassLoader();
-            Class urlClass = URLClassLoader.class;
-            Method method = urlClass.getDeclaredMethod("addURL", URL.class);
-            method.setAccessible(true);
-            method.invoke(urlClassLoader, u);
+            ClassLoader curLdr = Thread.currentThread().getContextClassLoader();
+            if (!(curLdr instanceof JcURLClassLoader)) {
+                fixAddClasspath();
+            }
+            JcURLClassLoader jcLdr = (JcURLClassLoader) Thread.currentThread().getContextClassLoader();
+            jcLdr.addURL(u);
             //
             classpathCache.add(us);
             //

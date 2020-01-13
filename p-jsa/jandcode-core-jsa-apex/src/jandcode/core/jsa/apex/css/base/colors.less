@@ -1,0 +1,35 @@
+/* Определение стилей для цветов
+----------------------------------------------------------------------------- */
+
+.q-color-def-dark-light(@nm) {
+  @c-dark: 'q-color-@{nm}--dark';
+  @c-light: 'q-color-@{nm}--light';
+
+  .text-@{nm}--dark {
+    color: @@c-dark;
+  }
+
+  .bg-@{nm}--dark {
+    background: @@c-dark;
+  }
+
+  .text-@{nm}--light {
+    color: @@c-light;
+  }
+
+  .bg-@{nm}--light {
+    background: @@c-light;
+  }
+
+}
+
+& {
+  .q-color-def-dark-light(primary);
+  .q-color-def-dark-light(secondary);
+  .q-color-def-dark-light(accent);
+  .q-color-def-dark-light(positive);
+  .q-color-def-dark-light(negative);
+  .q-color-def-dark-light(info);
+  .q-color-def-dark-light(warning);
+}
+

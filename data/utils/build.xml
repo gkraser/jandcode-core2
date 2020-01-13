@@ -33,7 +33,9 @@
         <mkdir dir="${jc.compiled}"/>
         <groovyc destdir="${jc.compiled}" encoding="utf-8" includeantruntime="false"
                  fork="true">
-            <javac encoding="utf-8" debug="true"/>
+            <javac encoding="utf-8" debug="true">
+                <compilerarg value="-Jclasspath=${toString:compile-lib}"/>
+            </javac>
 
             <src location="${root.dir}/p-commons/jandcode-commons/src"/>
             <src location="${root.dir}/p-commons/jandcode-commons-jansi/src"/>

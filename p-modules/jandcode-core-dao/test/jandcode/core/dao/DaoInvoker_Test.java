@@ -7,18 +7,32 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DaoManager_Test extends App_Test {
+public class DaoInvoker_Test extends App_Test {
 
     @Test
     public void test1() throws Exception {
 
-        DaoManager m = app.create(DaoManagerImpl.class);
+        DaoInvoker m = app.create(DaoInvokerImpl.class);
         DaoClassDef c = new DaoClassDefImpl(Dao2.class);
 
-        Object res = m.invokeMethod(c.getMethods().get("sum2"), 2, 4);
+        Object res = m.invokeDao(c.getMethods().get("sum2"), 2, 4);
         System.out.println("res2=" + res);
 
-        res = m.invokeMethod(c.getMethods().get("sum"), 2, 4);
+        res = m.invokeDao(c.getMethods().get("sum"), 2, 4);
+        System.out.println("res=" + res);
+
+    }
+
+    @Test
+    public void test11() throws Exception {
+
+        DaoInvoker m = app.create(DaoInvokerImpl.class);
+        DaoClassDef c = app.bean(DaoService.class).getDaoClassDef(Dao2.class);
+
+        Object res = m.invokeDao(c.getMethods().get("sum2"), 2, 4);
+        System.out.println("res2=" + res);
+
+        res = m.invokeDao(c.getMethods().get("sum"), 2, 4);
         System.out.println("res=" + res);
 
     }
@@ -26,7 +40,7 @@ public class DaoManager_Test extends App_Test {
     @Test
     public void test2() throws Exception {
 
-        DaoManager m = app.create(DaoManagerImpl.class);
+        DaoInvoker m = app.create(DaoInvokerImpl.class);
 
         Dao2 z = m.createDao(Dao2.class);
 
@@ -49,14 +63,14 @@ public class DaoManager_Test extends App_Test {
 
     @Test
     public void groovy1() throws Exception {
-        DaoManager m = app.create(DaoManagerImpl.class);
+        DaoInvoker m = app.create(DaoInvokerImpl.class);
         DaoGroovy1 z = m.createDao(DaoGroovy1.class);
         z.dummy1();
     }
 
     @Test
     public void isDao2() throws Exception {
-        DaoManager m = app.create(DaoManagerImpl.class);
+        DaoInvoker m = app.create(DaoInvokerImpl.class);
         //
         Dao1 z1 = m.createDao(Dao1.class);
         assertFalse(z1.isDao2());
@@ -69,7 +83,7 @@ public class DaoManager_Test extends App_Test {
 
     @Test
     public void filters1() throws Exception {
-        DaoManager m = app.create(app.getConf().getConf("dao/dao-manager/filters1"), DaoManagerImpl.class);
+        DaoInvoker m = app.create(app.getConf().getConf("dao/daoInvoker/filters1"), DaoInvokerImpl.class);
         Dao1 d = m.createDao(Dao1.class);
         d.isDao2();
 
@@ -77,7 +91,7 @@ public class DaoManager_Test extends App_Test {
 
     @Test
     public void filters1_1() throws Exception {
-        DaoManager m = app.bean(DaoService.class).getDaoManager("filters1");
+        DaoInvoker m = app.bean(DaoService.class).getDaoInvoker("filters1");
         Dao1 d = m.createDao(Dao1.class);
         d.isDao2();
     }

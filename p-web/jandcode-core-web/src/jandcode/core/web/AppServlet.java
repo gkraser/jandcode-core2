@@ -15,7 +15,16 @@ import javax.servlet.http.*;
 import java.io.*;
 
 /**
- * Сервлет.
+ * Сервлет приложения.
+ * Может как сам создавать приложение, так работать с созданным извне.
+ * <p>
+ * Создает приложение сам, когда запускается во внешнем контейнере сервлетов,
+ * например tomcat.
+ * <p>
+ * Полностью управляет приложением, которое ему передали.
+ * В том числе делает ему startup/shutdow, а так же может перезагрузить
+ * приложение в dev-режиме. Вообщем приложение, попавшее сервлет, извне
+ * должно стать неиспользуемым.
  */
 public class AppServlet extends HttpServlet implements IAppLink {
 
@@ -45,10 +54,25 @@ public class AppServlet extends HttpServlet implements IAppLink {
     protected App app;
     protected boolean reloadAppWork;
 
+    public AppServlet() {
+    }
+
+    /**
+     * Создать сервлет для уже существующего приложения
+     */
+    public AppServlet(App app) {
+        this.app = app;
+    }
+
     public void init(ServletConfig servletConfig) throws ServletException {
         super.init(servletConfig);
         try {
-            initApp();
+            if (app == null) {
+                // если приложение явно не установлено, грузим его сами
+                initApp();
+            } else {
+                useApp(app);
+            }
         } catch (Exception e) {
             showError(e, true);
             throw new ServletException(e);
@@ -82,7 +106,8 @@ public class AppServlet extends HttpServlet implements IAppLink {
     }
 
     /**
-     * Ссылка на приложение сервлета
+     * Ссылка на приложение сервлета.
+     * В dev-режиме это может быть не изначальный экземпляр, а перезагруженный.
      */
     public App getApp() {
         return app;
@@ -142,6 +167,12 @@ public class AppServlet extends HttpServlet implements IAppLink {
         }
         log.info(sw.toString());
 
+        useApp(app);
+
+        return app;
+    }
+
+    protected void useApp(App app) {
         // настраиваем webService
         WebService webService = app.bean(WebService.class);
 
@@ -149,9 +180,16 @@ public class AppServlet extends HttpServlet implements IAppLink {
         webService.setHttpServlet(this);
 
         // уведомляем о старте
-        app.startup();
-
-        return app;
+        try {
+            app.startup();
+        } catch (Exception e) {
+            try {
+                app.shutdown();
+            } catch (Exception e1) {
+                // ignore
+            }
+            throw e;
+        }
     }
 
     /**

@@ -7,8 +7,8 @@ import jandcode.core.*;
 import jandcode.core.web.*;
 import jandcode.core.web.virtfile.*;
 import jandcode.core.web.virtfile.impl.virtfs.*;
-import org.apache.commons.vfs2.*;
 import org.apache.commons.vfs2.FileType;
+import org.apache.commons.vfs2.*;
 import org.slf4j.*;
 
 import java.util.*;
@@ -40,7 +40,7 @@ public class ModuleMount extends BaseMount implements IMountProvider {
     public List<Mount> loadMounts() throws Exception {
         List<Mount> res = new ArrayList<>();
 
-        for (Module module : UtWeb.getMountModules(getApp())) {
+        for (ModuleInst module : UtWeb.getMountModules(getApp())) {
             Conf mmrt = module.getConf().findConf(UtWeb.CONF_MOUNT_MODULE);
 
             if (mmrt.getBoolean("default", true)) {

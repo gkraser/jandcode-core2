@@ -7,18 +7,18 @@ import org.junit.jupiter.api.*
 
 import static org.junit.jupiter.api.Assertions.*
 
-public class DaoManager_Groovy_Test extends App_Test {
+public class DaoInvoker_Groovy_Test extends App_Test {
 
     @Test
     public void test1() throws Exception {
 
-        DaoManager m = app.create(DaoManagerImpl.class);
+        DaoInvoker m = app.create(DaoInvokerImpl.class);
         DaoClassDef c = new DaoClassDefImpl(Dao2.class);
 
-        Object res = m.invokeMethod(c.getMethods().get("sum2"), 2, 4);
+        Object res = m.invokeDao(c.getMethods().get("sum2"), 2, 4);
         System.out.println("res2=" + res);
 
-        res = m.invokeMethod(c.getMethods().get("sum"), 2, 4);
+        res = m.invokeDao(c.getMethods().get("sum"), 2, 4);
         System.out.println("res=" + res);
 
     }
@@ -26,7 +26,7 @@ public class DaoManager_Groovy_Test extends App_Test {
     @Test
     public void test2() throws Exception {
 
-        DaoManager m = app.create(DaoManagerImpl.class);
+        DaoInvoker m = app.create(DaoInvokerImpl.class);
 
         Dao2 z = m.createDao(Dao2.class);
 
@@ -48,7 +48,7 @@ public class DaoManager_Groovy_Test extends App_Test {
 
     @Test
     public void groovy1() throws Exception {
-        DaoManager m = app.create(DaoManagerImpl.class);
+        DaoInvoker m = app.create(DaoInvokerImpl.class);
         DaoGroovy1 z = m.createDao(DaoGroovy1.class);
         z.dummy1();
     }

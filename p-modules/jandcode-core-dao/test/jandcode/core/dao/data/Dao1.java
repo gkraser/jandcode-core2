@@ -3,6 +3,8 @@ package jandcode.core.dao.data;
 import jandcode.core.*;
 import jandcode.core.dao.*;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class Dao1 extends BaseDao {
 
     public void setApp(App app) {
@@ -12,6 +14,7 @@ public class Dao1 extends BaseDao {
 
     @DaoMethod
     public int sum(int a, int b) {
+        assertNotNull(getApp());
         return a + b;
     }
 

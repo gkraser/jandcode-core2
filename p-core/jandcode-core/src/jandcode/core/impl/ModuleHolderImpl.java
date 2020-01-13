@@ -32,7 +32,7 @@ public class ModuleHolderImpl implements ModuleHolder {
 
     protected App app;
     protected HashSet<String> used = new HashSet<>();
-    protected NamedList<Module> items = new DefaultNamedList<>();
+    protected NamedList<ModuleInst> items = new DefaultNamedList<>();
     protected List<String> files = new ArrayList<>();
     protected ModuleDefResolver moduleDefResolver;
     private EventBus eventBus = new DefaultEventBus();
@@ -52,7 +52,7 @@ public class ModuleHolderImpl implements ModuleHolder {
      * Добавление модуля в хранилище. Если модуль зависим от других модулей,
      * они тоже добавляются
      */
-    public Module addModule(ModuleDef moduleDef) throws Exception {
+    public ModuleInst addModule(ModuleDef moduleDef) throws Exception {
         if (used.contains(moduleDef.getName())) {
             return null; // модуль уже  загружен
         }
@@ -79,7 +79,7 @@ public class ModuleHolderImpl implements ModuleHolder {
         files.addAll(mConf.getFiles());
 
         // создаем и регистрируем экземпляр модуля
-        Module m = new ModuleImpl(app, moduleDef, mConf);
+        ModuleInst m = new ModuleImpl(app, moduleDef, mConf);
         items.add(m);
         return m;
     }
@@ -91,11 +91,11 @@ public class ModuleHolderImpl implements ModuleHolder {
         return files;
     }
 
-    public Iterator<Module> iterator() {
+    public Iterator<ModuleInst> iterator() {
         return items.iterator();
     }
 
-    public Module find(String name) {
+    public ModuleInst find(String name) {
         return items.find(name);
     }
 

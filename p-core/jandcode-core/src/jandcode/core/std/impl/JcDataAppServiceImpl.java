@@ -16,7 +16,7 @@ public class JcDataAppServiceImpl extends BaseComp implements JcDataAppService {
         super.onConfigure(cfg);
         //
 
-        for (Module module : getApp().getModules()) {
+        for (ModuleInst module : getApp().getModules()) {
             String path = null;
             if (module.getSourceInfo().isSource()) {
                 // в исходниках

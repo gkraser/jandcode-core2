@@ -23,6 +23,7 @@ public class WebXml {
         private List<InitParam> initParams = new ArrayList<>();
         private int loadOnStartup;
         private HttpServlet servletInstance;
+        private MultipartConfig multipartConfig;
 
         public String getServletName() {
             return servletName;
@@ -61,6 +62,14 @@ public class WebXml {
 
         public void setServletInstance(HttpServlet servletInstance) {
             this.servletInstance = servletInstance;
+        }
+
+        public MultipartConfig getMultipartConfig() {
+            return multipartConfig;
+        }
+
+        public void setMultipartConfig(MultipartConfig multipartConfig) {
+            this.multipartConfig = multipartConfig;
         }
     }
 
@@ -139,6 +148,47 @@ public class WebXml {
 
         public void setExceptionType(String exceptionType) {
             this.exceptionType = exceptionType;
+        }
+    }
+
+    //////
+
+    public static class MultipartConfig {
+        private String location = "";
+        private long maxFileSize = -1L;
+        private long maxRequestSize = -1L;
+        private int fileSizeThreshold = 0;
+
+        public String getLocation() {
+            return location;
+        }
+
+        public void setLocation(String location) {
+            this.location = location;
+        }
+
+        public long getMaxFileSize() {
+            return maxFileSize;
+        }
+
+        public void setMaxFileSize(long maxFileSize) {
+            this.maxFileSize = maxFileSize;
+        }
+
+        public long getMaxRequestSize() {
+            return maxRequestSize;
+        }
+
+        public void setMaxRequestSize(long maxRequestSize) {
+            this.maxRequestSize = maxRequestSize;
+        }
+
+        public int getFileSizeThreshold() {
+            return fileSizeThreshold;
+        }
+
+        public void setFileSizeThreshold(int fileSizeThreshold) {
+            this.fileSizeThreshold = fileSizeThreshold;
         }
     }
 

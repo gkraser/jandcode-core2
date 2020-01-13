@@ -42,6 +42,23 @@ public class WebXmlUtils {
             x2 = x1.addChild("load-on-startup");
             x2.setText("" + sv.getLoadOnStartup());
 
+            WebXml.MultipartConfig mpc = sv.getMultipartConfig();
+            if (mpc != null) {
+                x2 = x1.addChild("multipart-config");
+                if (!UtString.empty(mpc.getLocation())) {
+                    x2.addChild("location").setText(mpc.getLocation());
+                }
+                if (mpc.getMaxFileSize() > 0) {
+                    x2.addChild("max-file-size").setText(UtCnv.toString(mpc.getMaxFileSize()));
+                }
+                if (mpc.getMaxRequestSize() > 0) {
+                    x2.addChild("max-request-size").setText(UtCnv.toString(mpc.getMaxRequestSize()));
+                }
+                if (mpc.getFileSizeThreshold() > 0) {
+                    x2.addChild("file-size-threshold").setText(UtCnv.toString(mpc.getFileSizeThreshold()));
+                }
+            }
+
         }
 
         for (WebXml.ServletMapping m : w.getServletMappings()) {

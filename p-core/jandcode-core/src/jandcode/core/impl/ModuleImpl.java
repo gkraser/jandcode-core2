@@ -6,7 +6,7 @@ import jandcode.core.*;
 
 import java.util.*;
 
-public class ModuleImpl implements Module {
+public class ModuleImpl implements ModuleInst {
 
     private App app;
     private ModuleDef moduleDef;

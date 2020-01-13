@@ -181,4 +181,12 @@ public class RequestWrapper implements Request {
         request.disableCache();
     }
 
+    public Part getPart(String name) {
+        return request.getPart(name);
+    }
+
+    public Collection<Part> getParts() {
+        return request.getParts();
+    }
+
 }

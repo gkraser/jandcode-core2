@@ -2,6 +2,17 @@
 <root>
 
     <bean name="jandcode.core.dao.DaoService"
-          class="jandcode.core.dao.impl.DaoServiceImpl"/>
+          class="jandcode.core.dao.impl.DaoServiceImpl">
+        <daoLogger name="default"
+                   class="jandcode.core.dao.std.DaoLoggerDefault"/>
+    </bean>
+
+    <dao>
+        <daoInvoker name="default">
+        </daoInvoker>
+
+        <daoHolder name="default" daoInvoker="default">
+        </daoHolder>
+    </dao>
 
 </root>

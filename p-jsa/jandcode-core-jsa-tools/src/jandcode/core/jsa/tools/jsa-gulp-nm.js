@@ -24,17 +24,17 @@ function nmExtractRequireGlobs_taskFactory(g, taskName, module, taskParams) {
 }
 
 function nmExtractRequire_taskFactory(g, taskName, module, taskParams) {
-    let globsBundle = ['**/*.js']
-    for (let m of jsaSupport.modules) {
-        if (m.nmExtractRequireGlobs) {
-            globsBundle.push(...m.nmExtractRequireGlobs)
-        }
-    }
-
-    let globs = g.makeGlobs(g.buildPathNodeModules, {globs: globsBundle})
 
     gulp.task(taskName, function() {
         let lastRun = gulp.lastRun(taskName)
+
+        let globsBundle = ['**/*.js']
+        for (let m of jsaSupport.modulesReverse) {
+            if (m.nmExtractRequireGlobs) {
+                globsBundle.push(...m.nmExtractRequireGlobs)
+            }
+        }
+        let globs = g.makeGlobs(g.buildPathNodeModules, {globs: globsBundle})
 
         return gulp.src(globs, {base: g.buildPathNodeModules})
             .pipe(through2(function(file, enc, callback) {

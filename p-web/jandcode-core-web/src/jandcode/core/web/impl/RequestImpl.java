@@ -61,7 +61,6 @@ public class RequestImpl extends BaseComp implements Request {
 
         // params
         params = new VariantMap();
-        params.clear();
         HttpServletRequest hreq = getHttpRequest();
         Enumeration en = hreq.getParameterNames();
         while (en.hasMoreElements()) {
@@ -375,5 +374,21 @@ public class RequestImpl extends BaseComp implements Request {
         setHeader("Pragma", "no-cache");
         setHeader("Last-Modified", pastDate);
         setHeader("Expires", pastDate);
+    }
+
+    public Part getPart(String name) {
+        try {
+            return httpRequest.getPart(name);
+        } catch (Exception e) {
+            throw new XErrorMark(e, "part: " + name);
+        }
+    }
+
+    public Collection<Part> getParts() {
+        try {
+            return httpRequest.getParts();
+        } catch (Exception e) {
+            throw new XErrorWrap(e);
+        }
     }
 }

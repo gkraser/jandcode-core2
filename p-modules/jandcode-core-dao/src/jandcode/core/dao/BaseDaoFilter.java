@@ -5,25 +5,16 @@ import jandcode.core.*;
 /**
  * Предок для фильтров dao
  */
-public abstract class BaseDaoFilter extends BaseComp implements DaoFilter, IDaoManagerLink, IDaoManagerLinkSet {
+public abstract class BaseDaoFilter extends BaseComp implements DaoFilter, IDaoInvokerLink, IDaoInvokerLinkSet {
 
-    private DaoManager daoManager;
+    private DaoInvoker daoInvoker;
 
-    public DaoManager getDaoManager() {
-        return daoManager;
+    public DaoInvoker getDaoInvoker() {
+        return daoInvoker;
     }
 
-    public void setDaoManager(DaoManager daoManager) {
-        this.daoManager = daoManager;
-    }
-
-    public void beforeInvoke(DaoFilterParams p) {
-    }
-
-    public void afterInvoke(DaoFilterParams p) {
-    }
-
-    public void errorInvoke(DaoFilterParams p) {
+    public void setDaoInvoker(DaoInvoker daoInvoker) {
+        this.daoInvoker = daoInvoker;
     }
 
 }
