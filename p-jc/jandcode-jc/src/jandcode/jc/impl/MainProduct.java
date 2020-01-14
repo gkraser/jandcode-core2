@@ -29,9 +29,6 @@ public class MainProduct extends BaseMain {
         // настройка разукрашки
         grabOpt_noAnsi();
 
-        // настройка консоли
-        UtConsole.setupConsoleCharset();
-
         // verbose
         grabOpt_verbose();
 

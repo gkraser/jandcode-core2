@@ -12,7 +12,6 @@ CP=
 JVM= 
 JVM="${JVM} -cp ${CP}"
 JVM="${JVM} -Djandcode.jc.appdir=${WD}"
-JVM="${JVM} -Djandcode.consolecharset=auto"
 JVM="${JVM} -Dfile.encoding=UTF-8"
 
 java ${JVM} ${JC_JVM} jandcode.jc.Main ${JC_CLI} $*
