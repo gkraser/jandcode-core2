@@ -10,7 +10,9 @@ JCLIBDIR=${WD}/lib
 CP=
 # CP
 JVM= 
-JVM="${JVM} -cp ${CP}"
+JVM="${JVM} -cp ${WD}/lib/jandcode-commons-launcher.jar"
+JVM="${JVM} -Djandcode.launcher.classpath=${CP}"
+JVM="${JVM} -Djandcode.launcher.main=jandcode.jc.Main"
 JVM="${JVM} -Djandcode.jc.appdir=${WD}"
 JVM="${JVM} -Dfile.encoding=UTF-8"
 
