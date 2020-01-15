@@ -1,6 +1,7 @@
 package jandcode.commons;
 
 import jandcode.commons.error.*;
+import jandcode.commons.launcher.*;
 import org.apache.commons.vfs2.*;
 
 import java.io.*;
@@ -13,8 +14,6 @@ import java.util.*;
  */
 @SuppressWarnings("unchecked")
 public class UtClass {
-
-    public static final String JC_CLASSLOADER = "jandcode.commons.launcher.JcURLClassLoader";
 
     /**
      * Возвращает {@link ClassLoader} Thread.currentThread().getContextClassLoader().
@@ -214,42 +213,14 @@ public class UtClass {
      * @return true, если путь был добавлен. false - если уже был добален ранее
      */
     public static boolean addClasspath(String path) {
-        if (UtString.empty(path)) {
-            return false;
-        }
-        //
-        try {
-            //
-            ClassLoader curLdr = Thread.currentThread().getContextClassLoader();
-            String curLdrName = curLdr.getClass().getName();
-            if (curLdrName.equals(JC_CLASSLOADER)) {
-                Method m = curLdr.getClass().getMethod("addPath", String.class);
-                return (Boolean) m.invoke(curLdr, path);
-            } else {
-                throw new XError("Текущий ClassLoader не является классом {0}, выполнение addClasspath невозможно", JC_CLASSLOADER);
-            }
-            //
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return JcURLClassLoader.addClasspath(path);
     }
 
     /**
      * Возвращает список из всех classpath на момент вызова
      */
     public static List<String> getClasspath() {
-        List<String> res = new ArrayList<>();
-
-        URLClassLoader urlClassLoader = (URLClassLoader) Thread.currentThread().getContextClassLoader();
-        for (URL u : urlClassLoader.getURLs()) {
-            String p = u.getPath();
-            if (UtString.empty(p)) {
-                continue;
-            }
-            String fn = new File(p).getAbsolutePath();
-            res.add(fn);
-        }
-        return res;
+        return JcURLClassLoader.getClasspath();
     }
 
     /**

@@ -52,6 +52,7 @@
             <src location="${root.dir}/p-commons/jandcode-commons-jansi/src"/>
             <src location="${root.dir}/p-commons/jandcode-commons-groovy/src"/>
             <src location="${root.dir}/p-commons/jandcode-commons-moduledef/src"/>
+            <src location="${root.dir}/p-commons/jandcode-commons-launcher/src"/>
             <src location="${root.dir}/p-jc/jandcode-jc/src"/>
 
             <classpath refid="compile-lib"/>
@@ -72,6 +73,11 @@
                 <type type="file"/>
             </fileset>
             <fileset dir="${root.dir}/p-commons/jandcode-commons-moduledef/src">
+                <patternset refid="pattern.resource"/>
+                <type type="file"/>
+            </fileset>
+
+            <fileset dir="${root.dir}/p-commons/jandcode-commons-launcher/src">
                 <patternset refid="pattern.resource"/>
                 <type type="file"/>
             </fileset>
