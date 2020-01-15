@@ -1,6 +1,6 @@
 #!/bin/sh
 
-WD=`dirname $0`
+WD=`realpath $(dirname $0)`
 
 # DEV only!
 
@@ -9,10 +9,10 @@ WD=`dirname $0`
 
 sh ${WD}/data/utils/prepare.sh
 
-CP="${WD}/_jc/classes-core:${WD}_jc/_lib:${WD}/_jc/_lib/*"
+CP="${WD}/_jc/classes-core"
 
 while read p; do 
-    CM=${CP}:${WD}/_jc/_lib/${p}.jar
+    CP=${CP}:${WD}/_jc/_lib/${p}.jar
 done < "${WD}/jc-libs.txt"
 
 JVM= 
