@@ -10,6 +10,7 @@ public class Launcher {
 
     public static final String P_CLASSPATH = "jandcode.launcher.classpath";
     public static final String P_MAIN = "jandcode.launcher.main";
+    public static final String P_DEBUG = "jandcode.launcher.debug";
 
     public static void main(String[] args) throws Exception {
         Launcher z = new Launcher();
@@ -19,6 +20,7 @@ public class Launcher {
     //////
 
     private JcURLClassLoader curClassLoader;
+    private boolean debug;
 
     public void run(String[] args) throws Exception {
 
@@ -26,8 +28,11 @@ public class Launcher {
         curClassLoader = new JcURLClassLoader(getClass().getClassLoader());
         Thread.currentThread().setContextClassLoader(curClassLoader);
 
+        this.debug = getDebug();
         String mainClass = getMainClass();
         List<String> classpath = getClasspath();
+
+        curClassLoader.setDebug(this.debug);
 
         for (String p : classpath) {
             curClassLoader.addPath(p);
@@ -40,6 +45,9 @@ public class Launcher {
 
     public String getMainClass() {
         String v = System.getProperty(P_MAIN);
+        if (this.debug) {
+            System.out.println(getClass().getSimpleName() + ":main: " + v);
+        }
         if (v == null || v.length() == 0) {
             throw new RuntimeException("Not defined main class in property: " + P_MAIN);
         }
@@ -48,6 +56,9 @@ public class Launcher {
 
     public List<String> getClasspath() {
         String v = System.getProperty(P_CLASSPATH);
+        if (this.debug) {
+            System.out.println(getClass().getSimpleName() + ":classpath: " + v);
+        }
         if (v == null) {
             throw new RuntimeException("Not defined classpath in property: " + P_CLASSPATH);
         }
@@ -63,6 +74,11 @@ public class Launcher {
         }
 
         return res;
+    }
+
+    public boolean getDebug() {
+        String v = System.getProperty(P_DEBUG);
+        return "true".equals(v);
     }
 
     public void runMain(String mainClass, String[] args) throws Exception {

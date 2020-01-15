@@ -10,9 +10,14 @@ import java.util.*;
 public class JcURLClassLoader extends URLClassLoader {
 
     private Set<URL> used = new LinkedHashSet<>();
+    private boolean debug;
 
     public JcURLClassLoader(ClassLoader parent) {
         super(new URL[]{}, parent);
+    }
+
+    public void setDebug(boolean debug) {
+        this.debug = debug;
     }
 
     /**
@@ -69,6 +74,9 @@ public class JcURLClassLoader extends URLClassLoader {
     public void addURL(URL url) {
         if (used.contains(url)) {
             return;
+        }
+        if (debug) {
+            System.out.println(getClass().getSimpleName() + ":addURL: " + url);
         }
         used.add(url);
         super.addURL(url);
