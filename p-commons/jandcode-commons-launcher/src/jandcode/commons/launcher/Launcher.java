@@ -1,18 +1,18 @@
-package jandcode.jc.launcher;
+package jandcode.commons.launcher;
 
 import java.lang.reflect.*;
 import java.util.*;
 
 /**
- * Запускалка jc.
+ * Запускалка с переопределение classloader.
  */
-public class JcLauncher {
+public class Launcher {
 
-    public static final String P_CLASSPATH = "jandcode.jc.classpath";
-    public static final String P_MAIN = "jandcode.jc.main";
+    public static final String P_CLASSPATH = "jandcode.launcher.classpath";
+    public static final String P_MAIN = "jandcode.launcher.main";
 
     public static void main(String[] args) throws Exception {
-        JcLauncher z = new JcLauncher();
+        Launcher z = new Launcher();
         z.run(args);
     }
 

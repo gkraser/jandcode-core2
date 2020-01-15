@@ -1,4 +1,4 @@
-package jandcode.jc.launcher;
+package jandcode.commons.launcher;
 
 import java.io.*;
 import java.net.*;

@@ -14,7 +14,7 @@ import java.util.*;
 @SuppressWarnings("unchecked")
 public class UtClass {
 
-    public static final String JC_CLASSLOADER = "jandcode.jc.launcher.JcURLClassLoader";
+    public static final String JC_CLASSLOADER = "jandcode.commons.launcher.JcURLClassLoader";
 
     /**
      * Возвращает {@link ClassLoader} Thread.currentThread().getContextClassLoader().
