@@ -72,7 +72,7 @@ class JavaCompiler extends ProjectScript {
         if (!UtString.empty(classpath)) {
             cp.addAll(UtCnv.toList(classpath))
         }
-        String cp_s = UtString.join(cp, ";")
+        String cp_s = UtString.join(cp, File.pathSeparator)
 
         if (log.verbose) {
             log.debug(ut.makePrintClasspath(cp))
@@ -94,7 +94,7 @@ class JavaCompiler extends ProjectScript {
                     src(path: s)
                 }
                 javac(debug: debug, encoding: encoding) {
-                    compilerarg(value:"-Jclasspath=${cp_s}")
+                    compilerarg(value: "-Jclasspath=${cp_s}")
                 }
             }
 

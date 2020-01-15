@@ -37,7 +37,7 @@ class JUnitRunner extends ProjectScript implements IJUnitRunner {
         )
         def cp = rlibs.classpath
         cp.add(jm.dirCompiledTest)
-        String cp_s = UtString.join(cp, ";")
+        String cp_s = UtString.join(cp, File.pathSeparator)
 
         String repXmlDir = wd(ju.dirTestreportXml)
         ut.cleandir(repXmlDir)
