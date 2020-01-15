@@ -16,6 +16,7 @@ class P extends ProjectScript {
             groupId = "com.jandcode"
             moduleGroup = "jc-core/p-jc"
             modules(
+                "jandcode-jc-launcher",
                 "jandcode-jc",
                 "jandcode-jc-junit",
             )

@@ -27,6 +27,7 @@ UPD_CM_DEPEND="${UPD_CM_DEPEND} ${ROOTDIR}/p-commons/jandcode-commons-jansi/src 
 UPD_CM_DEPEND="${UPD_CM_DEPEND} ${ROOTDIR}/p-commons/jandcode-commons-groovy/src ${ROOTDIR}/p-commons/jandcode-commons-groovy/project.jc"
 UPD_CM_DEPEND="${UPD_CM_DEPEND} ${ROOTDIR}/p-commons/jandcode-commons-moduledef/src ${ROOTDIR}/p-commons/jandcode-commons-moduledef/project.jc"
 UPD_CM_DEPEND="${UPD_CM_DEPEND} ${ROOTDIR}/p-jc/jandcode-jc/src ${ROOTDIR}/p-jc/jandcode-jc/project.jc"
+UPD_CM_DEPEND="${UPD_CM_DEPEND} ${ROOTDIR}/p-jc/jandcode-jc-launcher/src"
 UPD_CM_DEPEND="${UPD_CM_DEPEND} ${ROOTDIR}/lib/lib.gradle"
 UPD_CM_DEPEND="${UPD_CM_DEPEND} ${ROOTDIR}/jc-libs.txt"
 

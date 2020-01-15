@@ -21,6 +21,7 @@ set UPD_CM_DEPEND=%UPD_CM_DEPEND% %ROOTDIR%\p-commons\jandcode-commons-jansi\src
 set UPD_CM_DEPEND=%UPD_CM_DEPEND% %ROOTDIR%\p-commons\jandcode-commons-groovy\src %ROOTDIR%\p-commons\jandcode-commons-groovy\project.jc
 set UPD_CM_DEPEND=%UPD_CM_DEPEND% %ROOTDIR%\p-commons\jandcode-commons-moduledef\src %ROOTDIR%\p-commons\jandcode-commons-moduledef\project.jc
 set UPD_CM_DEPEND=%UPD_CM_DEPEND% %ROOTDIR%\p-jc\jandcode-jc\src %ROOTDIR%\p-jc\jandcode-jc\project.jc
+set UPD_CM_DEPEND=%UPD_CM_DEPEND% %ROOTDIR%\p-jc\jandcode-jc-launcher\src
 set UPD_CM_DEPEND=%UPD_CM_DEPEND% %ROOTDIR%\lib\lib.gradle
 set UPD_CM_DEPEND=%UPD_CM_DEPEND% %ROOTDIR%\jc-libs.txt
 

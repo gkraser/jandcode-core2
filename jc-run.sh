@@ -16,8 +16,10 @@ while read p; do
 done < "${WD}/jc-libs.txt"
 
 JVM= 
-JVM="${JVM} -cp ${CP}"
+JVM="${JVM} -cp ${WD}/_jc/classes-launcher"
+JVM="${JVM} -Djandcode.jc.classpath=${CP}"
+JVM="${JVM} -Djandcode.jc.main=jandcode.jc.Main"
 JVM="${JVM} -Djandcode.jc.appdir=${WD}"
 JVM="${JVM} -Dfile.encoding=UTF-8"
 
-java ${JVM} ${JC_JVM} jandcode.jc.Main ${JC_CLI} $*
+java ${JVM} ${JC_JVM} jandcode.jc.launcher.JcLauncher ${JC_CLI} $*
