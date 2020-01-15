@@ -113,37 +113,5 @@ public class JsModule_Test extends Web_Test {
         }
         System.out.println("text=" + m.getText());
     }
-
-    @Test
-    public void less1() throws Exception {
-        JsModule m = svc.findModule("jandcode/core/jsa/data/css/q3.less");
-
-        System.out.println(m);
-        System.out.println("name=" + m.getName());
-        System.out.println("hash=" + m.getHash());
-        System.out.println("reqs=");
-        for (RequireItem m1 : m.getRequires()) {
-            System.out.println("  " + m1);
-        }
-        for (JsModule m1 : m.getRequiresExpanded()) {
-            System.out.println("  " + m1);
-        }
-        System.out.println("text=" + m.getText());
-    }
-
-    @Test
-    public void reqExternal1() throws Exception {
-        JsModule m = svc.findModule("jandcode/core/jsa/data/mods/m8-req.js");
-
-        System.out.println(m);
-        System.out.println("name=" + m.getName());
-        System.out.println("hash=" + m.getHash());
-        System.out.println("reqs=");
-        for (RequireItem m1 : m.getRequires()) {
-            System.out.println("  " + m1);
-        }
-        //
-        assertEquals(m.getRequires().toString(), "[./m1=>[jandcode/core/jsa/data/mods/m1.js], ./m2=>[jandcode/core/jsa/data/mods/m2.js]]");
-    }
-
+    
 }
