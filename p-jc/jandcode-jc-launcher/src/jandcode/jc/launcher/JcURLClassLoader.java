@@ -23,10 +23,14 @@ public class JcURLClassLoader extends URLClassLoader {
         super.addURL(url);
     }
 
-    public void addPath(String path) throws Exception {
+    public boolean addPath(String path) throws Exception {
         File f = new File(path);
         URL u = f.toURI().toURL();
+        if (used.contains(u)) {
+            return false;
+        }
         addURL(u);
+        return true;
     }
 
 }

@@ -14,42 +14,7 @@ import java.util.*;
 @SuppressWarnings("unchecked")
 public class UtClass {
 
-    /**
-     * Кеш уже добавленных путей в classpath (через addClassPath)
-     */
-    private static HashSet<String> classpathCache = new HashSet<String>();
-
-    /**
-     * ClassLoader наследник от {@link URLClassLoader}.
-     * Этот ClassLoader нужен для динамического добавления элементов в
-     * classpath в java>=9.
-     */
-    public static class JcURLClassLoader extends URLClassLoader {
-
-        public JcURLClassLoader(ClassLoader parent) {
-            super(new URL[]{}, parent);
-        }
-
-        public void addURL(URL url) {
-            super.addURL(url);
-        }
-
-    }
-
-    /**
-     * Метод фиксит проблему динамического добавления элементов в classpath в java>=9.
-     * Для этого создается новый ClassLoader, наследник от {@link URLClassLoader}
-     * и устанавливается как "context class loader".
-     * Этот метод нужно вызывать наиболее близко к началу выполнения кода,
-     * который потенциально будет изменять classpath в runtime.
-     */
-    public static void fixAddClasspath() {
-        ClassLoader curLdr = Thread.currentThread().getContextClassLoader();
-        if (!(curLdr instanceof JcURLClassLoader)) {
-            JcURLClassLoader newLdr = new JcURLClassLoader(curLdr);
-            Thread.currentThread().setContextClassLoader(newLdr);
-        }
-    }
+    public static final String JC_CLASSLOADER = "jandcode.jc.launcher.JcURLClassLoader";
 
     /**
      * Возвращает {@link ClassLoader} Thread.currentThread().getContextClassLoader().
@@ -254,23 +219,15 @@ public class UtClass {
         }
         //
         try {
-            File f = new File(path);
-            URL u = f.toURI().toURL();
-            String us = u.toString();
-            if (classpathCache.contains(us)) {
-                return false;
-            }
             //
             ClassLoader curLdr = Thread.currentThread().getContextClassLoader();
-            if (!(curLdr instanceof JcURLClassLoader)) {
-                fixAddClasspath();
+            String curLdrName = curLdr.getClass().getName();
+            if (curLdrName.equals(JC_CLASSLOADER)) {
+                Method m = curLdr.getClass().getMethod("addPath", String.class);
+                return (Boolean) m.invoke(curLdr, path);
+            } else {
+                throw new XError("Текущий ClassLoader не является классом {0}, выполнение addClasspath невозможно", JC_CLASSLOADER);
             }
-            JcURLClassLoader jcLdr = (JcURLClassLoader) Thread.currentThread().getContextClassLoader();
-            jcLdr.addURL(u);
-            //
-            classpathCache.add(us);
-            //
-            return true;
             //
         } catch (Exception e) {
             throw new RuntimeException(e);
