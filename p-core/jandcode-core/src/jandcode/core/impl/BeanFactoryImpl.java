@@ -120,7 +120,7 @@ public class BeanFactoryImpl implements BeanFactory {
     protected Object doCreate(Class cls, BeanConfig cfg, IBeanIniter initer) throws Exception {
 
         // создаем экземпляр
-        Object inst = cls.newInstance();
+        Object inst = cls.getDeclaredConstructor().newInstance();
 
         // если созданный экземпляр владеет BeanFactory, то устанавливаем ему себя
         // в качестве родителя перед дальнейшей инициализацией, т.к.

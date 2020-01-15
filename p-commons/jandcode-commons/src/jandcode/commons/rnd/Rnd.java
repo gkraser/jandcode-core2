@@ -95,7 +95,7 @@ public class Rnd implements IRnd {
             return (int) d;
         } else if (scale > 0) {
             BigDecimal decimal = new BigDecimal(d);
-            decimal = decimal.setScale(scale, BigDecimal.ROUND_DOWN);
+            decimal = decimal.setScale(scale, RoundingMode.DOWN);
             return decimal.doubleValue();
         }
         return d;

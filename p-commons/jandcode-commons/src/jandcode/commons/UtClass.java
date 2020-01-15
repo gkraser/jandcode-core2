@@ -93,7 +93,7 @@ public class UtClass {
             throw new RuntimeException(UtLang.t("Прототип объекта не может быть null"));
         }
         try {
-            Object res = prototype.getClass().newInstance();
+            Object res = prototype.getClass().getDeclaredConstructor().newInstance();
             return res;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -111,7 +111,7 @@ public class UtClass {
             throw new RuntimeException(UtLang.t("Класс объекта не может быть null"));
         }
         try {
-            Object res = clazz.newInstance();
+            Object res = clazz.getDeclaredConstructor().newInstance();
             return res;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -155,7 +155,7 @@ public class UtClass {
         }
         try {
             Class clazz = getClass(clazzName);
-            Object res = clazz.newInstance();
+            Object res = clazz.getDeclaredConstructor().newInstance();
             return res;
         } catch (Exception e) {
             throw new RuntimeException(e);

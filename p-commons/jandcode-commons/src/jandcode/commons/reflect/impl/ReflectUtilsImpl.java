@@ -372,7 +372,7 @@ public class ReflectUtilsImpl implements ReflectUtils {
         if (!ReflectPropConvertor.class.isAssignableFrom(aClass)) {
             return null;
         }
-        res = (ReflectPropConvertor) aClass.newInstance();
+        res = (ReflectPropConvertor) aClass.getDeclaredConstructor().newInstance();
         convertors.put(aClass, res);
         return res;
     }
