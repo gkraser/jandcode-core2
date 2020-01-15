@@ -662,7 +662,7 @@ public class GspParser extends TextParser {
     }
 
     private void outPrintMethodStart() {
-        sb.append(";");
+        sb.append(";;");
         sb.append(_printMethodName);
         sb.append("(");
     }
