@@ -51,11 +51,13 @@
                 let res = this.icon
                 if (!res && this.isMenuItem) {
                     res = 'empty'
+                } else if (!res) {
+                    res = undefined
                 }
                 return res
             },
             rightIcon() {
-                let res = null
+                let res = undefined
                 if (this.hasSubMenu) {
                     if (this.isMenuItem) {
                         res = 'caret-right'
