@@ -122,7 +122,6 @@ class Ut extends ProjectScript {
             params.add('/C')
         }
         String dir = p.get('dir', project.wd.path)
-        String charset = p.get('charset', UtConsole.getConsoleCharset())
         def showout = p.get('showout', true)
         def saveout = p.get('saveout', false)
         def err = p.get('err', true)
@@ -157,6 +156,7 @@ class Ut extends ProjectScript {
             pr = pb.start()
 
         } else {
+            String charset = p.get('charset', UtConsole.getConsoleCharset())
             pb.redirectErrorStream(true);
             pr = pb.start();
             BufferedReader inr = new BufferedReader(new InputStreamReader(pr.getInputStream(), charset));

@@ -1,0 +1,10 @@
+void onInclude() {
+    project.name = "jandcode-commons-launcher"
+    //! еще нет модуля jc !//
+    def jm = include("jandcode.jc.std.JavaProject")
+    //
+    jm.autoJcDepends = false
+    jm.packageRoot = "jandcode.commons.launcher"
+    jm.depends.prod()
+    jm.depends.dev()
+}

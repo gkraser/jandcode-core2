@@ -85,7 +85,7 @@ hello2
 import jandcode.commons.groovy.*%>
 hello
 hello2
-""", true, 7, 4, "hello2", """;out("hello2\\n");""")
+""", true, 7, 4, "hello2", """;;out("hello2\\n");""")
 
     }
 

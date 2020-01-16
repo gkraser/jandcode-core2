@@ -6,6 +6,8 @@ void onInclude() {
     jm.autoJcDepends = false
     jm.packageRoot = "jandcode.commons"
     jm.depends.prod(
+            "jandcode-commons-launcher",    
+
             "commons-io",
             "commons-vfs2",
             "gson",

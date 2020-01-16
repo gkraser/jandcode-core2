@@ -1,6 +1,6 @@
 #!/bin/sh
 
-WD=`dirname $0`
+WD=`realpath $(dirname $0)`
 
 # DEV only!
 
@@ -9,16 +9,17 @@ WD=`dirname $0`
 
 sh ${WD}/data/utils/prepare.sh
 
-CP="${WD}/_jc/classes-core:${WD}_jc/_lib:${WD}/_jc/_lib/*"
+CP="${WD}/_jc/classes-core"
 
 while read p; do 
-    CM=${CP}:${WD}/_jc/_lib/${p}.jar
+    CP=${CP}:${WD}/_jc/_lib/${p}.jar
 done < "${WD}/jc-libs.txt"
 
 JVM= 
-JVM="${JVM} -cp ${CP}"
+JVM="${JVM} -cp ${WD}/_jc/classes-launcher"
+JVM="${JVM} -Djandcode.launcher.classpath=${CP}"
+JVM="${JVM} -Djandcode.launcher.main=jandcode.jc.Main"
 JVM="${JVM} -Djandcode.jc.appdir=${WD}"
-JVM="${JVM} -Djandcode.consolecharset=auto"
 JVM="${JVM} -Dfile.encoding=UTF-8"
 
-java ${JVM} ${JC_JVM} jandcode.jc.Main ${JC_CLI} $*
+java ${JVM} ${JC_JVM} jandcode.commons.launcher.Launcher ${JC_CLI} $*

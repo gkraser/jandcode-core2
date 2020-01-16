@@ -71,7 +71,7 @@ public class DaoProxyFactory {
 
     public Object createDaoProxyInst(DaoClassDef daoClassDef) throws Exception {
         Class proxyClass = getDaoProxyClass(daoClassDef);
-        Object res = proxyClass.newInstance();
+        Object res = proxyClass.getDeclaredConstructor().newInstance();
         ((Proxy) res).setHandler(new DaoMethodHandler(daoClassDef));
         return res;
     }

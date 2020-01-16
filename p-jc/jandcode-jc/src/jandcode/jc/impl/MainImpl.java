@@ -17,9 +17,6 @@ public class MainImpl extends BaseMain {
         // настройка разукрашки
         grabOpt_noAnsi();
 
-        // настройка консоли
-        UtConsole.setupConsoleCharset();
-
         // verbose
         grabOpt_verbose();
 

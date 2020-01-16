@@ -6,6 +6,7 @@
     <property name="lib.dir.compile" value="${root.dir}/_jc/_lib"/>
 
     <property name="jc.compiled" value="${root.dir}/_jc/classes-core"/>
+    <property name="jc.compiled.launcher" value="${root.dir}/_jc/classes-launcher"/>
 
     <!-- библиотеки для компиляции -->
     <path id="compile-lib">
@@ -29,8 +30,18 @@
                  classpathref="compile-lib"/>
 
         <echo message="****** build jc ******"/>
+
         <delete dir="${jc.compiled}" failonerror="false"/>
         <mkdir dir="${jc.compiled}"/>
+
+        <delete dir="${jc.compiled.launcher}" failonerror="false"/>
+        <mkdir dir="${jc.compiled.launcher}"/>
+
+        <javac destdir="${jc.compiled.launcher}" encoding="utf-8" includeantruntime="false"
+                 fork="true">
+            <src location="${root.dir}/p-commons/jandcode-commons-launcher/src"/>
+        </javac>
+
         <groovyc destdir="${jc.compiled}" encoding="utf-8" includeantruntime="false"
                  fork="true">
             <javac encoding="utf-8" debug="true">
@@ -41,10 +52,12 @@
             <src location="${root.dir}/p-commons/jandcode-commons-jansi/src"/>
             <src location="${root.dir}/p-commons/jandcode-commons-groovy/src"/>
             <src location="${root.dir}/p-commons/jandcode-commons-moduledef/src"/>
+            <src location="${root.dir}/p-commons/jandcode-commons-launcher/src"/>
             <src location="${root.dir}/p-jc/jandcode-jc/src"/>
 
             <classpath refid="compile-lib"/>
         </groovyc>
+
         <copy todir="${jc.compiled}">
 
             <fileset dir="${root.dir}/p-commons/jandcode-commons/src">
@@ -60,6 +73,11 @@
                 <type type="file"/>
             </fileset>
             <fileset dir="${root.dir}/p-commons/jandcode-commons-moduledef/src">
+                <patternset refid="pattern.resource"/>
+                <type type="file"/>
+            </fileset>
+
+            <fileset dir="${root.dir}/p-commons/jandcode-commons-launcher/src">
                 <patternset refid="pattern.resource"/>
                 <type type="file"/>
             </fileset>

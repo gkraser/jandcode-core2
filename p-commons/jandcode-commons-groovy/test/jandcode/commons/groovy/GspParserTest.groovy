@@ -64,7 +64,7 @@ public class GspParserTest extends Utils_Test {
 
     }
 
-    private void runTst(String src, String res, boolean doNormalize) throws Exception {
+    private void runTst(String src, String res, boolean doNormalize, boolean doCompile = true) throws Exception {
         if (doNormalize) {
             src = UtString.normalizeIndent(src);
             res = UtString.normalizeIndent(res);
@@ -93,6 +93,23 @@ public class GspParserTest extends Utils_Test {
             throw e;
         }
         //
+        if (doCompile) {
+            checkCompile(tp.getScriptText())
+        }
+    }
+
+    GroovyCompiler compiler;
+
+    private checkCompile(String t) {
+        if (compiler == null) {
+            compiler = UtGroovy.createCompiler();
+        }
+        try {
+            GroovyClazz z = compiler.getClazz(SimpleGspTemplate.class, "void doGenerate()", t, false)
+        } catch (e) {
+            println "ERROR COMPILE TEXT ------\n${t}\n------\n"
+            throw e
+        }
     }
 
     private void runTst(String src, String res) throws Exception {
@@ -105,8 +122,8 @@ public class GspParserTest extends Utils_Test {
         tp.setPrintMethodName("print")
         UtLoad.fromString(tp, "a\n\n")
         String s = UtString.normalizeIndent(tp.getScriptText());
-        assertEquals(s, ";print(\"a\\n\");\n" +
-                ";print(\"\\n\");");
+        assertEquals(s, ";;print(\"a\\n\");\n" +
+                ";;print(\"\\n\");");
     }
 
     @Test
@@ -130,23 +147,23 @@ s1 <%= v1 %>
 <%= v1 %> s1
 s1 <%= v1 %> s2
 ''', '''
-;print("s1\\n");
-;print("  s2\\n");
-;print("s3\\n");
+;;print("s1\\n");
+;;print("  s2\\n");
+;;print("s3\\n");
  c1()
 
    c2()
 
-;print("s4\\n");
+;;print("s4\\n");
  c3()
-;print("s5\\n");
-;print("s6 "); c4(); ;print("\\n");
- c5(); ;print(" s7\\n");
-;print("s8 "); c6(); ;print(" s9\\n");
-;print( v1 );;print("\\n");
-;print("s1 ");;print( v1 );;print("\\n");
-;print( v1 );;print(" s1\\n");
-;print("s1 ");;print( v1 );;print(" s2");
+;;print("s5\\n");
+;;print("s6 "); c4(); ;;print("\\n");
+ c5(); ;;print(" s7\\n");
+;;print("s8 "); c6(); ;;print(" s9\\n");
+;;print( v1 );;;print("\\n");
+;;print("s1 ");;;print( v1 );;;print("\\n");
+;;print( v1 );;;print(" s1\\n");
+;;print("s1 ");;;print( v1 );;;print(" s2");
 ''');
     }
 
@@ -163,8 +180,8 @@ s1 <%= v1 %> s2
 s1 <%= v1 %>
 s2 <%= v2 %>
 ''', '''
-;print("s1 ");;print( v1 );;print("\\n");
-;print("s2 ");;print( v2 );
+;;print("s1 ");;;print( v1 );;;print("\\n");
+;;print("s2 ");;;print( v2 );
 ''');
     }
 
@@ -174,8 +191,8 @@ s2 <%= v2 %>
 s1 <% v1(); %>
 z
 ''', '''
-;print("s1 "); v1(); ;print("\\n");
-;print("z");
+;;print("s1 "); v1(); ;;print("\\n");
+;;print("z");
 ''');
     }
 
@@ -186,9 +203,9 @@ z1
    <% c3() %>
 z2
 ''', '''
-;print("z1\\n");
+;;print("z1\\n");
  c3()
-;print("z2");
+;;print("z2");
 ''');
     }
 
@@ -199,9 +216,9 @@ z1
 
 z2
 ''', '''
-;print("z1\\n");
-;print("\\n");
-;print("z2");
+;;print("z1\\n");
+;;print("\\n");
+;;print("z2");
 ''');
     }
 
@@ -217,14 +234,14 @@ b
    c2 %>
 c
 ''', '''
-;print("a\\n");
+;;print("a\\n");
  c1()
-;print("\\n");
-;print("b\\n");
-;print("\\n");
+;;print("\\n");
+;;print("b\\n");
+;;print("\\n");
 
    c2
-;print("c");
+;;print("c");
 ''');
     }
 
@@ -234,8 +251,8 @@ c
 z1
 z2
 ''', '''
-;print("z1\\n");
-;print("z2");
+;;print("z1\\n");
+;;print("z2");
 ''');
     }
 
@@ -247,10 +264,10 @@ z1 <% c1(); %> <% c2(); %>
 <% c1(); %> <% c2(); %> z2
 <% c1(); %> z2 <% c2(); %>
 ''', '''
-;print("z1 "); c1(); ;print(" "); c2(); ;print("\\n");
+;;print("z1 "); c1(); ;;print(" "); c2(); ;;print("\\n");
  c1();  c2();
- c1();  c2(); ;print(" z2\\n");
- c1(); ;print(" z2 "); c2();
+ c1();  c2(); ;;print(" z2\\n");
+ c1(); ;;print(" z2 "); c2();
 ''');
     }
 
@@ -263,11 +280,11 @@ z1 \${c1}
 \${c1} z2
 \${c1}\${c2} \${c2}                                                
 ''', '''
-;print("z1 ");;print(c1);;print(" z2\\n");
-;print(c1);;print("\\n");
-;print("z1 ");;print(c1);;print("\\n");
-;print(c1);;print(" z2\\n");
-;print(c1);;print(c2);;print(" ");;print(c2);
+;;print("z1 ");;;print(c1);;;print(" z2\\n");
+;;print(c1);;;print("\\n");
+;;print("z1 ");;;print(c1);;;print("\\n");
+;;print(c1);;;print(" z2\\n");
+;;print(c1);;;print(c2);;;print(" ");;;print(c2);
 ''');
     }
 
@@ -282,13 +299,13 @@ z1
     --%>
 z2
 ''', '''
-;print("z1\\n");
+;;print("z1\\n");
 - code() --
-/* rem */;print(" ");;print(1);;print("\\n");
-;print(" ");;print(2);;print("   ");/*
+/* rem */;;print(" ");;;print(1);;;print("\\n");
+;;print(" ");;;print(2);;;print("   ");/*
     /\\*\\rem\\*\\/
-    */;print("\\n");
-;print("z2");
+    */;;print("\\n");
+;;print("z2");
 ''');
     }
 
@@ -303,13 +320,13 @@ z1
     --}%
 z2
 ''', '''
-;print("z1\\n");
+;;print("z1\\n");
 - code() --
-/* rem */;print(" ");;print(1);;print("\\n");
-;print(" ");;print(2);;print("   ");/*
+/* rem */;;print(" ");;;print(1);;;print("\\n");
+;;print(" ");;;print(2);;;print("   ");/*
     /\\*\\rem\\*\\/
-    */;print("\\n");
-;print("z2");
+    */;;print("\\n");
+;;print("z2");
 ''');
     }
 
@@ -321,9 +338,9 @@ z2
 z
 ''', '''
 import a; import b;
-import x; ;print(" ");;print(b);;print("\\n");
-;print("z");
-''');
+import x; ;;print(" ");;;print(b);;;print("\\n");
+;;print("z");
+''', true, false);
     }
 
     @Test
@@ -338,14 +355,14 @@ import x; ;print(" ");;print(b);;print("\\n");
          cc="jcd"/>
 z
 ''', '''
-outTag('xc/td');;print("\\n");
+outTag('xc/td');;;print("\\n");
 outTag('xc/td'
-    );;print("\\n");
-outTag('xc/td' ,a:"1" ,bb:"xc" );;print("\\n");
+    );;;print("\\n");
+outTag('xc/td' ,a:"1" ,bb:"xc" );;;print("\\n");
 outTag('xc/td' ,a1:"1"
         ,bb1:""
-         ,cc:"jcd");;print("\\n");
-;print("z");
+         ,cc:"jcd");;;print("\\n");
+;;print("z");
 ''');
     }
 
@@ -357,7 +374,7 @@ outTag('xc/td' ,a1:"1"
 </xc:tr>
 ''', '''
 outTag('xc/tr') {
-;print("    x\\n");
+;;print("    x\\n");
 }
 ''');
     }
@@ -374,10 +391,10 @@ a </xc:tr> b
 ''', '''
 outTag('xc/tr' ,a:"1"
          ,b:"3") {
-;print("    ");outTag('xc/tr') {;print("\\n");
-;print("        x\\n");
+;;print("    ");outTag('xc/tr') {;;print("\\n");
+;;print("        x\\n");
 }
-;print("a ");};print(" b");
+;;print("a ");};;print(" b");
 ''');
     }
 
@@ -401,13 +418,13 @@ q\$
 \${q}
 <a\${q.z}b/>
 ''', '''
-;print("q \\\$ w\\n");
-;print("q\\\$w\\n");
-;print("\\\$q\\n");
-;print("q\\\$\\n");
-;print("\\\$(a)\\n");
-;print(q);;print("\\n");
-;print("<a");;print(q.z);;print("b/>");
+;;print("q \\\$ w\\n");
+;;print("q\\\$w\\n");
+;;print("\\\$q\\n");
+;;print("q\\\$\\n");
+;;print("\\\$(a)\\n");
+;;print(q);;;print("\\n");
+;;print("<a");;;print(q.z);;;print("b/>");
 ''');
     }
 
@@ -416,7 +433,7 @@ q\$
         runTst('''
 <a><% outTml("jc/cell", f: f) %></td>
   ''', '''
-;print("<a>"); outTml("jc/cell", f: f) ;print("</td>");
+;;print("<a>"); outTml("jc/cell", f: f) ;;print("</td>");
 ''');
     }
 
@@ -424,9 +441,9 @@ q\$
     public void test_lastEOL_no() throws Exception {
         runTst('''a
 b
-c''', ''';print("a\\n");
-;print("b\\n");
-;print("c");
+c''', ''';;print("a\\n");
+;;print("b\\n");
+;;print("c");
 ''', false);
 
     }
@@ -437,10 +454,10 @@ c''', ''';print("a\\n");
 b
 
 c
-''', ''';print("a\\n");
-;print("b\\n");
-;print("\\n");
-;print("c\\n");''', false);
+''', ''';;print("a\\n");
+;;print("b\\n");
+;;print("\\n");
+;;print("c\\n");''', false);
 
     }
 
@@ -469,17 +486,17 @@ zz
     --}%
 z2
   ''', '''
-;print("z1\\n");
+;;print("z1\\n");
 - code() --
 /* rem */
-;print(" \\\\");;print(2);;print("   ");/*
+;;print(" \\\\");;;print(2);;;print("   ");/*
     rem
-    */;print("\\n");
-;print("zz\\n");
+    */;;print("\\n");
+;;print("zz\\n");
 /*
     rem
     */
-;print("z2");
+;;print("z2");
 ''');
 
     }
@@ -491,8 +508,8 @@ z2
   </a>
 </a:b>
 ''', '''outTag('a/b') {
-;print("  <a>\\n");
-;print("  </a>\\n");
+;;print("  <a>\\n");
+;;print("  </a>\\n");
 }''', false);
 
     }

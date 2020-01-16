@@ -1,6 +1,7 @@
 package jandcode.commons;
 
 import jandcode.commons.error.*;
+import jandcode.commons.launcher.*;
 import org.apache.commons.vfs2.*;
 
 import java.io.*;
@@ -13,43 +14,6 @@ import java.util.*;
  */
 @SuppressWarnings("unchecked")
 public class UtClass {
-
-    /**
-     * Кеш уже добавленных путей в classpath (через addClassPath)
-     */
-    private static HashSet<String> classpathCache = new HashSet<String>();
-
-    /**
-     * ClassLoader наследник от {@link URLClassLoader}.
-     * Этот ClassLoader нужен для динамического добавления элементов в
-     * classpath в java>=9.
-     */
-    public static class JcURLClassLoader extends URLClassLoader {
-
-        public JcURLClassLoader(ClassLoader parent) {
-            super(new URL[]{}, parent);
-        }
-
-        public void addURL(URL url) {
-            super.addURL(url);
-        }
-
-    }
-
-    /**
-     * Метод фиксит проблему динамического добавления элементов в classpath в java>=9.
-     * Для этого создается новый ClassLoader, наследник от {@link URLClassLoader}
-     * и устанавливается как "context class loader".
-     * Этот метод нужно вызывать наиболее близко к началу выполнения кода,
-     * который потенциально будет изменять classpath в runtime.
-     */
-    public static void fixAddClasspath() {
-        ClassLoader curLdr = Thread.currentThread().getContextClassLoader();
-        if (!(curLdr instanceof JcURLClassLoader)) {
-            JcURLClassLoader newLdr = new JcURLClassLoader(curLdr);
-            Thread.currentThread().setContextClassLoader(newLdr);
-        }
-    }
 
     /**
      * Возвращает {@link ClassLoader} Thread.currentThread().getContextClassLoader().
@@ -129,7 +93,7 @@ public class UtClass {
             throw new RuntimeException(UtLang.t("Прототип объекта не может быть null"));
         }
         try {
-            Object res = prototype.getClass().newInstance();
+            Object res = prototype.getClass().getDeclaredConstructor().newInstance();
             return res;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -147,7 +111,7 @@ public class UtClass {
             throw new RuntimeException(UtLang.t("Класс объекта не может быть null"));
         }
         try {
-            Object res = clazz.newInstance();
+            Object res = clazz.getDeclaredConstructor().newInstance();
             return res;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -191,7 +155,7 @@ public class UtClass {
         }
         try {
             Class clazz = getClass(clazzName);
-            Object res = clazz.newInstance();
+            Object res = clazz.getDeclaredConstructor().newInstance();
             return res;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -249,50 +213,14 @@ public class UtClass {
      * @return true, если путь был добавлен. false - если уже был добален ранее
      */
     public static boolean addClasspath(String path) {
-        if (UtString.empty(path)) {
-            return false;
-        }
-        //
-        try {
-            File f = new File(path);
-            URL u = f.toURI().toURL();
-            String us = u.toString();
-            if (classpathCache.contains(us)) {
-                return false;
-            }
-            //
-            ClassLoader curLdr = Thread.currentThread().getContextClassLoader();
-            if (!(curLdr instanceof JcURLClassLoader)) {
-                fixAddClasspath();
-            }
-            JcURLClassLoader jcLdr = (JcURLClassLoader) Thread.currentThread().getContextClassLoader();
-            jcLdr.addURL(u);
-            //
-            classpathCache.add(us);
-            //
-            return true;
-            //
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return JcURLClassLoader.addClasspath(path);
     }
 
     /**
      * Возвращает список из всех classpath на момент вызова
      */
     public static List<String> getClasspath() {
-        List<String> res = new ArrayList<>();
-
-        URLClassLoader urlClassLoader = (URLClassLoader) Thread.currentThread().getContextClassLoader();
-        for (URL u : urlClassLoader.getURLs()) {
-            String p = u.getPath();
-            if (UtString.empty(p)) {
-                continue;
-            }
-            String fn = new File(p).getAbsolutePath();
-            res.add(fn);
-        }
-        return res;
+        return JcURLClassLoader.getClasspath();
     }
 
     /**
