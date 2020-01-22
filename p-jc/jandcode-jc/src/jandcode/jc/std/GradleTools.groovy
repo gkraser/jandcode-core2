@@ -26,7 +26,8 @@ class GradleTools extends ProjectScript implements ILibDirBuilder {
      */
     String publishDir;
 
-    String baseGradleScript = "res:jandcode/jc/std/gradle/template-build.gradle"
+    String settingsGradleScript = "res:jandcode/jc/std/gradle/gradle-tools-settings.gradle.txt"
+    String baseGradleScript = "res:jandcode/jc/std/gradle/gradle-tools-base.gradle.txt"
 
     /**
      * Дополнительные файлы, изменения в которых должны приводить к пересборки
@@ -189,18 +190,32 @@ class GradleTools extends ProjectScript implements ILibDirBuilder {
     void prepareGradleTempDir() {
         String gradleWorkDir = wd(tempDir)
         ant.mkdir(dir: gradleWorkDir)
-        String gradleBaseScript = UtFile.loadString(baseGradleScript)
-        gradleBaseScript += "\napply from: new File('" + wd(libBuildFile).replace('\\', '/') + "')\n"
-        String buildFile = UtFile.join(gradleWorkDir, "build.gradle")
-        UtFile.saveString(gradleBaseScript, new File(buildFile))
+
+        // settings.gradle
+        String txt = UtFile.loadString(settingsGradleScript)
+        UtFile.saveString(txt, new File(UtFile.join(gradleWorkDir, "settings.gradle")))
+
+        // base.gradle
+        txt = UtFile.loadString(baseGradleScript)
+        UtFile.saveString(txt, new File(UtFile.join(gradleWorkDir, "base.gradle")))
+
+        // build.gradle
+        String f2 = wd(libBuildFile).replace('\\', '/')
+        String gradleScript = "apply from: new File('./base.gradle')\n" +
+                "apply from: new File('${f2}')\n"
+        UtFile.saveString(gradleScript, new File(UtFile.join(gradleWorkDir, "build.gradle")))
     }
 
     SimXml loadGradleDepsXml() {
         prepareGradleTempDir()
+        //
+        String depsXmlFile = UtFile.join(wd(tempDir), "deps.xml")
+        ant.delete(file: depsXmlFile)
+        //
         ut.runcmd(cmd: "gradle resolveDeps", dir: wd(tempDir))
         //
         SimXml x = new SimXmlNode()
-        x.load().fromFile(UtFile.join(wd(tempDir), "deps.xml"))
+        x.load().fromFile(depsXmlFile)
         //
         return x
     }

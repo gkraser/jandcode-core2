@@ -1,0 +1,139 @@
+/*
+    Базовый gradle-скрипт для GradleTools
+ */
+
+apply plugin: "java"
+apply plugin: "com.github.ben-manes.versions"
+
+/**
+ * Сформировать файл deps.xml с зависимостями
+ */
+task resolveDeps {
+    doLast {
+        new DepScanner(project).build()
+    }
+}
+
+//////
+
+class DepScanner {
+
+    Project project
+    Map<String, Dep> allDeps = new LinkedHashMap<>()
+    Configuration cfg
+
+    class Dep {
+        String displayName
+        String module
+        String group
+        String version
+        List<String> depends = []
+        List<String> jars = []
+        List<String> srcs = []
+    }
+
+    DepScanner(Project project) {
+        this.project = project
+        this.cfg = project.configurations.compile
+    }
+
+    void build() {
+        resolveComps()
+        resolveJars()
+        resolveSrcs()
+        //
+        project.ant.echo(message: saveToXml(), file: 'deps.xml')
+    }
+
+    void resolveComps() {
+        for (a in cfg.incoming.resolutionResult.allComponents) {
+            def idn = a.id
+            if (!(idn instanceof ModuleComponentIdentifier)) {
+                continue
+            }
+            String displayName = idn.displayName
+            Dep dep = allDeps.get(displayName)
+            if (dep != null) {
+                continue
+            }
+
+            dep = new Dep()
+            dep.displayName = displayName
+            dep.group = idn.group
+            dep.module = idn.module
+            dep.version = idn.version
+            for (d in a.dependencies) {
+                if (!(d instanceof ResolvedDependencyResult)) {
+                    continue
+                }
+                String dn = d.selected.id.displayName
+                if (dn != null && dn.length() > 0) {
+                    dep.depends.add(dn)
+                }
+            }
+            allDeps.put(dep.displayName, dep)
+        }
+    }
+
+    void resolveJars() {
+        for (a in cfg.incoming.artifacts) {
+            String displayName = a.id.componentIdentifier.displayName
+            Dep dep = allDeps.get(displayName)
+            if (dep != null && a.file != null) {
+                dep.jars.add(a.file.toString())
+            }
+        }
+    }
+
+    void resolveSrcs() {
+        def componentIds = cfg.incoming.resolutionResult.allDependencies.collect {
+            it.selected.id
+        }
+        ArtifactResolutionResult result = project.dependencies.createArtifactResolutionQuery()
+                .forComponents(componentIds)
+                .withArtifacts(JvmLibrary, SourcesArtifact)
+                .execute()
+        result.resolvedComponents.each { ComponentArtifactsResult component ->
+            Set<ArtifactResult> artifacts = component.getArtifacts(SourcesArtifact)
+            artifacts.each { ArtifactResult ar ->
+                if (ar instanceof ResolvedArtifactResult) {
+                    String displayName = ar.id.componentIdentifier.displayName
+                    Dep dep = allDeps.get(displayName)
+                    if (dep != null && ar.file != null) {
+                        dep.srcs.add(ar.file.toString())
+                    }
+                }
+            }
+        }
+
+    }
+
+    String saveToXml() {
+        def writer = new StringWriter()
+        def xml = new groovy.xml.MarkupBuilder(writer)
+        def lst = []
+        lst.addAll(allDeps.values())
+        lst.sort { a, b -> a.displayName <=> b.displayName }
+        xml.root() {
+            for (Dep dep : lst) {
+                lib(
+                        displayName: dep.displayName,
+                        module: dep.module,
+                        group: dep.group,
+                        version: dep.version,
+                        depends: dep.depends.join(','),
+                        jars: dep.jars.join(','),
+                        srcs: dep.srcs.join(','),
+                )
+            }
+        }
+        String s = writer.toString()
+        writer.close()
+        return s
+    }
+
+}
+
+
+
+
