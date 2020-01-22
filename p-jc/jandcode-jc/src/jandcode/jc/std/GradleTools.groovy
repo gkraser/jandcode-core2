@@ -193,17 +193,6 @@ class GradleTools extends ProjectScript implements ILibDirBuilder {
         gradleBaseScript += "\napply from: new File('" + wd(libBuildFile).replace('\\', '/') + "')\n"
         String buildFile = UtFile.join(gradleWorkDir, "build.gradle")
         UtFile.saveString(gradleBaseScript, new File(buildFile))
-
-        // запуск jc для родительского проекта из временной папки
-        File wdRoot = new File(project.wd(""))
-        String jcBatFile = UtFile.join(gradleWorkDir, "jc.bat")
-        UtFile.saveString("""\
-@echo off
-pushd ${wdRoot.absolutePath}
-call jc %*
-popd
-""", new File(jcBatFile))
-
     }
 
     SimXml loadGradleDepsXml() {
