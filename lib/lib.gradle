@@ -87,10 +87,10 @@ dependencies {
     // jdbc
     compile group: 'org.postgresql', name: 'postgresql', version: '42.2.9'
     compile group: 'com.h2database', name: 'h2', version: '1.4.200'
-    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.5.2'
+    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.5.3'
 
     // flexmark
-    v = '0.50.46'
+    v = '0.50.48'
     compile group: 'com.vladsch.flexmark', name: 'flexmark', version: v
     compile group: 'com.vladsch.flexmark', name: 'flexmark-formatter', version: v
     compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-gfm-strikethrough', version: v
@@ -120,7 +120,7 @@ dependencies {
     compile group: 'org.apache.poi', name: 'poi-scratchpad', version: v
 
     // lucene
-    v = '8.4.0'
+    v = '8.4.1'
     compile group: 'org.apache.lucene', name: 'lucene-core', version: v
     compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: v
     compile group: 'org.apache.lucene', name: 'lucene-queryparser', version: v
