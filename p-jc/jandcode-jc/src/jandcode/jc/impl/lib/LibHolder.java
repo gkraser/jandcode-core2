@@ -41,11 +41,13 @@ public class LibHolder implements ILibs {
 
     public void addLibProvider(ILibProvider p) {
         ctx.getLog().debug(MessageFormat.format("add lib provider [{0}]", p));
+
+        // сначала загружаем библиотеки, что бы не загруженные окончательно
+        // не попадали в список провайдеров
+        p.getLibs();
+
         // чем позже добавлена, тем выше приоритет
         libProviders.add(0, p);
-
-        // загружаем библиотеки!
-        p.getLibs();
 
         // уведомляем
         ctx.fireEvent(new JcConsts.Event_LibProviderAdded(p));
