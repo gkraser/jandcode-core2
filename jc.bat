@@ -1,10 +1,11 @@
 @echo off
 
-call:grabargs %*
-
 SetLocal EnableExtensions EnableDelayedExpansion
 
 set JC_ENV_FILE=jc-env.bat
+
+set OSCM_TMP=%*
+set OSCM=%OSCM_TMP:~1%
 
 :: setup env
 
@@ -23,15 +24,15 @@ for %%I in (%FINDUP_RET%) do (
 
 :: run command
 
-if "%GRABARGS_RET_OSCM%"=="1" (
-  call !GRABARGS_RET!
+if "%1"=="@" (
+  call %OSCM%
   if errorlevel 1 exit /b !ERRORLEVEL!
 ) else (
   if "%JC_RUN%"=="" (
     echo ERROR: JC_RUN variable not set in %FINDUP_RET% from folder %~dp0
     exit /b 1
   )
-  call %JC_RUN% !GRABARGS_RET!
+  call %JC_RUN% %*
   if errorlevel 1 exit /b !ERRORLEVEL!
 )
 
@@ -70,26 +71,4 @@ if "%CWD%"=="%CWD_PREV%" (
 )
 goto findup__nextstep
 
-
-:: =================================================
-:: call:grabargs
-:: list args in GRABARGS_RET, GRABARGS_RET_OSCM=1 if 
-:: not jc-command (first arg is @)
-:: =================================================
-:grabargs
-set GRABARGS_RET=
-set GRABARGS_RET_OSCM=
-if "%1"=="@" (
-  set GRABARGS_RET_OSCM=1
-  shift
-)
-:grabargs__nextstep
-if ""%1""=="""" (
-  exit /b 0
-)
-set GRABARGS_RET=%GRABARGS_RET% %1
-shift
-goto :grabargs__nextstep
-
 :end
-
