@@ -250,14 +250,18 @@ public class ProjectScriptImpl implements Project, IProjectScript {
     //////
 
     public String findFile(String path) {
-        String f = getCtx().service(JcDataService.class).findFile(path);
-        if (f != null) {
-            return f;
-        }
+        String f;
+
         f = wd(path);
         if (UtFile.exists(f)) {
             return f;
         }
+
+        f = getCtx().service(JcDataService.class).findFile(path);
+        if (f != null) {
+            return f;
+        }
+        
         return null;
     }
 
