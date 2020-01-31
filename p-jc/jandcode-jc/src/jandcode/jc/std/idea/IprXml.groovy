@@ -114,4 +114,54 @@ class IprXml extends BaseXml {
         return z
     }
 
+    /**
+     * Добавить конфигурацию запуска mainClass
+     * @param name имя конфигурации
+     * @param cliArguments аргументы командной строки запуска jc
+     * @param workdir рабочиий каталог для запуска
+     * @param vmParameters аргументы для виртуальной машины
+     * @return добавленная конфигурация, можно настраивать далее
+     */
+    SimXml addRunConfig_main(String name, String mainClass, String cliArguments,
+            String workdir, List<String> vmParameters, Map<String, Object> envVars) {
+        SimXml z = addRunConfig(name, ctx.service(JcDataService).getFile("idea/run-main-template.xml"))
+
+        // mainClass
+        z['option@name=MAIN_CLASS_NAME:value'] = mainClass
+
+
+        // vm parameters
+        String vma = ""
+        if (vmParameters != null) {
+            for (vmp in vmParameters) {
+                vma += " " + vmp
+            }
+        }
+        z['option@name=VM_PARAMETERS:value'] = vma.trim()
+
+        // cli
+        if (cliArguments == null) {
+            cliArguments = ""
+        }
+        z['option@name=PROGRAM_PARAMETERS:value'] = cliArguments.trim()
+
+        // workdir
+        if (!UtString.empty(workdir)) {
+            z['option@name=WORKING_DIRECTORY:value'] = UtFile.vfsPathToLocalPath(UtFile.getFileObject(workdir).toString())
+        }
+
+        // envs
+        SimXml envs = z.findChild('envs', true)
+        if (envVars != null) {
+            for (ev in envVars) {
+                SimXml e1 = envs.addChild('env')
+                e1['name'] = ev.key
+                e1['value'] = UtCnv.toString(ev.value)
+
+            }
+        }
+
+        return z
+    }
+
 }
