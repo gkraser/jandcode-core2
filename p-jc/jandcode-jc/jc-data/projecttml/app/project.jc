@@ -14,11 +14,17 @@ class P extends ProjectScript {
         project.version = include(HgVersion)
         //
         include(AppProject)
+        include(GenIdea_RunJc)
+        include(AppRunBat).with {
+            mainClass = "xxx.yyy.main.AppLauncher"
+        }
         //
         include(RootProject).with {
             modules(
-                    "xxx-yyy",
+                    "xxx-yyy-main",
             )
+        }
+        include(AppProductBuilder).with {
         }
         //
     }
