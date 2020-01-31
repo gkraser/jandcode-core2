@@ -28,9 +28,9 @@ class P extends ProjectScript {
         //
         include(JsaJavaProject).with {
             nodeDepends(
-                    "@babel/cli": "7.8.3",
-                    "@babel/core": "7.8.3",
-                    "@babel/preset-env": "7.8.3",
+                    "@babel/cli": "7.8.4",
+                    "@babel/core": "7.8.4",
+                    "@babel/preset-env": "7.8.4",
                     "@babel/polyfill": "7.8.3",
                     "@babel/plugin-external-helpers": "7.8.3",
 
