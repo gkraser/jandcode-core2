@@ -3,10 +3,10 @@ package jandcode.core.jc
 import jandcode.commons.*
 import jandcode.commons.conf.*
 import jandcode.commons.variant.*
+import jandcode.core.*
 import jandcode.jc.*
 import jandcode.jc.impl.*
 import jandcode.jc.std.*
-import jandcode.core.*
 
 import java.text.*
 
