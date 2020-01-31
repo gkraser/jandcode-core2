@@ -64,25 +64,4 @@ public interface IProjectScript extends Project, ILog, IClasspath {
      */
     String getScriptDir();
 
-    //////
-
-    /**
-     * Поиск файла или каталога. Файл ищется в следующих местах (в порядке приоритета):
-     * <ul>
-     * <li>относительно каталога проекта</li>
-     * <li>относительно каталогов jc-data всех доступных проектов</li>
-     * </ul>
-     *
-     * @return реальное полное имя файла или null, если не найден
-     */
-    String findFile(String path);
-
-    /**
-     * см. {@link IProjectScript#findFile(java.lang.String)}
-     *
-     * @return реальное полное имя файла или ошибка, если не найден
-     */
-    String getFile(String path);
-
-
 }

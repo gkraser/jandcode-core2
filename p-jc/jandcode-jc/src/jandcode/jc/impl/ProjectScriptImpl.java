@@ -247,31 +247,6 @@ public class ProjectScriptImpl implements Project, IProjectScript {
         include(ClasspathUsed.class).addClasspathUsed(libs);
     }
 
-    //////
-
-    public String findFile(String path) {
-        String f;
-
-        f = wd(path);
-        if (UtFile.exists(f)) {
-            return f;
-        }
-
-        f = getCtx().service(JcDataService.class).findFile(path);
-        if (f != null) {
-            return f;
-        }
-        
-        return null;
-    }
-
-    public String getFile(String path) {
-        String f = findFile(path);
-        if (f == null) {
-            throw new XError("Файл не найден: {0}", path);
-        }
-        return f;
-    }
 }
 
 
