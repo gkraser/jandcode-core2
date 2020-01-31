@@ -1,6 +1,6 @@
 package jandcode.jc;
 
-import groovy.util.*;
+import groovy.ant.*;
 
 /**
  * Доступ к кешу AntBuilder

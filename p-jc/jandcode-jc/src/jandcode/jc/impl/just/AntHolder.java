@@ -1,6 +1,6 @@
 package jandcode.jc.impl.just;
 
-import groovy.util.*;
+import groovy.ant.*;
 import jandcode.commons.*;
 import jandcode.jc.*;
 import org.apache.tools.ant.Project;
