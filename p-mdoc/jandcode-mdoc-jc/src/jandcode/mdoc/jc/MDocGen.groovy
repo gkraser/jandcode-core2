@@ -27,7 +27,7 @@ class MDocGen extends ProjectScript {
      * @param name имя задачи
      * @param destdir куда будем генерировать
      * @param doTask closure с кодом генерации. В качестве параметра принимает
-     * ссылку на объект jandcode.mdoc.jc.MDocGenSrcTask
+     * ссылку на объект jandcode.mdoc.jc.MDocGenTask
      */
     void genSrc(String name, String destdir, Closure doTask) {
         if (doTask == null) {
