@@ -1,12 +1,28 @@
 package jandcode.core.jc
 
-
+import jandcode.jc.*
 import jandcode.jc.std.*
 
 /**
  * Сборщик продукта для приложения.
  */
 class AppProductBuilder extends ProductBuilder {
+
+    /**
+     * Событие возникает как последний этап сборки продукта в onExec
+     */
+    static class Event_OnExec extends BaseJcEvent {
+
+        /**
+         * Экземпляр сборщика
+         */
+        AppProductBuilder builder
+
+        Event_OnExec(AppProductBuilder builder) {
+            this.builder = builder
+        }
+
+    }
 
     /**
      * Дополнительные библиотеки для включения в product
@@ -35,6 +51,9 @@ class AppProductBuilder extends ProductBuilder {
 
         // version
         makeVersionFile()
+
+        // уведомляем
+        fireEvent(new Event_OnExec(this))
     }
 
     void makeRunBat() {
