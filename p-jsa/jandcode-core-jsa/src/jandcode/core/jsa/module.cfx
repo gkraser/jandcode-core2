@@ -37,10 +37,20 @@
              path="res:jandcode/core/jsa/gsp/svgicons-js.gsp"/>
 
         <!-- монтирование сгенерированных ресурсов jsa -->
-        <mount name="jsa-webroot"
-               resourcePath="jsa-webroot"
-               class="jandcode.core.web.std.mount.ResourceMount"
-        />
+        <x-if env.source="false">
+            <!-- для продукта - используем ресурсы из jar -->
+            <mount name="jsa-webroot"
+                   resourcePath="jsa-webroot"
+                   class="jandcode.core.web.std.mount.ResourceMount"
+            />
+        </x-if>
+        <x-if env.source="true">
+            <!-- для исходников - используем ресурсы из сгенеренного каталога -->
+            <mount name="jsa-webroot"
+                   realPath="#{appdir}/_gen/jsa-webroot"
+            />
+        </x-if>
+
 
         <!-- =================== -->
 
