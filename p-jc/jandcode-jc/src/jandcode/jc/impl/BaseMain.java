@@ -245,7 +245,7 @@ public abstract class BaseMain {
     }
 
     protected String copyright() {
-        return "Jandcode Jc " + version() + " (C) 2011-2019 Sergey Kravchenko";
+        return "Jandcode Jc " + version() + " (C) 2011-2020 Sergey Kravchenko";
     }
 
     protected String commonOpt() {
