@@ -15,6 +15,16 @@ class ApexRootProject extends ProjectScript {
         include(GenIdea_RunJc)
         include(JsaRootProject)
 
+        // root
+        include(RootProject).with {
+            depends.prod(
+            )
+            depends.dev(
+                    "jandcode.core.web.tst",
+                    "jandcode.core.jsa.tst",
+            )
+        }
+
         // prepare
         include(PrepareProject)
         onEvent(PrepareProject.Event_Prepare, this.&prepareHandler)

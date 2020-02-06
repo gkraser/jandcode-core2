@@ -4,7 +4,7 @@ import java.lang.reflect.*;
 import java.util.*;
 
 /**
- * Запускалка с переопределение classloader.
+ * Запускалка с переопределением classloader.
  */
 public class Launcher {
 
