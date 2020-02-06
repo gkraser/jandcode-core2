@@ -9,16 +9,33 @@ import jandcode.jc.std.*
 class AppProductBuilder extends ProductBuilder {
 
     /**
-     * Событие возникает как последний этап сборки продукта в onExec
+     * Событие возникает как этап сборки продукта в onExec
      */
-    static class Event_OnExec extends BaseJcEvent {
+    static class Event_Exec extends BaseJcEvent {
 
         /**
          * Экземпляр сборщика
          */
         AppProductBuilder builder
 
-        Event_OnExec(AppProductBuilder builder) {
+        Event_Exec(AppProductBuilder builder) {
+            this.builder = builder
+        }
+
+    }
+
+    /**
+     * Событие возникает как последний этап сборки продукта в onExec,
+     * после того, как отработало событие {@link jandcode.core.jc.AppProductBuilder.Event_Exec}.
+     */
+    static class Event_AfterExec extends BaseJcEvent {
+
+        /**
+         * Экземпляр сборщика
+         */
+        AppProductBuilder builder
+
+        Event_AfterExec(AppProductBuilder builder) {
             this.builder = builder
         }
 
@@ -53,7 +70,8 @@ class AppProductBuilder extends ProductBuilder {
         makeVersionFile()
 
         // уведомляем
-        fireEvent(new Event_OnExec(this))
+        fireEvent(new Event_Exec(this))
+        fireEvent(new Event_AfterExec(this))
     }
 
     void makeRunBat() {

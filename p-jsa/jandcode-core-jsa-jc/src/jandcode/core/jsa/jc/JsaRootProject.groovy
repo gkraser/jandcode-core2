@@ -3,7 +3,6 @@ package jandcode.core.jsa.jc
 import jandcode.commons.*
 import jandcode.commons.error.*
 import jandcode.commons.simxml.*
-import jandcode.core.jc.*
 import jandcode.jc.*
 import jandcode.jc.std.*
 import jandcode.jc.std.idea.*
@@ -43,9 +42,6 @@ class JsaRootProject extends ProjectScript {
             // build
             include(BuildProject)
             onEvent(BuildProject.Event_Build, this.&buildHandler)
-
-            // product
-            onEvent(AppProductBuilder.Event_OnExec, this.&productHandler)
 
         }
     }
@@ -209,10 +205,5 @@ class JsaRootProject extends ProjectScript {
         cm.exec("jsa-build")
     }
 
-    //////
-
-    void productHandler(AppProductBuilder.Event_OnExec e) {
-        ant.copy(file: getFileJsaWebrootJar(), todir: "${e.builder.destDir}/lib")
-    }
 
 }

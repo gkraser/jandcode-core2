@@ -1,7 +1,7 @@
 package jandcode.core.apex.jc
 
-import jandcode.commons.*
 import jandcode.core.jc.*
+import jandcode.core.jsa.jc.*
 import jandcode.jc.*
 import jandcode.jc.std.*
 import jandcode.jc.std.idea.*
@@ -11,7 +11,9 @@ class ApexRootProject extends ProjectScript {
     protected void onInclude() throws Exception {
         include(RootProject)
         include(AppProject)
+        include(AppRunBat)
         include(GenIdea_RunJc)
+        include(JsaRootProject)
 
         // prepare
         include(PrepareProject)
@@ -21,54 +23,31 @@ class ApexRootProject extends ProjectScript {
         include(GenIdea)
         onEvent(GenIdea.Event_GenIpr, this.&genIprHandler)
 
+        // product
+        include(AppProductBuilder)
+        onEvent(AppProductBuilder.Event_Exec, this.&productHandler)
     }
 
     //////
 
-    public static final String DEFAULT_AJC_BAT = "ajc.bat"
-
-    /**
-     * Класс с методом main, который запускает приложение
-     */
-    String ajcLauncher = "ajcLauncher-NOT-DEFINED"
-
-    /**
-     * Батник для запуска приложения
-     */
-    String ajcBat = DEFAULT_AJC_BAT
-
-    /**
-     * Главный модуль приложения
-     */
-    String mainModule = "mainModule-NOT-DEFINED"
 
     void prepareHandler() {
         log "apex prepare for: ${project.name}"
-
-        create(AjcGenerator).generateAjc(ajcBat, ajcLauncher)
-
-        // logback
-        if (UtFile.exists(wd("logback.xml")) && !UtFile.exists(wd("_logback.xml"))) {
-            ant.copy(file: wd("logback.xml"), tofile: wd("_logback.xml"))
-        }
-
-        // _app.cfx
-        if (!UtFile.exists(wd("_app.cfx"))) {
-            UtFile.saveString("""\
-<?xml version="1.0" encoding="utf-8"?>
-<root>
-</root>
-""", new File(wd("_app.cfx")))
-        }
-
     }
 
     void genIprHandler(GenIdea.Event_GenIpr e) {
         IprXml x = e.x
-        ApexIdeaUtils aie = include(ApexIdeaUtils)
-        //
-        aie.addRunConfig_ajc(x, "ajc", "")
-        aie.addRunConfig_ajc(x, "web-run", "web-run -p:8080 -c:jc")
+    }
+
+    void productHandler(AppProductBuilder.Event_Exec e) {
+        AppProductBuilder builder = e.builder
+
+        // jsa-webroot.jar
+        ant.copy(file: include(JsaRootProject).getFileJsaWebrootJar(), todir: "${builder.destDir}/lib")
+
+        // web.xml
+        WebXmlGenerator webXmlGenerator = create(WebXmlGenerator)
+        webXmlGenerator.generate("${builder.destDir}/web.xml")
     }
 
 }
