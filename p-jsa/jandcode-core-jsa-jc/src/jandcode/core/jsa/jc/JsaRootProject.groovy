@@ -18,31 +18,31 @@ class JsaRootProject extends ProjectScript {
 
     protected void onInclude() throws Exception {
 
-        include(JsaShowlibs)
-
         cm.add("jsa-build", "Выполнить сборку клиенского кода (gulp build)", this.&cmJsaBuild)
         cm.add("jsa-watch", "Собрать и следить за изменениями клиенского кода (gulp watch)", this.&cmJsaWatch)
 
-        // для RootProject
+        include(JsaShowlibs)
+
+        // prepare
+        include(PrepareProject)
+        onEvent(PrepareProject.Event_Prepare, this.&prepareHandler)
+
+        // idea
+        include(GenIdea)
+        onEvent(GenIdea.Event_GenIpr, this.&genIprHandler)
+        onEvent(GenIdea.Event_GenIws, this.&genIwsHandler)
+
+        // build
+        include(BuildProject)
+        onEvent(BuildProject.Event_Build, this.&buildHandler)
+
+
+        // проверка RootProject
         afterLoad {
             RootProject rp = getIncluded(RootProject)
             if (rp == null) {
                 throw new XError("${RootProject.class.name} должен быть включен в проект для ${this.class.name}")
             }
-
-            // prepare
-            include(PrepareProject)
-            onEvent(PrepareProject.Event_Prepare, this.&prepareHandler)
-
-            // idea
-            include(GenIdea)
-            onEvent(GenIdea.Event_GenIpr, this.&genIprHandler)
-            onEvent(GenIdea.Event_GenIws, this.&genIwsHandler)
-
-            // build
-            include(BuildProject)
-            onEvent(BuildProject.Event_Build, this.&buildHandler)
-
         }
     }
 

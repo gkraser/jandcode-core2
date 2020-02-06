@@ -5,10 +5,4 @@
         <x-depends module="jandcode.core.jsa.tst"/>
     </x-if>
 
-    <web>
-        <mount name="jsa-webroot-dev"
-               realPath="#{path}/_gen/jsa-webroot"
-        />
-    </web>
-
 </root>
