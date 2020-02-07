@@ -11,6 +11,7 @@ import * as popup from './popup'
 import * as moduleLoader from './moduleLoader'
 import * as theme from './theme'
 import * as ajax from './ajax'
+import * as svgicons from './svgicons'
 import cfg from './cfg'
 import Jc from './globalNs'
 import {jQuery, axios} from './vendor'
@@ -21,6 +22,7 @@ export {
     popup,
     theme,
     ajax,
+    svgicons,
     cfg,
     jQuery,
     axios,

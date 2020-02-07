@@ -5,7 +5,6 @@
 ----------------------------------------------------------------------------- */
 
 import {jsaBase, Vue} from '../vendor'
-import {getSvgIconId, registerSvgIcon} from './svgicons'
 
 const ICON_EMPTY = 'empty'
 const ICON_UNKNOWN = 'unknown'
@@ -56,7 +55,7 @@ export function registerIcons(icons) {
         let v = icons[nm]
         if (v.startsWith('<svg')) {
             // svg иконка
-            registerSvgIcon(nm, v)
+            jsaBase.svgicons.registerSvgIcon(nm, v)
             v = 'svg:' + nm
         }
         let a = fixIconUrl(v)
@@ -99,7 +98,7 @@ export function quasar_iconMapFn(iconName) {
         if (a.startsWith('svg:')) {
             // svg иконка
             let b = a.substring(4)
-            b = getSvgIconId(b)
+            b = jsaBase.svgicons.getSvgIconId(b)
             if (b) {
                 return {
                     cls: 'jc-svgicon',

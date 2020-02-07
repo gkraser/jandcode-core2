@@ -1,7 +1,7 @@
 /* svg-иконки
 ----------------------------------------------------------------------------- */
 
-import {jsaBase} from '../vendor'
+import * as base from './base'
 
 // dom узел, где будут храниться иконки
 let _placeHolder = null
@@ -24,7 +24,7 @@ const ID_PREFIX = 'jc-svgicon-'
  */
 export function registerSvgIcon(name, svgtext) {
     _iconsChanged = true;
-    let id = jsaBase.nextId(ID_PREFIX + name + '-');
+    let id = base.nextId(ID_PREFIX + name + '-');
     _icons[name] = {
         text: svg2symbol(svgtext, id),
         id: id,
@@ -43,7 +43,6 @@ export function registerSvgIcons(cfg) {
     for (let key in cfg) {
         registerSvgIcon(key, cfg[key])
     }
-    _initIcons()
 }
 
 /**
@@ -55,7 +54,7 @@ function _initIcons() {
     }
     if (!_placeHolder) {
         _placeHolder = document.createElement('div');
-        _placeHolder.id = jsaBase.nextId(ID_PREFIX);
+        _placeHolder.id = base.nextId(ID_PREFIX);
         _placeHolder.style.display = 'none';
         document.body.appendChild(_placeHolder);
     }
