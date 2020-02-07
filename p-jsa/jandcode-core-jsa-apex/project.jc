@@ -16,6 +16,7 @@ class P extends ProjectScript {
             moduleDef("jandcode.core.jsa.apex").with {
                 depends.prod(
                         "jandcode.core.jsa.base",
+                        "jandcode.core.jsa.vue",
                 )
                 depends.dev(
                 )
@@ -24,10 +25,6 @@ class P extends ProjectScript {
         //
         include(JsaJavaProject).with {
             nodeDepends(
-                    "vue": "2.6.11",
-                    "vue-router": "3.1.5",
-                    "vuex": "3.1.2",
-
                     "quasar": "1.8.5",
                     "@quasar/extras": "1.5.1",
 
@@ -35,28 +32,6 @@ class P extends ProjectScript {
             )
             //
             nodeDependsClient(
-                    "vue": [
-                            "dist/*.js",
-                            "!dist/*.common.*",
-                            "!dist/*.esm.*",
-                    ],
-
-                    "vue-router": [
-                            "dist/*.js",
-                            "!dist/*.common.*",
-                            "!dist/*.esm.*",
-                    ],
-
-                    "vuex": [
-                            "dist/*.js",
-                            "!dist/*.common.*",
-                            "!dist/*.esm.*",
-                    ],
-
-                    "@vue/babel-helper-vue-jsx-merge-props": [
-                            "**/*",
-                    ],
-
                     "quasar": [
                             "dist/*.js",
                             "dist/*.css",
@@ -82,13 +57,9 @@ class P extends ProjectScript {
 
             )
             nodeModuleMapping(
-                    "vue": "vue/dist/vue",
-                    "vuex": "vuex/dist/vuex",
-                    "vue-router": "vue-router/dist/vue-router",
                     "quasar": "quasar/dist/quasar.umd.js",
             )
 
-            gulpTask(name: "vue", provide: true, globs: ["**/*.vue"])
             gulpTask(name: "sass", provide: true, globs: ["**/*-style.scss", "css/*-theme.scss"])
             gulpTask(name: "less", provide: true, globs: ["**/*-style.less", "css/*-theme.less"])
 

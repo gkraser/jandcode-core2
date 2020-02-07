@@ -20,6 +20,7 @@ class P extends ProjectScript {
                     "jandcode-core-jsa-jc",
                     "jandcode-core-jsa-tools",
                     "jandcode-core-jsa-base",
+                    "jandcode-core-jsa-vue",
                     "jandcode-core-jsa-apex",
                     "jandcode-core-jsa-tst",
             )

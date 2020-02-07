@@ -1,0 +1,66 @@
+import jandcode.core.jsa.jc.*
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+        classpath("jandcode-core-jsa-jc")
+    }
+
+    void onInclude() {
+        //
+        project.name = "jandcode-core-jsa-vue"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.core.jsa.vue").with {
+                depends.prod(
+                        "jandcode.core.jsa.base",
+                )
+                depends.dev(
+                )
+            }
+        }
+        //
+        include(JsaJavaProject).with {
+            nodeDepends(
+                    "vue": "2.6.11",
+                    "vue-router": "3.1.5",
+                    "vuex": "3.1.2",
+            )
+            //
+            nodeDependsClient(
+                    "vue": [
+                            "dist/*.js",
+                            "!dist/*.common.*",
+                            "!dist/*.esm.*",
+                    ],
+
+                    "vue-router": [
+                            "dist/*.js",
+                            "!dist/*.common.*",
+                            "!dist/*.esm.*",
+                    ],
+
+                    "vuex": [
+                            "dist/*.js",
+                            "!dist/*.common.*",
+                            "!dist/*.esm.*",
+                    ],
+
+                    "@vue/babel-helper-vue-jsx-merge-props": [
+                            "**/*",
+                    ],
+
+            )
+            nodeModuleMapping(
+                    "vue": "vue/dist/vue",
+                    "vuex": "vuex/dist/vuex",
+                    "vue-router": "vue-router/dist/vue-router",
+            )
+
+            gulpTask(name: "vue", provide: true, globs: ["**/*.vue"])
+        }
+    }
+
+}
