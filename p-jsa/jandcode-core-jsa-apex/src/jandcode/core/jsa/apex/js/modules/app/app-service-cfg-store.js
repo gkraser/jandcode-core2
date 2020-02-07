@@ -3,7 +3,6 @@
 
 import {jsaBase} from '../../vendor'
 
-import {Vue} from '../vue'
 import {createCfgStore, CfgStore} from '../cfg-store'
 
 /**

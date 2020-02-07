@@ -4,8 +4,7 @@
 
  */
 
-import {Vue} from './vue'
-import {jsaBase} from '../vendor'
+import {jsaBase, Vue} from '../vendor'
 import lodashGet from 'lodash/get'
 import lodashSet from 'lodash/set'
 

@@ -1,13 +1,12 @@
 //
-import {Vue, VueRouter} from './modules/vue'
-import {Quasar, jsaBase} from './vendor'
+import {Vue, VueRouter, Quasar, jsaVue, jsaBase} from './vendor'
 import * as utils from './utils'
 import * as components from './components'
 import './icons/std'
 import {quasarIconSet} from './icons/quasar-iconSet'
 
 //
-utils.comps.registerComponents(components)
+jsaVue.registerComponents(components)
 
 // quasar icons
 let qIconsCss = require('@quasar/extras/material-icons/material-icons.css')

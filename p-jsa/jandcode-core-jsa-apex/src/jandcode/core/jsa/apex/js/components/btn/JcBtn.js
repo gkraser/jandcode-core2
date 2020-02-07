@@ -1,4 +1,4 @@
-import {adaptCtxData} from '../vendor'
+import {jsaVue} from '../vendor'
 
 function isAttrTrue(v) {
     if (v == null || v === false) {
@@ -37,7 +37,7 @@ export default {
     name: 'jc-btn',
     functional: true,
     render(h, ctx) {
-        let data = adaptCtxData(ctx)
+        let data = jsaVue.adaptCtxData(ctx)
 
         data.class.push('jc-btn')
 

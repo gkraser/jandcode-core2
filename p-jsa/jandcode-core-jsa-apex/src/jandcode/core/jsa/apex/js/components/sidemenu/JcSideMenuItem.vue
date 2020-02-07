@@ -32,7 +32,7 @@
 </template>
 
 <script>
-    import {utils, jsaBase} from '../vendor';
+    import {jsaVue, jsaBase} from '../vendor';
     import JcSideMenu from './JcSideMenu'
 
     let nm = 'jc-side-menu-item'
@@ -111,7 +111,7 @@
                     }
                 }
 
-                let parentItem = utils.comps.findCompUp(this.$parent, this.$options.name)
+                let parentItem = jsaVue.findCompUp(this.$parent, this.$options.name)
                 if (parentItem) {
                     return parentItem.group
                 }
@@ -131,7 +131,7 @@
              * Уровень, начиня с 0
              */
             level() {
-                let own = utils.comps.findCompUp(this.$parent, this.$options.name)
+                let own = jsaVue.findCompUp(this.$parent, this.$options.name)
                 if (own) {
                     return own.level + 1
                 } else {
