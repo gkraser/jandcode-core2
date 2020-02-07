@@ -88,34 +88,6 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
     //////
 
     /**
-     * Список модулей, которые нужно включить в linkModule
-     */
-    public List<String> getModules() {
-        List<String> res = new ArrayList<>();
-        String s;
-
-        s = getEnv();
-        if (!UtString.empty(s)) {
-            res.add(s);
-        }
-
-        s = getTheme();
-        if (!UtString.empty(s)) {
-            res.add(s);
-            res.add("<script>Jc.applyTheme('" + s + "')</script>");
-        }
-
-        s = getMain();
-        if (!UtString.empty(s)) {
-            res.add(s);
-        }
-
-        res.addAll(this.otherModules);
-
-        return res;
-    }
-
-    /**
      * Вывод в gsp текста подключения модулей
      */
     public void outLinkModules() throws Exception {
