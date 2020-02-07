@@ -1,8 +1,6 @@
 /* Приложение
 ----------------------------------------------------------------------------- */
 
-import {jsaBase} from '../vendor'
-
 let __registredServices = []
 let __registredCallback = []
 

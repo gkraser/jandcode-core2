@@ -2,9 +2,8 @@
 ----------------------------------------------------------------------------- */
 
 import {Vue, Quasar, jsaBase} from '../../vendor'
-import {AppService} from '../app'
 
-export class ErrorHandlersService extends AppService {
+export class ErrorHandlersService extends jsaBase.AppService {
 
     onRun() {
         let th = this

@@ -1,7 +1,7 @@
 /* Некоторые настройки приложения по умолчанию
 ----------------------------------------------------------------------------- */
 
-import {AppService} from '../app'
+import {jsaBase} from '../../vendor'
 
 import {Vue} from '../vue'
 import {createCfgStore, CfgStore} from '../cfg-store'
@@ -11,7 +11,7 @@ import {createCfgStore, CfgStore} from '../cfg-store'
  * @member {CfgStore} App#cfgStore
  */
 
-export class CfgStoreService extends AppService {
+export class CfgStoreService extends jsaBase.AppService {
 
     onCreate() {
         let cfgStore = createCfgStore('apex.app')

@@ -2,7 +2,6 @@
 ----------------------------------------------------------------------------- */
 
 import {Vue, VueRouter, jsaBase} from '../vendor'
-import {app, App} from './app'
 
 // vue
 Vue.config.productionTip = false
@@ -35,7 +34,7 @@ let $jc = {
 
 Object.defineProperty($jc, 'app', {
     get: function() {
-        return app
+        return jsaBase.app
     }
 })
 

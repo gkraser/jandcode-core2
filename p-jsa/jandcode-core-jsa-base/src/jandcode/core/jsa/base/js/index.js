@@ -1,6 +1,6 @@
 /*
 
-jandcode-core-jsa-utils
+jandcode-core-jsa-base
  
 ----------------------------------------------------------------------------- */
 
@@ -31,6 +31,7 @@ export * from './base'
 export * from './cnv'
 export * from './moduleLoader'
 export * from './error'
+export * from './app'
 
 // глобализация
 Jc.ready = base.ready;
