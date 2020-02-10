@@ -17,7 +17,6 @@ let qLangRu = require('quasar/dist/lang/ru.umd.min.js')
 Quasar.lang.set(qLangRu)
 
 // глобализация
-window.Quasar = Quasar
 Jc.apex = exports
 
 /**

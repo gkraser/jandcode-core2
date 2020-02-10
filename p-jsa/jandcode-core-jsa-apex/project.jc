@@ -17,6 +17,7 @@ class P extends ProjectScript {
                 depends.prod(
                         "jandcode.core.jsa.base",
                         "jandcode.core.jsa.vue",
+                        "jandcode.core.jsa.quasar",
                 )
                 depends.dev(
                 )
@@ -25,31 +26,10 @@ class P extends ProjectScript {
         //
         include(JsaJavaProject).with {
             nodeDepends(
-                    "quasar": "1.8.5",
-                    "@quasar/extras": "1.5.1",
-
                     "lodash": "4.17.15",
             )
             //
             nodeDependsClient(
-                    "quasar": [
-                            "dist/*.js",
-                            "dist/*.css",
-                            "dist/*.sass",
-                            "dist/*.styl",
-                            "dist/icon-set/*",
-                            "dist/lang/ru.*",
-                            "!dist/*.common.*",
-                            "!dist/*.esm.*",
-                            "!dist/*.rtl.*",
-                            "!dist/*.ie.*",
-                    ],
-
-                    "@quasar/extras": [
-                            "material-icons/**/*",
-                            "animate/**/*",
-                    ],
-
                     "lodash": [
                             "**/*",
                             "!fp/**/*"
@@ -57,7 +37,6 @@ class P extends ProjectScript {
 
             )
             nodeModuleMapping(
-                    "quasar": "quasar/dist/quasar.umd.js",
             )
 
             gulpTask(name: "sass", provide: true, globs: ["**/*-style.scss", "css/*-theme.scss"])
