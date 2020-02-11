@@ -15,9 +15,9 @@ public interface JsaCfg extends Cfg {
      * Он будет вставлен первым первым тегом script как ссылка на текст js-текст.
      * Его содержимое не является модулем.
      * <p>
-     * app.cfx: cfg/jsa/linkModuleBoot
+     * app.cfx: cfg/jsa/bootModule
      */
-    String getLinkModuleBoot();
+    String getBootModule();
 
     /**
      * Модуль формирования среды исполнения.

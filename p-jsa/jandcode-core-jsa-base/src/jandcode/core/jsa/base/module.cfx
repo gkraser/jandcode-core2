@@ -3,7 +3,7 @@
 
     <cfg>
         <jsa
-                linkModuleBoot="jandcode/core/jsa/base/boot.js"
+                bootModule="jandcode/core/jsa/base/boot.js"
                 envModule="jandcode/core/jsa/base/index.js"
         />
     </cfg>

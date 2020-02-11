@@ -19,7 +19,7 @@
 
     <cfg>
         <jsa
-                linkModuleBoot="not-defined-linkModuleBoot"
+                bootModule="not-defined-bootModule"
                 envModule=""
                 defaultTheme=""
         />

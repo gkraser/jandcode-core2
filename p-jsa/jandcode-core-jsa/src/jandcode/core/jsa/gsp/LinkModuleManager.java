@@ -38,7 +38,7 @@ public class LinkModuleManager extends BaseComp {
 
         if (first) {
             // первый вывод
-            String mBoot = getApp().bean(JsaCfg.class).getLinkModuleBoot();
+            String mBoot = getApp().bean(JsaCfg.class).getBootModule();
 
             joiner.addModule(mi.path);
 
