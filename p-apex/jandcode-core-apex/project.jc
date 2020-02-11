@@ -1,9 +1,11 @@
+import jandcode.core.jsa.jc.*
 import jandcode.jc.*
 import jandcode.jc.std.*
 
 class P extends ProjectScript {
 
     static beforeLoad = {
+        classpath("jandcode-core-jsa-jc")
     }
 
     void onInclude() {
@@ -24,6 +26,9 @@ class P extends ProjectScript {
                 )
             }
         }
+        include(JsaJavaProject).with {
+        }
+
     }
 
 }

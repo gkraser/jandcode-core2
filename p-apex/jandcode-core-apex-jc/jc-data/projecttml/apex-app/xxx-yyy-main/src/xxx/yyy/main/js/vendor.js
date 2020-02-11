@@ -1,4 +1,4 @@
-import * as apex from 'jandcode.core.jsa.apex'
+import * as apex from 'jandcode.core.apex'
 
 export {
     apex
