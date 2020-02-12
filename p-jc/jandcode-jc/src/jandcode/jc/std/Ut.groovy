@@ -1,7 +1,9 @@
 package jandcode.jc.std
 
 import jandcode.commons.*
+import jandcode.commons.error.*
 import jandcode.commons.named.*
+import jandcode.commons.process.*
 import jandcode.commons.stopwatch.*
 import jandcode.commons.variant.*
 import jandcode.jc.*
@@ -92,6 +94,8 @@ class Ut extends ProjectScript {
     /**
      * Запуск внешнего приложения как команды ОС, без использования ant.
      * В windows запуск делается через cmd.exe.
+     * Возвращает вывод консоли, если saveout=true.
+     * Иначе возвращает пустой список.
      *
      * @param cmd
      *    Строка с параметрами, разделенная пробелами или список параметров.
@@ -116,79 +120,37 @@ class Ut extends ProjectScript {
     public List<String> runcmd(Map pp) {
         def p = asVariantMap(pp)
         //
-        List params = []
-        if (UtFile.isWindows()) {
-            params.add('cmd.exe')
-            params.add('/C')
-        }
-        String dir = p.get('dir', project.wd.path)
-        def showout = p.get('showout', true)
-        def saveout = p.get('saveout', false)
-        def err = p.get('err', true)
-        //
+        RunCmd runCmd = new RunCmd()
+        runCmd.setDir(p.getString('dir', project.wd.path))
+        runCmd.setShowout(p.getBoolean('showout', true))
+        runCmd.setSaveout(p.getBoolean('saveout', false))
         if (p.cmd instanceof List) {
-            params.addAll((List) p.cmd)
+            runCmd.setCmd((List) p.cmd)
         } else {
-            String s = p.getString("cmd", "")
-            def lp = s.split(" ")
-            for (a in lp) {
-                params.add(a)
-            }
-        }
-        //
-        if (params.size() == 0) {
-            error UtLang.t("Параметр cmd не задан")
+            runCmd.setCmd(p.getString("cmd"))
         }
 
-        log.debug "runcmd: [" + params.join(' ') + "] in [${dir}]"
+        boolean err = p.getBoolean('err', true)
 
-        //
-        List<String> result = []
+        log.debug "runcmd: [" + runCmd.getCmd().join(' ') + "] in [${runCmd.dir}]"
 
-        ProcessBuilder pb = new ProcessBuilder(params)
-        pb.directory(new File(dir))
+        runCmd.run()
 
-        Process pr
-
-        if (showout && !saveout) {
-            // особый случай, как в обычной консоли
-            pb.inheritIO()
-            pr = pb.start()
-
-        } else {
-            String charset = p.get('charset', UtConsole.getConsoleCharset())
-            pb.redirectErrorStream(true);
-            pr = pb.start();
-            BufferedReader inr = new BufferedReader(new InputStreamReader(pr.getInputStream(), charset));
-            String line = inr.readLine();
-            while (line != null) {
-                if (showout) {
-                    System.out.println(line)
-                }
-                if (saveout) {
-                    result.add(line)
-                }
-                line = inr.readLine();
-            }
-        }
-
-        pr.waitFor()
-        def rescode = pr.exitValue()
         if (err) {
-            if (rescode > 0) {
-                def c = params.join(' ')
+            if (runCmd.exitCode > 0) {
+                def c = runCmd.params.join(' ')
                 c = "Ошибка при выполнении [${c}]"
-                if (saveout) {
-                    def r = result.join('\n')
+                if (runCmd.saveout) {
+                    def r = runCmd.out.join('\n')
                     if (r != "") {
                         c = c + "\n[console]>>>\n${r}\n<<<"
                     }
                 }
-                error c;
+                throw new XError(c)
             }
         }
 
-        return result
+        return runCmd.out
     }
 
     /**
