@@ -192,6 +192,19 @@ class JsaGulpBuilder {
     }
 
     /**
+     * Сделать globs из параметров задачи для всех модулей
+     * @param taskParams параметры задачи
+     */
+    makeGlobsAllModules(taskParams) {
+        let res = []
+        for (let module of jsaSupport.modules) {
+            let globs = this.makeGlobs(module, taskParams)
+            res = res.concat(globs)
+        }
+        return res
+    }
+
+    /**
      * Сделать gulp.src для всех модулей.
      * @param taskParams параметры задачи
      * @return gulp.pipe
