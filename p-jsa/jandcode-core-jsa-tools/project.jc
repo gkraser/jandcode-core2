@@ -63,7 +63,7 @@ class P extends ProjectScript {
                     "through2": "3.0.1",
                     "vinyl": "2.2.0",
 
-                    "postcss": "7.0.26",
+                    "postcss": "7.0.27",
                     "gulp-postcss": "8.0.0",
 
                     "node-sass": "4.13.1",
