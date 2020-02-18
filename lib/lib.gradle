@@ -53,7 +53,7 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
 
     // groovy
-    v = '3.0.0'
+    v = '3.0.1'
     compile group: 'org.codehaus.groovy', name: 'groovy', version: v
     compile(group: 'org.codehaus.groovy', name: 'groovy-ant', version: v) {
         exclude group: 'org.apache.ant'
@@ -114,7 +114,7 @@ dependencies {
     compile group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '3.1.0'
 
     // poi
-    v = '4.1.1'
+    v = '4.1.2'
     compile group: 'org.apache.poi', name: 'poi', version: v
     compile group: 'org.apache.poi', name: 'poi-ooxml', version: v
     compile group: 'org.apache.poi', name: 'poi-scratchpad', version: v
