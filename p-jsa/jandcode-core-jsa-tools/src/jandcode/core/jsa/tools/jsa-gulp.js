@@ -192,6 +192,24 @@ class JsaGulpBuilder {
     }
 
     /**
+     * Сделать gulp.src для всех модулей.
+     * @param taskParams параметры задачи
+     * @return gulp.pipe
+     */
+    makeSrcAllModules(taskParams) {
+        let res
+        for (let module of jsaSupport.modules) {
+            let globs = this.makeGlobs(module, taskParams)
+            if (!res) {
+                res = gulp.src(globs, {base: module.srcPath})
+            } else {
+                res = res.pipe(gulp.src(globs, {base: module.srcPath}))
+            }
+        }
+        return res
+    }
+
+    /**
      * Показ ошибки при watch.
      * использование:
      * .pipe(g.showWatchError())
