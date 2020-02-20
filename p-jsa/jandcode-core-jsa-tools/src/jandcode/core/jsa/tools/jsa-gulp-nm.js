@@ -36,7 +36,7 @@ function nmExtractRequire_taskFactory(g, taskName, module, taskParams) {
         }
         let globs = g.makeGlobs(g.buildPathNodeModules, {globs: globsBundle})
 
-        return gulp.src(globs, {base: g.buildPathNodeModules})
+        return gulp.src(globs, {base: g.buildPathNodeModules, nodir: true})
             .pipe(through2(function(file, enc, callback) {
                 let src = file.contents.toString()
                 let a = src.lastIndexOf('require(')
