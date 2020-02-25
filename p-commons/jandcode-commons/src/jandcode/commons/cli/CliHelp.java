@@ -8,6 +8,7 @@ import java.util.*;
  * Формирование помощи по опциям.
  * Поддерживает подстветку опций.
  */
+@Deprecated
 public class CliHelp {
 
     public static final String STYLE_OPT_NAME = "opt-name";

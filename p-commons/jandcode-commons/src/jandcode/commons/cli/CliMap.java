@@ -17,6 +17,7 @@ import java.util.*;
  * </ul>
  * Ключи доступны после разбора как элементы Map
  */
+@Deprecated
 public class CliMap extends VariantMap {
 
     private List<String> params = new ArrayList<String>();
