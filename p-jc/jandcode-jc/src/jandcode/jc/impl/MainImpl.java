@@ -130,12 +130,12 @@ public class MainImpl extends BaseMain {
         // все
     }
 
-    protected void commonOptBuild(CliHelp z) {
+    protected void commonOptBuild(CliHelpFormatter z) {
         super.commonOptBuild(z);
-        z.addOption(JcConsts.OPT_PROJECTFILE, "Имя файла проекта. По умолчанию " + JcConsts.PROJECT_FILE + " в текущем каталоге",
+        z.addOpt(JcConsts.OPT_PROJECTFILE, "Имя файла проекта. По умолчанию " + JcConsts.PROJECT_FILE + " в текущем каталоге",
                 true);
-        z.addOption(JcConsts.OPT_CSC, "Очистить кеш скриптов");
-        z.addOption(JcConsts.OPT_ENV_PROD, "Включить режим production (ctx.env.prod=true)");
+        z.addOpt(JcConsts.OPT_CSC, "Очистить кеш скриптов");
+        z.addOpt(JcConsts.OPT_ENV_PROD, "Включить режим production (ctx.env.prod=true)");
     }
 
 }

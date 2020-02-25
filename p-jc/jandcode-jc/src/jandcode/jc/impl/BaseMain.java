@@ -22,7 +22,7 @@ public abstract class BaseMain {
     protected String appdir;
     protected String workdir;
     protected String projectPath;
-    protected CliMap cli;
+    protected CliArgs cli;
     protected boolean errorShowFullStack;
     protected Stopwatch stopwatch;
     protected boolean needHeader;
@@ -61,7 +61,7 @@ public abstract class BaseMain {
             if (UtString.empty(this.workdir)) {
                 this.workdir = UtFile.getWorkdir();
             }
-            this.cli = new CliMap(args);
+            this.cli = UtCli.createArgs(args);
             this.stopwatch = new DefaultStopwatch();
 
             // 
@@ -249,17 +249,19 @@ public abstract class BaseMain {
     }
 
     protected String commonOpt() {
-        CliHelp z = new CliHelp("app-opt-name", null);
+        CliHelpFormatter z = UtCli.createHelpFormatter();
+        z.setAnsi(true);
+        z.setAnsiStyle("app-opt-name", null);
         commonOptBuild(z);
-        return z.toString();
+        return z.build();
     }
 
-    protected void commonOptBuild(CliHelp z) {
-        z.addOption(JcConsts.OPT_LOG, "Включение логирования. ARG - имя файла в формате logback.\n" +
+    protected void commonOptBuild(CliHelpFormatter z) {
+        z.addOpt(JcConsts.OPT_LOG, "Включение логирования. ARG - имя файла в формате logback.\n" +
                 "Можно не указывать, тогда используются настройки по умолчанию", true);
-        z.addOption(JcConsts.OPT_VERBOSE, "Включение режима с большим числом сообщений");
-        z.addOption(JcConsts.OPT_HELP, "Помощь по команде");
-        z.addOption(JcConsts.OPT_NOANSI, "Отключить разукрашенный вывод");
+        z.addOpt(JcConsts.OPT_VERBOSE, "Включение режима с большим числом сообщений");
+        z.addOpt(JcConsts.OPT_HELP, "Помощь по команде");
+        z.addOpt(JcConsts.OPT_NOANSI, "Отключить разукрашенный вывод");
     }
 
     public String help(Project project) {
@@ -274,7 +276,9 @@ public abstract class BaseMain {
             sb.append("Нет доступных команд").append("\n");
         } else {
             sb.append("Команды:").append("\n");
-            CliHelp h = new CliHelp("app-cm-name", null);
+            CliHelpFormatter h = UtCli.createHelpFormatter();
+            h.setAnsi(true);
+            h.setAnsiStyle("app-cm-name", null);
             for (Cm cm : res) {
                 String hlp;
                 if (cm.getOpts().size() > 0) {
@@ -283,9 +287,9 @@ public abstract class BaseMain {
                     hlp = "   ";
                 }
                 hlp += UtString.getLine(cm.getHelp(), 0);
-                h.addParam(cm.getName(), hlp);
+                h.addCmd(cm.getName(), hlp);
             }
-            sb.append(h.toString()).append("\n");
+            sb.append(h.build()).append("\n");
         }
         //
         return sb.toString();
@@ -301,12 +305,14 @@ public abstract class BaseMain {
         sb.append("Общие опции:").append("\n");
         sb.append(commonOpt()).append("\n\n");
         //
-        CliHelp z = new CliHelp("opt-name", null);
+        CliHelpFormatter z = UtCli.createHelpFormatter();
+        z.setAnsi(true);
+        z.setAnsiStyle("opt-name", null);
         for (CmOpt opt : project.getCm().getOpts(cm, cli)) {
             boolean hasArg = VariantDataType.fromObject(opt.getDefaultValue()) != VariantDataType.BOOLEAN;
-            z.addOption(opt.getName(), opt.getHelp(), hasArg);
+            z.addOpt(opt.getName(), opt.getHelp(), hasArg);
         }
-        String s = z.toString();
+        String s = z.build();
         if (s.length() > 0) {
             sb.append("Опции команды:").append("\n");
             sb.append(s);

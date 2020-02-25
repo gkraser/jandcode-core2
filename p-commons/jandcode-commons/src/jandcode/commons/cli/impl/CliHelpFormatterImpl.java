@@ -165,4 +165,8 @@ public class CliHelpFormatterImpl implements CliHelpFormatter {
         return UtString.trimLast(sb.toString());
     }
 
+    public String toString() {
+        return build();
+    }
+
 }
