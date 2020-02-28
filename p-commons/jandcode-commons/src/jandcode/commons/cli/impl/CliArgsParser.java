@@ -22,14 +22,11 @@ public class CliArgsParser {
             if (arg.startsWith("-")) {
                 // option
                 String opt = arg.substring(1);
-                String value = CliArgs.DEFAULT_OPT_VALUE;
+                String value = "";
                 int a = opt.indexOf(':');
                 if (a != -1) {
                     value = opt.substring(a + 1);
                     opt = opt.substring(0, a);
-                    if (UtString.empty(value)) {
-                        value = CliArgs.DEFAULT_OPT_VALUE;
-                    }
                 }
                 res.put(opt, value);
             } else {
