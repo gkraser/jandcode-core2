@@ -8,6 +8,7 @@ import jandcode.commons.ansifer.*;
 public class DefaultStyles {
 
     public static void registerDefaultStyles(Ansifer a) {
+        a.registerStyle("app-header", AnsiferColor.yellow_h, null, false);
         a.registerStyle("error-delim", AnsiferColor.red_h, null, true);
         a.registerStyle("error-text", AnsiferColor.yellow, null, true);
         a.registerStyle("error-stack", AnsiferColor.cyan, null, true);
