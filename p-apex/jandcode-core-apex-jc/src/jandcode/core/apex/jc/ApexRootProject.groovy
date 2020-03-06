@@ -47,6 +47,9 @@ class ApexRootProject extends ProjectScript {
 
     void genIprHandler(GenIdea.Event_GenIpr e) {
         IprXml x = e.x
+
+        //
+        include(AppRunBat).addRunConfig(x, "app-run", "-log -p:8080 -c:/jc")
     }
 
     void productHandler(AppProductBuilder.Event_Exec e) {
