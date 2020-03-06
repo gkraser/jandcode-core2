@@ -49,7 +49,7 @@ class ApexRootProject extends ProjectScript {
         IprXml x = e.x
 
         //
-        include(AppRunBat).addRunConfig(x, "app-run", "-log -p:8080 -c:/jc")
+        include(AppRunBat).addRunConfig(x, "app-run", "-p:8080 -c:/jc -log")
     }
 
     void productHandler(AppProductBuilder.Event_Exec e) {

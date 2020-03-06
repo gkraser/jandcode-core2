@@ -206,8 +206,11 @@ public abstract class BaseAppLauncher {
      * Показать ошибку в консоле
      */
     public void showError(Throwable e) {
-        boolean verbose = isVerbose();
-        ErrorFormatter ef = new ErrorFormatterDefault(verbose, verbose, verbose);
+        ErrorFormatter ef = new ErrorFormatterDefault(
+                isVerbose() || isLogOn(),
+                isVerbose() || isLogOn(),
+                isLogOn()
+        );
         System.out.println(ef.getMessage(e));
     }
 
