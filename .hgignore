@@ -16,6 +16,7 @@ _jc
 _gen
 node_modules
 .gradle
+.idea
 
 syntax: regexp
 ^_
