@@ -37,7 +37,7 @@ class P extends ProjectScript {
                     "cross-env": "7.0.2",
                     "find-requires": "1.0.0",
 
-                    "fs-extra": "8.1.0",
+                    "fs-extra": "9.0.0",
                     "globby": "11.0.0",
                     "require-from-string": "2.0.2",
                     "del": "5.1.0",
