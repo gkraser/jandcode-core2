@@ -70,7 +70,7 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
     void setModuleGroup(String v) {
         include(IdeVars).moduleGroup = v
     }
-    
+
     /**
      * Зависимости
      */
@@ -78,10 +78,16 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
 
     /**
      * maven: groupId.
-     * Если установлен, то автоматически будет назначен всем модулям,
-     * если в модуле нет собственного groupId
+     * Если явно не указан = project.name.
+     * Если в модулях проекта не указан groupId, то используется этот.
      */
-    String groupId
+    String getGroupId() {
+        return include(JavaVars).groupId
+    }
+
+    void setGroupId(String v) {
+        include(JavaVars).groupId = v
+    }
 
     /**
      * Включать ли jandcode-jc в зависимости dev по умолчанию.

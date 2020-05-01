@@ -154,30 +154,17 @@ class JavaProject extends ProjectScript implements ILibDepends {
      */
     List<String> excludeSrcProd = ["**/_tst", "**/_tst/**/*"]
 
+
     /**
      * maven: groupId.
      * Если явно не указан = project.name
      */
-    String groupId
-
     String getGroupId() {
-        if (!UtString.empty(groupId)) {
-            return groupId
-        }
-        Project root = getRootProject()
-        if (root == null) {
-            return project.name
-        }
-        RootProject rp = root.getIncluded(RootProject)
-        if (rp != null) {
-            String s = rp.getGroupId()
-            if (UtString.empty(s)) {
-                return project.name
-            } else {
-                return s
-            }
-        }
-        return project.name
+        return include(JavaVars).groupId
+    }
+
+    void setGroupId(String v) {
+        include(JavaVars).groupId = v
     }
 
     /**
