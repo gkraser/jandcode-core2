@@ -24,8 +24,8 @@ class P extends ProjectScript {
         //
         include(JsaJavaProject).with {
             nodeDepends(
-                    "quasar": "1.9.15",
-                    "@quasar/extras": "1.6.4",
+                    "quasar": "1.10.0",
+                    "@quasar/extras": "1.7.0",
             )
             //
             nodeDependsClient(

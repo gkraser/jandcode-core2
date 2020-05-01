@@ -34,7 +34,7 @@ class P extends ProjectScript {
 
                     // for tests
                     "chai": "4.2.0",
-                    "mocha": "7.1.1",
+                    "mocha": "7.1.2",
             )
             //
             nodeDependsClient(
