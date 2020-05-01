@@ -314,4 +314,49 @@ class Ut extends ProjectScript {
         return obj.toString()
     }
 
+    ////// vars
+
+    /**
+     * Возвращает значение из vars проекта с учетом значения в корневом
+     * проекте. Если переменная определена в корневом проекте,
+     * возвращается она. Если нет, то из текущего проекта.
+     * Если там и там не определена, возвращается значение по умолчанию.
+     * @param key ключ переменной
+     * @param defaultValue значение по умолчанию
+     */
+    Object getVar(String key, Object defaultValue) {
+        Object v
+
+        // своя
+        v = getProject().getVars().get(key)
+        if (v != null) {
+            return v
+        }
+
+        // из root project
+        Project rp = getRootProject()
+        if (rp != null) {
+            v = rp.getVars().get(key)
+            if (v != null) {
+                return v
+            }
+        }
+
+        // по умолчанию
+        return defaultValue
+    }
+
+    /**
+     * Установить значение переменной проекта
+     * @param key ключ переменной
+     * @param value значение переменной. При значении null перемнная удаляется
+     */
+    void setVar(String key, Object value) {
+        if (value == null) {
+            getProject().getVars().remove(key)
+        } else {
+            getProject().getVars().put(key, value)
+        }
+    }
+
 }

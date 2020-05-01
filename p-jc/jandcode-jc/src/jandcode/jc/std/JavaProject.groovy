@@ -140,21 +140,12 @@ class JavaProject extends ProjectScript implements ILibDepends {
      * Если в RootProject не включен в какую-то группу, то он включается в эту,
      * если она определена.
      */
-    String moduleGroup
-
     String getModuleGroup() {
-        if (!UtString.empty(moduleGroup)) {
-            return moduleGroup
-        }
-        Project root = getRootProject()
-        if (root == null) {
-            return ""
-        }
-        RootProject rp = root.getIncluded(RootProject)
-        if (rp != null) {
-            return rp.getModuleGroup()
-        }
-        return ""
+        return include(IdeVars).moduleGroup
+    }
+
+    void setModuleGroup(String v) {
+        include(IdeVars).moduleGroup = v
     }
 
     /**

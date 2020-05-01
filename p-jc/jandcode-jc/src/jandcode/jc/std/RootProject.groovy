@@ -63,8 +63,14 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
      * Имя группы модулей, в которую будут входить java-модули, если для них
      * явно не установлена группа.
      */
-    String moduleGroup = ""
+    String getModuleGroup() {
+        return include(IdeVars).moduleGroup
+    }
 
+    void setModuleGroup(String v) {
+        include(IdeVars).moduleGroup = v
+    }
+    
     /**
      * Зависимости
      */
