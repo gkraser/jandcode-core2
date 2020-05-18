@@ -17,6 +17,11 @@ class JsaJavaProject extends ProjectScript {
      */
     Map<String, Object> gulpTasks = new LinkedHashMap<>()
 
+    /**
+     * Список библиотек nodejs, от которых зависит модуль.
+     */
+    List<String> nodeJsDepends = []
+
 
     protected void onInclude() throws Exception {
 
@@ -46,7 +51,9 @@ class JsaJavaProject extends ProjectScript {
             Map data = [:]
             data.nodeDepends = nodeDepends
             data.gulpTasks = gulpTasks
+            data.nodeJsDepends = nodeJsDepends
             attribute(name: JsaConsts.MANIFEST_JSA_DATA, value: JsaUtJson.toJson(data))
+
         }
     }
 
@@ -95,6 +102,7 @@ class JsaJavaProject extends ProjectScript {
      * Ключ - имя библиотеки, значение - версия.
      */
     void nodeDepends(Map deps) {
+        return
         if (deps == null) {
             return
         }
@@ -113,6 +121,7 @@ class JsaJavaProject extends ProjectScript {
      * Если маска начинается с '!', то это exclude.
      */
     void nodeDependsClient(Map data) {
+        return
         if (data == null || data.size() == 0) {
             return
         }
@@ -153,6 +162,8 @@ class JsaJavaProject extends ProjectScript {
      * знакчение - путь до модуля, как его будут видеть остальные модули.
      */
     void nodeModuleMapping(Map data) {
+        return
+        
         if (data == null || data.size() == 0) {
             return
         }
@@ -177,6 +188,7 @@ class JsaJavaProject extends ProjectScript {
      * в виде масок исключений '!mask'.
      */
     void nodeExtractRequire(Object... data) {
+        return
         if (data == null || data.size() == 0) {
             return
         }
@@ -191,6 +203,17 @@ class JsaJavaProject extends ProjectScript {
         for (item in data) {
             globs.add(item)
         }
+    }
+
+    /**
+     * Добавить указанные библиотеки nodejs в зависимости
+     * @param libs
+     */
+    void nodeJsDepends(String... data) {
+        if (data == null || data.size() == 0) {
+            return
+        }
+        this.nodeJsDepends.addAll(data)
     }
 
 }

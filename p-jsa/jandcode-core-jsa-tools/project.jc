@@ -27,6 +27,49 @@ class P extends ProjectScript {
         }
         //
         include(JsaJavaProject).with {
+            nodeJsDepends(
+                    "@babel/cli",
+                    "@babel/core",
+                    "@babel/preset-env",
+                    "@babel/polyfill",
+                    "@babel/plugin-external-helpers",
+
+                    "cross-env",
+                    "find-requires",
+
+                    "fs-extra",
+                    "globby",
+                    "require-from-string",
+                    "del",
+
+                    "less",
+
+                    "vue-template-compiler",
+                    "vue-template-es2015-compiler",
+
+                    "@vue/babel-helper-vue-jsx-merge-props",
+                    "@vue/babel-preset-jsx",
+
+                    "gulp",
+                    "gulp-babel",
+                    "gulp-cached",
+                    "gulp-debug",
+                    "gulp-if",
+                    "gulp-plumber",
+                    "gulp-rename",
+                    "gulp-uglify",
+                    "gulp-notify",
+                    "gulp-less",
+                    "through2",
+                    "vinyl",
+
+                    "postcss",
+                    "gulp-postcss",
+
+                    "node-sass",
+                    "gulp-sass",
+            )
+            //
             nodeDepends(
                     "@babel/cli": "7.8.4",
                     "@babel/core": "7.8.7",

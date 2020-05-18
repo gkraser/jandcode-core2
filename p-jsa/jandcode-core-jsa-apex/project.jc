@@ -25,6 +25,10 @@ class P extends ProjectScript {
         }
         //
         include(JsaJavaProject).with {
+            nodeJsDepends(
+                    "lodash",
+            )
+            //
             nodeDepends(
                     "lodash": "4.17.15",
             )

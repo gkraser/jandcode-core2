@@ -1,6 +1,7 @@
 package jandcode.core.jsa.jc;
 
 import jandcode.commons.*;
+import jandcode.commons.error.*;
 import jandcode.commons.named.*;
 import jandcode.core.jsa.jc.impl.*;
 import jandcode.jc.*;
@@ -112,14 +113,63 @@ public class JsaService extends CtxService {
      * Отсортированный список nodeDepends из всех модулей для проекта.
      */
     public Map<String, String> getNodeDepends(Project p) {
-        List<JsaModule> moduleInfos = getJsaModules(p);
+//        List<JsaModule> moduleInfos = getJsaModules(p);
+//
+//        Map<String, Object> deps = new LinkedHashMap<>();
+//        for (int i = 0; i < moduleInfos.size(); i++) {
+//            JsaModule mi = moduleInfos.get(i);
+//            deps.putAll(mi.getNodeDepends());
+//        }
+//
+//        return sortDependsMap(deps);
 
+        NodeJsLibList libs = getNodeJsLibs(p);
         Map<String, Object> deps = new LinkedHashMap<>();
-        for (int i = 0; i < moduleInfos.size(); i++) {
-            JsaModule mi = moduleInfos.get(i);
-            deps.putAll(mi.getNodeDepends());
+        for (NodeJsLib lib : libs) {
+            deps.put(lib.getName(), lib.getVersion());
         }
 
         return sortDependsMap(deps);
     }
+
+    /**
+     * Получить список всех nodejs библиотек из всех модулей для проекта
+     */
+    public NodeJsLibList getNodeJsLibs(Project p) {
+        NodeJsLibService svc = getCtx().service(NodeJsLibService.class);
+        List<JsaModule> moduleInfos = getJsaModules(p);
+        NodeJsLibList res = new NodeJsLibList();
+        for (int i = 0; i < moduleInfos.size(); i++) {
+            JsaModule mi = moduleInfos.get(i);
+            List<String> deps = mi.getNodeJsDepends();
+            for (String dep : deps) {
+                NodeJsLib lib = svc.findLib(dep);
+                if (lib == null) {
+                    throw new XError("Не найдена nodejs зависимость [{0}], указанная в модуле [{1}]", dep, mi.getName());
+                }
+                if (res.find(lib.getName()) == null) {
+                    res.add(lib);
+                }
+            }
+        }
+        res.sort();
+        return res;
+    }
+
+    /**
+     * Получить список всех клиентских nodejs библиотек из всех модулей для проекта
+     */
+    public NodeJsLibList getNodeJsLibs(Project p, boolean client) {
+        NodeJsLibList res = new NodeJsLibList();
+        NodeJsLibList tmp = getNodeJsLibs(p);
+
+        for (NodeJsLib z : tmp) {
+            if (z.isClient() == client) {
+                res.add(z);
+            }
+        }
+
+        return res;
+    }
+
 }

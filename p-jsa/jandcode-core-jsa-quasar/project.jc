@@ -23,6 +23,11 @@ class P extends ProjectScript {
         }
         //
         include(JsaJavaProject).with {
+            nodeJsDepends(
+                    "quasar",
+                    "@quasar/extras",
+            )
+            //
             nodeDepends(
                     "quasar": "1.10.0",
                     "@quasar/extras": "1.7.0",

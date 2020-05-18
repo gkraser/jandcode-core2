@@ -46,4 +46,10 @@ public interface JsaModule extends INamed {
      */
     Map<String, Object> getGulpTasks();
 
+    /**
+     * Зависимости для nodejs
+     * (см {@link JsaJavaProject#getNodeJsDepends()}
+     */
+    List<String> getNodeJsDepends();
+
 }

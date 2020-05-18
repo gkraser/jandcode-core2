@@ -9,6 +9,7 @@ let modulesByName = {}
 let modulesReverse = []
 let rootProjectName = ''
 let resolvePaths = []
+let nodeJsLibs = []
 
 /**
  * Информация о jsa-модуле
@@ -153,6 +154,7 @@ function init() {
     modulesReverse = modules.slice()
     modulesReverse.reverse()
     resolvePaths = jsaModules.resolvePaths
+    nodeJsLibs = jsaModules.nodeJsLibs
 }
 
 init();
@@ -165,4 +167,5 @@ module.exports = {
     expandPath,
     rootProjectName,
     resolvePaths,
+    nodeJsLibs,
 }

@@ -23,6 +23,12 @@ class P extends ProjectScript {
         }
         //
         include(JsaJavaProject).with {
+            nodeJsDepends(
+                    "vue",
+                    "vue-router",
+                    "vuex",
+            )
+            //
             nodeDepends(
                     "vue": "2.6.11",
                     "vue-router": "3.1.6",

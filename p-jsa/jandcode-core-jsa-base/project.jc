@@ -28,6 +28,15 @@ class P extends ProjectScript {
         }
         //
         include(JsaJavaProject).with {
+            nodeJsDepends(
+                    "jquery",
+                    "axios",
+
+                    // for tests
+                    "chai",
+                    "mocha",
+            )
+            //
             nodeDepends(
                     "jquery": "3.5.0",
                     "axios": "0.19.2",
@@ -69,7 +78,10 @@ class P extends ProjectScript {
 
             gulpTask(name: "js", provide: true, globs: ["**/*.js"])
             gulpTask(name: "babelHelpers", globs: ["js/boot/babelHelpers.js"])
-            gulpTask(name: "nm-extract-require", stage: 'afterBuild')
+//            gulpTask(name: "nm-extract-require", stage: 'afterBuild')
+            gulpTask(name: "nm2", stage: 'prepare')
+            gulpTask(name: "nm2-extract-require", stage: 'prepare')
+            gulpTask(name: "nm2-module-mapping", stage: 'prepare')
         }
     }
 

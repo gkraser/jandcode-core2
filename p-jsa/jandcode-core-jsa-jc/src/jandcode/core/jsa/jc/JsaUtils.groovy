@@ -247,6 +247,16 @@ ${aliases}
         sb.append("z.resolvePaths.push('${norm(wd(JsaConsts.NODE_MODULES))}')\n")
         sb.append("for (let rp of z.resolvePaths) {ma.addPath(rp)}\n")
         //
+
+        // nodeJsDepends
+        def nodeJsLibs = ctx.service(JsaService).getNodeJsLibs(project, true)
+        def nodeJsLibsJson = []
+        for (z in nodeJsLibs) {
+            nodeJsLibsJson.add(nodeJsLibToMap(z))
+        }
+        sb.append("z.nodeJsLibs = ${JsaUtJson.toJson(nodeJsLibsJson)}\n")
+
+
         sb.append("//\n")
         sb.append("module.exports = z\n")
 
@@ -334,6 +344,23 @@ ${aliases}
         hashFile = calcHashFile()
 
         ant.echo(message: "", file: hashFile)
+    }
+
+    /**
+     * Список nodejs библиотек в map, для передачаи в nodejs код
+     */
+    Map nodeJsLibToMap(NodeJsLib lib) {
+        Map res = [:]
+        res['name'] = lib.name
+        res['version'] = lib.version
+        res['client'] = lib.client
+
+        res['includeClient'] = new ArrayList(lib.getIncludeClient())
+        res['excludeClient'] = new ArrayList(lib.getExcludeClient())
+        res['excludeRequire'] = new ArrayList(lib.getExcludeRequire())
+        res['moduleMapping'] = new LinkedHashMap<>(lib.getModuleMapping())
+
+        return res
     }
 
 }
