@@ -113,16 +113,6 @@ public class JsaService extends CtxService {
      * Отсортированный список nodeDepends из всех модулей для проекта.
      */
     public Map<String, String> getNodeDepends(Project p) {
-//        List<JsaModule> moduleInfos = getJsaModules(p);
-//
-//        Map<String, Object> deps = new LinkedHashMap<>();
-//        for (int i = 0; i < moduleInfos.size(); i++) {
-//            JsaModule mi = moduleInfos.get(i);
-//            deps.putAll(mi.getNodeDepends());
-//        }
-//
-//        return sortDependsMap(deps);
-
         NodeJsLibList libs = getNodeJsLibs(p);
         Map<String, Object> deps = new LinkedHashMap<>();
         for (NodeJsLib lib : libs) {

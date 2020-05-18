@@ -36,52 +36,13 @@ class P extends ProjectScript {
                     "chai",
                     "mocha",
             )
-            //
-            nodeDepends(
-                    "jquery": "3.5.0",
-                    "axios": "0.19.2",
 
-                    // for tests
-                    "chai": "4.2.0",
-                    "mocha": "7.1.2",
-            )
-            //
-            nodeDependsClient(
-                    "jquery": [
-                            "dist/**/*",
-                            "!**/*.map",
-                    ],
-
-                    "axios": [
-                            "dist/**/*",
-                            "!**/*.map",
-                    ],
-
-                    "chai": [
-                            "chai.js",
-                    ],
-
-                    "mocha": [
-                            "mocha.*",
-                    ],
-            )
-            //
-            nodeExtractRequire(
-                    "!chai/**/*.js",
-                    "!mocha/**/*.js",
-            )
-            //
-            nodeModuleMapping(
-                    "jquery": "jquery/dist/jquery.slim.js",
-                    "axios": "axios/dist/axios",
-            )
+            gulpTask(name: "nm", stage: 'prepare')
+            gulpTask(name: "nm-extract-require", stage: 'prepare')
+            gulpTask(name: "nm-module-mapping", stage: 'prepare')
 
             gulpTask(name: "js", provide: true, globs: ["**/*.js"])
             gulpTask(name: "babelHelpers", globs: ["js/boot/babelHelpers.js"])
-//            gulpTask(name: "nm-extract-require", stage: 'afterBuild')
-            gulpTask(name: "nm2", stage: 'prepare')
-            gulpTask(name: "nm2-extract-require", stage: 'prepare')
-            gulpTask(name: "nm2-module-mapping", stage: 'prepare')
         }
     }
 

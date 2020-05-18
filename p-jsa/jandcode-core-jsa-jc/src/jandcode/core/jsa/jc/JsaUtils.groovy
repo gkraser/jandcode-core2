@@ -232,7 +232,6 @@ ${aliases}
             sb.append("m.srcPath = '${norm(mi.srcPath)}'\n")
             sb.append("m.isSource = ${mi.lib.sourceProject != null}\n")
 
-            sb.append("m.nodeDepends = ${JsaUtJson.toJson(mi.getNodeDepends())}\n")
             sb.append("m.gulpTasks = ${JsaUtJson.toJson(ctx.service(JsaService).getGulpTasks(mi))}\n")
 
             sb.append("z.modules.push(m)\n")

@@ -16,7 +16,6 @@ public class JsaModuleImpl implements JsaModule {
     private Lib lib;
     private boolean jsaModule;
     private List<String> resolvePaths = new ArrayList<>();
-    private Map<String, String> nodeDepends = new LinkedHashMap<>();
     private Map<String, Object> gulpTasks = new LinkedHashMap<>();
     private List<String> nodeJsDepends = new ArrayList<>();
 
@@ -53,7 +52,6 @@ public class JsaModuleImpl implements JsaModule {
         this.moduleDef = jm.getModuleDefs().get(0);
         this.resolvePaths.add(this.srcPath);
 
-        this.nodeDepends.putAll(jsa.getNodeDepends());
         this.gulpTasks.putAll(jsa.getGulpTasks());
         this.nodeJsDepends.addAll(jsa.getNodeJsDepends());
     }
@@ -102,11 +100,6 @@ public class JsaModuleImpl implements JsaModule {
             Map mdata = (Map) JsaUtJson.fromJson(sdata);
             Object ob;
             //
-            ob = mdata.get("nodeDepends");
-            if (ob instanceof Map) {
-                this.nodeDepends.putAll((Map) ob);
-            }
-            //
             ob = mdata.get("gulpTasks");
             if (ob instanceof Map) {
                 this.gulpTasks.putAll((Map) ob);
@@ -149,10 +142,6 @@ public class JsaModuleImpl implements JsaModule {
 
     public List<String> getResolvePaths() {
         return resolvePaths;
-    }
-
-    public Map<String, String> getNodeDepends() {
-        return nodeDepends;
     }
 
     public Map<String, Object> getGulpTasks() {

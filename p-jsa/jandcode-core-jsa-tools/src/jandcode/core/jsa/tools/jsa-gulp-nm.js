@@ -6,21 +6,29 @@ const fs = require('fs');
 const jsaSupport = require('./jsa-support');
 
 function nm_taskFactory(g, taskName, module, taskParams) {
-    let globs = g.makeGlobs(g.nodeModulesPath, taskParams)
+
+    let copyGlobs = []
+    let pfx = g.nodeModulesPath + '/'
+    for (let lib of jsaSupport.nodeJsLibs) {
+        copyGlobs.push(pfx + lib.name + '/package.json')
+        if (lib.includeClient.length == 0) {
+            copyGlobs.push(pfx + lib.name + '/**/*')
+        } else {
+            for (let z of lib.includeClient) {
+                copyGlobs.push(pfx + lib.name + '/' + z)
+            }
+        }
+        for (let z of lib.excludeClient) {
+            copyGlobs.push('!' + pfx + lib.name + '/' + z)
+        }
+    }
 
     gulp.task(taskName, function() {
         let lastRun = gulp.lastRun(taskName)
 
-        return gulp.src(globs, {base: g.nodeModulesPath})
+        return gulp.src(copyGlobs, {base: g.nodeModulesPath})
             .pipe(gulp.dest(g.buildPathNodeModules))
     })
-}
-
-/**
- * Определение масок для extractRequire
- */
-function nmExtractRequireGlobs_taskFactory(g, taskName, module, taskParams) {
-    module.nmExtractRequireGlobs = taskParams.globs
 }
 
 function nmExtractRequire_taskFactory(g, taskName, module, taskParams) {
@@ -29,9 +37,9 @@ function nmExtractRequire_taskFactory(g, taskName, module, taskParams) {
         let lastRun = gulp.lastRun(taskName)
 
         let globsBundle = ['**/*.js']
-        for (let m of jsaSupport.modulesReverse) {
-            if (m.nmExtractRequireGlobs) {
-                globsBundle.push(...m.nmExtractRequireGlobs)
+        for (let lib of jsaSupport.nodeJsLibs) {
+            for (let z of lib.excludeRequire) {
+                globsBundle.push('!' + lib.name + '/' + z)
             }
         }
         let globs = g.makeGlobs(g.buildPathNodeModules, {globs: globsBundle})
@@ -70,14 +78,17 @@ function nmExtractRequire_taskFactory(g, taskName, module, taskParams) {
 function nmModuleMapping_taskFactory(g, taskName, module, taskParams) {
     gulp.task(taskName, function(callback) {
         fs.mkdirSync(g.buildPathCompiledNodeModules, {recursive: true})
-        let mapping = taskParams.mapping;
-        for (let m in mapping) {
-            let mMap = mapping[m]
-            let fileText = "module.exports = require('" + mMap + "')"
-            let reqText = '["' + mMap + '"]'
-            fs.writeFileSync(g.buildPathNodeModules + '/' + m + '.js', fileText)
-            fs.writeFileSync(g.buildPathCompiledNodeModules + '/' + m + '.js--compiled-req', reqText)
+
+        for (let lib of jsaSupport.nodeJsLibs) {
+            for (let m in lib.moduleMapping) {
+                let mMap = lib.moduleMapping[m]
+                let fileText = "module.exports = require('" + mMap + "')"
+                let reqText = '["' + mMap + '"]'
+                fs.writeFileSync(g.buildPathNodeModules + '/' + m + '.js', fileText)
+                fs.writeFileSync(g.buildPathCompiledNodeModules + '/' + m + '.js--compiled-req', reqText)
+            }
         }
+
         callback()
     })
 }
@@ -85,7 +96,6 @@ function nmModuleMapping_taskFactory(g, taskName, module, taskParams) {
 ///
 module.exports = function(g) {
     g.registerTaskFactory("nm", nm_taskFactory)
-    g.registerTaskFactory("nm-extract-require-globs", nmExtractRequireGlobs_taskFactory)
     g.registerTaskFactory("nm-extract-require", nmExtractRequire_taskFactory)
     g.registerTaskFactory("nm-module-mapping", nmModuleMapping_taskFactory)
 }

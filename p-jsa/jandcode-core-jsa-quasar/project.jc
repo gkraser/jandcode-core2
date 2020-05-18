@@ -27,35 +27,6 @@ class P extends ProjectScript {
                     "quasar",
                     "@quasar/extras",
             )
-            //
-            nodeDepends(
-                    "quasar": "1.10.0",
-                    "@quasar/extras": "1.7.0",
-            )
-            //
-            nodeDependsClient(
-                    "quasar": [
-                            "dist/*.js",
-                            "dist/*.css",
-                            "dist/*.sass",
-                            "dist/*.styl",
-                            "dist/icon-set/*",
-                            "dist/lang/ru.*",
-                            "!dist/*.common.*",
-                            "!dist/*.esm.*",
-                            "!dist/*.rtl.*",
-                            "!dist/*.ie.*",
-                    ],
-
-                    "@quasar/extras": [
-                            "material-icons/**/*",
-                            "animate/**/*",
-                    ],
-
-            )
-            nodeModuleMapping(
-                    "quasar": "quasar/dist/quasar.umd.js",
-            )
         }
     }
 

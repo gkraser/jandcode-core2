@@ -35,12 +35,6 @@ public interface JsaModule extends INamed {
     List<String> getResolvePaths();
 
     /**
-     * Зависимости для node
-     * (см {@link JsaJavaProject#getNodeDepends()}
-     */
-    Map<String, String> getNodeDepends();
-
-    /**
      * Определения задач для gulp
      * (см {@link JsaJavaProject#gulpTask(Map)}
      */

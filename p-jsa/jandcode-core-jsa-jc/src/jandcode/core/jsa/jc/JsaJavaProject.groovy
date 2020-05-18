@@ -8,11 +8,6 @@ import jandcode.jc.std.*
 class JsaJavaProject extends ProjectScript {
 
     /**
-     * Зависимости для node. Формат как в package.json dependencies 
-     */
-    Map<String, String> nodeDepends = new LinkedHashMap<>()
-
-    /**
      * Определение задач для gulp
      */
     Map<String, Object> gulpTasks = new LinkedHashMap<>()
@@ -49,7 +44,6 @@ class JsaJavaProject extends ProjectScript {
 
             //
             Map data = [:]
-            data.nodeDepends = nodeDepends
             data.gulpTasks = gulpTasks
             data.nodeJsDepends = nodeJsDepends
             attribute(name: JsaConsts.MANIFEST_JSA_DATA, value: JsaUtJson.toJson(data))
@@ -94,115 +88,6 @@ class JsaJavaProject extends ProjectScript {
             throw new XError("globs должен быть списком")
         }
         this.gulpTasks[data.name] = data
-    }
-
-    /**
-     * Определение зависимостей для node.
-     * Формат как в package.json dependencies.
-     * Ключ - имя библиотеки, значение - версия.
-     */
-    void nodeDepends(Map deps) {
-        return
-        if (deps == null) {
-            return
-        }
-        this.nodeDepends.putAll(deps)
-    }
-
-    /**
-     * Определение файлов из node_modules, которые будут доступны для клиентского
-     * приложения. Формат:
-     *
-     * Ключ - имя каталога в node_modules.
-     * Может быть пустой строкой, тогда маски задаются относительно каталога
-     * node_modules.
-     *
-     * Значение - массив масок относительно этого каталога.
-     * Если маска начинается с '!', то это exclude.
-     */
-    void nodeDependsClient(Map data) {
-        return
-        if (data == null || data.size() == 0) {
-            return
-        }
-        //
-        String taskName = 'nm'
-        Map gt = gulpTasks[taskName]
-        if (!gt) {
-            gulpTask(name: taskName, stage: 'prepare')
-            gt = gulpTasks[taskName]
-        }
-        List globs = gt.globs
-        //
-        for (item in data) {
-            String dir = item.key
-            if (!(item.value instanceof List)) {
-                throw new XError("Список масок для ключа ${dir} должен быть списком")
-            }
-            List masks = item.value
-            if (dir != "" && !dir.endsWith("/")) {
-                dir = dir + "/"
-            }
-            if (dir != "") {
-                globs.add(dir + JsaConsts.PACKAGE_JSON)
-            }
-            for (String m in masks) {
-                if (m.startsWith("!")) {
-                    globs.add("!" + dir + m.substring(1))
-                } else {
-                    globs.add(dir + m)
-                }
-            }
-        }
-    }
-
-    /**
-     * mapping модулей node.
-     * ключ - имя модуля.
-     * знакчение - путь до модуля, как его будут видеть остальные модули.
-     */
-    void nodeModuleMapping(Map data) {
-        return
-        
-        if (data == null || data.size() == 0) {
-            return
-        }
-        //
-        String taskName = 'nm-module-mapping'
-        Map gt = gulpTasks[taskName]
-        if (!gt) {
-            gulpTask(name: taskName, stage: 'afterBuild', mapping: [:])
-            gt = gulpTasks[taskName]
-        }
-        for (item in data) {
-            String lib = item.key
-            String mapLib = item.value
-            gt.mapping[lib] = mapLib
-        }
-    }
-
-    /**
-     * Список масок файлов в клиентских node_modules, для которых нужно
-     * extract-require. По умолчанию - все попавшие *.js.
-     * Поэтому в этом методе указываем маски, которые не нуждаются в обработке
-     * в виде масок исключений '!mask'.
-     */
-    void nodeExtractRequire(Object... data) {
-        return
-        if (data == null || data.size() == 0) {
-            return
-        }
-        //
-        String taskName = 'nm-extract-require-globs'
-        Map gt = gulpTasks[taskName]
-        if (!gt) {
-            gulpTask(name: taskName, stage: 'prepare')
-            gt = gulpTasks[taskName]
-        }
-        List globs = gt.globs
-        for (item in data) {
-            globs.add(item)
-        }
     }
 
     /**

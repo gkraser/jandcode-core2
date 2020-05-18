@@ -28,21 +28,6 @@ class P extends ProjectScript {
             nodeJsDepends(
                     "lodash",
             )
-            //
-            nodeDepends(
-                    "lodash": "4.17.15",
-            )
-            //
-            nodeDependsClient(
-                    "lodash": [
-                            "**/*",
-                            "!fp/**/*"
-                    ],
-
-            )
-            nodeModuleMapping(
-            )
-
             gulpTask(name: "sass", provide: true, globs: ["**/*-style.scss", "css/*-theme.scss"])
             gulpTask(name: "less", provide: true, globs: ["**/*-style.less", "css/*-theme.less"])
 
