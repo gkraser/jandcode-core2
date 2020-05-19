@@ -26,5 +26,6 @@ function build() {
     delete quasarIcons['quasar.name']
 }
 
-build()
+//todo сменилась система иконок, нужно разбиратся
+//build()
 
