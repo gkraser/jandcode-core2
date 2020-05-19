@@ -36,15 +36,15 @@
     <lib name="through2" version="3.0.1"/>
     <lib name="vinyl" version="2.2.0"/>
 
-    <lib name="postcss" version="7.0.27"/>
+    <lib name="postcss" version="7.0.30"/>
     <lib name="gulp-postcss" version="8.0.0"/>
 
-    <lib name="node-sass" version="4.14.0"/>
+    <lib name="node-sass" version="4.14.1"/>
     <lib name="gulp-sass" version="4.1.0"/>
 
     <!-- client -->
 
-    <lib name="jquery" version="3.5.0" client="true">
+    <lib name="jquery" version="3.5.1" client="true">
         <include-client mask="dist/**/*"/>
 
         <exclude-client mask="**/*.map"/>
@@ -90,7 +90,7 @@
         <module-mapping module="vue-router" real-module="vue-router/dist/vue-router"/>
     </lib>
 
-    <lib name="vuex" version="3.3.0" client="true">
+    <lib name="vuex" version="3.4.0" client="true">
         <include-client mask="dist/*.js"/>
 
         <exclude-client mask="dist/*.common.*"/>
@@ -99,7 +99,7 @@
         <module-mapping module="vuex" real-module="vuex/dist/vuex"/>
     </lib>
 
-    <lib name="quasar" version="1.10.0" client="true">
+    <lib name="quasar" version="1.11.3" client="true">
         <include-client mask="dist/*.js"/>
         <include-client mask="dist/*.css"/>
         <include-client mask="dist/*.sass"/>
@@ -116,7 +116,7 @@
 
     </lib>
 
-    <lib name="@quasar/extras" version="1.7.0" client="true">
+    <lib name="@quasar/extras" version="1.8.1" client="true">
         <include-client mask="material-icons/**/*"/>
         <include-client mask="animate/**/*"/>
     </lib>
