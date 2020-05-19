@@ -44,7 +44,7 @@ class AppRunBat extends ProjectScript {
 
         ant.mkdir(dir: wd(JcConsts.JC_METADATA_DIR))
         if (UtFile.isWindows()) {
-            UtFile.saveString("set CP=${UtString.join(rlibs.classpathRaw, ";")}", new File(wd("_jc/app-run-classpath.bat")))
+            UtFile.saveString("${UtString.join(rlibs.classpathRaw, ";")}", new File(wd("_jc/app-run-classpath.txt")))
         } else {
             UtFile.saveString("CP=${UtString.join(rlibs.classpathRaw, ":")}", new File(wd("_jc/app-run-classpath.sh")))
         }

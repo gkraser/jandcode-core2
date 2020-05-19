@@ -14,11 +14,11 @@
 <% if (prod) { %>
 set CP=%~dp0lib;%~dp0lib\*
 <% } else { %>
-set P1=%~dp0_jc/app-run-classpath.bat
+set P1=%~dp0_jc/app-run-classpath.txt
 if not exist %P1% (
     call jc prepare
 )
-call %P1%
+set CP=@%P1%
 <% } %>
 
 set JVM=
