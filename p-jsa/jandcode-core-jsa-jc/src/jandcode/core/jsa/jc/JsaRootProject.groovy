@@ -20,10 +20,6 @@ class JsaRootProject extends ProjectScript {
 
         cm.add("jsa-build", "Выполнить сборку клиенского кода (gulp build)", this.&cmJsaBuild)
         cm.add("jsa-watch", "Собрать и следить за изменениями клиенского кода (gulp watch)", this.&cmJsaWatch)
-        cm.add("jsa-gen-packagejson", "Сгенерировать отдельный package.json", this.&cmJsaGenPackagejson,
-                cm.opt('a', 'Включить все доступные nodejs библиотеки'),
-        )
-
 
         include(JsaShowlibs)
 
@@ -207,29 +203,6 @@ class JsaRootProject extends ProjectScript {
 
     void buildHandler() {
         cm.exec("jsa-build")
-    }
-
-    //////
-
-    void cmJsaGenPackagejson(CmArgs args) {
-        String outFile = wd('temp/gen-package-json/package.json')
-        ut.cleanfile(outFile)
-        //
-        boolean allLibs = args.containsKey('a')
-        //
-        JsaUtils jsaUtils = create(JsaUtils)
-        JsaService jsaSvc = ctx.service(JsaService)
-
-        Map<String, String> nodeDeps
-        if (allLibs) {
-            nodeDeps = jsaSvc.getNodeDependsAll()
-        } else {
-            nodeDeps = jsaSvc.getNodeDepends(project)
-        }
-        String txt = jsaUtils.makePackageJson(nodeDeps)
-
-        log("save file: ${outFile}")
-        UtFile.saveString(txt, new File(outFile))
     }
 
 }

@@ -110,16 +110,21 @@ public class JsaService extends CtxService {
     }
 
     /**
-     * Отсортированный список nodeDepends из всех модулей для проекта.
+     * Отсортированный список nodeDepends по списку библиотек
      */
-    public Map<String, String> getNodeDepends(Project p) {
-        NodeJsLibList libs = getNodeJsLibs(p);
+    public Map<String, String> getNodeDepends(List<NodeJsLib> libs) {
         Map<String, Object> deps = new LinkedHashMap<>();
         for (NodeJsLib lib : libs) {
             deps.put(lib.getName(), lib.getVersion());
         }
-
         return sortDependsMap(deps);
+    }
+
+    /**
+     * Отсортированный список nodeDepends из всех модулей для проекта.
+     */
+    public Map<String, String> getNodeDepends(Project p) {
+        return getNodeDepends(getNodeJsLibs(p));
     }
 
     /**

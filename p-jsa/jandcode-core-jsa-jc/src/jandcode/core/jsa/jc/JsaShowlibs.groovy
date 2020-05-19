@@ -10,20 +10,30 @@ class JsaShowlibs extends ProjectScript {
         cm.add("jsa-showlibs", "Просмотр библиотек nodejs", this.&cmJsaShowlibs,
                 cm.opt("c", "Только клиентские библиотеки"),
                 cm.opt("q", "", "Выбирать только библиотеки, содержащие в имени подстроку"),
-                cm.opt("a", "", "Вся информация"),
+                cm.opt("a", "", "Все библиотеки, без этой опции - только используемые в проекте"),
+                cm.opt("i", "", "Показать всю информацию о библиотеке"),
+                cm.opt("g", "", "Создать временный package.json с выбранными библиотеками"),
         )
     }
 
     void cmJsaShowlibs(CmArgs args) {
         boolean onlyClient = args.containsKey("c")
-        boolean allInfo = args.containsKey("a")
+        boolean allInfo = args.containsKey("i")
+        boolean allLibs = args.containsKey("a")
+        boolean needPackageJson = args.containsKey("g")
         String nameFilter = null
         if (args.containsKey("q")) {
             nameFilter = args.getString("q")
         }
 
-        NodeJsLibList libs = ctx.service(JsaService).getNodeJsLibs(project)
+        NodeJsLibList libs
+        if (allLibs) {
+            libs = ctx.service(NodeJsLibService).getLibs()
+        } else {
+            libs = ctx.service(JsaService).getNodeJsLibs(project)
+        }
         Map res = [:]
+        NodeJsLibList libsChoiced = new NodeJsLibList()
 
         for (NodeJsLib lib : libs) {
 
@@ -37,6 +47,7 @@ class JsaShowlibs extends ProjectScript {
                 }
             }
 
+            libsChoiced.add(lib)
             Map cur = [:]
             res[lib.name] = cur
 
@@ -66,6 +77,18 @@ class JsaShowlibs extends ProjectScript {
         }
 
         ut.printMap(res)
+
+        if (needPackageJson) {
+            String outFile = wd("temp/jsa-showlibs/package.json")
+            ut.cleanfile(outFile)
+            log("save file: ${outFile}")
+            JsaUtils jsaUtils = create(JsaUtils)
+            JsaService jsaSvc = ctx.service(JsaService)
+            Map<String, String> nodeDeps = jsaSvc.getNodeDepends(libsChoiced)
+            String txt = jsaUtils.makePackageJson(nodeDeps)
+            UtFile.saveString(txt, new File(outFile))
+        }
+
     }
 
 }
