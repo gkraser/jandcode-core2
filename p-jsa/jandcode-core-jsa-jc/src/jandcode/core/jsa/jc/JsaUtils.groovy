@@ -265,17 +265,24 @@ ${aliases}
     /**
      * Генерить package.json
      */
-    String makePackageJson() {
+    String makePackageJson(Map<String, String> nodeDeps) {
         Map res = [:]
 
         res['name'] = project.name
         res['private'] = "true"
 
-        res['dependencies'] = ctx.service(JsaService).getNodeDepends(project)
+        res['dependencies'] = nodeDeps
 
         String s = JsaUtJson.toJson(res)
         s = JsonOutput.prettyPrint(s)
         return s
+    }
+
+    /**
+     * Генерить package.json
+     */
+    String makePackageJson() {
+        return makePackageJson(ctx.service(JsaService).getNodeDepends(project))
     }
 
     /**
