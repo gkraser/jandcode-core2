@@ -253,6 +253,10 @@ public class CtxImpl implements Ctx {
         return serviceHolder.service(serviceClass);
     }
 
+    public Object service(String serviceClassName) {
+        return serviceHolder.service(serviceClassName);
+    }
+
     ////// IEnv
 
     public Env getEnv() {

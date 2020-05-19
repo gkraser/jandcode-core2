@@ -38,4 +38,9 @@ public class ServiceHolder implements IServices {
         return res;
     }
 
+    @SuppressWarnings("unchecked")
+    public Object service(String serviceClassName) {
+        return service(UtClass.getClass(serviceClassName));
+    }
+
 }

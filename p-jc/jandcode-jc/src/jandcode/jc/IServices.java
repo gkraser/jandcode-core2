@@ -10,4 +10,9 @@ public interface IServices {
      */
     <A extends ICtxService> A service(Class<A> serviceClass);
 
+    /**
+     * Получить сервис по имени класса. При первом обращении - сервис создается.
+     */
+    Object service(String serviceClassName);
+
 }
