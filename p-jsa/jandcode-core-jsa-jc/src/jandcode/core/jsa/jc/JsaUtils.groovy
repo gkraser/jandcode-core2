@@ -269,7 +269,7 @@ ${aliases}
         Map res = [:]
 
         res['name'] = project.name
-        res['private'] = "true"
+        res['private'] = true
 
         res['dependencies'] = nodeDeps
 
