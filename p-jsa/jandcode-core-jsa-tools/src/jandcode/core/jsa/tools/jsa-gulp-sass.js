@@ -13,6 +13,7 @@ const sass = require('gulp-sass')
 sass.compiler = require('node-sass')
 
 const jsaSupport = require('./jsa-support');
+const jsaCss = require("./jsa-css");
 
 function sass_imp(url, prev, done) {
 
@@ -62,6 +63,10 @@ function sass_taskFactory(g, taskName, module, taskParams) {
             .pipe(rename(function(path, f) {
                 path.extname = f._orig_extname + "--compiled";
             }))
+            .pipe(gulpif(g.isProd, through2(function(file, enc, callback) {
+                jsaCss.minifyCss(g, file, this)
+                callback(null, file)
+            })))
             .pipe(gulp.dest(g.buildPathCompiled))
     })
 

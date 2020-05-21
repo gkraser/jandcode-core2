@@ -18,8 +18,12 @@ class JsaRootProject extends ProjectScript {
 
     protected void onInclude() throws Exception {
 
-        cm.add("jsa-build", "Выполнить сборку клиенского кода (gulp build)", this.&cmJsaBuild)
-        cm.add("jsa-watch", "Собрать и следить за изменениями клиенского кода (gulp watch)", this.&cmJsaWatch)
+        cm.add("jsa-build", "Выполнить сборку клиенского кода (gulp build)", this.&cmJsaBuild,
+                cm.opt('prod', 'Запустить в режиме production')
+        )
+        cm.add("jsa-watch", "Собрать и следить за изменениями клиенского кода (gulp watch)", this.&cmJsaWatch,
+                cm.opt('prod', 'Запустить в режиме production')
+        )
 
         include(JsaShowlibs)
 
@@ -91,11 +95,12 @@ class JsaRootProject extends ProjectScript {
         }
     }
 
-    void cmJsaBuild() {
+    void cmJsaBuild(CmArgs args) {
+        boolean isProd = args.containsKey('prod')
         cm.exec("prepare")
 
         String env = ""
-        if (ctx.env.prod) {
+        if (ctx.env.prod || isProd) {
             env = "cross-env \"NODE_ENV=production\""
         }
         ut.runcmd(cmd: "jc @ ${env} gulp build")
@@ -113,11 +118,13 @@ class JsaRootProject extends ProjectScript {
         }
     }
 
-    void cmJsaWatch() {
+    void cmJsaWatch(CmArgs args) {
+        boolean isProd = args.containsKey('prod')
+
         cm.exec("prepare")
 
         String env = ""
-        if (ctx.env.prod) {
+        if (ctx.env.prod || isProd) {
             env = "cross-env \"NODE_ENV=production\""
         }
         ut.runcmd(cmd: "jc @ ${env} gulp watch")

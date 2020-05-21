@@ -4,6 +4,7 @@ const through2 = require('through2').obj;
 const Vinyl = require('vinyl');
 const fs = require('fs');
 const jsaSupport = require('./jsa-support');
+const jsaJs = require("./jsa-js");
 
 function nm_taskFactory(g, taskName, module, taskParams) {
 
@@ -75,6 +76,25 @@ function nmExtractRequire_taskFactory(g, taskName, module, taskParams) {
     })
 }
 
+function nmMinifyJs_taskFactory(g, taskName, module, taskParams) {
+
+    gulp.task(taskName, function(cb) {
+        if (!g.isProd) {
+            cb()
+            return
+        }
+        let globsBundle = ['**/*.js', '!**/*.min.js']
+        let globs = g.makeGlobs(g.buildPathNodeModules, {globs: globsBundle})
+
+        return gulp.src(globs, {base: g.buildPathNodeModules, nodir: true})
+            .pipe(through2(function(file, enc, callback) {
+                jsaJs.minifyJs(g, file, this, '--compiled-min')
+                callback()
+            }))
+            .pipe(gulp.dest(g.buildPathCompiledNodeModules))
+    })
+}
+
 function nmModuleMapping_taskFactory(g, taskName, module, taskParams) {
     gulp.task(taskName, function(callback) {
         fs.mkdirSync(g.buildPathCompiledNodeModules, {recursive: true})
@@ -98,4 +118,5 @@ module.exports = function(g) {
     g.registerTaskFactory("nm", nm_taskFactory)
     g.registerTaskFactory("nm-extract-require", nmExtractRequire_taskFactory)
     g.registerTaskFactory("nm-module-mapping", nmModuleMapping_taskFactory)
+    g.registerTaskFactory("nm-minify-js", nmMinifyJs_taskFactory)
 }

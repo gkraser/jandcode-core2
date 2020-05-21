@@ -1,6 +1,7 @@
 package jandcode.core.jsa.jsmodule.std;
 
 import jandcode.commons.error.*;
+import jandcode.core.jsa.cfg.*;
 import jandcode.core.jsa.jsmodule.*;
 import jandcode.core.jsa.jsmodule.impl.*;
 import jandcode.core.web.*;
@@ -42,8 +43,17 @@ public abstract class JsModuleText extends JsModuleImpl {
 
 
         } else {
+            JsaCfg jsaCfg = getApp().bean(JsaCfg.class);
+
             // обычный файл
-            VirtFile compiledFile = b.findCompiled(null);
+            VirtFile compiledFile = null;
+            if (jsaCfg.isMinify()) {
+                // сначала ищем минифицированные, если нужно
+                compiledFile = b.findCompiled("min");
+            }
+            if (compiledFile == null) {
+                compiledFile = b.findCompiled(null);
+            }
             if (compiledFile != null) {
                 if (f.getLastModTime() > compiledFile.getLastModTime()) {
                     throw new XError("Файл требует перекомпиляции");

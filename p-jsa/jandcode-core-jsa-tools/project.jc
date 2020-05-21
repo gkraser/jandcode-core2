@@ -65,6 +65,9 @@ class P extends ProjectScript {
 
                     "node-sass",
                     "gulp-sass",
+
+                    "terser",
+                    "clean-css",
             )
         }
         //

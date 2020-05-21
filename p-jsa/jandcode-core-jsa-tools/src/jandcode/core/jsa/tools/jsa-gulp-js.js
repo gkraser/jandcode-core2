@@ -7,6 +7,8 @@ const cached = require('gulp-cached')
 const debug = require('gulp-debug');
 const findRequires = require('find-requires')
 const Vinyl = require('vinyl');
+const jsaJs = require("./jsa-js");
+
 
 function js_taskFactory(g, taskName, module, taskParams) {
     let globs = g.makeGlobs(module, taskParams)
@@ -39,6 +41,12 @@ function js_taskFactory(g, taskName, module, taskParams) {
                 this.push(rfile)
                 callback(null, file)
             }))
+            .pipe(gulpif(g.isProd, through2(function(file, enc, callback) {
+                if (file.path.endsWith('--compiled')) {
+                    jsaJs.minifyJs(g, file, this)
+                }
+                callback(null, file)
+            })))
             .pipe(gulp.dest(g.buildPathCompiled))
     })
 }
@@ -73,6 +81,14 @@ module.exports = function(g) {
         plugins: [
             "@babel/plugin-external-helpers"
         ]
+    }
+
+    g.terserConfig = {
+        compress: false,
+        mangle: false,
+        output:{
+            comments: false
+        },
     }
 
     //

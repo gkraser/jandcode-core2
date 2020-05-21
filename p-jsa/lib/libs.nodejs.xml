@@ -42,6 +42,9 @@
     <lib name="node-sass" version="4.14.1"/>
     <lib name="gulp-sass" version="4.1.0"/>
 
+    <lib name="terser" version="4.7.0"/>
+    <lib name="clean-css" version="4.2.3"/>
+
     <!-- client -->
 
     <lib name="jquery" version="3.5.1" client="true">

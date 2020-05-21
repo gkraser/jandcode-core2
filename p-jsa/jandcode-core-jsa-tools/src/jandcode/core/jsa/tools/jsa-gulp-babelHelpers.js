@@ -2,6 +2,8 @@ const gulp = require('gulp')
 const babelCore = require("@babel/core")
 const through2 = require('through2').obj;
 const rename = require('gulp-rename')
+const gulpif = require('gulp-if');
+const jsaJs = require("./jsa-js");
 
 function babelHelpers_taskFactory(g, taskName, module, taskParams) {
     let globs = g.makeGlobs(module, taskParams)
@@ -16,6 +18,12 @@ function babelHelpers_taskFactory(g, taskName, module, taskParams) {
             .pipe(rename(function(path) {
                 path.extname += "--compiled";
             }))
+            .pipe(gulpif(g.isProd, through2(function(file, enc, callback) {
+                if (file.path.endsWith('--compiled')) {
+                    jsaJs.minifyJs(g, file, this)
+                }
+                callback(null, file)
+            })))
             .pipe(gulp.dest(g.buildPathCompiled))
     })
 }

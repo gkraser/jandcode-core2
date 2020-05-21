@@ -40,6 +40,7 @@ class P extends ProjectScript {
             gulpTask(name: "nm", stage: 'prepare')
             gulpTask(name: "nm-extract-require", stage: 'prepare')
             gulpTask(name: "nm-module-mapping", stage: 'prepare')
+            gulpTask(name: "nm-minify-js", stage: 'prepare')
 
             gulpTask(name: "js", provide: true, globs: ["**/*.js"])
             gulpTask(name: "babelHelpers", globs: ["js/boot/babelHelpers.js"])

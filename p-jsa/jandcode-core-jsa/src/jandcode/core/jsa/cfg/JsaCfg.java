@@ -40,4 +40,22 @@ public interface JsaCfg extends Cfg {
      */
     String getDefaultTheme();
 
+    /**
+     * Доставлять на клиента минифицированные версии модулей.
+     * Если значение в конфиге не указано или пустое,
+     * то в режиме prod=true, в режиме dev=false.
+     * <p>
+     * app.cfx: cfg/jsa/minify
+     */
+    boolean isMinify();
+
+    /**
+     * Показывать ли на клиенте исходники модулей в консоли браузера.
+     * Если значение в конфиге не указано или пустое,
+     * то в режиме prod=false, в режиме dev=true.
+     * <p>
+     * app.cfx: cfg/jsa/minify
+     */
+    boolean isModuleSource();
+
 }

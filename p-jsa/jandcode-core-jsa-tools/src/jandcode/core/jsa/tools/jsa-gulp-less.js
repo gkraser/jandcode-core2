@@ -12,6 +12,7 @@ const less = require('gulp-less')
 
 const jsaSupport = require('./jsa-support');
 const jsaLess = require('./jsa-less')
+const jsaCss = require("./jsa-css");
 
 
 function less_taskFactory(g, taskName, module, taskParams) {
@@ -42,6 +43,10 @@ function less_taskFactory(g, taskName, module, taskParams) {
             .pipe(rename(function(path, f) {
                 path.extname = f._orig_extname + "--compiled";
             }))
+            .pipe(gulpif(g.isProd, through2(function(file, enc, callback) {
+                jsaCss.minifyCss(g, file, this)
+                callback(null, file)
+            })))
             .pipe(gulp.dest(g.buildPathCompiled))
     })
 

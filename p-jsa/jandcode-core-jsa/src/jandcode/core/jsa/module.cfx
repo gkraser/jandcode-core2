@@ -22,6 +22,8 @@
                 bootModule="not-defined-bootModule"
                 envModule=""
                 defaultTheme=""
+                minify=""
+                moduleSource=""
         />
     </cfg>
 
@@ -91,7 +93,7 @@
 
         маппинг имен модулей
 
-        <jcmodule-mapping
+        <jsmodule-mapping
                 name="i"
                 src="vue"
                 dest="vue/dist/vue"/>

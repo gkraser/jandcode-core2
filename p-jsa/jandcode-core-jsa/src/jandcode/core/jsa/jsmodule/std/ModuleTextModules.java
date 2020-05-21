@@ -1,6 +1,7 @@
 package jandcode.core.jsa.jsmodule.std;
 
 import jandcode.core.*;
+import jandcode.core.jsa.cfg.*;
 import jandcode.core.jsa.jsmodule.*;
 import jandcode.core.jsa.jsmodule.impl.*;
 
@@ -23,6 +24,9 @@ public class ModuleTextModules extends ModuleTextCustom {
     }
 
     protected String makeText() {
+        JsaCfg jsaCfg = getApp().bean(JsaCfg.class);
+        boolean bodyAsString = jsaCfg.isModuleSource();
+
         JsModuleService svc = getApp().bean(JsModuleService.class);
 
         ModuleJoiner joinerInc = new ModuleJoiner(svc);
@@ -44,7 +48,7 @@ public class ModuleTextModules extends ModuleTextCustom {
 
         for (JsModule mod : modules) {
 
-            mbs.build(sb, mod, true);
+            mbs.build(sb, mod, bodyAsString);
             sb.append("\n");
         }
 

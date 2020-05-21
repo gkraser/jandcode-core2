@@ -18,6 +18,7 @@ const sassCompiler = require('node-sass')
 const jsaSupport = require('./jsa-support');
 const jsaVue = require('./jsa-vue');
 const jsaLess = require('./jsa-less')
+const jsaJs = require("./jsa-js");
 
 function vue_taskFactory(g, taskName, module, taskParams) {
     let th = this
@@ -114,6 +115,12 @@ function vue_taskFactory(g, taskName, module, taskParams) {
                 this.push(rfile)
                 callback(null, file)
             }))
+            .pipe(gulpif(g.isProd, through2(function(file, enc, callback) {
+                if (file.path.endsWith('--compiled')) {
+                    jsaJs.minifyJs(g, file, this)
+                }
+                callback(null, file)
+            })))
             .pipe(gulp.dest(g.buildPathCompiled))
     })
 }
