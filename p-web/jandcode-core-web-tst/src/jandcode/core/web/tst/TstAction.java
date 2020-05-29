@@ -62,4 +62,16 @@ public class TstAction extends BaseAction {
         return null;
     }
 
+    /**
+     * Рендер произвольного gsp
+     */
+    public void render() throws Exception {
+        String path = getReq().getActionMethodPathInfo();
+        String ext = UtFile.ext(path);
+        if (UtString.empty(ext)) {
+            path = path + ".gsp";
+        }
+        getReq().renderGsp(path);
+    }
+
 }
