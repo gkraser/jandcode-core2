@@ -2,11 +2,11 @@
 <root>
 
     <!-- tools  -->
-    <lib name="@babel/cli" version="7.8.4"/>
-    <lib name="@babel/core" version="7.8.7"/>
-    <lib name="@babel/preset-env" version="7.8.7"/>
-    <lib name="@babel/polyfill" version="7.8.7"/>
-    <lib name="@babel/plugin-external-helpers" version="7.8.3"/>
+    <lib name="@babel/cli" version="7.10.1"/>
+    <lib name="@babel/core" version="7.10.1"/>
+    <lib name="@babel/preset-env" version="7.10.1"/>
+    <lib name="@babel/polyfill" version="7.10.1"/>
+    <lib name="@babel/plugin-external-helpers" version="7.10.1"/>
 
     <lib name="cross-env" version="7.0.2"/>
     <lib name="find-requires" version="1.0.0"/>
@@ -84,7 +84,7 @@
         <module-mapping module="vue" real-module="vue/dist/vue"/>
     </lib>
 
-    <lib name="vue-router" version="3.2.0" client="true">
+    <lib name="vue-router" version="3.3.1" client="true">
         <include-client mask="dist/*.js"/>
 
         <exclude-client mask="dist/*.common.*"/>
@@ -102,7 +102,7 @@
         <module-mapping module="vuex" real-module="vuex/dist/vuex"/>
     </lib>
 
-    <lib name="quasar" version="1.11.3" client="true">
+    <lib name="quasar" version="1.12.0" client="true">
         <include-client mask="dist/*.js"/>
         <include-client mask="dist/*.css"/>
         <include-client mask="dist/*.sass"/>
