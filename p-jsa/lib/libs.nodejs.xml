@@ -16,7 +16,7 @@
     <lib name="require-from-string" version="2.0.2"/>
     <lib name="del" version="5.1.0"/>
 
-    <lib name="less" version="3.11.1"/>
+    <lib name="less" version="3.11.2"/>
 
     <lib name="vue-template-compiler" version="2.6.11"/>
     <lib name="vue-template-es2015-compiler" version="1.9.1"/>
@@ -84,7 +84,7 @@
         <module-mapping module="vue" real-module="vue/dist/vue"/>
     </lib>
 
-    <lib name="vue-router" version="3.3.1" client="true">
+    <lib name="vue-router" version="3.3.2" client="true">
         <include-client mask="dist/*.js"/>
 
         <exclude-client mask="dist/*.common.*"/>
@@ -102,7 +102,7 @@
         <module-mapping module="vuex" real-module="vuex/dist/vuex"/>
     </lib>
 
-    <lib name="quasar" version="1.12.0" client="true">
+    <lib name="quasar" version="1.12.2" client="true">
         <include-client mask="dist/*.js"/>
         <include-client mask="dist/*.css"/>
         <include-client mask="dist/*.sass"/>
