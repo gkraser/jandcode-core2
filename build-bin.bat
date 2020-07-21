@@ -2,5 +2,5 @@
 
 rem Update to last version & build bin
 
-call hg pull -u
+call git pull
 call jc product -u
