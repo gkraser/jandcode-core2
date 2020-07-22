@@ -89,9 +89,8 @@
         </copy>
 
         <!-- version -->
-        <exec executable="hg" outputproperty="ver1">
-            <arg value="id"/>
-            <arg value="-n"/>
+        <exec executable="git" outputproperty="ver1">
+            <arg line="describe"/>
         </exec>
         <echo message="version=SNAPSHOT-${ver1}"
               file="${jc.compiled}/jandcode/jc/version.properties"/>

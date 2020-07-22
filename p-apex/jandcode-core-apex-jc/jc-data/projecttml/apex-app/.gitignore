@@ -1,4 +1,3 @@
-syntax: glob
 ?
 ?.bat
 *.log
@@ -19,6 +18,5 @@ node_modules
 app-run.bat
 app-run.sh
 
-syntax: regexp
-^_
-^lib/_
+/_
+/lib/_
