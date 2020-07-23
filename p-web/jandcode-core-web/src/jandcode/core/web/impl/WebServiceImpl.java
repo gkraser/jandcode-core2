@@ -254,6 +254,16 @@ public class WebServiceImpl extends BaseComp implements WebService {
         }
     }
 
+    /**
+     * Возвращает true для кодов ошибок http, для которых не нужно делать
+     * реальный sendError, достаточно установить статус в текущем запросе.
+     *
+     * @param code проверяемый код
+     */
+    protected boolean isNotSendErrorCode(int code) {
+        return code == 304;
+    }
+
     public void handleRequest(Request request) throws Throwable {
 
         // делаем его текущим
@@ -335,11 +345,23 @@ public class WebServiceImpl extends BaseComp implements WebService {
             } else if (e1 instanceof HttpError) {
                 HttpError e2 = (HttpError) e1;
                 requestLogger.logHttpError(request, e2);
-                // sendError с сообщением и без могут иметь разную реализацию
-                if (UtString.empty(e.getMessage())) {
-                    request.getHttpResponse().sendError(e2.getCode());
-                } else {
-                    request.getHttpResponse().sendError(e2.getCode(), e.getMessage());
+
+                // для части ошибок не генерим sendError, а просто ставим статус
+                boolean needSendError = true;
+                if (isNotSendErrorCode(e2.getCode())) {
+                    if (!request.isOutGet()) {
+                        needSendError = false;
+                        request.getHttpResponse().setStatus(e2.getCode());
+                    }
+                }
+
+                if (needSendError) {
+                    // sendError с сообщением и без могут иметь разную реализацию
+                    if (UtString.empty(e.getMessage())) {
+                        request.getHttpResponse().sendError(e2.getCode());
+                    } else {
+                        request.getHttpResponse().sendError(e2.getCode(), e.getMessage());
+                    }
                 }
 
             } else {
