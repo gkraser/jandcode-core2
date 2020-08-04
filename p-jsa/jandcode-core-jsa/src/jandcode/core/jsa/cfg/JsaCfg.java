@@ -54,7 +54,7 @@ public interface JsaCfg extends Cfg {
      * Если значение в конфиге не указано или пустое,
      * то в режиме prod=false, в режиме dev=true.
      * <p>
-     * app.cfx: cfg/jsa/minify
+     * app.cfx: cfg/jsa/moduleSource
      */
     boolean isModuleSource();
 
