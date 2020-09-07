@@ -109,6 +109,7 @@ class LibCopier extends ProjectScript {
             //
             x["name"] = a.name
             x["version"] = a.version
+            x["groupId"] = a.groupId
             //
             if (validate(a, copyJar)) {
                 ant.copy(file: a.jar, tofile: UtFile.join(destdir, jarFile),
