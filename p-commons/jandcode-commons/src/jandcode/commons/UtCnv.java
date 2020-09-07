@@ -8,8 +8,8 @@ import jandcode.commons.variant.*;
 
 import java.awt.*;
 import java.time.*;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 /**
  * Утилиты для стандартной конвертации значений
