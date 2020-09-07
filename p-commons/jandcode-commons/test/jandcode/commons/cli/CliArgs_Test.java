@@ -14,10 +14,10 @@ public class CliArgs_Test extends Utils_Test {
                 "-a", "-b:2", "-b:3", "p1", "p2", "-c", "-d:"
         });
         assertEquals(d.getParams().size(), 2);
-        assertEquals(d.get("a"), "1");
+        assertEquals(d.get("a"), "");
         assertEquals(d.get("b"), "3");
-        assertEquals(d.get("c"), "1");
-        assertEquals(d.get("d"), "1");
+        assertEquals(d.get("c"), "");
+        assertEquals(d.get("d"), "");
     }
 
 }
