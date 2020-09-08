@@ -11,9 +11,9 @@ class P extends ProjectScript {
         // version
         if (UtFile.exists(wd("__dev__"))) {
             // режим разработчика, так версия получается чуточку быстрее
-            project.version = include(HgVersion).version("SNAPSHOT-#{revno}")
+            project.version = include(GitVersion).version("SNAPSHOT-#{revno}")
         } else {
-            project.version = include(HgVersion).version("#{ver}")
+            project.version = include(GitVersion).version("#{ver}")
         }
         //
         include(RootProject).with {

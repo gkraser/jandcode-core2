@@ -12,7 +12,7 @@ class P extends ProjectScript {
     void onInclude() {
         //
         project.name = "xxx-yyy"
-        project.version = include(HgVersion)
+        project.version = include(GitVersion)
         //
         //
         include(ApexRootProject)
