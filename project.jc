@@ -9,12 +9,8 @@ class P extends ProjectScript {
         project.name = "jandcode-core2"
 
         // version
-        if (UtFile.exists(wd("__dev__"))) {
-            // режим разработчика, так версия получается чуточку быстрее
-            project.version = include(GitVersion).version("SNAPSHOT-#{revno}")
-        } else {
-            project.version = include(GitVersion).version("#{ver}")
-        }
+        project.version = include(GitVersion)
+
         //
         include(RootProject).with {
             groupId = "com.jandcode"
