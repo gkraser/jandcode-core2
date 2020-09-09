@@ -141,6 +141,9 @@ class GenIdea extends ProjectScript {
         }
         IprXml ix = new IprXml(project, x)
 
+        // ставим значения по умолчанию
+        assignIprDefaultValues(ix)
+
         // уведомляем
         fireEvent(new Event_GenIpr(ix))
 
@@ -148,5 +151,26 @@ class GenIdea extends ProjectScript {
         x.save().toFile(outFile)
     }
 
+    void assignIprDefaultValues(IprXml x) {
+
+        String s
+        SimXml x1
+
+        // jdk
+        JdkInfo jdkInfo = new JdkInfo()
+        s = jdkInfo.getJdkVersion()
+        x1 = x.root.findChild("component@name=ProjectRootManager", true)
+        if (x1.getString('project-jdk-name') == '') {
+            x1['project-jdk-name'] = s
+        }
+
+        // lang level
+        s = jdkInfo.getIdeaLanguageLevelForJdkVersion(jdkInfo.getJdkVersion())
+        x1 = x.root.findChild("component@name=ProjectRootManager", true)
+        if (x1.getString('languageLevel') == '') {
+            x1['languageLevel'] = s
+        }
+
+    }
 
 }
