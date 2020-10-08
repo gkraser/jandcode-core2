@@ -22,7 +22,7 @@ dependencies {
     String v, vp
 
     // ant
-    v = '1.10.8'
+    v = '1.10.9'
     compile group: 'org.apache.ant', name: 'ant', version: v
     compile group: 'org.apache.ant', name: 'ant-launcher', version: v
     compile(group: 'org.apache.ant', name: 'ant-junit', version: v) {
@@ -33,8 +33,8 @@ dependencies {
     }
 
     // junit5
-    v = '5.6.1'
-    vp = '1.6.1'  // platform
+    v = '5.7.0'
+    vp = '1.7.0'  // platform
     compile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: v
     compile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: v
     compile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: v
@@ -43,17 +43,17 @@ dependencies {
 
     // apache commons
     compile group: 'org.apache.commons', name: 'commons-vfs2', version: '2.6.0'
-    compile group: 'commons-io', name: 'commons-io', version: '2.6'
-    compile group: 'commons-codec', name: 'commons-codec', version: '1.14'
+    compile group: 'commons-io', name: 'commons-io', version: '2.8.0'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.15'
     compile group: 'org.apache.commons', name: 'commons-compress', version: '1.20'
-    compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.7.0'
-    compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.8.0'
+    compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.8.0'
+    compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.9.0'
     compile group: 'org.apache.commons', name: 'commons-csv', version: '1.8'
     compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
     compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
 
     // groovy
-    v = '3.0.5'
+    v = '3.0.6'
     compile group: 'org.codehaus.groovy', name: 'groovy', version: v
     compile(group: 'org.codehaus.groovy', name: 'groovy-ant', version: v) {
         exclude group: 'org.apache.ant'
@@ -70,7 +70,7 @@ dependencies {
     compile group: 'org.fusesource.jansi', name: 'jansi', version: '1.18'
 
     // picocli, для groovy
-    compile group: 'info.picocli', name: 'picocli', version: '4.3.2'
+    compile group: 'info.picocli', name: 'picocli', version: '4.5.1'
 
     // slf4j
     v = '1.7.30'
@@ -85,10 +85,10 @@ dependencies {
     compile group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
 
     // jdbc
-    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.12'
+    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.16'
     compile group: 'com.h2database', name: 'h2', version: '1.4.200'
-    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.6.0'
-    compile group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '19.6.0.0', transitive: false
+    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.0'
+    compile group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '19.7.0.0', transitive: false
 
     // flexmark
     v = '0.50.50'
@@ -106,7 +106,7 @@ dependencies {
     compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 
     // undertow
-    compile(group: 'io.undertow', name: 'undertow-servlet', version: '2.1.1.Final') {
+    compile(group: 'io.undertow', name: 'undertow-servlet', version: '2.2.1.Final') {
         exclude module: 'jboss-annotations-api_1.2_spec'
         exclude module: 'jboss-servlet-api_4.0_spec'
     }
@@ -121,7 +121,7 @@ dependencies {
     compile group: 'org.apache.poi', name: 'poi-scratchpad', version: v
 
     // lucene
-    v = '8.5.1'
+    v = '8.6.3'
     compile group: 'org.apache.lucene', name: 'lucene-core', version: v
     compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: v
     compile group: 'org.apache.lucene', name: 'lucene-queryparser', version: v
