@@ -47,7 +47,7 @@ public class AppTestSvc extends BaseTestSvc implements App {
                 res = _cacheApp.get(fn);
                 if (res == null) {
                     String fn1 = fn;
-                    List<String> sourceFn = findComiledFileInTestSource(fn);
+                    List<String> sourceFn = findCompiledFileInTestSource(fn);
                     if (sourceFn.size() == 0) {
                         System.out.println("WARNING: Не найден файл в исходниках тестов для файла [" + fn + "]");
                     } else if (sourceFn.size() > 1) {
@@ -96,7 +96,7 @@ public class AppTestSvc extends BaseTestSvc implements App {
      * @param compiledFile полное имя файла в скомпилированных ресурсах
      * @return список подходяжих файлов в исходниках тестов
      */
-    public List<String> findComiledFileInTestSource(String compiledFile) throws Exception {
+    public List<String> findCompiledFileInTestSource(String compiledFile) throws Exception {
         List<String> res = new ArrayList<>();
 
         String appdir = AppConsts.resolveAppdir(UtFile.getWorkdir());
