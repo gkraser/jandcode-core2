@@ -24,6 +24,9 @@
     <bean name="jandcode.core.std.JcDataAppService"
           class="jandcode.core.std.impl.JcDataAppServiceImpl"/>
 
+    <bean name="jandcode.core.std.AppInfo"
+          class="jandcode.core.std.impl.AppInfoImpl"/>
+
     <!-- ===================================================================== -->
 
     <datadir>

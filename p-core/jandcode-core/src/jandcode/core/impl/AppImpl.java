@@ -177,12 +177,12 @@ public class AppImpl implements App, IBeanIniter {
 
         if (log.isInfoEnabled()) {
             log.info("load app from: {}", this.appConfFile);
-            log.info("       appdir: {}", this.appdir);
+            log.info("appdir: {}", this.appdir);
             if (this.env.isDev()) {
-                log.info("      env.dev: {}", this.env.isDev());
+                log.info("env.dev: {}", this.env.isDev());
             }
             if (this.env.isSource()) {
-                log.info("   env.source: {}", this.env.isSource());
+                log.info("env.source: {}", this.env.isSource());
             }
         }
 
