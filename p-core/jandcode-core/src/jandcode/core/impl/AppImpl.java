@@ -6,6 +6,7 @@ import jandcode.commons.env.*;
 import jandcode.commons.error.*;
 import jandcode.commons.event.*;
 import jandcode.commons.moduledef.*;
+import jandcode.commons.stopwatch.*;
 import jandcode.core.*;
 import org.apache.commons.vfs2.*;
 import org.slf4j.*;
@@ -141,6 +142,10 @@ public class AppImpl implements App, IBeanIniter {
 
     private void loadAppConf() throws Exception {
 
+        // секундомер
+        Stopwatch sw = new DefaultStopwatch("load app");
+        sw.start();
+
         // проверяем файл конфига приложения
         FileObject f = UtFile.getFileObject(appConfFile);
         if (!f.exists()) {
@@ -168,6 +173,17 @@ public class AppImpl implements App, IBeanIniter {
         ModuleDefResolver moduleDefResolver = UtModuleDef.createModuleDefResolver();
         if (this.env.isSource()) {
             moduleDefResolver.addWorkDir(this.appdir);
+        }
+
+        if (log.isInfoEnabled()) {
+            log.info("load app from: {}", this.appConfFile);
+            log.info("       appdir: {}", this.appdir);
+            if (this.env.isDev()) {
+                log.info("      env.dev: {}", this.env.isDev());
+            }
+            if (this.env.isSource()) {
+                log.info("   env.source: {}", this.env.isSource());
+            }
         }
 
         Map<String, String> vars = new LinkedHashMap<>();
@@ -237,7 +253,7 @@ public class AppImpl implements App, IBeanIniter {
         }
 
         // собираем файлы для анализа их изменений
-        confSources = new ArrayList<ConfSource>();
+        confSources = new ArrayList<>();
         for (String rtf : tmpMh.getFiles()) {
             ConfSource rs = new ConfSource(rtf);
             confSources.add(rs);
@@ -262,6 +278,9 @@ public class AppImpl implements App, IBeanIniter {
         }
 
         // готово
+        if (log.isInfoEnabled()) {
+            log.info(sw.toString());
+        }
     }
 
     /**
