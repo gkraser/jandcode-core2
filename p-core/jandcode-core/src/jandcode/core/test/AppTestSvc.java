@@ -58,7 +58,7 @@ public class AppTestSvc extends BaseTestSvc implements App {
                     Stopwatch sw = stopwatch.get("load-app");
                     sw.start();
                     System.out.println("***** [load app: " + fn1 + " ]***************");
-                    res = new AppImpl(fn1, true);
+                    res = AppLoader.load(fn1, true);
                     _cacheApp.put(fn, res);
                     _cacheApp.put(fn1, res);
                     _cacheApp.put(ptn, res);

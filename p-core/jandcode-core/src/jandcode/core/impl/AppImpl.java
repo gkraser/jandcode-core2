@@ -96,15 +96,12 @@ public class AppImpl implements App, IBeanIniter {
 
     //////
 
-    public AppImpl(String appConfFile, boolean test) throws Exception {
-        FileObject f = UtFile.getFileObject(appConfFile);
-        if (!f.exists()) {
-            throw new XError("Файл не найден: " + f.toString());
-        }
+    public AppImpl(String appConfFile, String appdir, Env env, boolean test) throws Exception {
+        this.appConfFile = appConfFile;
+        this.appdir = appdir;
+        this.env = env;
         this.test = test;
-        this.appConfFile = f.toString();
-        this.env = new DefaultEnv(false, false, this.test, null);
-        //                       
+        //
         loadAppConf();
     }
 
@@ -144,11 +141,28 @@ public class AppImpl implements App, IBeanIniter {
 
     private void loadAppConf() throws Exception {
 
+        // проверяем файл конфига приложения
+        FileObject f = UtFile.getFileObject(appConfFile);
+        if (!f.exists()) {
+            throw new XError("Файл конфигурации приложения не найден: " + f.toString());
+        }
+        this.appConfFile = f.toString();
+
         // определяем каталог приложения
-        this.appdir = AppConsts.resolveAppdir(
-                UtFile.path(UtFile.vfsPathToLocalPath(appConfFile))
-        );
-        this.env = UtEnv.loadEnv(UtFile.join(this.appdir, AppConsts.FILE_ENV), this.test);
+        if (UtString.empty(this.appdir)) {
+            this.appdir = AppConsts.resolveAppdir(
+                    UtFile.path(UtFile.vfsPathToLocalPath(appConfFile))
+            );
+        }
+        this.appdir = UtFile.abs(this.appdir);
+        if (!UtFile.exists(this.appdir)) {
+            throw new XError("Каталог приложения не найден: " + appdir);
+        }
+
+        // определяем среду
+        if (this.env == null) {
+            this.env = UtEnv.loadEnv(UtFile.join(this.appdir, AppConsts.FILE_ENV), this.test);
+        }
 
         // resolver
         ModuleDefResolver moduleDefResolver = UtModuleDef.createModuleDefResolver();
