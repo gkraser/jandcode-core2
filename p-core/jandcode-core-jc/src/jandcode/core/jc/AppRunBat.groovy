@@ -18,6 +18,9 @@ class AppRunBat extends ProjectScript {
         // idea
         include(GenIdea)
         onEvent(GenIdea.Event_GenIpr, this.&genIprHandler)
+
+        //
+        addRunConfig("app-run", "")
     }
 
     //////
@@ -25,7 +28,7 @@ class AppRunBat extends ProjectScript {
     /**
      * Класс с методом main, который запускает приложение
      */
-    String mainClass = "NOT-DEFINED"
+    String mainClass = "jandcode.core.launcher.Launcher"
 
     /**
      * Шаблон файла bat
@@ -37,6 +40,10 @@ class AppRunBat extends ProjectScript {
      */
     String templateSh = "core/app-run.sh.gsp"
 
+    /**
+     * Конфигурации запуска
+     */
+    Map<String, String> runConfigs = [:]
 
     void prepareHandler() {
         LibDepends deps = create(LibDependsUtils).getDepends(project)
@@ -80,24 +87,25 @@ class AppRunBat extends ProjectScript {
 
     /**
      * Добавить конфигурацию запуска для idea
-     * @param x куда
      * @param name имя конфигурации
      * @param cliArgs аргументы командной строки
      */
-    void addRunConfig(IprXml x, String name, String cliArgs) {
-        x.addRunConfig_main(name, this.mainClass, cliArgs, wd(""),
-                [
-                        "-Djandcode.app.appdir=" + wd(""),
-                        "-Dfile.encoding=UTF-8",
-                ],
-                [:]
-        )
+    void addRunConfig(String name, String cliArgs) {
+        this.runConfigs[name] = cliArgs
     }
 
     void genIprHandler(GenIdea.Event_GenIpr e) {
         IprXml x = e.x
         //
-        addRunConfig(x, "app-run", "")
+        for (a in runConfigs) {
+            x.addRunConfig_main(a.key, this.mainClass, a.value, wd(""),
+                    [
+                            "-Djandcode.app.appdir=" + wd(""),
+                            "-Dfile.encoding=UTF-8",
+                    ],
+                    [:]
+            )
+        }
     }
 
 }

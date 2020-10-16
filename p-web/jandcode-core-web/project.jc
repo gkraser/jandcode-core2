@@ -13,6 +13,7 @@ class P extends ProjectScript {
                         "javax.servlet-api",
                         "jandcode.core.groovy",
                         "undertow-servlet",
+                        "jandcode.core.launcher",
                 )
             }
         }

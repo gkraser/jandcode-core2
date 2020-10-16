@@ -16,11 +16,15 @@ class P extends ProjectScript {
         include(AppProject)
         include(GenIdea_RunJc)
         include(AppRunBat).with {
+            addRunConfig("app-run serve", "serve -log -p:8080 -c:/jc")
         }
         //
         include(RootProject).with {
             modules(
                     "xxx-yyy-main",
+            )
+            depends.dev(
+                    "jandcode.core.web.tst",
             )
         }
         include(AppProductBuilder).with {
