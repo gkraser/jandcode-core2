@@ -154,18 +154,8 @@ public class AppServlet extends HttpServlet implements IAppLink {
     }
 
     protected App loadApp(String appConfFile) throws Exception {
-        Stopwatch sw = new DefaultStopwatch("load app");
-        sw.start();
-
         // загружаем приложение
-        log.info("load app from: " + appConfFile);
         App app = AppLoader.load(appConfFile);
-        sw.stop();
-        log.info("appdir: " + app.getAppdir());
-        if (app.getEnv().isDev()) {
-            log.info("app.env.dev=true");
-        }
-        log.info(sw.toString());
 
         useApp(app);
 
