@@ -1,1 +1,0 @@
-<jc:include path="xxx/yyy/main/js/main.gsp"/>
