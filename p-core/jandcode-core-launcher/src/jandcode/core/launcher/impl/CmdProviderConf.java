@@ -25,7 +25,8 @@ public class CmdProviderConf extends BaseComp implements CmdProvider {
             if (UtString.empty(cls)) {
                 throw new XError("Не указан атрибут class для команды [{0}] ({1})", x.getName(), x.origin());
             }
-            Cmd a = new CmdImpl(getApp(), x.getName(), cls);
+            String cmdName = x.getString("cmdname", x.getName());
+            Cmd a = new CmdImpl(getApp(), cmdName, cls);
             res.add(a);
         }
         return res;
