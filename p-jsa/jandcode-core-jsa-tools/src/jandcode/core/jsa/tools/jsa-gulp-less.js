@@ -18,18 +18,14 @@ const jsaCss = require("./jsa-css");
 function less_taskFactory(g, taskName, module, taskParams) {
     let globs = g.makeGlobs(module, taskParams)
 
-    // вынужденная мера: отслеживаем все less во всех модулях
     if (module.isSource) {
-        for (let m of jsaSupport.modules) {
-            let gm = g.makeGlobs(m, {globs: ['**/*.less']})
-            g.addWatchTask(taskName, gm)
-        }
+        g.addWatchTask(taskName, globs)
     }
 
     gulp.task(taskName, function() {
         let lastRun = gulp.lastRun(taskName)
 
-        return gulp.src(globs, {base: module.srcPath})
+        return gulp.src(globs, {base: module.srcPath, since: lastRun})
             .pipe(g.showWatchError()) // error handler
             .pipe(debug({title: 'compile', showFiles: !!lastRun}))
             // сохраняем оригинальное расширение
@@ -38,7 +34,7 @@ function less_taskFactory(g, taskName, module, taskParams) {
                 callback(null, file)
             }))
             .pipe(less({
-                plugins: [new jsaLess.JsaLessPlugin()]
+                plugins: [new jsaLess.JsaLessPlugin({taskName: taskName, g: g})]
             }))
             .pipe(rename(function(path, f) {
                 path.extname = f._orig_extname + "--compiled";

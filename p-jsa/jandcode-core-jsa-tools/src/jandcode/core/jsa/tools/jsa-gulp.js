@@ -65,6 +65,8 @@ class JsaGulpBuilder {
         // т.е. при изменениях в glob выполнить taskName
         this.watchTasks = []
 
+        // экземпляры ватчеров, ключ - имя задачи, значение - экземпляр
+        this.watchInsts = {}
     }
 
     /**
@@ -96,7 +98,12 @@ class JsaGulpBuilder {
         function watchTasks(cb) {
             process.title = 'gulp watch: ' + jsaSupport.rootProjectName
             for (let t of th.watchTasks) {
-                gulp.watch(t.globs, {usePolling: true}, gulp.series(t.task))
+                let w = gulp.watch(t.globs, {usePolling: true}, gulp.series(t.task))
+                th.watchInsts[t.task] = w
+                // вызываем отложенные функции, заказанные в execForWatcher
+                for (let wCb of t.initCb) {
+                    wCb(w)
+                }
             }
             cb()
         }
@@ -161,8 +168,32 @@ class JsaGulpBuilder {
     }
 
     addWatchTask(taskName, globs) {
-        let w = {task: taskName, globs: globs}
+        // initCb - набор функций, которые будут вызваны при создании watcher
+        let w = {task: taskName, globs: globs, initCb: []}
         this.watchTasks.push(w)
+    }
+
+    /**
+     * Выполнить функцию cb для watcher указанной задачи.
+     * Если watcher еще не создан, то выполнение задачи откладывается на момент
+     * создания watcher
+     *
+     * @param taskName для какой задачи
+     * @param cb вызываемая функция, в качестве параметра получает watcher
+     */
+    execForWatcher(taskName, cb) {
+        let watcher = this.watchInsts[taskName]
+        if (watcher) {
+            cb(watcher)
+        } else {
+            for (let wt of this.watchTasks) {
+                if (wt.task === taskName) {
+                    wt.initCb.push(cb)
+                    return
+                }
+            }
+            throw new Error("Not found task " + taskName + " for execForWatcher")
+        }
     }
 
     /**

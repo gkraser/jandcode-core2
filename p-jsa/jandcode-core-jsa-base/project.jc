@@ -44,6 +44,9 @@ class P extends ProjectScript {
 
             gulpTask(name: "js", provide: true, globs: ["**/*.js"])
             gulpTask(name: "babelHelpers", globs: ["js/boot/babelHelpers.js"])
+
+            gulpTask(name: "sass", provide: true, globs: ["**/*-style.scss", "css/*-theme.scss"])
+            gulpTask(name: "less", provide: true, globs: ["**/*-style.less", "css/*-theme.less"])
         }
     }
 
