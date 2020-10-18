@@ -10,11 +10,13 @@ class P extends ProjectScript {
 
     void onInclude() {
         //
-        project.name = "xxx-yyy"
+        project.name = "xxx-yyy-main"
         //
         include(JavaProject).with {
-            moduleDef("xxx.yyy").with {
+            moduleDef("xxx.yyy.main").with {
                 depends.prod(
+                    "jandcode.core.launcher",
+                    "jandcode.core.web",
                     "jandcode.core.jsa.base",
                 )
                 depends.dev(

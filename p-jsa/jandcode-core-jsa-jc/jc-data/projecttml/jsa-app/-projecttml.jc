@@ -10,7 +10,7 @@ class P extends ProjectScript {
         // включаем плагин. Теперь - это шаблон.
         Projecttml t = include(Projecttml)
 
-        t.desc = "Скелет java-приложения с поддержкой web"
+        t.desc = "Скелет java-приложения с поддержкой web и jsa"
 
         // универсальные опции для java-модуля
         t.opts += t.optsJavaProject
