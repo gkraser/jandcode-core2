@@ -5,6 +5,7 @@
         <jsa
                 bootModule="jandcode/core/jsa/base/boot.js"
                 envModule="jandcode/core/jsa/base/index.js"
+                defaultTheme="base"
         />
     </cfg>
 
