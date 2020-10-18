@@ -54,6 +54,10 @@
                       href="jandcode/core/web/tst/tools/appinfo.html"
                       title="AppInfo"/>
 
+                <item name="run-js-app"
+                      href="jandcode/core/web/tst/tools/run-js-app.html"
+                      title="RunJsApp"/>
+
                 <item name="tools-menu"
                       href="jandcode/core/web/tst/tools/tools-menu.html"
                       title="OtherTools"/>
