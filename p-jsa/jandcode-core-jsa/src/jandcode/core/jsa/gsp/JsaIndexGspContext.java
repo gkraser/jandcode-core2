@@ -76,7 +76,8 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
     //////
 
     /**
-     * Добавить дополнительный модуль
+     * Добавить дополнительный модуль.
+     * Если имя модуля пустое или null, вызов игнорируется.
      */
     public void addModule(String moduleName) {
         if (UtString.empty(moduleName)) {

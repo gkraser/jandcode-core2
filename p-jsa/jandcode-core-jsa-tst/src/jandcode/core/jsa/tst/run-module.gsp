@@ -7,10 +7,11 @@
   def tstCtx = th.inst(TstIndexGspContext)
   //
   String path = th.context.rootGsp.args.path
+  String theme = th.request.params.getString('theme')
   //
-  ctx.env = "jandcode.core.jsa.tst/tst-runner"
   ctx.main = path
-  ctx.theme = ctx.resolveTheme(th.request.params.getString('theme'), "std")
+  ctx.theme = ctx.resolveTheme(theme, "base")
+  ctx.env = "jandcode.core.jsa.tst/tst-runner.js"
   ctx.addModule(tstCtx.envTstJs)
 %>
 <html>

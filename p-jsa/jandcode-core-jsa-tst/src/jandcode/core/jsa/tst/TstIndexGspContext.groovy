@@ -21,6 +21,14 @@ class TstIndexGspContext implements IGspContextLinkSet {
     }
 
     /**
+     * Возвращает модуль 'main', который собственно исполняем
+     */
+    String getMain() {
+        JsaIndexGspContext ctx = gspContext.inst(JsaIndexGspContext)
+        return ctx.main
+    }
+
+    /**
      * Конфигурация для передачи в gsp
      */
     Map getCfg() {
@@ -28,8 +36,7 @@ class TstIndexGspContext implements IGspContextLinkSet {
             cfg = [:]
 
             JsaIndexGspContext ctx = gspContext.inst(JsaIndexGspContext)
-
-            String main = ctx.main
+            String main = getMain()
 
             cfg.path = main
             cfg.fileName = UtFile.filename(main)
@@ -52,8 +59,7 @@ class TstIndexGspContext implements IGspContextLinkSet {
 
     String getTitle() {
         if (UtString.empty(title)) {
-            JsaIndexGspContext ctx = gspContext.inst(JsaIndexGspContext)
-            String main = ctx.main
+            String main = getMain()
             return UtFile.filename(main) + " - " + main
         }
         return title
@@ -64,12 +70,12 @@ class TstIndexGspContext implements IGspContextLinkSet {
     }
 
     /**
-     * Возвращает полное имя модуля env-tst.js начиная с каталога теста.
+     * Возвращает полное имя модуля env-tst.js начиная с каталога теста и
+     * вверх по иерархии.
      * Если такого файла нет, возвращается null
      */
     String getEnvTstJs() {
-        JsaIndexGspContext ctx = gspContext.inst(JsaIndexGspContext)
-        String main = ctx.main
+        String main = getMain()
 
         WebService webSvc = gspContext.getApp().bean(WebService)
 

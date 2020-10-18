@@ -6,7 +6,7 @@
 
 import TstPanel from './TstPanel'
 import TstBigContent from './TstBigContent'
-import {Vue} from 'jandcode.core.jsa.apex'
+import {Vue} from 'jandcode.core.jsa.vue'
 
 Vue.component(TstPanel.name, TstPanel)
 Vue.component(TstBigContent.name, TstBigContent)

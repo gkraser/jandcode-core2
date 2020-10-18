@@ -1,4 +1,4 @@
-import * as apex from 'jandcode.core.jsa.apex'
+import * as jsaBase from 'jandcode.core.jsa.base'
 import './comp'
 
 /**
@@ -16,7 +16,7 @@ export function runModule(moduleName) {
         } else if (moduleName.endsWith(".vue") || main.vue) {
             let p = main.vue || main.default || main
             //
-            apex.app.run().then(() => {
+            jsaBase.app.run().then(() => {
                 let vm = new Vue({
                     el: '#jc-app',
                     render: h => h(p)
