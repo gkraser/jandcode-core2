@@ -23,6 +23,7 @@ class P extends ProjectScript {
                     "p-web",
                     "p-jsa",
                     "p-mdoc",
+                    "p-apex",
             )
         }
         //
