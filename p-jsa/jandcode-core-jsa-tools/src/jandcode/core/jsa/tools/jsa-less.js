@@ -82,7 +82,10 @@ JsaLessPostProcessor.prototype = {
         if (g.__less_used[taskName] == null) {
             g.__less_used[taskName] = {}
         }
-        let used = g.__less_used[taskName]
+        if (g.__less_used[taskName][rootFilename] == null) {
+            g.__less_used[taskName][rootFilename] = {}
+        }
+        let used = g.__less_used[taskName][rootFilename]
         //
 
         let globs = []
