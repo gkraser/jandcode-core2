@@ -1,0 +1,1 @@
+<jc:svgicons-js path="../../images/icons/**/*.svg"/>

@@ -34,6 +34,7 @@
     JsModuleBuilder b = th.inst(JsModuleBuilder)
     for (f in g.usingFiles) {
       b.addModifyDepend(f.path)
+      out("// ${f.path}\n")
     }
   }
 %>

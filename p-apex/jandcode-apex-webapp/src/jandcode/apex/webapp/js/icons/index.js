@@ -3,7 +3,7 @@
 
 import {registerIcons, quasar_iconMapFn} from '../utils/icons'
 import {quasarIcons, quasarIconSet} from './quasar-iconSet'
-import svgIconsAll from './svgicons-all.js'
+import svgIcons from './svgicons.js'
 import std from './std'
 import {Vue} from '../vendor'
 
@@ -12,7 +12,7 @@ import {Vue} from '../vendor'
  */
 export function init() {
     registerIcons(quasarIcons)
-    registerIcons(svgIconsAll)
+    registerIcons(svgIcons)
     registerIcons(std)
 
     // меняем iconSet на свой
