@@ -1,10 +1,11 @@
-<%@ page import="jandcode.commons.named.*; jandcode.core.web.gsp.*; jandcode.core.web.*; jandcode.commons.*" %>
+<%@ page import="jandcode.core.std.*; jandcode.commons.named.*; jandcode.core.web.gsp.*; jandcode.core.web.*; jandcode.commons.*" %>
 <jc:page template="page/tst-main">
   <%
     //
     BaseGsp th = this
     //
     def domainSvc = th.webService
+    def appInfo = th.app.bean(AppInfo)
   %>
   <!-- ===================================================================== -->
   <h2 class="first">App</h2>
@@ -39,6 +40,14 @@
     <tr>
       <td>home url</td>
       <td><a href="${fullUrl}">${fullUrl}</a></td>
+    </tr>
+    <tr>
+      <td>main module</td>
+      <td>${appInfo.mainModule}</td>
+    </tr>
+    <tr>
+      <td>app title</td>
+      <td>${appInfo.title}</td>
     </tr>
   </table>
 
