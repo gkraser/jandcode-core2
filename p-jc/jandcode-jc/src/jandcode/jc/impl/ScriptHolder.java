@@ -52,7 +52,7 @@ public class ScriptHolder implements IScripts {
 
     public Class getClassProjectScript(String scriptName, Project project) {
         Class cls;
-        if (scriptName.indexOf('/') == -1 || scriptName.indexOf('\\') != -1) {
+        if (scriptName.indexOf('/') == -1 && scriptName.indexOf('\\') == -1) {
             try {
                 cls = Class.forName(scriptName, true, Thread.currentThread().getContextClassLoader());
                 // класс найден - это класс
