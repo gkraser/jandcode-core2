@@ -83,11 +83,13 @@
   <table class="tst-table">
     <tr>
       <th>name</th>
+      <th>web/mount-module</th>
       <th>path</th>
     </tr>
     <% for (r in th.app.modules) { %>
     <tr>
       <td>${r.name}</td>
+      <td>${UtWeb.isMountModule(r) ? 'yes' : ''}</td>
       <td>${r.path}</td>
     </tr>
     <% } %>
