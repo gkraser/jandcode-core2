@@ -5,6 +5,7 @@ import jandcode.commons.error.*;
 import jandcode.commons.groovy.*;
 import jandcode.commons.source.*;
 import jandcode.jc.*;
+import jandcode.jc.std.*;
 import org.apache.commons.vfs2.*;
 
 import java.io.*;
@@ -62,6 +63,21 @@ public class ScriptHolder implements IScripts {
             }
         }
         // ну тогда файл
+
+        // расширение по умолчанию - jc
+        String scriptExt = UtFile.ext(scriptName);
+        if (UtString.empty(scriptExt)) {
+            scriptName = scriptName + ".jc";
+        }
+
+        if (!UtFile.isAbsolute(scriptName) && !UtVDir.isRelPath(scriptName)) {
+            // если не абсолютный и не явно относительный, то ищем в jc-data
+            String tmpScriptName = ctx.service(JcDataService.class).findFile(scriptName);
+            if (tmpScriptName != null) {
+                // есть такой файл
+                scriptName = tmpScriptName;
+            }
+        }
 
         if (!UtFile.isAbsolute(scriptName)) {
             // не абсолютное - ищем относительно проекта
@@ -164,7 +180,7 @@ public class ScriptHolder implements IScripts {
                     if (ctx.getConfig().isRunAsProduct()) {
                         ctx.getLog().warn("beforeLoad скрипт используется в product-mode: " + filename);
                     }
-                    
+
                     text = UtString.normalizeIndent(text).trim();
 
                     String scdir = ctx.getTempdir("beforeLoadScripts");
