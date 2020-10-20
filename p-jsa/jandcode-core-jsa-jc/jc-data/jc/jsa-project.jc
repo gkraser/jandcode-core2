@@ -1,0 +1,16 @@
+import jandcode.jc.*
+
+/**
+ * Подключение к проекту инфраструктуры jsa.
+ * Используется в beforeLoad
+ */
+class P extends ProjectScript {
+
+    void onInclude() {
+        include("jc/web-project")
+        //
+        classpath("jandcode-core-jsa-jc")
+        include("jandcode.core.jsa.jc.JsaRootProject")
+    }
+
+}

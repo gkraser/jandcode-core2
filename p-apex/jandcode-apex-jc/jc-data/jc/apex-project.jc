@@ -1,0 +1,16 @@
+import jandcode.jc.*
+
+/**
+ * Подключение к проекту инфраструктуры apex.
+ * Используется в beforeLoad
+ */
+class P extends ProjectScript {
+
+    void onInclude() {
+        include("jc/jsa-project")
+        //
+        classpath("jandcode-apex-jc")
+        include("jandcode.apex.jc.ApexRootProject")
+    }
+
+}

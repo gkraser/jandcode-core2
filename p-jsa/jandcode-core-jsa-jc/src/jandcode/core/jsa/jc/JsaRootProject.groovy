@@ -44,6 +44,12 @@ class JsaRootProject extends ProjectScript {
         // product
         onEvent(AppProductBuilder.Event_Exec, this.&productHandler)
 
+        include(RootProject).with {
+            depends.dev(
+                    "jandcode.core.jsa.tst",
+            )
+        }
+
         // проверка RootProject
         afterLoad {
             RootProject rp = getIncluded(RootProject)

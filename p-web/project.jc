@@ -17,6 +17,7 @@ class P extends ProjectScript {
             moduleGroup = "jc-core/p-web"
             modules(
                     'jandcode-core-web',
+                    'jandcode-core-web-jc',
                     'jandcode-core-web-tst',
             )
         }

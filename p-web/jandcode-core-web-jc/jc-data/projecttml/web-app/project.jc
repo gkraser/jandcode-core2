@@ -5,7 +5,7 @@ import jandcode.jc.std.*
 class P extends ProjectScript {
 
     static beforeLoad = {
-        classpath("jandcode-core-jc")
+        include("jc/web-project")
     }
 
     void onInclude() {
@@ -13,17 +13,10 @@ class P extends ProjectScript {
         project.name = "xxx-yyy"
         project.version = include(GitVersion)
         //
-        include(AppProject)
-        include(GenIdea_RunJc)
-        include(AppRunBat).with {
-        }
-        //
         include(RootProject).with {
             modules(
                     "xxx-yyy-main",
             )
-        }
-        include(AppProductBuilder).with {
         }
         //
     }

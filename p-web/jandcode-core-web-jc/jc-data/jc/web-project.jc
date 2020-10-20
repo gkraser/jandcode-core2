@@ -1,0 +1,16 @@
+import jandcode.jc.*
+
+/**
+ * Подключение к проекту инфраструктуры web.
+ * Используется в beforeLoad
+ */
+class P extends ProjectScript {
+
+    void onInclude() {
+        include("jc/app-project")
+        //
+        classpath("jandcode-core-web-jc")
+        include("jandcode.core.web.jc.WebRootProject")
+    }
+
+}
