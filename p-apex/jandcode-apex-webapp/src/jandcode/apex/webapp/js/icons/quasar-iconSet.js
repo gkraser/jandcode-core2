@@ -31,18 +31,18 @@ function quasarSvgToNormalSvg(icon) {
     return res
 }
 
-function cnv(toPapix, toQuasar, from, prefix) {
+function cnv(toJsa, toQuasar, from, prefix) {
     for (let key in from) {
         let value = from[key]
         let newKey = prefix + '.' + key
         if (jsaBase.isObject(value)) {
             toQuasar[key] = {}
-            cnv(toPapix, toQuasar[key], value, newKey)
+            cnv(toJsa, toQuasar[key], value, newKey)
         } else {
             if (value.startsWith('M')) {
                 value = quasarSvgToNormalSvg(value)
             }
-            toPapix[newKey] = value
+            toJsa[newKey] = value
             toQuasar[key] = newKey
         }
     }
