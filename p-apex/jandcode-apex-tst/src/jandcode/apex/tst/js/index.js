@@ -4,6 +4,7 @@
 import 'jandcode.apex.webapp'
 import 'jandcode.core.jsa.tst/js'
 import {runModule} from './run-module'
+import './components'
 
 // глобализация
 
