@@ -3,7 +3,7 @@
 
 import * as jsaBase from 'jandcode.core.jsa.base'
 import 'jandcode.apex.webapp'
-import './comp'
+import './js'
 
 /**
  * Запуск модуля
