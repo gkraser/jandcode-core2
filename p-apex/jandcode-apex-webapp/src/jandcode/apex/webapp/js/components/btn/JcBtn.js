@@ -66,7 +66,9 @@ export default {
             !isAttrTrue(ctx.props.round)) {
             // обычная кнопка, у меня - с рамкой
             data.class.push('jc-btn--normal')
-            data.class.push('jc-btn--' + color)
+            if (color != 'normal') {
+                data.class.push('jc-btn--' + color)
+            }
             //
             data.attrs['padding'] = 'sm'
         }
