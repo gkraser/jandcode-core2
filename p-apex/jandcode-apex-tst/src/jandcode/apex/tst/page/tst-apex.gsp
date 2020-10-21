@@ -11,7 +11,7 @@
   //
   ctx.main = path
   ctx.theme = ctx.resolveTheme(theme, "apex-std")
-  ctx.env = "jandcode.apex.tst/tst.js"
+  ctx.env = "jandcode.apex.tst"
   ctx.addModule(tstCtx.envTstJs)
 %>
 <html>

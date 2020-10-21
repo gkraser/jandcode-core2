@@ -1,5 +1,5 @@
 import * as jsaBase from 'jandcode.core.jsa.base'
-import './comp'
+import './js'
 
 /**
  * Запуск модуля

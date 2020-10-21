@@ -1,9 +1,4 @@
-/* Поддержка тестирования в tst для apex
------------------------------------------------------------------------------ */
-
 import * as jsaBase from 'jandcode.core.jsa.base'
-import 'jandcode.apex.webapp'
-import './js'
 
 /**
  * Запуск модуля
@@ -35,10 +30,4 @@ export function runModule(moduleName) {
         }
     })
 }
-
-
-// глобализация
-
-Jc.tst = Jc.tst || {}
-Jc.tst.runModule = runModule
 
