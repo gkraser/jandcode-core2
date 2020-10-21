@@ -8,12 +8,12 @@
 
             <run-file name="js" mask="**/*.test.js"
                       template="run-js.gsp"
-                      templateDefault="jandcode/core/jsa/tst/run-module.gsp"
+                      templateDefault="jandcode/core/jsa/tst/run-js.gsp"
             />
 
             <run-file name="vue" mask="**/*.test.vue"
-                      template="run-vue.gsp"
-                      templateDefault="jandcode/core/jsa/tst/run-module.gsp"
+                      template="run-js.gsp"
+                      templateDefault="jandcode/core/jsa/tst/run-js.gsp"
             />
 
         </tst>
