@@ -2,7 +2,7 @@
     <label class="tst-select">
         <span>{{ label }}</span>
         <select :value="value" @change="onChange">
-            <option v-for="opt in optionsData" :value="opt.value">{{ opt.text }}</option>
+            <option v-for="opt in optionsData" :value="opt.value">{{ opt.label }}</option>
         </select>
     </label>
 </template>
@@ -29,9 +29,9 @@ export default {
             }
             for (let it of this.options) {
                 if (jsaBase.isObject(it)) {
-                    res.push(it)
+                    res.push({value: it.value, label: it.label})
                 } else {
-                    res.push({value: it, text: it})
+                    res.push({value: it, label: it})
                 }
             }
             return res
