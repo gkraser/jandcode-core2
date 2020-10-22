@@ -18,14 +18,23 @@
                 </button>
             </template>
         </div>
+        <template v-if="isCfg">
+            <div class="tst-apex-panel--head tst-tools row">
+                <tst-btn @click="resetCfg" label="resetCfg1"/>
+                <!--            <q-btn @click="resetCfg" label="Reset" color="primary" no-caps padding="xs"/>-->
+                <slot name="tools"/>
+            </div>
+        </template>
+
         <div class="tst-apex-panel--body">
-            <slot></slot>
+            <slot></slot>      
         </div>
     </div>
 </template>
 
 <script>
-import * as jsaBase from 'jandcode.core.jsa.base'
+import {jsaBase} from '../vendor'
+import {applyTstToolsCss} from '../tst-tools-style'
 
 export default {
     name: 'tst-apex-panel',
@@ -36,6 +45,7 @@ export default {
         }
     },
     created() {
+        applyTstToolsCss()
     },
     watch: {
         curTheme: function(v) {
@@ -47,6 +57,16 @@ export default {
     computed: {
         cfg() {
             return Jc.cfg.tst || {}
+        },
+
+        // какой компонент-страница использует этот в качестве шаблона
+        own() {
+            return this.$parent
+        },
+
+        // есть ли на странице конфигурация
+        isCfg() {
+            return this.own && this.own.cfg && this.own.cfgStore
         }
     },
     methods: {
@@ -62,6 +82,9 @@ export default {
         },
         isThemeStd() {
             return this.curTheme.indexOf('apex-std') !== -1
+        },
+        resetCfg() {
+            return this.own.cfgStore.reset();
         }
     }
 }

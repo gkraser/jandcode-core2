@@ -1,4 +1,4 @@
-import * as jsaBase from 'jandcode.core.jsa.base'
+import {apex, jsaBase} from './vendor'
 
 /**
  * Запуск модуля
@@ -16,7 +16,7 @@ export function runModule(moduleName) {
             let p = main.vue || main.default || main
             //
             jsaBase.app.run().then(() => {
-                let vm = new Vue({
+                let vm = new apex.Vue({
                     el: '#jc-app',
                     render: h => h(p)
                 })

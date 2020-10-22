@@ -1,7 +1,7 @@
 /* Поддержка тестирования в tst для apex
 ----------------------------------------------------------------------------- */
 
-import 'jandcode.core.apex.webapp'
+import './vendor'
 import 'jandcode.core.jsa.tst/js'
 import {runModule} from './run-module'
 import './components'
