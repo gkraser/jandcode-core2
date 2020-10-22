@@ -19,22 +19,28 @@
             </template>
         </div>
         <template v-if="isCfg">
-            <div class="tst-apex-panel--head tst-tools row">
-                <tst-btn @click="resetCfg" label="resetCfg1"/>
-                <!--            <q-btn @click="resetCfg" label="Reset" color="primary" no-caps padding="xs"/>-->
+            <div class="tst-apex-panel--head">
+                <tst-btn @click="resetCfg" label="resetCfg"/>
                 <slot name="tools"/>
             </div>
         </template>
 
+        <div class="tst-apex-panel--head" v-if="$slots['tools-1']">
+            <slot name="tools-1"/>
+        </div>
+
+        <div class="tst-apex-panel--head" v-if="$slots['tools-2']">
+            <slot name="tools-2"/>
+        </div>
+
         <div class="tst-apex-panel--body">
-            <slot></slot>      
+            <slot></slot>
         </div>
     </div>
 </template>
 
 <script>
 import {jsaBase} from '../vendor'
-import {applyTstToolsCss} from '../tst-tools-style'
 
 export default {
     name: 'tst-apex-panel',
@@ -45,7 +51,6 @@ export default {
         }
     },
     created() {
-        applyTstToolsCss()
     },
     watch: {
         curTheme: function(v) {
@@ -109,7 +114,7 @@ export default {
 }
 
 .tst-apex-panel--head > *:not(:first-child) {
-  margin-left: 4px;
+  margin-left: 8px;
 }
 
 .tst-apex-panel--head input[type="range"] {
@@ -150,7 +155,7 @@ export default {
 }
 
 .tst-apex-panel--divider {
-  width: 10px;
+  width: 4px;
 }
 
 </style>
