@@ -13,7 +13,7 @@ import {createCfgStore, CfgStore} from '../cfg-store'
 export class CfgStoreService extends jsaBase.AppService {
 
     onCreate() {
-        let cfgStore = createCfgStore('papix.app')
+        let cfgStore = createCfgStore('apex.webapp')
         this.app.cfgStore = cfgStore
     }
 

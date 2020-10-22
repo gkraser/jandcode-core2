@@ -6,6 +6,8 @@ import * as components from './components'
 
 //////
 
+export * from './modules'
+
 export {
     Vue,
     VueRouter,
