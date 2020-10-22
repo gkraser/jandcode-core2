@@ -18,7 +18,8 @@
                 </button>
             </template>
         </div>
-        <template v-if="isCfg">
+
+        <template v-if="isCfg && $slots['tools']">
             <div class="tst-apex-panel--head">
                 <tst-btn @click="resetCfg" label="resetCfg"/>
                 <slot name="tools"/>
