@@ -16,10 +16,10 @@ class P extends ProjectScript {
             groupId = "com.jandcode"
             moduleGroup = "jc-core/p-apex"
             modules(
-                "jandcode-apex",
-                "jandcode-apex-webapp",
-                "jandcode-apex-jc",
-                "jandcode-apex-tst",
+                "jandcode-core-apex",
+                "jandcode-core-apex-webapp",
+                "jandcode-core-apex-jc",
+                "jandcode-core-apex-tst",
             )
         }
     }
