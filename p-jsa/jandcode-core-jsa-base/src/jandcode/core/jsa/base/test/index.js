@@ -17,8 +17,28 @@ Jc.requireCss(mochaCssFix)
 let mocha = window.mocha
 let assert = chai.assert
 
-// инициализация
-mocha.setup('bdd')
+function init() {
+    // инициализация
+    let mochaEl = document.getElementById("mocha")
+    if (!mochaEl) {
+        mochaEl = document.createElement('div')
+        mochaEl.id = 'mocha'
+        document.body.insertAdjacentElement('afterbegin', mochaEl)
+    }
+    // скрываем, что бы не мешалась
+    mochaEl.style.display = 'none'
+
+    // настраиваем
+    mocha.setup('bdd')
+
+    // покажем при первом запуске
+    before(function() {
+        mochaEl.style.display = 'block'
+    })
+}
+
+///
+init()
 
 export {
     mocha,

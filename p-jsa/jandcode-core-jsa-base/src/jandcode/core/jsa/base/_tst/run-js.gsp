@@ -20,8 +20,6 @@
 
 <body>
 <% ctx.outLinkModules() %>
-<div id="jc-app"></div>
-<div id="mocha"></div>
 <script>
     Jc.cfg.set(${ctx.cfgJson})
     Jc.ready(function() {

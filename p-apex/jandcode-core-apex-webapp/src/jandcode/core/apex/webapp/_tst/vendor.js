@@ -1,10 +1,10 @@
-import * as jsaBase from 'jandcode.core.jsa.base'
-import * as apex from '../index'
+//
+import * as apex from 'jandcode.core.apex.webapp'
+import * as test from 'jandcode.core.apex.webapp/test'
 
-import * as test from 'jandcode.core.jsa.base/test'
-
+export * from 'jandcode.core.apex.webapp'
+//
 export {
-    jsaBase,
     apex,
-    test
+    test,
 }

@@ -23,15 +23,7 @@
 </head>
 
 <body>
-<div id="tst-wrapper" class="tst-wrapper">
-  <div id="tst-wrapper--mocha" class="tst-wrapper--mocha">
-    <div id="mocha"></div>
-  </div>
-
-  <div id="tst-wrapper--jc-app" class="tst-wrapper--jc-app">
-    <div id="jc-app"></div>
-  </div>
-</div>
+<div id="jc-app"></div>
 
 <% ctx.outLinkModules() %>
 
