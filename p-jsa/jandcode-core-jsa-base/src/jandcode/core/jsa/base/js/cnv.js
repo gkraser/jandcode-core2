@@ -98,4 +98,23 @@ export function toInt(s, defValue) {
     return v;
 }
 
+/**
+ * Перевод в boolean
+ * @param s        строка. Если строка начинается с цифры, то она будет сконверирована
+ *                 по правилам parseInt, т.е.: toInt('4px')===4
+ * @param defValue значение по умолчанию, если преобразование не удалось (по умолчанию 0)
+ */
+export function toBoolean(s, defValue) {
+    let v
+    if (isBoolean(s)) return s;
+    if (!defValue) defValue = false;
+    if (s == null) {
+        return defValue
+    }
+    if (s === 1 || s === '1' || s === 'true' || s === 'yes') {
+        return true
+    }
+    return false
+}
+
 

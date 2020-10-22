@@ -48,5 +48,19 @@ describe("utils/cnv", function() {
         assert.ok(!m.isEmpty({a: 1}));
     })
 
+    it("toBoolean", function() {
+        assert.ok(m.toBoolean('4') === false);
+        assert.ok(m.toBoolean('') === false);
+        assert.ok(m.toBoolean(undefined) === false);
+        assert.ok(m.toBoolean(null) === false);
+        assert.ok(m.toBoolean(null, true) === true);
+        assert.ok(m.toBoolean(true) === true);
+        assert.ok(m.toBoolean(false) === false);
+        assert.ok(m.toBoolean('1') === true);
+        assert.ok(m.toBoolean('1', false) === true);
+        assert.ok(m.toBoolean('yes', false) === true);
+        assert.ok(m.toBoolean('true', false) === true);
+    })
+
 })
     
