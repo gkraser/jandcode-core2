@@ -69,8 +69,6 @@ export default {
             if (color != 'normal') {
                 data.class.push('jc-btn--' + color)
             }
-            //
-            data.attrs['padding'] = 'sm'
         }
 
         // если тип явно не установлен, и нет click - ставим 'a'
