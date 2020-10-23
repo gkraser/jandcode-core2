@@ -109,6 +109,28 @@ export function getViewportBound() {
     }
 }
 
+let __createTmpElement_place = null
+
+/**
+ * Создает элемент, который лежит в dom, но невидимый.
+ * После использования его нужно удалять, что бы не замусоривать dom.
+ *
+ * @param tagName имя тега (по умолчанию 'div')
+ * @param id id тега, если установлен
+ */
+export function createTmpElement(tagName, id) {
+    if (__createTmpElement_place == null) {
+        __createTmpElement_place = document.createElement('div')
+        __createTmpElement_place.id = base.nextId('tmp-place-')
+        __createTmpElement_place.style.display = 'none'
+        document.body.appendChild(__createTmpElement_place)
+    }
+    let el = document.createElement(tagName || 'div')
+    el.id = id || base.nextId('tmp-node-')
+    __createTmpElement_place.appendChild(el)
+    return el
+}
+
 //////
 
 /**

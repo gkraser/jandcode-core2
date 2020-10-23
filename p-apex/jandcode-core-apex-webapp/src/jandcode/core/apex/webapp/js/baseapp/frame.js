@@ -131,6 +131,7 @@ export class ShowerDialog extends Shower {
 
         th.initFrame(() => {
             th.frameInst.$mount()
+            th.dialogEl = jsaBase.dom.createTmpElement()
 
             let DialogCls = Vue.extend(Dialog)
             th.dialogInst = new DialogCls({propsData: {frameInst: th.frameInst}})
@@ -138,8 +139,12 @@ export class ShowerDialog extends Shower {
                 th.frameInst.$destroy()
                 th.frameInst.shower = null
                 th.dialogInst.$destroy()
+                th.dialogEl.remove()
+                th.frameInst = null
+                th.dialogInst = null
+                th.dialogEl = null
             })
-            th.dialogInst.$mount()
+            th.dialogInst.$mount(th.dialogEl)
 
             th.dialogInst.showDialog()
         })
