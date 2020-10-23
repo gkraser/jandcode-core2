@@ -189,4 +189,8 @@ public class RequestWrapper implements Request {
         return request.getParts();
     }
 
+    public RequestContext getContext() {
+        return request.getContext();
+    }
+
 }

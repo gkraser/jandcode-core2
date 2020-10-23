@@ -30,6 +30,7 @@ public class WebServiceImpl extends BaseComp implements WebService {
     protected ThreadLocal<Request> requestThreadLocal = new ThreadLocal<>();
     protected RequestLogger requestLogger;
     protected Request requestDummy;
+    protected RequestContextFactory requestContextFactory;
 
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
@@ -48,6 +49,10 @@ public class WebServiceImpl extends BaseComp implements WebService {
         }
         s = conf.getString("requestLogger/" + s + "/class", "jandcode.core.web.logger.RequestLoggerDefault");
         requestLogger = (RequestLogger) getApp().create(s);
+
+        // фабрика контекстов запроса
+        Conf x1 = getApp().getConf().getConf("web/request-context/default");
+        requestContextFactory = getApp().create(x1, RequestContextFactory.class);
 
     }
 
@@ -89,6 +94,10 @@ public class WebServiceImpl extends BaseComp implements WebService {
 
     protected void execFilter(FilterType type, Request request) throws Exception {
         getFilterService().execFilter(type, request);
+    }
+
+    public RequestContextFactory getRequestContextFactory() {
+        return requestContextFactory;
     }
 
     ////// actions

@@ -301,5 +301,11 @@ public interface Request extends IAppLink {
      */
     Collection<Part> getParts();
 
+    //////
+
+    /**
+     * Контекст запроса
+     */
+    RequestContext getContext();
 
 }

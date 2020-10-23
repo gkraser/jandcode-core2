@@ -49,6 +49,12 @@
 
     <web>
 
+        <request-context name="default">
+            <bean/>
+        </request-context>
+
+        <!-- =================== -->
+
         <!-- настройки для web -->
 
         <action-provider name="system"

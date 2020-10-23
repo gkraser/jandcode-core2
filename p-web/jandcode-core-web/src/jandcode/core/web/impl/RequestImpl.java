@@ -38,6 +38,7 @@ public class RequestImpl extends BaseComp implements Request {
     protected IdGenerator idGenerator;
     protected boolean disableCacheExecuted;
     protected boolean renderReady;
+    protected RequestContext context;
 
     public RequestImpl(App app, HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
         setApp(app);
@@ -391,4 +392,24 @@ public class RequestImpl extends BaseComp implements Request {
             throw new XErrorWrap(e);
         }
     }
+
+    //////
+
+    public RequestContext getContext() {
+        if (this.context == null) {
+            synchronized (this) {
+                if (this.context == null) {
+                    WebService svc = getApp().bean(WebService.class);
+                    if (svc instanceof WebServiceImpl) {
+                        RequestContextFactory cf = ((WebServiceImpl) svc).getRequestContextFactory();
+                        this.context = cf.createRequestContext(this);
+                    } else {
+                        throw new XError("{0} не поддерживает создание RequestContextFactory", svc.getClass());
+                    }
+                }
+            }
+        }
+        return this.context;
+    }
+
 }
