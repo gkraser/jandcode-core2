@@ -7,6 +7,7 @@ public class LauncherConsts {
     public static final String OPT_LOG = "log";
     public static final String OPT_LOG_CONFIG = "log-config";
     public static final String OPT_VERBOSE = "v";
+    public static final String OPT_APP = "app";
 
     /**
      * Cистемные опции, используемые в main. Их нельзя использовать в командах.
@@ -17,6 +18,7 @@ public class LauncherConsts {
             OPT_LOG,
             OPT_LOG_CONFIG,
             OPT_VERBOSE,
+            OPT_APP,
     };
 
     /**

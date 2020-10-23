@@ -110,7 +110,22 @@ public class Launcher {
         }
 
         // загружаем приложение
-        String fileApp = UtFile.abs(UtFile.join(appDir, AppConsts.FILE_APP_CONF));
+        String fileApp;
+        opt = LauncherConsts.OPT_APP;
+        if (args.containsKey(opt)) {
+            String s = args.getString(opt);
+            if (!UtFile.isAbsolute(s)) {
+                s = UtFile.join(UtFile.getWorkdir(), s);
+            }
+            if (!UtFile.exists(s)) {
+                throw new XError("Файл {0} не найден");
+            }
+            fileApp = s;
+            args.remove(opt);
+        } else {
+            fileApp = UtFile.abs(UtFile.join(appDir, AppConsts.FILE_APP_CONF));
+        }
+
         this.app = AppLoader.load(fileApp, appDir, null, false);
 
         // настраиваем приложение
@@ -160,6 +175,7 @@ public class Launcher {
         h.opt(LauncherConsts.OPT_LOG, "Включить логирование");
         h.opt(LauncherConsts.OPT_LOG_CONFIG, "Файл с настройками логирования", "FILE", "в порядке приоритета: _logback.xml, logback.xml");
         h.opt(LauncherConsts.OPT_VERBOSE, "Включение режима с большим числом сообщений");
+        h.opt(LauncherConsts.OPT_APP, "Имя файла с конфигурацией приложения", "FILE", AppConsts.FILE_APP_CONF);
     }
 
     protected class LauncherAppInfo extends BaseComp implements AppInfo {
