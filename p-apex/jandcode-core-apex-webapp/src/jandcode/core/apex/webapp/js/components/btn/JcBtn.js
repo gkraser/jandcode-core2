@@ -17,6 +17,10 @@ export let config = {
             color: 'primary',
             textColor: 'white',
         },
+        secondary: {
+            color: 'secondary',
+            textColor: 'white',
+        },
         success: {
             color: 'positive',
             textColor: 'white',
