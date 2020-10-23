@@ -21,7 +21,7 @@
     <lib name="vue-template-compiler" version="2.6.12"/>
     <lib name="vue-template-es2015-compiler" version="1.9.1"/>
     <lib name="@vue/babel-helper-vue-jsx-merge-props" version="1.2.1" client="true"/>
-    <lib name="@vue/babel-preset-jsx" version="1.2.2"/>
+    <lib name="@vue/babel-preset-jsx" version="1.2.3"/>
 
     <lib name="gulp" version="4.0.2"/>
     <lib name="gulp-babel" version="8.0.0"/>
@@ -42,7 +42,7 @@
     <lib name="node-sass" version="4.14.1"/>
     <lib name="gulp-sass" version="4.1.0"/>
 
-    <lib name="terser" version="5.3.5"/>
+    <lib name="terser" version="5.3.8"/>
     <lib name="clean-css" version="4.2.3"/>
 
     <!-- client -->
@@ -102,7 +102,7 @@
         <module-mapping module="vuex" real-module="vuex/dist/vuex"/>
     </lib>
 
-    <lib name="quasar" version="1.14.1" client="true">
+    <lib name="quasar" version="1.14.2" client="true">
         <include-client mask="dist/*.js"/>
         <include-client mask="dist/*.css"/>
         <include-client mask="dist/*.sass"/>
