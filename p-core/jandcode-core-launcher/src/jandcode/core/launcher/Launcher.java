@@ -118,7 +118,7 @@ public class Launcher {
                 s = UtFile.join(UtFile.getWorkdir(), s);
             }
             if (!UtFile.exists(s)) {
-                throw new XError("Файл {0} не найден");
+                throw new XError("Файл {0} не найден", s);
             }
             fileApp = s;
             args.remove(opt);
