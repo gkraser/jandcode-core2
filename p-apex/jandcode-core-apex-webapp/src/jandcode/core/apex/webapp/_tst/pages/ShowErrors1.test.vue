@@ -3,6 +3,8 @@
         <div class="row q-gutter-sm">
             <jc-btn label="throw new Error('msg')"
                     @click="throwError1"/>
+            <jc-btn label="error in code"
+                    @click="errorInCode1"/>
             <jc-btn label="Vue template error"
                     @click="errorInTemplate1"/>
             <jc-btn label="axios error"
@@ -39,6 +41,9 @@ export default {
         },
         throwError1() {
             throw new Error('Ошибка возникла!')
+        },
+        errorInCode1() {
+            let a = bbb / ccc
         },
         errorInTemplate1() {
             let vm = new Vue({

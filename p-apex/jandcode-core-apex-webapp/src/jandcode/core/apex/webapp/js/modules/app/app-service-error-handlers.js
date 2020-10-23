@@ -11,11 +11,13 @@ export class ErrorHandlersService extends jsaBase.AppService {
         Vue.config.errorHandler = function(err, vm, info) {
             let msg = `Apex: [Vue error]: ${err} ${info}`
             th.showError(msg)
+            th.showStack(err)
         }
 
         Vue.config.warnHandler = function(err, vm, info) {
             let msg = `Apex: [Vue warn]: ${err} ${info}`
             th.showError(msg)
+            th.showStack(err)
         }
 
         window.onerror = function(message, url, line, col, error) {
@@ -44,6 +46,10 @@ export class ErrorHandlersService extends jsaBase.AppService {
             return true
         }
         return false
+    }
+
+    showStack(err) {
+        console.error(err);
     }
 
     showError(err) {
