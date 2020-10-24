@@ -1,5 +1,5 @@
 <template>
-    <q-layout view="hHh Lpr fff" class="jc-app jc-decor-app">
+    <q-layout view="hHh Lpr fff" class="jc-app jc-decor-app" :container="container">
 
         <q-header :elevated="false" class="jc-app--header">
             <q-toolbar>
@@ -62,5 +62,12 @@ import JcDecorApp from "../../baseapp/JcDecorApp"
 
 export default {
     extends: JcDecorApp,
+
+    props: {
+        container: {
+            type: Boolean,
+            default: null
+        }
+    }
 }
 </script>

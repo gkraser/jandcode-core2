@@ -3,12 +3,21 @@
  */
 export default {
 
+    props: {
+        own: {
+            default: function() {
+                console.info("get own as",this.$parent);
+                return this.$parent;
+            }
+        }
+    },
+
     computed: {
 
         /**
          * Ссылка на оформляемый компонент
          */
-        own() {
+        own1() {
             return this.$parent
         },
 
