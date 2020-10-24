@@ -9,28 +9,28 @@ import jandcode.core.web.action.*;
  */
 public class ApexWebappAction extends BaseAction {
 
-    private String mainGsp;
+    private String template;
 
     /**
-     * main.gsp файл, который представляет собой приложение.
+     * Шаблон gsp, который представляет собой приложение.
      * Должен быть задан при регистрации action в module.cfx.
      */
-    public String getMainGsp() {
-        return mainGsp;
+    public String getTemplate() {
+        return template;
     }
 
-    public void setMainGsp(String mainGsp) {
-        this.mainGsp = mainGsp;
+    public void setTemplate(String template) {
+        this.template = template;
     }
 
     //////
 
     protected void onExec() throws Exception {
-        String mainGsp = getMainGsp();
-        if (UtString.empty(mainGsp)) {
-            throw new XError("Не задан параметр mainGsp для action [{0}]", getName());
+        String template = getTemplate();
+        if (UtString.empty(template)) {
+            throw new XError("Не задан параметр template для action [{0}]", getName());
         }
-        getReq().renderGsp(getMainGsp());
+        getReq().renderGsp(getTemplate());
     }
 
 }
