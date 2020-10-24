@@ -3,6 +3,11 @@
 
     <web>
         <mount-module/>
+
+        <action name="root"
+                class="jandcode.core.apex.webapp.action.ApexWebappAction"
+                template="xxx/yyy/main/js/main.gsp"/>
+
     </web>
 
 </root>

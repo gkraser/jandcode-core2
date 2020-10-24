@@ -1,7 +1,7 @@
-//
-import * as jsaBase from 'jandcode.core.jsa.base'
-//
+import * as apex from 'jandcode.core.apex.webapp'
+
+export * from 'jandcode.core.apex.webapp'
 
 export {
-    jsaBase,
+    apex
 }
