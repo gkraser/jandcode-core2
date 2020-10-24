@@ -56,6 +56,7 @@ function JsaLessPlugin(options) {
  * Требуются опции:
  * taskName: для какой задачи
  * g: ссылка на JsaGulpBuilder
+ * module: для какого модуля
  * @param options
  * @constructor
  */
@@ -66,8 +67,9 @@ JsaLessPostProcessor.prototype = {
     process: function(src, extra) {
         let g = this.options.g
         let taskName = this.options.taskName
+        let module = this.options.module
 
-        if (!g || !taskName) {
+        if (!g || !taskName || !module || !module.isSource) {
             // ignore
             return src
         }

@@ -34,7 +34,9 @@ function less_taskFactory(g, taskName, module, taskParams) {
                 callback(null, file)
             }))
             .pipe(less({
-                plugins: [new jsaLess.JsaLessPlugin({taskName: taskName, g: g})]
+                plugins: [new jsaLess.JsaLessPlugin({
+                    taskName: taskName, g: g, module: module
+                })]
             }))
             .pipe(rename(function(path, f) {
                 path.extname = f._orig_extname + "--compiled";
