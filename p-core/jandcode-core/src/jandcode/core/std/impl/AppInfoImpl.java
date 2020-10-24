@@ -21,20 +21,9 @@ public class AppInfoImpl extends BaseComp implements AppInfo {
     }
 
     protected void resolveMainModule() {
-        String mm = getApp().getConf().getString("app/mainmodule");
-        if (UtString.empty(mm)) {
-            // берем последний, которые идентифицируется как приложение
-            for (ModuleInst m : getApp().getModules()) {
-                if (m.getName().equals(AppConsts.MODULE_APP)) {
-                    // app.cfx игнорируем
-                    continue;
-                }
-                String s = m.getConf().getString("app/title");
-                if (!UtString.empty(s)) {
-                    mm = m.getName();
-                }
-            }
-        }
+        Conf appConf = getApp().getConf().getConf("app");
+
+        String mm = appConf.getString("mainmodule");
 
         if (UtString.empty(mm)) {
             // ничего нет, вынужденная мера
@@ -43,7 +32,7 @@ public class AppInfoImpl extends BaseComp implements AppInfo {
 
         this.mainModule = getApp().getModules().get(mm);
         this.conf = UtConf.create();
-        this.conf.join(this.mainModule.getConf().getConf("app"));
+        this.conf.join(appConf);
     }
 
     public String getMainModule() {

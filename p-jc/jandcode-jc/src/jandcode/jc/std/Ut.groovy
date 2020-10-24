@@ -270,6 +270,18 @@ class Ut extends ProjectScript {
     }
 
     /**
+     * Если файл scriptFileName существует, то он включается в проект
+     *
+     * @param scriptFileName имя файла скрипта
+     */
+    void includeIfExists(String scriptFileName) {
+        String f = wd(scriptFileName)
+        if (UtFile.exists(f)) {
+            project.include(f)
+        }
+    }
+
+    /**
      * Если проект RootProject, то давляет в его dev-зависимости все библиотеки в
      * исходниках.
      * Это позволяет иметь в IDE все модули в исходниках, даже если проект явно
