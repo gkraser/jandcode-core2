@@ -21,6 +21,7 @@
                     <!--                    <q-input :value="'Для масштаба:'+(c?c:'norm')" square outlined/>-->
                     <jc-btn :color="c" label="С иконкой справа" icon-right="bus"/>
                     <jc-btn :color="c" label="С иконками" icon="mail" icon-right="bus"/>
+                    <div>С иконками (просто текст для сравнения)</div>
                 </div>
             </template>
         </div>
