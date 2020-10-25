@@ -1,4 +1,4 @@
-<%@ page import="jandcode.core.std.*; jandcode.commons.named.*; jandcode.core.web.gsp.*; jandcode.core.web.*; jandcode.commons.*" %>
+<%@ page import="jandcode.core.web.cachecontrol.*; jandcode.core.std.*; jandcode.commons.named.*; jandcode.core.web.gsp.*; jandcode.core.web.*; jandcode.commons.*" %>
 <jc:page template="page/tst-main">
   <%
     //
@@ -6,6 +6,7 @@
     //
     def domainSvc = th.webService
     def appInfo = th.app.bean(AppInfo)
+    def cacheControlSvc = th.app.bean(CacheControlService)
   %>
   <!-- ===================================================================== -->
   <h2 class="first">App</h2>
@@ -229,7 +230,7 @@
   </table>
 
   <!-- ===================================================================== -->
-  <h2>File Cache-Controls</h2>
+  <h2>Cache-Controls</h2>
   <table class="tst-table">
     <tr>
       <th>name</th>
@@ -237,7 +238,7 @@
       <th>value</th>
     </tr>
     <%
-      for (r in domainSvc.fileCacheControls) {
+      for (r in cacheControlSvc.cacheControls) {
     %>
     <tr>
       <td>${r.name}</td>

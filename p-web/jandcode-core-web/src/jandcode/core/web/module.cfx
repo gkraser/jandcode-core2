@@ -45,6 +45,10 @@
           class="jandcode.core.web.filter.impl.FilterServiceImpl"
           bean.autoCreate="true"/>
 
+    <bean name="jandcode.core.web.cachecontrol.CacheControlService"
+          class="jandcode.core.web.cachecontrol.impl.CacheControlServiceImpl"
+          bean.autoCreate="true"/>
+
     <!-- ===================================================================== -->
 
     <web>
@@ -235,7 +239,7 @@
 
         Контроль кеширования для файлов
 
-        <file-cache-control name="woff2"
+        <cache-control name="woff2"
                             mask="**/*.woff2"
                             cacheControl="max-age=3000000"/>
 

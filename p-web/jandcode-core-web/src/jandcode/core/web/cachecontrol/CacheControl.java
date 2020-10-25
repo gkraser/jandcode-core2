@@ -1,11 +1,11 @@
-package jandcode.core.web.virtfile;
+package jandcode.core.web.cachecontrol;
 
 import jandcode.core.*;
 
 /**
  * Описание заголовка Cache-Control для определенных типов файлов.
  */
-public interface FileCacheControl extends Comp {
+public interface CacheControl extends Comp {
 
     /**
      * Маска фпйлов, для которой применяется это правило

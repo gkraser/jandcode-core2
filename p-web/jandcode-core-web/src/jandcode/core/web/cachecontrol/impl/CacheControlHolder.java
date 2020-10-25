@@ -1,19 +1,19 @@
-package jandcode.core.web.virtfile.impl;
+package jandcode.core.web.cachecontrol.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.named.*;
 import jandcode.core.*;
-import jandcode.core.web.virtfile.*;
+import jandcode.core.web.cachecontrol.*;
 
 import java.util.*;
 
 /**
  * Хранилище для правил Cache-Control
  */
-public class FileCacheControlHolder extends BaseComp {
+public class CacheControlHolder extends BaseComp {
 
-    private NamedList<FileCacheControl> items = new DefaultNamedList<>("file-cache-control [{0}] not found");
+    private NamedList<CacheControl> items = new DefaultNamedList<>("cache-control [{0}] not found");
 
     public void add(Collection<Conf> lst) {
         for (Conf x : lst) {
@@ -22,21 +22,21 @@ public class FileCacheControlHolder extends BaseComp {
     }
 
     protected void add(Conf conf) {
-        FileCacheControl ft = getApp().create(conf, FileCacheControlImpl.class);
+        CacheControl ft = getApp().create(conf, CacheControlImpl.class);
         items.add(0, ft);
     }
 
-    public FileCacheControl find(String name) {
+    public CacheControl find(String name) {
         return items.find(name);
     }
 
-    public List<FileCacheControl> getItems() {
+    public List<CacheControl> getItems() {
         return items;
     }
 
-    public FileCacheControl findForPath(String path) {
+    public CacheControl findForPath(String path) {
         path = UtVDir.normalize(path);
-        for (FileCacheControl it : items) {
+        for (CacheControl it : items) {
             if (UtVDir.matchPath(it.getMask(), path)) {
                 return it;
             }

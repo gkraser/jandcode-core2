@@ -63,18 +63,4 @@ public interface IVirtFileService extends IVirtFileFind {
      */
     List<FileType> getFileTypes();
 
-    ////// cache control
-
-    /**
-     * Список правил для Cache-Control
-     */
-    List<FileCacheControl> getFileCacheControls();
-
-    /**
-     * Найти правило Cache-Control для указанного файла.
-     *
-     * @return null, если правило не задано
-     */
-    FileCacheControl findFileCacheControl(String path);
-    
 }

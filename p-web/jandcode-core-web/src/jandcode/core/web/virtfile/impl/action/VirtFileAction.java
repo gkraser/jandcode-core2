@@ -2,6 +2,7 @@ package jandcode.core.web.virtfile.impl.action;
 
 import jandcode.core.web.*;
 import jandcode.core.web.action.*;
+import jandcode.core.web.cachecontrol.*;
 import jandcode.core.web.virtfile.*;
 
 /**
@@ -33,7 +34,8 @@ public class VirtFileAction extends BaseAction {
 
         // если не изменился и не шаблон, возвращаем 304
         if (!f.isTmlBased()) {
-            FileCacheControl fcc = svc.findFileCacheControl(f.getPath());
+            CacheControlService ccSvc = getApp().bean(CacheControlService.class);
+            CacheControl fcc = ccSvc.findCacheControl(f.getPath());
             if (fcc == null || "etag".equals(fcc.getCacheControl())) {
                 getReq().checkETag("" + f.getLastModTime());
             } else {

@@ -1,9 +1,9 @@
-package jandcode.core.web.virtfile.impl;
+package jandcode.core.web.cachecontrol.impl;
 
 import jandcode.core.*;
-import jandcode.core.web.virtfile.*;
+import jandcode.core.web.cachecontrol.*;
 
-public class FileCacheControlImpl extends BaseComp implements FileCacheControl {
+public class CacheControlImpl extends BaseComp implements CacheControl {
 
     private String mask;
     private String cacheControl;
