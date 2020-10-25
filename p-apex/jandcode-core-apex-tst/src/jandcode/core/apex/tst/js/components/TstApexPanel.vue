@@ -35,7 +35,8 @@
             <slot name="tools-2"/>
         </div>
 
-        <div class="tst-apex-panel--body">
+        <div class="tst-apex-panel--body"
+             :class="[noPadding?'tst-apex-panel--no-padding':'']">
             <slot></slot>
         </div>
     </div>
@@ -50,6 +51,10 @@ export default {
         debugBg: {
             type: Boolean,
             default: null
+        },
+        noPadding: {
+            type: Boolean,
+            default: null
         }
     },
     data() {
@@ -62,7 +67,7 @@ export default {
             this.own.cfgStore.applyDefault({
                 debugBg: false,
             })
-            this.own.$watch('cfg', ()=>{
+            this.own.$watch('cfg', () => {
                 document.body.classList.toggle("debug-bg", this.own.cfg.debugBg)
             }, {deep: true, immediate: true})
         }
@@ -87,7 +92,8 @@ export default {
         // есть ли на странице конфигурация
         isCfg() {
             return this.own && this.own.cfg && this.own.cfgStore
-        }
+        },
+
     },
     methods: {
         resetTheme() {
@@ -163,6 +169,10 @@ export default {
 
 .tst-apex-panel--body {
   padding: 20px 20px;
+}
+
+.tst-apex-panel--body.tst-apex-panel--no-padding {
+  padding: 0;
 }
 
 .tst-apex-panel--size-label {
