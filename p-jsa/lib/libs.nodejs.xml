@@ -130,4 +130,10 @@
         <exclude-client mask="fp/**/*"/>
     </lib>
 
+    <lib name="fontsource-roboto" version="3.0.3" client="true">
+    </lib>
+
+    <lib name="fontsource-roboto-condensed" version="3.0.9" client="true">
+    </lib>
+
 </root>
