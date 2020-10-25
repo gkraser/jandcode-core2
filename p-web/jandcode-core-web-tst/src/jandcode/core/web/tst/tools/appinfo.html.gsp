@@ -228,4 +228,23 @@
     <% } %>
   </table>
 
+  <!-- ===================================================================== -->
+  <h2>File Cache-Controls</h2>
+  <table class="tst-table">
+    <tr>
+      <th>name</th>
+      <th>mask</th>
+      <th>value</th>
+    </tr>
+    <%
+      for (r in domainSvc.fileCacheControls) {
+    %>
+    <tr>
+      <td>${r.name}</td>
+      <td>${r.mask}</td>
+      <td>${r.cacheControl}</td>
+    </tr>
+    <% } %>
+  </table>
+
 </jc:page>

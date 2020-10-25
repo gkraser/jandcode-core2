@@ -231,6 +231,15 @@
 
         <!-- =================== -->
 
+        <!--
+
+        Контроль кеширования для файлов
+
+        <file-cache-control name="woff2"
+                            mask="**/*.woff2"
+                            cacheControl="max-age=3000000"/>
+
+        -->
 
     </web>
 

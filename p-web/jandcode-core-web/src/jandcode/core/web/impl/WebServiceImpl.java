@@ -196,6 +196,14 @@ public class WebServiceImpl extends BaseComp implements WebService {
         return getVirtFileService().getFile(path);
     }
 
+    public List<FileCacheControl> getFileCacheControls() {
+        return getVirtFileService().getFileCacheControls();
+    }
+
+    public FileCacheControl findFileCacheControl(String path) {
+        return getVirtFileService().findFileCacheControl(path);
+    }
+
     ////// gsp
 
 

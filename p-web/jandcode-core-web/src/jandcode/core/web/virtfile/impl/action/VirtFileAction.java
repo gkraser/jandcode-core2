@@ -33,7 +33,12 @@ public class VirtFileAction extends BaseAction {
 
         // если не изменился и не шаблон, возвращаем 304
         if (!f.isTmlBased()) {
-            getReq().checkETag("" + f.getLastModTime());
+            FileCacheControl fcc = svc.findFileCacheControl(f.getPath());
+            if (fcc == null || "etag".equals(fcc.getCacheControl())) {
+                getReq().checkETag("" + f.getLastModTime());
+            } else {
+                getReq().setHeader("Cache-Control", fcc.getCacheControl());
+            }
         }
 
         getReq().render(f);

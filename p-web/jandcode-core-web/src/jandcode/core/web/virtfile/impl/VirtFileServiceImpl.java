@@ -18,6 +18,7 @@ public class VirtFileServiceImpl extends BaseComp implements VirtFileService {
 
     protected VirtFS virtFS;
     protected FileTypeHolder fileTypeHolder;
+    protected FileCacheControlHolder fileCacheControlHolder;
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
@@ -25,6 +26,10 @@ public class VirtFileServiceImpl extends BaseComp implements VirtFileService {
         // filetype
         fileTypeHolder = getApp().create(FileTypeHolder.class);
         fileTypeHolder.add(getApp().getConf().getConfs("web/filetype"));
+
+        // file-cache-control
+        fileCacheControlHolder = getApp().create(FileCacheControlHolder.class);
+        fileCacheControlHolder.add(getApp().getConf().getConfs("web/file-cache-control"));
 
         // virtfs
         virtFS = new VirtFS();
@@ -108,6 +113,16 @@ public class VirtFileServiceImpl extends BaseComp implements VirtFileService {
 
     public DirScanner<VirtFile> createDirScanner(String dir) {
         return new DirScannerVirtFS(virtFS, dir);
+    }
+
+    //////
+
+    public List<FileCacheControl> getFileCacheControls() {
+        return fileCacheControlHolder.getItems();
+    }
+
+    public FileCacheControl findFileCacheControl(String path) {
+        return fileCacheControlHolder.findForPath(path);
     }
 
 }
