@@ -9,7 +9,7 @@
                         label="toolbar right"/>
         </template>
 
-        <App container style="height: 500px; height: 70vh" :own="this">
+        <App container style="height: 75vh;" :own="this">
             <template #toolbar-left v-if="cfg.toolbarSetLeft">
                 <AppToolbarDemoSet :toolbarSet="cfg.toolbarSetLeft"/>
             </template>
