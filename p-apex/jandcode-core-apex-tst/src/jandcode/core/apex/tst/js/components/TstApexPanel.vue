@@ -19,9 +19,10 @@
             </template>
         </div>
 
-        <template v-if="isCfg && $slots['tools']">
+        <template v-if="(isCfg && $slots['tools']) || (isCfg && debugBg)">
             <div class="tst-apex-panel--head">
                 <tst-btn @click="resetCfg" label="resetCfg"/>
+                <tst-checkbox label="debugBg" v-model="own.cfg.debugBg" v-if="debugBg"/>
                 <slot name="tools"/>
             </div>
         </template>
@@ -45,13 +46,26 @@ import {jsaBase} from '../vendor'
 
 export default {
     name: 'tst-apex-panel',
-    props: {},
+    props: {
+        debugBg: {
+            type: Boolean,
+            default: null
+        }
+    },
     data() {
         return {
             curTheme: Jc.cfg.tst.theme,
         }
     },
     created() {
+        if (this.isCfg || this.debugBg) {
+            this.own.cfgStore.applyDefault({
+                debugBg: false,
+            })
+            this.own.$watch('cfg', ()=>{
+                document.body.classList.toggle("debug-bg", this.own.cfg.debugBg)
+            }, {deep: true, immediate: true})
+        }
     },
     watch: {
         curTheme: function(v) {

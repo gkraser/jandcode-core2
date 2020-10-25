@@ -1,12 +1,11 @@
 <template>
-    <tst-apex-panel class="toolbar-610ebf21">
+    <tst-apex-panel class="toolbar-610ebf21" debug-bg>
         <template #tools>
-            <tst-checkbox v-model="cfg.debugBg" label="debugBg"/>
             <tst-select v-model="cfg.toolbarSet" :options="toolbarSets"
                         label="toolbarSet"/>
-            <tst-checkbox v-model="cfg.arial" label="arial"/>
         </template>
 
+        sdsd
         <div class="row items-center q-gutter-x-sm">
             <div>action без toolbar:</div>
             <jc-action icon="bus"/>
@@ -44,9 +43,7 @@ export default {
     },
     created() {
         this.cfgStore.applyDefault({
-            debugBg: false,
             toolbarSet: 'set1',
-            arial: false,
         })
     },
     data() {
@@ -58,8 +55,6 @@ export default {
         applyCfg() {
             let cfg = this.cfg
 
-            document.body.classList.toggle("debug-bg", cfg.debugBg)
-            document.body.classList.toggle("debug-arial", cfg.arial)
         },
     }
 }

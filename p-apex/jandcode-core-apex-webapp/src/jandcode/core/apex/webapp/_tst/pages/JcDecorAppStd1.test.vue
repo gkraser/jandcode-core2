@@ -1,8 +1,7 @@
 <template>
-    <tst-apex-panel class="jcdecorappstd1-test-884f6234">
+    <tst-apex-panel class="jcdecorappstd1-test-884f6234" debug-bg>
 
         <template #tools>
-            <tst-checkbox v-model="cfg.debugBg" label="debugBg"/>
             <tst-select v-model="cfg.toolbarSetLeft" :options="toolbarSets"
                         label="toolbar left"/>
             <tst-select v-model="cfg.toolbarSetRight" :options="toolbarSets"
@@ -48,7 +47,6 @@ export default {
     },
     created() {
         this.cfgStore.applyDefault({
-            debugBg: false,
             toolbarSetRight: 'set1',
             toolbarSetLeft: null,
         })
@@ -61,9 +59,6 @@ export default {
     methods: {
         applyCfg() {
             let cfg = this.cfg
-
-            document.body.classList.toggle("debug-bg", cfg.debugBg)
-
         },
     }
 }
