@@ -9,24 +9,26 @@
                         label="toolbar right"/>
         </template>
 
-        <App container style="height: 75vh;" :own="this">
-            <template #toolbar-left v-if="cfg.toolbarSetLeft">
-                <AppToolbarDemoSet :toolbarSet="cfg.toolbarSetLeft"/>
-            </template>
+        <div class="wrap-app">
+            <App container style="height: 300px;" :own="this">
+                <template #toolbar-left v-if="cfg.toolbarSetLeft">
+                    <AppToolbarDemoSet :toolbarSet="cfg.toolbarSetLeft"/>
+                </template>
 
-            <template #toolbar-right>
-                <AppToolbarDemoSet :toolbarSet="cfg.toolbarSetRight"/>
-            </template>
+                <template #toolbar-right>
+                    <AppToolbarDemoSet :toolbarSet="cfg.toolbarSetRight"/>
+                </template>
 
-            <template #left>
-            </template>
+                <template #left>
+                </template>
 
-            <template #main>
-                <q-page padding>
-                    <jc-btn label="hello"/>
-                </q-page>
-            </template>
-        </App>
+                <template #main>
+                    <q-page padding>
+                        <jc-btn label="hello"/>
+                    </q-page>
+                </template>
+            </App>
+        </div>
 
     </tst-apex-panel>
 </template>
@@ -83,6 +85,11 @@ export default {
 
 .jcdecorappstd1-test-884f6234 {
 
+  .wrap-app {
+    border: 1px solid gray;
+    // display: inline-block;
+    // width: 80vw;
+  }
 
 }
 

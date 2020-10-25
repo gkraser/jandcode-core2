@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import {apex, jsaBase} from '../../vendor'
+import {jsaBase} from '../../vendor'
 
 export let SubMenu1 = {
     functional: true,

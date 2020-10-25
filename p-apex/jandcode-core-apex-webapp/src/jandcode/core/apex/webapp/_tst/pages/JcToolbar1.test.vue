@@ -2,7 +2,9 @@
     <tst-apex-panel class="toolbar-610ebf21">
         <template #tools>
             <tst-checkbox v-model="cfg.debugBg" label="debugBg"/>
-            <tst-select v-model="cfg.toolbarSet" :options="toolbarSets" label="toolbarSet"/>
+            <tst-select v-model="cfg.toolbarSet" :options="toolbarSets"
+                        label="toolbarSet"/>
+            <tst-checkbox v-model="cfg.arial" label="arial"/>
         </template>
 
         <div class="row items-center q-gutter-x-sm">
@@ -32,9 +34,7 @@
 </template>
 
 <script>
-import {createToolbarSets} from './_components/AppToolbarDemoSet'
-import AppToolbarDemoSet from './_components/AppToolbarDemoSet'
-import {SubMenu1} from './_components/AppToolbarDemoSet'
+import AppToolbarDemoSet, {createToolbarSets, SubMenu1} from './_components/AppToolbarDemoSet'
 
 export default {
     extends: Vue.component('tst-apex-page'),
@@ -46,6 +46,7 @@ export default {
         this.cfgStore.applyDefault({
             debugBg: false,
             toolbarSet: 'set1',
+            arial: false,
         })
     },
     data() {
@@ -58,6 +59,7 @@ export default {
             let cfg = this.cfg
 
             document.body.classList.toggle("debug-bg", cfg.debugBg)
+            document.body.classList.toggle("debug-arial", cfg.arial)
         },
     }
 }
@@ -76,6 +78,10 @@ export default {
       background-color: #d7edc5;
     }
   }
+}
+
+.debug-arial {
+  font-family: 'Arial', sans-serif !important;
 }
 
 .toolbar-610ebf21 {
