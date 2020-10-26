@@ -6,7 +6,8 @@
             <jc-toolbar v-if="hasTitle">
 
 
-                <jc-toolbar-logo v-if="own.icon" :icon="own.icon">
+                <jc-toolbar-logo v-if="own.icon" :icon="own.icon"
+                                 :class="own.title2?'self-start':''">
                 </jc-toolbar-logo>
 
                 <jc-toolbar-title :text="own.title" :text2="own.title2">
