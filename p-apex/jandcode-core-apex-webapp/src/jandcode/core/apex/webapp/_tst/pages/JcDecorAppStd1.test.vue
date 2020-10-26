@@ -1,15 +1,18 @@
 <template>
-    <tst-apex-panel class="jcdecorappstd1-test-884f6234" debug-bg>
+    <tst-apex-panel class="jcdecorappstd1-test-884f6234" debug-bg no-padding>
 
         <template #tools>
             <tst-select v-model="cfg.toolbarSetLeft" :options="toolbarSets"
                         label="toolbar left"/>
             <tst-select v-model="cfg.toolbarSetRight" :options="toolbarSets"
                         label="toolbar right"/>
+            <tst-checkbox label="left" v-model="cfg.left"/>
+            <tst-checkbox label="frameTitle2" v-model="cfg.frameTitle2"/>
+            <tst-checkbox label="frameIcon" v-model="cfg.frameIcon"/>
         </template>
 
         <div class="wrap-app">
-            <App container style="height: 300px;" :own="this">
+            <App container style="height: calc(100vh - 72px);" :own="this">
                 <template #toolbar-left v-if="cfg.toolbarSetLeft">
                     <AppToolbarDemoSet :toolbarSet="cfg.toolbarSetLeft"/>
                 </template>
@@ -22,9 +25,7 @@
                 </template>
 
                 <template #main>
-                    <q-page padding>
-                        <jc-btn label="hello"/>
-                    </q-page>
+                    <Frame1 ref="frame1"/>
                 </template>
             </App>
         </div>
@@ -36,6 +37,7 @@
 import {apex} from '../vendor'
 
 import AppToolbarDemoSet, {createToolbarSets, SubMenu1} from './_components/AppToolbarDemoSet'
+import Frame1 from './_frames/DecorAppFrame1'
 
 export default {
     extends: Vue.component('tst-apex-page'),
@@ -44,21 +46,36 @@ export default {
         App: apex.components.JcDecorAppStd,
         AppToolbarDemoSet,
         SubMenu1,
+        Frame1,
     },
     created() {
+        this.title = 'Заголовок приложения'
         this.cfgStore.applyDefault({
-            toolbarSetRight: 'set1',
+            toolbarSetRight: 'menu1',
             toolbarSetLeft: null,
+            left: true,
+
+            // frame
+            frameTitle2: false,
+            frameIcon: false,
         })
     },
     data() {
         return {
-            toolbarSets: createToolbarSets()
+            toolbarSets: [null].concat(createToolbarSets())
         }
     },
     methods: {
         applyCfg() {
             let cfg = this.cfg
+
+            this.left = cfg.left;
+            //
+            let frm = this.$refs.frame1
+            if (frm) {
+                frm.title2 = cfg.frameTitle2 ? 'Это такой фрейма подзаголовок' : null;
+                frm.icon = cfg.frameIcon ? 'bus' : null;
+            }
         },
     }
 }
@@ -80,8 +97,13 @@ export default {
 
 .jcdecorappstd1-test-884f6234 {
 
+  .tst-apex-panel--body {
+    //padding: 0;
+  }
+
+
   .wrap-app {
-    border: 1px solid gray;
+    //border: 1px solid gray;
     // display: inline-block;
     // width: 80vw;
   }
