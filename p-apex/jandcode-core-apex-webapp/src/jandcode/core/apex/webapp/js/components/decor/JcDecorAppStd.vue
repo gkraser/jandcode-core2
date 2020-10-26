@@ -9,7 +9,7 @@
                                 icon="menu" @click="own.left = !own.left"/>
                         <slot name="title">
                             <jc-toolbar-logo :icon="own.icon" @click="own.home()"/>
-                            <jc-toolbar-title :text="own.title" @click="own.home()"/>
+                            <jc-toolbar-title :text="own.title" :text2="own.title2" @click="own.home()"/>
                         </slot>
                     </jc-toolbar>
                 </slot>

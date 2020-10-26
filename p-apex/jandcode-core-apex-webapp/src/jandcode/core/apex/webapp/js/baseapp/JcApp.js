@@ -17,6 +17,7 @@ export default {
     data() {
         return {
             title: 'Без заголовка',
+            title2: null,
             icon: 'app-logo',
 
             left: true,

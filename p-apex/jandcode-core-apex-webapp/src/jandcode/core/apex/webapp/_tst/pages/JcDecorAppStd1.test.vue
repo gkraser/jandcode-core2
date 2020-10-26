@@ -7,7 +7,7 @@
             <tst-select v-model="cfg.toolbarSetRight" :options="toolbarSets"
                         label="toolbar right"/>
             <tst-checkbox label="left" v-model="cfg.left"/>
-            <tst-checkbox label="frameTitle2" v-model="cfg.frameTitle2"/>
+            <tst-checkbox label="title2" v-model="cfg.title2"/>
             <tst-checkbox label="frameIcon" v-model="cfg.frameIcon"/>
         </template>
 
@@ -55,8 +55,9 @@ export default {
             toolbarSetLeft: null,
             left: true,
 
+            title2: false,
+            
             // frame
-            frameTitle2: false,
             frameIcon: false,
         })
     },
@@ -70,10 +71,13 @@ export default {
             let cfg = this.cfg
 
             this.left = cfg.left;
+
+            this.title2 = cfg.title2 ? 'Это такой подзаголовок приложения' : null;
+
             //
             let frm = this.$refs.frame1
             if (frm) {
-                frm.title2 = cfg.frameTitle2 ? 'Это такой фрейма подзаголовок' : null;
+                frm.title2 = cfg.title2 ? 'Это такой фрейма подзаголовок' : null;
                 frm.icon = cfg.frameIcon ? 'bus' : null;
             }
         },
