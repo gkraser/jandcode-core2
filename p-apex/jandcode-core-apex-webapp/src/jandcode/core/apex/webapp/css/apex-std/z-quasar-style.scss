@@ -7,11 +7,13 @@ $typography-font-family: 'Roboto', '-apple-system', 'Helvetica Neue', Helvetica,
 
 $body-font-size: 13px !default;
 $body-line-height: 1.5 !default;
-$button-font-size: 13px !default;
+
 $input-font-size: 13px !default;
 
+$button-font-size: 13px !default;
 $button-line-height: 1.2em !default;
 $button-font-weight: normal !default
+$button-shadow: none !default;
 
 /* original
 $primary   : #027BE3 !default

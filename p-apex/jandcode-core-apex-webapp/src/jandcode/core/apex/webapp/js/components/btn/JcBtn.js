@@ -8,36 +8,10 @@ function isAttrTrue(v) {
 }
 
 export let config = {
-    color: {
-        normal: {
-            color: 'grey-3',
-            textColor: 'black',
-        },
-        primary: {
-            color: 'primary',
-            textColor: 'white',
-        },
-        secondary: {
-            color: 'secondary',
-            textColor: 'white',
-        },
-        success: {
-            color: 'positive',
-            textColor: 'white',
-        },
-        danger: {
-            color: 'negative',
-            textColor: 'white',
-        },
-        warning: {
-            color: 'warning',
-            textColor: 'white',
-        },
-        info: {
-            color: 'info',
-            textColor: 'white',
-        },
-    }
+    kind: {
+        default: {},
+        danger: {},
+    },
 }
 
 export default {
@@ -48,30 +22,20 @@ export default {
 
         data.class.push('jc-btn')
 
-        if (data.attrs['no-caps'] == null) {
-            data.attrs['no-caps'] = true
-        }
         if (data.attrs['no-wrap'] == null) {
             data.attrs['no-wrap'] = true
         }
-        if (data.attrs['unelevated'] == null) {
-            data.attrs['unelevated'] = true
-        }
 
-        let color = ctx.props.color || 'normal'
-        let colorDef
-        colorDef = config.color[color] || config.color['normal']
-        data.attrs['color'] = colorDef.color
-        data.attrs['textColor'] = colorDef.textColor
+        let kind = ctx.props.kind || 'default'
 
         //
         if (!isAttrTrue(ctx.props.flat) &&
             !isAttrTrue(ctx.props.outline) &&
             !isAttrTrue(ctx.props.round)) {
-            // обычная кнопка, у меня - с рамкой
-            data.class.push('jc-btn--normal')
-            if (color != 'normal') {
-                data.class.push('jc-btn--' + color)
+            // обычная кнопка
+            data.class.push('jc-btn--default')
+            if (kind !== 'default') {
+                data.class.push('jc-btn--' + kind)
             }
         }
 

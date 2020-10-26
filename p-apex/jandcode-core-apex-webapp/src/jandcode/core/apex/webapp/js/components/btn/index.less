@@ -1,45 +1,22 @@
 
 .jc-btn {
 
-  &--normal {
-    .q-btn__wrapper:before {
-      border: 1px solid @grey-5;
-    }
-  }
+  &--default {
+    background: @q-color-primary;
+    color: white;
 
-  &--primary {
     .q-btn__wrapper:before {
-      border-color: @q-color-primary--dark;
-    }
-  }
-
-  &--secondary {
-    .q-btn__wrapper:before {
-      border-color: @q-color-secondary--dark;
-    }
-  }
-
-  &--success {
-    .q-btn__wrapper:before {
-      border-color: @q-color-positive--dark;
+      border: 1px solid @q-color-primary--dark;
     }
   }
 
   &--danger {
+    background: @q-color-negative;
+    color: white;
+
     .q-btn__wrapper:before {
       border-color: @q-color-negative--dark;
     }
   }
 
-  &--warning {
-    .q-btn__wrapper:before {
-      border-color: @q-color-warning--dark;
-    }
-  }
-
-  &--info {
-    .q-btn__wrapper:before {
-      border-color: @q-color-info--dark;
-    }
-  }
 }
