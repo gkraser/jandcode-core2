@@ -6,7 +6,6 @@ export default {
     props: {
         own: {
             default: function() {
-                console.info("get own as",this.$parent);
                 return this.$parent;
             }
         }
