@@ -1,33 +1,39 @@
 <template>
     <q-card :class="classes">
 
-        <q-bar class="jc-frame--header">
+        <div class="jc-frame--header">
+            <jc-toolbar>
 
-            <q-icon v-if="hasIcon" :name="own.icon"/>
+                <jc-toolbar-logo v-if="own.icon" :icon="own.icon"
+                                 :class="own.title2?'self-start':''">
+                </jc-toolbar-logo>
 
-            <div class="jc-frame--title">
-                {{ own.title }}
-            </div>
+                <jc-toolbar-title :text="own.title" :text2="own.title2">
+                </jc-toolbar-title>
 
-            <q-space/>
+                <q-space/>
 
-            <slot name="toolbar">
-            </slot>
+                <slot name="toolbar">
+                </slot>
 
-            <q-btn dense flat icon="close" @click="own.closeFrame('cancel')"/>
-        </q-bar>
+                <q-btn dense flat icon="close" @click="own.closeFrame('cancel')"/>
+
+            </jc-toolbar>
+        </div>
 
         <q-card-section class="jc-frame--body" :class="bodyClass" :style="bodyStyle">
             <slot name="default">
             </slot>
         </q-card-section>
 
-        <div class="jc-frame--footer row q-gutter-x-sm q-pa-sm">
-            <q-space/>
-            <template v-for="b in footerRightButtons">
-                <jc-btn :label="b.label" :kind="b.kind" :icon="b.icon"
-                        :flat="flatButtons" @click="own.closeFrame(b.cmd)"/>
-            </template>
+        <div class="jc-frame--footer">
+            <jc-toolbar>
+                <q-space/>
+                <template v-for="b in footerRightButtons">
+                    <jc-btn :label="b.label" :kind="b.kind" :icon="b.icon"
+                            :flat="flatButtons" @click="own.closeFrame(b.cmd)"/>
+                </template>
+            </jc-toolbar>
         </div>
 
     </q-card>
@@ -36,7 +42,6 @@
 <script>
 import JcDecorFrame from '../../baseapp/JcDecorFrame'
 import {getDialogButtons} from '../../baseapp/frame'
-
 
 export default {
     extends: JcDecorFrame,
