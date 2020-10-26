@@ -1,1 +1,1 @@
-<jc:svgicons-js path="../../images/icons/**/*.svg"/>
+<jc:svgicons-js path="[*]/images/icons/**/*.svg"/>
