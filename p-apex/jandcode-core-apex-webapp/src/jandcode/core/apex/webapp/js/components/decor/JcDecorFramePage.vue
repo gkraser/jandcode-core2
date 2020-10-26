@@ -1,32 +1,25 @@
 <template>
     <component :is="rootComponentName" class="jc-frame jc-decor-page">
 
-        <q-toolbar v-if="hasTitle" class="jc-frame--header">
+        <div class="jc-frame--header">
 
-            <q-toolbar-title shrink>
-                <q-item>
-                    <q-item-section v-if="hasIcon" class="jc-frame--icon"
-                                    avatar>
-                        <q-icon :name="own.icon"/>
-                    </q-item-section>
-                    <q-item-section>
-                        <q-item-label class="jc-frame--title">
-                            {{ own.title }}
-                        </q-item-label>
-                        <q-item-label v-if="own.title2" class="jc-frame--title2"
-                                      caption>
-                            {{ own.title2 }}
-                        </q-item-label>
-                    </q-item-section>
-                </q-item>
-            </q-toolbar-title>
+            <jc-toolbar v-if="hasTitle">
 
-            <q-space/>
 
-            <slot name="toolbar">
-            </slot>
+                <jc-toolbar-logo v-if="own.icon" :icon="own.icon">
+                </jc-toolbar-logo>
 
-        </q-toolbar>
+                <jc-toolbar-title :text="own.title" :text2="own.title2">
+                </jc-toolbar-title>
+
+                <q-space/>
+
+                <slot name="toolbar">
+                </slot>
+
+            </jc-toolbar>
+
+        </div>
 
         <div class="jc-frame--body" :class="bodyClass" :style="bodyStyle">
             <slot name="default">

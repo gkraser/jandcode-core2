@@ -25,8 +25,8 @@
         <div class="jc-frame--footer row q-gutter-x-sm q-pa-sm">
             <q-space/>
             <template v-for="b in footerRightButtons">
-                <q-btn :label="b.label" :color="b.color" :icon="b.icon"
-                       :flat="flatButtons" @click="own.closeFrame(b.cmd)"/>
+                <jc-btn :label="b.label" :kind="b.kind" :icon="b.icon"
+                        :flat="flatButtons" @click="own.closeFrame(b.cmd)"/>
             </template>
         </div>
 

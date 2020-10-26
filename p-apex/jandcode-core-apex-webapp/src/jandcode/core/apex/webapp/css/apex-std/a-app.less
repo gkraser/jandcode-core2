@@ -1,16 +1,58 @@
-
-// F3F3F4
-
-
-body {
-  // иначе - прозрачный...
-  //background-color: #F3F3F4;
-}
+/* Стили для приложения JcDecorAppStd
+----------------------------------------------------------------------------- */
 
 .jc-decor-app {
   .jc-app--header.q-header {
-    background-color: #F3F3F4;
-    color: #888888;
-    border-bottom: 1px solid #E7EAEC;
+    background-color: @grey-1;
+    color: @grey-8;
+    border-bottom: 1px solid @grey-4;
   }
+
+  .jc-app--header {
+
+    .jc-toolbar-title--text, .jc-toolbar-title--text1 {
+      font-size: @fontsize-b4;
+      font-weight: 300;
+    }
+
+    .jc-toolbar-title--text2 {
+      margin-top: 0.1rem;
+      font-size: @fontsize-s1;
+      font-weight: 300;
+    }
+
+  }
+
+  .jc-app--main {
+    background-color: @grey-1;
+  }
+
+  .jc-frame--header {
+    background-color: white;
+    border-bottom: 1px solid @grey-4;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+    padding-left: 2em;
+    padding-right: 1em;
+
+    .jc-toolbar-title--text, .jc-toolbar-title--text1 {
+      font-size: @fontsize-b4;
+      font-weight: 300;
+    }
+
+    .jc-toolbar-title--text2 {
+      margin-top: 0.5rem;
+      font-size: @fontsize-s1;
+      font-weight: 300;
+    }
+
+    .jc-toolbar-logo {
+      .q-icon {
+        font-size: 1.5rem;
+        color: @grey-6;
+      }
+    }
+
+  }
+
 }

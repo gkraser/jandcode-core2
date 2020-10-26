@@ -30,12 +30,12 @@ export let componentHolder = new ComponentHolder()
  * Настройки кнопок для диалогов
  */
 export let dialogButtons = {
-    'ok': {label: 'Ок', cmd: 'ok', color: 'positive'},
-    'cancel': {label: 'Отмена', cmd: 'cancel', color: 'negative'},
-    'close': {label: 'Закрыть', cmd: 'cancel', color: 'secondary'},
-    'yes': {label: 'Да', cmd: 'yes', color: 'positive'},
-    'no': {label: 'Нет', cmd: 'no', color: 'secondary'},
-    'save': {label: 'Сохранить', cmd: 'ok', color: 'positive'},
+    'ok': {label: 'Ок', cmd: 'ok'},
+    'cancel': {label: 'Отмена', cmd: 'cancel', kind: 'danger'},
+    'close': {label: 'Закрыть', cmd: 'cancel'},
+    'yes': {label: 'Да', cmd: 'yes'},
+    'no': {label: 'Нет', cmd: 'no'},
+    'save': {label: 'Сохранить', cmd: 'ok'},
 }
 
 

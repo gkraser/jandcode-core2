@@ -7,6 +7,8 @@
             <tst-select v-model="cfg.toolbarSetRight" :options="toolbarSets"
                         label="toolbar right"/>
             <tst-checkbox label="left" v-model="cfg.left"/>
+            <tst-checkbox label="frameTitle2" v-model="cfg.frameTitle2"/>
+            <tst-checkbox label="frameIcon" v-model="cfg.frameIcon"/>
         </template>
 
         <div class="wrap-app">
@@ -23,9 +25,7 @@
                 </template>
 
                 <template #main>
-                    <q-page padding>
-                        <jc-btn label="hello"/>
-                    </q-page>
+                    <Frame1 ref="frame1"/>
                 </template>
             </App>
         </div>
@@ -37,6 +37,7 @@
 import {apex} from '../vendor'
 
 import AppToolbarDemoSet, {createToolbarSets, SubMenu1} from './_components/AppToolbarDemoSet'
+import Frame1 from './_frames/DecorAppFrame1'
 
 export default {
     extends: Vue.component('tst-apex-page'),
@@ -45,17 +46,23 @@ export default {
         App: apex.components.JcDecorAppStd,
         AppToolbarDemoSet,
         SubMenu1,
+        Frame1,
     },
     created() {
+        this.title = 'Заголовок приложения'
         this.cfgStore.applyDefault({
             toolbarSetRight: 'menu1',
             toolbarSetLeft: null,
             left: true,
+
+            // frame
+            frameTitle2: false,
+            frameIcon: false,
         })
     },
     data() {
         return {
-            toolbarSets: createToolbarSets()
+            toolbarSets: [null].concat(createToolbarSets())
         }
     },
     methods: {
@@ -63,6 +70,12 @@ export default {
             let cfg = this.cfg
 
             this.left = cfg.left;
+            //
+            let frm = this.$refs.frame1
+            if (frm) {
+                frm.title2 = cfg.frameTitle2 ? 'Это такой фрейма подзаголовок' : null;
+                frm.icon = cfg.frameIcon ? 'bus' : null;
+            }
         },
     }
 }
