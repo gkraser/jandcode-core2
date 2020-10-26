@@ -76,7 +76,7 @@ export default {
         curTheme: function(v) {
             let prms = jsaBase.url.getPageParams()
             prms.theme = v
-            window.location.search = jsaBase.url.params(prms)
+            window.location.search = decodeURIComponent(jsaBase.url.params(prms))
         }
     },
     computed: {
@@ -99,12 +99,12 @@ export default {
         resetTheme() {
             let prms = jsaBase.url.getPageParams()
             delete prms.theme
-            window.location.search = jsaBase.url.params(prms)
+            window.location.search = decodeURIComponent(jsaBase.url.params(prms))
         },
         baseTheme() {
             let prms = jsaBase.url.getPageParams()
             prms.theme = this.isThemeStd() ? 'apex-base' : 'apex-std'
-            window.location.search = jsaBase.url.params(prms)
+            window.location.search = decodeURIComponent(jsaBase.url.params(prms))
         },
         isThemeStd() {
             return this.curTheme.indexOf('apex-std') !== -1
