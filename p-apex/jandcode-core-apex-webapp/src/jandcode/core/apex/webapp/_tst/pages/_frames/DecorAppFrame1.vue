@@ -2,7 +2,7 @@
     <Page>
 
         <template #toolbar>
-            <jc-action label="Сохранить"/>
+            <AppToolbarDemoSet :toolbarSet="toolbarSet"/>
         </template>
 
         <jc-btn label="Кнопка на пока"/>
@@ -14,9 +14,13 @@
 ----------------------------------------------------------------------------- */
 
 import {apex} from '../../vendor'
+import AppToolbarDemoSet from '../_components/AppToolbarDemoSet'
 
 export default {
     extends: apex.JcFrame,
+    components: {
+        AppToolbarDemoSet
+    },
     props: {},
     created() {
         this.title = 'Заголовок фрейма'
@@ -24,7 +28,9 @@ export default {
     initFrame() {
     },
     data() {
-        return {}
+        return {
+            toolbarSet: null,
+        }
     },
     methods: {},
 }

@@ -9,6 +9,8 @@
             <tst-checkbox label="left" v-model="cfg.left"/>
             <tst-checkbox label="title2" v-model="cfg.title2"/>
             <tst-checkbox label="frameIcon" v-model="cfg.frameIcon"/>
+            <tst-select v-model="cfg.frameToolbar" :options="toolbarSets"
+                        label="frameToolbar"/>
         </template>
 
         <div class="wrap-app">
@@ -59,6 +61,7 @@ export default {
             
             // frame
             frameIcon: false,
+            frameToolbar: null,
         })
     },
     data() {
@@ -79,6 +82,7 @@ export default {
             if (frm) {
                 frm.title2 = cfg.title2 ? 'Это такой фрейма подзаголовок' : null;
                 frm.icon = cfg.frameIcon ? 'bus' : null;
+                frm.toolbarSet = cfg.frameToolbar;
             }
         },
     }
