@@ -87,9 +87,7 @@ export function quasar_iconMapFn(iconName) {
 
     if (iconName.startsWith(' ')) {
         if (iconName.trim() === '') {
-            return {
-                icon: getIcon(ICON_EMPTY)
-            }
+            iconName = ICON_EMPTY
         }
     }
 
