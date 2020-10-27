@@ -8,11 +8,15 @@
   //
   String path = th.context.rootGsp.args.path
   String theme = th.request.params.getString('theme')
+  String themeStd = th.args.getString("theme", "apex-std")
   //
   ctx.main = path
-  ctx.theme = ctx.resolveTheme(theme, "apex-std")
+  ctx.theme = ctx.resolveTheme(theme, themeStd)
   ctx.env = "jandcode.core.apex.tst"
   ctx.addModule(tstCtx.envTstJs)
+  //
+  tstCtx.cfg.themeNameStd = themeStd
+  tstCtx.cfg.themeNameBase = "apex-base"
 %>
 <html>
 <head>

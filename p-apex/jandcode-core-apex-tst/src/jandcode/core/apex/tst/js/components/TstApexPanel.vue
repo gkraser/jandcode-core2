@@ -14,7 +14,7 @@
                 </select>
                 <button @click="resetTheme">Reset theme</button>
                 <button @click="baseTheme">&#8594;
-                    {{ isThemeStd() ? 'apex-base' : 'apex-std' }} theme
+                    {{ isThemeStd() ? themeNameBase : themeNameStd }} theme
                 </button>
             </template>
         </div>
@@ -94,6 +94,13 @@ export default {
             return this.own && this.own.cfg && this.own.cfgStore
         },
 
+        themeNameStd() {
+            return this.cfg.themeNameStd || 'apex-std'
+        },
+
+        themeNameBase() {
+            return this.cfg.themeNameBase || 'apex-base'
+        }
     },
     methods: {
         resetTheme() {
@@ -103,11 +110,11 @@ export default {
         },
         baseTheme() {
             let prms = jsaBase.url.getPageParams()
-            prms.theme = this.isThemeStd() ? 'apex-base' : 'apex-std'
+            prms.theme = this.isThemeStd() ? this.themeNameBase : this.themeNameStd
             window.location.search = decodeURIComponent(jsaBase.url.params(prms))
         },
         isThemeStd() {
-            return this.curTheme.indexOf('apex-std') !== -1
+            return this.curTheme.indexOf(this.themeNameStd) !== -1
         },
         resetCfg() {
             return this.own.cfgStore.reset();
