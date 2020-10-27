@@ -24,6 +24,8 @@
                 </template>
 
                 <template #left>
+                    <q-item-label header>Меню</q-item-label>
+                    <SideMenu1 :items="sideMenu_itemsSet.items1" :levels="3"/>
                 </template>
 
                 <template #main>
@@ -39,7 +41,31 @@
 import {apex} from '../vendor'
 
 import AppToolbarDemoSet, {createToolbarSets, SubMenu1} from './_components/AppToolbarDemoSet'
+import SideMenu1 from './_components/SideMenu1'
 import Frame1 from './_frames/DecorAppFrame1'
+
+let sideMenu_itemsSet = {
+    items1: [
+        {label: 'Элемент c иконкой', icon: 'bus'},
+        {label: 'Элемент без иконки', icon: '', opened: true},
+        {label: 'Элемент с svg', icon: 'svg1'},
+        {label: 'Элемент с png', icon: 'png1'},
+    ],
+
+    itemsNoIcon: [
+        {label: 'Элемент 1'},
+        {label: 'Элемент 2'},
+        {label: 'Элемент 3'},
+        {label: 'Элемент 4'},
+    ],
+
+    itemsFs: [
+        {label: 'Папка 1', icon: 'folder1'},
+        {label: 'Папка 2', icon: 'folder1'},
+        {label: 'Файл 3', icon: 'file1'},
+        {label: 'Файл 4', icon: 'file1'},
+    ],
+}
 
 export default {
     extends: Vue.component('tst-apex-page'),
@@ -49,6 +75,7 @@ export default {
         AppToolbarDemoSet,
         SubMenu1,
         Frame1,
+        SideMenu1,
     },
     created() {
         this.title = 'Заголовок приложения'
@@ -58,7 +85,7 @@ export default {
             left: true,
 
             title2: false,
-            
+
             // frame
             frameIcon: false,
             frameToolbar: null,
@@ -66,7 +93,8 @@ export default {
     },
     data() {
         return {
-            toolbarSets: [null].concat(createToolbarSets())
+            toolbarSets: [null].concat(createToolbarSets()),
+            sideMenu_itemsSet: sideMenu_itemsSet,
         }
     },
     methods: {
