@@ -162,13 +162,17 @@
         let styleTag = document.createElement("style");
         styleTag.rel = 'stylesheet'
         cssIdx++;
+        let cssIdxText = '' + cssIdx
+        if (String.prototype.padStart) {
+            cssIdxText = cssIdxText.padStart(2, '0')
+        }
         if (filename) {
-            css = css + "\n/*# sourceURL=jc-jsa:///inline-styles/[" + cssIdx + "]/" + filename + "*/";
+            css = css + "\n/*# sourceURL=jc-jsa:///inline-styles/[" + cssIdxText + "]/" + filename + "*/";
             if (Jc.cfg.envDev) {
                 styleTag.dataset.path = filename
             }
         } else {
-            css = css + "\n/*# sourceURL=jc-jsa:///inline-styles/style-" + cssIdx + ".css*/";
+            css = css + "\n/*# sourceURL=jc-jsa:///inline-styles/style-" + cssIdxText + ".css*/";
         }
         if (group) {
             styleTag.dataset.group = group
