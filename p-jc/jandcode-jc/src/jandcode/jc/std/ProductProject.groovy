@@ -21,6 +21,7 @@ class ProductProject extends ProjectScript {
                         cm.opt("q", false, "Быстрая сборка. Пропустить этап компиляции (для отладки)"),
                         cm.opt("dev", false, "Dev-сборка. Не устанавливается флаг ctx.env.prod"),
                         cm.opt("u", false, "Обновление сборки. Собирает, если изменилась версия"),
+                        cm.opt("l", false, "Показать сборщики"),
                 )
                 if (lst.size() > 1) {
                     cm.get("product").opts.add(
@@ -39,6 +40,21 @@ class ProductProject extends ProjectScript {
         boolean quick = args.containsKey("q")
         boolean dev = args.containsKey("dev")
         boolean update = args.containsKey("u")
+        boolean showBuilders = args.containsKey("l")
+
+        if (showBuilders) {
+            Map res = [:]
+            int n = 0
+            for (b in builders) {
+                n++
+                res['' + n] = [
+                        name   : b.name,
+                        'class': b.getClass().getName()
+                ]
+            }
+            ut.printMap(res)
+            return
+        }
 
         if (!dev) {
             // production mode

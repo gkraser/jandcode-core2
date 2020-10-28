@@ -15,7 +15,9 @@ class AppRootProject extends ProjectScript {
         include(AppRunBat)
         //
         include(RootProject)
-        include(AppProductBuilder)
+        include(AppProductBuilder).with {
+            name = "app"
+        }
     }
 
 }
