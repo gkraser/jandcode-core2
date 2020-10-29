@@ -3,40 +3,44 @@
 
 @import "./vars";
 
-each(@flex-gutter, {
-  @v: 'flex-gutter-@{value}';
+& {
 
-  .q-gutter-x-@{value},
-  .q-gutter-@{value} {
-    margin-left: -@@v;
-  }
-  .q-gutter-x-@{value} > *,
-  .q-gutter-@{value} > * {
-    margin-left: @@v;
-  }
-  .q-gutter-y-@{value},
-  .q-gutter-@{value} {
-    margin-top: -@@v;
-  }
-  .q-gutter-y-@{value} > *,
-  .q-gutter-@{value} > * {
-    margin-top: @@v;
-  }
-  .q-col-gutter-x-@{value},
-  .q-col-gutter-@{value} {
-    margin-left: -@@v;
-  }
-  .q-col-gutter-x-@{value} > *,
-  .q-col-gutter-@{value} > * {
-    padding-left: @@v;
-  }
-  .q-col-gutter-y-@{value},
-  .q-col-gutter-@{value} {
-    margin-top: -@@v;
-  }
-  .q-col-gutter-y-@{value} > *,
-  .q-col-gutter-@{value} > * {
-    padding-top: @@v;
-  }
+  each(@flex-gutter, {
+    @v: 'flex-gutter-@{value}';
 
-});
+    .q-gutter-x-@{value},
+    .q-gutter-@{value} {
+      margin-left: -@@v;
+    }
+    .q-gutter-x-@{value} > *,
+    .q-gutter-@{value} > * {
+      margin-left: @@v;
+    }
+    .q-gutter-y-@{value},
+    .q-gutter-@{value} {
+      margin-top: -@@v;
+    }
+    .q-gutter-y-@{value} > *,
+    .q-gutter-@{value} > * {
+      margin-top: @@v;
+    }
+    .q-col-gutter-x-@{value},
+    .q-col-gutter-@{value} {
+      margin-left: -@@v;
+    }
+    .q-col-gutter-x-@{value} > *,
+    .q-col-gutter-@{value} > * {
+      padding-left: @@v;
+    }
+    .q-col-gutter-y-@{value},
+    .q-col-gutter-@{value} {
+      margin-top: -@@v;
+    }
+    .q-col-gutter-y-@{value} > *,
+    .q-col-gutter-@{value} > * {
+      padding-top: @@v;
+    }
+
+  });
+
+}

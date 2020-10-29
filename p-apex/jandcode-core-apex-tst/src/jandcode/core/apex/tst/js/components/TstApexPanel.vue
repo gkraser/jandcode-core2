@@ -13,8 +13,8 @@
                     <option v-for="theme in cfg.themes">{{ theme.path }}</option>
                 </select>
                 <button @click="resetTheme">Reset theme</button>
-                <button @click="baseTheme">&#8594;
-                    {{ isThemeStd() ? themeNameBase : themeNameStd }} theme
+                <button v-for="n in cfg.themeNamesSwitch" @click="switchTheme(n)">&#8594;
+                    {{ n }}
                 </button>
             </template>
         </div>
@@ -94,13 +94,6 @@ export default {
             return this.own && this.own.cfg && this.own.cfgStore
         },
 
-        themeNameStd() {
-            return this.cfg.themeNameStd || 'apex-std'
-        },
-
-        themeNameBase() {
-            return this.cfg.themeNameBase || 'apex-base'
-        }
     },
     methods: {
         resetTheme() {
@@ -108,13 +101,10 @@ export default {
             delete prms.theme
             window.location.search = decodeURIComponent(jsaBase.url.params(prms))
         },
-        baseTheme() {
+        switchTheme(theme) {
             let prms = jsaBase.url.getPageParams()
-            prms.theme = this.isThemeStd() ? this.themeNameBase : this.themeNameStd
+            prms.theme = theme
             window.location.search = decodeURIComponent(jsaBase.url.params(prms))
-        },
-        isThemeStd() {
-            return this.curTheme.indexOf(this.themeNameStd) !== -1
         },
         resetCfg() {
             return this.own.cfgStore.reset();

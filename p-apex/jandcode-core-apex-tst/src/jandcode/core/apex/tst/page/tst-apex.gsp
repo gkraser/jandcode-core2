@@ -15,8 +15,8 @@
   ctx.env = "jandcode.core.apex.tst"
   ctx.addModule(tstCtx.envTstJs)
   //
-  tstCtx.cfg.themeNameStd = themeStd
-  tstCtx.cfg.themeNameBase = "apex-base"
+  tstCtx.cfg.themeNamesSwitch = ["apex-base", "apex-std", "apex-clean"]
+
 %>
 <html>
 <head>
