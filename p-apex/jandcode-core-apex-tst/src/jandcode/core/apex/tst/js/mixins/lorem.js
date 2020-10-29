@@ -10,17 +10,20 @@ export default {
     },
     computed: {
         loremLg() {
-            return this.lorem(300);
+            return this.lorem(600);
         },
         loremMd() {
-            return this.lorem(80);
+            return this.lorem(160);
         },
         loremSm() {
-            return this.lorem(50);
+            return this.lorem(100);
         }
     },
     methods: {
         lorem(length) {
+            if (!length) {
+                length = 600
+            }
             let cnt = Math.floor(length / 2)
             return this.loremRu.substr(0, cnt) + ". " + this.loremEn.substring(0, cnt) + ".";
         }
