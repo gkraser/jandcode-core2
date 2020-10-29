@@ -1,6 +1,24 @@
 .jc-action {
 
-  ////// menu item
+  // caret для dropdown, если только икона, без метки
+  .q-icon + .q-icon {
+    font-size: 1.231em;
+    margin-left: 0.308em;
+    opacity: 0.5;
+  }
+
+  .q-icon.on-right {
+    margin-left: 0.308em;
+    opacity: 0.5;
+  }
+
+  &--dropdown {
+    .q-btn__wrapper {
+      padding-right: 0.462em;
+    }
+  }
+
+  // пункт меню
 
   &--menuitem {
 
@@ -11,6 +29,16 @@
       }
     }
 
+    .q-btn__wrapper {
+      min-height: 1em;
+    }
+
+    .q-icon.on-left {
+      opacity: 0.5;
+    }
+
+    .q-icon.on-right {
+    }
   }
 
 }

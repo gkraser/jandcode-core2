@@ -6,7 +6,7 @@
         </template>
 
 
-        <q-card>
+        <q-card class="q-mb-md">
             <q-card-section>
                 <div class="row q-gutter-md items-center">
                     <q-btn label="Кнопка"/>
@@ -52,6 +52,86 @@
             </q-card-section>
         </q-card>
 
+        <q-card>
+            <q-card-section>
+                <div class="q-pa-md q-gutter-sm">
+                    <q-btn v-for="size in sizes" :key="`btn_size_sq_${size}`"
+                           color="primary" :size="size" :label="`Size ${size}`"
+                    />
+
+                    <q-btn v-for="size in sizes" :key="`btn_size_rd_${size}`"
+                           round color="primary" :size="size" icon="mail"
+                    />
+                    <br>
+                    <!--            <q-btn
+                                        v-for="size in sizes" :key="`btn_size_rd_${size}`"
+                                        rounded
+                                        color="primary"
+                                        :size="size"
+                                        :label="`Size ${size}`"
+                                />
+                                <br>
+                                <q-btn
+                                        v-for="(size, i) in sizes" :key="`btn_size_round_${size}`"
+                                        round
+                                        color="primary"
+                                        :size="size"
+                                        :icon="icons[i]"
+                                />
+
+                                <br>
+
+                                <q-btn
+                                        v-for="size in sizes" :key="`btn_size_dense_sq_${size}`"
+                                        dense
+                                        color="primary"
+                                        :size="size"
+                                        :label="`Size ${size}`"
+                                />
+                                <br>
+                                <q-btn
+                                        v-for="size in sizes" :key="`btn_size_dense_rd_${size}`"
+                                        rounded
+                                        dense
+                                        color="primary"
+                                        :size="size"
+                                        :label="`Size ${size}`"
+                                />
+                                <br>
+                                <q-btn
+                                        v-for="(size, i) in sizes" :key="`btn_size_dense_round_${size}`"
+                                        round
+                                        dense
+                                        color="primary"
+                                        :size="size"
+                                        :icon="icons[i]"
+                                />
+
+                                <br>
+
+                                <q-btn
+                                        size="10px"
+                                        color="black"
+                                        label="Text height: 10px"
+                                />
+                                <q-btn
+                                        size="22px"
+                                        class="q-px-xl q-py-xs"
+                                        color="purple"
+                                        label="Custom"
+                                />
+                                <q-btn
+                                        size="35px"
+                                        round
+                                        color="teal"
+                                        icon="map"
+                                />
+
+                                -->
+                </div>
+            </q-card-section>
+        </q-card>
+
     </tst-apex-panel>
 </template>
 
@@ -68,7 +148,9 @@ export default {
         })
     },
     data() {
-        return {}
+        return {
+            sizes: ['xs', 'sm', 'md', 'lg', 'xl'],
+        }
     },
     methods: {
         applyCfg() {
