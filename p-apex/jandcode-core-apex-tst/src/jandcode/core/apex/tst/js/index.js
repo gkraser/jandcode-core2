@@ -4,7 +4,8 @@
 import './vendor'
 import 'jandcode.core.jsa.tst/js'
 import {runModule} from './run-module'
-import './components'
+import * as mixins from './mixins'
+import * as components from './components'
 
 // глобализация
 
@@ -13,3 +14,9 @@ Jc.tst.runModule = runModule
 
 //
 export * from './run-module'
+
+//
+export {
+    mixins,
+    components,
+}
