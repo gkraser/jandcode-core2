@@ -3,12 +3,32 @@
 @import './vars';
 
 :root {
-  --q-color-primary: @primary;
-  --q-color-secondary: @secondary;
-  --q-color-accent: @accent;
-  --q-color-positive: @positive;
-  --q-color-negative: @negative;
-  --q-color-info: @info;
-  --q-color-warning: @warning;
+  --q-color-primary: @primary-500;
+  --q-color-secondary: @secondary-500;
+  --q-color-accent: @accent-500;
+  --q-color-positive: @positive-500;
+  --q-color-negative: @negative-500;
+  --q-color-info: @info-500;
+  --q-color-warning: @warning-500;
   --q-color-dark: @dark;
+}
+
+& {
+
+  each(@colors, .(@color-name) {
+
+    each(@color-tones, .(@color-tone) {
+      @v: '@{color-name}-@{color-tone}';
+
+      .text-@{color-name}-@{color-tone} {
+        color: @@v;
+      }
+      .bg-@{color-name}-@{color-tone} {
+        background: @@v;
+      }
+
+    });
+
+  });
+
 }
