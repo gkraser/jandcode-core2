@@ -1,7 +1,13 @@
-/* Глобальные стили
+/* стили глобальные
 ----------------------------------------------------------------------------- */
+@import "./vars";
+
+html {
+  font-size: @base-font-size;
+}
 
 body {
-  // иначе - прозрачный...
-  background-color: white;
+  line-height: @body-line-height;
+  font-size: @body-font-size;
+  background-color: white; // иначе - прозрачный...
 }

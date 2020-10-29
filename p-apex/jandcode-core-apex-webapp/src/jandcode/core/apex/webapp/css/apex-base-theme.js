@@ -1,11 +1,12 @@
 /* Тема apex-base
 ----------------------------------------------------------------------------- */
-import cssQuasar from './apex-base/z-quasar-style.scss'
+import cssQuasar from 'quasar/dist/quasar.css'
 import css from './apex-base-theme.less'
+import robotoFont from './fonts/font-roboto'
 
 let config = require('[*]/css/apex-base-config.js')
 
 export default {
-    css: [cssQuasar, css],
+    css: [].concat(robotoFont, cssQuasar, css),
     config: config
 }

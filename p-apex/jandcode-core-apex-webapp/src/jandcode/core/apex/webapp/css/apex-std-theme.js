@@ -1,6 +1,6 @@
 /* Тема apex-std
 ----------------------------------------------------------------------------- */
-import cssQuasar from './apex-std/z-quasar-style.scss'
+import cssQuasar from 'quasar/dist/quasar.css'
 import css from './apex-std-theme.less'
 import robotoFont from './fonts/font-roboto'
 

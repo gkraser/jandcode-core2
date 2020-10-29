@@ -1,0 +1,63 @@
+/* spaces
+----------------------------------------------------------------------------- */
+
+@import "./vars";
+
+each(@spaces, {
+  @x: 'space-@{value}-x';
+  @y: 'space-@{value}-y';
+
+  // padding
+
+  .q-pa-@{value} {
+    padding: @@y @@x;
+  }
+  .q-pl-@{value} {
+    padding-left: @@x;
+  }
+  .q-pr-@{value} {
+    padding-right: @@x;
+  }
+  .q-pt-@{value} {
+    padding-top: @@y;
+  }
+  .q-pb-@{value} {
+    padding-bottom: @@y;
+  }
+  .q-px-@{value} {
+    padding-left: @@x;
+    padding-right: @@x;
+  }
+  .q-py-@{value} {
+    padding-top: @@y;
+    padding-bottom: @@y;
+  }
+
+  // margin
+
+  .q-ma-@{value} {
+    margin: @@y @@x;
+  }
+  .q-ml-@{value} {
+    margin-left: @@x;
+  }
+  .q-mr-@{value} {
+    margin-right: @@x;
+  }
+  .q-mt-@{value} {
+    margin-top: @@y;
+  }
+  .q-mb-@{value} {
+    margin-bottom: @@y;
+  }
+  .q-mx-@{value} {
+    margin-left: @@x;
+    margin-right: @@x;
+  }
+  .q-my-@{value} {
+    margin-top: @@y;
+    margin-bottom: @@y;
+  }
+
+
+});

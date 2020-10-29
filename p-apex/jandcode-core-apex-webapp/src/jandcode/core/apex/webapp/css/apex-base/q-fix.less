@@ -1,0 +1,38 @@
+/* fix для стилей quasar, px->rem например
+----------------------------------------------------------------------------- */
+@import "./vars";
+
+/* on-left, on-right: используется для отступа между иконкой и текстом кнопки
+----------------------------------------------------------------------------- */
+
+.on-left {
+  margin-right: 0.5em;
+}
+
+.on-right {
+  margin-left: 0.5em;
+}
+
+
+/* btn
+----------------------------------------------------------------------------- */
+
+.q-btn {
+
+  font-size: 1rem;
+  line-height: @body-line-height;
+  font-weight: normal;
+
+  text-transform: none;
+
+  .q-icon, .q-spinner {
+    font-size: 1.2em;
+  }
+
+  &__wrapper {
+    padding: 0.4em 0.6em;
+    min-height: 2em;
+  }
+
+}
+
