@@ -6,20 +6,20 @@
         <table class="table">
             <tr>
                 <td></td>
-                <td v-for="tone in 9">{{ toneNm(tone) }}</td>
+                <td v-for="tone in tones">{{ tone }}</td>
                 <td class="delim"></td>
-                <td v-for="a in samples">{{ a.text + '00/' + a.bg + '00' }}</td>
+                <td v-for="a in samples">{{ a.text + '/' + a.bg }}</td>
             </tr>
             <tr v-for="color in colors">
                 <td>{{ color }}</td>
-                <td v-for="tone in 9">
-                    <div :class="[bgCls(color,tone),'sample','sample-color']">
+                <td v-for="tone in tones">
+                    <div :class="[`bg-${color}-${tone}`,'sample','sample-color']">
                     </div>
                 </td>
                 <td class="delim"></td>
                 <td v-for="a in samples">
-                    <div :class="[bgCls(color,a.bg),textCls(color,a.text),'sample','sample-text']">
-                        {{ a.text + '00/' + a.bg + '00' }}
+                    <div :class="[`bg-${color}-${a.bg}`,`text-${color}-${a.text}`,'sample','sample-text']">
+                        {{ a.text + '/' + a.bg }}
                     </div>
                 </td>
             </tr>
@@ -30,7 +30,8 @@
 
 <script>
 
-let colors = ['primary', 'secondary', 'accent', 'positive', 'negative', 'info', 'warning']
+let colors = ['gray', 'primary', 'secondary', 'accent', 'positive', 'negative', 'info', 'warning']
+let tones = [100, 200, 300, 400, 500, 600, 700, 800, 900]
 
 export default {
     extends: Vue.component('tst-apex-page'),
@@ -41,11 +42,12 @@ export default {
     data() {
         return {
             colors: colors,
+            tones: tones,
             samples: [
-                {bg: 5, text: 1},
-                {bg: 1, text: 7},
-                {bg: 3, text: 9},
-                {bg: 1, text: 7},
+                {bg: 500, text: 100},
+                {bg: 100, text: 700},
+                {bg: 300, text: 900},
+                {bg: 100, text: 700},
             ]
         }
     },
@@ -53,8 +55,8 @@ export default {
         applyCfg() {
             let cfg = this.cfg
         },
-        colorNm(color, toneNum) {
-            return color + '-' + toneNum + '00';
+        colorNm(color, tone) {
+            return color + '-' + tone;
         },
         toneNm(toneNum) {
             return '' + toneNum + '00';
