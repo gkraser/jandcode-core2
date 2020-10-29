@@ -16,6 +16,15 @@
 & {
 
   each(@colors, .(@color-name) {
+    @vt: 'color-@{color-name}-500';
+
+    .text-@{color-name} {
+      color: @@vt !important;
+    }
+
+    .bg-@{color-name} {
+      background: @@vt !important;
+    }
 
     each(@color-tones, .(@color-tone) {
       @v: 'color-@{color-name}-@{color-tone}';
