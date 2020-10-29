@@ -1,0 +1,17 @@
+/* размеры
+----------------------------------------------------------------------------- */
+
+@import "./vars";
+
+& {
+
+  each(@sizes, {
+    @font-size: 'font-size-@{value}';
+
+    .font-size-@{value} {
+      font-size: @@font-size;
+    }
+
+  });
+
+}

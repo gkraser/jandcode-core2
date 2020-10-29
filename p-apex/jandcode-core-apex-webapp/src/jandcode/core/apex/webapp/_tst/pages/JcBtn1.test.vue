@@ -1,6 +1,10 @@
 <template>
     <tst-apex-panel class="jcbtn1-test-0bd95535">
+        <template #tools>
+            <tst-fontsize/>
+        </template>
 
+        
         <div class="q-gutter-y-sm">
             <div>kind:</div>
             <div class="row q-gutter-x-sm">
@@ -39,6 +43,8 @@ for (let z in btnConfig.kind) {
 }
 
 export default {
+    extends: Vue.component('tst-apex-page'),
+
     props: {},
     data() {
         return {}

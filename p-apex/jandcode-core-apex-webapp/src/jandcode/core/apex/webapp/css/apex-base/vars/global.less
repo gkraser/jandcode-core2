@@ -4,17 +4,26 @@
 @base-font-size: 13px;
 
 // размер шрифта // https://type-scale.com/  (scale: 1.125 Major Second)
-@fontsize-large-7: 2.281rem;
-@fontsize-large-6: 2.027rem;
-@fontsize-large-5: 1.802rem;
-@fontsize-large-4: 1.602rem;
-@fontsize-large-3: 1.424rem;
-@fontsize-large-2: 1.266rem;
-@fontsize-large-1: 1.125rem;
-@fontsize-norm: 1rem;
-@fontsize-small-1: 0.889rem;
-@fontsize-small-2: 0.79rem;
-@fontsize-small-3: 0.702rem;
+@font-size-large-7: 2.281rem;
+@font-size-large-6: 2.027rem;
+@font-size-large-5: 1.802rem;
+@font-size-large-4: 1.602rem;
+@font-size-large-3: 1.424rem;
+@font-size-large-2: 1.266rem;
+@font-size-large-1: 1.125rem;
+@font-size-norm: 1rem;
+@font-size-small-1: 0.889rem;
+@font-size-small-2: 0.79rem;
+@font-size-small-3: 0.702rem;
+
+// производные размеры font-size
+@font-size-xl: @font-size-large-4;
+@font-size-lg: @font-size-large-2;
+@font-size-md: @font-size-norm;
+@font-size-sm: @font-size-small-1;
+@font-size-xs: @font-size-small-3;
+
+@sizes: xs, sm, md, lg, xl;
 
 //
 @typography-line-height: 1.4;
@@ -24,7 +33,7 @@
 @body-line-height: 1.5;
 
 // spaces
-@space-base: 1rem;
+@space-base: 1em;
 @space-x-base: @space-base;
 @space-y-base: @space-base;
 

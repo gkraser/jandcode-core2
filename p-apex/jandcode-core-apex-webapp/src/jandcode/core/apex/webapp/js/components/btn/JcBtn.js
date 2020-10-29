@@ -14,6 +14,14 @@ export let config = {
     },
 }
 
+let sizes = {
+    xs: 'xs',
+    sm: 'sm',
+    md: 'sm',
+    lg: 'lg',
+    xl: 'xl'
+}
+
 export default {
     name: 'jc-btn',
     functional: true,
@@ -24,6 +32,15 @@ export default {
 
         if (data.attrs['no-wrap'] == null) {
             data.attrs['no-wrap'] = true
+        }
+
+        // размер задаем через классы
+        if ('size' in data.attrs) {
+            let sz = data.attrs['size']
+            if (sz in sizes) {
+                data.class.push('font-size-' + sz)
+                delete data.attrs['size']
+            }
         }
 
         let kind = ctx.props.kind || 'default'

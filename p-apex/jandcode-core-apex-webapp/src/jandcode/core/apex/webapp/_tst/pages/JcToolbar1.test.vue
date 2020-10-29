@@ -6,7 +6,7 @@
         </template>
 
         sdsd
-        <div class="row items-center q-gutter-x-sm">
+        <div class="row items-center q-gutter-x-sm q-mb-md">
             <div>action без toolbar:</div>
             <jc-action icon="bus"/>
             <jc-action icon="star"/>
