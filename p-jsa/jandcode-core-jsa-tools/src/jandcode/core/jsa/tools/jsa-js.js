@@ -14,12 +14,12 @@ const Terser = require("terser");
  * @param context gulp-контекст (this из места вызова)
  * @param suf суффикс, если не задан - '-min'
  */
-function minifyJs(g, file, context, suf) {
+async function minifyJs(g, file, context, suf) {
     if (!suf) {
         suf = '-min'
     }
     let src = file.contents.toString()
-    let res = Terser.minify(src, g.terserConfig)
+    let res = await Terser.minify(src, g.terserConfig)
     if (res.code) {
         let rfile = new Vinyl({
             cwd: file.cwd,

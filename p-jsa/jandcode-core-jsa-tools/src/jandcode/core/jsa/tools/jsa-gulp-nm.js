@@ -87,8 +87,8 @@ function nmMinifyJs_taskFactory(g, taskName, module, taskParams) {
         let globs = g.makeGlobs(g.buildPathNodeModules, {globs: globsBundle})
 
         return gulp.src(globs, {base: g.buildPathNodeModules, nodir: true})
-            .pipe(through2(function(file, enc, callback) {
-                jsaJs.minifyJs(g, file, this, '--compiled-min')
+            .pipe(through2(async function(file, enc, callback) {
+                await jsaJs.minifyJs(g, file, this, '--compiled-min')
                 callback()
             }))
             .pipe(gulp.dest(g.buildPathCompiledNodeModules))

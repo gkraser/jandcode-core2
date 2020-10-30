@@ -115,9 +115,9 @@ function vue_taskFactory(g, taskName, module, taskParams) {
                 this.push(rfile)
                 callback(null, file)
             }))
-            .pipe(gulpif(g.isProd, through2(function(file, enc, callback) {
+            .pipe(gulpif(g.isProd, through2(async function(file, enc, callback) {
                 if (file.path.endsWith('--compiled')) {
-                    jsaJs.minifyJs(g, file, this)
+                    await jsaJs.minifyJs(g, file, this)
                 }
                 callback(null, file)
             })))
