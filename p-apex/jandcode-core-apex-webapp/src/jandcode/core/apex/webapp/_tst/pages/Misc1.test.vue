@@ -90,7 +90,7 @@ export default {
     },
     data() {
         return {
-            sizes: ['xs', 'sm', 'md', 'lg', 'xl'],
+            sizes: ['xs', 'sm', 'md', 'lg', 'xl', 'large-6', 'small-3'],
         }
     },
     methods: {

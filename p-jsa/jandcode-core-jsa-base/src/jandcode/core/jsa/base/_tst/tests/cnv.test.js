@@ -62,5 +62,14 @@ describe("utils/cnv", function() {
         assert.ok(m.toBoolean('true', false) === true);
     })
 
+    it("isStartNumChar", function() {
+        assert.ok(m.isStartNumChar('4'));
+        assert.ok(m.isStartNumChar('1234'));
+        assert.ok(!m.isStartNumChar(''));
+        assert.ok(!m.isStartNumChar(null));
+        assert.ok(!m.isStartNumChar('a'));
+        assert.ok(!m.isStartNumChar('a1'));
+    })
+
 })
     

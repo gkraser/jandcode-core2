@@ -5,13 +5,12 @@
 
 & {
 
-  each(@sizes, {
-    @font-size: 'font-size-@{value}';
+  each(@font-sizes, {
+    @v: 'font-size-@{value}';
 
-    .font-size-@{value} {
-      font-size: @@font-size;
+    .text-size-@{value} {
+      font-size: @@v;
     }
-
   });
 
 }

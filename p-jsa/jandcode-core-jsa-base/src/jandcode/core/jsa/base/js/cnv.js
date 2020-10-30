@@ -60,6 +60,13 @@ export function isNumChar(a) {
 }
 
 /**
+ * Проверка, что a - начинается с числа
+ */
+export function isStartNumChar(a) {
+    return isString(a) && isNumChar(a.charAt(0));
+}
+
+/**
  * Проверка на пустое значение: null, undefined, 0, '', {}, []
  * @param a
  */

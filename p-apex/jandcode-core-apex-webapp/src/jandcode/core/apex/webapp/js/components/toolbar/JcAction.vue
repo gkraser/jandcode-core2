@@ -8,6 +8,7 @@
             :stretch="isMenuItem?true:stretch"
             :icon="leftIcon"
             :icon-right="rightIcon">
+        <slot name="content"></slot>
         <template v-if="hasSubMenu">
             <q-menu content-class="jc-action--menu"
                     :anchor="isMenuItem?'top right':null"
@@ -21,6 +22,14 @@
 </template>
 
 <script>
+/*
+
+doc:
+
+slot:content
+    Содержимое внутри action. Используется, например, для badge
+
+ */
 export default {
     name: 'jc-action',
     props: {

@@ -1,4 +1,4 @@
-import {jsaVue} from '../vendor'
+import {jsaVue, jsaBase} from '../vendor'
 
 function isAttrTrue(v) {
     if (v == null || v === false) {
@@ -12,14 +12,6 @@ export let config = {
         default: {},
         danger: {},
     },
-}
-
-let sizes = {
-    xs: 'xs',
-    sm: 'sm',
-    md: 'sm',
-    lg: 'lg',
-    xl: 'xl'
 }
 
 export default {
@@ -37,8 +29,8 @@ export default {
         // размер задаем через классы
         if ('size' in data.attrs) {
             let sz = data.attrs['size']
-            if (sz in sizes) {
-                data.class.push('font-size-' + sz)
+            if (!jsaBase.isStartNumChar(sz)) {
+                data.class.push('text-size-' + sz)
                 delete data.attrs['size']
             }
         }
