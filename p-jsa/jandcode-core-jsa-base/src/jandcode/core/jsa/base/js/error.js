@@ -7,7 +7,6 @@
 let ERROR_AJAX_PREFIX = "ERROR_AJAX:";
 
 import * as cnv from './cnv'
-import cfg from './cfg'
 
 /**
  * Объект "ошибка"
@@ -37,10 +36,24 @@ export class JcError {
         this.message = this.getMessage()
     }
 
+    getMessage(devMode) {
+        let m = this.getMessageInternal(devMode)
+        if (cnv.isObject(m)) {
+            let s
+            try {
+                s = JSON.stringify(m)
+            } catch(e) {
+                s = '' + m + ' [error stringify] ' + e
+            }
+            m = s
+        }
+        return m
+    }
+
     /**
      * Превращает ошибку в текст сообщения
      */
-    getMessage(devMode) {
+    getMessageInternal(devMode) {
         let e = this.err;
         let m = "";
         let s;
@@ -74,17 +87,33 @@ export class JcError {
         } else if (cnv.isString(e)) {
             return parseTextError(e)
 
-        } else if (e.status && e.statusText) {
+        } else if ('status' in e && 'statusText' in e) {
             // response
             s = e.responseText;
             if (cnv.isString(s)) {
                 return parseTextError(s)
             }
-            
+
+            let z = ''
+            if (e.status) {
+                z = z + e.status
+            }
+            if (e.statusText) {
+                if (z.length > 0) {
+                    z = z + ' '
+                }
+                z = z + e.statusText
+            }
+
+            if (z.length > 0) {
+                return z
+            }
+
         } else if (e.message) {
             return e.message
         }
-        return "" + e;
+
+        return e;
     }
 
 }

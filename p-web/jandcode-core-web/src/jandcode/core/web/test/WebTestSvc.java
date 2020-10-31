@@ -101,6 +101,9 @@ public class WebTestSvc extends BaseTestSvc {
     public void handleRequest(Request request) {
         try {
             ((WebServiceImpl) getWebService()).handleRequest(request);
+            if (request.getException() != null) {
+                throw request.getException();
+            }
         } catch (Throwable e) {
             throw new XErrorWrap(e);
         }

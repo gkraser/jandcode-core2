@@ -1,5 +1,6 @@
 export * from './cfg-store'
 export * from './msgbox'
+export * from './dao'
 
 import {jsaBase} from '../vendor'
 

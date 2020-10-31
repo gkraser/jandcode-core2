@@ -3,6 +3,9 @@
 
     <web>
 
+        <action name="dao"
+                class="jandcode.core.apex.web.action.DaoAction"/>
+
         <!-- кешируем файлы шрифтов, что позволит частично избежать мерцания при F5 -->
 
         <cache-control name="woff2"

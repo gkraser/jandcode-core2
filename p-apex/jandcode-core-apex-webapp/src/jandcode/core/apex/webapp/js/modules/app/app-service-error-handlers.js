@@ -3,21 +3,48 @@
 
 import {Vue, Quasar, jsaBase} from '../../vendor'
 
+function defaultShowErrorUi(error) {
+    error = jsaBase.createError(error)
+    setTimeout(function() {
+        // внутри timeout, а то иногда warn приводит к зацикливанию
+        Quasar.Notify.create({
+            position: 'top-right',
+            multiLine: true,
+            color: 'negative',
+            message: '' + error.message,
+            icon: 'error',
+            actions: [
+                {label: 'Закрыть', color: 'yellow'},
+            ]
+        })
+    }, 50)
+}
+
+export let showErrorUi = defaultShowErrorUi
+
 export class ErrorHandlersService extends jsaBase.AppService {
 
     onRun() {
         let th = this
 
-        Vue.config.errorHandler = function(err, vm, info) {
-            let msg = `Apex: [Vue error]: ${err} ${info}`
-            th.showError(msg)
+        function vueError(err, vm, info, ew) {
+            let error = jsaBase.createError(err)
+
+            error.vm = vm
+            error.info = `Apex: [Vue ${ew}] ${info}`
+
+            th.showError(error)
+            console.log('[ERROR] ' + error.info + ": " + error.message)
+            console.log('vm', vm)
             th.showStack(err)
         }
 
+        Vue.config.errorHandler = function(err, vm, info) {
+            vueError(err, vm, info, 'error')
+        }
+
         Vue.config.warnHandler = function(err, vm, info) {
-            let msg = `Apex: [Vue warn]: ${err} ${info}`
-            th.showError(msg)
-            th.showStack(err)
+            vueError(err, vm, info, 'warn')
         }
 
         window.onerror = function(message, url, line, col, error) {
@@ -30,8 +57,13 @@ export class ErrorHandlersService extends jsaBase.AppService {
         }
 
         window.addEventListener("unhandledrejection", function(event) {
-            console.error('[Promise error]:', event.reason)
-            th.showError(event.reason)
+            let error = jsaBase.createError(event.reason)
+
+            console.log('[ERROR promise] ', error.message)
+            console.log(event)
+            th.showError(error)
+            console.error(event.reason)
+            event.preventDefault();
         });
 
     }
@@ -53,21 +85,7 @@ export class ErrorHandlersService extends jsaBase.AppService {
     }
 
     showError(err) {
-        let e = jsaBase.createError(err)
-        console.error(e);
-        setTimeout(function() {
-            // внутри timeout, а то иногда warn приводит к зацикливанию
-            Quasar.Notify.create({
-                position: 'top-right',
-                multiLine: true,
-                color: 'negative',
-                message: '' + e.message,
-                icon: 'error',
-                actions: [
-                    {label: 'Закрыть', color: 'yellow'},
-                ]
-            })
-        }, 50)
+        showErrorUi(err)
     }
 
 }
