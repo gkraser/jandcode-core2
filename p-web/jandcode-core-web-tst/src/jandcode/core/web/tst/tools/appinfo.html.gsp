@@ -19,6 +19,10 @@
       <td>${th.app.appdir}</td>
     </tr>
     <tr>
+      <td>workdir</td>
+      <td>${th.app.workdir}</td>
+    </tr>
+    <tr>
       <td>env.dev</td>
       <td>${th.app.env.dev}</td>
     </tr>
@@ -49,6 +53,10 @@
     <tr>
       <td>app title</td>
       <td>${appInfo.title}</td>
+    </tr>
+    <tr>
+      <td>java</td>
+      <td>${System.getProperty('java.version')} (${System.getProperty('java.vendor')} ${System.getProperty('java.vm.version')}) home: ${System.getProperty('java.home')}</td>
     </tr>
   </table>
 

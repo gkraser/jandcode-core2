@@ -1,4 +1,4 @@
-package jandcode.core.apex.webapp.action;
+package jandcode.core.apex.web.action;
 
 import jandcode.commons.*;
 import jandcode.commons.error.*;

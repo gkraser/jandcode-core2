@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <web>
+
+        <!-- кешируем файлы шрифтов, что позволит частично избежать мерцания при F5 -->
+
+        <cache-control name="woff2"
+                       mask="**/*.woff2"
+                       cacheControl="max-age=3000000"/>
+
+        <cache-control name="woff"
+                       mask="**/*.woff"
+                       cacheControl="max-age=3000000"/>
+
+    </web>
+
+</root>
