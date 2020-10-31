@@ -12,6 +12,7 @@ import * as moduleLoader from './moduleLoader'
 import * as theme from './theme'
 import * as ajax from './ajax'
 import * as svgicons from './svgicons'
+import * as jsonrpc from './jsonrpc'
 import cfg from './cfg'
 import Jc from './globalNs'
 import {jQuery, axios} from './vendor'
@@ -23,6 +24,7 @@ export {
     theme,
     ajax,
     svgicons,
+    jsonrpc,
     cfg,
     jQuery,
     axios,
