@@ -3,8 +3,8 @@
 
     <web>
 
-        <action name="dao"
-                class="jandcode.core.apex.web.action.DaoAction"/>
+        <action name="api"
+                class="jandcode.core.apex.web.action.ApiAction"/>
 
         <!-- кешируем файлы шрифтов, что позволит частично избежать мерцания при F5 -->
 

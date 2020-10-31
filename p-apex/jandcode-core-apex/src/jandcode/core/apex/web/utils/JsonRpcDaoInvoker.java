@@ -1,4 +1,4 @@
-package jandcode.core.apex.web.action;
+package jandcode.core.apex.web.utils;
 
 import com.google.gson.*;
 import jandcode.commons.*;

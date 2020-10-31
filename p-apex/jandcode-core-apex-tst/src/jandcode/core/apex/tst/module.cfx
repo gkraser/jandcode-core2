@@ -9,6 +9,14 @@
         <gsp name="page/tst-apex"
              path="jandcode/core/apex/tst/page/tst-apex.gsp"/>
 
+        <tst>
+            <menu name="tools">
+                <item name="dao"
+                      href="jandcode/core/apex/tst/tools/dao.html"
+                      title="Dao"/>
+            </menu>
+        </tst>
+
     </web>
 
 </root>

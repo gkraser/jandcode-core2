@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
+    <dao>
+        <daoHolder name="api" daoInvoker="default">
+        </daoHolder>
+    </dao>
+
     <x-include path="web/index.cfx"/>
 
 </root>
