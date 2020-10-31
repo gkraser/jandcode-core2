@@ -16,7 +16,7 @@ export function runModule(moduleName) {
         } else if (moduleName.endsWith(".vue") || main.vue) {
             let p = main.vue || main.default || main
             //
-            jsaBase.app.run().then(() => {
+            jsaBase.app.run(() => {
                 let vm = new Vue({
                     el: '#jc-app',
                     render: h => h(p)

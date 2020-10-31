@@ -17,7 +17,7 @@ export class CfgStoreService extends jsaBase.AppService {
         this.app.cfgStore = cfgStore
     }
 
-    onRun() {
+    onBeforeRun() {
         this.app.cfgStore.load()
     }
 

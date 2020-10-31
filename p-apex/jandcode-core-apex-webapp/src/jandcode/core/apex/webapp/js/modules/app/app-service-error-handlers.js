@@ -24,7 +24,7 @@ export let showErrorUi = defaultShowErrorUi
 
 export class ErrorHandlersService extends jsaBase.AppService {
 
-    onRun() {
+    onBeforeRun() {
         let th = this
 
         function vueError(err, vm, info, ew) {
