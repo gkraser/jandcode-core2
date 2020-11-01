@@ -124,11 +124,11 @@ export default {
   font-size: 13px;
   border-bottom: 1px solid silver;
   background-color: #f5f5f5;
-  padding-left: 10px;
-  padding-right: 10px;
+  padding: 4px 10px;
   display: flex;
-  height: 34px;
+  min-height: 34px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .tst-apex-panel--head > *:not(:first-child) {
@@ -154,10 +154,15 @@ export default {
 
 .tst-apex-panel--head select {
   color: navy;
-  font-size: 12px;
+  font-size: 11px;
   font-family: "Lucida Console", Monaco, monospace;
   padding: 2px;
   background-color: #f5f5f5;
+}
+
+.tst-apex-panel--head button {
+  font-size: 11px;
+  white-space: nowrap;
 }
 
 .tst-apex-panel--head a:hover {

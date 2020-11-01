@@ -6,6 +6,14 @@ import * as cnv from './cnv'
 let __registredServices = []
 let __registredCallback = []
 
+const STAGE_NOT_RUNNED = 0
+const STAGE_CREATE = 1
+const STAGE_INIT = 2
+const STAGE_BEFORE_RUN = 3
+const STAGE_RUN = 4
+const STAGE_AFTER_RUN = 5
+const STAGE_RUNNED = 6
+
 /**
  * Приложение.
  * Существует только один его экземпляр - app.
@@ -16,6 +24,7 @@ export class App {
         this.__runned = false
         this.__services = []
         this.services = {}
+        this.__stage = STAGE_NOT_RUNNED
     }
 
     /**
@@ -54,47 +63,44 @@ export class App {
 
     /**
      * Регистрация функции, которая выполнится после onCreate всех сервисов.
-     * Если приложение уже запущено, функция выполнится немедленно.
+     * Вызывать нужно до запуска приложения.
      * @param callback {Function} app передается первым параметром
      */
     onCreate(callback) {
-        if (this.__runned) {
-            callback(this)
-        } else {
-            let svc = new AppService(this)
-            svc.onCreate = callback
-            __registredCallback.push(svc)
+        if (this.__stage >= STAGE_CREATE) {
+            throw new Error("onCreate after run")
         }
+        let svc = new AppService(this)
+        svc.onCreate = callback
+        __registredCallback.push(svc)
     }
 
     /**
      * Регистрация функции, которая выполнится после onInit всех сервисов.
-     * Если приложение уже запущено, функция выполнится немедленно.
+     * Вызывать нужно до запуска фазы init приложения.
      * @param callback {Function} app передается первым параметром
      */
     onInit(callback) {
-        if (this.__runned) {
-            callback(this)
-        } else {
-            let svc = new AppService(this)
-            svc.onInit = callback
-            __registredCallback.push(svc)
+        if (this.__stage >= STAGE_INIT) {
+            throw new Error("onInit after run init")
         }
+        let svc = new AppService(this)
+        svc.onInit = callback
+        __registredCallback.push(svc)
     }
 
     /**
      * Регистрация функции, которая выполнится после onBeforeRun всех сервисов.
-     * Если приложение уже запущено, функция выполнится немедленно.
+     * Вызывать нужно до запуска фазы beforeRun приложения.
      * @param callback {Function} app передается первым параметром
      */
     onBeforeRun(callback) {
-        if (this.__runned) {
-            callback(this)
-        } else {
-            let svc = new AppService(this)
-            svc.onBeforeRun = callback
-            __registredCallback.push(svc)
+        if (this.__stage >= STAGE_BEFORE_RUN) {
+            throw new Error("onBeforeRun after run beforeRun")
         }
+        let svc = new AppService(this)
+        svc.onBeforeRun = callback
+        __registredCallback.push(svc)
     }
 
     /**
@@ -103,7 +109,7 @@ export class App {
      * @param callback {Function} app передается первым параметром
      */
     onAfterRun(callback) {
-        if (this.__runned) {
+        if (this.__stage >= STAGE_RUNNED) {
             callback(this)
         } else {
             let svc = new AppService(this)
@@ -137,6 +143,7 @@ export class App {
         }
 
         //
+        this.__stage = STAGE_CREATE
         for (let svc of this.__services) {
             await svc.onCreate(this)
         }
@@ -145,6 +152,7 @@ export class App {
         }
 
         //
+        this.__stage = STAGE_INIT
         for (let svc of this.__services) {
             await svc.onInit(this)
         }
@@ -153,6 +161,7 @@ export class App {
         }
 
         //
+        this.__stage = STAGE_BEFORE_RUN
         for (let svc of this.__services) {
             await svc.onBeforeRun(this)
         }
@@ -161,15 +170,20 @@ export class App {
         }
 
         // собственно запуск
+        this.__stage = STAGE_RUN
         await cb(this)
 
         //
+        this.__stage = STAGE_AFTER_RUN
         for (let svc of this.__services) {
             await svc.onAfterRun(this)
         }
         for (let cb of __registredCallback) {
             await cb.onAfterRun(this)
         }
+
+        //
+        this.__stage = STAGE_RUNNED
 
     }
 

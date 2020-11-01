@@ -1,0 +1,31 @@
+/* Стили для tst
+----------------------------------------------------------------------------- */
+
+/*
+  Это стиль для wrapper, в который обертывается компонент tst,
+  когда он показывается в контексте приложения.
+ */
+.tst-overapp-wrap {
+  display: block;
+  background-color: white;
+  overflow: auto;
+  border: 1px solid red;
+}
+
+/*
+  Это дополнительный стиль для wrapper (.tst-overapp-wrap).
+  Используется при отображении тестируемого компонента поверх приложения.
+ */
+.tst-overapp-fullscreen {
+  position: fixed;
+  left: 3vw;
+  top: 3vh;
+  right: 3vw;
+  bottom: 3vh;
+  z-index: 300000;
+}
+
+/* фиксы */
+.tst-overapp-wrap .tst-apex-panel {
+  min-height: inherit;
+}

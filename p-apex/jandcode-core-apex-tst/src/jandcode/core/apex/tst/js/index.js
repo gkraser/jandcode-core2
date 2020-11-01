@@ -6,6 +6,9 @@ import 'jandcode.core.jsa.tst/js'
 import {runModule} from './run-module'
 import * as mixins from './mixins'
 import * as components from './components'
+import cssTst from './css/tst.css'
+
+Jc.requireCss(cssTst)
 
 // глобализация
 
