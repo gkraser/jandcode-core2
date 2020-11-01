@@ -91,9 +91,8 @@ dependencies {
     compile group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '19.7.0.0', transitive: false
 
     // flexmark
-    v = '0.50.50'
+    v = '0.62.2'
     compile group: 'com.vladsch.flexmark', name: 'flexmark', version: v
-    compile group: 'com.vladsch.flexmark', name: 'flexmark-formatter', version: v
     compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-gfm-strikethrough', version: v
     compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-tables', version: v
     compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-yaml-front-matter', version: v

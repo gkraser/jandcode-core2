@@ -11,21 +11,26 @@ import java.util.*;
  * Построитель внутреннего содержания
  * и заголовка статьи по AST
  */
-public class MdVisitor extends NodeVisitor {
-
-    private static Collection<VisitHandler<?>> dummyHandlers = new ArrayList<>();
+public class MdVisitor {
 
     private boolean foundFirstHeader;
     private int idCnt;
     private MdTocImpl[] stack = new MdTocImpl[10];
     private MdVisitorData data;
+    private NodeVisitor myVisitor;
 
     public MdVisitor() {
-        super(dummyHandlers);
-        addHandlers(new VisitHandler<>(YamlFrontMatterNode.class, this::visitFrontMatter));
-        addHandlers(new VisitHandler<>(Heading.class, this::visitHead));
+        this.myVisitor = new NodeVisitor(
+                new VisitHandler<>(YamlFrontMatterNode.class, this::visitFrontMatter),
+                new VisitHandler<>(Heading.class, this::visitHead)
+
+        );
         this.data = new MdVisitorData();
         stack[0] = (MdTocImpl) this.data.getToc();
+    }
+
+    public void visit(Node node) {
+        myVisitor.visit(node);
     }
 
     /**

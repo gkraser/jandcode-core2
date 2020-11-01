@@ -20,7 +20,6 @@ class P extends ProjectScript {
                     // flexmark
                     "flexmark",
                     "flexmark-util",
-                    "flexmark-formatter",
                     "flexmark-ext-gfm-strikethrough",
                     "flexmark-ext-tables",
                     "flexmark-ext-yaml-front-matter",
