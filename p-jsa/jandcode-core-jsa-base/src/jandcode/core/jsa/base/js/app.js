@@ -40,6 +40,9 @@ export class App {
      * @param serviceClass класс сервиса
      */
     registerService(serviceClass) {
+        if (this.__runned) {
+            throw new Error('service нельзя зарегистрировать после запуска приложения')
+        }
         if (!serviceClass) {
             throw new Error('serviceClass undefined')
         }
@@ -47,18 +50,6 @@ export class App {
             throw new Error('serviceClass должен быть классом-наследником от AppService: ' + serviceClass)
         }
         __registredServices.push(serviceClass)
-        if (this.__runned) {
-            let svc = new serviceClass(this)
-            this.__services.push(svc)
-            let name = svc.getName()
-            if (name) {
-                this.services[name] = svc
-            }
-            svc.onCreate()
-            svc.onInit()
-            svc.onBeforeRun()
-            svc.onAfterRun()
-        }
     }
 
     /**
