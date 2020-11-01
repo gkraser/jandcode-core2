@@ -32,13 +32,21 @@
                     <q-checkbox v-model="iconBorder" label="Рамка" class="col-1"/>
                 </div>
             </div>
+            <div v-if="selectedName">
+                <label>Имя:</label>
+                <span><b>{{ selectedName }}</b></span>
+                <label>Иконка:</label>
+                <span><b>{{ selectedIcon }}</b></span>
+            </div>
         </div>
 
-        <template v-for="icon in iconsList">
-            <tst-icon-box :icon="icon" class="q-mr-md q-mb-md shadow-2"
-                          :iconSize="iconSize" :iconColor="iconColor"
-                          :iconBorder="iconBorder"/>
-        </template>
+        <div @click="onClick">
+            <template v-for="icon in iconsList">
+                <tst-icon-box :icon="icon" class="q-mr-md q-mb-md shadow-2"
+                              :iconSize="iconSize" :iconColor="iconColor"
+                              :iconBorder="iconBorder"/>
+            </template>
+        </div>
     </div>
 </template>
 
@@ -84,6 +92,17 @@ export default {
             return keys
         },
     },
-    methods: {},
+    methods: {
+        onClick(ev) {
+            let a = ev.target.closest('.tst-icon-box')
+            if (a) {
+                this.selectedName = a.dataset.icon
+                this.selectedIcon = apex.utils.getIcon(this.selectedName)
+            } else {
+                this.selectedName = ''
+                this.selectedIcon = ''
+            }
+        }
+    },
 }
 </script>

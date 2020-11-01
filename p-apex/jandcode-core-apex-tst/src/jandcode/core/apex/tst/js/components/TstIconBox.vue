@@ -1,5 +1,5 @@
 <template>
-    <div class="tst-icon-box column inline items-center q-pa-md">
+    <div class="tst-icon-box column inline items-center q-pa-md" :data-icon="iconName">
 
         <q-badge transparent class="tst-icon-box--icon-type self-end"
                  :label="iconType"
@@ -11,7 +11,7 @@
             {{ iconValue }}
         </q-tooltip>
 
-        <q-icon :name="iconName" class="col q-mb-md"
+        <q-icon :name="iconName" class="col q-mb-md tst-icon-box--icon"
                 :style="{fontSize: iconSize, color:iconColor}"
                 :class="{'tst-icon-box--icon-border':iconBorder}"
         />
@@ -100,6 +100,10 @@ export default {
     right: -0.8rem;
     top: -0.8rem;
     background: transparent;
+  }
+
+  &--icon {
+    border: 1px solid transparent;
   }
 
   &--icon-border {
