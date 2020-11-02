@@ -1,7 +1,22 @@
 <template>
-    <tst-apex-panel class="jcsidemenu2-test-7ced957a">
+    <tst-apex-panel class="jcsidemenu2-test-7ced957a" debug-bg>
         <template #tools>
         </template>
+
+        <div class="row q-mb-md items-center place1">
+            <label>label</label>
+            <div class="block">
+                <jc-side-menu-item label="Пункт 1" icon="bus"/>
+            </div>
+            <div class="block">
+                <jc-side-menu-item label="Пункт 1" icon="bus">
+                    <jc-side-menu-item label="Пункт 1 выпадающий"/>
+                </jc-side-menu-item>
+            </div>
+            <div class="block">
+                <jc-side-menu-item label="Пункт 1"/>
+            </div>
+        </div>
 
         <div class="row q-gutter-md q-mb-md">
 
@@ -78,8 +93,24 @@ export default {
 
 <style lang="less">
 
+// Отладочные стили
+.debug-bg {
+
+  .place1 {
+    background-color: #C6E2A6 !important;
+    color: black;
+
+    & > * {
+      background-color: #d7edc5;
+    }
+  }
+}
+
 .jcsidemenu2-test-7ced957a {
 
+  .block {
+    margin-right: 10px;
+  }
 
 }
 
