@@ -1,5 +1,8 @@
 <template>
     <tst-apex-panel>
+        <template #tools>
+        </template>
+
         <jc-btn label="hello"/>
     </tst-apex-panel>
 </template>
