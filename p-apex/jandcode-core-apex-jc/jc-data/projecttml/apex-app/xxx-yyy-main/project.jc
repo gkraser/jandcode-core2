@@ -15,9 +15,6 @@ class P extends ProjectScript {
         include(JavaProject).with {
             moduleDef("xxx.yyy.main").with {
                 depends.prod(
-                    "jandcode.core.launcher",
-                    "jandcode.core.web",
-                    "jandcode.core.jsa.base",
                     "jandcode.core.apex",
                     "jandcode.core.apex.webapp",
                 )
