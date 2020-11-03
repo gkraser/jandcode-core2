@@ -15,7 +15,7 @@ less-файла для темы.
 Появится gulp-task: quasar-pxtorem.
 
 Результат записывается в temp:
-* quasar.css.fix-px.less - less файл, с заменой px -> @VAR
+* q-fix-px.less - less файл, с заменой px -> @VAR
 * quasar.css - измененный quasar.css, с заменой px->rem
 
 ----------------------------------------------------------------------------- */
@@ -26,6 +26,7 @@ const Vinyl = require('vinyl');
 const pxRegex = require("postcss-pxtorem/lib/pixel-unit-regex");
 const postcss = require('gulp-postcss')
 const postcss_pxtorem = require('./lib/postcss-pxtorem-fix')
+const path = require('path')
 
 /**
  * Замена XXpx на переменную @rXXXpx
@@ -77,7 +78,18 @@ function initGulpTask() {
                 }
                 z1.rules.push(cur)
             }
+            //
+            if (origValue.indexOf('0.1px') !== -1) {
+                console.warn('bad value 0.1px, skip', selector, '{', decl.prop, ':', origValue, '}')
+                return
+            }
+            if (origValue.indexOf('7.15') !== -1) {
+                console.warn('bad value 7.15 replace to 7', selector, '{', decl.prop, ':', origValue, '}')
+                origValue = origValue.replace(/7\.15/g, "7")
+                console.info("--", origValue);
+            }
 
+            //
             let nv = origValue.replace(pxRegex, pxReplace)
             cur.props.push(decl.prop + ': ' + nv + ';')
         }
@@ -132,7 +144,7 @@ function initGulpTask() {
                     var rfile = new Vinyl({
                         cwd: file.cwd,
                         base: file.base,
-                        path: file.path + '.fix-px.less',
+                        path: path.resolve(file.base, 'q-fix-px.less'),
                         contents: Buffer.from(s)
                     });
                     this.push(rfile)
