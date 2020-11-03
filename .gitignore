@@ -16,6 +16,6 @@ _gen
 node_modules
 .gradle
 .idea
-/_
-/lib/_
+/_*
+/lib/_*
 /bin

@@ -17,6 +17,5 @@ node_modules
 .idea
 app-run.bat
 app-run.sh
-
-/_
-/lib/_
+/_*
+/lib/_*
