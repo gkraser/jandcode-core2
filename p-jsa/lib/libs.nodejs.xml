@@ -38,6 +38,7 @@
 
     <lib name="postcss" version="7.0.32"/>
     <lib name="gulp-postcss" version="8.0.0"/>
+    <lib name="postcss-pxtorem" version="5.1.1"/>
 
     <lib name="node-sass" version="4.14.1"/>
     <lib name="gulp-sass" version="4.1.0"/>

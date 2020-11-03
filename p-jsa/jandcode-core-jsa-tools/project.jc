@@ -68,6 +68,11 @@ class P extends ProjectScript {
 
                     "terser",
                     "clean-css",
+
+                    "postcss",
+                    "gulp-postcss",
+                    "postcss-pxtorem",
+
             )
         }
         //

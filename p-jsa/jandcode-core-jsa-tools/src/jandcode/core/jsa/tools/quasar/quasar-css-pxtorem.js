@@ -1,0 +1,151 @@
+/*
+
+Извлечение px-переменных из quasar.css и генерация на их основе
+less-файла для темы.
+
+Как пользоватся
+---------------
+
+В gulpfile.js в проекте:
+
+    g.init(function(g) {
+        require('jandcode.core.jsa.tools/quasar/quasar-css-pxtorem')()
+    })
+
+Появится gulp-task: quasar-pxtorem.
+
+Результат записывается в temp:
+* quasar.css.fix-px.less - less файл, с заменой px -> @VAR
+* quasar.css - измененный quasar.css, с заменой px->rem
+
+----------------------------------------------------------------------------- */
+
+const gulp = require('gulp')
+const through2 = require('through2').obj;
+const Vinyl = require('vinyl');
+const pxRegex = require("postcss-pxtorem/lib/pixel-unit-regex");
+const postcss = require('gulp-postcss')
+const postcss_pxtorem = require('./lib/postcss-pxtorem-fix')
+
+/**
+ * Замена XXpx на переменную @rXXXpx
+ * @param m
+ * @param $1
+ * @return {string|string|*}
+ */
+function pxReplace(m, $1) {
+    if (!$1) return m;
+    const pixels = parseFloat($1);
+    if (pixels < 0) return m;
+    return pixels === 0 ? "0" : '@r' + pixels + "px";
+}
+
+function initGulpTask() {
+
+    gulp.task('quasar-pxtorem', () => {
+
+        let lessFiles = {}
+
+        function handler(css, decl, i, value, origValue) {
+            const filePath = css.source.input.file;
+            let z1 = lessFiles[filePath]
+            if (!z1) {
+                z1 = {
+                    rules: [
+                        {
+                            atrule: '',
+                            selector: '',
+                            props: [],
+                            dummy: true,
+                        }
+                    ],
+                }
+                lessFiles[filePath] = z1
+            }
+            let selector = decl.parent.selector
+            let atruleNode = decl.parent.parent
+            let atrule = ''
+            if (atruleNode.type === 'atrule') {
+                atrule = atruleNode.name + ' ' + atruleNode.params
+            }
+            let cur = z1.rules[z1.rules.length - 1]
+            if (cur.atrule !== atrule || cur.selector !== selector) {
+                cur = {
+                    atrule: atrule,
+                    selector: selector,
+                    props: []
+                }
+                z1.rules.push(cur)
+            }
+
+            let nv = origValue.replace(pxRegex, pxReplace)
+            cur.props.push(decl.prop + ': ' + nv + ';')
+        }
+
+        // черный список селекторов
+        let sz = ['none', 'xs', 'sm', 'md', 'lg', 'xl']
+        let bn = ['t', 'r', 'b', 'l', 'a', 'x', 'y']
+        let black1 = ['-gutter-']
+        for (let s of sz) {
+            for (let b of bn) {
+                black1.push('.q-m' + b + '-' + s)
+                black1.push('.q-p' + b + '-' + s)
+            }
+        }
+
+        return gulp.src('node_modules/quasar/dist/quasar.css')
+            .pipe(postcss([
+                postcss_pxtorem({
+                    replace: false,
+                    rootValue: 14,
+                    propList: ['font', 'font-size', 'line-height', 'letter-spacing', 'padding*', 'margin*'],
+                    selectorBlackList: [/^body$/].concat(black1),
+                    onHandle: handler,
+                })
+            ]))
+            .pipe(through2(function(file, enc, callback) {
+                let less = lessFiles[file.path]
+                if (less) {
+
+                    let s = ''
+                    for (let rule of less.rules) {
+                        if (rule.dummy) {
+                            continue;
+                        }
+                        let pad = ''
+                        if (rule.atrule !== '') {
+                            s += '@' + rule.atrule + ' {\n'
+                            pad = '  '
+                        }
+
+                        s += pad + rule.selector + '{\n'
+                        for (let p of rule.props) {
+                            s += pad + '  ' + p + "\n"
+                        }
+                        s += pad + '}\n'
+
+                        if (rule.atrule !== '') {
+                            s += '}\n'
+                        }
+                    }
+
+                    var rfile = new Vinyl({
+                        cwd: file.cwd,
+                        base: file.base,
+                        path: file.path + '.fix-px.less',
+                        contents: Buffer.from(s)
+                    });
+                    this.push(rfile)
+                } else {
+                    console.info("NOT FOUND", file.path);
+                }
+                callback(null, file)
+            }))
+            .pipe(gulp.dest('temp/'))
+    })
+
+}
+
+//
+module.exports = initGulpTask
+
