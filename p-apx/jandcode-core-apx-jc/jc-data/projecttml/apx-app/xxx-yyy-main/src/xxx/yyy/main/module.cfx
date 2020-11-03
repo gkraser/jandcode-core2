@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <web>
+        <mount-module/>
+
+        <action name="root"
+                class="jandcode.core.apx.web.action.ApxWebappAction"
+                template="xxx/yyy/main/js/main.gsp"/>
+
+    </web>
+
+</root>

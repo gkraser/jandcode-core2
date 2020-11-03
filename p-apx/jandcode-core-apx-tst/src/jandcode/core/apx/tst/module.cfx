@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <web>
+        <mount-module/>
+
+        <!-- ===================================================================== -->
+
+        <gsp name="page/tst-apx"
+             path="jandcode/core/apx/tst/page/tst-apx.gsp"/>
+
+        <tst>
+            <menu name="tools">
+                <item name="dao"
+                      href="jandcode/core/apx/tst/tools/dao.html"
+                      title="Dao"/>
+            </menu>
+        </tst>
+
+    </web>
+
+</root>

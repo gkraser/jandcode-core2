@@ -1,0 +1,37 @@
+import jandcode.core.jsa.jc.*
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+        classpath("jandcode-core-jsa-jc")
+    }
+
+    void onInclude() {
+        //
+        project.name = "jandcode-core-apx-webapp"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.core.apx.webapp").with {
+                depends.prod(
+                        "jandcode.core.jsa.base",
+                        "jandcode.core.jsa.vue",
+                        "jandcode.core.jsa.quasar",
+                        "jandcode.core.apx",
+                )
+                depends.dev(
+                )
+            }
+        }
+        //
+        include(JsaJavaProject).with {
+            nodeJsDepends(
+                    "lodash",
+                    "fontsource-roboto",
+                    "fontsource-roboto-condensed",
+            )
+        }
+    }
+
+}

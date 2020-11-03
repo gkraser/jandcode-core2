@@ -1,0 +1,16 @@
+import jandcode.jc.*
+
+/**
+ * Подключение к проекту инфраструктуры apx.
+ * Используется в beforeLoad
+ */
+class P extends ProjectScript {
+
+    void onInclude() {
+        include("jc/jsa-project")
+        //
+        classpath("jandcode-core-apx-jc")
+        include("jandcode.core.apx.jc.ApxRootProject")
+    }
+
+}

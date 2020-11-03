@@ -1,0 +1,23 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+        include("jc/apx-project")
+    }
+
+    void onInclude() {
+        //
+        project.name = "xxx-yyy"
+        project.version = include(GitVersion)
+        //
+        include(RootProject).with {
+            modules(
+                    "xxx-yyy-main",
+            )
+        }
+        //
+    }
+
+}
