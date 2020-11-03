@@ -110,7 +110,8 @@ function initGulpTask() {
                 postcss_pxtorem({
                     replace: false,
                     rootValue: 14,
-                    propList: ['font', 'font-size', 'line-height', 'letter-spacing', 'padding*', 'margin*'],
+                    propList: ['font', 'font-size', 'line-height', 'letter-spacing',
+                        'padding*', 'margin*', 'min-height'],
                     selectorBlackList: [/^body$/].concat(black1),
                     onHandle: handler,
                 })
