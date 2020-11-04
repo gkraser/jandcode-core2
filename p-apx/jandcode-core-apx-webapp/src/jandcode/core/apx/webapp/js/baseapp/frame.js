@@ -202,8 +202,45 @@ export class ShowerDialog extends Shower {
 
 }
 
+export class ShowerFrame extends Shower {
+    showFrame() {
+        let th = this
+
+        let FrameCompCls = Vue.extend(th.frame)
+        th.frameInst = new FrameCompCls({propsData: th.propsData})
+        th.frameInst.shower = th
+
+        th.initFrame(() => {
+            th.frameInst.$mount()
+            th.dialogEl = jsaBase.dom.createTmpElement()
+
+            let DialogCls = Vue.extend(Dialog)
+            th.dialogInst = new DialogCls({propsData: {frameInst: th.frameInst}})
+            th.dialogInst.$on('dialog-close', function() {
+                th.frameInst.$destroy()
+                th.frameInst.shower = null
+                th.dialogInst.$destroy()
+                th.dialogEl.remove()
+                th.frameInst = null
+                th.dialogInst = null
+                th.dialogEl = null
+            })
+            th.dialogInst.$mount(th.dialogEl)
+
+            th.dialogInst.showDialog()
+        })
+
+        return th.frameInst
+    }
+}
+
 export function showDialog(params) {
     let shower = new ShowerDialog(params)
+    return shower.showFrame()
+}
+
+export function showFrame(params) {
+    let shower = new ShowerFrame(params)
     return shower.showFrame()
 }
 

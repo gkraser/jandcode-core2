@@ -25,5 +25,6 @@ export {
 
 // на верхний уровень
 export {
-    showDialog
+    showDialog,
+    showFrame,
 } from './frame'
