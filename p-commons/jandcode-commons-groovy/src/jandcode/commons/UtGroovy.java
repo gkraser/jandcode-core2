@@ -8,6 +8,10 @@ import jandcode.commons.groovy.impl.*;
  */
 public class UtGroovy {
 
+    static {
+        new StaticInit();
+    }
+
     /**
      * Создает компилятор groovy и регистрирует его.
      * Для освобождения ресурсов компилятора,

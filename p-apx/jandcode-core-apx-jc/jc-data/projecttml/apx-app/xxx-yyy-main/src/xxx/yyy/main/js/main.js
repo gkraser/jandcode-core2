@@ -12,7 +12,7 @@ export function run() {
 
     jsaBase.app.run(() => {
 
-        const router = new VueRouter({
+        let router = new VueRouter({
             routes: routes,
         })
 
