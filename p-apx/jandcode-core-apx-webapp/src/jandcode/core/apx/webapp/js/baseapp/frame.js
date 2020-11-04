@@ -108,14 +108,16 @@ export class Shower {
      * Инициализация фрейма.
      * Вызов initFrame
      */
-    async initFrame(callback) {
+    async initFrame(callback) {      //todo callback видимо не нужен?
         let initFrameArr = this.frameInst.$options['initFrame']
         if (initFrameArr) {
             for (let fn of initFrameArr) {
                 await fn.call(this.frameInst)
             }
         }
-        callback()
+        if (jsaBase.isFunction(callback)) {
+            callback()
+        }
     }
 
 }
@@ -203,32 +205,20 @@ export class ShowerDialog extends Shower {
 }
 
 export class ShowerFrame extends Shower {
-    showFrame() {
+
+    async showFrame() {
         let th = this
 
         let FrameCompCls = Vue.extend(th.frame)
         th.frameInst = new FrameCompCls({propsData: th.propsData})
         th.frameInst.shower = th
 
-        th.initFrame(() => {
-            th.frameInst.$mount()
-            th.dialogEl = jsaBase.dom.createTmpElement()
+        await th.initFrame()
 
-            let DialogCls = Vue.extend(Dialog)
-            th.dialogInst = new DialogCls({propsData: {frameInst: th.frameInst}})
-            th.dialogInst.$on('dialog-close', function() {
-                th.frameInst.$destroy()
-                th.frameInst.shower = null
-                th.dialogInst.$destroy()
-                th.dialogEl.remove()
-                th.frameInst = null
-                th.dialogInst = null
-                th.dialogEl = null
-            })
-            th.dialogInst.$mount(th.dialogEl)
+        th.frameInst.$mount()
 
-            th.dialogInst.showDialog()
-        })
+        //todo
+        document.body.insertAdjacentElement('afterbegin', th.frameInst.$el)
 
         return th.frameInst
     }
