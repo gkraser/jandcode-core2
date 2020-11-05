@@ -30,6 +30,7 @@ class P extends ProjectScript {
                     "lodash",
                     "fontsource-roboto",
                     "fontsource-roboto-condensed",
+                    "path-to-regexp",
             )
         }
     }

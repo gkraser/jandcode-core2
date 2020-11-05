@@ -7,6 +7,7 @@
 import {jsaBase, Vue} from '../vendor'
 import Dialog from './dialog/Dialog'
 import upperFirst from 'lodash/upperFirst'
+import {FrameRouter} from './router'
 
 // опция initFrame будет выглядеть как массив (аналогично другим life-cycle hookd)
 Vue.config.optionMergeStrategies.initFrame = Vue.config.optionMergeStrategies.created
@@ -17,13 +18,22 @@ Vue.config.optionMergeStrategies.initFrame = Vue.config.optionMergeStrategies.cr
 export class FrameManagerService extends jsaBase.AppService {
 
     onCreate() {
+        let frameManager = new FrameManager()
+
         /**
          * Текущий менеджер фреймов
          * @type {FrameManager}
          * @name frameManager
          * @memberOf jsaBase.app
          */
-        this.app.frameManager = new FrameManager()
+        this.app.frameManager = frameManager
+
+        /**
+         * Роутер для фреймов
+         * @type {FrameRouter}
+         */
+        this.app.router = frameManager.router
+
     }
 
 }
@@ -36,6 +46,8 @@ export class FrameManager {
         // все текущие работающие фреймы
         this._frames_page = []
         this._frames_dialog = []
+        // router
+        this.router = new FrameRouter()
     }
 
     /**
@@ -229,6 +241,10 @@ export class FrameManager {
         if (jsaBase.isString(comp)) {
             // заказана строка
 
+            // возможно router знает про этот фрейм
+            let routeInfo = this.router.resolveFrame(comp)
+            console.info("routeInfo",routeInfo);
+            
             // пока просто считаем ее полным именем модуля
             await Jc.loadModule(comp)
 

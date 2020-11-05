@@ -26,11 +26,16 @@
 </template>
 
 <script>
-import {apx} from '../vendor'
+import {apx, jsaBase} from '../vendor'
 import Home from './_frames/fm/Home'
-import Frame1 from './_frames/fm/Frame1'
 import Frame2 from './_frames/fm/Frame2'
 import Dialog1 from './_frames/fm/Dialog1'
+
+jsaBase.app.onBeforeRun(function(){
+    console.info("beforeRun:router");
+    console.info("fm",jsaBase.app.frameManager)
+    console.info("fr",jsaBase.app.router)
+})
 
 export default {
     extends: Vue.component('tst-apx-page'),
@@ -56,7 +61,7 @@ export default {
         },
         frame1() {
             apx.showFrame({
-                frame: Frame1
+                frame: 'jandcode/core/apx/webapp/_tst/pages/_frames/fm/Frame1.vue'
             })
         },
         frame2() {
