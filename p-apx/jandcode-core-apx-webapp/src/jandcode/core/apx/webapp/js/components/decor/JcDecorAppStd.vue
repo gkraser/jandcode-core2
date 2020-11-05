@@ -53,6 +53,9 @@
 
         <q-page-container class="jc-app--main">
             <slot name="main">
+                <q-page>
+                    <jc-place-frame></jc-place-frame>
+                </q-page>
             </slot>
         </q-page-container>
 
