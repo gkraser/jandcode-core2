@@ -11,6 +11,8 @@
                         <jc-action label="frame1" @click="frame1"/>
                         <jc-action label="frame2" @click="frame2"/>
                         <jc-action label="dialog1" @click="dialog1"/>
+                        <jc-action label="/path1" @click="path1('/path1')"/>
+                        <jc-action label="/path1/123" @click="path1('/path1/123')"/>
                     </jc-toolbar>
                 </template>
                 <template #main>
@@ -31,10 +33,14 @@ import Home from './_frames/fm/Home'
 import Frame2 from './_frames/fm/Frame2'
 import Dialog1 from './_frames/fm/Dialog1'
 
-jsaBase.app.onBeforeRun(function(){
-    console.info("beforeRun:router");
-    console.info("fm",jsaBase.app.frameManager)
-    console.info("fr",jsaBase.app.router)
+jsaBase.app.onBeforeRun(function() {
+    let routes = [
+        {
+            path: '/path1/:idn?',
+            frame: 'jandcode/core/apx/webapp/_tst/pages/_frames/fm/Frame1.vue',
+        }
+    ]
+    jsaBase.app.router.addRoutes(routes)
 })
 
 export default {
@@ -75,6 +81,11 @@ export default {
                 onOk(inst, cmd) {
                     console.info("onOk in showDialog", inst, cmd);
                 }
+            })
+        },
+        path1(path) {
+            apx.showFrame({
+                frame: path
             })
         },
     }

@@ -232,19 +232,27 @@ export class FrameManager {
             return
         }
 
-        let comp = fi.frame
-
-        if (!comp) {
+        if (!fi.frame) {
             throw new Error("frame не указан для фрейма")
         }
 
+        if (jsaBase.isString(fi.frame)) {
+            // заказана строка
+            // возможно router знает про этот фрейм
+            let routeInfo = this.router.resolve(fi.frame)
+            if (routeInfo != null) {
+                // да, знает
+                fi.routeInfo = routeInfo
+                // это фрейм
+                fi.frame = routeInfo.frame
+                // это параметры, объединяем с переданными, перекрывая от route
+                fi.params = jsaBase.extend({}, routeInfo.params, fi.params)
+            }
+        }
+
+        let comp = fi.frame
         if (jsaBase.isString(comp)) {
             // заказана строка
-
-            // возможно router знает про этот фрейм
-            let routeInfo = this.router.resolveFrame(comp)
-            console.info("routeInfo",routeInfo);
-            
             // пока просто считаем ее полным именем модуля
             await Jc.loadModule(comp)
 
@@ -327,6 +335,9 @@ export class FrameItem {
 
         // какой FrameManager управляет фреймом
         this.frameManager = null
+
+        // если фрейм заресолвился через router, тут информация
+        this.routeInfo = null
 
         // удаляем не нужное
         delete this.options.propsData

@@ -34,13 +34,14 @@ export class FrameRouter {
         let queryParams = {}
         let a = uri.indexOf('?')
         if (a !== -1) {
-            queryStr = uri.substring(a + 1)
+            queryStr = decodeURIComponent(uri.substring(a + 1))
             uri = uri.substring(0, a)
             let sp = new URLSearchParams(queryStr)
             for (let key of sp.keys()) {
                 queryParams[key] = sp.get(key)
             }
         }
+        uri = decodeURI(uri)
 
         for (let r of this._routes) {
             let tmp = r.match(uri)
