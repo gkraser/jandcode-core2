@@ -31,11 +31,12 @@ export {
 }
 
 // на верхний уровень
-export {
-    showDialog,
-} from './frame'
+// export {
+//     //showDialog,
+// } from './frame'
 
 export {
     showFrame,
+    showDialog,
 } from './fm'
 

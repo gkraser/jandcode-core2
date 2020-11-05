@@ -5,6 +5,10 @@
 ----------------------------------------------------------------------------- */
 
 import {jsaBase, Vue} from '../vendor'
+import Dialog from './dialog/Dialog'
+
+// опция initFrame будет выглядеть как массив (аналогично другим life-cycle hookd)
+Vue.config.optionMergeStrategies.initFrame = Vue.config.optionMergeStrategies.created
 
 /**
  * Сервис для менеджера фреймов
@@ -29,7 +33,8 @@ export class FrameManager {
         // места монтирования фреймов
         this._framePlaces = []
         // все текущие работающие фреймы
-        this._frames = []
+        this._frames_page = []
+        this._frames_dialog = []
     }
 
     /**
@@ -49,8 +54,16 @@ export class FrameManager {
         // теперь фрейм готов к работе
         fi.frameInst.$mount()
 
+        // присоединяем себя перед самым показом
+        fi.frameManager = this
+        fi.frameInst.frameManager = this
+
         // показываем его
-        await this._showFrame(fi)
+        if (fi instanceof FrameItemDialog) {
+            await this._showFrame_dialog(fi)
+        } else {
+            await this._showFrame_page(fi)
+        }
 
     }
 
@@ -74,24 +87,77 @@ export class FrameManager {
     //////
 
     /**
-     * Собственно алгоритм показа
+     * Закрыть фрейм с указанной командой
+     * @param inst либо FrameItem либо экземпляр фрейма
+     * @param cmd
+     */
+    closeFrame(inst, cmd) {
+        let fi = this._resolveFrameItem(inst)
+        if (!fi) {
+            return // не наш фрейм
+        }
+        if (fi instanceof FrameItemDialog) {
+            this._closeFrame_dialog(fi, cmd)
+        } else {
+            this._closeFrame_page(fi, cmd)
+        }
+    }
+
+    _closeFrame_dialog(inst, cmd) {
+        console.info("close dialog!", cmd);
+    }
+
+    _closeFrame_page(inst, cmd) {
+        //todo пока это не нужно
+    }
+
+    //////
+
+    /**
+     * Алгоритм показа page
      * @param fi
      * @return {Promise<void>}
      * @private
      */
-    async _showFrame(fi) {
+    async _showFrame_page(fi) {
         // сначала по быстрому монтируем фрейм
         // старый должен исчезнуть с экрана, но остался как экземпляр
         this._mountFrame(fi)
 
         // уничттожаем все старые
-        while (this._frames.length > 0) {
-            let fi = this._frames.pop()
+        while (this._frames_page.length > 0) {
+            let fi = this._frames_page.pop()
             fi.destroy()
         }
 
         // сохраняем новый
-        this._frames.push(fi)
+        this._frames_page.push(fi)
+    }
+
+    /**
+     * Алгоритм показа dialog
+     * @param fi
+     * @return {Promise<void>}
+     * @private
+     */
+    async _showFrame_dialog(fi) {
+        fi.dialogEl = jsaBase.dom.createTmpElement()
+        let DialogCls = Vue.extend(Dialog)
+        fi.dialogInst = new DialogCls({propsData: {frameInst: fi.frameInst}})
+        fi.dialogInst.$on('dialog-close', () => {
+            let a = this._frames_dialog.indexOf(fi)
+            if (a !== -1) {
+                this._frames_dialog.splice(a, 1)
+            }
+            fi.dialogInst.$destroy()
+            fi.dialogInst = null
+            fi.dialogEl.remove()
+            fi.dialogEl = null
+            fi.destroy()
+        })
+        fi.dialogInst.$mount(fi.dialogEl)
+        this._frames_dialog.push(fi)
+        fi.dialogInst.showDialog()
     }
 
     /**
@@ -139,6 +205,27 @@ export class FrameManager {
         this._getFramePlace().unmountFrame(fi)
     }
 
+    /**
+     * Для экземпляра FrameItem или фрейма возвращает FrameItem,
+     * если этот фрейм сейчас показан либо в диалоге либо на как страница
+     * @param inst
+     * @return {null|*}
+     * @private
+     */
+    _resolveFrameItem(inst) {
+        for (let a of this._frames_dialog) {
+            if (inst === a || inst === a.frameInst) {
+                return a
+            }
+        }
+        for (let a of this._frames_page) {
+            if (inst === a || inst === a.frameInst) {
+                return a
+            }
+        }
+        return null
+    }
+
 }
 
 /**
@@ -170,6 +257,9 @@ export class FrameItem {
 
         // класс компонента фрейма
         this.frameCompCls = null
+
+        // какой FrameManager управляет фреймом
+        this.frameManager = null
 
         // удаляем не нужное
         delete this.options.propsData
@@ -203,13 +293,26 @@ export class FrameItem {
      */
     destroy() {
         this.frameInst.$destroy()
+        this.frameInst.frameManager = null
         this.frameInst = null
         this.frameCompCls = null
+        this.frameManager = null
     }
 
 }
 
+export class FrameItemPage extends FrameItem {
+}
+
+export class FrameItemDialog extends FrameItem {
+}
+
 export async function showFrame(options) {
-    let fi = new FrameItem(options)
+    let fi = new FrameItemPage(options)
+    await jsaBase.app.frameManager.showFrame(fi)
+}
+
+export async function showDialog(options) {
+    let fi = new FrameItemDialog(options)
     await jsaBase.app.frameManager.showFrame(fi)
 }

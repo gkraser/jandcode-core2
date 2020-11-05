@@ -7,9 +7,6 @@ import upperFirst from 'lodash/upperFirst'
 
 import {ComponentHolder} from './component-holder'
 
-// опция initFrame будет выглядеть как массив (аналогично другим life-cycle hookd)
-Vue.config.optionMergeStrategies.initFrame = Vue.config.optionMergeStrategies.created
-
 // настройки темы по умолчанию
 jsaBase.cfg.setDefault({
     theme: {
@@ -204,33 +201,9 @@ export class ShowerDialog extends Shower {
 
 }
 
-export class ShowerFrame extends Shower {
-
-    async showFrame() {
-        let th = this
-
-        let FrameCompCls = Vue.extend(th.frame)
-        th.frameInst = new FrameCompCls({propsData: th.propsData})
-        th.frameInst.shower = th
-
-        await th.initFrame()
-
-        th.frameInst.$mount()
-
-        //todo
-        document.body.insertAdjacentElement('afterbegin', th.frameInst.$el)
-
-        return th.frameInst
-    }
-}
-
 export function showDialog(params) {
     let shower = new ShowerDialog(params)
     return shower.showFrame()
 }
 
-export function showFrame(params) {
-    let shower = new ShowerFrame(params)
-    return shower.showFrame()
-}
 

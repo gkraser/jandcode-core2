@@ -39,7 +39,7 @@ export default {
     components: {},
 
     created() {
-        this.title = 'Заголовок приложения'
+        this.title = 'FrameManager1.test.vue'
         this.cfgStore.applyDefault({})
     },
     data() {

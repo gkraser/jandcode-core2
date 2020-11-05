@@ -14,6 +14,8 @@ export default {
 
     created() {
         componentHolder.updateComponents(this, 'frame')
+        // менеджер фреймов поставит сюда себя
+        this.frameManager = null
     },
 
     data() {
@@ -31,7 +33,7 @@ export default {
          * @param cmd команда
          */
         closeFrame(cmd) {
-            this.shower.closeFrame(cmd)
+            this.frameManager.closeFrame(this, cmd)
         }
 
     }
