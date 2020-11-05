@@ -11,6 +11,8 @@ export class FrameManager {
     constructor() {
         // места монтирования фреймов
         this._framePlaces = []
+        // все текущие работающие фреймы
+        this._frames = []
     }
 
     /**
@@ -29,11 +31,51 @@ export class FrameManager {
 
         // теперь фрейм готов к работе
         fi.frameInst.$mount()
-        this._mountFrame(fi)
+
+        // показываем его
+        await this._showFrame(fi)
 
     }
 
     //////
+
+    registerPlaceFrame(inst) {
+        if (this._framePlaces.indexOf(inst) !== -1) {
+            return // уже есть такой же
+        }
+        this._framePlaces.push(inst)
+    }
+
+    unregisterPlaceFrame(inst) {
+        let a = this._framePlaces.indexOf(inst)
+        if (a === -1) {
+            return
+        }
+        this._framePlaces.splice(a, 1)
+    }
+
+    //////
+
+    /**
+     * Собственно алгоритм показа
+     * @param fi
+     * @return {Promise<void>}
+     * @private
+     */
+    async _showFrame(fi) {
+        // сначала по быстрому монтируем фрейм
+        // старый должен исчезнуть с экрана, но остался как экземпляр
+        this._mountFrame(fi)
+
+        // уничттожаем все старые
+        while (this._frames.length > 0) {
+            let fi = this._frames.pop()
+            fi.destroy()
+        }
+
+        // сохраняем новый
+        this._frames.push(fi)
+    }
 
     /**
      * Имеем FrameItem, нужно что бы у него стал точно известен frameCompCls
@@ -54,37 +96,30 @@ export class FrameManager {
             // заказана строка
 
             // пока просто считаем ее полным именем модуля
-            await Jc.loadModule(fi.frame)
+            await Jc.loadModule(comp)
 
-            comp = require(fi.frame)
-            comp = comp.default || comp
+            let mod = require(comp)
+            comp = mod.default || mod
         }
 
         // теперь comp должен быть по идее компонентом
         fi.frameCompCls = Vue.extend(comp)
     }
 
-    registerPlaceFrame(inst) {
-        if (this._framePlaces.indexOf(inst) !== -1) {
-            return // уже есть такой же
+    _getFramePlace() {
+        let fp = this._framePlaces[this._framePlaces.length - 1]
+        if (!fp) {
+            throw new Error("Не определено место монтирования фрейма. Нужно использовать jc-place-frame в месте отображения фрейма")
         }
-        this._framePlaces.push(inst)
-    }
-
-    unregisterPlaceFrame(inst) {
-        let a = this._framePlaces.indexOf(inst)
-        if (a === -1) {
-            return
-        }
-        this._framePlaces.splice(a, 1)
+        return fp
     }
 
     _mountFrame(fi) {
-        let fp = this._framePlaces[this._framePlaces.length - 1]
-        if (!fp) {
-            throw new Error("Не определено место монтирования фрейма")
-        }
-        fp.mountFrame(fi)
+        this._getFramePlace().mountFrame(fi)
+    }
+
+    _unmountFrame(fi) {
+        this._getFramePlace().unmountFrame(fi)
     }
 
 }
@@ -144,6 +179,15 @@ export class FrameItem {
                 await fn.call(this.frameInst)
             }
         }
+    }
+
+    /**
+     * Уничтожить фрейм
+     */
+    destroy() {
+        this.frameInst.$destroy()
+        this.frameInst = null
+        this.frameCompCls = null
     }
 
 }
