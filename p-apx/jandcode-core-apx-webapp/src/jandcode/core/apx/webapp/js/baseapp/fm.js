@@ -6,6 +6,23 @@
 
 import {jsaBase, Vue} from '../vendor'
 
+/**
+ * Сервис для менеджера фреймов
+ */
+export class FrameManagerService extends jsaBase.AppService {
+
+    onCreate() {
+        /**
+         * Текущий менеджер фреймов
+         * @type {FrameManager}
+         * @name frameManager
+         * @memberOf jsaBase.app
+         */
+        this.app.frameManager = new FrameManager()
+    }
+
+}
+
 export class FrameManager {
 
     constructor() {
@@ -192,13 +209,7 @@ export class FrameItem {
 
 }
 
-/**
- * Глобальный экземпляр менеджера фреймов
- * @type {FrameManager}
- */
-export let frameManager = new FrameManager()
-
 export async function showFrame(options) {
     let fi = new FrameItem(options)
-    await frameManager.showFrame(fi)
+    await jsaBase.app.frameManager.showFrame(fi)
 }

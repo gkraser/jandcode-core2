@@ -4,7 +4,7 @@
 
 <script>
 
-import {frameManager} from '../../baseapp/fm'
+import {jsaBase} from '../vendor'
 
 /**
  * Монтировщик фреймов по умолчанию.
@@ -31,11 +31,11 @@ export default {
         this.lastMountedEl = null
     },
     mounted() {
-        frameManager.registerPlaceFrame(this)
+        jsaBase.app.frameManager.registerPlaceFrame(this)
     },
     beforeDestroy() {
         this.unmountFrame()
-        frameManager.unregisterPlaceFrame(this)
+        jsaBase.app.frameManager.unregisterPlaceFrame(this)
     },
     methods: {
 
