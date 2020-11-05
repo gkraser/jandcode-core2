@@ -72,7 +72,10 @@ export default {
         },
         frame2() {
             apx.showFrame({
-                frame: Frame2
+                frame: Frame2,
+                params: {
+                    cnt: 100
+                }
             })
         },
         dialog1() {

@@ -51,7 +51,7 @@ export default {
 
         /**
          * Монтирует себе фрейм. По своему усмотреню.
-         * @param fi {FrameItem} ссылка на фрейм
+         * @param fi {FrameWrapper} ссылка на фрейм
          */
         mountFrame(fi) {
             this.unmountFrame()

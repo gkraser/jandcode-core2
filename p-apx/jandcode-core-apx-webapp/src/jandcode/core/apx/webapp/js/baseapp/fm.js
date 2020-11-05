@@ -52,30 +52,29 @@ export class FrameManager {
 
     /**
      * Показать фрейм
-     * @param fi {FrameItem}
+     * @param fw {FrameWrapper}
      */
-    async showFrame(fi) {
+    async showFrame(fw) {
+        // метим своим
+        fw.frameManager = this
+
         // делаем класс компонента
-        await this._resolveFrameComp(fi)
+        await this._resolveFrameComp(fw)
 
         // создаем экземпляр
-        fi.frameInst = new fi.frameCompCls({propsData: fi.propsData})
+        fw.frameInst = new fw.frameCompCls({frameWrapper: fw})
 
         // инициализаируем (возможна интенсивная загрузка данных)
-        await fi.initFrame()
+        await fw.initFrame()
 
         // теперь фрейм готов к работе
-        fi.frameInst.$mount()
-
-        // присоединяем себя перед самым показом
-        fi.frameManager = this
-        fi.frameInst.frameManager = this
+        fw.frameInst.$mount()
 
         // показываем его
-        if (fi instanceof FrameItemDialog) {
-            await this._showFrame_dialog(fi)
+        if (fw instanceof FrameWrapperDialog) {
+            await this._showFrame_dialog(fw)
         } else {
-            await this._showFrame_page(fi)
+            await this._showFrame_page(fw)
         }
 
     }
@@ -101,27 +100,27 @@ export class FrameManager {
 
     /**
      * Закрыть фрейм с указанной командой
-     * @param inst либо FrameItem либо экземпляр фрейма
+     * @param inst либо FrameWrapper либо экземпляр фрейма
      * @param cmd
      */
     closeFrame(inst, cmd) {
-        let fi = this._resolveFrameItem(inst)
-        if (!fi) {
+        let fw = this._resolveFrameWrapper(inst)
+        if (!fw) {
             return // не наш фрейм
         }
-        if (fi instanceof FrameItemDialog) {
-            this._closeFrame_dialog(fi, cmd)
+        if (fw instanceof FrameWrapperDialog) {
+            this._closeFrame_dialog(fw, cmd)
         } else {
-            this._closeFrame_page(fi, cmd)
+            this._closeFrame_page(fw, cmd)
         }
     }
 
-    _closeFrame_dialog(fi, cmd) {
+    _closeFrame_dialog(fw, cmd) {
 
         if (!cmd) {
             cmd = 'cancel'
         }
-        let frameInst = fi.frameInst
+        let frameInst = fw.frameInst
         let handlerName = 'on' + upperFirst(cmd)
 
         function closeFrameProcess(eventsOwner, fnClose) {
@@ -162,15 +161,15 @@ export class FrameManager {
         // сначала события самого фпейма
         closeFrameProcess(frameInst, () => {
             // фрейм разрешил закрытся
-            closeFrameProcess(fi.options, () => {
+            closeFrameProcess(fw.options, () => {
                 // обработчики в опциях показа диалога разрешили закрытся
-                fi.dialogInst.hideDialog()
+                fw.dialogInst.hideDialog()
             })
         })
 
     }
 
-    _closeFrame_page(fi, cmd) {
+    _closeFrame_page(fw, cmd) {
         //todo пока это не нужно
     }
 
@@ -178,79 +177,79 @@ export class FrameManager {
 
     /**
      * Алгоритм показа page
-     * @param fi
+     * @param fw
      * @return {Promise<void>}
      * @private
      */
-    async _showFrame_page(fi) {
+    async _showFrame_page(fw) {
         // сначала по быстрому монтируем фрейм
         // старый должен исчезнуть с экрана, но остался как экземпляр
-        this._mountFrame(fi)
+        this._mountFrame(fw)
 
         // уничттожаем все старые
         while (this._frames_page.length > 0) {
-            let fi = this._frames_page.pop()
-            fi.destroy()
+            let fw = this._frames_page.pop()
+            fw.destroy()
         }
 
         // сохраняем новый
-        this._frames_page.push(fi)
+        this._frames_page.push(fw)
     }
 
     /**
      * Алгоритм показа dialog
-     * @param fi
+     * @param fw
      * @return {Promise<void>}
      * @private
      */
-    async _showFrame_dialog(fi) {
-        fi.dialogEl = jsaBase.dom.createTmpElement()
+    async _showFrame_dialog(fw) {
+        fw.dialogEl = jsaBase.dom.createTmpElement()
         let DialogCls = Vue.extend(Dialog)
-        fi.dialogInst = new DialogCls({propsData: {frameInst: fi.frameInst}})
-        fi.dialogInst.$on('dialog-close', () => {
-            let a = this._frames_dialog.indexOf(fi)
+        fw.dialogInst = new DialogCls({propsData: {frameInst: fw.frameInst}})
+        fw.dialogInst.$on('dialog-close', () => {
+            let a = this._frames_dialog.indexOf(fw)
             if (a !== -1) {
                 this._frames_dialog.splice(a, 1)
             }
-            fi.dialogInst.$destroy()
-            fi.dialogInst = null
-            fi.dialogEl.remove()
-            fi.dialogEl = null
-            fi.destroy()
+            fw.dialogInst.$destroy()
+            fw.dialogInst = null
+            fw.dialogEl.remove()
+            fw.dialogEl = null
+            fw.destroy()
         })
-        fi.dialogInst.$mount(fi.dialogEl)
-        this._frames_dialog.push(fi)
-        fi.dialogInst.showDialog()
+        fw.dialogInst.$mount(fw.dialogEl)
+        this._frames_dialog.push(fw)
+        fw.dialogInst.showDialog()
     }
 
     /**
-     * Имеем FrameItem, нужно что бы у него стал точно известен frameCompCls
-     * @param fi {FrameItem}
+     * Имеем FrameWrapper, нужно что бы у него стал точно известен frameCompCls
+     * @param fw {FrameWrapper}
      */
-    async _resolveFrameComp(fi) {
-        if (fi.frameCompCls) {
+    async _resolveFrameComp(fw) {
+        if (fw.frameCompCls) {
             return
         }
 
-        if (!fi.frame) {
+        if (!fw.frame) {
             throw new Error("frame не указан для фрейма")
         }
 
-        if (jsaBase.isString(fi.frame)) {
+        if (jsaBase.isString(fw.frame)) {
             // заказана строка
             // возможно router знает про этот фрейм
-            let routeInfo = this.router.resolve(fi.frame)
+            let routeInfo = this.router.resolve(fw.frame)
             if (routeInfo != null) {
                 // да, знает
-                fi.routeInfo = routeInfo
+                fw.routeInfo = routeInfo
                 // это фрейм
-                fi.frame = routeInfo.frame
+                fw.frame = routeInfo.frame
                 // это параметры, объединяем с переданными, перекрывая от route
-                fi.params = jsaBase.extend({}, routeInfo.params, fi.params)
+                fw.params = jsaBase.extend({}, routeInfo.params, fw.params)
             }
         }
 
-        let comp = fi.frame
+        let comp = fw.frame
         if (jsaBase.isString(comp)) {
             // заказана строка
             // пока просто считаем ее полным именем модуля
@@ -261,7 +260,7 @@ export class FrameManager {
         }
 
         // теперь comp должен быть по идее компонентом
-        fi.frameCompCls = Vue.extend(comp)
+        fw.frameCompCls = Vue.extend(comp)
     }
 
     _getFramePlace() {
@@ -272,22 +271,22 @@ export class FrameManager {
         return fp
     }
 
-    _mountFrame(fi) {
-        this._getFramePlace().mountFrame(fi)
+    _mountFrame(fw) {
+        this._getFramePlace().mountFrame(fw)
     }
 
-    _unmountFrame(fi) {
-        this._getFramePlace().unmountFrame(fi)
+    _unmountFrame(fw) {
+        this._getFramePlace().unmountFrame(fw)
     }
 
     /**
-     * Для экземпляра FrameItem или фрейма возвращает FrameItem,
+     * Для экземпляра FrameWrapper или фрейма возвращает FrameWrapper,
      * если этот фрейм сейчас показан либо в диалоге либо на как страница
      * @param inst
      * @return {null|*}
      * @private
      */
-    _resolveFrameItem(inst) {
+    _resolveFrameWrapper(inst) {
         for (let a of this._frames_dialog) {
             if (inst === a || inst === a.frameInst) {
                 return a
@@ -306,20 +305,16 @@ export class FrameManager {
 /**
  * Обертка вокруг экземпляра фрейма
  */
-export class FrameItem {
+export class FrameWrapper {
 
     /**
      * @param options параметры создания фрейма
      * @param options.frame фрейм. Может быть компонентом или строкой
-     * @param options.propsData значения свойств, которые будут переданы фрейму при его
-     *        создании
+     * @param options.params произвольные параметры
      */
     constructor(options) {
         // копия параметров
         this.options = jsaBase.extend({}, options)
-
-        // свойства для фрейма
-        this.propsData = jsaBase.extend({}, this.options.propsData)
 
         // параметры для фрейма
         this.params = jsaBase.extend({}, this.options.params)
@@ -340,7 +335,6 @@ export class FrameItem {
         this.routeInfo = null
 
         // удаляем не нужное
-        delete this.options.propsData
         delete this.options.params
     }
 
@@ -367,9 +361,19 @@ export class FrameItem {
     }
 
     /**
+     * Закрыть фрейм с указанной командой.
+     * Используется в диалогах.
+     * @param cmd
+     */
+    closeFrame(cmd) {
+        this.frameManager.closeFrame(this, cmd)
+    }
+
+    /**
      * Уничтожить фрейм
      */
     destroy() {
+        this.frameInst.$options.frameWrapper = null
         this.frameInst.$destroy()
         this.frameInst.frameManager = null
         this.frameInst = null
@@ -379,18 +383,18 @@ export class FrameItem {
 
 }
 
-export class FrameItemPage extends FrameItem {
+export class FrameWrapperPage extends FrameWrapper {
 }
 
-export class FrameItemDialog extends FrameItem {
+export class FrameWrapperDialog extends FrameWrapper {
 }
 
 export async function showFrame(options) {
-    let fi = new FrameItemPage(options)
-    await jsaBase.app.frameManager.showFrame(fi)
+    let fw = new FrameWrapperPage(options)
+    await jsaBase.app.frameManager.showFrame(fw)
 }
 
 export async function showDialog(options) {
-    let fi = new FrameItemDialog(options)
-    await jsaBase.app.frameManager.showFrame(fi)
+    let fw = new FrameWrapperDialog(options)
+    await jsaBase.app.frameManager.showFrame(fw)
 }

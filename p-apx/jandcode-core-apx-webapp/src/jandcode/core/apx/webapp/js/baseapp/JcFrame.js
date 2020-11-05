@@ -14,8 +14,6 @@ export default {
 
     created() {
         componentHolder.updateComponents(this, 'frame')
-        // менеджер фреймов поставит сюда себя
-        this.frameManager = null
     },
 
     data() {
@@ -26,6 +24,24 @@ export default {
         }
     },
 
+    computed: {
+        frameWrapper() {
+            let fw = this.$options.frameWrapper
+            if (fw == null) {
+                throw new Error("frameWrapper не установлен, видимо фрейм используется вне FrameManager")
+            }
+            return fw
+        },
+
+        /**
+         * Параметры из showFrame
+         */
+        params() {
+            return this.frameWrapper.params
+        }
+
+    },
+
     methods: {
 
         /**
@@ -33,7 +49,7 @@ export default {
          * @param cmd команда
          */
         closeFrame(cmd) {
-            this.frameManager.closeFrame(this, cmd)
+            this.frameWrapper.closeFrame(cmd)
         }
 
     }

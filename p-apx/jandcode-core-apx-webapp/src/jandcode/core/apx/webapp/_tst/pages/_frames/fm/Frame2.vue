@@ -10,18 +10,25 @@ import {apx, jsaBase} from '../vendor'
 export default {
     extends: apx.JcFrame,
     props: {},
+
     created() {
         this.title = 'Frame2.vue'
+        console.info("Frame2-created", this);
+        console.info("params:", this.params);
     },
+
     mounted() {
+        console.info("Frame2-mounted", this);
+        console.info("params:", this.params);
     },
+
     async initFrame() {
         let act = "jandcode/core/apx/webapp/_tst/pages/_frames/fm/action-json1.json"
 
         let res1 = await jsaBase.ajax.request({
             url: act,
             params: {
-                cnt: 2
+                cnt: this.params.cnt || 2
             }
         })
     },
