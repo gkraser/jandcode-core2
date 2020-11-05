@@ -1,7 +1,9 @@
 <template>
     <q-dialog ref="dialogInst"
               @hide="onHideDialog"
-              content-class="jc-dialog">
+              content-class="jc-dialog"
+              :transition-show="null"
+              :transition-hide="null">
         <DialogFramePlace :own="this">
         </DialogFramePlace>
     </q-dialog>

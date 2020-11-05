@@ -12,8 +12,10 @@
         <template v-if="hasSubMenu">
             <q-menu content-class="jc-action--menu"
                     :anchor="isMenuItem?'top right':null"
-                    square>
-                <div class="column">
+                    square
+                    :transition-show="null"
+                    :transition-hide="null">
+            <div class="column">
                     <slot name="default"></slot>
                 </div>
             </q-menu>
