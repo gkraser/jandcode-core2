@@ -4,6 +4,7 @@ import JcDecorFrame from './JcDecorFrame'
 import JcApp from './JcApp'
 import JcFrame from './JcFrame'
 import * as frame from './frame'
+import * as fm from './fm'
 //
 import JcDecorAppStd from '../components/decor/JcDecorAppStd'
 import JcDecorFramePage from '../components/decor/JcDecorFramePage'
@@ -21,10 +22,15 @@ export {
     JcApp,
     JcFrame,
     frame,
+    fm,
 }
 
 // на верхний уровень
 export {
     showDialog,
-    showFrame,
 } from './frame'
+
+export {
+    showFrame,
+} from './fm'
+

@@ -1,0 +1,71 @@
+<template>
+    <div class="jc-place-frame" style="display:none"></div>
+</template>
+
+<script>
+
+import {frameManager} from '../../baseapp/fm'
+
+/**
+ * Монтировщик фреймов по умолчанию.
+ * Монтирует фрейм в начало своего родительского элемента.
+ * Сам - невидим.
+ */
+export default {
+    name: 'jc-place-frame',
+
+    props: {
+        /**
+         * Синхронизировать ли min-height с родительским элементом.
+         * По умолчанию - true.
+         */
+        syncMinHeight: {
+            type: Boolean,
+            default: true,
+        }
+    },
+    data() {
+        return {}
+    },
+    created() {
+        this.lastMountedEl = null
+    },
+    mounted() {
+        frameManager.registerPlaceFrame(this)
+    },
+    beforeDestroy() {
+        this.unmountFrame()
+        frameManager.unregisterPlaceFrame(this)
+    },
+    methods: {
+
+        /**
+         * Отмонтировать фрейм.
+         */
+        unmountFrame() {
+            if (this.lastMountedEl != null) {
+                this.lastMountedEl.remove()
+            }
+            this.lastMountedEl = null
+        },
+
+        /**
+         * Монтирует себе фрейм. По своему усмотреню.
+         * @param fi {FrameItem} ссылка на фрейм
+         */
+        mountFrame(fi) {
+            this.unmountFrame()
+            //
+            let parentEl = this.$el.parentNode
+            let frameEl = fi.getEl()
+            //
+            if (this.syncMinHeight) {
+                frameEl.style.minHeight = parentEl.style.minHeight
+            }
+            parentEl.insertAdjacentElement('afterbegin', frameEl)
+            this.lastMountedEl = frameEl
+        }
+
+    },
+}
+</script>
