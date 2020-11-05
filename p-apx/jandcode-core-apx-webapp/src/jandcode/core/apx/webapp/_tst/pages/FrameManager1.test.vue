@@ -66,7 +66,10 @@ export default {
         },
         dialog1() {
             apx.showDialog({
-                frame: Dialog1
+                frame: Dialog1,
+                onOk(inst, cmd) {
+                    console.info("onOk in showDialog", inst, cmd);
+                }
             })
         },
     }

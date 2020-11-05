@@ -6,6 +6,7 @@
 
 import {jsaBase, Vue} from '../vendor'
 import Dialog from './dialog/Dialog'
+import upperFirst from 'lodash/upperFirst'
 
 // опция initFrame будет выглядеть как массив (аналогично другим life-cycle hookd)
 Vue.config.optionMergeStrategies.initFrame = Vue.config.optionMergeStrategies.created
@@ -103,11 +104,61 @@ export class FrameManager {
         }
     }
 
-    _closeFrame_dialog(inst, cmd) {
-        console.info("close dialog!", cmd);
+    _closeFrame_dialog(fi, cmd) {
+
+        if (!cmd) {
+            cmd = 'cancel'
+        }
+        let frameInst = fi.frameInst
+        let handlerName = 'on' + upperFirst(cmd)
+
+        function closeFrameProcess(eventsOwner, fnClose) {
+
+            let handleProcess = (handlerResult) => {
+                if (handlerResult === false) {
+                    // закрывать нельзя
+                } else if (handlerResult instanceof Promise) {
+                    // ждем окончания promise
+                    handlerResult.then((result) => {
+                        if (result === false) {
+                            // promise вернул false, закрывать нельзя
+                            return
+                        }
+                        fnClose()
+                    })
+                } else {
+                    // можно закрывать
+                    fnClose()
+                }
+            }
+
+            if (jsaBase.isFunction(eventsOwner[handlerName])) {
+                // есть обработчик onXxx
+                handleProcess(eventsOwner[handlerName](frameInst, cmd))
+
+            } else if (jsaBase.isFunction(eventsOwner.onCmd)) {
+                handleProcess(eventsOwner.onCmd(frameInst, cmd))
+
+            } else {
+                // нет обработчиков
+                fnClose()
+            }
+        }
+
+        // поехали...
+
+        // сначала события самого фпейма
+        closeFrameProcess(frameInst, () => {
+            // фрейм разрешил закрытся
+            closeFrameProcess(fi.options, () => {
+                // обработчики в опциях показа диалога разрешили закрытся
+                fi.dialogInst.hideDialog()
+            })
+        })
+
     }
 
-    _closeFrame_page(inst, cmd) {
+    _closeFrame_page(fi, cmd) {
         //todo пока это не нужно
     }
 

@@ -6,7 +6,7 @@
 
   def a = []
   for (i in 1..cnt) {
-    a.add([id:i, text: "text-${i}"])
+    a.add([id: i, text: "text-${i}"])
   }
   out(UtJson.toJson(a))
 %>
