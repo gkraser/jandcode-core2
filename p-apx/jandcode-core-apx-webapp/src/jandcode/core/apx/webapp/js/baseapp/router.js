@@ -4,9 +4,14 @@ use: https://github.com/pillarjs/path-to-regexp
 
 ----------------------------------------------------------------------------- */
 
+import {jsaBase} from '../vendor'
 import {match} from 'path-to-regexp';
 
 export class FrameRouter {
+
+    constructor() {
+        this._routes = []
+    }
 
     /**
      * Найти фрейм, соотвествующий uri
@@ -16,6 +21,59 @@ export class FrameRouter {
         return null //todo
     }
 
+    /**
+     * @param uri {String}
+     * @return {null|*|RegExpMatchArray|Promise<Response | undefined>}
+     */
+    resolve(uri) {
+        if (uri == null) {
+            return null
+        }
+
+        let queryStr = ''
+        let queryParams = {}
+        let a = uri.indexOf('?')
+        if (a !== -1) {
+            queryStr = uri.substring(a + 1)
+            uri = uri.substring(0, a)
+            let sp = new URLSearchParams(queryStr)
+            for (let key of sp.keys()) {
+                queryParams[key] = sp.get(key)
+            }
+        }
+
+        for (let r of this._routes) {
+            let tmp = r.match(uri)
+            if (tmp === false) {
+                continue
+            }
+            // найдено!
+            let res = {
+                path: tmp.path,
+                frame: r.frame,
+                params: {}
+            }
+            jsaBase.extend(res.params, tmp.params);
+            jsaBase.extend(res.params, queryParams);
+            //
+            return res
+        }
+        return null
+    }
+
+    /**
+     * Добавить routes
+     * @param routes {Array} список объектов-описаний route
+     */
+    addRoutes(routes) {
+        if (!routes) {
+            return
+        }
+        for (let r of routes) {
+            let rd = new RouteDef(r)
+            this._routes.push(rd)
+        }
+    }
 }
 
 
