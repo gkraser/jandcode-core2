@@ -8,6 +8,7 @@ import {jsaBase, Vue} from '../vendor'
 import Dialog from './dialog/Dialog'
 import upperFirst from 'lodash/upperFirst'
 import {FrameRouter} from './router'
+import {FrameHistory} from './history'
 
 // опция initFrame будет выглядеть как массив (аналогично другим life-cycle hookd)
 Vue.config.optionMergeStrategies.initFrame = Vue.config.optionMergeStrategies.created
@@ -63,6 +64,8 @@ export class FrameManager {
         this._frames_dialog = []
         // router
         this.router = new FrameRouter()
+        //
+        this.history = new FrameHistory()
     }
 
     async showFrame(options) {
@@ -100,6 +103,12 @@ export class FrameManager {
             await this._showFrame_dialog(fw)
         } else {
             await this._showFrame_page(fw)
+        }
+
+        // меняем url, если допустимо
+        let routePath = fw.getRoutePath()
+        if (routePath != null) {
+            this.history.updateHash(routePath)
         }
     }
 
