@@ -9,9 +9,6 @@
             <div class="text-h3">
                 Страница не найдена
             </div>
-            <div v-if="$route" class="text-negative">
-                {{ $route.path }}
-            </div>
         </div>
     </component>
 </template>

@@ -25,7 +25,8 @@ export default {
     },
 
     computed: {
-        frameWrapper() {
+
+        frameWrapper: function() {
             let fw = this.$options.frameWrapper
             if (fw == null) {
                 throw new Error("frameWrapper не установлен, видимо фрейм используется вне FrameManager")
@@ -36,13 +37,21 @@ export default {
         /**
          * Параметры из showFrame
          */
-        params() {
+        params: function() {
             return this.frameWrapper.params
         }
 
     },
 
     methods: {
+
+        async showFrame(options) {
+            await this.frameWrapper.frameManager.showFrame(options)
+        },
+
+        async showDialog(options) {
+            await this.frameWrapper.frameManager.showDialog(options)
+        },
 
         /**
          * Закрыть фрейм с указанной командой.
