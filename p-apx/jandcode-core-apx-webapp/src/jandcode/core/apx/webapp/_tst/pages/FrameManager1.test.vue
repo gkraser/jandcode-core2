@@ -12,7 +12,8 @@
                         <jc-action label="frame2" @click="frame2"/>
                         <jc-action label="dialog1" @click="dialog1"/>
                         <jc-action label="/path1" @click="path1('/path1')"/>
-                        <jc-action label="/path1/123" @click="path1('/path1/123')"/>
+                        <jc-action label="/path1/123"
+                                   @click="path1('/path1/123',{p2:'P2Value'})"/>
                     </jc-toolbar>
                 </template>
                 <template #main>
@@ -36,6 +37,11 @@ import Dialog1 from './_frames/fm/Dialog1'
 jsaBase.app.onBeforeRun(function() {
     let routes = [
         {
+            path: '',
+            frame: 'jandcode/core/apx/webapp/_tst/pages/_frames/fm/Home.vue',
+        },
+        {
+            name: 'pt1', //??
             path: '/path1/:idn?',
             frame: 'jandcode/core/apx/webapp/_tst/pages/_frames/fm/Frame1.vue',
         }
@@ -86,9 +92,10 @@ export default {
                 }
             })
         },
-        path1(path) {
+        path1(path, params) {
             apx.showFrame({
-                frame: path
+                frame: path,
+                params: params,
             })
         },
     }

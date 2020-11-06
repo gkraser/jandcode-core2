@@ -5,7 +5,7 @@ use: https://github.com/pillarjs/path-to-regexp
 ----------------------------------------------------------------------------- */
 
 import {jsaBase} from '../vendor'
-import {match} from 'path-to-regexp';
+import {match, compile} from 'path-to-regexp';
 
 export class FrameRouter {
 
@@ -30,16 +30,11 @@ export class FrameRouter {
             return null
         }
 
-        let queryStr = ''
         let queryParams = {}
         let a = uri.indexOf('?')
         if (a !== -1) {
-            queryStr = decodeURIComponent(uri.substring(a + 1))
+            queryParams = jsaBase.url.deparams(uri.substring(a + 1))
             uri = uri.substring(0, a)
-            let sp = new URLSearchParams(queryStr)
-            for (let key of sp.keys()) {
-                queryParams[key] = sp.get(key)
-            }
         }
         uri = decodeURI(uri)
 
@@ -52,10 +47,11 @@ export class FrameRouter {
             let res = {
                 path: tmp.path,
                 frame: r.frame,
-                params: {}
+                urlParams: tmp.params,      // параметры, полученные из url
+                queryParams: queryParams,   // параметры полученные из '?params'
+                params: {},                 // все параметры urlParams+queryParams
             }
-            jsaBase.extend(res.params, tmp.params);
-            jsaBase.extend(res.params, queryParams);
+            jsaBase.extend(res.params, res.urlParams, res.queryParams);
             //
             return res
         }
@@ -112,14 +108,21 @@ export class RouteDef {
             encode: encodeURI,
             decode: decodeURIComponent
         });
-        // this._toPath = compile(this.path, {
-        //     encode: encodeURI
-        // });
-        //
+
+        this._toPath = compile(this.path, {
+            encode: encodeURIComponent
+        });
+
     }
 
     match(uri) {
         return this._match(uri)
+    }
+
+    toPath(params) {
+        let p = params || {}
+        let s = this._toPath(p)
+        return s
     }
 
 }

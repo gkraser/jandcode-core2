@@ -6,7 +6,7 @@ let _tmp_TAG_A = document.createElement('a');
 
 /**
  * Разбор строки параметров в виде объекта
- * @param str строка вида 'a=1&b=2'. Если начинается с '#', то '#' игнорируется
+ * @param str строка вида 'a=1&b=2'. Если начинается с '#' или '?', то '#' или '?' игнорируется
  * @return {{}}
  */
 export function deparams(str) {
@@ -44,6 +44,24 @@ export function params(params) {
  */
 export function getPageParams() {
     return deparams(window.location.search)
+}
+
+/**
+ * Возвращает текущий hash страницы в виде строки.
+ * '#' убран. Декодирован.
+ */
+export function getPageHash() {
+    let hash = window.location.hash
+    if (!hash) {
+        return ''
+    }
+    const index = hash.indexOf('#')
+    if (index < 0) {
+        return ''
+    }
+    hash = decodeURIComponent(hash)
+    hash = hash.slice(index + 1)
+    return hash
 }
 
 /**

@@ -9,6 +9,28 @@ describe(__filename, function() {
         {path: '/usr/:id?', frame: '2'},
     ]
 
+    let routes2_noSlash = [
+        {path: '', frame: '0'},
+        {path: 'usr/:id?', frame: '2'},
+    ]
+
+    let router
+
+    function check(uri, res) {
+        let a = router.resolve(uri)
+        console.info('check:', uri, a, JSON.stringify(a));
+        if (a === null && res !== null) {
+            test.assert.fail("expected null")
+        }
+        if (a != null) {
+            delete a.queryParams
+            delete a.urlParams
+        }
+        test.assert.deepEqual(a, res)
+    }
+
+    //////
+
     it("RouteDef.match", function() {
 
         let r = new m.RouteDef({
@@ -21,19 +43,8 @@ describe(__filename, function() {
     })
 
     it("FrameRouter1", function() {
-        let router = new m.FrameRouter()
+        router = new m.FrameRouter()
         router.addRoutes(routes1)
-
-        let a
-
-        function check(uri, res) {
-            let a = router.resolve(uri)
-            console.info('check:', uri, a, JSON.stringify(a));
-            if (a === null && res !== null) {
-                test.assert.fail("expected null")
-            }
-            test.assert.deepEqual(a, res)
-        }
 
         check("", {
             "path": "", "frame": "0", "params": {}
@@ -61,6 +72,32 @@ describe(__filename, function() {
             "path": "/usr/привет", "frame": "2", "params": {id: "привет", z: "привет"}
         })
         //
+    })
+
+    it("FrameRouter2 noSlash", function() {
+        router = new m.FrameRouter()
+        router.addRoutes(routes2_noSlash)
+
+        // для {path: '', frame: '0'}, срабатывает и '/' и ''!
+
+        check("", {
+            "path": "", "frame": "0", "params": {}
+        })
+        check("/", {
+            "path": "/", "frame": "0", "params": {}
+        })
+        check("/usr/123", null)
+        check("usr/123", {
+            "path": "usr/123", "frame": "2", "params": {"id": "123"}
+        })
+        //
+    })
+
+    it("toPath", function() {
+        router = new m.FrameRouter()
+        router.addRoutes(routes1)
+
+
     })
 
 })

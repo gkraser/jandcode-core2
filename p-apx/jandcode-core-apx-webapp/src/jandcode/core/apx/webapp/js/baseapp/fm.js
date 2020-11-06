@@ -33,9 +33,24 @@ export class FrameManagerService extends jsaBase.AppService {
          * @type {FrameRouter}
          */
         this.app.router = frameManager.router
-
     }
 
+
+    onAfterRun() {
+        let hash = jsaBase.url.getPageHash()
+        let ri = this.app.router.resolve(hash)
+        if (ri == null && hash !== '') {
+            // если по текущему фрейму не удалось определить hash, то пробуем пустой,
+            // т.е. переход на home
+            hash = ''
+            ri = this.app.router.resolve(hash)
+        }
+        if (ri != null) {
+            this.app.frameManager.showFrame({
+                frame: hash
+            })
+        }
+    }
 }
 
 export class FrameManager {
@@ -50,11 +65,21 @@ export class FrameManager {
         this.router = new FrameRouter()
     }
 
+    async showFrame(options) {
+        let fw = new FrameWrapperPage(options)
+        await this.showFrameWrapper(fw)
+    }
+
+    async showDialog(options) {
+        let fw = new FrameWrapperDialog(options)
+        await this.showFrameWrapper(fw)
+    }
+
     /**
      * Показать фрейм
      * @param fw {FrameWrapper}
      */
-    async showFrame(fw) {
+    async showFrameWrapper(fw) {
         // метим своим
         fw.frameManager = this
 
@@ -76,7 +101,6 @@ export class FrameManager {
         } else {
             await this._showFrame_page(fw)
         }
-
     }
 
     //////
@@ -231,7 +255,7 @@ export class FrameManager {
             return
         }
 
-        if (!fw.frame) {
+        if (fw.frame == null) {
             throw new Error("frame не указан для фрейма")
         }
 
@@ -244,8 +268,8 @@ export class FrameManager {
                 fw.routeInfo = routeInfo
                 // это фрейм
                 fw.frame = routeInfo.frame
-                // это параметры, объединяем с переданными, перекрывая от route
-                fw.params = jsaBase.extend({}, routeInfo.params, fw.params)
+                // это параметры, объединяем с переданными, от route - важнее!
+                fw.params = jsaBase.extend({}, fw.params, routeInfo.params)
             }
         }
 
@@ -370,6 +394,34 @@ export class FrameWrapper {
     }
 
     /**
+     * Возвращает path (вместе с параметрами), который можно использовать
+     * в hash для ссылки на показ этого фрейма.
+     * Возвращает null, если этот фрейм не доступен через router.
+     */
+    getRoutePath() {
+        if (this.routeInfo == null) {
+            return null
+        }
+        let res = this.routeInfo.path
+        let prms = {}
+        for (let p in this.params) {
+            if (p in this.routeInfo.urlParams) {
+                continue
+            }
+            let v = this.params[p]
+            // берем только простые значения
+            if (jsaBase.isString(v) || jsaBase.isNumber(v) || jsaBase.isBoolean(v)) {
+                prms[p] = v
+            }
+        }
+        let qs = jsaBase.url.params(prms)
+        if (qs !== '') {
+            res = res + '?' + qs
+        }
+        return res
+    }
+
+    /**
      * Уничтожить фрейм
      */
     destroy() {
@@ -390,11 +442,9 @@ export class FrameWrapperDialog extends FrameWrapper {
 }
 
 export async function showFrame(options) {
-    let fw = new FrameWrapperPage(options)
-    await jsaBase.app.frameManager.showFrame(fw)
+    await jsaBase.app.frameManager.showFrame(options)
 }
 
 export async function showDialog(options) {
-    let fw = new FrameWrapperDialog(options)
-    await jsaBase.app.frameManager.showFrame(fw)
+    await jsaBase.app.frameManager.showDialog(options)
 }
