@@ -473,7 +473,6 @@ export class FrameWrapper {
     destroy() {
         this.frameInst.$options.frameWrapper = null
         this.frameInst.$destroy()
-        this.frameInst.frameManager = null
         this.frameInst = null
         this.frameCompCls = null
         this.frameManager = null

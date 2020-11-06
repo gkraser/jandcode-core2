@@ -5,7 +5,7 @@ use: https://github.com/pillarjs/path-to-regexp
 ----------------------------------------------------------------------------- */
 
 import {jsaBase} from '../vendor'
-import {match, compile} from 'path-to-regexp';
+import {match} from 'path-to-regexp';
 
 export class FrameRouter {
 

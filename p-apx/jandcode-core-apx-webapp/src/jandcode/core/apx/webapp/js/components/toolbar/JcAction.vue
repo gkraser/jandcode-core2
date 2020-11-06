@@ -15,7 +15,7 @@
                     square
                     :transition-show="null"
                     :transition-hide="null">
-            <div class="column">
+                <div class="column">
                     <slot name="default"></slot>
                 </div>
             </q-menu>
