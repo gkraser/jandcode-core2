@@ -24,27 +24,27 @@ export class FrameManagerService extends jsaBase.AppService {
         /**
          * Текущий менеджер фреймов
          * @type {FrameManager}
-         * @name frameManager
-         * @memberOf jsaBase.app
+         * @member App#frameManager
          */
         this.app.frameManager = frameManager
 
         /**
          * Роутер для фреймов
          * @type {FrameRouter}
+         * @member App#frameRouter
          */
-        this.app.router = frameManager.router
+        this.app.frameRouter = frameManager.frameRouter
     }
 
 
     onAfterRun() {
         let hash = jsaBase.url.getPageHash()
-        let ri = this.app.router.resolve(hash)
+        let ri = this.app.frameRouter.resolve(hash)
         if (ri == null && hash !== '') {
             // если по текущему фрейму не удалось определить hash, то пробуем пустой,
             // т.е. переход на home
             hash = ''
-            ri = this.app.router.resolve(hash)
+            ri = this.app.frameRouter.resolve(hash)
         }
         if (ri != null) {
             this.app.frameManager.showFrame({
@@ -72,7 +72,7 @@ export class FrameManager {
         this._frames_page = []
         this._frames_dialog = []
         // router
-        this.router = new FrameRouter()
+        this.frameRouter = new FrameRouter()
         //
         this.history = new FrameHistory()
     }
@@ -280,7 +280,7 @@ export class FrameManager {
         if (jsaBase.isString(fw.frame)) {
             // заказана строка
             // возможно router знает про этот фрейм
-            let routeInfo = this.router.resolve(fw.frame)
+            let routeInfo = this.frameRouter.resolve(fw.frame)
             if (routeInfo != null) {
                 // да, знает
                 fw.routeInfo = routeInfo
@@ -292,9 +292,19 @@ export class FrameManager {
         }
 
         let comp = fw.frame
+        
+        if (jsaBase.isFunction(comp)) {
+            // это функция
+            if (!comp.cid) { // маркер - это Vue-конструктор
+                // функция не имеет маркера конструктора
+                // вызываем ее, она должна вернуть компонент
+                // или promise, который вернет компонент
+                comp = await comp()
+            }
+        }
+
         if (jsaBase.isString(comp)) {
-            // заказана строка
-            // пока просто считаем ее полным именем модуля
+            // заказана строка, считаем ее полным именем модуля
             await Jc.loadModule(comp)
 
             let mod = require(comp)
@@ -348,7 +358,7 @@ export class FrameManager {
      */
     onPopstate(e) {
         let hash = jsaBase.url.getPageHash()
-        let ri = this.router.resolve(hash)
+        let ri = this.frameRouter.resolve(hash)
         if (ri != null) {
             this.showFrame({frame: hash})
         }

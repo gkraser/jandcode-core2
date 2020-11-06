@@ -109,20 +109,10 @@ export class RouteDef {
             decode: decodeURIComponent
         });
 
-        this._toPath = compile(this.path, {
-            encode: encodeURIComponent
-        });
-
     }
 
     match(uri) {
         return this._match(uri)
-    }
-
-    toPath(params) {
-        let p = params || {}
-        let s = this._toPath(p)
-        return s
     }
 
 }

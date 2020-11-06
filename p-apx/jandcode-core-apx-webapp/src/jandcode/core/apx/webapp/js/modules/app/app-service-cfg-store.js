@@ -5,15 +5,16 @@ import {jsaBase} from '../../vendor'
 
 import {createCfgStore, CfgStore} from '../cfg-store'
 
-/**
- * Глобальный CfgStore
- * @member {CfgStore} App#cfgStore
- */
 
 export class CfgStoreService extends jsaBase.AppService {
 
     onCreate() {
         let cfgStore = createCfgStore('apx.webapp')
+
+        /**
+         * Глобальный CfgStore
+         * @member {CfgStore} App#cfgStore
+         */
         this.app.cfgStore = cfgStore
     }
 

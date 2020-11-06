@@ -14,6 +14,12 @@
                         <jc-action label="/path1" @click="path1('/path1')"/>
                         <jc-action label="/path1/123"
                                    @click="path1('/path1/123',{p2:'P2Value'})"/>
+                        <jc-action label="/fn - функция"
+                                   @click="path1('/fn',{tag:'function',p2:'P2Value',p1:'pp11'})"/>
+                        <jc-action label="/fnp - Promise"
+                                   @click="path1('/fnp',{tag:'Promise', p2:'P2ValuePromise',p1:'pp11'})"/>
+                        <jc-action label="/cls - vue-класс"
+                                   @click="path1('/cls',{p2:'P442Value',p1:'pp141'})"/>
                     </jc-toolbar>
                 </template>
                 <template #main>
@@ -34,6 +40,8 @@ import Home from './_frames/fm/Home'
 import Frame2 from './_frames/fm/Frame2'
 import Dialog1 from './_frames/fm/Dialog1'
 
+let Frame2Cls = Vue.extend(Frame2)
+
 jsaBase.app.onBeforeRun(function() {
     let routes = [
         {
@@ -41,12 +49,28 @@ jsaBase.app.onBeforeRun(function() {
             frame: 'jandcode/core/apx/webapp/_tst/pages/_frames/fm/Home.vue',
         },
         {
-            name: 'pt1', //??
             path: '/path1/:idn?',
             frame: 'jandcode/core/apx/webapp/_tst/pages/_frames/fm/Frame1.vue',
-        }
+        },
+        {
+            path: '/fn',
+            frame: function() {
+                return 'jandcode/core/apx/webapp/_tst/pages/_frames/fm/Frame1' + '.vue'
+            }
+        },
+        {
+            path: '/fnp',
+            frame: async function() {
+                return 'jandcode/core/apx/webapp/_tst/pages/_frames/fm/Frame1' + '.vue'
+            }
+        },
+        {
+            path: '/cls',
+            frame: Frame2Cls
+        },
+
     ]
-    jsaBase.app.router.addRoutes(routes)
+    jsaBase.app.frameRouter.addRoutes(routes)
 })
 
 export default {

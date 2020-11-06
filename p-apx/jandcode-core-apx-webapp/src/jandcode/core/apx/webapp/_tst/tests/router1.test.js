@@ -93,12 +93,5 @@ describe(__filename, function() {
         //
     })
 
-    it("toPath", function() {
-        router = new m.FrameRouter()
-        router.addRoutes(routes1)
-
-
-    })
-
 })
 
