@@ -9,9 +9,6 @@
         <template #left>
         </template>
 
-        <template #main>
-            <router-view></router-view>
-        </template>
     </App>
 </template>
 
