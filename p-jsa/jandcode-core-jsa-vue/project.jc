@@ -25,8 +25,6 @@ class P extends ProjectScript {
         include(JsaJavaProject).with {
             nodeJsDepends(
                     "vue",
-                    "vue-router",
-                    "vuex",
             )
             gulpTask(name: "vue", provide: true, globs: ["**/*.vue"])
         }

@@ -124,6 +124,9 @@ export class FrameManager {
     //////
 
     registerPlaceFrame(inst) {
+        if (Jc.cfg.envDev) {
+            console.info("registerPlaceFrame", inst);
+        }
         if (this._framePlaces.indexOf(inst) !== -1) {
             return // уже есть такой же
         }
@@ -131,6 +134,9 @@ export class FrameManager {
     }
 
     unregisterPlaceFrame(inst) {
+        if (Jc.cfg.envDev) {
+            console.info("unregisterPlaceFrame", inst);
+        }
         let a = this._framePlaces.indexOf(inst)
         if (a === -1) {
             return
@@ -292,7 +298,7 @@ export class FrameManager {
         }
 
         let comp = fw.frame
-        
+
         if (jsaBase.isFunction(comp)) {
             // это функция
             if (!comp.cid) { // маркер - это Vue-конструктор
