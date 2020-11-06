@@ -1,6 +1,6 @@
 <template>
     <Page>
-        Frame1
+        Frame1. params: {{paramsStr()}}
     </Page>
 </template>
 
@@ -27,6 +27,10 @@ export default {
     data() {
         return {}
     },
-    methods: {},
+    methods: {
+        paramsStr() {
+            return JSON.stringify(this.params)
+        }
+    },
 }
 </script>

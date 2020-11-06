@@ -51,6 +51,15 @@ export class FrameManagerService extends jsaBase.AppService {
                 frame: hash
             })
         }
+        //
+        let th = this
+
+        window.addEventListener('popstate', function(e) {
+            if (jsaBase.cfg.envDev) {
+                console.info("HISTORY POPSTATE", e);
+            }
+            th.app.frameManager.onPopstate(e)
+        });
     }
 }
 
@@ -331,6 +340,18 @@ export class FrameManager {
             }
         }
         return null
+    }
+
+    /**
+     * Реакция на событие popstate
+     * @param e
+     */
+    onPopstate(e) {
+        let hash = jsaBase.url.getPageHash()
+        let ri = this.router.resolve(hash)
+        if (ri != null) {
+            this.showFrame({frame: hash})
+        }
     }
 
 }
