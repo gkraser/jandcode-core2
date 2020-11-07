@@ -4,6 +4,9 @@
 export default {
 
     props: {
+        /**
+         * Ссылка на оформляемый компонент
+         */
         own: {
             default: function() {
                 return this.$parent;
@@ -12,13 +15,6 @@ export default {
     },
 
     computed: {
-
-        /**
-         * Ссылка на оформляемый компонент
-         */
-        own1() {
-            return this.$parent
-        },
 
         /**
          * Есть ли иконка

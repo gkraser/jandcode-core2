@@ -1,5 +1,5 @@
 <template>
-    <component :is="rootComponentName" class="jc-frame jc-decor-page">
+    <div class="jc-frame jc-decor-page">
 
         <div class="jc-frame--header">
 
@@ -26,7 +26,7 @@
             <slot name="default">
             </slot>
         </div>
-    </component>
+    </div>
 </template>
 
 <script>
@@ -34,18 +34,5 @@ import JcDecorFrame from "../../baseapp/JcDecorFrame"
 
 export default {
     extends: JcDecorFrame,
-
-    inject: {
-        pageContainer: {
-            default: false
-        },
-    },
-
-    computed: {
-        rootComponentName() {
-            return this.pageContainer ? 'q-page' : 'div'
-        }
-    }
-
 }
 </script>
