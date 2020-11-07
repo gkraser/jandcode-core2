@@ -48,7 +48,8 @@ export class FrameManagerService extends jsaBase.AppService {
         }
         if (ri != null) {
             this.app.frameManager.showFrame({
-                frame: hash
+                frame: hash,
+                __page__hash: hash, // hash, который привел к покаку фрейма, сохраняем
             })
         }
         //
@@ -297,6 +298,12 @@ export class FrameManager {
                 fw.frame = routeInfo.frame
                 // это параметры, объединяем с переданными, от route - важнее!
                 fw.params = jsaBase.extend({}, fw.params, routeInfo.params)
+                //
+                if (fw.options.__page__hash) {
+                    // фрейм пришел по настоянию адресной строки
+                    fw.routeInfo.pageHash = fw.options.__page__hash
+                    delete fw.options.__page__hash
+                }
             }
         }
 
@@ -369,7 +376,7 @@ export class FrameManager {
         let hash = jsaBase.url.getPageHash()
         let ri = this.frameRouter.resolve(hash)
         if (ri != null) {
-            this.showFrame({frame: hash})
+            this.showFrame({frame: hash, __page__hash: hash})
         }
     }
 
