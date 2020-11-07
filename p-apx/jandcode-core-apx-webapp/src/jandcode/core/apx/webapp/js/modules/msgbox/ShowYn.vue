@@ -9,14 +9,14 @@ import {JcFrame} from '../../baseapp'
 
 export default {
     extends: JcFrame,
-    props: {
-        text: {}
-    },
     created() {
         this.title = 'Подтверждение'
+        this.text = this.params.text || 'Нет текста'
     },
     data() {
-        return {}
+        return {
+            text: ''
+        }
     },
     methods: {},
 }

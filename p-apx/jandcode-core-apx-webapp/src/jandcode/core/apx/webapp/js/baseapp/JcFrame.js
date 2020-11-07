@@ -46,11 +46,11 @@ export default {
     methods: {
 
         async showFrame(options) {
-            await this.frameWrapper.frameManager.showFrame(options)
+            return await this.frameWrapper.frameManager.showFrame(options)
         },
 
         async showDialog(options) {
-            await this.frameWrapper.frameManager.showDialog(options)
+            return await this.frameWrapper.frameManager.showDialog(options)
         },
 
         /**

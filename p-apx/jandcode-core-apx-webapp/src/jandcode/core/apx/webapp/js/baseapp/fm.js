@@ -167,7 +167,7 @@ export class FrameManager {
         }
     }
 
-    _closeFrame_dialog(fw, cmd) {
+    async _closeFrame_dialog(fw, cmd) {
 
         if (!cmd) {
             cmd = 'cancel'
@@ -175,50 +175,32 @@ export class FrameManager {
         let frameInst = fw.frameInst
         let handlerName = 'on' + upperFirst(cmd)
 
-        function closeFrameProcess(eventsOwner, fnClose) {
-
-            let handleProcess = (handlerResult) => {
-                if (handlerResult === false) {
-                    // закрывать нельзя
-                } else if (handlerResult instanceof Promise) {
-                    // ждем окончания promise
-                    handlerResult.then((result) => {
-                        if (result === false) {
-                            // promise вернул false, закрывать нельзя
-                            return
-                        }
-                        fnClose()
-                    })
-                } else {
-                    // можно закрывать
-                    fnClose()
-                }
+        if (jsaBase.isFunction(frameInst[handlerName])) {
+            // у фрейма есть обработчик onXxx
+            if (await frameInst[handlerName](frameInst, cmd) === false) {
+                return  // закрываться нельзя
             }
-
-            if (jsaBase.isFunction(eventsOwner[handlerName])) {
-                // есть обработчик onXxx
-                handleProcess(eventsOwner[handlerName](frameInst, cmd))
-
-            } else if (jsaBase.isFunction(eventsOwner.onCmd)) {
-                handleProcess(eventsOwner.onCmd(frameInst, cmd))
-
-            } else {
-                // нет обработчиков
-                fnClose()
+        } else if (jsaBase.isFunction(frameInst.onCmd)) {
+            // у фрейма есть обработчик onCmd
+            if (await frameInst.onCmd(frameInst, cmd) === false) {
+                return  // закрываться нельзя
             }
         }
 
-        // поехали...
+        if (jsaBase.isFunction(fw.options[handlerName])) {
+            // обработчики в опциях показа диалога: обработчик onXxx
+            if (await fw.options[handlerName](frameInst, cmd) === false) {
+                return // закрываться нельзя
+            }
+        } else if (jsaBase.isFunction(fw.options.onCmd)) {
+            // обработчики в опциях показа диалога: обработчик onCmd
+            if (await fw.options.onCmd(frameInst, cmd) === false) {
+                return // закрываться нельзя
+            }
+        }
 
-        // сначала события самого фпейма
-        closeFrameProcess(frameInst, () => {
-            // фрейм разрешил закрытся
-            closeFrameProcess(fw.options, () => {
-                // обработчики в опциях показа диалога разрешили закрытся
-                fw.dialogInst.hideDialog()
-            })
-        })
-
+        // все разрешили закрытся, закрываем
+        fw.dialogInst.hideDialog()
     }
 
     _closeFrame_page(fw, cmd) {
