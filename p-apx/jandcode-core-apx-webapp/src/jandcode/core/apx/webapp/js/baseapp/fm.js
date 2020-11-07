@@ -79,12 +79,12 @@ export class FrameManager {
 
     async showFrame(options) {
         let fw = new FrameWrapperPage(options)
-        await this.showFrameWrapper(fw)
+        return await this.showFrameWrapper(fw)
     }
 
     async showDialog(options) {
         let fw = new FrameWrapperDialog(options)
-        await this.showFrameWrapper(fw)
+        return await this.showFrameWrapper(fw)
     }
 
     /**
@@ -119,6 +119,9 @@ export class FrameManager {
         if (routePath != null) {
             this.history.updateHash(routePath)
         }
+
+        //
+        return fw.frameInst
     }
 
     //////
@@ -487,9 +490,9 @@ export class FrameWrapperDialog extends FrameWrapper {
 }
 
 export async function showFrame(options) {
-    await jsaBase.app.frameManager.showFrame(options)
+    return await jsaBase.app.frameManager.showFrame(options)
 }
 
 export async function showDialog(options) {
-    await jsaBase.app.frameManager.showDialog(options)
+    return await jsaBase.app.frameManager.showDialog(options)
 }
