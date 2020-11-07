@@ -158,6 +158,9 @@ public class CodeCmHandler extends BaseCmHandler {
         } else if (ext.equals("xml") || ext.equals("html") || ext.equals("cfx")) {
             return XmlSnippet.class;
 
+        } else if (ext.equals("vue")) {
+            return VueSnippet.class;
+
         } else {
             return Snippet.class;
         }

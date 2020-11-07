@@ -36,7 +36,11 @@ public class Snippet {
     }
 
     protected void addPart(String name, String text) {
-        SnippetPart p = new SnippetPart(name, text, this.lang);
+        addPart(name, text, this.lang);
+    }
+
+    protected void addPart(String name, String text, String lang) {
+        SnippetPart p = new SnippetPart(name, text, lang);
         parts.add(p);
     }
 

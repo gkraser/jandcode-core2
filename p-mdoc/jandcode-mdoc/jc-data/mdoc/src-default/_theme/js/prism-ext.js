@@ -14,3 +14,6 @@ Prism.languages.insertBefore('gsp', 'comment', {
 
 Prism.languages.cfx = Prism.languages.extend('xml', {
 });
+
+Prism.languages.vue = Prism.languages.extend('html', {
+});
