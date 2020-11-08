@@ -15,17 +15,29 @@ Jc.requireCss(styleCss)
  */
 export let defaultPause = 250
 
-Vue.config.errorHandler = function(err, vm, info) {
-    console.error(`[Vue error]: ${err}${info}`)
-    throw new Error(err)
-}
-
-Vue.config.warnHandler = function(err, vm, info) {
-    console.error(`[Vue warn]: ${err}${info}`)
-    throw new Error(err)
-}
-
 //////
+
+class TestAppService extends jsaBase.AppService {
+
+    onCreate() {
+        // удаляем обработчик ошибок
+        this.app.__services = this.app.__services.filter((it)=>{
+            return "errorHandlersService" != it.getName()
+        })
+
+        //
+        Vue.config.errorHandler = function(err, vm, info) {
+            console.error(`[Vue error]: ${err}${info}`)
+            throw new Error(err)
+        }
+
+        Vue.config.warnHandler = function(err, vm, info) {
+            console.error(`[Vue warn]: ${err}${info}`)
+            throw new Error(err)
+        }
+    }
+
+}
 
 /**
  * Инициализация среды тестирования
@@ -33,11 +45,18 @@ Vue.config.warnHandler = function(err, vm, info) {
 function init() {
     before(function() {
         initEnv()
+        //
+        jsaBase.app.registerService(TestAppService)
     })
 
     beforeEach(function() {
         cleanBody()
         showBody()
+        // пересоздание приложения
+        jsaBase.App.recreateApp()
+        // и запуск его заново
+        jsaBase.app.run(() => {
+        })
     });
 }
 

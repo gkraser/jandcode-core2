@@ -55,12 +55,20 @@ export class FrameManagerService extends jsaBase.AppService {
         //
         let th = this
 
-        window.addEventListener('popstate', function(e) {
+        this._popstate = function(e) {
             if (jsaBase.cfg.envDev) {
                 console.info("HISTORY POPSTATE", e);
             }
             th.app.frameManager.onPopstate(e)
-        });
+        }
+        window.addEventListener('popstate', this._popstate);
+    }
+
+
+    onStop() {
+        if (this._popstate) {
+            window.removeEventListener('popstate', this._popstate);
+        }
     }
 }
 

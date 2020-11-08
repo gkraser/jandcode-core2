@@ -13,17 +13,18 @@ describe(__filename, function() {
         return Comp
     }
 
-    function showDialog(frameParams, showParams) {
+    async function showDialog(frameParams, showParams) {
         let FrameComp = makeFrame(frameParams)
         showParams = Object.assign({}, showParams)
         showParams.frame = FrameComp
-        return apx.showDialog(showParams)
+        let f = await apx.showDialog(showParams)
+        return f
     }
 
-    it("onOk", function(cb) {
+    it("onOk", async function() {
         let s = ''
 
-        let frame = showDialog({
+        let frame = await showDialog({
             methods: {
                 onOk: function() {
                     s += '1'
@@ -37,13 +38,14 @@ describe(__filename, function() {
 
         setTimeout(() => {
             frame.closeFrame('ok')
-            test.assert.equal(s, '12')
-            cb()
+            setTimeout(() => {
+                test.assert.equal(s, '12')
+            }, 2)
         }, 2)
 
     })
 
-    it("initFrame1", function(cb) {
+    it("initFrame1", async function() {
         let s = ''
 
         let Comp1 = {
@@ -62,7 +64,7 @@ describe(__filename, function() {
             }
         }
 
-        let frame = showDialog({
+        let frame = await showDialog({
             extends: Comp1,
             initFrame() {
                 test.assert.ok(this.tag1)
@@ -73,27 +75,26 @@ describe(__filename, function() {
         setTimeout(() => {
             frame.closeFrame('ok')
             test.assert.equal(s, '012')
-            cb()
         }, 1)
 
     })
 
     it("props-data", async function() {
-        let frame = showDialog({
-            props: {
-                p1: {
-                    default: '1'
-                }
-            }
+        let frame = await showDialog({
+            created() {
+                this.p1 = this.params.p1
+            },
         }, {
-            propsData: {
+            params: {
                 p1: '123'
             }
         })
 
-        test.assert.equal(frame.p1, '123')
+        setTimeout(() => {
+            frame.closeFrame('ok')
+            test.assert.equal(frame.p1, '123')
+        }, 1)
 
-        frame.closeFrame('ok')
     })
 
 })

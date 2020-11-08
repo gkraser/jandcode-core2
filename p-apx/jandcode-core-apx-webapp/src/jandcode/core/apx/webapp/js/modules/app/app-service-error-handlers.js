@@ -47,7 +47,8 @@ export class ErrorHandlersService extends jsaBase.AppService {
             vueError(err, vm, info, 'warn')
         }
 
-        window.onerror = function(message, url, line, col, error) {
+        this._onErrorOld = window.onerror
+        this._onErrorNew = function(message, url, line, col, error) {
             let msg = `[Fatal error]: ${message} [${line}:${col}] ${url}`
             if (th.ignoreError(msg)) {
                 return
@@ -55,8 +56,9 @@ export class ErrorHandlersService extends jsaBase.AppService {
             console.error(msg)
             th.showError(message)
         }
+        window.onerror = this._onErrorNew
 
-        window.addEventListener("unhandledrejection", function(event) {
+        this._unhandledrejection = function(event) {
             let error = jsaBase.createError(event.reason)
 
             console.log('[ERROR promise] ', error.message)
@@ -64,11 +66,21 @@ export class ErrorHandlersService extends jsaBase.AppService {
             th.showError(error)
             console.error(event.reason)
             event.preventDefault();
-        });
+        }
+        window.addEventListener("unhandledrejection", this._unhandledrejection);
 
     }
 
-    //////
+    onStop() {
+        if (this._onErrorNew) {
+            window.onerror = this._onErrorOld
+        }
+        if (this._unhandledrejection) {
+            window.removeEventListener("unhandledrejection", this._unhandledrejection);
+        }
+    }
+
+//////
 
     ignoreError(message) {
         if (!message) {
