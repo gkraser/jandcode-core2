@@ -102,6 +102,20 @@ class P extends ProjectScript {
             //
             makeJcRootFile()
             makeVersionFile()
+
+            // собираем дополнительно минимальную сборку jc
+            def minDestDir = wd("_jc/product-jc-minimal")
+            ut.cleandir(minDestDir)
+            ant.copy(todir: minDestDir) {
+                fileset(dir: destDir) {
+                    exclude(name: "lib/**/*")
+                    exclude(name: "lib")
+                }
+            }
+            def cpMin = createLibCopier(false)
+            cpMin.add(libCoreNames, false)
+            cpMin.copyTo("${minDestDir}/lib", true, false)
+
         }
 
         /**
