@@ -10,6 +10,7 @@ apx.utils.registerIcons({
 
 //
 import * as vendor from './vendor'
+
 Jc._TST_VENDOR = vendor
 Jc._TST_app = vendor.jsaBase.app
 //

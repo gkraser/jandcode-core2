@@ -8,7 +8,7 @@
   ctx.title = "XxxYyy"
   ctx.main = th.path("./main.js")
   ctx.env = th.path("./vendor.js")
-  ctx.theme = "apx-base"
+  ctx.theme = "apx-std"
 %>
 <html>
 <head>

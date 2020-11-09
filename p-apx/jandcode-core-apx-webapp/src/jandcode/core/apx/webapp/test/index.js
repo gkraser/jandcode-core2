@@ -21,7 +21,7 @@ class TestAppService extends jsaBase.AppService {
 
     onCreate() {
         // удаляем обработчик ошибок
-        this.app.__services = this.app.__services.filter((it)=>{
+        this.app.__services = this.app.__services.filter((it) => {
             return "errorHandlersService" != it.getName()
         })
 

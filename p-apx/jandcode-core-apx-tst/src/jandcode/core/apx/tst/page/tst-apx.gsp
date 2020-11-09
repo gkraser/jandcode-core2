@@ -8,14 +8,14 @@
   //
   String path = th.context.rootGsp.args.path
   String theme = th.request.params.getString('theme')
-  String themeStd = th.args.getString("theme", "apx-base")
+  String themeStd = th.args.getString("theme", "apx-std")
   //
   ctx.main = path
   ctx.theme = ctx.resolveTheme(theme, themeStd)
   ctx.env = "jandcode.core.apx.tst"
   ctx.addModule(tstCtx.envTstJs)
   //
-  tstCtx.cfg.themeNamesSwitch = ["apx-base", "apx-clean"]
+  tstCtx.cfg.themeNamesSwitch = ["apx-base", "apx-std", "apx-clean"]
 
 %>
 <html>
