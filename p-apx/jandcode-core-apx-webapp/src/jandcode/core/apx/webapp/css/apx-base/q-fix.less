@@ -34,6 +34,15 @@
     min-height: 2em;
   }
 
+  &__wrapper:before {
+    box-shadow: @shadow-1;
+  }
+
+}
+
+.q-btn--actionable.q-btn--standard:active .q-btn__wrapper:before,
+.q-btn--actionable.q-btn--standard.q-btn--active .q-btn__wrapper:before {
+  box-shadow: @shadow-2;
 }
 
 /* q-badge

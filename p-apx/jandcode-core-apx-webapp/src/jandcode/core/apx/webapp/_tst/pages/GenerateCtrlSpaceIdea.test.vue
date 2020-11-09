@@ -3,7 +3,8 @@
         <template #tools>
         </template>
         <h5>Генерация файла регистрации компонентов</h5>
-        <small>что работал Ctrl+Space, поместите этот файл себе в проект в папку _tst и <b>НЕ ИМПОРТИРУЙТЕ</b> его</small>
+        <small>что работал Ctrl+Space, поместите этот файл себе в проект в папку _tst и
+            <b>НЕ ИМПОРТИРУЙТЕ</b> его</small>
         <h5>modules</h5>
         <div>{{ modules }}</div>
         <h5>_dummy_vue_reg.js</h5>

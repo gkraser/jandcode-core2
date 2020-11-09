@@ -1,6 +1,6 @@
 <template>
     <Page>
-        Frame1. params: {{paramsStr()}}
+        Frame1. params: {{ paramsStr() }}
     </Page>
 </template>
 

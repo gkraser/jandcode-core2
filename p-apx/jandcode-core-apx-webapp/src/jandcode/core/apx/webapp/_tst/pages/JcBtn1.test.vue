@@ -4,7 +4,7 @@
             <tst-fontsize/>
         </template>
 
-        
+
         <div class="q-gutter-y-sm">
             <div>kind:</div>
             <div class="row q-gutter-x-sm">
