@@ -1,19 +1,62 @@
+@import '../vars';
+
+@jc-toolbar-title--text-size: @font-size-large-2;
+@jc-toolbar-title--text1-size: @jc-toolbar-title--text-size;
+@jc-toolbar-title--text2-size: @font-size-small-2;
+
+@jc-toolbar-title--text-size-lg: @font-size-large-4;
+@jc-toolbar-title--text1-size-lg: @jc-toolbar-title--text-size-lg;
+@jc-toolbar-title--text2-size-lg: @font-size-small-1;
+
+@jc-toolbar-title--text-size-sm: @font-size-norm;
+@jc-toolbar-title--text1-size-sm: @jc-toolbar-title--text-size-sm;
+@jc-toolbar-title--text2-size-sm: @font-size-small-2;
 
 .jc-toolbar-title {
 
   line-height: 1;
 
-  .jc-toolbar-title--text {
-    font-size: 1.615em;
+  // нормальный размер. Для панелей например.
+
+  &--text {
+    font-size: @jc-toolbar-title--text-size;
   }
 
-  .jc-toolbar-title--text1 {
-    font-size: 1.615em;
+  &--text1 {
+    font-size: @jc-toolbar-title--text1-size;
   }
 
-  .jc-toolbar-title--text2 {
-    font-size: 0.9em;
+  &--text2 {
+    font-size: @jc-toolbar-title--text2-size;
     opacity: 0.6;
+  }
+
+  // lg - для приложения
+
+  &--lg &--text {
+    font-size: @jc-toolbar-title--text-size-lg;
+  }
+
+  &--lg &--text1 {
+    font-size: @jc-toolbar-title--text1-size-lg;
+  }
+
+  &--lg &--text2 {
+    font-size: @jc-toolbar-title--text2-size-lg;
+  }
+
+  // sm - для мелких панелей
+
+  &--sm &--text {
+    font-size: @jc-toolbar-title--text-size-sm;
+  }
+
+  &--sm &--text1 {
+    font-size: @jc-toolbar-title--text1-size-sm;
+  }
+
+  &--sm &--text2 {
+    font-size: @jc-toolbar-title--text2-size-sm;
   }
 
 }

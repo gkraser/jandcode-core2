@@ -26,7 +26,7 @@
   text-transform: none;
 
   .q-icon, .q-spinner {
-    font-size: 1.2em;
+    font-size: 1em * @icon-font-size-kfc;
   }
 
   &__wrapper {
@@ -90,6 +90,7 @@
 .q-list--padding .q-item__label--header {
   padding-top: @r8px;
 }
+
 .q-item__label + .q-item__label {
   margin-top: @r4px;
 }
@@ -97,9 +98,11 @@
 .q-item__section--main + .q-item__section--main {
   margin-left: @r8px;
 }
+
 .q-item__section--main ~ .q-item__section--side {
   padding-left: @r16px;
 }
+
 .q-item__section--main.q-item__section--thumbnail {
   margin-right: -@r16px;
 }

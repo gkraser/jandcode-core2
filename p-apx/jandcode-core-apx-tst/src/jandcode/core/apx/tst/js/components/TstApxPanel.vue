@@ -19,10 +19,11 @@
             </template>
         </div>
 
-        <template v-if="(isCfg && $slots['tools']) || (isCfg && debugBg)">
+        <template v-if="(isCfg && $slots['tools']) || (isCfg && debugBg) || (isCfg && fontsize)">
             <div class="tst-apx-panel--head">
                 <tst-btn @click="resetCfg" label="resetCfg"/>
                 <tst-checkbox label="debugBg" v-model="own.cfg.debugBg" v-if="debugBg"/>
+                <tst-fontsize v-if="fontsize"/>
                 <slot name="tools"/>
             </div>
         </template>
@@ -49,6 +50,10 @@ export default {
     name: 'tst-apx-panel',
     props: {
         debugBg: {
+            type: Boolean,
+            default: null
+        },
+        fontsize: {
             type: Boolean,
             default: null
         },

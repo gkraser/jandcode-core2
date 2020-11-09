@@ -69,6 +69,11 @@
                             round color="primary" :size="size" icon="mail"/>
                     <label>jc-btn</label>
                     <br>
+                    <jc-btn v-for="size in sizes"
+                            color="primary" :size="size" :label="`Size ${size}`" icon="mail"/>
+                    <label>jc-btn with icon</label>
+
+                    <br>
                 </div>
             </q-card-section>
         </q-card>

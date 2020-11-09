@@ -8,7 +8,13 @@
 export default {
     name: 'jc-toolbar-logo',
     props: {
-        icon: {}
+        icon: {},
+
+        /**
+         * Размер (md, sm....)
+         */
+        size: {}
+
     },
     data() {
         return {}
@@ -16,6 +22,9 @@ export default {
     computed: {
         classes() {
             let res = ['jc-toolbar-logo']
+            if (this.size) {
+                res.push('jc-toolbar-logo--' + this.size)
+            }
             if (this.$listeners.click) {
                 res.push('cursor-pointer')
             }

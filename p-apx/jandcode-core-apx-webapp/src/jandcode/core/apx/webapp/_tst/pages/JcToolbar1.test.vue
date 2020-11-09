@@ -3,6 +3,8 @@
         <template #tools>
             <tst-select v-model="cfg.toolbarSet" :options="toolbarSets"
                         label="toolbarSet"/>
+            <tst-select v-model="cfg.titleSize" :options="titleSizes"
+                        label="titleSizes"/>
         </template>
 
         sdsd
@@ -25,9 +27,9 @@
             </jc-action>
         </div>
         <div class="column q-mt-sm q-gutter-y-md toolbar-place">
-            <AppToolbarDemoSet :toolbarSet="cfg.toolbarSet"/>
-            <AppToolbarDemoSet toolbarSet="menu1"/>
-            <AppToolbarDemoSet toolbarSet="logo1"/>
+            <AppToolbarDemoSet :toolbarSet="cfg.toolbarSet" :titleSize="cfg.titleSize"/>
+            <AppToolbarDemoSet toolbarSet="menu1" :titleSize="cfg.titleSize"/>
+            <AppToolbarDemoSet toolbarSet="logo1" :titleSize="cfg.titleSize"/>
         </div>
     </tst-apx-panel>
 </template>
@@ -44,11 +46,13 @@ export default {
     created() {
         this.cfgStore.applyDefault({
             toolbarSet: 'set1',
+            titleSize: null,
         })
     },
     data() {
         return {
-            toolbarSets: createToolbarSets()
+            toolbarSets: createToolbarSets(),
+            titleSizes: [null, 'lg', 'sm']
         }
     },
     methods: {

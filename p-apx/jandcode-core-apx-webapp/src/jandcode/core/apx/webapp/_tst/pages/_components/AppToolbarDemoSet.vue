@@ -45,16 +45,19 @@
 
         <template v-if="toolbarSet=='logo1'">
             <jc-action icon="menu"/>
-            <jc-toolbar-logo icon="app-logo" @click="own.home()"/>
-            <jc-toolbar-title text="Заголовок приложения" @click="own.home()"/>
+            <jc-toolbar-logo icon="app-logo" @click="own.home()" :size="titleSize"/>
+            <jc-toolbar-title text="Заголовок приложения" @click="own.home()"
+                              :size="titleSize"/>
             <jc-action icon="star"/>
             <jc-action icon="mail"/>
-            <jc-toolbar-logo icon="app-logo"/>
-            <jc-toolbar-title text="ThemeNav"/>
+            <jc-toolbar-logo icon="app-logo" :size="titleSize"/>
+            <jc-toolbar-title text="ThemeNav" :size="titleSize"/>
             <img :src="logoUrl" style="width:90px"/>
-            <jc-toolbar-logo icon="app-logo"/>
+            <jc-toolbar-logo icon="app-logo" :size="titleSize"/>
             <jc-action icon="star"/>
-            <jc-toolbar-title text="Заголовок" text2="Это подзаголовок"/>
+            <jc-toolbar-logo icon="app-logo" :size="titleSize"/>
+            <jc-toolbar-title text="Заголовок" text2="Это подзаголовок"
+                              :size="titleSize"/>
         </template>
 
         <template v-if="toolbarSet=='button1'">
@@ -197,11 +200,14 @@ export default {
     props: {
         toolbarSet: {
             default: ''
+        },
+        titleSize: {
+            default: ''
         }
     },
     data() {
         return {
-            logoUrl: jsaBase.url.ref('sandbox/apx1/main/_tst/poligon1/images/logo-my-1.svg')
+            logoUrl: jsaBase.url.ref('jandcode/core/apx/webapp/_tst/images/logo-my-1.svg')
         }
     },
     methods: {

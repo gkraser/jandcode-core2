@@ -14,6 +14,11 @@ export default {
     props: {
         text: {},
         text2: {},
+
+        /**
+         * Размер (md, sm....)
+         */
+        size: {}
     },
     data() {
         return {}
@@ -21,6 +26,10 @@ export default {
     computed: {
         classes() {
             let res = ['jc-toolbar-title']
+            console.info("this.size",this.size);
+            if (this.size) {
+                res.push('jc-toolbar-title--' + this.size)
+            }
             if (this.$listeners.click) {
                 res.push('cursor-pointer')
             }
