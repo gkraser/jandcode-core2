@@ -1,5 +1,5 @@
 <template>
-    <jc-toolbar :key="toolbarSet">
+    <jc-toolbar :key="toolbarSet" :class="toolbarClass">
         <template v-if="toolbarSet=='set1'">
             <div style="display:inline-block">М</div>
             <jc-action icon="bus"/>
@@ -45,19 +45,17 @@
 
         <template v-if="toolbarSet=='logo1'">
             <jc-action icon="menu"/>
-            <jc-toolbar-logo icon="app-logo" @click="own.home()" :size="titleSize"/>
-            <jc-toolbar-title text="Заголовок приложения" @click="own.home()"
-                              :size="titleSize"/>
+            <jc-toolbar-logo icon="app-logo" @click="own.home()"/>
+            <jc-toolbar-title text="Заголовок приложения" @click="own.home()"/>
             <jc-action icon="star"/>
             <jc-action icon="mail"/>
-            <jc-toolbar-logo icon="app-logo" :size="titleSize"/>
-            <jc-toolbar-title text="ThemeNav" :size="titleSize"/>
+            <jc-toolbar-logo icon="app-logo"/>
+            <jc-toolbar-title text="ThemeNav"/>
             <img :src="logoUrl" style="width:90px"/>
-            <jc-toolbar-logo icon="app-logo" :size="titleSize"/>
+            <jc-toolbar-logo icon="app-logo"/>
             <jc-action icon="star"/>
-            <jc-toolbar-logo icon="app-logo" :size="titleSize"/>
-            <jc-toolbar-title text="Заголовок" text2="Это подзаголовок"
-                              :size="titleSize"/>
+            <jc-toolbar-logo icon="app-logo"/>
+            <jc-toolbar-title text="Заголовок" text2="Это подзаголовок"/>
         </template>
 
         <template v-if="toolbarSet=='button1'">
@@ -201,9 +199,7 @@ export default {
         toolbarSet: {
             default: ''
         },
-        titleSize: {
-            default: ''
-        }
+        toolbarClass: ''
     },
     data() {
         return {

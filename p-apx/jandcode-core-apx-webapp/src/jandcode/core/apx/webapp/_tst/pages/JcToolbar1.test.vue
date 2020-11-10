@@ -3,11 +3,8 @@
         <template #tools>
             <tst-select v-model="cfg.toolbarSet" :options="toolbarSets"
                         label="toolbarSet"/>
-            <tst-select v-model="cfg.titleSize" :options="titleSizes"
-                        label="titleSizes"/>
         </template>
 
-        sdsd
         <div class="row items-center q-gutter-x-sm q-mb-md">
             <div>action без toolbar:</div>
             <jc-action icon="bus"/>
@@ -27,9 +24,14 @@
             </jc-action>
         </div>
         <div class="column q-mt-sm q-gutter-y-md toolbar-place">
-            <AppToolbarDemoSet :toolbarSet="cfg.toolbarSet" :titleSize="cfg.titleSize"/>
-            <AppToolbarDemoSet toolbarSet="menu1" :titleSize="cfg.titleSize"/>
-            <AppToolbarDemoSet toolbarSet="logo1" :titleSize="cfg.titleSize"/>
+            <AppToolbarDemoSet :toolbarSet="cfg.toolbarSet"/>
+            <AppToolbarDemoSet toolbarSet="menu1"/>
+            <AppToolbarDemoSet toolbarSet="logo1"/>
+            <div class="q-mb-lg"/>
+            <AppToolbarDemoSet toolbarSet="logo1"
+                               toolbar-class="bg-primary text-white q-pa-md"/>
+            <AppToolbarDemoSet :toolbarSet="cfg.toolbarSet"
+                               toolbar-class="bg-primary text-white q-pa-md"/>
         </div>
     </tst-apx-panel>
 </template>
@@ -46,13 +48,11 @@ export default {
     created() {
         this.cfgStore.applyDefault({
             toolbarSet: 'set1',
-            titleSize: null,
         })
     },
     data() {
         return {
             toolbarSets: createToolbarSets(),
-            titleSizes: [null, 'lg', 'sm']
         }
     },
     methods: {
