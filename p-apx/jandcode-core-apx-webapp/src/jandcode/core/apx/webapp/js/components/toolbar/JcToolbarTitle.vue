@@ -1,16 +1,17 @@
 <template>
     <div :class="classes" v-on="$listeners">
+        <div class="jc-toolbar-title--text">{{ text }}</div>
         <template v-if="text2">
-            <div class="jc-toolbar-title--text1">{{ text }}</div>
             <div class="jc-toolbar-title--text2">{{ text2 }}</div>
         </template>
-        <div v-else class="jc-toolbar-title--text">{{ text }}</div>
     </div>
 </template>
 
 <script>
+let nm = 'jc-toolbar-title'
+
 export default {
-    name: 'jc-toolbar-title',
+    name: nm,
     props: {
         text: {},
         text2: {},
@@ -25,9 +26,12 @@ export default {
     },
     computed: {
         classes() {
-            let res = ['jc-toolbar-title']
+            let res = [nm]
             if (this.size) {
-                res.push('jc-toolbar-title--' + this.size)
+                res.push(nm + '--' + this.size)
+            }
+            if (this.text2) {
+                res.push(nm + '--with-text2')
             }
             if (this.$listeners.click) {
                 res.push('cursor-pointer')
@@ -35,6 +39,5 @@ export default {
             return res
         }
     },
-    methods: {},
 }
 </script>
