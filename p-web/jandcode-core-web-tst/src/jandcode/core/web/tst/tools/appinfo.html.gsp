@@ -1,4 +1,4 @@
-<%@ page import="jandcode.core.web.cachecontrol.*; jandcode.core.std.*; jandcode.commons.named.*; jandcode.core.web.gsp.*; jandcode.core.web.*; jandcode.commons.*" %>
+<%@ page import="jandcode.core.web.std.action.*; jandcode.core.web.cachecontrol.*; jandcode.core.std.*; jandcode.commons.named.*; jandcode.core.web.gsp.*; jandcode.core.web.*; jandcode.commons.*" %>
 <jc:page template="page/tst-main">
   <%
     //
@@ -119,13 +119,21 @@
     <tr>
       <th>name</th>
       <th>class</th>
+      <th>props</th>
     </tr>
     <%
       for (r in domainSvc.actions) {
         def cls
+        def props = ""
         try {
           def a = r.createInst()
           cls = a.class.name
+          if (a instanceof GspAction) {
+            String tm = a.template
+            if (!UtString.empty(tm)) {
+              props = props + " template=" + tm
+            }
+          }
         } catch (e) {
           cls = "ERROR: " + UtError.createErrorInfo(e).text
         }
@@ -133,6 +141,7 @@
     <tr>
       <td>${r.name}</td>
       <td>${cls}</td>
+      <td>${props}</td>
     </tr>
     <% } %>
   </table>

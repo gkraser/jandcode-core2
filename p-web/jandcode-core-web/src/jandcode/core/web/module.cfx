@@ -62,7 +62,8 @@
         <!-- настройки для web -->
 
         <action-provider name="system"
-                         class="jandcode.core.web.action.impl.ActionProviderConf"/>
+                         class="jandcode.core.web.action.impl.ActionProviderConf"
+                         gspClass="jandcode.core.web.std.action.GspAction"/>
 
         <action-factory name="system"
                         class="jandcode.core.web.action.impl.SystemActionFactory"/>
@@ -96,8 +97,9 @@
 
         <!-- =================== -->
 
+        <!-- по умолчанию корень - это gsp с именем root -->
         <action name="root"
-                class="jandcode.core.web.virtfile.impl.action.VirtFolderAction"/>
+                template="root"/>
 
         <action name="showerror"
                 class="jandcode.core.web.std.action.Showerror"/>

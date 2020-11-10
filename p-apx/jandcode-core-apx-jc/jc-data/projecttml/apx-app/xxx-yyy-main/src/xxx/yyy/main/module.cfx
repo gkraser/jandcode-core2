@@ -5,7 +5,6 @@
         <mount-module/>
 
         <action name="root"
-                class="jandcode.core.apx.web.action.ApxWebappAction"
                 template="xxx/yyy/main/js/main.gsp"/>
 
     </web>

@@ -11,6 +11,9 @@
         <action-factory name="mdoc" weight="1000"
                         class="jandcode.mdoc.web.MDocActionFactory"/>
 
+        <action name="root"
+                template="jandcode/mdoc/web/gsp/root.gsp"/>
+
         <action name="mdoc"
                 class="jandcode.mdoc.web.MDocAction"/>
 
