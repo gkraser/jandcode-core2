@@ -11,12 +11,12 @@
             <jc-action icon="star"/>
             <jc-action icon="mail"/>
             <jc-action label="Конфигурации" icon="config"/>
-            <jc-action label="Конфигурации" icon="config" color="primary"/>
+            <jc-action label="Конфигурации" icon="config" color="negative"/>
             <jc-action label="Задачи"/>
             <jc-action label="Меню 1">
                 <SubMenu1/>
             </jc-action>
-            <jc-action icon="bus">
+            <jc-action icon="more-h">
                 <SubMenu1/>
             </jc-action>
             <jc-action label="Меню 2" icon="mail">

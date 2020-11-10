@@ -21,7 +21,10 @@
             <jc-action icon="calc" label="Меню 0">
                 <SubMenu1/>
             </jc-action>
-            <jc-action icon="bus">
+            <jc-action icon="more-v">
+                <SubMenu1/>
+            </jc-action>
+            <jc-action icon="more-h">
                 <div class="q-pa-md q-gutter-sm row" style="width:700px">
                     <q-btn label="Кнопка1 закроет" color="positive" v-close-popup/>
                     <q-btn label="Просто кнопка2" color="positive"/>

@@ -4,6 +4,7 @@
             v-close-popup="isMenuItem && !hasSubMenu"
             :class="classes"
             :flat="inToolbar || isMenuItem"
+            :label="label"
             align="left"
             :stretch="isMenuItem?true:stretch"
             :icon="leftIcon"
@@ -37,6 +38,7 @@ export default {
     props: {
         icon: {default: null},
         stretch: {default: null},
+        label: {default: null},
     },
     provide() {
         return {
@@ -69,7 +71,7 @@ export default {
         },
         rightIcon() {
             let res = undefined
-            if (this.hasSubMenu) {
+            if (this.hasSubMenu && this.label && this.label !== '') {
                 if (this.isMenuItem) {
                     res = 'caret-right'
                 } else {
