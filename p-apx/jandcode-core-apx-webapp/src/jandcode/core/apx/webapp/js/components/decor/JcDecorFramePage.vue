@@ -33,6 +33,7 @@
 import JcDecorFrame from "../../baseapp/JcDecorFrame"
 
 export default {
+    name: 'jc-decor-frame-page',
     extends: JcDecorFrame,
 }
 </script>

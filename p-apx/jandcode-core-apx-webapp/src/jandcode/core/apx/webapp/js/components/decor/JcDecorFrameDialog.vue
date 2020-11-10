@@ -44,6 +44,8 @@ import JcDecorFrame from '../../baseapp/JcDecorFrame'
 import {getDialogButtons} from '../../baseapp/frame'
 
 export default {
+    name: 'jc-decor-frame-dialog',
+
     extends: JcDecorFrame,
     props: {
         size: {

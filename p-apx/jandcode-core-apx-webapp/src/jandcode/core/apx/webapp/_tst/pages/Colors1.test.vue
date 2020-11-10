@@ -82,7 +82,7 @@ export default {
 
     td {
       border: 1px solid silver;
-      padding: 6px;
+      padding: 3px;
       text-align: center;
       vertical-align: middle;
     }
@@ -93,9 +93,9 @@ export default {
     }
 
     .sample {
-      height: 30px;
+      height: 24px;
       min-width: 80px;
-      line-height: 30px;
+      line-height: 24px;
     }
 
     .sample-color {

@@ -1,7 +1,11 @@
 /* декоратор для диалогов
 ----------------------------------------------------------------------------- */
 
+@import "../vars";
+
 .jc-decor-frame-dialog {
+
+  ////// обязательная часть!
 
   display: flex;
   flex-direction: column;
@@ -22,6 +26,23 @@
     max-height: calc(100vh - 48px);
     max-width: calc(100vw - 48px);
     width: 100vw;
+  }
+
+  ///// далее минимальное оформление
+
+  border: 1px solid @color-gray-400;
+  background-color: white;
+
+  &__body {
+    padding: 1em;
+  }
+
+  &__header {
+    padding: 0.5em 1em;
+  }
+
+  &__footer {
+    padding: 0.5em 1em;
   }
 
 }

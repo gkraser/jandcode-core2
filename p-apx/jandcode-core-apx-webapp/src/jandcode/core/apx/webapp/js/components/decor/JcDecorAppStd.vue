@@ -70,6 +70,8 @@
 import JcDecorApp from "../../baseapp/JcDecorApp"
 
 export default {
+    name: 'jc-decor-app-std',
+
     extends: JcDecorApp,
 
     props: {
