@@ -1,7 +1,7 @@
 <template>
-    <q-layout view="hHh Lpr fff" class="jc-app jc-decor-app" :container="container">
+    <q-layout view="hHh Lpr fff" class="jc-app jc-decor-app-std" :container="container">
 
-        <q-header :elevated="false" class="jc-app--header">
+        <q-header :elevated="false" class="jc-decor-app-std__header">
             <slot name="top-header"></slot>
             <q-toolbar>
                 <slot name="toolbar-left">
@@ -9,7 +9,9 @@
                         <jc-action
                                 icon="menu" @click="own.left = !own.left"/>
                         <slot name="title">
-                            <jc-toolbar-logo :icon="own.icon" @click="own.home()"/>
+                            <q-icon v-if="own.icon" :name="own.icon"
+                                    class="cursor-pointer jc-decor-app-std__logo"
+                                    @click="own.home()"/>
                             <jc-toolbar-title :text="own.title" :text2="own.title2"
                                               @click="own.home()"/>
                         </slot>
@@ -29,7 +31,8 @@
         </q-header>
 
         <q-drawer v-model="own.left" :elevated="false"
-                  side="left" bordered content-class="jc-app--side jc-app--left"
+                  side="left" bordered
+                  content-class="jc-decor-app-std__side jc-decor-app-std__side--left"
                   :width="own.leftWidth">
             <q-scroll-area class="fit">
 
@@ -41,7 +44,8 @@
 
         <q-drawer v-model="own.right" behavior="mobile" :elevated="false"
                   no-swipe-open no-swipe-close no-swipe-backdrop
-                  side="right" bordered content-class="jc-app--side jc-app--right"
+                  side="right" bordered
+                  content-class="jc-decor-app-std__side jc-decor-app-std__side--right"
                   :width="own.rightWidth">
             <q-scroll-area class="fit">
 
@@ -51,7 +55,7 @@
             </q-scroll-area>
         </q-drawer>
 
-        <q-page-container class="jc-app--main">
+        <q-page-container class="jc-app--main jc-decor-app-std__main">
             <slot name="main">
                 <q-page>
                     <jc-place-frame></jc-place-frame>

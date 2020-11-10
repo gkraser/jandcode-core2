@@ -29,7 +29,9 @@
                 </template>
 
                 <template #main>
-                    <Frame1 ref="frame1"/>
+                    <q-page>
+                        <Frame1 ref="frame1"/>
+                    </q-page>
                 </template>
             </App>
         </div>

@@ -1,23 +1,23 @@
 /* декоратор для диалогов
 ----------------------------------------------------------------------------- */
 
-.jc-decor-dialog {
+.jc-decor-frame-dialog {
 
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   max-width: 100%;
 
-  .jc-frame--header, .jc-frame--footer {
+  &__header, &__footer {
     flex-shrink: 0;
   }
 
-  .jc-frame--body {
+  &__body {
     overflow: auto;
     flex-grow: 1;
   }
 
-  &.jc-decor-dialog--size__max {
+  &--size__max {
     height: calc(100vh - 48px);
     max-height: calc(100vh - 48px);
     max-width: calc(100vw - 48px);

@@ -1,14 +1,14 @@
 <template>
-    <div class="jc-frame jc-decor-page">
+    <div class="jc-decor-frame-page">
 
-        <div class="jc-frame--header">
+        <div class="jc-decor-frame-page__header">
 
             <jc-toolbar v-if="hasTitle">
 
 
-                <jc-toolbar-logo v-if="own.icon" :icon="own.icon"
-                                 :class="own.title2?'self-start':''">
-                </jc-toolbar-logo>
+                <q-icon v-if="own.icon" :name="own.icon"
+                        :class="[own.title2?'self-start':'', 'jc-decor-frame-page__title-icon']">
+                </q-icon>
 
                 <jc-toolbar-title :text="own.title" :text2="own.title2">
                 </jc-toolbar-title>
@@ -22,7 +22,7 @@
 
         </div>
 
-        <div class="jc-frame--body" :class="bodyClass" :style="bodyStyle">
+        <div class="jc-decor-frame-page__body" :class="bodyClass" :style="bodyStyle">
             <slot name="default">
             </slot>
         </div>

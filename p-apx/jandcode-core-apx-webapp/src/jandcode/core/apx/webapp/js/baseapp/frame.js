@@ -8,9 +8,7 @@ import {ComponentHolder} from './component-holder'
 // настройки темы по умолчанию
 jsaBase.cfg.setDefault({
     theme: {
-        dialog: {
-            flatButtons: false
-        },
+        dialog: {},
         componentHolder: {}
     }
 })

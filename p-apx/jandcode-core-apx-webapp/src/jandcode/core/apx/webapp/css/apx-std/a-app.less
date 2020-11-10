@@ -1,14 +1,20 @@
 /* Стили для приложения JcDecorAppStd
 ----------------------------------------------------------------------------- */
 
-.jc-decor-app {
-  .jc-app--header.q-header {
+@import "./vars";
+
+/* app
+----------------------------------------------------------------------------- */
+
+.jc-decor-app-std {
+
+  &__header.q-header {
     background-color: @color-gray-100;
     color: @color-gray-800;
     border-bottom: 1px solid @color-gray-400;
   }
 
-  .jc-app--header {
+  &__header {
 
     .jc-toolbar-title__text {
       font-size: @font-size-large-4;
@@ -23,17 +29,30 @@
 
   }
 
-  .jc-app--main {
+  &__logo {
+    font-size: 2em;
+  }
+
+  &__main {
     background-color: @color-gray-100;
   }
 
-  .jc-frame--header {
+
+}
+
+/* page
+----------------------------------------------------------------------------- */
+
+.jc-decor-frame-page {
+
+  &__header {
     background-color: white;
     color: @color-gray-800;
 
     border-bottom: 1px solid @color-gray-400;
-    padding-top: 1.3em;
-    padding-bottom: 1.3em;
+
+    padding-top: 1.0em;
+    padding-bottom: 1.0em;
     padding-left: 2em;
     padding-right: 1em;
 
@@ -47,19 +66,91 @@
     }
 
     .jc-toolbar-title__text2 {
-      margin-top: 0.5rem;
+      margin-top: 0.2rem;
       font-size: @font-size-small-1;
       font-weight: 300;
     }
 
-    .jc-toolbar-logo {
-      .q-icon {
-        padding-right: 0.3em;
-        font-size: 1.5rem;
-        color: @color-gray-500;
+  }
+
+  &__title-icon {
+    font-size: @font-size-large-3;
+    opacity: 0.5;
+  }
+
+  &__body {
+    padding: 1.5rem 2rem;
+  }
+
+}
+
+/* dialog
+----------------------------------------------------------------------------- */
+
+.jc-decor-frame-dialog {
+
+  border: 1px solid @color-gray-400;
+  box-shadow: @shadow-1;
+  border-radius: 4px;
+  background-color: white;
+
+  &__header {
+    background-color: @color-gray-100;
+    color: @color-gray-800;
+
+    border-bottom: 1px solid @color-gray-400;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    padding-left: 1.5em;
+    padding-right: 1em;
+
+    .jc-toolbar {
+      min-height: 32px;
+    }
+
+    .jc-toolbar-title__text {
+      font-size: @font-size-large-2;
+      font-weight: 300;
+    }
+
+    .jc-toolbar-title__text2 {
+      margin-top: 0.1rem;
+      font-size: @font-size-small-2;
+      font-weight: 300;
+    }
+
+  }
+
+  &__body {
+    padding: 20px;
+  }
+
+  &__footer {
+    background-color: @color-gray-100;
+    color: @color-gray-800;
+
+    border-top: 1px solid @color-gray-400;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+    padding-left: 1.5em;
+    padding-right: 1em;
+
+    .jc-toolbar {
+      min-height: 32px;
+
+      & > * {
+        margin-left: 8px;
       }
     }
 
+    .jc-btn {
+      min-width: 85px;
+    }
+
+  }
+
+  &__title-icon {
+    opacity: 0.5;
   }
 
 }

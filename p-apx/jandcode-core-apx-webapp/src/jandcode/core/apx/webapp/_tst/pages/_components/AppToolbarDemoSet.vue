@@ -45,16 +45,11 @@
 
         <template v-if="toolbarSet=='logo1'">
             <jc-action icon="menu"/>
-            <jc-toolbar-logo icon="app-logo" @click="own.home()"/>
             <jc-toolbar-title text="Заголовок приложения" @click="own.home()"/>
             <jc-action icon="star"/>
             <jc-action icon="mail"/>
-            <jc-toolbar-logo icon="app-logo"/>
             <jc-toolbar-title text="ThemeNav"/>
-            <img :src="logoUrl" style="width:90px"/>
-            <jc-toolbar-logo icon="app-logo"/>
             <jc-action icon="star"/>
-            <jc-toolbar-logo icon="app-logo"/>
             <jc-toolbar-title text="Заголовок" text2="Это подзаголовок"/>
         </template>
 
@@ -202,9 +197,7 @@ export default {
         toolbarClass: ''
     },
     data() {
-        return {
-            logoUrl: jsaBase.url.ref('jandcode/core/apx/webapp/_tst/images/logo-my-1.svg')
-        }
+        return {}
     },
     methods: {
         clickItem() {

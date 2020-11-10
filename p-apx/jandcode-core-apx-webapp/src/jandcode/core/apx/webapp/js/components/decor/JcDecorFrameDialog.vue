@@ -1,12 +1,12 @@
 <template>
-    <q-card :class="classes">
+    <div :class="classes">
 
-        <div class="jc-frame--header">
+        <div class="jc-decor-frame-dialog__header">
             <jc-toolbar>
 
-                <jc-toolbar-logo v-if="own.icon" :icon="own.icon"
-                                 :class="own.title2?'self-start':''">
-                </jc-toolbar-logo>
+                <q-icon v-if="own.icon" :name="own.icon"
+                        :class="['jc-decor-frame-dialog__title-icon']">
+                </q-icon>
 
                 <jc-toolbar-title :text="own.title" :text2="own.title2">
                 </jc-toolbar-title>
@@ -21,22 +21,22 @@
             </jc-toolbar>
         </div>
 
-        <q-card-section class="jc-frame--body" :class="bodyClass" :style="bodyStyle">
+        <div class="jc-decor-frame-dialog__body" :class="bodyClass" :style="bodyStyle">
             <slot name="default">
             </slot>
-        </q-card-section>
+        </div>
 
-        <div class="jc-frame--footer">
+        <div class="jc-decor-frame-dialog__footer">
             <jc-toolbar>
                 <q-space/>
                 <template v-for="b in footerRightButtons">
                     <jc-btn :label="b.label" :kind="b.kind" :icon="b.icon"
-                            :flat="flatButtons" @click="own.closeFrame(b.cmd)"/>
+                            @click="own.closeFrame(b.cmd)"/>
                 </template>
             </jc-toolbar>
         </div>
 
-    </q-card>
+    </div>
 </template>
 
 <script>
@@ -57,21 +57,17 @@ export default {
     computed: {
         classes() {
             let res = [
-                'jc-frame',
-                'jc-decor-dialog',
+                'jc-decor-frame-dialog',
             ]
             if (this.size) {
                 let s = '' + this.size
-                res.push('jc-decor-dialog--size__' + s)
+                res.push('jc-decor-frame-dialog--size-' + s)
             }
             return res;
         },
         footerRightButtons() {
             return getDialogButtons(this.buttons)
         },
-        flatButtons() {
-            return this.$jc.cfg.theme.dialog.flatButtons
-        }
     }
 }
 </script>
