@@ -141,4 +141,11 @@
         <include-client mask="dist/**/*.js"/>
     </lib>
 
+    <lib name="tabulator-tables" version="4.8.4" client="true">
+        <include-client mask="dist/**/*"/>
+        <exclude-client mask="**/*.map"/>
+        <exclude-client mask="**/*.es2015.*"/>
+        <exclude-client mask="**/*jquery*.*"/>
+    </lib>
+
 </root>
