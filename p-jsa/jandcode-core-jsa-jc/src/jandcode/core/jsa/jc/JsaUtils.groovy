@@ -168,6 +168,9 @@ class JsaUtils extends ProjectScript {
             for (p in mi.resolvePaths) {
                 modules += "${indent}'${norm(p)}',\n"
             }
+            if (mi.getJcDataWebrootPath() != null) {
+                modules += "${indent}'${norm(mi.getJcDataWebrootPath())}',\n"
+            }
         }
         modules += "${indent}'${norm(wd(JsaConsts.NODE_MODULES))}',\n"
         modules += "${indent}'${norm(wd(JcConsts.JC_METADATA_DIR))}',\n"

@@ -18,6 +18,7 @@ public class JsaModuleImpl implements JsaModule {
     private List<String> resolvePaths = new ArrayList<>();
     private Map<String, Object> gulpTasks = new LinkedHashMap<>();
     private List<String> nodeJsDepends = new ArrayList<>();
+    private String jcDataWebrootPath;
 
     public JsaModuleImpl(Ctx ctx, Lib lib) {
         this.lib = lib;
@@ -54,6 +55,11 @@ public class JsaModuleImpl implements JsaModule {
 
         this.gulpTasks.putAll(jsa.getGulpTasks());
         this.nodeJsDepends.addAll(jsa.getNodeJsDepends());
+
+        String wrp = p.wd("jc-data/webroot");
+        if (UtFile.exists(wrp)) {
+            this.jcDataWebrootPath = wrp;
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -111,6 +117,11 @@ public class JsaModuleImpl implements JsaModule {
             }
         }
 
+        String wrp = UtFile.join(this.srcPath, "META-INF/jc-data/webroot");
+        if (UtFile.exists(wrp)) {
+            this.jcDataWebrootPath = wrp;
+        }
+
     }
 
     //////
@@ -150,6 +161,10 @@ public class JsaModuleImpl implements JsaModule {
 
     public List<String> getNodeJsDepends() {
         return nodeJsDepends;
+    }
+
+    public String getJcDataWebrootPath() {
+        return jcDataWebrootPath;
     }
 
 }

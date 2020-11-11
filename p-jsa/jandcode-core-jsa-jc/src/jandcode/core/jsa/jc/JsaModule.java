@@ -25,6 +25,12 @@ public interface JsaModule extends INamed {
     String getSrcPath();
 
     /**
+     * Каталог jc-data/webroot.
+     * Если он отсутствует в модуле, то возвращает null.
+     */
+    String getJcDataWebrootPath();
+
+    /**
      * Ссылка на библиотеку
      */
     Lib getLib();
