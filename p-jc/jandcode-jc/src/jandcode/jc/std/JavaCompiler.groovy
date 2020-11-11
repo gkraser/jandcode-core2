@@ -78,9 +78,22 @@ class JavaCompiler extends ProjectScript {
             log.debug(ut.makePrintClasspath(cp))
         }
 
+        // java target/source
+        def javacParams_TS = [:]
+        def groovycParams_TS = [:]
+        JavaVars jv = include(JavaVars)
+        if (!UtString.empty(jv.targetLevel)) {
+            javacParams_TS['target'] = jv.targetLevel
+            groovycParams_TS['targetBytecode'] = jv.targetLevel
+        }
+        if (!UtString.empty(jv.sourceLevel)) {
+            javacParams_TS['source'] = jv.sourceLevel
+        }
+
         if (!isGroovy) {
-            ant.javac(destdir: destdir, debug: debug, includeantruntime: false, fork: true,
-                    classpath: cp_s, encoding: encoding) {
+            def javacParams = [destdir  : destdir, debug: debug, includeantruntime: false, fork: true,
+                               classpath: cp_s, encoding: encoding]
+            ant.javac(javacParams + javacParams_TS) {
                 for (s in srcs) {
                     src(path: s)
                 }
@@ -88,12 +101,15 @@ class JavaCompiler extends ProjectScript {
             }
         } else {
             ant.taskdef(name: "groovyc", classname: "org.codehaus.groovy.ant.Groovyc")
-            ant.groovyc(destdir: destdir, includeantruntime: false, fork: true,
-                    classpath: cp_s, encoding: encoding) {
+            def groovycParams = [destdir  : destdir, includeantruntime: false, fork: true,
+                                 classpath: cp_s, encoding: encoding]
+            def javacParams = [debug: debug, encoding: encoding]
+
+            ant.groovyc(groovycParams + groovycParams_TS) {
                 for (s in srcs) {
                     src(path: s)
                 }
-                javac(debug: debug, encoding: encoding) {
+                javac(javacParams + javacParams_TS) {
                     compilerarg(value: "-Jclasspath=${cp_s}")
                 }
             }

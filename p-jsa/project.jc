@@ -10,11 +10,10 @@ class P extends ProjectScript {
     void onInclude() {
         //
         project.name = "p-jsa"
-        project.version = load("..").version
+        include("../common.jc")
         //
         include(RootProject).with {
             moduleGroup = "jc-core/p-jsa"
-            groupId = "com.jandcode"
             modules(
                     "jandcode-core-jsa",
                     "jandcode-core-jsa-jc",

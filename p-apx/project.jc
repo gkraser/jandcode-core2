@@ -10,10 +10,9 @@ class P extends ProjectScript {
     void onInclude() {
         //
         project.name = "p-apx"
-        project.version = load("..").version
+        include("../common.jc")
         //
         include(RootProject).with {
-            groupId = "com.jandcode"
             moduleGroup = "jc-core/p-apx"
             modules(
                 "jandcode-core-apx",

@@ -1,0 +1,19 @@
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    void onInclude() {
+        // общие настройки для всех корневых подпроектов
+        project.version = load("${scriptDir}").version
+        include(RootProject).with {
+            groupId = "com.jandcode"
+        }
+        include(JavaVars).with {
+            // пока отмена: при необходимости собирать нужной установленной версией!
+            //targetLevel = '11'
+            //sourceLevel = '11'
+        }
+    }
+
+}

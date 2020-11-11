@@ -1,6 +1,6 @@
 package jandcode.jc.std
 
-
+import jandcode.commons.*
 import jandcode.jc.*
 
 /**
@@ -36,10 +36,23 @@ class Showinfo extends ProjectScript {
         m['Version'] = project.version
         m['Project file'] = project.projectFile
         m['Project home'] = project.wd.path
+        m['Java version'] = System.getProperty("java.version")
+        m['Java home'] = System.getProperty("java.home")
 
         List autoLoad = ctx.config.autoLoadProjects
         if (autoLoad.size() > 0) {
             m['Auto load'] = autoLoad
+        }
+
+        JavaVars jv = include(JavaVars)
+        String s
+        s = jv.targetLevel
+        if (!UtString.empty(s)) {
+            m['Java targetLevel'] = s
+        }
+        s = jv.sourceLevel
+        if (!UtString.empty(s)) {
+            m['Java sourceLevel'] = s
         }
 
         if (args.a) {
