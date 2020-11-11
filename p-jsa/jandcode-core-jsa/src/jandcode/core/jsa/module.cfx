@@ -89,6 +89,11 @@
                           extractRequire="false"
                           moduleClass="jandcode.core.jsa.jsmodule.std.JsModuleJs"/>
 
+        <jsmodule-factory name="jslib.js"
+                          mask="jslib/**/*.js"
+                          extractRequire="false"
+                          moduleClass="jandcode.core.jsa.jsmodule.std.JsModuleJs"/>
+
         <!--
 
         маппинг имен модулей
