@@ -13,6 +13,14 @@ export default {
         },
         bodyStyle: {
             type: [Array, String, Object],
+        },
+
+        /**
+         * Тело фрейма должно по возможности быть растянуто
+         * на видимую часть экрана.
+         */
+        bodyFit: {
+            type: Boolean
         }
     },
 

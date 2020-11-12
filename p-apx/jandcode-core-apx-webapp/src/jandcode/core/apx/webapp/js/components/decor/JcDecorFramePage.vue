@@ -1,5 +1,5 @@
 <template>
-    <div class="jc-decor-frame-page">
+    <div :class="classes">
 
         <div class="jc-decor-frame-page__header">
 
@@ -22,7 +22,9 @@
 
         </div>
 
-        <div class="jc-decor-frame-page__body" :class="bodyClass" :style="bodyStyle">
+        <div class="jc-decor-frame-page__body"
+             :class="bodyClass"
+             :style="bodyStyle">
             <slot name="default">
             </slot>
         </div>
@@ -32,8 +34,19 @@
 <script>
 import JcDecorFrame from "../../baseapp/JcDecorFrame"
 
+let nm = 'jc-decor-frame-page';
+
 export default {
-    name: 'jc-decor-frame-page',
+    name: nm,
     extends: JcDecorFrame,
+    computed: {
+        classes() {
+            let res = [nm]
+            if (this.bodyFit) {
+                res.push(nm + '--body-fit')
+            }
+            return res
+        }
+    }
 }
 </script>

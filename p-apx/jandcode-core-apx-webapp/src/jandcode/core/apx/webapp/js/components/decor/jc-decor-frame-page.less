@@ -11,5 +11,17 @@
     padding: 1.5rem 2rem;
   }
 
+  // тело фрейма растягиваем
+
+  &--body-fit {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &--body-fit &__body {
+    flex: 1;
+    display: flex
+  }
+
 }
 
