@@ -51,16 +51,30 @@ class GitVersion extends ProjectScript {
             if (f != null) {
                 def a = ut.runcmd(cmd: 'git describe --match "v-*"', saveout: true, showout: false, dir: getWorkDir())
                 v = ""
+                boolean hasHash = false
                 if (a.size() > 0) {
                     if (a[0].startsWith("v-")) {
                         v = a[0].substring(2)
+                        // убираем hash
+                        int b = v.lastIndexOf('-g', v.length() - 1)
+                        if (b != -1) {
+                            hasHash = true
+                            v = v.substring(0, b)
+                        }
+                    }
+                }
+                if (hasHash && !UtString.empty(v)) {
+                    String branch = getBranch()
+                    branch = branch.replace("/", "-")
+                    if ("master" != branch) {
+                        v = v + "-${branch}-${getRev()}"
                     }
                 }
             }
         } catch (ignore) {
         }
         if (v == "") {
-            v = JcConsts.VERSION_DEFAULT + "-" + rev
+            v = JcConsts.VERSION_DEFAULT + "-" + getRev()
         }
         return v
     }
@@ -82,6 +96,24 @@ class GitVersion extends ProjectScript {
         } catch (ignore) {
         }
         return "DEV"
+    }
+
+    /**
+     * Имя ветки
+     */
+    String getBranch() {
+        try {
+            def f = UtFile.findFileUp(".git", getWorkDir())
+            if (f != null) {
+                def a = ut.runcmd(cmd: 'git branch --show-current', saveout: true, showout: false, dir: getWorkDir())
+                if (a.size() > 0) {
+                    def s = a[0]
+                    return s
+                }
+            }
+        } catch (ignore) {
+        }
+        return ""
     }
 
     /**
