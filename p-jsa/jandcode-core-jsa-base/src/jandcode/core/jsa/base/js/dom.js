@@ -112,8 +112,10 @@ export function getViewportBound() {
 let __createTmpElement_place = null
 
 /**
- * Создает элемент, который лежит в dom, но невидимый.
+ * Создает элемент, который лежит в dom, видим, но за пределами экрана.
  * После использования его нужно удалять, что бы не замусоривать dom.
+ * Используется для отложенного рендеринга вещей, которые правильно рендярятся
+ * только в реальные видимые элементы.
  *
  * @param tagName имя тега (по умолчанию 'div')
  * @param id id тега, если установлен
@@ -122,7 +124,11 @@ export function createTmpElement(tagName, id) {
     if (__createTmpElement_place == null) {
         __createTmpElement_place = document.createElement('div')
         __createTmpElement_place.id = base.nextId('tmp-place-')
-        __createTmpElement_place.style.display = 'none'
+        __createTmpElement_place.style.position = 'fixed'
+        __createTmpElement_place.style.zIndex = '100500'
+        __createTmpElement_place.style.maxWidth = '100vw'
+        __createTmpElement_place.style.left = '500vw'
+        __createTmpElement_place.style.top = '0'
         document.body.appendChild(__createTmpElement_place)
     }
     let el = document.createElement(tagName || 'div')

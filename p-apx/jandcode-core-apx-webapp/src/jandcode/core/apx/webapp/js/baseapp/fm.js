@@ -114,7 +114,7 @@ export class FrameManager {
         await fw.initFrame()
 
         // теперь фрейм готов к работе
-        fw.frameInst.$mount()
+        fw.frameInst.$mount(jsaBase.dom.createTmpElement())
 
         // показываем его
         if (fw instanceof FrameWrapperDialog) {
