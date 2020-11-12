@@ -131,7 +131,7 @@ public class UndertowRunner {
                 .addPrefixPath(this.context, h);
 
         Undertow server = Undertow.builder()
-                .addHttpListener(this.port, "localhost")
+                .addHttpListener(this.port, "0.0.0.0")
                 .setHandler(path1)
                 .build();
         server.start();
