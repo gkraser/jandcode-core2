@@ -9,7 +9,7 @@ import jandcode.core.test.*
 
 /**
  * Утилиты для поддержки тестирования модуля db и драйверов на его основе.
- * В setUp создается при необходимости база данных, описанная в dbsource test.1
+ * В setUp создается при необходимости база данных, описанная в dbsource test1
  * и с ней устанавливается соединение, доступное через db.
  */
 class DbSimpleTestSvc extends BaseAppTestSvc {
