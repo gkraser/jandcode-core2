@@ -21,7 +21,7 @@ public interface DbSource extends Comp, IConfLink, BeanFactoryOwner {
      * Соединение автоматически не устанавливается.
      *
      * @param direct при значении true создается экземпляр, настроенный
-     *               на dicrect-соединения (без пула).
+     *               на direct-соединения (без пула).
      */
     Db createDb(boolean direct);
 
