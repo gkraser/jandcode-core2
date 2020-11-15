@@ -22,7 +22,6 @@ class P extends ProjectScript {
                     "p-db",
                     "p-web",
                     "p-jsa",
-                    "p-dwm",
                     "p-mdoc",
                     "p-apx",
             )
