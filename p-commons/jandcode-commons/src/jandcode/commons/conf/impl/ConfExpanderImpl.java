@@ -166,6 +166,10 @@ public class ConfExpanderImpl implements ConfExpander {
         return root;
     }
 
+    public Conf getCache() {
+        return cache;
+    }
+
     //////
 
     private TypeDef getTypeDef(String type, boolean createIfNotExist) {
@@ -237,6 +241,39 @@ public class ConfExpanderImpl implements ConfExpander {
         expandProps(exp, td);
 
         return exp;
+    }
+
+    public Conf expand(String type, Conf obj) {
+        TypeDef td = getTypeDef(type, false);
+        String parent = obj.getString(this.parentAttrName);
+        //
+        Conf res = UtConf.create(obj.getName());
+        //
+        if (UtString.empty(parent)) {
+            // предок не указан, накладываем заказанный
+            res.join(obj);
+
+        } else {
+            // предок указан, берем его из кеша или раскрываем в кеш, если первый вызов
+            Conf exp = expand(type, parent);
+
+            // накладываем предка
+            res.join(exp);
+
+            // удаляем не наследуемые
+            anyType.removeNotInherited(res);
+            td.removeNotInherited(res);
+
+            // накладываем объект
+            res.join(obj);
+
+        }
+        // имеем res, который копия parent+наложены свойства из obj
+        // раскрываем свойства
+        expandProps(res, td);
+
+        // все
+        return res;
     }
 
     /**

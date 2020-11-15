@@ -63,6 +63,13 @@ public interface ConfExpander {
     Conf getRoot();
 
     /**
+     * Контейнер, в который помещаются данные после раскрытия.
+     * Заполняется по мере вызовов expand. Если был вызов expand('type'),
+     * то все типы попадают в кеш.
+     */
+    Conf getCache();
+
+    /**
      * Получить раскрытую Conf для объекта типа type с именем name.
      */
     Conf expand(String type, String name);
@@ -71,6 +78,12 @@ public interface ConfExpander {
      * Получить раскрытую Conf для объектов типа type
      */
     Conf expand(String type);
+
+    /**
+     * Получить раскрытую Conf для объекта типа type, конфигурация
+     * которого передана в параметре obj
+     */
+    Conf expand(String type, Conf obj);
 
     /**
      * Определить правило раскрытия.
