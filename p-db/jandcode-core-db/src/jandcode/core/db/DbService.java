@@ -3,10 +3,18 @@ package jandcode.core.db;
 import jandcode.commons.conf.*;
 import jandcode.core.*;
 
+import java.util.*;
+
 /**
  * Сервис для баз данных.
  */
 public interface DbService extends Comp {
+
+    /**
+     * Имена зарегистрированных DbSource.
+     * Фактически имена из конфигурации 'cfg/dbsource'.
+     */
+    Collection<String> getDbSourceNames();
 
     /**
      * Создает новый экземпляр DbSource по переданной conf,

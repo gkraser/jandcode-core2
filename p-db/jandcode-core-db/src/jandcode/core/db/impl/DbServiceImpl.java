@@ -5,6 +5,8 @@ import jandcode.commons.named.*;
 import jandcode.core.*;
 import jandcode.core.db.*;
 
+import java.util.*;
+
 public class DbServiceImpl extends BaseComp implements DbService {
 
     private NamedList<DbSourceDef> dbSources = new DefaultNamedList<>("Не найдена конфигурация cfg/dbsource/{0}");
@@ -44,6 +46,10 @@ public class DbServiceImpl extends BaseComp implements DbService {
     }
 
     //////
+
+    public Collection<String> getDbSourceNames() {
+        return dbSources.getNames();
+    }
 
     public DbSource createDbSource(Conf conf) {
         return getApp().create(conf, DbSourceImpl.class);
