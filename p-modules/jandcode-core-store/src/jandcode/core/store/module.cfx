@@ -4,7 +4,7 @@
     <bean name="jandcode.core.store.StoreService"
           class="jandcode.core.store.impl.StoreServiceImpl"/>
 
-    <data>
+    <store>
 
         <storedatatype name="blob"
                        class="jandcode.core.store.std.StoreDataType_blob"/>
@@ -39,6 +39,6 @@
         <storedatatype name="string"
                        class="jandcode.core.store.std.StoreDataType_string"/>
 
-    </data>
+    </store>
 
 </root>

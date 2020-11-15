@@ -17,9 +17,9 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
         super.onConfigure(cfg);
         //
 
-        Conf dataConf = getApp().getConf().getConf("data");
+        Conf topConf = getApp().getConf().getConf("store");
 
-        for (Conf sf : dataConf.getConfs("storedatatype")) {
+        for (Conf sf : topConf.getConfs("storedatatype")) {
             StoreDataType sdt = (StoreDataType) getApp().create(sf);
             storeDataTypes.add(sdt);
         }
