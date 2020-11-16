@@ -2,7 +2,6 @@ package jandcode.commons.test;
 
 import jandcode.commons.*;
 import jandcode.commons.error.*;
-import jandcode.commons.outtable.*;
 import org.slf4j.*;
 
 import java.io.*;
@@ -170,9 +169,7 @@ public class UtilsTestSvc extends BaseTestSvc {
      * @param limit сколько записей выводить
      */
     public void outTable(Object data, int limit) {
-        OutTableSaver tb = UtOutTable.createOutTableSaver(data);
-        tb.setLimit(limit);
-        System.out.println(tb.save().toString());
+        UtOutTable.outTable(data, limit);
     }
 
     /**

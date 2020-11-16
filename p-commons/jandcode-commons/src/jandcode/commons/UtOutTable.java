@@ -34,4 +34,26 @@ public class UtOutTable {
         return engine.createOutTable(data);
     }
 
+    /**
+     * Вывести таблицу на консоль
+     *
+     * @param data  объект с данными. Может быть как объектом типа {@link OutTable},
+     *              так и объектом, который можно к нему привести
+     * @param limit сколько записей выводить, -1 - без лимита
+     */
+    public static void outTable(Object data, int limit) {
+        OutTableSaver tb = createOutTableSaver(data);
+        tb.setLimit(limit);
+        System.out.println(tb.save().toString());
+    }
+
+    /**
+     * Вывести таблицу на консоль
+     *
+     * @param data данные
+     */
+    public static void outTable(Object data) {
+        outTable(data, -1);
+    }
+
 }
