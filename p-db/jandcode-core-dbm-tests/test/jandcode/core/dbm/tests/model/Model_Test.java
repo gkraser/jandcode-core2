@@ -39,8 +39,11 @@ public class Model_Test extends App_Test {
 
     @Test
     public void test_name() throws Exception {
-        Model m = svc.getModel("test.2");
+        Model m;
+        m = svc.getModel("test.2");
         assertEquals(m.getName(), "test.2");
+        m = svc.getModel("test.2.inst");
+        assertEquals(m.getName(), "test.2.inst");
     }
 
     @Test
@@ -62,15 +65,15 @@ public class Model_Test extends App_Test {
     public void test_instance_dbsource() throws Exception {
         //
         Model m = svc.getModel("test.2.inst");
-        Assertions.assertEquals(m.getDbType(), "mysql");
-        Assertions.assertEquals(m.getDbSource().getProps().get("flag.db.mysql"), "1");
+        assertEquals(m.getDbType(), "mysql");
+        assertEquals(m.getDbSource().getProps().get("flag.db.mysql"), "1");
     }
 
     @Test
     public void test_no_dbdriver() throws Exception {
         Model m = svc.getModel("test.2");
         DbSource dbs = m.getDbSource();
-        System.out.println(dbs.getProps());
+        assertEquals(dbs.getDbDriver().getName(), "base");
     }
 
 

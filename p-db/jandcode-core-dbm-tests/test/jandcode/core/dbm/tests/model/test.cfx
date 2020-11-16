@@ -16,6 +16,8 @@
             <flag m1="test.1"/>
         </model>
 
+        <!-- =================== -->
+
         <model name="test.2">
             <dbtype name="jdbc">
                 <flag name="f1" value="1"/>
@@ -27,19 +29,6 @@
         <model name="test.2.inst" instance="test.2">
             <flag m2.1="test.2.inst"/>
         </model>
-
-        <!-- ===================================================================== -->
-
-        <model name="test.dbtypert.1">
-            <dbtype name="jdbc">
-                <flag name="f1" value="1"/>
-            </dbtype>
-            <dbtype name="mysql">
-                <flag name="f1" value="2"/>
-                <flag name="f2" value="1"/>
-            </dbtype>
-        </model>
-
 
     </dbm>
 
