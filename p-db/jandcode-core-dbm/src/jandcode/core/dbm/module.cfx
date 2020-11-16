@@ -22,12 +22,13 @@
                 -->
             </cfg>
 
-            <x-include path="db/index-model.cfx"/>
-
             <!-- dbsource по умолчанию присутствует всегда -->
             <dbsource name="default"
                       dbdriver="base"
                       cfg="cfg/dbsource/${modelName}"/>
+
+            <x-include path="db/index-model.cfx"/>
+            <x-include path="domain/index-model.cfx"/>
 
         </model>
 
