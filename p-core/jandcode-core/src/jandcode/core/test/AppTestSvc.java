@@ -9,7 +9,6 @@ import jandcode.commons.moduledef.impl.*;
 import jandcode.commons.stopwatch.*;
 import jandcode.commons.test.*;
 import jandcode.core.*;
-import jandcode.core.impl.*;
 
 import java.util.*;
 
@@ -48,11 +47,7 @@ public class AppTestSvc extends BaseTestSvc implements App {
                 if (res == null) {
                     String fn1 = fn;
                     List<String> sourceFn = findCompiledFileInTestSource(fn);
-                    if (sourceFn.size() == 0) {
-                        System.out.println("WARNING: Не найден файл в исходниках тестов для файла [" + fn + "]");
-                    } else if (sourceFn.size() > 1) {
-                        System.out.println("WARNING: Найдено несколько файлов в исходниках тестов для файла [" + fn + "]");
-                    } else {
+                    if (sourceFn.size() == 1) {
                         fn1 = sourceFn.get(0);
                     }
                     Stopwatch sw = stopwatch.get("load-app");
@@ -102,26 +97,35 @@ public class AppTestSvc extends BaseTestSvc implements App {
         String appdir = AppConsts.resolveAppdir(UtFile.getWorkdir());
         String regFile = UtFile.join(appdir, ModuleDefConsts.FILE_REGISTRY_MODULE_DEF);
         if (!UtFile.exists(regFile)) {
-            System.out.println("WARNING: Необходимо выполнить jc prepare!\n" +
+            System.out.println("WARNING: Необходимо выполнить jc prepare " +
+                    "в каталоге [" + appdir + "]\n" +
                     "Не найден файл [" + regFile + "]");
-            return res;
-        }
-        List<ModuleDef> moduleDefs = ModuleDefUtilsImpl.loadModuleDefsFromConfFile(
-                regFile
-        );
-        String cf = compiledFile.replace("\\", "/");
-        for (ModuleDef md : moduleDefs) {
-            String mvp = "/" + md.getName().replace('.', '/') + "/";
-            int a = cf.indexOf(mvp);
-            if (a != -1) {
-                String vp = cf.substring(a + mvp.length());
-                for (String testroot : md.getSourceInfo().getTestPaths()) {
-                    String f1 = UtFile.abs(testroot + mvp + "/" + vp);
-                    if (UtFile.exists(f1)) {
-                        res.add(f1);
+        } else {
+            List<ModuleDef> moduleDefs = ModuleDefUtilsImpl.loadModuleDefsFromConfFile(
+                    regFile
+            );
+            String cf = compiledFile.replace("\\", "/");
+            for (ModuleDef md : moduleDefs) {
+                String mvp = "/" + md.getName().replace('.', '/') + "/";
+                int a = cf.indexOf(mvp);
+                if (a != -1) {
+                    String vp = cf.substring(a + mvp.length());
+                    for (String testroot : md.getSourceInfo().getTestPaths()) {
+                        String f1 = UtFile.abs(testroot + mvp + "/" + vp);
+                        if (UtFile.exists(f1)) {
+                            res.add(f1);
+                        }
                     }
                 }
             }
+        }
+
+        if (res.size() == 0) {
+            System.out.println("WARNING: Не найден файл в исходниках тестов для файла [" + compiledFile + "]\n" +
+                    "Необходимо выполнить jc prepare в каталоге [" + appdir + "]");
+        } else if (res.size() > 1) {
+            System.out.println("WARNING: Найдено несколько файлов в исходниках тестов для файла [" + compiledFile + "]:" +
+                    UtString.join(res, "\n"));
         }
 
         return res;
