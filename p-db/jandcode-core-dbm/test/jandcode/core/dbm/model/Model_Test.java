@@ -1,4 +1,4 @@
-package jandcode.core.dbm.tests.model;
+package jandcode.core.dbm.model;
 
 import jandcode.commons.*;
 import jandcode.core.*;

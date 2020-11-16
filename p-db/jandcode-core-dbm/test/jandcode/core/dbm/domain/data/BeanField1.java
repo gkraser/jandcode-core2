@@ -1,8 +1,8 @@
-package jandcode.core.dbm.tests.domain.data;
+package jandcode.core.dbm.domain.data;
 
 import jandcode.core.dbm.domain.*;
 
-public class BeanDomain1 extends BaseDomainMember {
+public class BeanField1 extends BaseFieldMember {
 
     private String attr1;
     private String attr2;

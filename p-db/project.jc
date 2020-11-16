@@ -23,7 +23,6 @@ class P extends ProjectScript {
                 'jandcode-core-db-postgresql',
                 //
                 'jandcode-core-dbm',
-                'jandcode-core-dbm-tests',
             )
         }
     }

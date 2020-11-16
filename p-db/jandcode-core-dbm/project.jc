@@ -17,11 +17,16 @@ class P extends ProjectScript {
                         "jandcode.core.store",
                         "jandcode.core.dao",
                         "jandcode.core.groovy",
-
                 )
                 depends.dev(
                 )
             }
+            depends.dev(
+                    "jandcode-core-db-h2",
+                    "jandcode-core-db-mariadb",
+                    "jandcode-core-db-oracle",
+                    "jandcode-core-db-postgresql",
+            )
         }
     }
 

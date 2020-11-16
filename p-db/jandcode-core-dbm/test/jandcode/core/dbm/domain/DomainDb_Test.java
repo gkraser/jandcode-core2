@@ -1,7 +1,6 @@
-package jandcode.core.dbm.tests.domain;
+package jandcode.core.dbm.domain;
 
 import jandcode.core.dbm.*;
-import jandcode.core.dbm.domain.*;
 import jandcode.core.dbm.domain.db.*;
 import jandcode.core.test.*;
 import org.junit.jupiter.api.*;

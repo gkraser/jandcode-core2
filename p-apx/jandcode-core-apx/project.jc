@@ -17,7 +17,6 @@ class P extends ProjectScript {
                         "jandcode.core.store",
                         "jandcode.core.dao",
                         "jandcode.core.db",
-                        "jandcode.core.dbm",
                 )
                 depends.dev(
                 )
