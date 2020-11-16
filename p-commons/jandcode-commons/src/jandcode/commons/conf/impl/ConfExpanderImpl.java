@@ -272,6 +272,9 @@ public class ConfExpanderImpl implements ConfExpander {
         // раскрываем свойства
         expandProps(res, td);
 
+        //
+        res.remove(this.parentAttrName);
+
         // все
         return res;
     }
