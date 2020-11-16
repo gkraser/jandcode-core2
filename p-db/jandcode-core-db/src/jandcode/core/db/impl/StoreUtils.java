@@ -17,7 +17,7 @@ public class StoreUtils {
         StoreService svc = q.getDbSource().getApp().bean(StoreService.class);
         Store store = svc.createStore();
         for (DbQueryField qf : q.getFields()) {
-            String dtn = qf.getDbDataType().getName();
+            String dtn = qf.getDbDataType().getStoreDataTypeName();
             store.addField(qf.getName(), dtn);
         }
         return store;
