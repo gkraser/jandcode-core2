@@ -329,7 +329,12 @@ public class ConfExpanderImpl implements ConfExpander {
         }
 
         // parent имеется
-        Conf parentObject = type.resolveObject(parent);
+        Conf parentObject = null;
+        try {
+            parentObject = type.resolveObject(parent);
+        } catch (Exception e) {
+            throw new XErrorMark(e, pviConf.origin().toString());
+        }
         Conf newValue = parentObject.cloneConf();
         newValue.join(pviConf);
         ob.setValue(propName, newValue);
