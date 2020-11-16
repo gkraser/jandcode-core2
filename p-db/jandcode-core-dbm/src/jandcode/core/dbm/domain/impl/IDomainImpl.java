@@ -13,7 +13,7 @@ public class IDomainImpl extends BaseDomainMember implements IDomain {
     private Map<String, String> tags = new HashMap<>();
 
     protected void onConfigureMember() throws Exception {
-        applyRtAttrs();
+        applyConfProps();
 
         Conf x = getDomain().getConf();
 

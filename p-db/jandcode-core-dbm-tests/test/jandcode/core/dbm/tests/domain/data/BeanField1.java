@@ -11,7 +11,7 @@ public class BeanField1 extends BaseFieldMember {
     private String attr5;
 
     protected void onConfigureMember() throws Exception {
-        applyRtAttrs();
+        applyConfProps();
     }
 
     public String getAttr1() {

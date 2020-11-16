@@ -22,7 +22,7 @@ public abstract class BaseDomainMember extends BaseModelMember implements IDomai
     /**
      * Инициализация свойств объекта по данным getDomain().getConf()
      */
-    protected void applyRtAttrs() {
+    protected void applyConfProps() {
         UtReflect.getUtils().setProps(this, getDomain().getConf());
     }
 

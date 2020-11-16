@@ -1,9 +1,9 @@
-<%@ page import="jandcode.core.dbm.domain.db.DomainDbUtils; jandcode.core.dbm.domain.db.DomainDbUtils; jandcode.core.dbm.domain.db.*" %>
+<%@ page import="jandcode.core.dbm.domain.db.*" %>
 <%
 
   // генерация primary key универсальная
 
-  def ut = new jandcode.core.dbm.domain.db.DomainDbUtils(th)
+  def ut = new DomainDbUtils(th)
 
   for (def d : ut.getDomainsMy()) {
     if (d.findField("id") == null) continue; // нет id

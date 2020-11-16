@@ -110,7 +110,7 @@ public class DomainDbUtils implements IModelLink {
      *
      * @param src       исходный
      * @param maxLength длина
-     * @return часть исходного и crc, если src длиной более чем maxLength
+     * @return часть исходного и crc, если src длиной не более чем maxLength
      */
     public String makeShortIdn(String src, int maxLength) {
         if (src.length() <= maxLength) {

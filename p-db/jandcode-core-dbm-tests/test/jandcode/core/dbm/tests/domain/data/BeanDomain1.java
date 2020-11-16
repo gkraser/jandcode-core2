@@ -11,7 +11,7 @@ public class BeanDomain1 extends BaseDomainMember {
     private String attr5;
 
     protected void onConfigureMember() throws Exception {
-        applyRtAttrs();
+        applyConfProps();
     }
 
     public String getAttr1() {

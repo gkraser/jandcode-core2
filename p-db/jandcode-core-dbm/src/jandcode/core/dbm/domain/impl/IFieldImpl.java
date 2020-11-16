@@ -18,7 +18,7 @@ public class IFieldImpl extends BaseFieldMember implements IField {
     //////
 
     protected void onConfigureMember() throws Exception {
-        applyRtAttrs();
+        applyConfProps();
     }
 
     //////

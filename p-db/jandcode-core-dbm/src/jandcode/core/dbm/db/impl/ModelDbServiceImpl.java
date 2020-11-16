@@ -27,8 +27,8 @@ public class ModelDbServiceImpl extends BaseModelMember implements ModelDbServic
         //
         DbService appDbService = getApp().bean(DbService.class);
 
-        Conf dbsRt = getModel().getConf().getConf("dbsource/default");
-        dbSource = (ModelDbSourceImpl) appDbService.createDbSource(dbsRt);
+        Conf dbsConf = getModel().getConf().getConf("dbsource/default");
+        dbSource = (ModelDbSourceImpl) appDbService.createDbSource(dbsConf);
         dbSource.setModel(getModel());
     }
 

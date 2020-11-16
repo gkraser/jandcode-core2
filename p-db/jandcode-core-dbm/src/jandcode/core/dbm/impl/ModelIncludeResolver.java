@@ -52,7 +52,7 @@ public class ModelIncludeResolver {
         used.add(name);
 
         try {
-            Conf conf = resolveModelRt(name);
+            Conf conf = resolveModelConf(name);
             for (Conf inc : conf.getConfs("include")) {
                 add(res, inc.getName(), true);
             }
@@ -66,7 +66,7 @@ public class ModelIncludeResolver {
 
     }
 
-    protected Conf resolveModelRt(String name) {
+    protected Conf resolveModelConf(String name) {
         return svc.getModels().get(name).getConf();
     }
 

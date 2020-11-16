@@ -23,7 +23,7 @@ public abstract class BaseFieldMember extends BaseModelMember implements IFieldM
     /**
      * Инициализация свойств объекта по данным getField().getConf()
      */
-    protected void applyRtAttrs() {
+    protected void applyConfProps() {
         UtReflect.getUtils().setProps(this, getField().getConf());
     }
 

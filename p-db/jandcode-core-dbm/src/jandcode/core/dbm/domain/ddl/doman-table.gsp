@@ -1,9 +1,9 @@
-<%@ page import="jandcode.core.dbm.domain.db.DomainDbUtils; jandcode.core.dbm.domain.db.FieldDb; jandcode.core.dbm.domain.db.DomainDbUtils; jandcode.core.dbm.domain.db.FieldDb; jandcode.core.dbm.domain.db.*" %>
+<%@ page import="jandcode.core.dbm.domain.db.*" %>
 <%
 
   // генерация create table универсальная
 
-  def ut = new jandcode.core.dbm.domain.db.DomainDbUtils(th)
+  def ut = new DomainDbUtils(th)
 
   for (def d : ut.getDomainsMy()) {
 %>
@@ -11,7 +11,7 @@
 create table ${d.dbTableName} (
 <%
     for (def f : d.fields) {
-      def fd = f.bean(jandcode.core.dbm.domain.db.FieldDb);
+      def fd = f.bean(FieldDb);
       String notNull = "";
       if ("id".equals(f.getName())) {
         notNull = " not null";
