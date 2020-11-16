@@ -21,6 +21,9 @@ class P extends ProjectScript {
                 'jandcode-core-db-mariadb',
                 'jandcode-core-db-oracle',
                 'jandcode-core-db-postgresql',
+                //
+                'jandcode-core-dbm',
+                'jandcode-core-dbm-tests',
             )
         }
     }

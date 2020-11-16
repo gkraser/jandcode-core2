@@ -8,16 +8,16 @@ class P extends ProjectScript {
 
     void onInclude() {
         //
-        project.name = "jandcode-core-apx"
+        project.name = "jandcode-core-dbm"
         //
         include(JavaProject).with {
-            moduleDef("jandcode.core.apx").with {
+            moduleDef("jandcode.core.dbm").with {
                 depends.prod(
-                        "jandcode.core.web",
+                        "jandcode.core.db",
                         "jandcode.core.store",
                         "jandcode.core.dao",
-                        "jandcode.core.db",
-                        "jandcode.core.dbm",
+                        "jandcode.core.groovy",
+
                 )
                 depends.dev(
                 )
