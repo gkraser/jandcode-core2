@@ -1,28 +1,13 @@
 package jandcode.core.db.oracle
 
 import jandcode.core.db.test.*
-import jandcode.core.test.*
 import org.junit.jupiter.api.*
 
-class Oracle_DbUtils_Test extends App_Test {
+class Oracle_DbUtils_Test extends DbUtils_Test {
 
-    DbSimpleTestSvc z = testSvc(DbSimpleTestSvc)
 
     @Test
-    void charcase_loaded_store_fields() throws Exception {
-        def a = z.createStore()
-        a.addField("ID", "int")
-        a.addField("field_lower", "int")
-        a.addField("FIELD_UPPER", "int")
-        a.addField("fieldMix", "int")
-        a.addField("FieldMixU", "int")
-
-        a.add(id: 1)
-
-        z.createTable("t1", a)
-        //
-        def store = z.db.loadQuery("select * from t1")
-        utils.outTable(store)
+    void test1() throws Exception {
     }
 
 

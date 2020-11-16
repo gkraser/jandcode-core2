@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*
  *
  * В коде имеются проверки dbType. В этих местах имеются сильные отличия в поведении!
  */
-abstract class DbDatatypeTestCase extends App_Test {
+abstract class DbDatatype_Test extends App_Test {
 
     DbSimpleTestSvc z = testSvc(DbSimpleTestSvc)
 

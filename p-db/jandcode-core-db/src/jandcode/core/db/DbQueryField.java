@@ -17,4 +17,9 @@ public interface DbQueryField extends INamed {
      */
     DbDataType getDbDataType();
 
+    /**
+     * Оригинальное имя поля, которое пришло в ответе
+     */
+    String getNameOrig();
+
 }

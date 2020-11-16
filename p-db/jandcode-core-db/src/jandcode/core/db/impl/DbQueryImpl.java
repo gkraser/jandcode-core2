@@ -202,12 +202,15 @@ public class DbQueryImpl implements DbQuery {
         for (int i = 1; i <= cols; i++) {
             DbDataType dt = dbDriver.getDbDataType(md, i);
             //
-            String fn = md.getColumnLabel(i);
+            String fnOrig = md.getColumnLabel(i);
+            String fn = fnOrig;
             if (fields.find(fn) != null) {
                 fn = fn + "#" + i;
             }
+            // все имена колонок переводим в нижний регистр для унификации
+            fn = fn.toLowerCase();
             //
-            DbQueryFieldImpl f = new DbQueryFieldImpl(fn, i - 1, dt);
+            DbQueryFieldImpl f = new DbQueryFieldImpl(fn, fnOrig, i - 1, dt);
             fields.add(f);
         }
 

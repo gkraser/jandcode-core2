@@ -7,9 +7,11 @@ public class DbQueryFieldImpl extends Named implements DbQueryField {
 
     private DbDataType dbDataType;
     private int index;
+    private String nameOrig;
 
-    public DbQueryFieldImpl(String name, int index, DbDataType dbDataType) {
+    public DbQueryFieldImpl(String name, String nameOrig, int index, DbDataType dbDataType) {
         this.name = name;
+        this.nameOrig = nameOrig;
         this.index = index;
         this.dbDataType = dbDataType;
     }
@@ -20,6 +22,10 @@ public class DbQueryFieldImpl extends Named implements DbQueryField {
 
     public DbDataType getDbDataType() {
         return dbDataType;
+    }
+
+    public String getNameOrig() {
+        return nameOrig;
     }
 
 }

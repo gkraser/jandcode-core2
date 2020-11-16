@@ -234,6 +234,7 @@ class DbSimpleTestSvc extends BaseAppTestSvc {
             sbCreate.append("  ${f.name} ${s1}")
         }
         String ddl = "create table ${tableName} (\n${sbCreate}\n)"
+        println ddl
         db.execQueryNative(ddl)
         //
         def sqlIns = "insert into ${tableName} (" +
