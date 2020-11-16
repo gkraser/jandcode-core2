@@ -13,9 +13,9 @@ class P extends ProjectScript {
         include(JavaProject).with {
             moduleDef("jandcode.core.dbm.tests").with {
                 depends.prod(
+                        "jandcode.core.dbm",
                 )
                 depends.dev(
-                        "jandcode.core.dbm",
                         "jandcode-core-db-h2",
                         "jandcode-core-db-mariadb",
                         "jandcode-core-db-oracle",

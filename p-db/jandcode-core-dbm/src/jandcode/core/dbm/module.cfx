@@ -1,4 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
+    <bean name="jandcode.core.dbm.ModelService"
+          class="jandcode.core.dbm.impl.ModelServiceImpl"
+          bean.autoCreate="true"/>
+
+    <dbm>
+        <!-- все, что касается dbm -->
+    </dbm>
+
+    <!-- модели -->
+    <dbm>
+
+        <model name="jandcode.core.dbm">
+            <!-- базовая модель, подключается всегда первой и автоматом -->
+
+            <cfg>
+                <!--
+                    произвольные конфигурационные параметры,
+                    которыми могут пользоватся все
+                -->
+            </cfg>
+
+            <x-include path="db/index-model.cfx"/>
+
+            <!-- dbsource по умолчанию присутствует всегда -->
+            <dbsource name="default"
+                      dbdriver="base"
+                      cfg="cfg/dbsource/${modelName}"/>
+
+        </model>
+
+    </dbm>
+
 </root>
