@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!-- для проверок bean-поведения -->
+
+    <field name="base">
+        <bean name="bean-field-1" class="jandcode.core.dbm.tests.domain.data.BeanField1"/>
+    </field>
+
+    <field name="f1" parent="string">
+        <bean name="bean-field-2" class="jandcode.core.dbm.tests.domain.data.BeanField1"/>
+    </field>
+
+    <!-- =================== -->
+
+    <domain name="base">
+        <bean name="bean-domain-1" class="jandcode.core.dbm.tests.domain.data.BeanDomain1"/>
+    </domain>
+
+    <domain name="bean1.1" attr1="1" attr2="2">
+        <bean name="bean-domain-2" class="jandcode.core.dbm.tests.domain.data.BeanDomain1"/>
+        <field name="f1" parent="f1" attr3="3" attr4="4"/>
+    </domain>
+
+    <domain name="bean1.2" parent="bean1.1" attr1="11">
+        <bean name="bean-domain-1" class="jandcode.core.dbm.tests.domain.data.BeanDomain1"/>
+        <field name="f2" parent="f1"/>
+    </domain>
+
+</root>

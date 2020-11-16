@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!-- для проверок include-поведения -->
+
+    <domain name="include1.mix1">
+        <field name="f1" parent="string" size="10"/>
+        <field name="f2" parent="long"/>
+    </domain>
+
+    <domain name="include1.mix2">
+        <field name="f1" parent="string" size="100"/>
+        <field name="f3" parent="long"/>
+    </domain>
+
+    <domain name="include1.1" parent="id">
+        <include name="include1.mix1"/>
+        <include name="include1.mix2"/>
+        <field name="ff1" parent="string" size="30"/>
+    </domain>
+
+</root>

@@ -10,7 +10,6 @@ import jandcode.core.dbm.domain.*;
 public class DomainServiceImpl extends BaseModelMember implements DomainService {
 
     private NamedList<Domain> domains;
-    private NamedList<Domain> tmpDomains = new DefaultNamedList<>();
     private DomainConfHolder domainConfHolder;
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
@@ -62,70 +61,16 @@ public class DomainServiceImpl extends BaseModelMember implements DomainService 
 
     //////
 
-    public Domain createDomain(Conf x) {
-        Domain dd = getModel().create(x, DomainImpl.class, inst -> {
+    public Domain createDomain(Conf x, String name) {
+        Conf domainConf = getDomainConfHolder().expandDomainConf(x);
+        DefaultBeanConfig cfg = new DefaultBeanConfig(domainConf, UtString.empty(name) ? null : name);
+        return getModel().create(cfg, DomainImpl.class, inst -> {
             ((DomainImpl) inst).domainService = this;
         });
-        return dd;
-    }
-
-    public Field createField(Conf x, Domain forDomain) {
-        return forDomain.create(x, FieldImpl.class);
     }
 
     public DomainBuilder createDomainBuilder(String parentDomain) {
         return new DomainBuilderImpl(this, parentDomain);
     }
-
-    public Field findField(String name) {
-        if (UtString.empty(name)) {
-            return null;
-        }
-
-        int a = name.indexOf('/');
-        if (a == -1) {
-            // просто имя
-            Domain d = findDomain(DomainConsts.DOMAIN_SYSTEM_FIELDS);
-            if (d == null) {
-                return null;
-            }
-            return d.findField(name);
-        }
-
-        String n1 = name.substring(0, a);
-        String n2 = name.substring(a + 1);
-        if ("ref".equals(n2)) {
-            // имя Abonent/ref
-            Domain d = findDomain(n1);
-            if (d == null) {
-                return null;
-            }
-            // есть такой домен Abonent
-            // используем временный динамический домен с одним полем
-            String tmpdName = name.replace('/', '.');
-            Domain tmpd = tmpDomains.find(tmpdName);
-            if (tmpd == null) {
-                synchronized (this) {
-                    tmpd = tmpDomains.find(tmpdName);
-                    if (tmpd == null) {
-                        DomainBuilder builder = createDomainBuilder(DbmConsts.BASE);
-                        builder.addField(n1, "domain/" + n1 + "/ref/default");
-                        tmpd = builder.createDomain(tmpdName);
-                        tmpDomains.add(tmpd);
-                    }
-                }
-            }
-            return tmpd.findField(n1);
-        }
-
-        // имя Abonent/name
-        Domain d = findDomain(n1);
-        if (d == null) {
-            return null;
-        }
-        return d.findField(n2);
-    }
-
-    //////
 
 }

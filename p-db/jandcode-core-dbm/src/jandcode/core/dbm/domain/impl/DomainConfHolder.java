@@ -46,6 +46,8 @@ public class DomainConfHolder {
                 } else {
                     return "domain/" + ar[0] + "/field/" + ar[1];
                 }
+            } else if (ar.length == 4) {
+                return parent;
             }
             return null;
         });
@@ -101,6 +103,16 @@ public class DomainConfHolder {
      */
     public Conf getDomainBaseConf() {
         return domainBaseConf;
+    }
+
+    /**
+     * Раскрыть конфигурацию домена
+     *
+     * @param domainConf конфигурация домена не раскрытая
+     * @return раскрытая конфигурация домена
+     */
+    public Conf expandDomainConf(Conf domainConf) {
+        return getExpander().expand("domain", domainConf);
     }
 
 }

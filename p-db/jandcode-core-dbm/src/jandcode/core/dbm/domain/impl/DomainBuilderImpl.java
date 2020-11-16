@@ -5,8 +5,6 @@ import jandcode.commons.conf.*;
 import jandcode.core.*;
 import jandcode.core.dbm.domain.*;
 
-import java.util.*;
-
 public class DomainBuilderImpl extends BaseComp implements DomainBuilder {
 
     private DomainServiceImpl domainSvc;
@@ -14,7 +12,7 @@ public class DomainBuilderImpl extends BaseComp implements DomainBuilder {
 
     public DomainBuilderImpl(DomainServiceImpl domainSvc, String parent) {
         this.domainSvc = domainSvc;
-        this.conf = UtConf.create();
+        this.conf = UtConf.create("noname");
         if (!UtString.empty(parent)) {
             this.conf.setValue("parent", parent);
         }
@@ -25,32 +23,7 @@ public class DomainBuilderImpl extends BaseComp implements DomainBuilder {
     }
 
     public Domain createDomain(String name) {
-        Conf tmpDomain = createDomainRt(name);
-        return domainSvc.createDomain(tmpDomain);
-    }
-
-    public Conf createDomainRt(String name) {
-        //todo не работает
-//        MrtService mrtSvc = domainSvc.getModel().bean(MrtService.class);
-//        Conf tmp = UtConf.create();
-//        Conf tmpDomain = tmp.findConf("domain/" + name, true);
-//        tmpDomain.join(this.conf);
-//        mrtSvc.prepare(tmp);
-//        return tmpDomain;
-        return null;
-    }
-
-    public List<Field> createFields(Domain forDomain) {
-        List<Field> res = new ArrayList<>();
-
-        Conf x = createDomainRt("_tmp_");
-
-        for (Conf x1 : x.getConfs("field")) {
-            Field f = domainSvc.createField(x1, forDomain);
-            res.add(f);
-        }
-
-        return res;
+        return domainSvc.createDomain(this.conf, name);
     }
 
     public Conf addField(String name, String parent) {

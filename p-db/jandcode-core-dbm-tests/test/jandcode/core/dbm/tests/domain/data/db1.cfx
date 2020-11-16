@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!-- для проверок генерации структуры базы -->
+
+    <domain name="db_tab1" parent="id" tag.db="true">
+        <field name="f1" parent="string" size="10" title="F1 title"/>
+        <field name="f2" parent="long" title="F2 title" titleShort="F2"/>
+    </domain>
+
+    <domain name="db_tab2" parent="id" tag.db="true">
+        <field name="f1" parent="string" size="10" title="F1 title"/>
+        <field name="f_db_tab1" parent="db_tab1/ref"/>
+
+        <dbindex name="i1" fields="f_db_tab1" unique="true"/>
+        <dbindex name="i2" fields="f_db_tab1,*f1"/>
+    </domain>
+
+</root>

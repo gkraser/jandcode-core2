@@ -27,18 +27,7 @@ public class DomainImpl extends BaseModelMember implements Domain, IBeanIniter {
         // поля
         for (Conf x : this.conf.getConfs("field")) {
             Field f = create(x, FieldImpl.class, this);
-            BeanDef pb = f.getBeanFactory().findBean(PrototypeField.class, false);
-            if (pb != null) {
-                PrototypeField proto = (PrototypeField) pb.createInst();
-                List<Field> flds = proto.createFields();
-                if (flds != null && flds.size() > 0) {
-                    for (Field f1 : flds) {
-                        addField((FieldImpl) f1);
-                    }
-                }
-            } else {
-                addField((FieldImpl) f);
-            }
+            addField((FieldImpl) f);
         }
 
         // bean

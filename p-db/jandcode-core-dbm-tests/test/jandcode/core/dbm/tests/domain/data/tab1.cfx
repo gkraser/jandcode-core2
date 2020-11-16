@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!-- для проверок parent-поведения -->
+
+    <domain name="base">
+    </domain>
+
+    <domain name="tab1.1" parent="id" title="Tab1-1" tag.db="true">
+        <ref name="default"
+             flag="ref-to-tab1.1"/>
+
+        <field name="f1" parent="string" size="10" title="F1 title"/>
+        <field name="f2" parent="long" title="F2 title" titleShort="F2"/>
+
+    </domain>
+
+    <domain name="tab1.2" parent="tab1.1">
+        <field name="f3" parent="string" size="30"/>
+    </domain>
+
+    <domain name="tab1.3" parent="tab1.2">
+        <field name="f4" parent="string" size="40"/>
+        <field name="f1" size="100"/>
+
+        <field name="ref_t1" parent="tab1.1/ref"/>
+    </domain>
+
+    <domain name="tab1.4" parent="id">
+        <!-- проверка вариантов parent -->
+        <field name="f1" parent="string"/>
+        <field name="f2" parent="domain/tab1.1/field/f1"/>
+        <field name="f3" parent="tab1.1/f1"/>
+        <field name="f4" parent="tab1.1/ref"/>
+        <field name="f5" parent="tab1.3/ref"/>
+        <field name="f6" parent="tab1.4/ref"/>
+    </domain>
+
+
+</root>

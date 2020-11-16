@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-depends module="jandcode.core.dbm"/>
+    <x-depends module="jandcode.core.db.mariadb"/>
+    <x-depends module="jandcode.core.db.oracle"/>
+
+    <!-- ===================================================================== -->
+
+    <dbm>
+
+        <model name="domain.0" dbmode="solid">
+            <domain name="ext.tab.1"/>
+            <domain name="ext.tab.2"/>
+        </model>
+
+        <model name="domain.1" dbmode="module">
+            <include name="domain.0"/>
+            <x-include path="data/*.cfx"/>
+            <domain name="ext.tab.2"/>
+            <domain name="ext.tab.3"/>
+        </model>
+
+        <model name="domain.1.inst" instance="domain.1">
+        </model>
+
+        <model name="domain.1.inst.oracle" instance="domain.1">
+            <dbsource name="default" dbdriver="oracle"/>
+        </model>
+
+    </dbm>
+
+    <!-- ===================================================================== -->
+
+</root>
