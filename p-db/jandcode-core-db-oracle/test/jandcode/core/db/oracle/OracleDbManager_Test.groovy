@@ -1,6 +1,7 @@
 package jandcode.core.db.oracle
 
 import jandcode.core.db.*
+import jandcode.core.db.std.*
 import jandcode.core.test.*
 import org.junit.jupiter.api.*
 
@@ -13,7 +14,7 @@ class OracleDbManager_Test extends App_Test {
         DbService svc = app.bean(DbService)
         //
         DbSource dbs = svc.createDbSource("test.create")
-        jandcode.core.db.std.BaseDbManagerService dm = dbs.bean(DbManagerService)
+        BaseDbManagerService dm = dbs.bean(DbManagerService)
         DbSource sysDbs = dm.getSystemDbSource()
         utils.outMap(sysDbs.getProps())
     }

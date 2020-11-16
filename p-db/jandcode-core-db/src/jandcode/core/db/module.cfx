@@ -63,6 +63,8 @@
                         sqltype="clob"
                         storedatatype="rawstring"/>
 
+            <dbdatatype name="rawstring" parent="memo"/>
+
             <dbdatatype name="datetime" class="jandcode.core.db.std.DbDataType_datetime"
                         sqltype="datetime"
                         storedatatype="datetime"/>

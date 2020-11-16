@@ -2,7 +2,6 @@ package jandcode.core.db.test
 
 import jandcode.commons.*
 import jandcode.commons.error.*
-import jandcode.commons.test.*
 import jandcode.core.db.*
 import jandcode.core.store.*
 import jandcode.core.test.*
@@ -53,7 +52,10 @@ class DbSimpleTestSvc extends BaseAppTestSvc {
     def doPrepare() {
         DbManagerService man = dbSource.bean(DbManagerService)
         if (!man.existDatabase()) {
+            utils.delim("create database")
+            utils.outMap(man.dbSource.props)
             man.createDatabase()
+            utils.delim()
         }
     }
 
@@ -128,7 +130,7 @@ class DbSimpleTestSvc extends BaseAppTestSvc {
             try {
                 db.execQuery("drop table ${checkDbDataType_table}")
             } catch (e) {
-                testSvc(UtilsTestSvc).showError(e)
+                utils.showError(e)
             }
 
             //fix: postgresql: ОШИБКА: в кешированном плане не должен изменяться тип результата
@@ -188,6 +190,63 @@ class DbSimpleTestSvc extends BaseAppTestSvc {
             q.close()
         }
         return res
+    }
+
+    ////// разные утилиты
+
+    /**
+     * Создать пустой store
+     */
+    Store createStore() {
+        Store st = app.bean(StoreService).createStore()
+        return st
+    }
+
+    /**
+     * Удалить таблицу
+     */
+    void dropTable(String tableName) {
+        try {
+            db.execQuery("drop table ${tableName}")
+        } catch (e) {
+            //utils.showError(e)
+        }
+    }
+
+    /**
+     * Создать таблицу в базе со структорой как у store и данными как у store.
+     * Без индексов.
+     * @param tableName имя создаваемой таблицы. Если существует - уничтожается
+     * @param store структура и данные для таблицы
+     */
+    void createTable(String tableName, Store store) {
+        dropTable(tableName)
+        //
+        DbDriver drv = db.dbSource.dbDriver
+        StringBuilder sbCreate = new StringBuilder()
+        for (StoreField f in store.fields) {
+            DbDataType dbt = drv.getDbDataTypes().get(f.getStoreDataType().getName())
+            String s1 = dbt.getSqlType(f.getSize())
+            if (sbCreate.length() != 0) {
+                sbCreate.append(",\n")
+
+            }
+            sbCreate.append("  ${f.name} ${s1}")
+        }
+        String ddl = "create table ${tableName} (\n${sbCreate}\n)"
+        db.execQueryNative(ddl)
+        //
+        def sqlIns = "insert into ${tableName} (" +
+                store.fields.collect({ f -> f.name }).join(',') + ") values (" +
+                store.fields.collect({ f -> ":${f.name}" }).join(',') + ")"
+        def q = db.createQuery(sqlIns)
+
+        for (StoreRecord rec in store) {
+            q.setParams(rec)
+            q.exec()
+        }
+
+        println "create table: ${tableName}, records: ${store.size()}, fields: ${UtCnv.toNameList(store.fields).join(',')}"
     }
 
 }
