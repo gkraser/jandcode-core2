@@ -1,5 +1,7 @@
 package jandcode.core.db;
 
+import jandcode.core.store.*;
+
 /**
  * Методы-утилиты для {@link Db}.
  */
@@ -53,6 +55,44 @@ public interface IDbUtils {
      * Не зависит от баланса startTran/commit, срабатывает сразу.
      */
     void rollback(Exception e) throws Exception;
+
+
+    ////// store
+
+    /**
+     * Загрузить результат запроса в новый store
+     */
+    Store loadQuery(String sql) throws Exception;
+
+    /**
+     * Загрузить результат запроса с параметрами в новый store
+     */
+    Store loadQuery(String sql, Object params) throws Exception;
+
+    /**
+     * Загрузить результат нативного запроса в новый store
+     */
+    Store loadQueryNative(String sql) throws Exception;
+
+    //////
+
+    /**
+     * Загрузить результат запроса в указанный store
+     */
+    void loadQuery(Store store, String sql) throws Exception;
+
+    /**
+     * Загрузить результат запроса с параметрами в указанный store
+     */
+    void loadQuery(Store store, String sql, Object params) throws Exception;
+
+    /**
+     * Загрузить результат нативного запроса в указанный store
+     */
+    void loadQueryNative(Store store, String sql) throws Exception;
+
+
+    //////
 
 
 }

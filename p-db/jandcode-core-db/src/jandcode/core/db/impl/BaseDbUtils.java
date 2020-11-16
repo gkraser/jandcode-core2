@@ -1,6 +1,8 @@
 package jandcode.core.db.impl;
 
 import jandcode.core.db.*;
+import jandcode.core.db.utils.*;
+import jandcode.core.store.*;
 
 /**
  * Реализация интерфейса {@link IDbUtils}
@@ -66,6 +68,63 @@ public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
         rollback();
         throw e;
     }
+
+    ////// store
+
+    protected Store internalLoadQuery(DbQuery q) throws Exception {
+        Store res;
+        try (q) {
+            res = StoreUtils.createStoreForQuery(q);
+            StoreUtils.loadStoreFromQuery(res, q);
+        }
+        return res;
+    }
+
+    public Store loadQuery(String sql) throws Exception {
+        DbQuery q = createQuery(sql);
+        q.open();
+        return internalLoadQuery(q);
+    }
+
+    public Store loadQuery(String sql, Object params) throws Exception {
+        DbQuery q = createQuery(sql, params);
+        q.open();
+        return internalLoadQuery(q);
+    }
+
+    public Store loadQueryNative(String sql) throws Exception {
+        DbQuery q = createQuery(sql);
+        q.openNative();
+        return internalLoadQuery(q);
+    }
+
+    //////
+
+    public void loadQuery(Store store, String sql) throws Exception {
+        DbQuery q = createQuery(sql);
+        q.open();
+        try (q) {
+            StoreUtils.loadStoreFromQuery(store, q);
+        }
+    }
+
+    public void loadQuery(Store store, String sql, Object params) throws Exception {
+        DbQuery q = createQuery(sql, params);
+        q.open();
+        try (q) {
+            StoreUtils.loadStoreFromQuery(store, q);
+        }
+    }
+
+    public void loadQueryNative(Store store, String sql) throws Exception {
+        DbQuery q = createQuery(sql);
+        q.openNative();
+        try (q) {
+            StoreUtils.loadStoreFromQuery(store, q);
+        }
+    }
+
+    //////
 
 
 }

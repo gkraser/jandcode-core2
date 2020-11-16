@@ -9,7 +9,7 @@ import java.sql.*;
 /**
  * Запрос к базе данных.
  */
-public interface DbQuery extends IVariantNamed, IVariantIndexed, AutoCloseable {
+public interface DbQuery extends IVariantNamed, IVariantIndexed, AutoCloseable, IDbSourceLink {
 
     /**
      * Поля в запросе

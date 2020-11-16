@@ -12,6 +12,7 @@ import java.util.*;
 
 public class DbQueryImpl implements DbQuery {
 
+    private DbSource dbSource;
     private DbDriver dbDriver;
     private Connection connection;
 
@@ -32,8 +33,9 @@ public class DbQueryImpl implements DbQuery {
     private int lastRead = -1;
 
 
-    public DbQueryImpl(DbDriver dbDriver, Connection connection, String sql, Object params) {
-        this.dbDriver = dbDriver;
+    public DbQueryImpl(IDbSourceLink dbSourceLink, Connection connection, String sql, Object params) {
+        this.dbSource = dbSourceLink.getDbSource();
+        this.dbDriver = dbSourceLink.getDbSource().getDbDriver();
         this.connection = connection;
         this.queryLogger = new QueryLogger(this);
         setSql(sql);
@@ -41,6 +43,10 @@ public class DbQueryImpl implements DbQuery {
     }
 
     //////
+
+    public DbSource getDbSource() {
+        return dbSource;
+    }
 
     public NamedList<DbQueryField> getFields() {
         return fields;
