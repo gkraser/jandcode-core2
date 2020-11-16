@@ -1,4 +1,4 @@
-package jandcode.core.db.utils;
+package jandcode.core.db.impl;
 
 import jandcode.core.db.*;
 import jandcode.core.store.*;
