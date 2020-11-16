@@ -1,5 +1,6 @@
 package jandcode.core.dbm.tests.domain;
 
+import jandcode.commons.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.domain.db.*;
 import jandcode.core.test.*;
@@ -21,6 +22,9 @@ public class DomainDbUtils_Test extends App_Test {
     @Test
     public void test_getMaxLengthIdnInDb() throws Exception {
         Model model = svc.getModel("domain.1");
+        //
+        System.out.println(UtConf.save(model.getConf()).toString());
+        //
         DomainDbUtils ut = new DomainDbUtils(model);
         assertEquals(ut.getIdnMaxLength(), 63);
 

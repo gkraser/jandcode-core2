@@ -1,6 +1,5 @@
 package jandcode.core.dbm.domain.impl;
 
-import jandcode.commons.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.named.*;
 import jandcode.core.*;
@@ -62,9 +61,8 @@ public class DomainServiceImpl extends BaseModelMember implements DomainService 
     //////
 
     public Domain createDomain(Conf x, String name) {
-        Conf domainConf = getDomainConfHolder().expandDomainConf(x);
-        DefaultBeanConfig cfg = new DefaultBeanConfig(domainConf, UtString.empty(name) ? null : name);
-        return getModel().create(cfg, DomainImpl.class, inst -> {
+        Conf domainConf = getDomainConfHolder().expandDomainConf(x, name);
+        return getModel().create(domainConf, DomainImpl.class, inst -> {
             ((DomainImpl) inst).domainService = this;
         });
     }

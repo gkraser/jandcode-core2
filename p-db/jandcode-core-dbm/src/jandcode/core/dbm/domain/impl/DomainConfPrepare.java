@@ -3,7 +3,6 @@ package jandcode.core.dbm.domain.impl;
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.error.*;
-import jandcode.core.dbm.domain.*;
 
 import java.util.*;
 
@@ -17,18 +16,10 @@ public class DomainConfPrepare {
      *
      * @param root конфигурация, собранная из модели
      */
-    public void prepare(Conf root) {
+    public void prepareRoot(Conf root) {
 
         // бины базовых объектов
         prepareBaseBeans(root);
-
-        // include
-        for (Conf x : root.getConfs("domain")) {
-            prepare_include(root, x);
-        }
-
-        // system.fields
-        prepare_systemFields(root);  //todo под вопросом - нужно ли???
 
         // domain
         for (Conf x : root.getConfs("domain")) {
@@ -39,6 +30,35 @@ public class DomainConfPrepare {
         // удаляем все поля из базового домена. На всякий случай.
         Conf d = root.findConf("domain/base");
         d.remove("field");
+    }
+
+    /**
+     * Подготовить конфигурацию домена
+     */
+    public void prepareDomain(Conf root, Conf domain) {
+        prepareDomain_include(root, domain);
+
+        // если есть узлы ref, для каждого ставим ref=имя_домена
+        if (domain.findConf("ref") != null) {
+            for (Conf ref : domain.getConfs("ref")) {
+                ref.setValue("ref", domain.getName());
+            }
+        }
+
+        // ставим ref=имя_домена по имени домена для ref по умолчанию, даже если ее нет
+        Conf ref = domain.findConf("ref/default", true);
+        ref.setValue("ref", domain.getName());
+
+        // tag.db
+        if (UtConf.isTagged(domain, "tag.db")) {
+            domain.setValue("dbtablename", domain.getName());
+        }
+
+        // tag.dbview
+        if (UtConf.isTagged(domain, "tag.dbview")) {
+            domain.setValue("dbtablename", domain.getName());
+        }
+
     }
 
     //////
@@ -65,24 +85,7 @@ public class DomainConfPrepare {
 
     }
 
-    /**
-     * Создает домен system.fields со всеми полями верхнего уровня (string, int ...)
-     */
-    @Deprecated
-    private void prepare_systemFields(Conf root) {
-        Conf systemDomain = root.findConf("domain/" + DomainConsts.DOMAIN_SYSTEM_FIELDS, true);
-        systemDomain.clear();
-        Conf systemFields = systemDomain.findConf("field", true);
-        for (Conf f : root.getConfs("field")) {
-            if ("base".equals(f.getName())) {
-                continue;
-            }
-            Conf ff = systemFields.findConf(f.getName(), true);
-            ff.setValue("parent", f.getName());
-        }
-    }
-
-    private void prepare_include(Conf root, Conf domain) {
+    private void prepareDomain_include(Conf root, Conf domain) {
 
         // включаемые домены, аналог mixin
         Collection<Conf> lst = domain.getConfs("include");
@@ -108,31 +111,6 @@ public class DomainConfPrepare {
 
             // удаляем не нужное
             domain.remove("include");
-        }
-
-    }
-
-    private void prepareDomain(Conf root, Conf domain) {
-
-        // если есть узлы ref, для каждого ставим ref=имя_домена
-        if (domain.findConf("ref") != null) {
-            for (Conf ref : domain.getConfs("ref")) {
-                ref.setValue("ref", domain.getName());
-            }
-        }
-
-        // ставим ref=имя_домена по имени домена для ref по умолчанию, даже если ее нет
-        Conf ref = domain.findConf("ref/default", true);
-        ref.setValue("ref", domain.getName());
-
-        // tag.db
-        if (UtConf.isTagged(domain, "tag.db")) {
-            domain.setValue("dbtablename", domain.getName());
-        }
-
-        // tag.dbview
-        if (UtConf.isTagged(domain, "tag.dbview")) {
-            domain.setValue("dbtablename", domain.getName());
         }
 
     }

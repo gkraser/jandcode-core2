@@ -33,6 +33,16 @@ public class DomainBuilder_Test extends App_Test {
     }
 
     @Test
+    public void no_name() throws Exception {
+        DomainBuilder b = svc.createDomainBuilder("base");
+        Domain d = b.createDomain(null);
+        //
+        System.out.println(UtConf.save(d.getConf()).toString());
+        //
+        assertEquals(d.getName(), "noname");
+    }
+
+    @Test
     public void test1() throws Exception {
         DomainBuilder b = svc.createDomainBuilder("tab1.3");
         b.addField("test0", "string");

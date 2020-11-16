@@ -14,8 +14,7 @@ public class DomainDbImpl extends BaseDomainMember implements DomainDb {
 
     protected void onConfigureMember() throws Exception {
         dbTable = getDomain().hasTagDb();
-//todo conf        external = !getModel().isDefinedForDbStruct(getDomain().getConf().getPath());
-        external = !getModel().isDefinedForDbStruct(""); //todo conf
+        external = !getModel().isDefinedForDbStruct("domain/" + getDomain().getName());
     }
 
     public boolean isDbTable() {

@@ -8,6 +8,7 @@ import jandcode.commons.conf.*;
  */
 public class DomainConfHolder {
 
+    private Conf root;
     private ConfExpander expander;
     private Conf fieldConf;
     private Conf domainConf;
@@ -23,13 +24,13 @@ public class DomainConfHolder {
     public void buildConf(Conf modelConf) {
 
         // это все что мы собрали для себя, обработанная копия
-        Conf root = UtConf.create();
+        this.root = UtConf.create();
 
         // собираем все, что нам нужно из modelConf
         new DomainConfGrab().grab(modelConf, root);
 
         // обрабатываем собранное
-        new DomainConfPrepare().prepare(root);
+        new DomainConfPrepare().prepareRoot(root);
 
         // создаем expander
         this.expander = UtConf.createExpander(root);
@@ -108,11 +109,23 @@ public class DomainConfHolder {
     /**
      * Раскрыть конфигурацию домена
      *
-     * @param domainConf конфигурация домена не раскрытая
+     * @param domainConf конфигурация домена не раскрытая. Не изменяется.
+     * @param domainName какое имя домена будет использоватся в возвращаемой
+     *                   конфигурации.
      * @return раскрытая конфигурация домена
      */
-    public Conf expandDomainConf(Conf domainConf) {
-        return getExpander().expand("domain", domainConf);
+    public Conf expandDomainConf(Conf domainConf, String domainName) {
+        if (UtString.empty(domainName)) {
+            domainName = domainConf.getName();
+        }
+        Conf tmp = UtConf.create(domainName);
+        tmp.join(domainConf);
+
+        // обработка такая же, как и для доменов ис структуры
+        new DomainConfPrepare().prepareDomain(root, tmp);
+        //
+
+        return getExpander().expand("domain", tmp);
     }
 
 }

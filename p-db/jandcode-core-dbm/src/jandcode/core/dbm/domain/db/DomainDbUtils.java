@@ -102,7 +102,7 @@ public class DomainDbUtils implements IModelLink {
      * Максимальная длина идентификатора в базе данных
      */
     public int getIdnMaxLength() {
-        return getModel().getConf().getInt("cfg/db-params:idn.maxlength", 25);
+        return getModel().getConf().getInt("cfg/db-params/idn.maxlength", 25);
     }
 
     /**

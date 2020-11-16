@@ -107,20 +107,8 @@ public class Domain_Test extends App_Test {
     }
 
     @Test
-    public void test_systemFieldsDomain() throws Exception {
-        Domain d = svc.getDomain("system.fields");
-
-        // поля должны быть
-        d.f("string");
-        d.f("long");
-
-        // поля не должны быть
-        assertEquals(d.findField("base"), null);
-    }
-
-    @Test
     public void test_notFoundFieldMessage() throws Exception {
-        Domain d = svc.getDomain("system.fields");
+        Domain d = svc.getDomain("id");
         try {
             d.f("qazqaz");
             fail();
@@ -128,6 +116,5 @@ public class Domain_Test extends App_Test {
             utils.showError(e);
         }
     }
-
 
 }
