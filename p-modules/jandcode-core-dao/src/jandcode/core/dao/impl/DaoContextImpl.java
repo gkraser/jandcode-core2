@@ -5,23 +5,23 @@ import jandcode.core.dao.*;
 
 public class DaoContextImpl implements DaoContext, IBeanIniter {
 
-    private App app;
     private BeanFactory beanFactory = new DefaultBeanFactory(this);
 
     private Object daoInst;
     private Object result;
     private Throwable exception;
     private DaoMethodDef daoMethodDef;
+    private DaoInvoker daoInvoker;
     private long startTime;
 
-    public DaoContextImpl(App app, DaoMethodDef daoMethodDef) {
-        this.app = app;
+    public DaoContextImpl(DaoInvoker daoInvoker, DaoMethodDef daoMethodDef) {
+        this.daoInvoker = daoInvoker;
         this.daoMethodDef = daoMethodDef;
         this.startTime = System.currentTimeMillis();
     }
 
     public App getApp() {
-        return app;
+        return this.daoInvoker.getApp();
     }
 
     public BeanFactory getBeanFactory() {
@@ -44,6 +44,14 @@ public class DaoContextImpl implements DaoContext, IBeanIniter {
 
     public DaoMethodDef getDaoMethodDef() {
         return daoMethodDef;
+    }
+
+    public DaoInvoker getDaoInvoker() {
+        return daoInvoker;
+    }
+
+    public void setDaoInvoker(DaoInvoker daoInvoker) {
+        this.daoInvoker = daoInvoker;
     }
 
     public long getStartTime() {

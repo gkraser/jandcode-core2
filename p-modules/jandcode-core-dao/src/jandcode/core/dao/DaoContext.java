@@ -18,6 +18,11 @@ public interface DaoContext extends IAppLink, BeanFactoryOwner {
     DaoMethodDef getDaoMethodDef();
 
     /**
+     * Кто исполняет
+     */
+    DaoInvoker getDaoInvoker();
+
+    /**
      * Время начала выполнения dao.
      */
     long getStartTime();

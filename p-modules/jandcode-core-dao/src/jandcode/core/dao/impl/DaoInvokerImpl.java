@@ -9,11 +9,11 @@ import org.slf4j.*;
 
 import java.util.*;
 
-public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter {
+public class DaoInvokerImpl extends BaseComp implements DaoInvoker {
 
     protected static Logger log = LoggerFactory.getLogger(DaoInvoker.class);
 
-    private BeanFactory beanFactory = new DefaultBeanFactory(this);
+    private BeanFactory beanFactory = new DefaultBeanFactory();
     private DaoProxyFactory daoProxyFactory = new DaoProxyFactory(this);
     private List<DaoFilter> daoFilters = new ArrayList<>();
 
@@ -38,7 +38,7 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter 
         DaoLogger daoLogger = daoService.getDaoLogger();
 
         // создаем контекст
-        DaoContextImpl context = new DaoContextImpl(getApp(), method);
+        DaoContextImpl context = new DaoContextImpl(this, method);
         context.getBeanFactory().setParentBeanFactory(getBeanFactory());
 
         // создаем экземпляр dao
@@ -116,12 +116,6 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter 
 
     public BeanFactory getBeanFactory() {
         return beanFactory;
-    }
-
-    public void beanInit(Object inst) {
-        if (inst instanceof IDaoInvokerLinkSet) {
-            ((IDaoInvokerLinkSet) inst).setDaoInvoker(this);
-        }
     }
 
     public List<DaoFilter> getDaoFilters() {
