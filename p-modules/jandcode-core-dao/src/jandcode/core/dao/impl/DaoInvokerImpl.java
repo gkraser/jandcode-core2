@@ -46,7 +46,6 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker {
         context.setDaoInst(daoInst);
 
         daoLogger.logStart(context);
-        int filterPos = 0;
 
         // формируем фильтры
         List<DaoFilter> filters = new ArrayList<>(this.daoFilters);
@@ -56,12 +55,8 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker {
 
         try {
             // сначала все фильтры before
-            // засекаем filterPos, который выполнили последним (для обработки ошибок)
-            if (filters.size() > 0) {
-                for (int i = 0; i < filters.size(); i++) {
-                    filterPos = i;
-                    filters.get(i).execDaoFilter(DaoFilterType.before, context);
-                }
+            for (int i = 0; i < filters.size(); i++) {
+                filters.get(i).execDaoFilter(DaoFilterType.before, context);
             }
 
             // затем оригинальный метод
@@ -69,12 +64,8 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker {
             context.setResult(res);
 
             // затем все фильтры after, в обратном порядке
-            // засекаем filterPos, который выполнили последним (для обработки ошибок)
-            if (filters.size() > 0) {
-                for (int i = filters.size() - 1; i >= 0; i--) {
-                    filterPos = i;
-                    filters.get(i).execDaoFilter(DaoFilterType.after, context);
-                }
+            for (int i = filters.size() - 1; i >= 0; i--) {
+                filters.get(i).execDaoFilter(DaoFilterType.after, context);
             }
 
             daoLogger.logStop(context);
@@ -84,22 +75,20 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker {
             // запоминаем ошибку
             context.setException(e);
 
-            // при ошибке error, в обратном порядке
-            // начиная с последнего выполненного before
+            // выкидываем ее
+            throw e;
+
+        } finally {
             // ошибки внутри фильтров игнорируем и логгируем
-            if (filters.size() > 0) {
-                for (int i = filterPos; i >= 0; i--) {
-                    try {
-                        filters.get(i).execDaoFilter(DaoFilterType.error, context);
-                    } catch (Exception ex) {
-                        if (log.isErrorEnabled()) {
-                            log.error("Error in dao-error filter " + filters.get(i).getClass().getName(), e);
-                        }
+            for (int i = 0; i < filters.size(); i++) {
+                try {
+                    filters.get(i).execDaoFilter(DaoFilterType.cleanup, context);
+                } catch (Exception ex) {
+                    if (log.isErrorEnabled()) {
+                        log.error("Error in dao-cleanup filter " + filters.get(i).getClass().getName(), ex);
                     }
                 }
             }
-
-            throw e;
         }
         //
         return context.getResult();

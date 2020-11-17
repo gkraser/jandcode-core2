@@ -74,4 +74,8 @@ public class DaoContextImpl implements DaoContext, IBeanIniter {
         this.exception = exception;
     }
 
+    public boolean hasError() {
+        return this.exception != null;
+    }
+
 }

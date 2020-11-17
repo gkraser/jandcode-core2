@@ -37,4 +37,10 @@ public interface DaoContext extends IAppLink, BeanFactoryOwner {
      */
     Throwable getException();
 
+    /**
+     * Возвращает true, если выполнение прервалось с ошибкой.
+     * {@link DaoContext#getException()} содержит ошибку.
+     */
+    boolean hasError();
+
 }
