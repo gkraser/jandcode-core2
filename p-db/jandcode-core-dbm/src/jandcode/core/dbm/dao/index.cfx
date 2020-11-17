@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <dbm>
+        <model name="jandcode.core.dbm.dao">
+
+            <bean name="jandcode.core.dbm.dao.ModelDaoService"
+                  class="jandcode.core.dbm.dao.impl.ModelDaoServiceImpl"/>
+
+            <dao>
+                <daoInvoker name="default"
+                            class="jandcode.core.dbm.dao.impl.ModelDaoInvoker">
+                </daoInvoker>
+            </dao>
+
+        </model>
+    </dbm>
+
+
+</root>

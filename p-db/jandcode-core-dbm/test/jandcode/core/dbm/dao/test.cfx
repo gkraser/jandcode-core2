@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-depends module="jandcode.core.dbm"/>
+
+    <dbm>
+
+        <model name="base1">
+            <include name="jandcode.core.dbm.dao"/>
+        </model>
+
+        <model name="default" instance="base1">
+        </model>
+
+        <model name="model2" instance="base1">
+        </model>
+
+    </dbm>
+
+
+</root>

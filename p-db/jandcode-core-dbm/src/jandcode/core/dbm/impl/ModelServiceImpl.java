@@ -9,7 +9,7 @@ import jandcode.core.dbm.*;
 
 public class ModelServiceImpl extends BaseComp implements ModelService {
 
-    private NamedList<ModelDef> models = new DefaultNamedList<>();
+    private NamedList<ModelDef> models = new DefaultNamedList<>("Не найдена модель [{0}]");
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);

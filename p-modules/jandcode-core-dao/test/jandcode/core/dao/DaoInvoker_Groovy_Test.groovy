@@ -12,7 +12,7 @@ public class DaoInvoker_Groovy_Test extends App_Test {
     @Test
     public void test1() throws Exception {
 
-        DaoInvoker m = app.create(DaoInvokerImpl.class);
+        DaoInvoker m = app.create(DefaultDaoInvoker.class);
         DaoClassDef c = new DaoClassDefImpl(Dao2.class);
 
         Object res = m.invokeDao(c.getMethods().get("sum2"), 2, 4);
@@ -26,7 +26,7 @@ public class DaoInvoker_Groovy_Test extends App_Test {
     @Test
     public void test2() throws Exception {
 
-        DaoInvoker m = app.create(DaoInvokerImpl.class);
+        DaoInvoker m = app.create(DefaultDaoInvoker.class);
 
         Dao2 z = m.createDao(Dao2.class);
 
@@ -48,7 +48,7 @@ public class DaoInvoker_Groovy_Test extends App_Test {
 
     @Test
     public void groovy1() throws Exception {
-        DaoInvoker m = app.create(DaoInvokerImpl.class);
+        DaoInvoker m = app.create(DefaultDaoInvoker.class);
         DaoGroovy1 z = m.createDao(DaoGroovy1.class);
         z.dummy1();
     }

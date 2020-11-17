@@ -12,7 +12,7 @@ public class DaoInvoker_Test extends App_Test {
     @Test
     public void test1() throws Exception {
 
-        DaoInvoker m = app.create(DaoInvokerImpl.class);
+        DaoInvoker m = app.create(DefaultDaoInvoker.class);
         DaoClassDef c = new DaoClassDefImpl(Dao2.class);
 
         Object res = m.invokeDao(c.getMethods().get("sum2"), 2, 4);
@@ -26,7 +26,7 @@ public class DaoInvoker_Test extends App_Test {
     @Test
     public void test11() throws Exception {
 
-        DaoInvoker m = app.create(DaoInvokerImpl.class);
+        DaoInvoker m = app.create(DefaultDaoInvoker.class);
         DaoClassDef c = app.bean(DaoService.class).getDaoClassDef(Dao2.class);
 
         Object res = m.invokeDao(c.getMethods().get("sum2"), 2, 4);
@@ -40,7 +40,7 @@ public class DaoInvoker_Test extends App_Test {
     @Test
     public void test2() throws Exception {
 
-        DaoInvoker m = app.create(DaoInvokerImpl.class);
+        DaoInvoker m = app.create(DefaultDaoInvoker.class);
 
         Dao2 z = m.createDao(Dao2.class);
 
@@ -63,14 +63,14 @@ public class DaoInvoker_Test extends App_Test {
 
     @Test
     public void groovy1() throws Exception {
-        DaoInvoker m = app.create(DaoInvokerImpl.class);
+        DaoInvoker m = app.create(DefaultDaoInvoker.class);
         DaoGroovy1 z = m.createDao(DaoGroovy1.class);
         z.dummy1();
     }
 
     @Test
     public void isDao2() throws Exception {
-        DaoInvoker m = app.create(DaoInvokerImpl.class);
+        DaoInvoker m = app.create(DefaultDaoInvoker.class);
         //
         Dao1 z1 = m.createDao(Dao1.class);
         assertFalse(z1.isDao2());
@@ -83,7 +83,7 @@ public class DaoInvoker_Test extends App_Test {
 
     @Test
     public void filters1() throws Exception {
-        DaoInvoker m = app.create(app.getConf().getConf("dao/daoInvoker/filters1"), DaoInvokerImpl.class);
+        DaoInvoker m = app.create(app.getConf().getConf("dao/daoInvoker/filters1"), DefaultDaoInvoker.class);
         Dao1 d = m.createDao(Dao1.class);
         d.isDao2();
 

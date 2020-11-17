@@ -38,5 +38,6 @@
     <!-- =================== -->
 
     <x-include path="domain/index.cfx"/>
+    <x-include path="dao/index.cfx"/>
 
 </root>

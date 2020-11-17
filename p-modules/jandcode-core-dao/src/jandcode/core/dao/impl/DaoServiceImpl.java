@@ -1,6 +1,5 @@
 package jandcode.core.dao.impl;
 
-import jandcode.commons.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.named.*;
 import jandcode.core.*;
@@ -28,7 +27,7 @@ public class DaoServiceImpl extends BaseComp implements DaoService {
             if (this.inst == null) {
                 synchronized (this) {
                     if (this.inst == null) {
-                        this.inst = getApp().create(this.conf, DaoInvokerImpl.class);
+                        this.inst = getApp().create(this.conf, DefaultDaoInvoker.class);
                     }
                 }
             }
@@ -65,20 +64,15 @@ public class DaoServiceImpl extends BaseComp implements DaoService {
         // logger
         this.daoLogger = (DaoLogger) getApp().create(cfg.getConf().getConf("daoLogger/default"));
 
-        // формируем раскрытую conf для dao-invoker
-        Conf xExp = UtConf.create();
-        xExp.setValue("daoInvoker", getApp().getConf().getConf("dao/daoInvoker"));
-
-        ConfExpander exp = UtConf.createExpander(xExp);
+        Conf daoConf = getApp().getConf().getConf("dao");
 
         //
-        Conf confDaoInvoker = exp.expand("daoInvoker");
-        for (Conf x : confDaoInvoker.getConfs()) {
+        for (Conf x : daoConf.getConfs("daoInvoker")) {
             daoInvokers.add(new DaoInvokerDef(x));
         }
 
         //
-        for (Conf x : getApp().getConf().getConfs("dao/daoHolder")) {
+        for (Conf x : daoConf.getConfs("daoHolder")) {
             daoHolders.add(new DaoHolderDef(x));
         }
 
