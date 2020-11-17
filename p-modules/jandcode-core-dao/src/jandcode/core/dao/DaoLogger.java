@@ -8,16 +8,16 @@ public interface DaoLogger {
     /**
      * Превратить dao в строку лога
      */
-    String toString(DaoFilterParams p);
+    String toString(DaoContext ctx);
 
     /**
      * Начало выполнения dao
      */
-    void logStart(DaoFilterParams p);
+    void logStart(DaoContext ctx);
 
     /**
      * Конец выполнения dao
      */
-    void logStop(DaoFilterParams p);
+    void logStop(DaoContext ctx);
 
 }

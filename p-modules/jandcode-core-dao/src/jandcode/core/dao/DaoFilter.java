@@ -9,8 +9,8 @@ public interface DaoFilter {
      * Вызывается для каждого типа фильтра по необходимости
      *
      * @param type тип фильтра
-     * @param p    параметры
+     * @param ctx  контекст dao
      */
-    void execDaoFilter(DaoFilterType type, DaoFilterParams p) throws Exception;
+    void execDaoFilter(DaoFilterType type, DaoContext ctx) throws Exception;
 
 }

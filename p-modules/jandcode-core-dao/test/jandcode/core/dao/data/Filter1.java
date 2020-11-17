@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class Filter1 extends BaseDaoFilter {
 
-    public void execDaoFilter(DaoFilterType type, DaoFilterParams p) throws Exception {
+    public void execDaoFilter(DaoFilterType type, DaoContext ctx) throws Exception {
         if (type == DaoFilterType.before) {
             assertNotNull(getDaoInvoker());
             assertNotNull(getApp());

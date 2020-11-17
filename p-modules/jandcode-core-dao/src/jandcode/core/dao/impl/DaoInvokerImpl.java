@@ -38,16 +38,14 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter 
         DaoLogger daoLogger = daoService.getDaoLogger();
 
         // создаем контекст
-        DaoContext context = createDaoContext();
+        DaoContextImpl context = new DaoContextImpl(getApp(), method);
         context.getBeanFactory().setParentBeanFactory(getBeanFactory());
 
         // создаем экземпляр dao
         Object daoInst = context.create(method.getCls());
+        context.setDaoInst(daoInst);
 
-        // создаем параметр для фильтров
-        DaoFilterParamsImpl filterParams = new DaoFilterParamsImpl(context, daoInst, method);
-
-        daoLogger.logStart(filterParams);
+        daoLogger.logStart(context);
         int filterPos = 0;
 
         // формируем фильтры
@@ -62,29 +60,29 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter 
             if (filters.size() > 0) {
                 for (int i = 0; i < filters.size(); i++) {
                     filterPos = i;
-                    filters.get(i).execDaoFilter(DaoFilterType.before, filterParams);
+                    filters.get(i).execDaoFilter(DaoFilterType.before, context);
                 }
             }
 
             // затем оригинальный метод
             Object res = method.getMethod().invoke(daoInst, args);
-            filterParams.setResult(res);
+            context.setResult(res);
 
             // затем все фильтры after, в обратном порядке
             // засекаем filterPos, который выполнили последним (для обработки ошибок)
             if (filters.size() > 0) {
                 for (int i = filters.size() - 1; i >= 0; i--) {
                     filterPos = i;
-                    filters.get(i).execDaoFilter(DaoFilterType.after, filterParams);
+                    filters.get(i).execDaoFilter(DaoFilterType.after, context);
                 }
             }
 
-            daoLogger.logStop(filterParams);
+            daoLogger.logStop(context);
 
         } catch (Throwable e) {
 
             // запоминаем ошибку
-            filterParams.setException(e);
+            context.setException(e);
 
             // при ошибке error, в обратном порядке
             // начиная с последнего выполненного before
@@ -92,7 +90,7 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter 
             if (filters.size() > 0) {
                 for (int i = filterPos; i >= 0; i--) {
                     try {
-                        filters.get(i).execDaoFilter(DaoFilterType.error, filterParams);
+                        filters.get(i).execDaoFilter(DaoFilterType.error, context);
                     } catch (Exception ex) {
                         if (log.isErrorEnabled()) {
                             log.error("Error in dao-error filter " + filters.get(i).getClass().getName(), e);
@@ -104,7 +102,7 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter 
             throw e;
         }
         //
-        return filterParams.getResult();
+        return context.getResult();
     }
 
     public <A> A createDao(Class<A> cls) {
@@ -114,10 +112,6 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker, IBeanIniter 
         } catch (Exception e) {
             throw new XErrorWrap(e);
         }
-    }
-
-    private DaoContext createDaoContext() {
-        return new DaoContextImpl(getApp());
     }
 
     public BeanFactory getBeanFactory() {
