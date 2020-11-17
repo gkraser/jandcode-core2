@@ -30,6 +30,12 @@
             <flag m2.1="test.2.inst"/>
         </model>
 
+        <!-- =================== -->
+
+        <model name="test1" instance="test.2">
+        </model>
+
+
     </dbm>
 
     <!-- ===================================================================== -->
@@ -37,6 +43,13 @@
     <cfg>
         <dbsource name="test.2.inst"
                   dbdriver="mariadb" flag.db.mysql="1"/>
+
+        <dbsource name="test1"
+                  dbdriver="mariadb"
+                  database="jc2_dbm_db_test"
+                  username="root"
+        />
+
     </cfg>
 
 </root>
