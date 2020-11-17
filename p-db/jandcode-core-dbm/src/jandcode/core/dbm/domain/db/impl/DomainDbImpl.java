@@ -9,20 +9,14 @@ import java.util.*;
 public class DomainDbImpl extends BaseDomainMember implements DomainDb {
 
     private boolean dbTable;
-    private boolean external;
     private List<DomainDbIndex> indexes;
 
     protected void onConfigureMember() throws Exception {
         dbTable = getDomain().hasTagDb();
-        external = !getModel().isDefinedForDbStruct("domain/" + getDomain().getName());
     }
 
     public boolean isDbTable() {
         return dbTable;
-    }
-
-    public boolean isExternal() {
-        return external;
     }
 
     public List<DomainDbIndex> getIndexes() {

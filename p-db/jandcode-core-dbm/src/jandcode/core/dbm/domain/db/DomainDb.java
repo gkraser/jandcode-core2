@@ -17,12 +17,6 @@ public interface DomainDb extends Comp, IModelMember, IDomainMember {
     boolean isDbTable();
 
     /**
-     * true - домен находится в базе данных, но является внешним, по отношению
-     * к модели, т.е. определен в базовой модели.
-     */
-    boolean isExternal();
-
-    /**
      * Индексы для домена
      */
     List<DomainDbIndex> getIndexes();

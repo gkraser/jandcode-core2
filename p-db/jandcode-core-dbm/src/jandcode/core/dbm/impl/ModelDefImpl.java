@@ -18,7 +18,6 @@ public class ModelDefImpl extends BaseComp implements ModelDef {
     private Conf joinConf;
     private Model inst;
     private List<ModelDef> includedModels;
-    private DbMode dbMode;
     private ModuleInst module;
 
     public ModelDefImpl(App app, String name, Conf conf) {
@@ -158,56 +157,6 @@ public class ModelDefImpl extends BaseComp implements ModelDef {
 
     public ModelDef getInstanceOf() {
         return this;
-    }
-
-    public boolean isDefinedHere(String dbtype, String idn) {
-
-        // сначала в dbtype
-        Conf x = getConf().findConf("dbtype/" + dbtype + "/" + idn);
-        if (x != null) {
-            return true;
-        }
-
-        // потом в самой модели
-        return getConf().findConf(idn) != null;
-
-    }
-
-    public boolean isDefinedForDbStruct(String dbtype, String idn) {
-        if (getDbMode() == DbMode.none) {
-            return false; // не может иметь структуру
-        }
-        if (getDbMode() == DbMode.solid) {
-            return true;  // все равно имеет этот объект
-        }
-
-        // нужно что бы объект был определен в модели до первой самостоятельной структуры
-        List<ModelDef> lst = getIncludedModels();
-        for (int i = 0; i < lst.size(); i++) {
-            ModelDef md1 = lst.get(i);
-            if (md1.isDefinedHere(dbtype, idn)) {
-                // определен в этой модели, но моя ли она?
-                for (int j = lst.size() - 1; j >= i; j--) {
-                    ModelDef md2 = lst.get(j);
-                    if (md2.getDbMode() != DbMode.none) {
-                        return false; // все, модели кончились
-                    }
-                    if (md1 == md2) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-        // ни у кого нету. Может у меня есть?
-        return isDefinedHere(dbtype, idn);
-    }
-
-    public DbMode getDbMode() {
-        if (dbMode == null) {
-            dbMode = DbMode.fromString(getConf().getString("dbmode"));
-        }
-        return dbMode;
     }
 
     public ModuleInst getModule() {

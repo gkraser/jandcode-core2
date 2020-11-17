@@ -67,7 +67,7 @@ public class DomainDbUtils implements IModelLink {
         NamedList<Domain> res = new DefaultNamedList<>();
         for (Domain d : getDomains()) {
             DomainDb dd = d.bean(DomainDb.class);
-            if (dd.isDbTable() && !dd.isExternal()) {
+            if (dd.isDbTable()) {
                 res.add(d);
             }
         }

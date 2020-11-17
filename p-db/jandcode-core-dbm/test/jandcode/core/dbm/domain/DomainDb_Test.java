@@ -18,13 +18,6 @@ public class DomainDb_Test extends App_Test {
     }
 
     @Test
-    public void test_external() throws Exception {
-        Assertions.assertEquals(svc.domain("ext.tab.3").bean(DomainDb.class).isExternal(), false);
-        assertEquals(svc.domain("ext.tab.2").bean(DomainDb.class).isExternal(), true);
-        assertEquals(svc.domain("ext.tab.1").bean(DomainDb.class).isExternal(), true);
-    }
-
-    @Test
     public void test_index() throws Exception {
         Domain d = svc.domain("db_tab2");
         DomainDb dd = d.bean(DomainDb.class);

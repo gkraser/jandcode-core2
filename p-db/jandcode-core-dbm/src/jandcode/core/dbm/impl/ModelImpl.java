@@ -36,10 +36,6 @@ public class ModelImpl extends BaseComp implements Model, IBeanIniter {
         this.modelDef = modelDef;
     }
 
-    public boolean isDefinedForDbStruct(String idn) {
-        return getModelDef().getInstanceOf().isDefinedForDbStruct(getDbType(), idn);
-    }
-
     //////
 
 
