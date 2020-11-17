@@ -11,6 +11,6 @@ public interface DaoFilter {
      * @param type тип фильтра
      * @param p    параметры
      */
-    void execDaoFilter(DaoFilterType type, DaoFilterParams p);
+    void execDaoFilter(DaoFilterType type, DaoFilterParams p) throws Exception;
 
 }
