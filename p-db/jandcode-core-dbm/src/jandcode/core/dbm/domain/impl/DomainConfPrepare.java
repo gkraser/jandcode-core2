@@ -51,12 +51,16 @@ public class DomainConfPrepare {
 
         // tag.db
         if (UtConf.isTagged(domain, "tag.db")) {
-            domain.setValue("dbtablename", domain.getName());
+            if (UtString.empty(domain.getString("dbtablename"))) {
+                domain.setValue("dbtablename", domain.getName());
+            }
         }
 
         // tag.dbview
         if (UtConf.isTagged(domain, "tag.dbview")) {
-            domain.setValue("dbtablename", domain.getName());
+            if (UtString.empty(domain.getString("dbtablename"))) {
+                domain.setValue("dbtablename", domain.getName());
+            }
         }
 
     }

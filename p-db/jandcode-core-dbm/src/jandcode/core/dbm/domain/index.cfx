@@ -7,61 +7,12 @@
             <bean name="jandcode.core.dbm.domain.DomainService"
                   class="jandcode.core.dbm.domain.impl.DomainServiceImpl"/>
 
-            <cfg>
-                <!-- максимальная длина идентификатора в базе данных -->
-                <db-params idn.maxlength="63"/>
-            </cfg>
-
-            <dbtype name="oracle">
-                <cfg>
-                    <!-- для oracle - 30 -->
-                    <db-params idn.maxlength="30"/>
-                </cfg>
-            </dbtype>
-
-            <!-- генератор ddl для доменов -->
-
-            <ddl name="domain.table"
-                 file="res:jandcode/core/dbm/domain/ddl/doman-table.gsp"
-                 global="true"
-                 stage="tables"
-            />
-
-            <ddl name="domain.pk"
-                 file="res:jandcode/core/dbm/domain/ddl/doman-pk.gsp"
-                 global="true"
-                 stage="afterData"
-            />
-
-            <ddl name="domain.ref"
-                 file="res:jandcode/core/dbm/domain/ddl/doman-ref.gsp"
-                 global="true"
-                 stage="afterData"
-            />
-
-            <ddl name="domain.idx"
-                 file="res:jandcode/core/dbm/domain/ddl/doman-idx.gsp"
-                 global="true"
-                 stage="afterData"
-            />
-
-            <dbtype name="oracle">
-                <!-- индексы для ref, которые oracle сам не генерирует -->
-                <ddl name="domain.idx.for.ref"
-                     file="res:jandcode/core/dbm/domain/ddl/oracle/doman-idx-for-ref.gsp"
-                     global="true"
-                     stage="afterData"
-                />
-            </dbtype>
-
             <!-- базовое поле -->
 
             <field name="base">
                 <!-- бины поля -->
                 <bean name="jandcode.core.dbm.domain.IField"
                       class="jandcode.core.dbm.domain.impl.IFieldImpl"/>
-                <bean name="jandcode.core.dbm.domain.db.FieldDb"
-                      class="jandcode.core.dbm.domain.db.impl.FieldDbImpl"/>
             </field>
 
             <!-- реальные типы данных -->
@@ -113,8 +64,6 @@
                 <!-- бины домена -->
                 <bean name="jandcode.core.dbm.domain.IDomain"
                       class="jandcode.core.dbm.domain.impl.IDomainImpl"/>
-                <bean name="jandcode.core.dbm.domain.db.DomainDb"
-                      class="jandcode.core.dbm.domain.db.impl.DomainDbImpl"/>
 
                 <field>
                     <!-- поля домена-->

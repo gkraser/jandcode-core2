@@ -24,15 +24,12 @@ public interface IDomain {
     boolean hasTag(String tag);
 
     /**
-     * Есть ли тег db (является ли объектом базы данных)
-     */
-    default boolean hasTagDb() {
-        return hasTag("db");
-    }
-
-    /**
      * Имя таблицы в базе данных для домена.
      * Имеет смысл только для доменов в базе данных и наследников от них.
+     * <p>
+     * При загрузке структуры проставляется в имя домена, если у конфигурации
+     * домена имеется атрибут tag.db=true или tag.dbview=true и явно не установлено
+     * значение в атрибуте dbtablename.
      */
     String getDbTableName();
 
