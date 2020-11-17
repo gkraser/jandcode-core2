@@ -1,10 +1,9 @@
-package jandcode.core.dbm.db.impl;
+package jandcode.core.dbm.impl;
 
 import jandcode.commons.conf.*;
 import jandcode.core.*;
 import jandcode.core.db.*;
 import jandcode.core.dbm.*;
-import jandcode.core.dbm.db.*;
 import org.slf4j.*;
 
 public class ModelDbServiceImpl extends BaseModelMember implements ModelDbService {

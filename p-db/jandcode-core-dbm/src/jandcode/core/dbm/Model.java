@@ -2,7 +2,6 @@ package jandcode.core.dbm;
 
 import jandcode.commons.conf.*;
 import jandcode.core.*;
-import jandcode.core.dbm.db.*;
 
 /**
  * Модель.

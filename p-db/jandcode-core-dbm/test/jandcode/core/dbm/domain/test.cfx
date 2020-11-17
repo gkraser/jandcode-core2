@@ -9,12 +9,13 @@
 
     <dbm>
 
-        <model name="domain.0" dbmode="solid">
+        <model name="domain.0">
+            <include name="jandcode.core.dbm.domain"/>
             <domain name="ext.tab.1"/>
             <domain name="ext.tab.2"/>
         </model>
 
-        <model name="domain.1" dbmode="module">
+        <model name="domain.1">
             <include name="domain.0"/>
             <x-include path="data/*.cfx"/>
             <domain name="ext.tab.2"/>

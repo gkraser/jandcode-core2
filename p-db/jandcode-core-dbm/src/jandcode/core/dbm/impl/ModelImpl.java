@@ -4,7 +4,6 @@ import jandcode.commons.conf.*;
 import jandcode.core.*;
 import jandcode.core.db.*;
 import jandcode.core.dbm.*;
-import jandcode.core.dbm.db.*;
 
 public class ModelImpl extends BaseComp implements Model, IBeanIniter {
 

@@ -9,7 +9,7 @@
         <!-- все, что касается dbm -->
     </dbm>
 
-    <!-- модели -->
+    <!-- базовая модель -->
     <dbm>
 
         <model name="jandcode.core.dbm">
@@ -22,16 +22,21 @@
                 -->
             </cfg>
 
+            <bean name="jandcode.core.dbm.ModelDbService"
+                  class="jandcode.core.dbm.impl.ModelDbServiceImpl"
+                  bean.autoCreate="true"/>
+
             <!-- dbsource по умолчанию присутствует всегда -->
             <dbsource name="default"
                       dbdriver="base"
                       cfg="cfg/dbsource/${modelName}"/>
 
-            <x-include path="db/index-model.cfx"/>
-            <x-include path="domain/index-model.cfx"/>
-
         </model>
 
     </dbm>
+
+    <!-- =================== -->
+
+    <x-include path="domain/index.cfx"/>
 
 </root>

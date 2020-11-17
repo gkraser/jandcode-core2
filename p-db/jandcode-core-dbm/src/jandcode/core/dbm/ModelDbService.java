@@ -1,7 +1,6 @@
-package jandcode.core.dbm.db;
+package jandcode.core.dbm;
 
 import jandcode.core.*;
-import jandcode.core.dbm.*;
 
 /**
  * Сервис базы данных для модели.
