@@ -42,11 +42,4 @@ public interface IModelDbService {
         return getDbSource().createDb(direct);
     }
 
-    /**
-     * Возвращает кешированный в рамках текущего потока экземпляр Db.
-     * Соединение автоматически не устанавливается.
-     */
-    @Deprecated
-    Db getDb();
-
 }

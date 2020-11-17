@@ -11,13 +11,6 @@ public class ModelDbServiceImpl extends BaseModelMember implements ModelDbServic
     protected static Logger log = LoggerFactory.getLogger(ModelDbService.class);
 
     private ModelDbSourceImpl dbSource;
-    private ThreadLocalDb threadLocalDb = new ThreadLocalDb();
-
-    protected class ThreadLocalDb extends ThreadLocal<Db> {
-        protected Db initialValue() {
-            return createDb();
-        }
-    }
 
     //////
 
@@ -33,11 +26,6 @@ public class ModelDbServiceImpl extends BaseModelMember implements ModelDbServic
 
     public DbSource getDbSource() {
         return dbSource;
-    }
-
-    public Db getDb() {
-        log.warn("Use getDb() in ModelDbService");
-        return threadLocalDb.get();
     }
 
 }

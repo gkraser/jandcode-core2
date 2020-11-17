@@ -57,8 +57,4 @@ public class ModelImpl extends BaseComp implements Model, IBeanIniter {
         return bean(ModelDbService.class).getDbSource();
     }
 
-    public Db getDb() {
-        return bean(ModelDbService.class).getDb();
-    }
-
 }
