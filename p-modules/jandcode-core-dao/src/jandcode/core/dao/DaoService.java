@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Сервис для dao
  */
-public interface DaoService extends Comp {
+public interface DaoService extends Comp, IDaoClassFactory {
 
     /**
      * Получить {@link DaoInvoker} по имени
@@ -28,13 +28,6 @@ public interface DaoService extends Comp {
      * Имена зарегистрированных {@link DaoHolder}
      */
     Collection<String> getDaoHolderNames();
-
-    /**
-     * Возвращает описание dao-класса
-     *
-     * @param cls dao-класс
-     */
-    DaoClassDef getDaoClassDef(Class cls);
 
     /**
      * logger для процесса исполнения dao

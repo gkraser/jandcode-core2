@@ -111,4 +111,8 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker {
         return daoFilters;
     }
 
+    public DaoClassDef getDaoClassDef(Class cls) {
+        return getApp().bean(DaoService.class).getDaoClassDef(cls);
+    }
+
 }
