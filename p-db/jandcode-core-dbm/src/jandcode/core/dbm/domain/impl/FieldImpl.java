@@ -101,20 +101,12 @@ public class FieldImpl extends BaseModelMember implements Field, IBeanIniter {
         return getIField().getStoreDataType();
     }
 
-    public boolean isCalc() {
-        return getIField().isCalc();
-    }
-
     public String getRef() {
         return getIField().getRef();
     }
 
     public boolean hasRef() {
         return getIField().hasRef();
-    }
-
-    public boolean isReq() {
-        return getIField().isReq();
     }
 
 }

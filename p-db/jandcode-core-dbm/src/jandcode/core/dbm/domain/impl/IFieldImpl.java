@@ -11,9 +11,7 @@ public class IFieldImpl extends BaseFieldMember implements IField {
     private VariantDataType dataType = VariantDataType.OBJECT;
     private String dbDataType;
     private String storeDataType;
-    private boolean calc;
     private String ref;
-    private boolean req;
 
     //////
 
@@ -81,28 +79,12 @@ public class IFieldImpl extends BaseFieldMember implements IField {
         this.storeDataType = storeDataType;
     }
 
-    public boolean isCalc() {
-        return calc;
-    }
-
-    public void setCalc(boolean calc) {
-        this.calc = calc;
-    }
-
     public String getRef() {
         return ref == null ? "" : ref;
     }
 
     public void setRef(String ref) {
         this.ref = ref;
-    }
-
-    public boolean isReq() {
-        return req;
-    }
-
-    public void setReq(boolean req) {
-        this.req = req;
     }
 
 }
