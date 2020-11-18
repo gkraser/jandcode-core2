@@ -10,6 +10,8 @@
             <dao>
                 <daoInvoker name="default"
                             class="jandcode.core.dbm.dao.impl.ModelDaoInvoker">
+                    <filter name="model-db" weight="10"
+                            class="jandcode.core.dbm.dao.ModelDaoFilter"/>
                 </daoInvoker>
             </dao>
 

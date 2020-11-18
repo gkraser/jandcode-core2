@@ -2,6 +2,7 @@
 <root>
 
     <x-depends module="jandcode.core.dbm"/>
+    <x-depends module="jandcode.core.db.mariadb"/>
 
     <dbm>
 
@@ -15,7 +16,20 @@
         <model name="model2" instance="base1">
         </model>
 
+        <model name="test1" instance="base1">
+        </model>
+
     </dbm>
+
+    <!-- ===================================================================== -->
+
+    <cfg>
+        <dbsource name="test1"
+                  dbdriver="mariadb"
+                  database="jc2_dbm_db_test"
+                  username="root"
+        />
+    </cfg>
 
 
 </root>

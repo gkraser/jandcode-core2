@@ -1,8 +1,12 @@
 package jandcode.core.dbm.model
 
+import jandcode.core.db.*
 import jandcode.core.dbm.*
+import jandcode.core.dbm.impl.*
 import jandcode.core.test.*
 import org.junit.jupiter.api.*
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class ModelDbSource_Test extends App_Test {
 
@@ -23,5 +27,44 @@ class ModelDbSource_Test extends App_Test {
         utils.outTable(st)
     }
 
+    @Test
+    void db_wrapper_auto_connect() {
+        Db db = z.model.createDb(true)
+        ModelDbWrapper dbw = new ModelDbWrapper(db, true, true)
+
+        //
+        assertEquals(db.isConnected(), false)
+        assertEquals(db.isTran(), false)
+        assertEquals(dbw.isConnected(), false)
+        assertEquals(dbw.isTran(), false)
+
+        //
+        try {
+            // not connected
+            db.loadQuery("select 1")
+            fail()
+        } catch (ignore) {
+        }
+
+        // connected
+        dbw.loadQuery("select 1")
+
+        //
+        assertEquals(db.isConnected(), true)
+        assertEquals(db.isTran(), true)
+        assertEquals(dbw.isConnected(), true)
+        assertEquals(dbw.isTran(), true)
+
+        //
+        dbw.rollback()
+        dbw.disconnect()
+
+        //
+        assertEquals(db.isConnected(), false)
+        assertEquals(db.isTran(), false)
+        assertEquals(dbw.isConnected(), false)
+        assertEquals(dbw.isTran(), false)
+
+    }
 
 }
