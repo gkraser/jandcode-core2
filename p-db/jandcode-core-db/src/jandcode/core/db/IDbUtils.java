@@ -60,6 +60,30 @@ public interface IDbUtils {
     ////// store
 
     /**
+     * Создать пустой store
+     */
+    Store createStore();
+
+    /**
+     * Создать пустой store со структурой из query.
+     */
+    Store createStore(DbQuery query);
+
+    /**
+     * Загрузить данные из query в указанный store.
+     * query не закрывается (не я открыл, не мне закрывать)!
+     */
+    void loadQuery(Store store, DbQuery query) throws Exception;
+
+    /**
+     * Загрузить query в новый store.
+     * query не закрывается (не я открыл, не мне закрывать)!
+     */
+    Store loadQuery(DbQuery query) throws Exception;
+
+    //////
+
+    /**
      * Загрузить результат запроса в новый store
      */
     Store loadQuery(String sql) throws Exception;

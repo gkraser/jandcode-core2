@@ -133,4 +133,21 @@ public abstract class BaseDbWrapper implements Db {
     public void loadQueryNative(Store store, String sql) throws Exception {
         getWrapConnected().loadQueryNative(store, sql);
     }
+
+    public Store createStore() {
+        return getWrapConnected().createStore();
+    }
+
+    public Store createStore(DbQuery query) {
+        return getWrapConnected().createStore(query);
+    }
+
+    public void loadQuery(Store store, DbQuery query) throws Exception {
+        getWrapConnected().loadQuery(store, query);
+    }
+
+    public Store loadQuery(DbQuery query) throws Exception {
+        return getWrapConnected().loadQuery(query);
+    }
+
 }
