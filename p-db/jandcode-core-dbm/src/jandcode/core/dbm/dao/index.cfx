@@ -2,8 +2,8 @@
 <root>
 
     <dao>
-        <daoInvokerResolver name="model"
-                            class="jandcode.core.dbm.dao.impl.ModelDaoInvokerResolver"/>
+        <invoker-resolver name="model"
+                          class="jandcode.core.dbm.dao.impl.ModelDaoInvokerResolver"/>
     </dao>
 
     <dbm>
@@ -13,11 +13,11 @@
                   class="jandcode.core.dbm.dao.impl.ModelDaoServiceImpl"/>
 
             <dao>
-                <daoInvoker name="default"
-                            class="jandcode.core.dbm.dao.impl.ModelDaoInvoker">
+                <invoker name="default"
+                         class="jandcode.core.dbm.dao.impl.ModelDaoInvoker">
                     <filter name="model-db" weight="10"
                             class="jandcode.core.dbm.dao.impl.ModelDaoFilter"/>
-                </daoInvoker>
+                </invoker>
             </dao>
 
         </model>

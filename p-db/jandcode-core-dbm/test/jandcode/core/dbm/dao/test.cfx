@@ -22,11 +22,11 @@
     </dbm>
 
     <dao>
-        <daoHolder name="h1">
-            <rule name="i" mask="**/*" daoInvoker="model:test1"/>
+        <holder name="h1">
+            <rule name="i" mask="**/*" invoker="model:test1"/>
             <item name="p1"
                   package="jandcode.core.dbm.dao.data"/>
-        </daoHolder>
+        </holder>
     </dao>
 
     <!-- ===================================================================== -->

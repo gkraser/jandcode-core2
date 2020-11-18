@@ -13,7 +13,7 @@ class DaoHolder_Test extends App_Test {
     void prnHolder(DaoHolder h) {
         utils.delim("rules")
         for (z in h.getRules()) {
-            println "${UtString.padRight(z.mask, 37)} -> ${z.daoInvoker}"
+            println "${UtString.padRight(z.mask, 37)} -> ${z.invoker}"
         }
         utils.delim("items")
         for (z in h.getItems()) {

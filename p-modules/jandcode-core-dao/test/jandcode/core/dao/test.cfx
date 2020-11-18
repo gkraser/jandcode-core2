@@ -5,17 +5,17 @@
 
 
     <dao>
-        <daoInvoker name="filters1">
+        <invoker name="filters1">
             <filter name="filter1"
                     class="jandcode.core.dao.data.Filter1"/>
             <filter name="filter0"
                     class="jandcode.core.dao.data.Filter1" weight="1"/>
             <filter name="filter2"
                     class="jandcode.core.dao.data.Filter1"/>
-        </daoInvoker>
+        </invoker>
 
-        <daoHolder name="test1">
-            <rule name="default" mask="**/*" daoInvoker="filters1"/>
+        <holder name="test1">
+            <rule name="default" mask="**/*" invoker="filters1"/>
 
             <item name="i" package="jandcode.core.dao.data"/>
             <item name="pfx" package="jandcode.core.dao.data">
@@ -32,16 +32,16 @@
             <item name="d1/p1" class="jandcode.core.dao.data.recursive_pak.Dao11"
                   method="sum"/>
 
-        </daoHolder>
+        </holder>
 
-        <daoHolder name="check-rules">
+        <holder name="check-rules">
 
-            <rule name="i" mask="**/*" daoInvoker="global"/>
-            <rule name="i" mask="**/test*" daoInvoker="t1"/>
-            <rule name="i" mask="**/*2*/**/*" daoInvoker="x2"/>
+            <rule name="i" mask="**/*" invoker="global"/>
+            <rule name="i" mask="**/test*" invoker="t1"/>
+            <rule name="i" mask="**/*2*/**/*" invoker="x2"/>
 
             <item name="i" package="jandcode.core.dao.data"/>
-        </daoHolder>
+        </holder>
 
     </dao>
 

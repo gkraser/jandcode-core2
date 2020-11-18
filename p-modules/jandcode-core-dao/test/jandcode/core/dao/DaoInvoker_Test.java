@@ -83,7 +83,7 @@ public class DaoInvoker_Test extends App_Test {
 
     @Test
     public void filters1() throws Exception {
-        DaoInvoker m = app.create(app.getConf().getConf("dao/daoInvoker/filters1"), DefaultDaoInvoker.class);
+        DaoInvoker m = app.create(app.getConf().getConf("dao/invoker/filters1"), DefaultDaoInvoker.class);
         Dao1 d = m.createDao(Dao1.class);
         d.isDao2();
 

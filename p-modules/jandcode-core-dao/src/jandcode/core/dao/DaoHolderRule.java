@@ -16,6 +16,6 @@ public interface DaoHolderRule {
     /**
      * Имя daoInvoker
      */
-    String getDaoInvoker();
+    String getInvoker();
 
 }

@@ -3,24 +3,24 @@
 
     <bean name="jandcode.core.dao.DaoService"
           class="jandcode.core.dao.impl.DaoServiceImpl">
-        <daoLogger name="default"
-                   class="jandcode.core.dao.std.DaoLoggerDefault"/>
+        <logger name="default"
+                class="jandcode.core.dao.std.DaoLoggerDefault"/>
     </bean>
 
     <dao>
-        <daoInvoker name="default">
-        </daoInvoker>
+        <invoker name="default">
+        </invoker>
 
-        <daoHolder name="default">
-            <rule name="default" mask="**/*" daoInvoker="default"/>
-        </daoHolder>
+        <holder name="default">
+            <rule name="default" mask="**/*" invoker="default"/>
+        </holder>
 
         <!--
 
         Ресолверы для daoInvoker:
 
-        <daoInvokerResolver name="NAME"
-                            class="jandcode.core.dao.DaoInvokerResolver"/>
+        <invoker-resolver name="NAME"
+                          class="jandcode.core.dao.DaoInvokerResolver"/>
         
         -->
     </dao>

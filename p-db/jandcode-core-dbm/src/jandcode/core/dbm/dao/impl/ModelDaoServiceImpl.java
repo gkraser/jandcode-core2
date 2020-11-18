@@ -14,7 +14,7 @@ public class ModelDaoServiceImpl extends BaseModelMember implements ModelDaoServ
         super.onConfigure(cfg);
         //
         Conf modelCof = getModel().getConf();
-        this.daoInvoker = (DaoInvoker) getModel().create(modelCof.getConf("dao/daoInvoker/default"));
+        this.daoInvoker = (DaoInvoker) getModel().create(modelCof.getConf("dao/invoker/default"));
     }
 
     public DaoInvoker getDaoInvoker() {

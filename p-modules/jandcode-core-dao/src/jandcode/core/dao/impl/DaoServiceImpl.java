@@ -63,22 +63,22 @@ public class DaoServiceImpl extends BaseComp implements DaoService {
         super.onConfigure(cfg);
 
         // logger
-        this.daoLogger = (DaoLogger) getApp().create(cfg.getConf().getConf("daoLogger/default"));
+        this.daoLogger = (DaoLogger) getApp().create(cfg.getConf().getConf("logger/default"));
 
         Conf daoConf = getApp().getConf().getConf("dao");
 
         //
-        for (Conf x : daoConf.getConfs("daoInvokerResolver")) {
+        for (Conf x : daoConf.getConfs("invoker-resolver")) {
             daoInvokerResolvers.add((DaoInvokerResolver) getApp().create(x));
         }
 
         //
-        for (Conf x : daoConf.getConfs("daoInvoker")) {
+        for (Conf x : daoConf.getConfs("invoker")) {
             daoInvokers.add(new DaoInvokerDef(x));
         }
 
         //
-        for (Conf x : daoConf.getConfs("daoHolder")) {
+        for (Conf x : daoConf.getConfs("holder")) {
             daoHolders.add(new DaoHolderDef(x));
         }
 

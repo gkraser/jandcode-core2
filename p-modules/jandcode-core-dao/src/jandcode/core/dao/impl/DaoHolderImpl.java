@@ -28,7 +28,7 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
             return mask;
         }
 
-        public String getDaoInvoker() {
+        public String getInvoker() {
             return daoInvoker;
         }
     }
@@ -44,10 +44,10 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
 
         //
         for (Conf ruleConf : cfg.getConf().getConfs("rule")) {
-            String daoInvoker = ruleConf.getString("daoInvoker");
+            String daoInvoker = ruleConf.getString("invoker");
             String mask = ruleConf.getString("mask");
             if (UtString.empty(daoInvoker)) {
-                throw new XError("Атрибут daoInvoker пустой: {0}", ruleConf.origin());
+                throw new XError("Атрибут invoker пустой: {0}", ruleConf.origin());
             }
             if (UtString.empty(mask)) {
                 throw new XError("Атрибут mask пустой: {0}", ruleConf.origin());

@@ -2,8 +2,8 @@
 <root>
 
     <dao>
-        <daoHolder name="api">
-        </daoHolder>
+        <holder name="api">
+        </holder>
     </dao>
 
     <x-include path="web/index.cfx"/>
