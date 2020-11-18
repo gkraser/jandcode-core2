@@ -4,6 +4,7 @@ import jandcode.core.dao.*;
 import jandcode.core.db.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.impl.*;
+import jandcode.core.dbm.mdb.*;
 
 /**
  * dao-filter для модели.
@@ -17,9 +18,11 @@ public class ModelDaoFilter extends BaseModelMember implements DaoFilter {
     public void before(DaoContext ctx) throws Exception {
         Db db = getModel().createDb();
         Db dbw = new ModelDbWrapper(db, true, true);
+        Mdb mdb = getModel().createMdb(dbw);
         //
         ctx.getBeanFactory().registerBean(Db.class.getName(), dbw);
         ctx.getBeanFactory().registerBean(Model.class.getName(), getModel());
+        ctx.getBeanFactory().registerBean(Mdb.class.getName(), mdb);
     }
 
     public void after(DaoContext ctx) throws Exception {

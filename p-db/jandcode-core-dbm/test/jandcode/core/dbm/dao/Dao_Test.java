@@ -51,6 +51,14 @@ public class Dao_Test extends App_Test {
     }
 
     @Test
+    public void mdb_link() throws Exception {
+        DbmDbTestSvc z = testSvc(DbmDbTestSvc.class);
+        MdbLink dao = z.getMdb().createDao(MdbLink.class);
+        String s = dao.m1();
+        assertEquals(s, "m1-ok-mdb-test1-111");
+    }
+
+    @Test
     public void invoker_resolver() throws Exception {
         DaoHolder h1 = app.bean(DaoService.class).getDaoHolder("h1");
         for (var z : h1.getItems()) {
