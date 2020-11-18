@@ -13,15 +13,48 @@ import java.util.*;
 public class DaoHolderImpl extends BaseComp implements DaoHolder {
 
     private NamedList<DaoHolderItem> items;
-    private String daoInvokerName;
+    private List<Rule> rules;
+
+    static class Rule implements DaoHolderRule {
+        String mask;
+        String daoInvoker;
+
+        public Rule(String mask, String daoInvoker) {
+            this.mask = mask;
+            this.daoInvoker = daoInvoker;
+        }
+
+        public String getMask() {
+            return mask;
+        }
+
+        public String getDaoInvoker() {
+            return daoInvoker;
+        }
+    }
 
     public DaoHolderImpl() {
         this.items = new DefaultNamedList<>();
         this.items.setNotFoundMessage("Не найден dao-метод {0} в dao-хранилище {1}", this);
+        this.rules = new ArrayList<>();
     }
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
+
+        //
+        for (Conf ruleConf : cfg.getConf().getConfs("rule")) {
+            String daoInvoker = ruleConf.getString("daoInvoker");
+            String mask = ruleConf.getString("mask");
+            if (UtString.empty(daoInvoker)) {
+                throw new XError("Атрибут daoInvoker пустой: {0}", ruleConf.origin());
+            }
+            if (UtString.empty(mask)) {
+                throw new XError("Атрибут mask пустой: {0}", ruleConf.origin());
+            }
+            addRule(mask, daoInvoker);
+        }
+
         //
         for (Conf itemConf : cfg.getConf().getConfs("item")) {
             try {
@@ -44,7 +77,6 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
         Collection<Conf> childs = x.getConfs("item");
         String className = x.getString("class");
         String methodName = x.getString("method");
-        String daoInvoker = x.getString("daoInvoker", null);
         String pak = x.getString("package");
         boolean recursive = x.getBoolean("recursive", true);
 
@@ -60,12 +92,12 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
                 if (!hasName) {
                     throw new XError("Имя не указано");
                 }
-                addItem(name, className, methodName, daoInvoker);
+                addItem(name, className, methodName);
             } else {
                 Class cls = UtClass.getClass(className);
                 DaoClassDef cd = svc.getDaoClassDef(cls);
                 for (DaoMethodDef md : cd.getMethods()) {
-                    addItem(namePrefix + md.getName(), cls, md.getName(), daoInvoker);
+                    addItem(namePrefix + md.getName(), cls, md.getName());
                 }
             }
 
@@ -103,7 +135,7 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
                     DaoClassDef cd = svc.getDaoClassDef(cls);
                     //
                     for (DaoMethodDef md : cd.getMethods()) {
-                        addItem(namePrefix + cn + "/" + md.getName(), cls, md.getName(), daoInvoker);
+                        addItem(namePrefix + cn + "/" + md.getName(), cls, md.getName());
                     }
                 }
             }
@@ -120,9 +152,6 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
     public Object invokeDao(String name, Object... args) throws Exception {
         DaoHolderItem d = items.get(name);
         String dmn = d.getDaoInvokerName();
-        if (UtString.empty(dmn)) {
-            dmn = getDaoInvokerName();
-        }
         DaoInvoker dm = getApp().bean(DaoService.class).getDaoInvoker(dmn);
         return dm.invokeDao(d.getMethodDef(), args);
     }
@@ -131,26 +160,31 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
         return items;
     }
 
-    public String getDaoInvokerName() {
-        if (UtString.empty(daoInvokerName)) {
-            return "default";
+    public Collection<DaoHolderRule> getRules() {
+        return (Collection) rules;
+    }
+
+    public String resolveDaoInvokerName(String itemName) {
+        for (Rule rule : this.rules) {
+            if (UtVDir.matchPath(rule.mask, itemName)) {
+                return rule.daoInvoker;
+            }
         }
-        return daoInvokerName;
+        return "default";
     }
 
-    public void setDaoInvokerName(String daoInvokerName) {
-        this.daoInvokerName = daoInvokerName;
+    public void addRule(String mask, String daoInvoker) {
+        this.rules.add(0, new Rule(mask, daoInvoker));
     }
 
-    public DaoHolderItem addItem(String name, String className, String methodName, String daoInvokerName) {
-        return addItem(name, UtClass.getClass(className), methodName, daoInvokerName);
+    public void addItem(String name, String className, String methodName) {
+        addItem(name, UtClass.getClass(className), methodName);
     }
 
-    public DaoHolderItem addItem(String name, Class cls, String methodName, String daoInvokerName) {
+    public void addItem(String name, Class cls, String methodName) {
         DaoClassDef cd = getApp().bean(DaoService.class).getDaoClassDef(cls);
-        DaoHolderItemImpl item = new DaoHolderItemImpl(name, cd.getMethods().get(methodName), daoInvokerName);
+        DaoHolderItemImpl item = new DaoHolderItemImpl(this, name, cd.getMethods().get(methodName));
         this.items.add(item);
-        return item;
     }
 
 }

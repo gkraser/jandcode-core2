@@ -4,6 +4,8 @@ import jandcode.commons.conf.*;
 import jandcode.commons.named.*;
 import jandcode.core.*;
 
+import java.util.*;
+
 /**
  * Хранилище зарегистрированных dao
  */
@@ -25,33 +27,45 @@ public interface DaoHolder extends Comp {
     NamedList<DaoHolderItem> getItems();
 
     /**
-     * Какой {@link DaoInvoker} используется для выполнения.
+     * Список всех зарегистрированных правил для выявления имени daoInvoker.
+     * Только для чтения.
      */
-    String getDaoInvokerName();
+    Collection<DaoHolderRule> getRules();
+
+    /**
+     * Получить имя daoInvoker для элемента хранилища с указанными именем.
+     *
+     * @param itemName имя элемента
+     * @return имя daoInvoker
+     */
+    String resolveDaoInvokerName(String itemName);
+
+    /**
+     * Добавить правило для получения имени daoInvoker по имени элемента хранилища.
+     * Чем позже добавлено - тем выше приоритет правила.
+     *
+     * @param mask       маска
+     * @param daoInvoker имя daoInvoker
+     */
+    void addRule(String mask, String daoInvoker);
 
     /**
      * Добавить dao.
      *
-     * @param name           имя dao
-     * @param className      имя dao-класса
-     * @param methodName     имя dao-метода
-     * @param daoInvokerName имя dao-менеджера. Можно передать null, тогда будет
-     *                       использован тот, который установлен по умолчанию для
-     *                       {@link DaoHolder}.
+     * @param name       имя dao
+     * @param className  имя dao-класса
+     * @param methodName имя dao-метода
      */
-    DaoHolderItem addItem(String name, String className, String methodName, String daoInvokerName);
+    void addItem(String name, String className, String methodName);
 
     /**
      * Добавить dao.
      *
-     * @param name           имя dao
-     * @param cls            dao-класс
-     * @param methodName     имя dao-метода
-     * @param daoInvokerName имя dao-менеджера. Можно передать null, тогда будет
-     *                       использован тот, который установлен по умолчанию для
-     *                       {@link DaoHolder}.
+     * @param name       имя dao
+     * @param cls        dao-класс
+     * @param methodName имя dao-метода
      */
-    DaoHolderItem addItem(String name, Class cls, String methodName, String daoInvokerName);
+    void addItem(String name, Class cls, String methodName);
 
     /**
      * Добавить элемент из конфигурации.
@@ -67,9 +81,8 @@ public interface DaoHolder extends Comp {
      *     суффикс 'Dao' или '_Dao'. Первый символ имени будет строчный.
      *     Например для класса 'my.pak.MySuperDao' будет использоваться имя 'mySuper'</li>
      *     <li>recursive: true (по умолчанию) - package будет сканировать рекурсивно</li>
-     *     <li>dao-invoker: имя dao-исполнителя для этого dao. Обычно не указывается,
-     *     тогда будет использован тот,что зарегистрирован по умолчанию для holder</li>
-     *     <li>item: дочерние элементы такой же структуры.</li>
+     *     <li>item: дочерние элементы такой же структуры. К их именам будут добавлен
+     *     префикс через '/' в виде имени текущего элемента</li>
      * </ul>
      *
      * @param conf   конфигурация

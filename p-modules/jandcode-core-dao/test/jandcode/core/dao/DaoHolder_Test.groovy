@@ -1,5 +1,6 @@
 package jandcode.core.dao
 
+import jandcode.commons.*
 import jandcode.core.dao.data.*
 import jandcode.core.dao.data.recursive_pak.*
 import jandcode.core.test.*
@@ -8,6 +9,18 @@ import org.junit.jupiter.api.*
 import static org.junit.jupiter.api.Assertions.*
 
 class DaoHolder_Test extends App_Test {
+
+    void prnHolder(DaoHolder h) {
+        utils.delim("rules")
+        for (z in h.getRules()) {
+            println "${UtString.padRight(z.mask, 37)} -> ${z.daoInvoker}"
+        }
+        utils.delim("items")
+        for (z in h.getItems()) {
+            println "${UtString.padRight(z.name, 40)} ${z.daoInvokerName}"
+        }
+        utils.delim()
+    }
 
     @Test
     public void test1() throws Exception {
@@ -65,11 +78,22 @@ class DaoHolder_Test extends App_Test {
         DaoService svc = app.bean(DaoService.class)
         DaoHolder h = svc.getDaoHolder("test1");
         //
-        assertEquals(h.getDaoInvokerName(), "filters1")
-        assertNull(h.getItems().get("d1/p1").getDaoInvokerName())
+        assertEquals(h.getItems().get("d1/p1").getDaoInvokerName(), "filters1")
         //
         Object a = h.invokeDao("d1/p1", 5, 6)
         assertEquals(a, 11)
+    }
+
+    @Test
+    public void check_rules() throws Exception {
+        DaoService svc = app.bean(DaoService.class)
+        DaoHolder h = svc.getDaoHolder("check-rules");
+        //
+        prnHolder(h)
+        //
+        assertEquals(h.items.get("dao1/sum").daoInvokerName, "global")
+        assertEquals(h.items.get("mySuper1/test1").daoInvokerName, "t1")
+        assertEquals(h.items.get("recursive_pak/mySuper2/test1").daoInvokerName, "x2")
     }
 
 

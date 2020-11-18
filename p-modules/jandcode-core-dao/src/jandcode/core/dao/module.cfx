@@ -11,7 +11,8 @@
         <daoInvoker name="default">
         </daoInvoker>
 
-        <daoHolder name="default" daoInvoker="default">
+        <daoHolder name="default">
+            <rule name="default" mask="**/*" daoInvoker="default"/>
         </daoHolder>
     </dao>
 

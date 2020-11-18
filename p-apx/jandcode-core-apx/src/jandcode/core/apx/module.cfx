@@ -2,7 +2,7 @@
 <root>
 
     <dao>
-        <daoHolder name="api" daoInvoker="default">
+        <daoHolder name="api">
         </daoHolder>
     </dao>
 

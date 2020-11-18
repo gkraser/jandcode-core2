@@ -6,12 +6,12 @@ public class DaoHolderItemImpl implements DaoHolderItem {
 
     private String name;
     private DaoMethodDef methodDef;
-    private String daoInvokerName;
+    private DaoHolderImpl daoHolder;
 
-    public DaoHolderItemImpl(String name, DaoMethodDef methodDef, String daoInvokerName) {
+    public DaoHolderItemImpl(DaoHolderImpl daoHolder, String name, DaoMethodDef methodDef) {
+        this.daoHolder = daoHolder;
         this.name = name;
         this.methodDef = methodDef;
-        this.daoInvokerName = daoInvokerName;
     }
 
     public String getName() {
@@ -23,6 +23,7 @@ public class DaoHolderItemImpl implements DaoHolderItem {
     }
 
     public String getDaoInvokerName() {
-        return daoInvokerName;
+        return this.daoHolder.resolveDaoInvokerName(getName());
     }
+
 }
