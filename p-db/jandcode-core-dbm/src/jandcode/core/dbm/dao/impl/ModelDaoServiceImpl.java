@@ -6,8 +6,6 @@ import jandcode.core.dao.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.dao.*;
 
-import java.util.*;
-
 public class ModelDaoServiceImpl extends BaseModelMember implements ModelDaoService {
 
     private DaoInvoker daoInvoker;
@@ -21,22 +19,6 @@ public class ModelDaoServiceImpl extends BaseModelMember implements ModelDaoServ
 
     public DaoInvoker getDaoInvoker() {
         return daoInvoker;
-    }
-
-    public <A> A createDao(Class<A> cls) {
-        return getDaoInvoker().createDao(cls);
-    }
-
-    public Object invokeDao(DaoMethodDef method, Object... args) throws Exception {
-        return getDaoInvoker().invokeDao(method, args);
-    }
-
-    public Collection<DaoFilter> getDaoFilters() {
-        return getDaoInvoker().getDaoFilters();
-    }
-
-    public DaoClassDef getDaoClassDef(Class cls) {
-        return getDaoInvoker().getDaoClassDef(cls);
     }
 
 }

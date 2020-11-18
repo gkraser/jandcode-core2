@@ -14,6 +14,7 @@ public class Dao_Test extends App_Test {
     Model model;
     Model model2;
     ModelDaoService daoSvc;
+    DaoInvoker daoInvoker;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -22,15 +23,16 @@ public class Dao_Test extends App_Test {
         model = app.bean(ModelService.class).getModel("default");
         model2 = app.bean(ModelService.class).getModel("model2");
         daoSvc = model.bean(ModelDaoService.class);
+        daoInvoker = daoSvc.getDaoInvoker();
     }
 
     @Test
     public void check_model_link() throws Exception {
         //
-        CheckModelLink dao = daoSvc.createDao(CheckModelLink.class);
+        CheckModelLink dao = daoInvoker.createDao(CheckModelLink.class);
         assertEquals(dao.m1(), "m1-ok-default");
         //
-        dao = model2.bean(ModelDaoService.class).createDao(CheckModelLink.class);
+        dao = model2.bean(ModelDaoService.class).getDaoInvoker().createDao(CheckModelLink.class);
         assertEquals(dao.m1(), "m1-ok-model2");
     }
 
@@ -42,7 +44,7 @@ public class Dao_Test extends App_Test {
         DbmDbTestSvc z = testSvc(DbmDbTestSvc.class);
         //
         ModelDaoService svc = z.getModel().bean(ModelDaoService.class);
-        DbLink dao = svc.createDao(DbLink.class);
+        DbLink dao = svc.getDaoInvoker().createDao(DbLink.class);
         String s = dao.m1();
         assertEquals(s, "m1-ok-test1-111");
         stopwatch.stop();

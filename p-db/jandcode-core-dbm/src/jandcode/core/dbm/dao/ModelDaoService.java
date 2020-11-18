@@ -7,7 +7,7 @@ import jandcode.core.dbm.*;
 /**
  * Сервис dao для модели
  */
-public interface ModelDaoService extends Comp, IModelMember, IDaoInvoker {
+public interface ModelDaoService extends Comp, IModelMember {
 
     /**
      * DaoInvoker для модели
