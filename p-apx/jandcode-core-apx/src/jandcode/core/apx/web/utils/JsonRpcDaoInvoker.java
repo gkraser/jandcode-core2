@@ -131,6 +131,8 @@ public class JsonRpcDaoInvoker {
                 res.put("$method", method);
             }
             if (dhItem != null) {
+                res.put("$javaClass", dhItem.getMethodDef().getCls().getName());
+                res.put("$javaMethodName", dhItem.getMethodDef().getMethod().getName());
                 res.put("$javaMethod", dhItem.getMethodDef().getMethod().toString());
             }
         }

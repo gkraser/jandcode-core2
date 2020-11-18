@@ -21,13 +21,17 @@
   <table class="tst-table">
     <tr>
       <th>name</th>
+      <th>invoker</th>
       <th>class</th>
+      <th>methodName</th>
       <th>method</th>
     </tr>
     <% for (r in items) { %>
     <tr>
       <td>${r.name}</td>
+      <td>${r.daoInvokerName}</td>
       <td>${r.methodDef.cls.name}</td>
+      <td>${r.methodDef.method.name}</td>
       <td>${r.methodDef.method}</td>
     </tr>
     <% } %>
