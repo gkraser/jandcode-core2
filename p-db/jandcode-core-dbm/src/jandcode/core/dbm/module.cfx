@@ -33,6 +33,11 @@
         <!-- модель по умолчанию присутствует всегда -->
         <model name="default" instance="jandcode.core.dbm"/>
 
+        <!-- базовая модель, содержит все основное сразу, подключается явно -->
+        <model name="dbm.base">
+            <include name="jandcode.core.dbm.dao"/>
+        </model>
+
     </dbm>
 
     <!-- =================== -->

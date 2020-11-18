@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-depends module="jandcode.core.dbm"/>
+    <x-depends module="jandcode.core.db.h2"/>
+
+    <dbm>
+
+        <model name="base1">
+            <include name="dbm.base"/>
+        </model>
+
+        <model name="test1" instance="base1">
+        </model>
+
+    </dbm>
+
+    <!-- ===================================================================== -->
+
+    <cfg>
+
+        <dbsource name="test1"
+                  dbdriver="h2.mem"
+                  database="test1"
+        />
+
+    </cfg>
+
+
+</root>

@@ -2,6 +2,7 @@ package jandcode.core.dbm
 
 import jandcode.commons.*
 import jandcode.core.db.*
+import jandcode.core.dbm.mdb.*
 import jandcode.core.store.*
 import jandcode.core.test.*
 
@@ -17,6 +18,7 @@ class DbmDbTestSvc extends AppTestSvc {
 
     Model model
     Db db
+    Mdb mdb
 
     void setUp() throws Exception {
         super.setUp();
@@ -52,6 +54,13 @@ class DbmDbTestSvc extends AppTestSvc {
             utils.outMap(man.dbSource.props)
             utils.delim()
         }
+    }
+
+    Mdb getMdb() {
+        if (this.mdb == null) {
+            this.mdb = model.createMdb(db)
+        }
+        return this.mdb
     }
 
     /**

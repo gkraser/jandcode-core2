@@ -4,6 +4,8 @@ import jandcode.commons.conf.*;
 import jandcode.core.*;
 import jandcode.core.db.*;
 import jandcode.core.dbm.*;
+import jandcode.core.dbm.mdb.*;
+import jandcode.core.dbm.mdb.impl.*;
 
 public class ModelImpl extends BaseComp implements Model, IBeanIniter {
 
@@ -55,6 +57,20 @@ public class ModelImpl extends BaseComp implements Model, IBeanIniter {
 
     public DbSource getDbSource() {
         return bean(ModelDbService.class).getDbSource();
+    }
+
+    ////// IMdbService
+
+    public Mdb createMdb() {
+        return new MdbImpl(this, createDb());
+    }
+
+    public Mdb createMdb(boolean direct) {
+        return new MdbImpl(this, createDb(direct));
+    }
+
+    public Mdb createMdb(Db db) {
+        return new MdbImpl(this, db);
     }
 
 }
