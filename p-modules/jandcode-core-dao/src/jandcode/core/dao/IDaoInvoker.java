@@ -25,10 +25,4 @@ public interface IDaoInvoker extends IDaoClassFactory {
      */
     <A> A createDao(Class<A> cls);
 
-    /**
-     * Список зарегистрированных фильтров.
-     * Только для чтения.
-     */
-    Collection<DaoFilter> getDaoFilters();
-
 }

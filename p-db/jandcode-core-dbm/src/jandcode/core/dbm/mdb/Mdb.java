@@ -11,6 +11,7 @@ import jandcode.core.dbm.*;
  * Все методы расчитывают на то, что будет подключена модель 'dbm.base',
  * иначе некоторые методы могут вызывать ошибку "bean не найден".
  */
-public interface Mdb extends IAppLink, IModelLink, Db {
+public interface Mdb extends IAppLink, IModelLink, Db,
+        IMdbDao {
 
 }
