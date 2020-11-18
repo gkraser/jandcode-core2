@@ -11,6 +11,7 @@ import jandcode.core.dbm.mdb.*;
 public abstract class BaseModelDao extends BaseDao implements IModelMember {
 
     private Model model;
+    private Mdb mdb;
 
     public Model getModel() {
         return model;
@@ -31,7 +32,10 @@ public abstract class BaseModelDao extends BaseDao implements IModelMember {
      * База данных и утилиты модули для работы.
      */
     protected Mdb getMdb() {
-        return getContext().bean(Mdb.class);
+        if (mdb == null) {
+            mdb = getModel().createMdb(getDb());
+        }
+        return mdb;
     }
 
 }

@@ -45,9 +45,8 @@
                   dbdriver="mariadb" flag.db.mysql="1"/>
 
         <dbsource name="test1"
-                  dbdriver="mariadb"
-                  database="jc2_dbm_db_test"
-                  username="root"
+                  dbdriver="h2.mem"
+                  database="test1"
         />
 
     </cfg>
