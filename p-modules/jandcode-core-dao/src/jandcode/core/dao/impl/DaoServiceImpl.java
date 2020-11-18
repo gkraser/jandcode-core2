@@ -12,6 +12,7 @@ public class DaoServiceImpl extends BaseComp implements DaoService {
     private DaoClassDefFactory daoClassDefFactory = new DaoClassDefFactory();
     private NamedList<DaoInvokerDef> daoInvokers = new DefaultNamedList<>("DaoInvoker [{0}] not found");
     private NamedList<DaoHolderDef> daoHolders = new DefaultNamedList<>("DaoHolder [{0}] not found");
+    private List<DaoInvokerResolver> daoInvokerResolvers = new ArrayList<>();
     private DaoLogger daoLogger;
 
     class DaoInvokerDef extends Named {
@@ -67,6 +68,11 @@ public class DaoServiceImpl extends BaseComp implements DaoService {
         Conf daoConf = getApp().getConf().getConf("dao");
 
         //
+        for (Conf x : daoConf.getConfs("daoInvokerResolver")) {
+            daoInvokerResolvers.add((DaoInvokerResolver) getApp().create(x));
+        }
+
+        //
         for (Conf x : daoConf.getConfs("daoInvoker")) {
             daoInvokers.add(new DaoInvokerDef(x));
         }
@@ -79,6 +85,12 @@ public class DaoServiceImpl extends BaseComp implements DaoService {
     }
 
     public DaoInvoker getDaoInvoker(String name) {
+        for (DaoInvokerResolver resolver : this.daoInvokerResolvers) {
+            DaoInvoker inv = resolver.resolveDaoInvoker(name);
+            if (inv != null) {
+                return inv;
+            }
+        }
         return daoInvokers.get(name).getInst();
     }
 

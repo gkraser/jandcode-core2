@@ -9,4 +9,9 @@ import jandcode.core.dbm.*;
  */
 public interface ModelDaoService extends Comp, IModelMember, IDaoInvoker {
 
+    /**
+     * DaoInvoker для модели
+     */
+    DaoInvoker getDaoInvoker();
+
 }

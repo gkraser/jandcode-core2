@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
+    <dao>
+        <daoInvokerResolver name="model"
+                            class="jandcode.core.dbm.dao.impl.ModelDaoInvokerResolver"/>
+    </dao>
+
     <dbm>
         <model name="jandcode.core.dbm.dao">
 
@@ -11,7 +16,7 @@
                 <daoInvoker name="default"
                             class="jandcode.core.dbm.dao.impl.ModelDaoInvoker">
                     <filter name="model-db" weight="10"
-                            class="jandcode.core.dbm.dao.ModelDaoFilter"/>
+                            class="jandcode.core.dbm.dao.impl.ModelDaoFilter"/>
                 </daoInvoker>
             </dao>
 

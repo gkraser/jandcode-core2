@@ -2,7 +2,7 @@
 <root>
 
     <x-depends module="jandcode.core.dbm"/>
-    <x-depends module="jandcode.core.db.mariadb"/>
+    <x-depends module="jandcode.core.db.h2"/>
 
     <dbm>
 
@@ -21,14 +21,23 @@
 
     </dbm>
 
+    <dao>
+        <daoHolder name="h1">
+            <rule name="i" mask="**/*" daoInvoker="model:test1"/>
+            <item name="p1"
+                  package="jandcode.core.dbm.dao.data"/>
+        </daoHolder>
+    </dao>
+
     <!-- ===================================================================== -->
 
     <cfg>
+
         <dbsource name="test1"
-                  dbdriver="mariadb"
-                  database="jc2_dbm_db_test"
-                  username="root"
+                  dbdriver="h2.mem"
+                  database="test1"
         />
+
     </cfg>
 
 

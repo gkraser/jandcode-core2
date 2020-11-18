@@ -14,6 +14,15 @@
         <daoHolder name="default">
             <rule name="default" mask="**/*" daoInvoker="default"/>
         </daoHolder>
+
+        <!--
+
+        Ресолверы для daoInvoker:
+
+        <daoInvokerResolver name="NAME"
+                            class="jandcode.core.dao.DaoInvokerResolver"/>
+        
+        -->
     </dao>
 
 </root>

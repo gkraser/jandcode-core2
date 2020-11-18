@@ -1,5 +1,7 @@
 package jandcode.core.dbm.dao;
 
+import jandcode.commons.*;
+import jandcode.core.dao.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.dao.data.*;
 import jandcode.core.test.*;
@@ -44,6 +46,19 @@ public class Dao_Test extends App_Test {
         String s = dao.m1();
         assertEquals(s, "m1-ok-test1-111");
         stopwatch.stop();
+    }
+
+    @Test
+    public void invoker_resolver() throws Exception {
+        DaoHolder h1 = app.bean(DaoService.class).getDaoHolder("h1");
+        for (var z : h1.getItems()) {
+            System.out.println(UtString.padRight(z.getName(), 40) + " " + z.getDaoInvokerName());
+        }
+        String s;
+        s = (String) h1.invokeDao("p1/checkModelLink/m1");
+        assertEquals(s, "m1-ok-test1");
+        s = (String) h1.invokeDao("p1/dbLink/m1");
+        assertEquals(s, "m1-ok-test1-111");
     }
 
 

@@ -47,6 +47,10 @@ class DbmDbTestSvc extends AppTestSvc {
             utils.outMap(man.dbSource.props)
             man.createDatabase()
             utils.delim()
+        } else {
+            utils.delim("use exists database")
+            utils.outMap(man.dbSource.props)
+            utils.delim()
         }
     }
 

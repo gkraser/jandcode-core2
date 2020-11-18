@@ -10,7 +10,7 @@ import java.util.*;
 public interface DaoService extends Comp, IDaoClassFactory {
 
     /**
-     * Получить {@link DaoInvoker} по имени
+     * Получить {@link DaoInvoker} по имени.
      */
     DaoInvoker getDaoInvoker(String name);
 
