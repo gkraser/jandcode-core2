@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <dbm>
+        <!-- расширяем базовую модель -->
+        <model name="jandcode.core.dbm">
+
+            <bean name="jandcode.core.dbm.dict.DictService"
+                  class="jandcode.core.dbm.dict.impl.DictServiceImpl"/>
+
+            <!-- базовая структура словаря -->
+            <domain name="dict.base" parent="base">
+                <field name="id" parent="long"/>
+                <field name="text" parent="string"/>
+            </domain>
+
+            <!-- базовый абстрактный словарь -->
+            <dict name="base" abstract="true"
+                  domain="dict.base"
+                  defaultField="text">
+            </dict>
+
+        </model>
+    </dbm>
+
+</root>

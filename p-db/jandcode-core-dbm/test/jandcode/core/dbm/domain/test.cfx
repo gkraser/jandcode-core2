@@ -10,7 +10,6 @@
     <dbm>
 
         <model name="domain.0">
-            <include name="jandcode.core.dbm.domain"/>
             <domain name="ext.tab.1"/>
             <domain name="ext.tab.2"/>
         </model>

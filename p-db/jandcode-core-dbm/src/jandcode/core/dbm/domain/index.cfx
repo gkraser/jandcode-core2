@@ -2,7 +2,8 @@
 <root>
 
     <dbm>
-        <model name="jandcode.core.dbm.domain">
+        <!-- расширяем базовую модель -->
+        <model name="jandcode.core.dbm">
 
             <bean name="jandcode.core.dbm.domain.DomainService"
                   class="jandcode.core.dbm.domain.impl.DomainServiceImpl"/>

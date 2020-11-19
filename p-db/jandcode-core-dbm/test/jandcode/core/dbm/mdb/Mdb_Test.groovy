@@ -2,6 +2,8 @@ package jandcode.core.dbm.mdb
 
 import jandcode.core.dbm.*
 import jandcode.core.dbm.dao.data.*
+import jandcode.core.dbm.store.*
+import jandcode.core.store.*
 import jandcode.core.test.*
 import org.junit.jupiter.api.*
 
@@ -34,6 +36,12 @@ class Mdb_Test extends App_Test {
     public void dao1() throws Exception {
         CheckModelLink dao = mdb.createDao(CheckModelLink)
         assertEquals(dao.m1(), "m1-ok-test1");
+    }
+
+    @Test
+    public void create_store() throws Exception {
+        Store st = mdb.createStore()
+        assertEquals(st.getDictResolver() instanceof DictData, true)
     }
 
 }
