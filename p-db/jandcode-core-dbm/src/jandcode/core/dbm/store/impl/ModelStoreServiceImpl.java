@@ -1,6 +1,7 @@
 package jandcode.core.dbm.store.impl;
 
 import jandcode.core.dbm.*;
+import jandcode.core.dbm.domain.*;
 import jandcode.core.dbm.store.*;
 import jandcode.core.store.*;
 
@@ -15,4 +16,13 @@ public class ModelStoreServiceImpl extends BaseModelMember implements ModelStore
         return store;
     }
 
+    public Store createStore(Domain domain) {
+        Store store = createStore();
+        //
+        for (Field f : domain.getFields()) {
+            store.addField(f.getName(), f.getStoreDataType());
+        }
+        //
+        return store;
+    }
 }

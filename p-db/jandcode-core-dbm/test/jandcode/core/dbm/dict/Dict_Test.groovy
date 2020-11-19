@@ -1,10 +1,11 @@
 package jandcode.core.dbm.dict
 
 import jandcode.core.dbm.*
+import jandcode.core.store.*
 import jandcode.core.test.*
 import org.junit.jupiter.api.*
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*
 
 class Dict_Test extends App_Test {
 
@@ -33,6 +34,16 @@ class Dict_Test extends App_Test {
     @Test
     public void name_dict() throws Exception {
         assertEquals(svc.dicts.get("dict1").getName(), "dict1")
+    }
+
+    @Test
+    public void resolve_ids() throws Exception {
+        Dict dict = svc.dicts.get('dict1')
+        Store store = dict.resolveIds([5, 6, 7])
+        utils.outTable(store)
+        assertEquals(store.size(), 3)
+        assertEquals(store.get(0).getValue("id"), 5)
+        assertEquals(store.get(0).getValue("text"), "dict1-text-5")
     }
 
 

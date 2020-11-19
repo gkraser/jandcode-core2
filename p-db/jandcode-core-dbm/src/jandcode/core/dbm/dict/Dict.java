@@ -4,6 +4,9 @@ import jandcode.commons.conf.*;
 import jandcode.core.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.domain.*;
+import jandcode.core.store.*;
+
+import java.util.*;
 
 /**
  * Словарь
@@ -24,5 +27,14 @@ public interface Dict extends Comp, IConfLink, IModelMember {
      * Имя поля по умолчанию
      */
     String getDefaultField();
+
+    /**
+     * По переданному набору ids вернет store структуры getDomain()
+     * с заполненными данными словаря.
+     *
+     * @param ids набор id
+     * @return store с данными словаря для указанных id
+     */
+    Store resolveIds(Collection ids);
 
 }

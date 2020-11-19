@@ -2,6 +2,7 @@ package jandcode.core.dbm.dict.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
+import jandcode.commons.error.*;
 import jandcode.commons.named.*;
 import jandcode.core.*;
 import jandcode.core.dbm.*;
@@ -27,7 +28,12 @@ public class DictServiceImpl extends BaseModelMember implements DictService {
             if (UtConf.isTagged(x, "abstract")) {
                 continue;
             }
-            Dict d = getModel().create(x, DictImpl.class);
+            Dict d = null;
+            try {
+                d = getModel().create(x, DictImpl.class);
+            } catch (Exception e) {
+                throw new XErrorMark(e, "dict conf: " + x.origin());
+            }
             dicts.add(d);
         }
 
