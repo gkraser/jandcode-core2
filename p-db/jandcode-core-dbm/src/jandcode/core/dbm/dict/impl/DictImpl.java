@@ -6,6 +6,7 @@ import jandcode.commons.error.*;
 import jandcode.core.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.dao.*;
+import jandcode.core.dbm.dict.DictData;
 import jandcode.core.dbm.dict.*;
 import jandcode.core.dbm.domain.*;
 import jandcode.core.dbm.store.*;
@@ -21,7 +22,7 @@ public class DictImpl extends BaseModelMember implements Dict {
     private Conf conf;
     private Field defaultField;
     private Domain domain;
-    private Class daoClass;
+    private DictHandler handler;
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
@@ -40,17 +41,12 @@ public class DictImpl extends BaseModelMember implements Dict {
         s = this.conf.getString("defaultField", DEFAULT_FIELD);
         this.defaultField = this.domain.f(s);
 
-        // dao
-        s = this.conf.getString("dao");
+        // handler
+        s = this.conf.getString("handler");
         if (UtString.empty(s)) {
-            throw new XError("dao атрибут не установлен");
+            throw new XError("handler атрибут не установлен");
         }
-        this.daoClass = UtClass.getClass(s);
-        if (!IResolveDict.class.isAssignableFrom(this.daoClass)) {
-            throw new XError("dao-class {0} должен реализовывать интерфейс {1}",
-                    this.daoClass.getName(),
-                    IResolveDict.class.getName());
-        }
+        this.handler = (DictHandler) getModel().create(s);
 
     }
 
@@ -64,8 +60,8 @@ public class DictImpl extends BaseModelMember implements Dict {
         return domain;
     }
 
-    public Class getDaoClass() {
-        return daoClass;
+    public DictHandler getHandler() {
+        return handler;
     }
 
     public String getDefaultField() {
@@ -74,11 +70,17 @@ public class DictImpl extends BaseModelMember implements Dict {
 
     //////
 
-    public Store resolveIds(Collection ids) {
-        Store store = getModel().bean(ModelStoreService.class).createStore(getDomain());
-        IResolveDict dao = (IResolveDict) getModel().bean(ModelDaoService.class).getDaoInvoker().createDao(getDaoClass());
-        dao.resolveDict(this, store, ids);
-        return store;
+    public Store createStore() {
+        return getModel().bean(ModelStoreService.class).createStore(getDomain());
+    }
+
+    public DictData createDictData() {
+        return new DictDataImpl(this, createStore());
+    }
+
+    public DictData resolveIds(Collection ids) throws Exception {
+        DictDao dao = getModel().bean(ModelDaoService.class).getDaoInvoker().createDao(DictDao.class);
+        return dao.resolveIds(this, ids);
     }
 
 }

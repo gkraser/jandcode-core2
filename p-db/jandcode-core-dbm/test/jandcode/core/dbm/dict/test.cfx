@@ -8,7 +8,7 @@
 
         <model name="base1">
             <dict name="dummy" parent="base" abstract="true"
-                  dao="jandcode.core.dbm.dict.data.DummyDictDao"/>
+                  handler="jandcode.core.dbm.dict.data.DummyDict"/>
             <!-- =================== -->
 
             <dict name="dict1" parent="dummy"/>

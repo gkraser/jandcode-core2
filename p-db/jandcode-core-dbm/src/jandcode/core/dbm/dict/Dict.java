@@ -19,9 +19,10 @@ public interface Dict extends Comp, IConfLink, IModelMember {
     Domain getDomain();
 
     /**
-     * Class dao, с помошью которого можно получать данные словаря
+     * Объект, который реализаует определенные интерфейсы для обработки данных
+     * словаря.
      */
-    Class getDaoClass();
+    DictHandler getHandler();
 
     /**
      * Имя поля по умолчанию
@@ -29,12 +30,18 @@ public interface Dict extends Comp, IConfLink, IModelMember {
     String getDefaultField();
 
     /**
-     * По переданному набору ids вернет store структуры getDomain()
-     * с заполненными данными словаря.
-     *
-     * @param ids набор id
-     * @return store с данными словаря для указанных id
+     * Создать пустой store со структурой словаря
      */
-    Store resolveIds(Collection ids);
+    Store createStore();
+
+    /**
+     * Создать пустой DictData для словаря
+     */
+    DictData createDictData();
+
+    /**
+     * По переданному набору ids вернет данные словаря.
+     */
+    DictData resolveIds(Collection ids) throws Exception;
 
 }

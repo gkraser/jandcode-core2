@@ -39,11 +39,12 @@ class Dict_Test extends App_Test {
     @Test
     public void resolve_ids() throws Exception {
         Dict dict = svc.dicts.get('dict1')
-        Store store = dict.resolveIds([5, 6, 7])
-        utils.outTable(store)
-        assertEquals(store.size(), 3)
-        assertEquals(store.get(0).getValue("id"), 5)
-        assertEquals(store.get(0).getValue("text"), "dict1-text-5")
+        DictData dictData = dict.resolveIds([5, 6, 7])
+        Store st = dictData.data
+        utils.outTable(st)
+        assertEquals(st.size(), 3)
+        assertEquals(st.get(0).getValue("id"), 5)
+        assertEquals(st.get(0).getValue("text"), "dict1-text-5")
     }
 
 
