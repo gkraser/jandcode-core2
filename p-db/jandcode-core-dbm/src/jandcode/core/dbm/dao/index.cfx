@@ -7,7 +7,8 @@
     </dao>
 
     <dbm>
-        <model name="jandcode.core.dbm.dao">
+        <!-- расширяем базовую модель -->
+        <model name="jandcode.core.dbm">
 
             <bean name="jandcode.core.dbm.dao.ModelDaoService"
                   class="jandcode.core.dbm.dao.impl.ModelDaoServiceImpl"/>

@@ -18,4 +18,8 @@ public class ModelDbSourceImpl extends DbSourceImpl implements IModelMember {
         this.model = model;
     }
 
+    protected DefaultDb createDbInst() {
+        return create(ModelDb.class);
+    }
+
 }

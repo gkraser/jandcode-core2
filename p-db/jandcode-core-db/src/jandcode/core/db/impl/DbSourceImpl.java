@@ -58,8 +58,12 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
         return dbDriver;
     }
 
+    protected DefaultDb createDbInst() {
+        return create(DefaultDb.class);
+    }
+
     public Db createDb(boolean direct) {
-        DefaultDb db = create(DefaultDb.class);
+        DefaultDb db = createDbInst();
         if (direct) {
             db.setConnectionService((DbConnectionService) bean(DbConsts.BEAN_DIRECT_CONNECT));
         } else {

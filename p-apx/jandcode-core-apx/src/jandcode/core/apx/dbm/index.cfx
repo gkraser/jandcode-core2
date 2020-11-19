@@ -4,7 +4,6 @@
     <dbm>
 
         <model name="apx.base">
-            <include name="dbm.base"/>
         </model>
 
         <model name="default" instance="apx.base"/>

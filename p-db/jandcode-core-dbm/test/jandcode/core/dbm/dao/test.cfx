@@ -7,7 +7,6 @@
     <dbm>
 
         <model name="base1">
-            <include name="jandcode.core.dbm.dao"/>
         </model>
 
         <model name="default" instance="base1">
