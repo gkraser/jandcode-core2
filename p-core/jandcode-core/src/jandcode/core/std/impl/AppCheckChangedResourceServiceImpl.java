@@ -14,11 +14,11 @@ public class AppCheckChangedResourceServiceImpl extends BaseComp implements AppC
             return;
         }
         AppImpl a = (AppImpl) getApp();
-        String ff = a.findModifyRtSource();
+        String ff = a.findModifyConfSource();
         if (ff == null) {
             return;
         }
-        log.info("found changed rt: " + ff);
+        log.info("found changed conf: " + ff);
         info.needRestartApp();
     }
 

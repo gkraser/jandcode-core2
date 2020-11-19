@@ -58,7 +58,7 @@ public class BeanFactoryImpl implements BeanFactory {
                 String s = "создание экземпляра для bean [{0}] класс [{1}]";
                 String p2 = "";
                 if (conf != null) {
-                    s += " rt [{2}]";
+                    s += " conf [{2}]";
                     p2 = conf.origin().toString();
                 }
                 throw new XErrorMark(e, MessageFormat.format(s, getName(), cls.getName(), p2));

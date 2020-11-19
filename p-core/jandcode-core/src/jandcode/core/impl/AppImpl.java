@@ -288,7 +288,7 @@ public class AppImpl implements App, IBeanIniter {
      * Если найден, возвращается полное имя файла.
      * Иначе - null. Работает только в отладочном режиме.
      */
-    public String findModifyRtSource() {
+    public String findModifyConfSource() {
         if (!getEnv().isDev() || confSources == null) {
             return null;
         }
