@@ -3,7 +3,6 @@ package jandcode.core.dbm
 import jandcode.commons.*
 import jandcode.core.db.*
 import jandcode.core.dbm.mdb.*
-import jandcode.core.dbm.store.*
 import jandcode.core.store.*
 import jandcode.core.test.*
 
@@ -68,7 +67,7 @@ class DbmDbTestSvc extends AppTestSvc {
      * Создать пустой store
      */
     Store createStore() {
-        return model.bean(ModelStoreService).createStore()
+        return app.bean(StoreService).createStore()
     }
 
     /**

@@ -3,8 +3,6 @@ package jandcode.core.dbm.model
 import jandcode.core.db.*
 import jandcode.core.dbm.*
 import jandcode.core.dbm.impl.*
-import jandcode.core.dbm.store.*
-import jandcode.core.store.*
 import jandcode.core.test.*
 import org.junit.jupiter.api.*
 
@@ -73,18 +71,6 @@ class ModelDbSource_Test extends App_Test {
     public void model_db_instance() throws Exception {
         Db db = z.model.createDb(true)
         assertEquals(db instanceof ModelDb, true)
-    }
-
-    @Test
-    public void model_store_in_load_query() throws Exception {
-        Db db = z.model.createDb(true)
-        db.connect()
-        try {
-            Store st = db.loadQuery("select 1")
-            assertEquals(st.getDictResolver() instanceof DictData, true)
-        } finally {
-            db.disconnect()
-        }
     }
 
 }

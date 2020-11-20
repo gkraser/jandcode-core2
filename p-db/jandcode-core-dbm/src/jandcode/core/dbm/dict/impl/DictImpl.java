@@ -6,10 +6,8 @@ import jandcode.commons.error.*;
 import jandcode.core.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.dao.*;
-import jandcode.core.dbm.dict.DictData;
 import jandcode.core.dbm.dict.*;
 import jandcode.core.dbm.domain.*;
-import jandcode.core.dbm.store.*;
 import jandcode.core.store.*;
 
 import java.util.*;
@@ -71,7 +69,7 @@ public class DictImpl extends BaseModelMember implements Dict {
     //////
 
     public Store createStore() {
-        return getModel().bean(ModelStoreService.class).createStore(getDomain());
+        return getModel().bean(DomainService.class).createStore(getDomain());
     }
 
     public DictData createDictData() {

@@ -39,7 +39,6 @@
 
     <x-include path="domain/index.cfx"/>
     <x-include path="dao/index.cfx"/>
-    <x-include path="store/index.cfx"/>
     <x-include path="dict/index.cfx"/>
 
 </root>
