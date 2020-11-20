@@ -8,6 +8,7 @@ import jandcode.core.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.dao.*;
 import jandcode.core.dbm.dict.*;
+import jandcode.core.dbm.std.*;
 import jandcode.core.store.*;
 
 import java.util.*;
@@ -64,6 +65,12 @@ public class DictServiceImpl extends BaseModelMember implements DictService {
             StoreRecord rec = (StoreRecord) data;
             new StoreDictDataResolver().resolveDicts(getModel(),
                     rec.getStore(), Collections.singletonList(rec));
+
+        } else if (data instanceof DataBox) {
+            DataBox dataBox = (DataBox) data;
+            for (Object v : dataBox.values()) {
+                resolveDicts(v);
+            }
 
         }
     }
