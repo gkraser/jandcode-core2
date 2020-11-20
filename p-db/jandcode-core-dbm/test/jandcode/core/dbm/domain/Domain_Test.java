@@ -49,9 +49,6 @@ public class Domain_Test extends App_Test {
         Domain d = svc.getDomain("tab1.3");
         Field f = d.f("ref_t1");
         assertEquals(f.getConf().getString("ref"), "tab1.1");
-        //
-        Domain d1 = svc.domain("tab1.3");
-        assertEquals(d1.f("ref_t1").getConf().getString("ref"), "tab1.1");
     }
 
 

@@ -10,6 +10,6 @@ import jandcode.core.dbm.*;
  * Объект притворяется базой данных {@link Db}.
  */
 public interface Mdb extends IAppLink, IModelLink, Db,
-        IMdbDao {
+        IMdbDao, IMdbDomain, IMdbMisc {
 
 }
