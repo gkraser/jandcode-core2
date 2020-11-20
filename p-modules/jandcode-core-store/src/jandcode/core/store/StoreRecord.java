@@ -1,7 +1,6 @@
 package jandcode.core.store;
 
 import jandcode.commons.variant.*;
-import jandcode.core.*;
 
 import java.util.*;
 
@@ -13,7 +12,7 @@ public interface StoreRecord extends
         IValueNamed, IValueNamedSet,
         IValueIndexed, IValueIndexedSet,
         IVariantNamed, IVariantNamedDefault, IVariantIndexed,
-        IStoreFieldHolder, ICustomProp {
+        IStoreFieldHolder {
 
 
     /**

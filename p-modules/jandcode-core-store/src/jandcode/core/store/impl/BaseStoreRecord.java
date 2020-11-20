@@ -120,30 +120,6 @@ public abstract class BaseStoreRecord implements StoreRecord, IRawRecord {
         return getField(name).getStoreDataType().getDataType();
     }
 
-    ////// ICustomProp
-
-    private Map<String, Object> customProps;
-
-    public void setCustomProp(String name, Object value) {
-        if (value == null) {
-            if (customProps != null) {
-                customProps.remove(name);
-            }
-        } else {
-            if (customProps == null) {
-                customProps = new HashMap<>();
-            }
-            customProps.put(name, value);
-        }
-    }
-
-    public Object getCustomProp(String name) {
-        if (customProps == null) {
-            return null;
-        }
-        return customProps.get(name);
-    }
-
     ////// dicts
 
     public String getDictText(String fieldName, String dictField) {
