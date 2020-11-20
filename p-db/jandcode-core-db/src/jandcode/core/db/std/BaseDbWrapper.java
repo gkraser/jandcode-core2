@@ -135,7 +135,7 @@ public abstract class BaseDbWrapper implements Db {
     }
 
     public Store createStore() {
-        return getWrapConnected().createStore();
+        return getWrap().createStore();
     }
 
     public Store createStore(DbQuery query) {
