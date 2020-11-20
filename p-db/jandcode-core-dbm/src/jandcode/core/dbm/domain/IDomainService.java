@@ -54,4 +54,13 @@ public interface IDomainService {
      */
     Store createStore(Domain domain);
 
+    /**
+     * Создать пустой store со структурой как в домене.
+     *
+     * @param domainName для какого домена
+     */
+    default Store createStore(String domainName) {
+        return createStore(getDomain(domainName));
+    }
+
 }

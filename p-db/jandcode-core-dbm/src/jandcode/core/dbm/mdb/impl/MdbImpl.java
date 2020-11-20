@@ -7,6 +7,7 @@ import jandcode.core.dao.*;
 import jandcode.core.db.*;
 import jandcode.core.db.std.*;
 import jandcode.core.dbm.*;
+import jandcode.core.dbm.dao.*;
 import jandcode.core.dbm.domain.*;
 import jandcode.core.dbm.mdb.*;
 import jandcode.core.store.*;
@@ -15,9 +16,8 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
 
     private Model model;
     private Db db;
-
-    private MdbDaoImpl mdbDao;
-    private MdbDomainImpl mdbDomain;
+    private DaoInvoker daoInvoker;
+    private DomainService domainService;
 
     public MdbImpl(Model model, Db db) {
         this.model = model;
@@ -38,66 +38,54 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
 
     ////// IMdbDao
 
-    private MdbDaoImpl getMdbDao() {
-        if (mdbDao == null) {
-            mdbDao = new MdbDaoImpl(this);
+    private IDaoInvoker getIDaoInvoker() {
+        if (daoInvoker == null) {
+            daoInvoker = getModel().bean(ModelDaoService.class).getDaoInvoker();
         }
-        return mdbDao;
+        return daoInvoker;
     }
 
     public Object invokeDao(DaoMethodDef method, Object... args) throws Exception {
-        return getMdbDao().invokeDao(method, args);
+        return getIDaoInvoker().invokeDao(method, args);
     }
 
     public DaoContext invokeDao(DaoContextIniter ctxIniter, DaoMethodDef method, Object... args) throws Exception {
-        return getMdbDao().invokeDao(ctxIniter, method, args);
+        return getIDaoInvoker().invokeDao(ctxIniter, method, args);
     }
 
     public <A> A createDao(Class<A> cls) {
-        return getMdbDao().createDao(cls);
+        return getIDaoInvoker().createDao(cls);
     }
 
     public DaoClassDef getDaoClassDef(Class cls) {
-        return getMdbDao().getDaoClassDef(cls);
+        return getIDaoInvoker().getDaoClassDef(cls);
     }
 
     ////// IMdbDomain
 
-    private MdbDomainImpl getMdbDomain() {
-        if (mdbDomain == null) {
-            mdbDomain = new MdbDomainImpl(this);
+    private DomainService getDomainService() {
+        if (domainService == null) {
+            domainService = getModel().bean(DomainService.class);
         }
-        return mdbDomain;
+        return domainService;
     }
 
     public NamedList<Domain> getDomains() {
-        return getMdbDomain().getDomains();
-    }
-
-    public Domain getDomain(String name) {
-        return getMdbDomain().getDomain(name);
-    }
-
-    public Domain findDomain(String name) {
-        return getMdbDomain().findDomain(name);
+        return getDomainService().getDomains();
     }
 
     public DomainBuilder createDomainBuilder(String parentDomain) {
-        return getMdbDomain().createDomainBuilder(parentDomain);
+        return getDomainService().createDomainBuilder(parentDomain);
     }
 
     public Domain createDomain(Conf x, String name) {
-        return getMdbDomain().createDomain(x, name);
+        return getDomainService().createDomain(x, name);
     }
 
     public Store createStore(Domain domain) {
-        return getMdbDomain().createStore(domain);
+        return getDomainService().createStore(domain);
     }
 
-    ////// IMdbMisc
-
-    public Store createStore(String domainName) {
-        return createStore(getDomain(domainName));
-    }
+    //////
 
 }

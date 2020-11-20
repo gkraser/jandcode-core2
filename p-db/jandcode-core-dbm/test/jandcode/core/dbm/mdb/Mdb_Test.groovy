@@ -40,7 +40,7 @@ class Mdb_Test extends App_Test {
     @Test
     public void domain1() throws Exception {
         Store st = mdb.createStore("id")
-        assertNotNull(st.findField("id"));
+        assertNotNull(st.findField("id"))
     }
 
 
