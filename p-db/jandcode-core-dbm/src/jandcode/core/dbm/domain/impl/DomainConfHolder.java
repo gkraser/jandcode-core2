@@ -39,6 +39,7 @@ public class DomainConfHolder {
         this.expander.addRuleContainer("domain", "field", "field");
         this.expander.addRuleContainer("domain", "ref", "field");
         this.expander.addRuleNotInherited("tag.*");
+        this.expander.addRuleNotInherited("abstract");
         this.expander.addRuleParent("field", (type, parent) -> {
             String[] ar = parent.split("/");
             if (ar.length == 2) {
