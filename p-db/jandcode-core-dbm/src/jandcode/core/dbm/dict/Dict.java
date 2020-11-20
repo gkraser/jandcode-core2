@@ -6,8 +6,6 @@ import jandcode.core.dbm.*;
 import jandcode.core.dbm.domain.*;
 import jandcode.core.store.*;
 
-import java.util.*;
-
 /**
  * Словарь
  */
@@ -38,10 +36,5 @@ public interface Dict extends Comp, IConfLink, IModelMember {
      * Создать пустой DictData для словаря
      */
     DictData createDictData();
-
-    /**
-     * По переданному набору ids вернет данные словаря.
-     */
-    DictData resolveIds(Collection ids) throws Exception;
 
 }

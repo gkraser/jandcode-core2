@@ -13,6 +13,15 @@
 
             <dict name="dict1" parent="dummy"/>
 
+            <!-- словарь с id типа string -->
+            <domain name="dict.idstr" parent="dict.base">
+                <field name="id" parent="string"/>
+            </domain>
+            <dict name="dict2" parent="dummy"
+                  domain="dict.idstr"
+            />
+
+
         </model>
 
         <model name="test1" instance="base1">

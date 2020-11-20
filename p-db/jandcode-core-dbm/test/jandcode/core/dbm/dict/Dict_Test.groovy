@@ -19,6 +19,14 @@ class Dict_Test extends App_Test {
         svc = z.model.bean(DictService)
     }
 
+    void prnDictHolder(Store st) {
+        DictDataHolder h = st.getDictResolver()
+        for (it in h.items) {
+            utils.delim(it.dict.name)
+            utils.outTable(it.data)
+        }
+    }
+
     @Test
     public void test1() throws Exception {
         for (dict in svc.getDicts()) {
@@ -39,12 +47,46 @@ class Dict_Test extends App_Test {
     @Test
     public void resolve_ids() throws Exception {
         Dict dict = svc.dicts.get('dict1')
-        DictData dictData = dict.resolveIds([5, 6, 7])
+        DictData dictData = svc.resolveIds(dict, [5, 6, 7])
         Store st = dictData.data
         utils.outTable(st)
         assertEquals(st.size(), 3)
         assertEquals(st.get(0).getValue("id"), 5)
         assertEquals(st.get(0).getValue("text"), "dict1-text-5")
+    }
+
+    @Test
+    public void resolve_dicts_for_store() throws Exception {
+        Store st = z.createStore()
+        st.addField("id", "long")
+        st.addField("dict1", "long").setDict("dict1")
+        st.addField("dict2", "long").setDict("dict2")
+        st.addField("dict22", "string").setDict("dict2")
+        st.addField("nodict1", "string")
+        for (i in 1..10) {
+            if (i == 5) {
+                st.add(id: i)
+            } else {
+                st.add(id: i, dict1: i, dict2: 100 + i, dict22: "1000[${i}]", nodict1: "nodict-${i}")
+            }
+        }
+        //
+        svc.resolveDicts(st)
+        //
+        utils.outTable(st)
+        //
+        StoreRecord r = st.getById(3)
+
+        assertEquals(r.get("id"), 3)
+        assertEquals(r.get("dict1"), 3)
+        assertEquals(r.get("dict2"), 103)
+        assertEquals(r.get("dict22"), "1000[3]")
+
+        assertEquals(r.getDictValue("dict1"), "dict1-text-3")
+        assertEquals(r.getDictValue("dict2"), "dict2-text-103")
+        assertEquals(r.getDictValue("dict22"), "dict2-text-1000[3]")
+
+
     }
 
 

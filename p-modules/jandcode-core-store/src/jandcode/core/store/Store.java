@@ -8,6 +8,8 @@ import java.util.*;
 /**
  * Хранилище записей данных. Представляет собой список записей.
  * Используется как таблица с данными.
+ * <p>
+ * Не предназнаено для работы в конкурентной среде!
  */
 public interface Store extends INamed, INamedSet, Iterable<StoreRecord>,
         IAppLink, ICustomProp,
@@ -108,6 +110,8 @@ public interface Store extends INamed, INamedSet, Iterable<StoreRecord>,
 
     /**
      * Построить и вернуть индекс по указанному полю.
+     * Индекс, который вернется, не будет реагировать на изменения
+     * в записях store.
      *
      * @param fieldName поле для индексирования
      * @return построенный индекс

@@ -5,12 +5,9 @@ import jandcode.commons.conf.*;
 import jandcode.commons.error.*;
 import jandcode.core.*;
 import jandcode.core.dbm.*;
-import jandcode.core.dbm.dao.*;
 import jandcode.core.dbm.dict.*;
 import jandcode.core.dbm.domain.*;
 import jandcode.core.store.*;
-
-import java.util.*;
 
 public class DictImpl extends BaseModelMember implements Dict {
 
@@ -74,11 +71,6 @@ public class DictImpl extends BaseModelMember implements Dict {
 
     public DictData createDictData() {
         return new DictDataImpl(this, createStore());
-    }
-
-    public DictData resolveIds(Collection ids) throws Exception {
-        DictDao dao = getModel().bean(ModelDaoService.class).getDaoInvoker().createDao(DictDao.class);
-        return dao.resolveIds(this, ids);
     }
 
 }
