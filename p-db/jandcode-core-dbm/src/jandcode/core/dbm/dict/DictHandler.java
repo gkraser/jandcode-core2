@@ -12,7 +12,7 @@ public interface DictHandler {
 
     /**
      * Получить данные для словаря.
-     * Полсе выполнения метода ожидается, что в store
+     * После выполнения метода ожидается, что в data
      * будут созданы записи для каждой id, переданных в ids.
      *
      * @param mdb  соединенная база данных
@@ -20,6 +20,6 @@ public interface DictHandler {
      * @param data куда загружать данные словаря.
      * @param ids  набор id, которые нужно получить.
      */
-    void resolveIds(Mdb mdb, Dict dict, Store data, Collection ids) throws Exception;
+    void resolveIds(Mdb mdb, Dict dict, Store data, Collection<Object> ids) throws Exception;
 
 }

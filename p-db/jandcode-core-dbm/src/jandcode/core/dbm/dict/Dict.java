@@ -37,4 +37,10 @@ public interface Dict extends Comp, IConfLink, IModelMember {
      */
     DictData createDictData();
 
+    /**
+     * При значении true словарь - загружаемый.
+     * Т.е. все возможные его значения можно получить сразу.
+     */
+    boolean isLoadable();
+
 }

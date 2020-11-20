@@ -15,6 +15,7 @@ import java.util.*;
 public class DictServiceImpl extends BaseModelMember implements DictService {
 
     private NamedList<Dict> dicts = new DefaultNamedList<>("Не найден dict [{0}]");
+    private DictCache cache = new DictCacheImpl(this);
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
@@ -65,6 +66,9 @@ public class DictServiceImpl extends BaseModelMember implements DictService {
                     rec.getStore(), Collections.singletonList(rec));
 
         }
+    }
 
+    public DictCache getCache() {
+        return cache;
     }
 }

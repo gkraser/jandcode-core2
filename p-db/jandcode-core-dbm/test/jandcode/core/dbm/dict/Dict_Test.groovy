@@ -89,5 +89,14 @@ class Dict_Test extends App_Test {
 
     }
 
+    @Test
+    public void conf_dictdata() throws Exception {
+        Dict dict = svc.getDicts().get("yes-no")
+        DictData dd = svc.getCache().getDictData(dict)
+        utils.outTable(dd.data)
+        assertEquals(dd.data.size(), 2)
+        assertEquals(dd.data.get(0).getValue("text"), "YES")
+    }
+
 
 }

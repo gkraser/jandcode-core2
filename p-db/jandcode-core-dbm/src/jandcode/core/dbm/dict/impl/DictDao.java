@@ -1,12 +1,14 @@
-package jandcode.core.dbm.dict;
+package jandcode.core.dbm.dict.impl;
 
 import jandcode.core.dao.*;
 import jandcode.core.dbm.dao.*;
+import jandcode.core.dbm.dict.*;
 
 import java.util.*;
 
 /**
- * dao для загрузки словарей
+ * dao для загрузки словарей.
+ * Используется сервисом словарей для собственных внутренних нужд.
  */
 public class DictDao extends BaseModelDao {
 
@@ -39,7 +41,7 @@ public class DictDao extends BaseModelDao {
      * Заресолвить указанные id
      */
     @DaoMethod
-    public DictData resolveIds(Dict dict, Collection ids) throws Exception {
+    public DictData resolveIds(Dict dict, Collection<Object> ids) throws Exception {
         DictData dictData = dict.createDictData();
         if (ids != null && ids.size() > 0) {
             dict.getHandler().resolveIds(getMdb(), dict, dictData.getData(), ids);
@@ -57,6 +59,17 @@ public class DictDao extends BaseModelDao {
                 d.dict.getHandler().resolveIds(getMdb(), d.dict, d.dictData.getData(), d.ids);
             }
         }
+    }
+
+    /**
+     * Загрузить загружаемый словарь.
+     */
+    @DaoMethod
+    public DictData loadDict(Dict dict) throws Exception {
+        IDictHandlerLoadDict h = (IDictHandlerLoadDict) dict.getHandler();
+        DictData res = dict.createDictData();
+        h.loadDict(getMdb(), dict, res.getData());
+        return res;
     }
 
 }

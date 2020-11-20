@@ -21,6 +21,13 @@
                   domain="dict.idstr"
             />
 
+            <dict name="yes-no" parent="base"
+                  handler="jandcode.core.dbm.dict.std.ConfDictHandler">
+                <dictdata>
+                    <i id="1" text="YES"/>
+                    <i id="2" text="NO"/>
+                </dictdata>
+            </dict>
 
         </model>
 

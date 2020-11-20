@@ -29,4 +29,9 @@ public interface DictService extends Comp, IModelMember {
      */
     void resolveDicts(Object data) throws Exception;
 
+    /**
+     * Кеш данных словарей
+     */
+    DictCache getCache();
+
 }

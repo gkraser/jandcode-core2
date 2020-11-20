@@ -18,6 +18,7 @@ public class DictImpl extends BaseModelMember implements Dict {
     private Field defaultField;
     private Domain domain;
     private DictHandler handler;
+    private boolean loadable;
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
@@ -42,6 +43,7 @@ public class DictImpl extends BaseModelMember implements Dict {
             throw new XError("handler атрибут не установлен");
         }
         this.handler = (DictHandler) getModel().create(s);
+        this.loadable = handler instanceof IDictHandlerLoadDict;
 
     }
 
@@ -61,6 +63,10 @@ public class DictImpl extends BaseModelMember implements Dict {
 
     public String getDefaultField() {
         return defaultField.getName();
+    }
+
+    public boolean isLoadable() {
+        return loadable;
     }
 
     //////
