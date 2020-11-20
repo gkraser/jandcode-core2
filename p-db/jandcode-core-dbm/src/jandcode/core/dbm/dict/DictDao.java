@@ -16,7 +16,7 @@ public class DictDao extends BaseModelDao {
     @DaoMethod
     public DictData resolveIds(Dict dict, Collection ids) throws Exception {
         DictData dictData = dict.createDictData();
-        dict.getHandler().resolveIds(getMdb(), dictData, ids);
+        dict.getHandler().resolveIds(getMdb(), dict, dictData.getData(), ids);
         return dictData;
     }
 

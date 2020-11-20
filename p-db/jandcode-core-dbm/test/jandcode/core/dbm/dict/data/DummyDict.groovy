@@ -8,10 +8,9 @@ import jandcode.core.store.*
 
 class DummyDict extends BaseModelDao implements DictHandler {
 
-    void resolveIds(Mdb mdb, DictData dictData, Collection ids) throws Exception {
-        Store data = dictData.getData()
+    void resolveIds(Mdb mdb, Dict dict, Store data, Collection ids) throws Exception {
         for (id in ids) {
-            data.add(id: id, text: "${dictData.name}-text-${id}")
+            data.add(id: id, text: "${dict.name}-text-${id}")
         }
     }
 
