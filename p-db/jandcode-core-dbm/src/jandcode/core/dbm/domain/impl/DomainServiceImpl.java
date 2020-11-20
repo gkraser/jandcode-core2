@@ -5,6 +5,7 @@ import jandcode.commons.named.*;
 import jandcode.core.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.domain.*;
+import jandcode.core.store.*;
 
 public class DomainServiceImpl extends BaseModelMember implements DomainService {
 
@@ -69,6 +70,19 @@ public class DomainServiceImpl extends BaseModelMember implements DomainService 
 
     public DomainBuilder createDomainBuilder(String parentDomain) {
         return new DomainBuilderImpl(this, parentDomain);
+    }
+
+    public Store createStore(Domain domain) {
+        Store store = getApp().bean(StoreService.class).createStore();
+        //
+        for (Field f : domain.getFields()) {
+            StoreField sf = store.addField(f.getName(), f.getStoreDataType());
+            if (f.hasDict()) {
+                sf.setDict(f.getDict());
+            }
+        }
+        //
+        return store;
     }
 
 }

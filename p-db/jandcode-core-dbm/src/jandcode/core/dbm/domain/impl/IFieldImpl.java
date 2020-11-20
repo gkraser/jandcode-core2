@@ -12,6 +12,7 @@ public class IFieldImpl extends BaseFieldMember implements IField {
     private String dbDataType;
     private String storeDataType;
     private String ref;
+    private String dict;
 
     //////
 
@@ -23,6 +24,10 @@ public class IFieldImpl extends BaseFieldMember implements IField {
 
     public boolean hasRef() {
         return ref != null && ref.length() > 0;
+    }
+
+    public boolean hasDict() {
+        return dict != null && dict.length() > 0;
     }
 
     ////// props
@@ -67,8 +72,8 @@ public class IFieldImpl extends BaseFieldMember implements IField {
         return dbDataType == null ? getDataType().toString() : dbDataType;
     }
 
-    public void setDbDDataType(String dbDDataType) {
-        this.dbDataType = dbDDataType;
+    public void setDbDataType(String dbDataType) {
+        this.dbDataType = dbDataType;
     }
 
     public String getStoreDataType() {
@@ -85,6 +90,14 @@ public class IFieldImpl extends BaseFieldMember implements IField {
 
     public void setRef(String ref) {
         this.ref = ref;
+    }
+
+    public String getDict() {
+        return dict;
+    }
+
+    public void setDict(String dict) {
+        this.dict = dict;
     }
 
 }

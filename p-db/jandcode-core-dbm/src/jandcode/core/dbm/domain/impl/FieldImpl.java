@@ -109,4 +109,12 @@ public class FieldImpl extends BaseModelMember implements Field, IBeanIniter {
         return getIField().hasRef();
     }
 
+    public String getDict() {
+        return getIField().getDict();
+    }
+
+    public boolean hasDict() {
+        return getIField().hasDict();
+    }
+
 }

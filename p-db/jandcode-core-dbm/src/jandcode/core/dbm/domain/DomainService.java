@@ -3,6 +3,7 @@ package jandcode.core.dbm.domain;
 import jandcode.commons.conf.*;
 import jandcode.core.*;
 import jandcode.core.dbm.*;
+import jandcode.core.store.*;
 
 /**
  * Сервис доменов
@@ -23,6 +24,13 @@ public interface DomainService extends Comp, IModelMember, IDomainService {
      * @param name имя создаваемого домена
      */
     Domain createDomain(Conf x, String name);
+
+    /**
+     * Создать пустой store со структурой как в домене.
+     *
+     * @param domain для какого домена
+     */
+    Store createStore(Domain domain);
 
 
 }

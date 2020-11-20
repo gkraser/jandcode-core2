@@ -50,4 +50,14 @@ public interface IField {
      */
     boolean hasRef();
 
+    /**
+     * Имя словаря, связанного с этим полем.
+     */
+    String getDict();
+
+    /**
+     * Имеет ли поле привязанный словарь.
+     */
+    boolean hasDict();
+
 }
