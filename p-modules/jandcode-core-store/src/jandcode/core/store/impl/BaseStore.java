@@ -141,22 +141,26 @@ public abstract class BaseStore implements Store, Cloneable {
     }
 
     public void clear() {
+        this.index = null;
         records.clear();
     }
 
     public void remove(int index) {
+        this.index = null;
         records.remove(index);
     }
 
     //////
 
     public StoreRecord add() {
+        this.index = null;
         StoreRecord r = createRecord();
         records.add(r);
         return r;
     }
 
     public StoreRecord add(Map values) {
+        this.index = null;
         StoreRecord r = createRecord();
         r.setValues(values);
         records.add(r);
@@ -164,6 +168,7 @@ public abstract class BaseStore implements Store, Cloneable {
     }
 
     public StoreRecord add(StoreRecord rec) {
+        this.index = null;
         StoreRecord r = createRecord();
         r.setValues(rec);
         records.add(r);
@@ -228,6 +233,35 @@ public abstract class BaseStore implements Store, Cloneable {
         } catch (Throwable e) {
             throw new XErrorWrap(e);
         }
+    }
+
+    ////// index
+
+    private Map<String, StoreIndex> index;
+
+    public void clearIndex() {
+        this.index = null;
+    }
+
+    public StoreIndex getIndex(String fieldName) {
+        StoreField f = getField(fieldName);
+        if (index == null) {
+            index = new HashMap<>();
+        }
+        StoreIndex idx = index.get(f.getName());
+        if (idx == null) {
+            idx = new StoreIndexImpl(this, f);
+            index.put(f.getName(), idx);
+        }
+        return idx;
+    }
+
+    public StoreRecord getBy(String fieldName, Object key) {
+        return getIndex(fieldName).get(key);
+    }
+
+    public StoreRecord getById(Object key) {
+        return getBy("id", key);
     }
 
 }
