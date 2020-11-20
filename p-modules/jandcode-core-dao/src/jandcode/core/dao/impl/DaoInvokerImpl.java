@@ -32,7 +32,7 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker {
 
     }
 
-    public Object invokeDao(DaoMethodDef method, Object... args) throws Exception {
+    public DaoContext invokeDao(DaoContextIniter ctxIniter, DaoMethodDef method, Object... args) throws Exception {
 
         DaoService daoService = getApp().bean(DaoService.class);
         DaoLogger daoLogger = daoService.getDaoLogger();
@@ -54,6 +54,11 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker {
         }
 
         try {
+            // инициализация контекста
+            if (ctxIniter != null) {
+                ctxIniter.initDaoContext(context);
+            }
+
             // сначала все фильтры before
             for (int i = 0; i < filters.size(); i++) {
                 filters.get(i).execDaoFilter(DaoFilterType.before, context);
@@ -91,7 +96,12 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker {
             }
         }
         //
-        return context.getResult();
+        return context;
+    }
+
+    public Object invokeDao(DaoMethodDef method, Object... args) throws Exception {
+        DaoContext ctx = invokeDao(null, method, args);
+        return ctx.getResult();
     }
 
     public <A> A createDao(Class<A> cls) {

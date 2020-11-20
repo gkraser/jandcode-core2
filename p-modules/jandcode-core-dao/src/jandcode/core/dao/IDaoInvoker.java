@@ -1,7 +1,5 @@
 package jandcode.core.dao;
 
-import java.util.*;
-
 /**
  * Интерфейс исполнителя dao
  */
@@ -15,6 +13,17 @@ public interface IDaoInvoker extends IDaoClassFactory {
      * @return то, что метод возвратит
      */
     Object invokeDao(DaoMethodDef method, Object... args) throws Exception;
+
+    /**
+     * Выполнить dao-метод.
+     *
+     * @param ctxIniter инициализатор контекста dao перед выполнением.
+     *                  Может быть null, если не нужен
+     * @param method    какой метод
+     * @param args      аргументы
+     * @return {@link DaoContext}, который использовался для выполнения dao
+     */
+    DaoContext invokeDao(DaoContextIniter ctxIniter, DaoMethodDef method, Object... args) throws Exception;
 
     /**
      * Создать экземпляр dao.

@@ -44,6 +44,10 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
         return getMdbDao().invokeDao(method, args);
     }
 
+    public DaoContext invokeDao(DaoContextIniter ctxIniter, DaoMethodDef method, Object... args) throws Exception {
+        return getMdbDao().invokeDao(ctxIniter, method, args);
+    }
+
     public <A> A createDao(Class<A> cls) {
         return getMdbDao().createDao(cls);
     }

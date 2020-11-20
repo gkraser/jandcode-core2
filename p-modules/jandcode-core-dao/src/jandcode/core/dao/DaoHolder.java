@@ -21,6 +21,17 @@ public interface DaoHolder extends Comp {
     Object invokeDao(String name, Object... args) throws Exception;
 
     /**
+     * Выполнить dao-метод.
+     *
+     * @param ctxIniter инициализатор контекста dao перед выполнением.
+     *                  Может быть null, если не нужен
+     * @param name      какой метод
+     * @param args      аргументы
+     * @return {@link DaoContext}, который использовался для выполнения dao
+     */
+    DaoContext invokeDao(DaoContextIniter ctxIniter, String name, Object... args) throws Exception;
+
+    /**
      * Список всех зарегистрированных dao.
      * Только для чтения.
      */

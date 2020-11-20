@@ -5,6 +5,8 @@ import jandcode.core.dao.impl.*;
 import jandcode.core.test.*;
 import org.junit.jupiter.api.*;
 
+import java.util.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DaoInvoker_Test extends App_Test {
@@ -94,6 +96,21 @@ public class DaoInvoker_Test extends App_Test {
         DaoInvoker m = app.bean(DaoService.class).getDaoInvoker("filters1");
         Dao1 d = m.createDao(Dao1.class);
         d.isDao2();
+    }
+
+    @Test
+    public void context_initer() throws Exception {
+        DaoInvoker m = app.create(DefaultDaoInvoker.class);
+        DaoClassDef cd = m.getDaoClassDef(ContextIniterDao.class);
+        Map<String, Object> map1 = new HashMap<>();
+        DaoContext ctx = m.invokeDao((x) -> {
+            x.getBeanFactory().registerBean("map1", map1);
+        }, cd.getMethods().get("m1"));
+        //
+        assertEquals(map1.get("k1"), "v1");
+        Map<String, Object> map2 = (Map<String, Object>) ctx.bean("map2");
+        assertEquals(map1.get("k1"), "v1");
+        assertEquals(map2.get("k2"), "v2");
     }
 
 

@@ -26,6 +26,10 @@ public class MdbDaoImpl implements IMdbDao {
         return getIDaoInvoker().invokeDao(method, args);
     }
 
+    public DaoContext invokeDao(DaoContextIniter ctxIniter, DaoMethodDef method, Object... args) throws Exception {
+        return getIDaoInvoker().invokeDao(ctxIniter, method, args);
+    }
+
     public <A> A createDao(Class<A> cls) {
         return getIDaoInvoker().createDao(cls);
     }
