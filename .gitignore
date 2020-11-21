@@ -15,7 +15,8 @@ _jc
 _gen
 node_modules
 .gradle
-.idea
+.idea*
 /_*
 /lib/_*
 /bin
+/dataSources

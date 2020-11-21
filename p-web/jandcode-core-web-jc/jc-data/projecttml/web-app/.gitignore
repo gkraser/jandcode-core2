@@ -14,8 +14,9 @@ Thumbs.db
 _jc
 _gen
 node_modules
-.idea
+.idea*
 app-run.bat
 app-run.sh
 /_*
 /lib/_*
+/dataSources
