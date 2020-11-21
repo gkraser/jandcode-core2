@@ -8,15 +8,13 @@ class P extends ProjectScript {
 
     void onInclude() {
         //
-        project.name = "jandcode-core-apx-jc"
+        project.name = "jandcode-core-dbm-jc"
         //
         include(JavaProject).with {
-            packageRoot = "jandcode.core.apx.jc"
+            packageRoot = "jandcode.core.dbm.jc"
             depends.prod(
-                    "jandcode-core-apx",
                     "jandcode-core-jc",
-                    "jandcode-core-jsa-jc",
-                    "jandcode-core-dbm-jc",
+                    "jandcode-core-dbm",
             )
             depends.dev(
             )
