@@ -25,6 +25,7 @@ public abstract class Base_Test {
     private boolean setUpRunned;
 
     private Map<Class, BaseTestSvc> testSvcs = new LinkedHashMap<>();
+    private Set<Object> showedErrors = new HashSet<>();
 
     /**
      * Вызывается при неудачном тесте - показывает ошибку
@@ -37,15 +38,19 @@ public abstract class Base_Test {
                 UtilsTestSvc utils = new UtilsTestSvc();
                 utils.setTest(Base_Test.this);
                 utils.showError(ex.get());
+                showedErrors.add(ex.get());
             }
         }
 
         public void afterEach(ExtensionContext context) throws Exception {
             Optional<Throwable> ex = context.getExecutionException();
             if (ex.isPresent()) {
-                UtilsTestSvc utils = new UtilsTestSvc();
-                utils.setTest(Base_Test.this);
-                utils.showError(ex.get());
+                if (!showedErrors.contains(ex.get())) { // может уже показали
+                    UtilsTestSvc utils = new UtilsTestSvc();
+                    utils.setTest(Base_Test.this);
+                    utils.showError(ex.get());
+                    showedErrors.add(ex.get());
+                }
             }
         }
 
