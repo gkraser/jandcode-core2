@@ -175,6 +175,11 @@ public abstract class BaseStore implements Store, Cloneable {
         return r;
     }
 
+    public void add(Store store) {
+        this.index = null;
+        store.copyTo(this);
+    }
+
     ////// ICustomProp
 
     private Map<String, Object> customProps;
@@ -233,6 +238,13 @@ public abstract class BaseStore implements Store, Cloneable {
         } catch (Throwable e) {
             throw new XErrorWrap(e);
         }
+    }
+
+    ////// copy
+
+    public void copyTo(Store storeDest) {
+        StoreCopier cp = new StoreCopier(this, storeDest);
+        cp.copyStore(this, storeDest);
     }
 
     ////// index

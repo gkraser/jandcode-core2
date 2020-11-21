@@ -49,6 +49,11 @@ public interface Store extends INamed, INamedSet, Iterable<StoreRecord>,
      */
     StoreRecord add(StoreRecord rec);
 
+    /**
+     * Добавить все записи из указанной store
+     */
+    void add(Store store);
+
     //////
 
     /**
@@ -78,6 +83,17 @@ public interface Store extends INamed, INamedSet, Iterable<StoreRecord>,
      * @return новый экземпляр store с идентичной структурой без данных
      */
     Store cloneStore();
+
+    //////
+
+    /**
+     * Скопировать данные в указанный store.
+     * Копируются все записи.
+     * Данные копируются по совпадающим именам полей.
+     *
+     * @param storeDest куда копировать
+     */
+    void copyTo(Store storeDest);
 
     ////// index
 
