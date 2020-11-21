@@ -56,7 +56,12 @@ public class StoreOutTable implements OutTable {
     }
 
     public VariantDataType getColDataType(int col) {
-        return store.getField(col).getStoreDataType().getDataType();
+        StoreField f = store.getField(col);
+        if (!UtString.empty(f.getDict())) {
+            return VariantDataType.STRING; // со словарями считаем строками
+        } else {
+            return f.getStoreDataType().getDataType();
+        }
     }
 
 }
