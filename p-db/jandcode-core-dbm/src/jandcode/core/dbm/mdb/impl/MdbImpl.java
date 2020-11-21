@@ -13,6 +13,8 @@ import jandcode.core.dbm.domain.*;
 import jandcode.core.dbm.mdb.*;
 import jandcode.core.store.*;
 
+import java.util.*;
+
 public class MdbImpl extends BaseDbWrapper implements Mdb {
 
     private Model model;
@@ -105,8 +107,12 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
         getDictService().resolveDicts(data);
     }
 
-    public DictData loadDictData(Dict dict) {
+    public DictData loadDictData(Dict dict) throws Exception {
         return getDictService().loadDictData(dict);
+    }
+
+    public DictData loadDictData(Dict dict, Collection<Object> ids) throws Exception {
+        return getDictService().loadDictData(dict, ids);
     }
 
 }

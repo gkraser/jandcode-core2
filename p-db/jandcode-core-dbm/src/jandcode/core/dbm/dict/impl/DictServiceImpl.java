@@ -86,4 +86,7 @@ public class DictServiceImpl extends BaseModelMember implements DictService {
         return res;
     }
 
+    public DictData loadDictData(Dict dict, Collection<Object> ids) throws Exception {
+        return resolveIds(dict, ids);
+    }
 }
