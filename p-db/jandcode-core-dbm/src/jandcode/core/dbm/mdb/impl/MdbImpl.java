@@ -8,6 +8,7 @@ import jandcode.core.db.*;
 import jandcode.core.db.std.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.dao.*;
+import jandcode.core.dbm.dict.*;
 import jandcode.core.dbm.domain.*;
 import jandcode.core.dbm.mdb.*;
 import jandcode.core.store.*;
@@ -18,6 +19,7 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
     private Db db;
     private DaoInvoker daoInvoker;
     private DomainService domainService;
+    private DictService dictService;
 
     public MdbImpl(Model model, Db db) {
         this.model = model;
@@ -86,6 +88,25 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
         return getDomainService().createStore(domain);
     }
 
-    //////
+    ////// IDictService
+
+    public DictService getDictService() {
+        if (dictService == null) {
+            dictService = getModel().bean(DictService.class);
+        }
+        return dictService;
+    }
+
+    public NamedList<Dict> getDicts() {
+        return getDictService().getDicts();
+    }
+
+    public void resolveDicts(Object data) throws Exception {
+        getDictService().resolveDicts(data);
+    }
+
+    public DictData loadDictData(Dict dict) {
+        return getDictService().loadDictData(dict);
+    }
 
 }

@@ -78,4 +78,12 @@ public class DictServiceImpl extends BaseModelMember implements DictService {
     public DictCache getCache() {
         return cache;
     }
+
+    public DictData loadDictData(Dict dict) {
+        DictData cacheDd = getCache().getDictData(dict);
+        DictData res = dict.createDictData();
+        res.getData().add(cacheDd.getData());
+        return res;
+    }
+
 }
