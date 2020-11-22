@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
+    <!--
+        Замечания:
+
+        dbsource => conn.defaultRowPrefetch="10"
+        
+        Этот параметр по умолчанию имеет значение "10" в oracle-драйвере,
+        что приводит к медленному чтению большой выборки.
+
+    -->
     <db>
 
         <dbdriver name="oracle" parent="base" dbtype="oracle"

@@ -12,7 +12,7 @@ import java.util.*;
 
 public class DbQueryImpl implements DbQuery {
 
-    private DbSource dbSource;
+    private IDbConnect dbConnect;
     private DbDriver dbDriver;
     private Connection connection;
 
@@ -33,9 +33,9 @@ public class DbQueryImpl implements DbQuery {
     private int lastRead = -1;
 
 
-    public DbQueryImpl(IDbSourceLink dbSourceLink, Connection connection, String sql, Object params) {
-        this.dbSource = dbSourceLink.getDbSource();
-        this.dbDriver = dbSourceLink.getDbSource().getDbDriver();
+    public DbQueryImpl(IDbConnect dbConnect, Connection connection, String sql, Object params) {
+        this.dbConnect = dbConnect;
+        this.dbDriver = dbConnect.getDbSource().getDbDriver();
         this.connection = connection;
         this.queryLogger = new QueryLogger(this);
         setSql(sql);
@@ -45,7 +45,7 @@ public class DbQueryImpl implements DbQuery {
     //////
 
     public DbSource getDbSource() {
-        return dbSource;
+        return dbConnect.getDbSource();
     }
 
     public NamedList<DbQueryField> getFields() {
@@ -174,6 +174,7 @@ public class DbQueryImpl implements DbQuery {
             return;
         }
         statement = connection.prepareStatement(getSqlPrepared());
+        setupStatement();
     }
 
     protected void createStatement() throws Exception {
@@ -181,6 +182,14 @@ public class DbQueryImpl implements DbQuery {
             return;
         }
         statement = connection.createStatement();
+        setupStatement();
+    }
+
+    protected void setupStatement() throws Exception {
+        int fs = this.dbConnect.getFetchSize();
+        if (fs >= 0) {
+            statement.setFetchSize(fs);
+        }
     }
 
     ////// values i/o

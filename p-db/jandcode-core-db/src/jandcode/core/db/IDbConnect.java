@@ -5,7 +5,7 @@ import java.sql.*;
 /**
  * Методы обертки вокруг {@link Connection} для {@link Db}.
  */
-public interface IDbConnect {
+public interface IDbConnect extends IDbSourceLink {
 
     ////// connect
 
@@ -69,5 +69,20 @@ public interface IDbConnect {
      * Имеется ли активная транзакция
      */
     boolean isTran();
+
+
+    ////// fetch size
+
+    /**
+     * см: {@link Statement#getFetchSize()}.
+     * По умолчанию установлено в значение -1,
+     * что означает - ничего не делать, драйвер работает по умолчанию, как настроен.
+     */
+    int getFetchSize();
+
+    /**
+     * см: {@link Statement#setFetchSize(int)}.
+     */
+    void setFetchSize(int rows);
 
 }
