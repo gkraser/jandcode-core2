@@ -76,12 +76,8 @@ public abstract class BaseDbWrapper implements Db {
         return getWrap().isTran();
     }
 
-    public int getFetchSize() {
-        return getWrap().getFetchSize();
-    }
-
-    public void setFetchSize(int rows) {
-        getWrap().setFetchSize(rows);
+    public DbParams getDbParams() {
+        return getWrap().getDbParams();
     }
 
     ////// IDbUtils

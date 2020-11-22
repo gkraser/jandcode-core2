@@ -14,7 +14,7 @@ public abstract class BaseDbConnect extends BaseDbSourceMember implements IDbCon
     protected int connectLevel;
     protected int trnLevel;
     private DbConnectionService connectionService;
-    private int fetchSize = -1;
+    private DbParams dbParams = new DbParamsImpl();
 
     ////// connect
 
@@ -121,14 +121,8 @@ public abstract class BaseDbConnect extends BaseDbSourceMember implements IDbCon
         return trnLevel > 0;
     }
 
-    ////// fetch size
-
-    public int getFetchSize() {
-        return fetchSize;
-    }
-
-    public void setFetchSize(int fetchSize) {
-        this.fetchSize = fetchSize;
+    public DbParams getDbParams() {
+        return dbParams;
     }
 
 }

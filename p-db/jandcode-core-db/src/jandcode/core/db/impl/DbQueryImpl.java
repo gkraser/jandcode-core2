@@ -186,7 +186,7 @@ public class DbQueryImpl implements DbQuery {
     }
 
     protected void setupStatement() throws Exception {
-        int fs = this.dbConnect.getFetchSize();
+        int fs = this.dbConnect.getDbParams().getFetchSize();
         if (fs >= 0) {
             statement.setFetchSize(fs);
         }
