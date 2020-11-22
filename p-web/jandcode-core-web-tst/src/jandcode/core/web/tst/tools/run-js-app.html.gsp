@@ -6,15 +6,17 @@
     List<ModuleInst> mods = UtWeb.getMountModules(th.app)
 
     def apps = { ModuleInst mod ->
-      return UtWeb.expandPath(th.app, mod.getVPath() + "/js/**/*.gsp")
+      return UtWeb.expandPath(th.app, mod.getVPath() + "/**/js/**/*.gsp")
     }
 
 
   %>
   <h1>Run Js App</h1>
 
-  <p>Все файлы [MODULE-PATH]/js/**/*.gsp считаем точками входа в приложение и просто
-  их рендерим.</p>
+  <p>Все файлы
+    <code>[MODULE-PATH]/**/js/**/*.gsp</code>
+    считаем точками входа в приложение и просто
+    их рендерим.</p>
   <ul>
     <%
       for (m in mods) {

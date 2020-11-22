@@ -36,7 +36,7 @@ public class JsaThemeServiceImpl extends BaseComp implements JsaThemeService {
 
     protected Map<String, String> loadThemes() {
         Map<String, String> res = new HashMap<>();
-        List<String> lst = UtWeb.expandPath(getApp(), "[*]/css/*-theme.js");
+        List<String> lst = UtWeb.expandPath(getApp(), "[*]/**/css/*-theme.js");
         for (String f : lst) {
             Matcher m = patternTheme.matcher(f);
             if (m.find()) {
