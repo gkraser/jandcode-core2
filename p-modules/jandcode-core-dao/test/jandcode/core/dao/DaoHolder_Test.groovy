@@ -63,12 +63,17 @@ class DaoHolder_Test extends App_Test {
 
         assertEquals(
                 h.items.get("pfx/recursive_pak/mySuper2/test1").methodDef.cls,
-                MySuper2Dao.class
+                MySuper2_Dao.class
         )
 
         assertEquals(
                 h.items.get("pfx/mySuper1/test1").methodDef.cls,
                 MySuper1Dao.class
+        )
+
+        assertEquals(
+                h.items.get("flat/mySuper2/test1").methodDef.cls,
+                MySuper2_Dao.class
         )
 
     }

@@ -32,6 +32,8 @@
             <item name="d1/p1" class="jandcode.core.dao.data.recursive_pak.Dao11"
                   method="sum"/>
 
+            <item name="flat" package="jandcode.core.dao.data" flat="true"/>
+
         </holder>
 
         <holder name="check-rules">

@@ -79,6 +79,7 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
         String methodName = x.getString("method");
         String pak = x.getString("package");
         boolean recursive = x.getBoolean("recursive", true);
+        boolean flat = x.getBoolean("flat");
 
         boolean hasClass = !UtString.empty(className);
         boolean hasMethod = !UtString.empty(methodName);
@@ -124,7 +125,7 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
                     //
                     String pn = cls.getPackage().getName();
                     String pn1 = UtString.removePrefix(pn, pakPfx);
-                    if (pn1 != null) {
+                    if (pn1 != null && !flat) {
                         pn = pn1 + "/";
                     } else {
                         pn = "";
