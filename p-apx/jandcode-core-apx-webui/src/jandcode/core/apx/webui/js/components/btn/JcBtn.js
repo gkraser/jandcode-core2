@@ -48,6 +48,11 @@ export default {
             }
         }
 
+        // ссылку правим, если есть
+        if (data.attrs['href']) {
+            data.attrs['href'] = jsaBase.url.ref(data.attrs['href'])
+        }
+
         // если тип явно не установлен, и нет click - ставим 'a'
         if (!data.attrs.type) {
             if (!(ctx.listeners.click)) {
