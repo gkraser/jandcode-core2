@@ -9,7 +9,7 @@ import {createCfgStore, CfgStore} from '../cfg-store'
 export class CfgStoreService extends jsaBase.AppService {
 
     onCreate() {
-        let cfgStore = createCfgStore('apx.webapp')
+        let cfgStore = createCfgStore('apx.webui')
 
         /**
          * Глобальный CfgStore

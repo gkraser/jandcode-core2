@@ -16,7 +16,7 @@ class P extends ProjectScript {
             moduleDef("xxx.yyy.main").with {
                 depends.prod(
                     "jandcode.core.apx",
-                    "jandcode.core.apx.webapp",
+                    "jandcode.core.apx.webui",
                 )
                 depends.dev(
                 )

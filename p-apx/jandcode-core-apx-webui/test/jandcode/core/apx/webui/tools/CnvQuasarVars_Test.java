@@ -1,4 +1,4 @@
-package jandcode.core.apx.webapp.tools;
+package jandcode.core.apx.webui.tools;
 
 import jandcode.commons.*;
 import jandcode.commons.test.*;

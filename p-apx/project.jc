@@ -16,7 +16,7 @@ class P extends ProjectScript {
             moduleGroup = "jc-core/p-apx"
             modules(
                 "jandcode-core-apx",
-                "jandcode-core-apx-webapp",
+                "jandcode-core-apx-webui",
                 "jandcode-core-apx-jc",
                 "jandcode-core-apx-tst",
             )

@@ -46,22 +46,22 @@ jsaBase.app.onBeforeRun(function() {
     let routes = [
         {
             path: '',
-            frame: 'jandcode/core/apx/webapp/_tst/pages/_frames/fm/Home.vue',
+            frame: 'jandcode/core/apx/webui/_tst/pages/_frames/fm/Home.vue',
         },
         {
             path: '/path1/:idn?',
-            frame: 'jandcode/core/apx/webapp/_tst/pages/_frames/fm/Frame1.vue',
+            frame: 'jandcode/core/apx/webui/_tst/pages/_frames/fm/Frame1.vue',
         },
         {
             path: '/fn',
             frame: function() {
-                return 'jandcode/core/apx/webapp/_tst/pages/_frames/fm/Frame1' + '.vue'
+                return 'jandcode/core/apx/webui/_tst/pages/_frames/fm/Frame1' + '.vue'
             }
         },
         {
             path: '/fnp',
             frame: async function() {
-                return 'jandcode/core/apx/webapp/_tst/pages/_frames/fm/Frame1' + '.vue'
+                return 'jandcode/core/apx/webui/_tst/pages/_frames/fm/Frame1' + '.vue'
             }
         },
         {
@@ -97,7 +97,7 @@ export default {
         },
         frame1() {
             apx.showFrame({
-                frame: 'jandcode/core/apx/webapp/_tst/pages/_frames/fm/Frame1.vue'
+                frame: 'jandcode/core/apx/webui/_tst/pages/_frames/fm/Frame1.vue'
             })
         },
         frame2() {

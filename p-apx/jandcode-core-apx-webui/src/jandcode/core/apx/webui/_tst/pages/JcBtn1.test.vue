@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import {config as btnConfig} from 'jandcode.core.apx.webapp/js/components/btn/JcBtn'
+import {config as btnConfig} from 'jandcode.core.apx.webui/js/components/btn/JcBtn'
 
 
 let btnKinds = []

@@ -55,7 +55,7 @@ export default {
     data() {
         return {
             modules: [
-                "jandcode/core/apx/webapp/js/components/index.js",
+                "jandcode/core/apx/webui/js/components/index.js",
                 "jandcode/core/apx/tst/js/components/index.js",
             ],
             textJs: ''

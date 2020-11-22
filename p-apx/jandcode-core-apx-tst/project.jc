@@ -17,7 +17,7 @@ class P extends ProjectScript {
                 depends.prod(
                         "jandcode.core.web.tst",
                         "jandcode.core.jsa.tst",
-                        "jandcode.core.apx.webapp",
+                        "jandcode.core.apx.webui",
                 )
                 depends.dev(
                 )
