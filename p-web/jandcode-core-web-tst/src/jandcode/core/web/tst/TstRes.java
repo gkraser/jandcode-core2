@@ -31,16 +31,37 @@ public class TstRes implements Comparable<TstRes> {
                 continue;  // собственный не нужен
             }
 
-            // есть ли папка tst внутри примонтированной
-            String vp = mount.getVirtualPath() + "/_tst";
-            VirtFile f = svc.findFile(vp);
-            if (f != null && f.isFolder()) {
-                res.add(f.getPath());
+            if (mount.getVirtualPath().equals("")) {
+                continue;  // корень не нужен
+            }
+
+            // ищем все _tst папки
+            List<String> tstPaths = UtWeb.expandPath(svc.getApp(), mount.getVirtualPath() + "/**/_tst/**/*");
+            if (tstPaths.size() > 0) {
+                // получили список файлов, извлекаем список папок
+                Set<String> tstFolders = new LinkedHashSet<>();
+                String marker = "/_tst/";
+                for (String tstPath : tstPaths) {
+                    int a = tstPath.indexOf(marker);
+                    if (a != -1) {
+                        String s = tstPath.substring(0, a + marker.length() - 1);
+                        tstFolders.add(s);
+                    }
+                }
+
+                for (String tstPath : tstFolders) {
+                    VirtFile f1 = svc.findFile(tstPath);
+                    if (f1 != null && f1.isFolder()) {
+                        res.add(f1.getPath());
+                    }
+                }
                 continue;
             }
 
             // а не явно ли примонтирован tst
             if (!UtString.empty(mount.getVirtualPath()) && (mount.getVirtualPath().endsWith("/_tst") || mount.getVirtualPath().equals("_tst"))) {
+                String vp;
+                VirtFile f;
                 vp = mount.getVirtualPath();
                 f = svc.findFile(vp);
                 if (f != null && f.isFolder()) {
