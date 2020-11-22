@@ -3,10 +3,6 @@
 
     <web>
         <mount-module/>
-
-        <action name="root"
-                template="xxx/yyy/main/js/main.gsp"/>
-
     </web>
 
 </root>
