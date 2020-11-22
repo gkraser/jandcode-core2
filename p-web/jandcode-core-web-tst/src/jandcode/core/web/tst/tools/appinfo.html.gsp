@@ -83,6 +83,7 @@
     <tr>
       <th>name</th>
       <th>class</th>
+      <th>autoCreate</th>
       <th>inst</th>
       <th>prototype</th>
     </tr>
@@ -90,6 +91,7 @@
     <tr>
       <td>${r.name}</td>
       <td>${r.cls.name}</td>
+      <td>${r.isAutoCreate() ? 'yes' : ''}</td>
       <td>${r.hasInst() ? 'yes' : ''}</td>
       <td>${r.isPrototype() ? 'yes' : ''}</td>
     </tr>
