@@ -7,7 +7,7 @@ import jandcode.core.test.*;
 /**
  * Предок для тестов с поддержкой dbm
  */
-public class Dbm_Test extends App_Test {
+public abstract class Dbm_Test extends App_Test {
 
     public DbmTestSvc dbm = testSvc(DbmTestSvc.class);
 
