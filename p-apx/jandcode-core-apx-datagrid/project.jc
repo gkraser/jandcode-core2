@@ -1,0 +1,32 @@
+import jandcode.core.jsa.jc.*
+import jandcode.jc.*
+import jandcode.jc.std.*
+
+class P extends ProjectScript {
+
+    static beforeLoad = {
+        classpath("jandcode-core-jsa-jc")
+    }
+
+    void onInclude() {
+        //
+        project.name = "jandcode-core-apx-datagrid"
+        //
+        include(JavaProject).with {
+            moduleDef("jandcode.core.apx.datagrid").with {
+                depends.prod(
+                    "jandcode.core.apx.webui",
+                )
+                depends.dev(
+                )
+            }
+        }
+        //
+        include(JsaJavaProject).with {
+            nodeJsDepends(
+                    "tabulator-tables",
+            )
+        }
+    }
+
+}
