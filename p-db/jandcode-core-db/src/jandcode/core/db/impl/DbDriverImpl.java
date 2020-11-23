@@ -109,6 +109,7 @@ public class DbDriverImpl extends BaseComp implements DbDriver {
             case Types.NCHAR:
             case Types.NVARCHAR:
             case Types.OTHER:
+            case Types.ROWID:
                 return "string";
 
             case Types.CLOB:
