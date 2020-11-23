@@ -103,7 +103,7 @@
         <module-mapping module="vuex" real-module="vuex/dist/vuex"/>
     </lib>
 
-    <lib name="quasar" version="1.14.3" client="true">
+    <lib name="quasar" version="1.14.5" client="true">
         <include-client mask="dist/*.js"/>
         <include-client mask="dist/*.css"/>
         <include-client mask="dist/*.sass"/>
@@ -141,7 +141,7 @@
         <include-client mask="dist/**/*.js"/>
     </lib>
 
-    <lib name="tabulator-tables" version="4.8.4" client="true">
+    <lib name="tabulator-tables" version="4.9.0" client="true">
         <include-client mask="dist/**/*"/>
         <exclude-client mask="**/*.map"/>
         <exclude-client mask="**/*.es2015.*"/>
