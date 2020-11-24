@@ -17,7 +17,7 @@
       items.addAll(dh.items)
       items.sort { a, b -> a.name <=> b.name }
   %>
-  <h3>daoHolder: ${dhn}</h3>
+  <h3>dao/holder: ${dhn}</h3>
   <table class="tst-table">
     <tr>
       <th>name</th>
