@@ -168,6 +168,9 @@ class JsaGulpBuilder {
     }
 
     addWatchTask(taskName, globs) {
+        if (!globs || globs.length === 0) {
+            return  // нечего отслеживать
+        }
         // initCb - набор функций, которые будут вызваны при создании watcher
         let w = {task: taskName, globs: globs, initCb: []}
         this.watchTasks.push(w)
@@ -224,13 +227,25 @@ class JsaGulpBuilder {
 
     /**
      * Сделать globs из параметров задачи для всех модулей
+     * @param baseModule начиная с какого модуля и всех зависящих от него.
+     *                   Если null - то для всех.
      * @param taskParams параметры задачи
+     * @param sourcesOnly true - только для модулей в исходниках
      */
-    makeGlobsAllModules(taskParams) {
+    makeGlobsAllModules(baseModule, taskParams, sourcesOnly) {
         let res = []
-        for (let module of jsaSupport.modules) {
-            let globs = this.makeGlobs(module, taskParams)
-            res = res.concat(globs)
+        let need = baseModule == null
+        for (let module of jsaSupport.modulesReverse) {
+            if (!need && module === baseModule) {
+                need = true
+            }
+            if (sourcesOnly && !module.isSource) {
+                continue
+            }
+            if (need) {
+                let globs = this.makeGlobs(module, taskParams)
+                res = res.concat(globs)
+            }
         }
         return res
     }
@@ -238,17 +253,34 @@ class JsaGulpBuilder {
     /**
      * Сделать gulp.src для всех модулей.
      * @param taskParams параметры задачи
+     * @param baseModule начиная с какого модуля и всех зависящих от него.
+     *                   Если null - то для всех.
+     * @param srcParams объект с дополнительными параметрами для каждого src.
+     *                  Если не нужен - может быть null
      * @return gulp.pipe
      */
-    makeSrcAllModules(taskParams) {
+    makeSrcAllModules(baseModule, taskParams, srcParams) {
         let res
-        for (let module of jsaSupport.modules) {
-            let globs = this.makeGlobs(module, taskParams)
-            if (!res) {
-                res = gulp.src(globs, {base: module.srcPath})
-            } else {
-                res = res.pipe(gulp.src(globs, {base: module.srcPath}))
+        let need = baseModule == null
+        for (let module of jsaSupport.modulesReverse) {
+            if (!need && module === baseModule) {
+                need = true
             }
+            if (need) {
+                let globs = this.makeGlobs(module, taskParams)
+                let sp = {base: module.srcPath}
+                if (srcParams) {
+                    Object.assign(sp, srcParams)
+                }
+                if (!res) {
+                    res = gulp.src(globs, sp)
+                } else {
+                    res = res.pipe(gulp.src(globs, sp))
+                }
+            }
+        }
+        if (!res) {
+            throw new Error("no src in makeSrcAllModules")
         }
         return res
     }

@@ -42,11 +42,11 @@ class P extends ProjectScript {
             gulpTask(name: "nm-module-mapping", stage: 'prepare')
             gulpTask(name: "nm-minify-js", stage: 'prepare')
 
-            gulpTask(name: "js", provide: true, globs: ["**/*.js"])
+            gulpTask(name: "js", globs: ["**/*.js"])
             gulpTask(name: "babelHelpers", globs: ["js/boot/babelHelpers.js"])
 
-            gulpTask(name: "sass", provide: true, globs: ["**/*-style.scss", "css/*-theme.scss"])
-            gulpTask(name: "less", provide: true, globs: ["**/*-style.less", "css/*-theme.less"])
+            gulpTask(name: "sass", globs: ["**/*-style.scss", "css/*-theme.scss"])
+            gulpTask(name: "less", globs: ["**/*-style.less", "css/*-theme.less"])
         }
     }
 

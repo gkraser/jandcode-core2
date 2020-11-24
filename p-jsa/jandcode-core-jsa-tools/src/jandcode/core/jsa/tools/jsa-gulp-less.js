@@ -16,16 +16,13 @@ const jsaCss = require("./jsa-css");
 
 
 function less_taskFactory(g, taskName, module, taskParams) {
-    let globs = g.makeGlobs(module, taskParams)
-
-    if (module.isSource) {
-        g.addWatchTask(taskName, globs)
-    }
+    let globs = g.makeGlobsAllModules(module, taskParams, true)
+    g.addWatchTask(taskName, globs)
 
     gulp.task(taskName, function() {
         let lastRun = gulp.lastRun(taskName)
 
-        return gulp.src(globs, {base: module.srcPath, since: lastRun})
+        return g.makeSrcAllModules(module, taskParams, {since: lastRun})
             .pipe(g.showWatchError()) // error handler
             .pipe(debug({title: 'compile', showFiles: !!lastRun}))
             // сохраняем оригинальное расширение

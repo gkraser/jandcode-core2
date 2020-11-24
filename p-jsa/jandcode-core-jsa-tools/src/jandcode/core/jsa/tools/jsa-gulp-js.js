@@ -11,16 +11,13 @@ const jsaJs = require("./jsa-js");
 
 
 function js_taskFactory(g, taskName, module, taskParams) {
-    let globs = g.makeGlobs(module, taskParams)
-
-    if (module.isSource) {
-        g.addWatchTask(taskName, globs)
-    }
+    let globs = g.makeGlobsAllModules(module, taskParams, true)
+    g.addWatchTask(taskName, globs)
 
     gulp.task(taskName, function() {
         let lastRun = gulp.lastRun(taskName)
 
-        return gulp.src(globs, {base: module.srcPath})
+        return g.makeSrcAllModules(module, taskParams)
             .pipe(g.showWatchError()) // error handler
             .pipe(cached('js'))
             .pipe(debug({title: 'compile', showFiles: !!lastRun}))
@@ -50,6 +47,7 @@ function js_taskFactory(g, taskName, module, taskParams) {
             .pipe(gulp.dest(g.buildPathCompiled))
     })
 }
+
 
 ///
 module.exports = function(g) {

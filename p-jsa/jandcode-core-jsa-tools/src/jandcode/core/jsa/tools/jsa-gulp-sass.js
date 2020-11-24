@@ -33,21 +33,14 @@ function sass_imp(url, prev, done) {
 }
 
 function sass_taskFactory(g, taskName, module, taskParams) {
-    let globs = g.makeGlobs(module, taskParams)
-
-    // вынужденная мера: отслеживаем все scss/sass во всех модулях
-    if (module.isSource) {
-        for (let m of jsaSupport.modules) {
-            let gm = g.makeGlobs(m, {globs: ['**/*.scss', '**/*.sass']})
-            g.addWatchTask(taskName, gm)
-        }
-    }
+    let globs = g.makeGlobsAllModules(module, taskParams, true)
+    g.addWatchTask(taskName, globs)
 
     //
     gulp.task(taskName, function() {
         let lastRun = gulp.lastRun(taskName)
 
-        return gulp.src(globs, {base: module.srcPath})
+        return g.makeSrcAllModules(module, taskParams)
             .pipe(g.showWatchError()) // error handler
             .pipe(debug({title: 'compile', showFiles: !!lastRun}))
             // сохраняем оригинальное расширение

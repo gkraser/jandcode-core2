@@ -26,7 +26,7 @@ class P extends ProjectScript {
             nodeJsDepends(
                     "vue",
             )
-            gulpTask(name: "vue", provide: true, globs: ["**/*.vue"])
+            gulpTask(name: "vue", globs: ["**/*.vue"])
         }
     }
 
