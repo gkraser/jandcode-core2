@@ -73,6 +73,12 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
             name = name + UtConf.getNameAsPath(x);
             namePrefix = name + "/";
         }
+        if (x.containsKey("prefix")) {
+            namePrefix = x.getString("prefix");
+            if (!UtString.empty(namePrefix)) {
+                namePrefix = namePrefix + "/";
+            }
+        }
 
         Collection<Conf> childs = x.getConfs("item");
         String className = x.getString("class");
