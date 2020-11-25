@@ -24,7 +24,7 @@
                 </template>
                 <template #main>
                     <q-page>
-                        <jc-place-frame></jc-place-frame>
+                        <jc-shower-main></jc-shower-main>
                     </q-page>
                 </template>
             </App>

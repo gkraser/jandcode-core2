@@ -1,5 +1,5 @@
 <template>
-    <div class="jc-place-frame" style="display:none"></div>
+    <div class="jc-shower-main" style="display:none"></div>
 </template>
 
 <script>
@@ -73,12 +73,12 @@ export class FrameShower_main_default extends FrameShower {
 }
 
 /**
- * Монтировщик фреймов по умолчанию.
+ * shower 'main' по умолчанию.
  * Монтирует фрейм в начало своего родительского элемента.
  * Сам - невидим.
  */
 export default {
-    name: 'jc-place-frame',
+    name: 'jc-shower-main',
 
     props: {
         /**

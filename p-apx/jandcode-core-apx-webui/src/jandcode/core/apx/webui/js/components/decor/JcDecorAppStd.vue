@@ -58,7 +58,7 @@
         <q-page-container class="jc-app--main jc-decor-app-std__main">
             <slot name="main">
                 <q-page>
-                    <jc-place-frame></jc-place-frame>
+                    <jc-shower-main></jc-shower-main>
                 </q-page>
             </slot>
         </q-page-container>

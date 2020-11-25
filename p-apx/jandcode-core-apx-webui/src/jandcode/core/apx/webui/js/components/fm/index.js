@@ -1,5 +1,5 @@
-import JcPlaceFrame from "./JcPlaceFrame"
+import JcShowerMain from "./JcShowerMain"
 
 export {
-    JcPlaceFrame,
+    JcShowerMain,
 }

@@ -106,7 +106,7 @@ export class FrameManager {
             let shower = this._showers[fw.shower]
             if (!shower) {
                 if (fw.shower === 'main') {
-                    throw new Error("Не определен shower 'main'. Нужно использовать компонент 'jc-place-frame' в месте отображения фрейма")
+                    throw new Error("Не определен shower 'main'. Нужно использовать компонент 'jc-shower-main' в месте отображения фрейма")
                 } else {
                     throw new Error("Указан не существующий shower: " + fw.shower)
                 }
