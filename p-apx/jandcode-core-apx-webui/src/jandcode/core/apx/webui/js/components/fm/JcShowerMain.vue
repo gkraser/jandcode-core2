@@ -4,7 +4,7 @@
 
 <script>
 
-import {jsaBase} from '../vendor'
+import {jsaBase, Quasar} from '../vendor'
 import {FrameShower} from '../../baseapp/fm'
 import upperFirst from 'lodash/upperFirst'
 
@@ -105,6 +105,8 @@ export class FrameShower_main_default extends FrameShower {
  * shower 'main' по умолчанию.
  * Монтирует фрейм в начало своего родительского элемента.
  * Сам - невидим.
+ * Может синхронизировать min-height для фрейма с min-height родительского элемента.
+ * Это используется, когда shower внутри q-page (место по умолчанию).
  */
 export default {
     name: 'jc-shower-main',
@@ -119,28 +121,73 @@ export default {
             default: true,
         }
     },
-    data() {
-        return {}
-    },
+
     created() {
         this.lastMountedEl = null
+        this.resizeObs = null
+        this.needSyncMinHeight = false
         this.shower = new FrameShower_main_default(this)
     },
+
     mounted() {
         jsaBase.app.frameManager.registerShower('main', this.shower)
     },
+
     beforeDestroy() {
+        if (this.resizeObs) {
+            this.resizeObs.$destroy()
+        }
         jsaBase.app.frameManager.unregisterShower(this.shower)
         this.shower.destroy()
         this.shower = null
     },
+
     methods: {
+
+        /**
+         * Возвращает настроенный экземпляр QResizeObserver, если нужно.
+         * Если не нужно - возвращает null.
+         */
+        getResizeObs() {
+            if (this.syncMinHeight && !this.resizeObs) {
+                this.resizeObs = new Quasar.QResizeObserver()
+                this.resizeObs.$on('resize', (ev) => {
+                    if (this.needSyncMinHeight) {
+                        let need = this.needSyncMinHeight
+                        let parentMh = this.$el.parentNode.style.minHeight
+                        let curMh = this.lastMountedEl.style.minHeight
+                        if (curMh) {
+                            // уже установлена min-height
+                            try {
+                                let parentMhInt = parseInt(parentMh, 10)
+                                let curMhInt = parseInt(curMh, 10)
+                                if (curMhInt > parentMhInt) {
+                                    // min-height фрейма больше, не трогаем
+                                    need = false
+                                }
+                            } catch(e) {
+                                // ignore
+                            }
+                        }
+                        if (need) {
+                            this.lastMountedEl.style.minHeight = parentMh
+                        }
+                    }
+                })
+                let roEl = document.createElement('div')
+                roEl.style.display = 'none'
+                this.$el.parentNode.appendChild(roEl)
+                this.resizeObs.$mount(roEl)
+            }
+            return this.resizeObs
+        },
 
         unmountFrame() {
             if (this.lastMountedEl != null) {
                 this.lastMountedEl.remove()
             }
             this.lastMountedEl = null
+            this.needSyncMinHeight = false
         },
 
         mountFrame(fw) {
@@ -150,7 +197,14 @@ export default {
             let frameEl = fw.getEl()
             //
             if (this.syncMinHeight) {
-                frameEl.style.minHeight = parentEl.style.minHeight
+                let mh = frameEl.style.minHeight
+                if (!mh) {
+                    // для фрейма явно не установлено min-height
+                    frameEl.style.minHeight = parentEl.style.minHeight
+                    // включаем observer
+                    this.getResizeObs()
+                    this.needSyncMinHeight = true
+                }
             }
             parentEl.insertAdjacentElement('afterbegin', frameEl)
             this.lastMountedEl = frameEl
