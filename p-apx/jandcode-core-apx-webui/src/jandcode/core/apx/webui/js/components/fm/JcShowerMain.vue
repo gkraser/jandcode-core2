@@ -17,13 +17,12 @@ export class FrameShower_main_default extends FrameShower {
         super()
         //
         this.own = own
-        this.lastMountedEl = null
     }
 
     async showFrameWrapper(fw) {
         // сначала по быстрому монтируем фрейм
         // старый должен исчезнуть с экрана, но остался как экземпляр
-        this.mountFrame(fw)
+        this.own.mountFrame(fw)
 
         // нужно ли помещать в стек
         let isStack = fw.options.stack
@@ -46,7 +45,6 @@ export class FrameShower_main_default extends FrameShower {
         }
 
     }
-
 
     async closeFrameWrapper(fw, cmd) {
         if (this._frames.length <= 1) {
@@ -93,39 +91,12 @@ export class FrameShower_main_default extends FrameShower {
     }
 
     destroy() {
-        this.unmountFrame()
+        this.own.unmountFrame()
         // уничтожаем все фреймы
         for (let fw of this._frames) {
             fw.destroy()
         }
         this._frames = null
-    }
-
-    /**
-     * Отмонтировать фрейм.
-     */
-    unmountFrame() {
-        if (this.lastMountedEl != null) {
-            this.lastMountedEl.remove()
-        }
-        this.lastMountedEl = null
-    }
-
-    /**
-     * Монтирует себе фрейм. По своему усмотреню.
-     * @param fw {FrameWrapper} ссылка на фрейм
-     */
-    mountFrame(fw) {
-        this.unmountFrame()
-        //
-        let parentEl = this.own.$el.parentNode
-        let frameEl = fw.getEl()
-        //
-        if (this.own.syncMinHeight) {
-            frameEl.style.minHeight = parentEl.style.minHeight
-        }
-        parentEl.insertAdjacentElement('afterbegin', frameEl)
-        this.lastMountedEl = frameEl
     }
 
 }
@@ -152,6 +123,7 @@ export default {
         return {}
     },
     created() {
+        this.lastMountedEl = null
         this.shower = new FrameShower_main_default(this)
     },
     mounted() {
@@ -162,5 +134,28 @@ export default {
         this.shower.destroy()
         this.shower = null
     },
+    methods: {
+
+        unmountFrame() {
+            if (this.lastMountedEl != null) {
+                this.lastMountedEl.remove()
+            }
+            this.lastMountedEl = null
+        },
+
+        mountFrame(fw) {
+            this.unmountFrame()
+            //
+            let parentEl = this.$el.parentNode
+            let frameEl = fw.getEl()
+            //
+            if (this.syncMinHeight) {
+                frameEl.style.minHeight = parentEl.style.minHeight
+            }
+            parentEl.insertAdjacentElement('afterbegin', frameEl)
+            this.lastMountedEl = frameEl
+        }
+
+    }
 }
 </script>
