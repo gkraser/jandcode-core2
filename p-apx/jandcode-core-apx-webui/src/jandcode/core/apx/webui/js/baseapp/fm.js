@@ -137,12 +137,6 @@ export class FrameManager {
         // показываем его
         await fw.shower.showFrameWrapper(fw)
 
-        // меняем url, если допустимо  //todo видимо в shower main!
-        let routePath = fw.getRoutePath()
-        if (routePath != null) {
-            this.history.updateHash(routePath)
-        }
-
         //
         return fw.frameInst
     }
@@ -155,6 +149,7 @@ export class FrameManager {
      * @param shower экземпляр
      */
     registerShower(name, shower) {
+        shower.frameManager = this
         this._showers[name] = shower
     }
 
@@ -405,6 +400,9 @@ export class FrameWrapper {
 export class FrameShower {
 
     constructor() {
+        // frameManager устанавливается при регистрации shower
+        this.frameManager = null
+
         // все мои текущие работающие фреймы
         this._frames = []
     }

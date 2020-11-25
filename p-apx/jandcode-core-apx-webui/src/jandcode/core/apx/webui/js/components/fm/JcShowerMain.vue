@@ -38,6 +38,13 @@ export class FrameShower_main_default extends FrameShower {
 
         // сохраняем новый
         this._frames.push(fw)
+
+        // меняем url, если допустимо
+        let routePath = fw.getRoutePath()
+        if (routePath != null) {
+            this.frameManager.history.updateHash(routePath)
+        }
+
     }
 
 
