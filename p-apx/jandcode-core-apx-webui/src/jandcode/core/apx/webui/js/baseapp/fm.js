@@ -75,8 +75,6 @@ export class FrameManagerService extends jsaBase.AppService {
 export class FrameManager {
 
     constructor() {
-        // места монтирования фреймов
-        this._framePlaces = []
         // зарегистрированные shower
         this._showers = {}
         // router
@@ -84,7 +82,6 @@ export class FrameManager {
         //
         this.history = new FrameHistory()
         //
-        this._showers['main'] = new FrameShower_main()
         this._showers['dialog'] = new FrameShower_dialog()
     }
 
@@ -108,7 +105,11 @@ export class FrameManager {
         if (jsaBase.isString(fw.shower)) {
             let shower = this._showers[fw.shower]
             if (!shower) {
-                throw new Error("Указан не существующий shower: " + fw.shower)
+                if (fw.shower === 'main') {
+                    throw new Error("Не определен shower 'main'. Нужно использовать компонент 'jc-place-frame' в месте отображения фрейма")
+                } else {
+                    throw new Error("Указан не существующий shower: " + fw.shower)
+                }
             }
             fw.shower = shower
         }
@@ -140,25 +141,29 @@ export class FrameManager {
 
     //////
 
-    registerPlaceFrame(inst) {
-        if (Jc.cfg.envDev) {
-            console.info("registerPlaceFrame", inst);
-        }
-        if (this._framePlaces.indexOf(inst) !== -1) {
-            return // уже есть такой же
-        }
-        this._framePlaces.push(inst)
+    /**
+     * Зарегистрировать shower
+     * @param name имя
+     * @param shower экземпляр
+     */
+    registerShower(name, shower) {
+        this._showers[name] = shower
     }
 
-    unregisterPlaceFrame(inst) {
-        if (Jc.cfg.envDev) {
-            console.info("unregisterPlaceFrame", inst);
-        }
-        let a = this._framePlaces.indexOf(inst)
-        if (a === -1) {
-            return
-        }
-        this._framePlaces.splice(a, 1)
+    /**
+     * Отменить регистрацию shower
+     * @param shower ранее зарегистророванный экземпляр
+     */
+    unregisterShower(shower) {
+        //todo unregisterShower
+    }
+
+    /**
+     * Зарегистрированные shower
+     * @return {Object} key: имя shower, value: экземпляр shower
+     */
+    getShowers() {
+        return this._showers
     }
 
     //////
@@ -236,22 +241,6 @@ export class FrameManager {
 
         // теперь comp должен быть по идее компонентом
         fw.frameCompCls = Vue.extend(comp)
-    }
-
-    _getFramePlace() {
-        let fp = this._framePlaces[this._framePlaces.length - 1]
-        if (!fp) {
-            throw new Error("Не определено место монтирования фрейма. Нужно использовать jc-place-frame в месте отображения фрейма")
-        }
-        return fp
-    }
-
-    _mountFrame(fw) {
-        this._getFramePlace().mountFrame(fw)
-    }
-
-    _unmountFrame(fw) {
-        this._getFramePlace().unmountFrame(fw)
     }
 
     /**
@@ -405,7 +394,7 @@ export class FrameWrapper {
 /**
  * Показывальщик фреймов
  */
-class FrameShower {
+export class FrameShower {
 
     constructor() {
         // все мои текущие работающие фреймы
@@ -431,31 +420,10 @@ class FrameShower {
         throw new Error("Not implemented closeFrameWrapper")
     }
 
-}
-
-/**
- * Стандартный shower для показа страниц
- */
-class FrameShower_main extends FrameShower {
-
-    async showFrameWrapper(fw) {
-        // сначала по быстрому монтируем фрейм
-        // старый должен исчезнуть с экрана, но остался как экземпляр
-        fw.frameManager._mountFrame(fw)
-
-        // уничттожаем все старые
-        while (this._frames.length > 0) {
-            let fw = this._frames.pop()
-            fw.destroy()
-        }
-
-        // сохраняем новый
-        this._frames.push(fw)
-    }
-
-
-    closeFrameWrapper(fw, cmd) {
-        //todo пока ничего не делаем
+    /**
+     * Уничтожить shower
+     */
+    destroy() {
     }
 
 }
@@ -463,7 +431,7 @@ class FrameShower_main extends FrameShower {
 /**
  * Стандартный shower для показа диалогов
  */
-class FrameShower_dialog extends FrameShower {
+export class FrameShower_dialog extends FrameShower {
 
     async showFrameWrapper(fw) {
         fw.dialogEl = jsaBase.dom.createTmpElement()
@@ -530,8 +498,6 @@ export async function showFrame(options) {
 }
 
 export async function showDialog(options) {
-    if (!options.shower) {
-        options = jsaBase.extend(options, {shower: 'dialog'})
-    }
+    options = jsaBase.extend(options, {shower: 'dialog'})
     return await jsaBase.app.frameManager.showFrame(options)
 }
