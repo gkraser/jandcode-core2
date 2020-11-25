@@ -77,22 +77,19 @@ export class FrameManager {
     constructor() {
         // места монтирования фреймов
         this._framePlaces = []
-        // все текущие работающие фреймы
-        this._frames_page = []
-        this._frames_dialog = []
+        // зарегистрированные shower
+        this._showers = {}
         // router
         this.frameRouter = new FrameRouter()
         //
         this.history = new FrameHistory()
+        //
+        this._showers['main'] = new FrameShower_main()
+        this._showers['dialog'] = new FrameShower_dialog()
     }
 
     async showFrame(options) {
-        let fw = new FrameWrapperPage(options)
-        return await this.showFrameWrapper(fw)
-    }
-
-    async showDialog(options) {
-        let fw = new FrameWrapperDialog(options)
+        let fw = new FrameWrapper(options)
         return await this.showFrameWrapper(fw)
     }
 
@@ -103,6 +100,18 @@ export class FrameManager {
     async showFrameWrapper(fw) {
         // метим своим
         fw.frameManager = this
+
+        // определяем shower
+        if (!fw.shower) {
+            fw.shower = 'main'
+        }
+        if (jsaBase.isString(fw.shower)) {
+            let shower = this._showers[fw.shower]
+            if (!shower) {
+                throw new Error("Указан не существующий shower: " + fw.shower)
+            }
+            fw.shower = shower
+        }
 
         // делаем класс компонента
         await this._resolveFrameComp(fw)
@@ -117,13 +126,9 @@ export class FrameManager {
         fw.frameInst.$mount(jsaBase.dom.createTmpElement())
 
         // показываем его
-        if (fw instanceof FrameWrapperDialog) {
-            await this._showFrame_dialog(fw)
-        } else {
-            await this._showFrame_page(fw)
-        }
+        await fw.shower.showFrameWrapper(fw)
 
-        // меняем url, если допустимо
+        // меняем url, если допустимо  //todo видимо в shower main!
         let routePath = fw.getRoutePath()
         if (routePath != null) {
             this.history.updateHash(routePath)
@@ -168,101 +173,13 @@ export class FrameManager {
         if (!fw) {
             return // не наш фрейм
         }
-        if (fw instanceof FrameWrapperDialog) {
-            this._closeFrame_dialog(fw, cmd)
-        } else {
-            this._closeFrame_page(fw, cmd)
+        if (!fw.shower) {
+            return // не показан
         }
-    }
-
-    async _closeFrame_dialog(fw, cmd) {
-
-        if (!cmd) {
-            cmd = 'cancel'
-        }
-        let frameInst = fw.frameInst
-        let handlerName = 'on' + upperFirst(cmd)
-
-        if (jsaBase.isFunction(frameInst[handlerName])) {
-            // у фрейма есть обработчик onXxx
-            if (await frameInst[handlerName](frameInst, cmd) === false) {
-                return  // закрываться нельзя
-            }
-        } else if (jsaBase.isFunction(frameInst.onCmd)) {
-            // у фрейма есть обработчик onCmd
-            if (await frameInst.onCmd(frameInst, cmd) === false) {
-                return  // закрываться нельзя
-            }
-        }
-
-        if (jsaBase.isFunction(fw.options[handlerName])) {
-            // обработчики в опциях показа диалога: обработчик onXxx
-            if (await fw.options[handlerName](frameInst, cmd) === false) {
-                return // закрываться нельзя
-            }
-        } else if (jsaBase.isFunction(fw.options.onCmd)) {
-            // обработчики в опциях показа диалога: обработчик onCmd
-            if (await fw.options.onCmd(frameInst, cmd) === false) {
-                return // закрываться нельзя
-            }
-        }
-
-        // все разрешили закрытся, закрываем
-        fw.dialogInst.hideDialog()
-    }
-
-    _closeFrame_page(fw, cmd) {
-        //todo пока это не нужно
+        fw.shower.closeFrameWrapper(fw, cmd)
     }
 
     //////
-
-    /**
-     * Алгоритм показа page
-     * @param fw
-     * @return {Promise<void>}
-     * @private
-     */
-    async _showFrame_page(fw) {
-        // сначала по быстрому монтируем фрейм
-        // старый должен исчезнуть с экрана, но остался как экземпляр
-        this._mountFrame(fw)
-
-        // уничттожаем все старые
-        while (this._frames_page.length > 0) {
-            let fw = this._frames_page.pop()
-            fw.destroy()
-        }
-
-        // сохраняем новый
-        this._frames_page.push(fw)
-    }
-
-    /**
-     * Алгоритм показа dialog
-     * @param fw
-     * @return {Promise<void>}
-     * @private
-     */
-    async _showFrame_dialog(fw) {
-        fw.dialogEl = jsaBase.dom.createTmpElement()
-        let DialogCls = Vue.extend(Dialog)
-        fw.dialogInst = new DialogCls({propsData: {frameInst: fw.frameInst}})
-        fw.dialogInst.$on('dialog-close', () => {
-            let a = this._frames_dialog.indexOf(fw)
-            if (a !== -1) {
-                this._frames_dialog.splice(a, 1)
-            }
-            fw.dialogInst.$destroy()
-            fw.dialogInst = null
-            fw.dialogEl.remove()
-            fw.dialogEl = null
-            fw.destroy()
-        })
-        fw.dialogInst.$mount(fw.dialogEl)
-        this._frames_dialog.push(fw)
-        fw.dialogInst.showDialog()
-    }
 
     /**
      * Имеем FrameWrapper, нужно что бы у него стал точно известен frameCompCls
@@ -345,14 +262,13 @@ export class FrameManager {
      * @private
      */
     _resolveFrameWrapper(inst) {
-        for (let a of this._frames_dialog) {
-            if (inst === a || inst === a.frameInst) {
-                return a
-            }
+        if (inst instanceof FrameWrapper) {
+            return inst
         }
-        for (let a of this._frames_page) {
-            if (inst === a || inst === a.frameInst) {
-                return a
+        if ('$options' in inst) {
+            let fw = inst.$options.frameWrapper
+            if (fw instanceof FrameWrapper) {
+                return fw
             }
         }
         return null
@@ -403,6 +319,9 @@ export class FrameWrapper {
 
         // если фрейм заресолвился через router, тут информация
         this.routeInfo = null
+
+        // кто показывает фрейм
+        this.shower = this.options.shower
 
         // удаляем не нужное
         delete this.options.params
@@ -476,20 +395,143 @@ export class FrameWrapper {
         this.frameInst = null
         this.frameCompCls = null
         this.frameManager = null
+        this.shower = null
     }
 
 }
 
-export class FrameWrapperPage extends FrameWrapper {
+//////
+
+/**
+ * Показывальщик фреймов
+ */
+class FrameShower {
+
+    constructor() {
+        // все мои текущие работающие фреймы
+        this._frames = []
+    }
+
+    /**
+     * Показать указанный FrameWrapper.
+     * Он уже прошел инициализацию и монтирование во временный элемент.
+     * @param fw {FrameWrapper} что показать
+     * @return {Promise<void>}
+     */
+    async showFrameWrapper(fw) {
+        throw new Error("Not implemented showFrameWrapper")
+    }
+
+    /**
+     * Закрыть фрейм с указанной командой
+     * @param fw {FrameWrapper} что закрывать. Гарантированно принадлежит этому shower
+     * @param cmd
+     */
+    closeFrameWrapper(fw, cmd) {
+        throw new Error("Not implemented closeFrameWrapper")
+    }
+
 }
 
-export class FrameWrapperDialog extends FrameWrapper {
+/**
+ * Стандартный shower для показа страниц
+ */
+class FrameShower_main extends FrameShower {
+
+    async showFrameWrapper(fw) {
+        // сначала по быстрому монтируем фрейм
+        // старый должен исчезнуть с экрана, но остался как экземпляр
+        fw.frameManager._mountFrame(fw)
+
+        // уничттожаем все старые
+        while (this._frames.length > 0) {
+            let fw = this._frames.pop()
+            fw.destroy()
+        }
+
+        // сохраняем новый
+        this._frames.push(fw)
+    }
+
+
+    closeFrameWrapper(fw, cmd) {
+        //todo пока ничего не делаем
+    }
+
 }
+
+/**
+ * Стандартный shower для показа диалогов
+ */
+class FrameShower_dialog extends FrameShower {
+
+    async showFrameWrapper(fw) {
+        fw.dialogEl = jsaBase.dom.createTmpElement()
+        let DialogCls = Vue.extend(Dialog)
+        fw.dialogInst = new DialogCls({propsData: {frameInst: fw.frameInst}})
+        fw.dialogInst.$on('dialog-close', () => {
+            let a = this._frames.indexOf(fw)
+            if (a !== -1) {
+                this._frames.splice(a, 1)
+            }
+            fw.dialogInst.$destroy()
+            fw.dialogInst = null
+            fw.dialogEl.remove()
+            fw.dialogEl = null
+            fw.destroy()
+        })
+        fw.dialogInst.$mount(fw.dialogEl)
+        this._frames.push(fw)
+        fw.dialogInst.showDialog()
+    }
+
+    async closeFrameWrapper(fw, cmd) {
+
+        if (!cmd) {
+            cmd = 'cancel'
+        }
+        let frameInst = fw.frameInst
+        let handlerName = 'on' + upperFirst(cmd)
+
+        if (jsaBase.isFunction(frameInst[handlerName])) {
+            // у фрейма есть обработчик onXxx
+            if (await frameInst[handlerName](frameInst, cmd) === false) {
+                return  // закрываться нельзя
+            }
+        } else if (jsaBase.isFunction(frameInst.onCmd)) {
+            // у фрейма есть обработчик onCmd
+            if (await frameInst.onCmd(frameInst, cmd) === false) {
+                return  // закрываться нельзя
+            }
+        }
+
+        if (jsaBase.isFunction(fw.options[handlerName])) {
+            // обработчики в опциях показа диалога: обработчик onXxx
+            if (await fw.options[handlerName](frameInst, cmd) === false) {
+                return // закрываться нельзя
+            }
+        } else if (jsaBase.isFunction(fw.options.onCmd)) {
+            // обработчики в опциях показа диалога: обработчик onCmd
+            if (await fw.options.onCmd(frameInst, cmd) === false) {
+                return // закрываться нельзя
+            }
+        }
+
+        // все разрешили закрытся, закрываем
+        fw.dialogInst.hideDialog()
+    }
+
+}
+
+//////
 
 export async function showFrame(options) {
     return await jsaBase.app.frameManager.showFrame(options)
 }
 
 export async function showDialog(options) {
-    return await jsaBase.app.frameManager.showDialog(options)
+    if (!options.shower) {
+        options = jsaBase.extend(options, {shower: 'dialog'})
+    }
+    return await jsaBase.app.frameManager.showFrame(options)
 }
