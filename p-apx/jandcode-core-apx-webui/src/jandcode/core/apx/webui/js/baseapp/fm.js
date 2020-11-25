@@ -85,6 +85,14 @@ export class FrameManager {
         this._showers['dialog'] = new FrameShower_dialog()
     }
 
+    /**
+     * Показать фрейм
+     * @param options конфигурация фрейма
+     * @param options.frame фрейм. Компонент, имя модуля со фреймом, route-path
+     * @param options.params {Object} параметры фрейма
+     * @param options.shower {Object} какой shower использовать. По умолчанию - main
+     * @return {Promise<null>}
+     */
     async showFrame(options) {
         let fw = new FrameWrapper(options)
         return await this.showFrameWrapper(fw)

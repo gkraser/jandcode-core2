@@ -6,6 +6,7 @@
 
 import {jsaBase} from '../vendor'
 import {FrameShower} from '../../baseapp/fm'
+import upperFirst from 'lodash/upperFirst'
 
 /**
  * Стандартный shower для показа страниц
@@ -24,10 +25,15 @@ export class FrameShower_main_default extends FrameShower {
         // старый должен исчезнуть с экрана, но остался как экземпляр
         this.mountFrame(fw)
 
-        // уничттожаем все старые
-        while (this._frames.length > 0) {
-            let fw = this._frames.pop()
-            fw.destroy()
+        // нужно ли помещать в стек
+        let isStack = fw.options.stack
+
+        if (!isStack) {
+            // уничттожаем все старые, если новый не хочет быть в стеке
+            while (this._frames.length > 0) {
+                let fw = this._frames.pop()
+                fw.destroy()
+            }
         }
 
         // сохраняем новый
@@ -35,12 +41,57 @@ export class FrameShower_main_default extends FrameShower {
     }
 
 
-    closeFrameWrapper(fw, cmd) {
-        //todo пока ничего не делаем
+    async closeFrameWrapper(fw, cmd) {
+        if (this._frames.length <= 1) {
+            // стек либо пустой, либо там только один фрейм - ничего не делаем
+            return
+        }
+        let idx = this._frames.indexOf(fw)
+        if (idx === -1) {
+            // этот фрейм не в стеке
+            return
+        }
+
+        // проверяем возможность закрытся. Почти как в диалоге
+        if (!cmd) {
+            cmd = 'cancel'
+        }
+        let frameInst = fw.frameInst
+        let handlerName = 'on' + upperFirst(cmd)
+
+        if (jsaBase.isFunction(frameInst[handlerName])) {
+            // у фрейма есть обработчик onXxx
+            if (await frameInst[handlerName](frameInst, cmd) === false) {
+                return  // закрываться нельзя
+            }
+        } else if (jsaBase.isFunction(frameInst.onCmd)) {
+            // у фрейма есть обработчик onCmd
+            if (await frameInst.onCmd(frameInst, cmd) === false) {
+                return  // закрываться нельзя
+            }
+        }
+
+        // все разрешили закрытся, закрываем
+
+        // это удаляемый
+        let removedFw = this._frames[idx]
+        // удаляем его из стека
+        this._frames.splice(idx, 1)
+        // это который сверху в стеке
+        let topFw = this._frames[this._frames.length - 1]
+        // монтируем верхний
+        this.mountFrame(topFw)
+        // уничтожаем старый
+        removedFw.destroy()
     }
 
     destroy() {
         this.unmountFrame()
+        // уничтожаем все фреймы
+        for (let fw of this._frames) {
+            fw.destroy()
+        }
+        this._frames = null
     }
 
     /**
