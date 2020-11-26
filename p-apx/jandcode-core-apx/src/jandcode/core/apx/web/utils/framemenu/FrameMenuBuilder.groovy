@@ -9,12 +9,21 @@ import jandcode.core.web.virtfile.*
 import java.util.regex.*
 
 /**
- * Построение меню по паке с файлами vue
+ * Построение меню по папке с файлами vue
  * В файле берется:
  * this.title='Заголовок' или //#jc title Заголовок
  * this.icon='icon-name' или //#jc icon icon-name
  * Для папки:
  * index.js анализируется на предмет //#jc директив
+ *
+ * Игнорируются файлы и папки, который начинаются с '_'.
+ *
+ * Если фрем нужно исключить из роутинга и меню (например это диалог),
+ * то либо поместите его в папке с '_' вначале, либо:
+ * <ul>
+ * <li>если в тексте имеется {@code <Dialog>}, то считаем диалогом и игнорируем</li>
+ * <li>если в тексте имеется {@code //#jc ignore}, то игнорируем</li>
+ * </ul>
  */
 class FrameMenuBuilder {
 
@@ -72,9 +81,14 @@ class FrameMenuBuilder {
             if (!UtVDir.matchPath("**/*.vue", file.path)) {
                 return
             }
-            usingFiles.add(file)
-            folder.addItem(item)
             fillMetaData(item, file)
+            usingFiles.add(file)  // по этим файлам потом отслеживаем изменения
+
+            if (item.ignore) {
+                return
+            }
+
+            folder.addItem(item)
 
             // make route
             String pt = routePrefix + UtVDir.getRelPath(basePath, file.folderPath)
@@ -88,6 +102,11 @@ class FrameMenuBuilder {
 
     void fillMetaData(FrameMenuItem item, VirtFile f) {
         String text = f.loadText()
+
+        if (text.indexOf("<Dialog") != -1) {
+            item.ignore = true
+            return
+        }
 
         String title = null
         String icon = null
@@ -107,6 +126,8 @@ class FrameMenuBuilder {
                 title = d.getParam0()
             } else if (d.hasName("icon")) {
                 icon = d.getParam0()
+            } else if (d.hasName("ignore")) {
+                item.ignore = true
             }
         }
 

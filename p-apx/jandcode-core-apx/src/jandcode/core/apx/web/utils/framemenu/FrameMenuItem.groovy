@@ -13,6 +13,7 @@ class FrameMenuItem {
     String routePath
     String icon
     List<FrameMenuItem> items
+    boolean ignore
 
     void sort() {
         if (items == null) {
