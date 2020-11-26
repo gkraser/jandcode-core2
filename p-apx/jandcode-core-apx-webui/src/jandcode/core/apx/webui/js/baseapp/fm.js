@@ -132,8 +132,6 @@ export class FrameManager {
         await fw.initFrame()
 
         // теперь фрейм готов к работе
-        fw.frameInst.$mount(jsaBase.dom.createTmpElement())
-
         // показываем его
         await fw.shower.showFrameWrapper(fw)
 
@@ -440,6 +438,7 @@ export class FrameShower {
 export class FrameShower_dialog extends FrameShower {
 
     async showFrameWrapper(fw) {
+        fw.frameInst.$mount(jsaBase.dom.createTmpElement())
         fw.dialogEl = jsaBase.dom.createTmpElement()
         let DialogCls = Vue.extend(Dialog)
         fw.dialogInst = new DialogCls({propsData: {frameInst: fw.frameInst}})

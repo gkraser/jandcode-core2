@@ -195,6 +195,16 @@ export default {
             //
             let parentEl = this.$el.parentNode
             let frameEl = fw.getEl()
+            let frameEl_exists = true
+            if (!frameEl) {
+                // первый раз
+                frameEl = document.createElement("div")
+                parentEl.insertAdjacentElement('afterbegin', frameEl)
+                fw.frameInst.$mount(frameEl)
+                frameEl_exists = false
+                // после монтирования - элемент другой!
+                frameEl = fw.getEl()
+            }
             //
             if (this.syncMinHeight) {
                 let mh = frameEl.style.minHeight
@@ -206,9 +216,12 @@ export default {
                     this.needSyncMinHeight = true
                 }
             }
-            parentEl.insertAdjacentElement('afterbegin', frameEl)
+            if (frameEl_exists) {
+                // не сейчас создан, добавляем
+                parentEl.insertAdjacentElement('afterbegin', frameEl)
+            }
             this.lastMountedEl = frameEl
-        }
+        },
 
     }
 }
