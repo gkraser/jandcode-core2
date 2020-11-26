@@ -14,7 +14,7 @@ class ResizeWatcher {
         }
         this.el = el
         this.listener = (ev) => {
-            trigger()
+            trigger(ev)
         }
         this.listener_dobonced = lodashDebounce(this.listener, debonceTimeout)
         this.rso = new ResizeObserver(this.listener_dobonced)
