@@ -9,4 +9,5 @@ export {
 // модули на верхний уровень
 export * from './icons'
 export * from './modules'
+export * from './dom'
 
