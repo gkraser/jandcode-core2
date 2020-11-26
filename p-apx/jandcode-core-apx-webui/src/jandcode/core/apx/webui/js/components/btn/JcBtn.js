@@ -1,4 +1,5 @@
 import {jsaVue, jsaBase} from '../vendor'
+import * as fm from '../../baseapp/fm'
 
 function isAttrTrue(v) {
     if (v == null || v === false) {
@@ -14,6 +15,10 @@ export let config = {
     },
 }
 
+/**
+ * Если указан атрибут 'frame' и click не определен, то при клике делаем:
+ * showFrame({frame:attrs.frame, params: attrs.frameParams, ...attrs.showFrameParams})
+ */
 export default {
     name: 'jc-btn',
     functional: true,
@@ -57,6 +62,24 @@ export default {
         if (!data.attrs.type) {
             if (!(ctx.listeners.click)) {
                 data.attrs.type = 'a'
+            }
+        }
+
+        if (!data.on || !data.on.click) {
+            if (data.attrs['frame']) {
+                if (!data.on) {
+                    data.on = {}
+                }
+                data.on.click = (ev) => {
+                    let sfp = {frame: data.attrs.frame}
+                    if (data.attrs.frameParams) {
+                        sfp.params = data.attrs.frameParams
+                    }
+                    if (data.attrs.showFrameOptions) {
+                        jsaBase.extend(sfp, data.attrs.showFrameOptions)
+                    }
+                    fm.showFrame(sfp)
+                }
             }
         }
 

@@ -1,7 +1,7 @@
 <template>
     <q-item v-if="!hasItems" clickable :disable="disable"
             :style="style" :class="classes" @click="onClick"
-            :to="to" :replace="replace" exact>
+    >
         <q-item-section avatar>
             <q-icon :name="iconValue"/>
         </q-item-section>
@@ -33,6 +33,7 @@
 
 <script>
 import {jsaVue, jsaBase} from '../vendor';
+import * as fm from '../../baseapp/fm'
 
 let nm = 'jc-side-menu-item'
 
@@ -62,8 +63,21 @@ export default {
             default: false
         },
 
-        to: [Object, String],
-        replace: Boolean,
+        /**
+         * Если указана - то показывает при клике делаем:
+         * showFrame({frame:this.frame, params: frameParams, ...showFrameParams})
+         */
+        frame: {
+            default: null,
+        },
+
+        frameParams: {
+            default: null,
+        },
+
+        showFrameParams: {
+            default: null,
+        },
     },
 
     inject: {
@@ -138,10 +152,30 @@ export default {
             }
         },
 
+        showFrameOptions() {
+            if (!this.frame) {
+                return null
+            }
+            let res = {
+                frame: this.frame
+            }
+            if (this.frameParams) {
+                res.params = this.frameParams
+            }
+            if (this.showFrameParams) {
+                jsaBase.extend(res, this.showFrameParams)
+            }
+            return res
+        }
     },
     methods: {
         onClick(ev) {
-            this.$emit('click', ev, this)
+            let sfp = this.showFrameOptions
+            if (sfp) {
+                fm.showFrame(sfp)
+            } else {
+                this.$emit('click', ev, this)
+            }
         },
         onInput(val) {
             let oldVal = this.$refs.expansionItem.showing
