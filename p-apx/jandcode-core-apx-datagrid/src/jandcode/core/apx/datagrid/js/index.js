@@ -1,3 +1,9 @@
+import './init'
+import {Tabulator} from './vendor'
+import * as components from './components'
 //
-export * from './init'
-//
+
+export {
+    components,
+    Tabulator,
+}
