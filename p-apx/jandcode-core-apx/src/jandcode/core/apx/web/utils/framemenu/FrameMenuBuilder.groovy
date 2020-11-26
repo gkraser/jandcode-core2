@@ -117,6 +117,10 @@ class FrameMenuBuilder {
             item.icon = icon
         }
 
+        if (UtString.empty(item.title)) {
+            item.title = UtFile.removeExt(f.name)
+        }
+
     }
 
     //////
@@ -161,13 +165,15 @@ class FrameMenuBuilder {
             if (item.icon) {
                 m.icon = item.icon
             }
-            m.frame = item.routePath
+            if (item.routePath) {
+                m.frame = item.routePath
+            }
             res.add(m)
             //
             if (item.isFolder()) {
                 List<Map> items = []
                 m.items = items
-                internal_getRoutes(items, item)
+                internal_getMenu(items, item)
             }
         }
     }
