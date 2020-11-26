@@ -6,6 +6,9 @@
         <action name="api"
                 class="jandcode.core.apx.web.action.ApiAction"/>
 
+        <gsp name="jc/framemenu-js"
+             path="res:jandcode/core/apx/web/gsp/framemenu-js.gsp"/>
+
         <!-- кешируем файлы шрифтов, что позволит частично избежать мерцания при F5 -->
 
         <cache-control name="woff2"
