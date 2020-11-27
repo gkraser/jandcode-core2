@@ -74,7 +74,11 @@ export default {
             let bt = parseFloat(cst.borderBottomWidth)
             let bb = parseFloat(cst.borderTopWidth)
 
-            return h - bt - bb
+            let h1 = h - bt - bb
+            if (h1 <= 0) {
+                return defaultHeight
+            }
+            return h1
         }
     },
 }
