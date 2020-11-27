@@ -1,5 +1,7 @@
 <template>
     <div class="jc-datagrid">
+        <div ref="table">
+        </div>
     </div>
 </template>
 
@@ -29,17 +31,19 @@ export default {
 
     },
     mounted() {
+        // убираем padding, ибо его ставить нельзя
+        this.$el.style.padding = '0'
         this.gridInst = this.createGridInst()
         //
         this.rsw = apx.utils.resizeWatch(this.$el, (ev) => {
-            // let st = window.getComputedStyle(this.$el)
-            // console.info("--------------");
-            // console.info("st.height", st.height);
-            // console.info("st.width", st.width);
-            //todo и как размер узнать? this.gridInst.setHeight(ev.height)
+            let curHeight = this.$refs.table.style.height
+            let newHeight = '' + this.calcGridHeight() + 'px'
+            if (curHeight !== newHeight) {
+                this.gridInst.setHeight(newHeight)
+            }
         })
     },
-    beforeDestory() {
+    beforeDestroy() {
         this.rsw.destroy()
         this.rsw = null
         this.gridInst.destroy()
@@ -47,7 +51,30 @@ export default {
     },
     methods: {
         createGridInst() {
-            return new Tabulator(this.$el, this.options)
+            let opts = apx.jsaBase.extend(this.options, {
+                height: '' + this.calcGridHeight() + 'px',
+            })
+            return new Tabulator(this.$refs.table, opts)
+        },
+
+        calcGridHeight() {
+            let defaultHeight = 150
+
+            let el = this.$el
+            let bcr = el.getBoundingClientRect()
+            let cst = window.getComputedStyle(el)
+            //
+            let h = bcr.height // высота вместе с рамкой
+
+            if (h === 0 || !cst.borderBottomWidth || !cst.borderTopWidth) {
+                // нет размера
+                return defaultHeight
+            }
+
+            let bt = parseFloat(cst.borderBottomWidth)
+            let bb = parseFloat(cst.borderTopWidth)
+
+            return h - bt - bb
         }
     },
 }

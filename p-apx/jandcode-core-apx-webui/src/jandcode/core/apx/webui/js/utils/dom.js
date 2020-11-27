@@ -23,9 +23,10 @@ class ResizeWatcher {
 
     destroy() {
         this.rso.disconnect()
-        this.rso = null
         this.listener_dobonced.cancel()
         this.listener_dobonced = null
+        this.el = null
+        this.rso = null
         this.listener = null
     }
 
