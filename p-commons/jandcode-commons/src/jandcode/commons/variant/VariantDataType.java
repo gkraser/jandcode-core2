@@ -71,7 +71,7 @@ public enum VariantDataType {
         } else if (cls == Float.class) {
             return DOUBLE;
 
-        } else if (cls == XDateTime.class) {
+        } else if (XDateTime.class.isAssignableFrom(cls)) {
             return DATETIME;
 
         } else if (cls == byte[].class) {
