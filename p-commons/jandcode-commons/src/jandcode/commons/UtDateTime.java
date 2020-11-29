@@ -74,6 +74,13 @@ public class UtDateTime {
     }
 
     /**
+     * Создать дату из милисекунд
+     */
+    public static XDateTime create(long z, ZoneId zone) {
+        return new XDateTimeImpl(z, zone);
+    }
+
+    /**
      * Создать дату по указанным частям
      */
     public static XDateTime create(int year, int month, int day) {
