@@ -148,4 +148,10 @@
         <exclude-client mask="**/*jquery*.*"/>
     </lib>
 
+    <lib name="chance" version="1.1.7" client="true">
+        <include-client mask="dist/**/*.js"/>
+        <exclude-require mask="**/*.js"/>
+        <module-mapping module="chance" real-module="chance/dist/chance.min.js"/>
+    </lib>
+
 </root>
