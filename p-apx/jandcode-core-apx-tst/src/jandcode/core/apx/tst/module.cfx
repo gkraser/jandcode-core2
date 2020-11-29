@@ -10,6 +10,15 @@
              path="jandcode/core/apx/tst/page/tst-apx.gsp"/>
 
         <tst>
+
+            <run-file name="js"
+                      templateDefault="jandcode/core/apx/tst/page/tst-apx.gsp"
+            />
+
+            <run-file name="vue"
+                      templateDefault="jandcode/core/apx/tst/page/tst-apx.gsp"
+            />
+
             <menu name="tools">
                 <item name="dao"
                       href="jandcode/core/apx/tst/tools/dao.html"
