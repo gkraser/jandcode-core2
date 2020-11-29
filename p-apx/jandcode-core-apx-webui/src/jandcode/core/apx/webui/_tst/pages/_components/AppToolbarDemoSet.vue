@@ -107,6 +107,10 @@
                 </q-menu>
             </q-btn>
         </template>
+
+        <template v-if="toolbarSet=='text-only'">
+            <span>только текст</span>
+        </template>
     </jc-toolbar>
 </template>
 
@@ -186,6 +190,7 @@ export function createToolbarSets() {
         {value: 'logo1', label: 'Логотип 1'},
         {value: 'button1', label: 'Кнопки 1'},
         {value: 'button2', label: 'Кнопки 2'},
+        {value: 'text-only', label: 'Только текст'},
     ]
 }
 
