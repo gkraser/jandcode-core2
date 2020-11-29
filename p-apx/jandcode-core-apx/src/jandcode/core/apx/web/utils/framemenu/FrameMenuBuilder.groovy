@@ -9,16 +9,23 @@ import jandcode.core.web.virtfile.*
 import java.util.regex.*
 
 /**
- * Построение меню по папке с файлами vue
+ * Построение меню по папке с файлами vue и js.
+ *
+ * Если файл vue - то фрейм его export default.
+ * Если файл js - если имеется определение заголовка (//#jc title или this.title),
+ * то фрейм его export default. Иначе - файл не считается фреймом.
+ *
  * В файле берется:
+ *
  * this.title='Заголовок' или //#jc title Заголовок
  * this.icon='icon-name' или //#jc icon icon-name
  * Для папки:
- * index.js анализируется на предмет //#jc директив
+ * index.js анализируется на предмет //#jc директив. Папка становится
+ * меню с дочерними элементами-фреймами, которые лежат в папке.
  *
- * Игнорируются файлы и папки, который начинаются с '_'.
+ * Игнорируются файлы и папки, которые начинаются с '_'.
  *
- * Если фрем нужно исключить из роутинга и меню (например это диалог),
+ * Если vue-фрем нужно исключить из роутинга и меню (например это диалог),
  * то либо поместите его в папке с '_' вначале, либо:
  * <ul>
  * <li>если в тексте имеется {@code <Dialog>}, то считаем диалогом и игнорируем</li>
@@ -78,7 +85,7 @@ class FrameMenuBuilder {
             }
 
         } else {
-            if (!UtVDir.matchPath("**/*.vue", file.path)) {
+            if (!UtVDir.matchPath("**/*.vue", file.path) && !UtVDir.matchPath("**/*.js", file.path)) {
                 return
             }
             fillMetaData(item, file)
@@ -101,6 +108,8 @@ class FrameMenuBuilder {
     }
 
     void fillMetaData(FrameMenuItem item, VirtFile f) {
+        String ext = UtFile.ext(f.getName())
+
         String text = f.loadText()
 
         if (text.indexOf("<Dialog") != -1) {
@@ -136,6 +145,10 @@ class FrameMenuBuilder {
         }
         if (icon != null) {
             item.icon = icon
+        }
+
+        if (title == null && ext == "js") {
+            item.ignore = true
         }
 
         if (UtString.empty(item.title)) {
