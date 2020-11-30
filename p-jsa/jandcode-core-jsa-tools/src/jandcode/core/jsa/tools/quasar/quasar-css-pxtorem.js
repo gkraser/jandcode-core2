@@ -28,6 +28,9 @@ const postcss = require('gulp-postcss')
 const postcss_pxtorem = require('./lib/postcss-pxtorem-fix')
 const path = require('path')
 
+
+let _replace_pixels = []
+
 /**
  * Замена XXpx на переменную @rXXXpx
  * @param m
@@ -38,7 +41,14 @@ function pxReplace(m, $1) {
     if (!$1) return m;
     const pixels = parseFloat($1);
     if (pixels < 0) return m;
+    _replace_pixels.push(pixels)
     return pixels === 0 ? "0" : '@r' + pixels + "px";
+}
+
+function toFixed(number, precision) {
+    const multiplier = Math.pow(10, precision + 1),
+        wholeNumber = Math.floor(number * multiplier);
+    return (Math.round(wholeNumber / 10) * 10) / multiplier;
 }
 
 function initGulpTask() {
@@ -105,11 +115,12 @@ function initGulpTask() {
             }
         }
 
+        let rootValue = 16
         return gulp.src('node_modules/quasar/dist/quasar.css')
             .pipe(postcss([
                 postcss_pxtorem({
                     replace: false,
-                    rootValue: 14,
+                    rootValue: rootValue,
                     propList: ['font', 'font-size', 'line-height', 'letter-spacing',
                         'padding*', 'margin*', 'min-height'],
                     selectorBlackList: [/^body$/].concat(black1),
@@ -147,6 +158,24 @@ function initGulpTask() {
                         base: file.base,
                         path: path.resolve(file.base, 'q-fix-px.less'),
                         contents: Buffer.from(s)
+                    });
+                    this.push(rfile)
+
+                    //
+                    let vars = [...new Set(_replace_pixels)]
+                    _replace_pixels = []
+                    vars.sort((a, b) => a - b)
+                    let s_vars = ''
+                    for (let v of vars) {
+                        let v1 = toFixed(v / rootValue, 5);
+                        s_vars += '@r' + v + 'px: ' + v1 + 'rem;\n';
+                    }
+
+                    rfile = new Vinyl({
+                        cwd: file.cwd,
+                        base: file.base,
+                        path: path.resolve(file.base, 'q-fix-px--vars.less'),
+                        contents: Buffer.from(s_vars)
                     });
                     this.push(rfile)
                 } else {
