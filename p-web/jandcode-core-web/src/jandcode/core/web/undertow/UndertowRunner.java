@@ -20,6 +20,7 @@ public class UndertowRunner {
 
     private int port = 8080;
     private String context = "/jc";
+    private String listenerHost = "0.0.0.0";
 
     ////// настройки
 
@@ -33,6 +34,13 @@ public class UndertowRunner {
             this.context = "/";
         } else if (!this.context.startsWith("/")) {
             this.context = "/" + this.context;
+        }
+    }
+
+    public void setListenerHost(String listenerHost) {
+        this.listenerHost = listenerHost;
+        if (UtString.empty(this.listenerHost)) {
+            this.listenerHost = "0.0.0.0";
         }
     }
 
@@ -131,7 +139,7 @@ public class UndertowRunner {
                 .addPrefixPath(this.context, h);
 
         Undertow server = Undertow.builder()
-                .addHttpListener(this.port, "0.0.0.0")
+                .addHttpListener(this.port, this.listenerHost)
                 .setHandler(path1)
                 .build();
         server.start();
