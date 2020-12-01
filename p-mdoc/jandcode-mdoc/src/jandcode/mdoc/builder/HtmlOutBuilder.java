@@ -146,6 +146,15 @@ public class HtmlOutBuilder extends BaseOutBuilder {
             }
         }
 
+        // содержание в json
+        String tocJson_fn = "toc.js";
+        TextSourceFile tocJson_sourceFile = new TextSourceFile(tocJson_fn, () -> {
+            return new TocJsonUtils(this).makeTocJsStr("mdoc.tocAll", getToc());
+        });
+        OutFile tocJson_outFile = new OutFile(tocJson_fn, tocJson_sourceFile, null);
+        tocJson_outFile.setNeed(true);
+        outFiles.add(tocJson_outFile);
+
         //////
     }
 

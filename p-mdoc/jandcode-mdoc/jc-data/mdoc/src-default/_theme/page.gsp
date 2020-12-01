@@ -28,16 +28,29 @@
   <script>
       window.mdoc = window.mdoc || {};
       mdoc.indexRef = '${th.ref(th.builder.toc.topic.id)}';
+      mdoc.topicFile = '${th.outFile.path}';
+      mdoc.topicId = '${th.topic.id}';
   </script>
+  <% if (th.topic.toc.childs.size() > 0) { %>
+  <script>
+      <%
+      out(new TocJsonUtils(th.builder).makeTocJsStr("mdoc.tocTopic", th.topic.toc))
+    %>
+  </script>
+  <% } %>
+  <script src="${th.ref('toc.js')}"></script>
 </head>
+
 <body>
 <div class="page-wrap">
   <div class="page-header">
     <div class="page-header-item document-title">
       <a href="${th.ref(th.builder.toc.topic.id)}">${th.docTitle}</a>
     </div>
+
     <div class="page-header-item split">
     </div>
+
     <div class="page-header-item menu-item">
     </div>
   </div>
@@ -49,6 +62,7 @@
         <div class="tools-block-title">
           Содержание
         </div>
+
         <div class="tools-block-body">
           <div class="doc-toc">
             ${tocUtils.makeToc(th.builder.toc, th.topic)}

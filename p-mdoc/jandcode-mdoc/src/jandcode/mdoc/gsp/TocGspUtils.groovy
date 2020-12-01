@@ -1,5 +1,6 @@
 package jandcode.mdoc.gsp
 
+
 import jandcode.mdoc.topic.*
 
 /**
@@ -95,7 +96,7 @@ class TocGspUtils {
     String makeBreadcrumb(Toc root, Topic topic) {
         def lst = getBreadcrumb(root, topic)
         if (lst.size() == 0) {
-            return
+            return ""
         }
         StringBuilder sb = new StringBuilder()
         sb.append("""<ul class="breadcrumb">\n""")
@@ -112,5 +113,6 @@ class TocGspUtils {
         sb.append("""</ul>\n""")
         return sb.toString()
     }
+
 
 }

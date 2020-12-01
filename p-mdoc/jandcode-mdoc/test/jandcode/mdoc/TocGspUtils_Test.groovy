@@ -46,5 +46,18 @@ class TocGspUtils_Test extends CustomMDoc_Test {
 
     }
 
+    @Test
+    public void toc_json1() throws Exception {
+        prepare("real1")
+        //
+        TocJsonUtils ut = new TocJsonUtils(builder)
+
+        utils.delim()
+
+        Topic t = builder.doc.topics.get("jc/base")
+        def items = ut.makeTocJson(t.toc)
+        println items
+
+    }
 
 }

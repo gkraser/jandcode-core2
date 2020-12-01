@@ -14,6 +14,7 @@
 <div class="topic-breadcrumb">
   ${tocUtils.makeBreadcrumb(th.builder.toc, th.topic)}
 </div>
+
 <div class="topic-header">
   <h1>${th.topic.title}</h1>
 </div>
@@ -25,6 +26,7 @@
 <% if (th.topic.toc.childs.size() > 0) { %>
 <div class="topic-toc">
   <div class="topic-toc-title">Содержание</div>
+
   <div class="topic-toc-content">
     ${tocUtils.makeToc(th.topic.toc)}
   </div>
@@ -36,6 +38,7 @@
 <% if (th.topic.toc.childs.size() == 0 && tocInRoot != null && tocInRoot.childs.size() > 0) { %>
 <div class="topic-toc">
   <div class="topic-toc-title">Содержание</div>
+
   <div class="topic-toc-content">
     ${tocUtils.makeToc(tocInRoot)}
   </div>
