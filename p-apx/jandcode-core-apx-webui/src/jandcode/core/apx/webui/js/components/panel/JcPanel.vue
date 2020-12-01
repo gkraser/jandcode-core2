@@ -1,23 +1,22 @@
 <template>
     <q-card :class="classes">
         <template v-if="hasHeader">
-            <q-card-section>
+            <q-card-section class="jc-panel__header">
                 <jc-toolbar>
-                    <jc-toolbar-title :text="title"
-                                      class="text-size-large-1 text-weight-medium"/>
+                    <jc-toolbar-title :text="title"/>
                     <q-space/>
                     <slot name="toolbar">
                     </slot>
                 </jc-toolbar>
             </q-card-section>
         </template>
-        <template v-if="$slots.body">
-            <slot name="body">
+        <q-card-section class="jc-panel__body">
+            <slot name="default">
             </slot>
-        </template>
-        <template v-else>
-            <q-card-section>
-                <slot name="default">
+        </q-card-section>
+        <template v-if="$slots.footer">
+            <q-card-section class="jc-panel_footer">
+                <slot name="footer">
                 </slot>
             </q-card-section>
         </template>
