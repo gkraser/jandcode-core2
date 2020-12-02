@@ -23,7 +23,7 @@ export default {
     },
 
     async initFrame() {
-        let act = "jandcode/core/apx/webui/_tst/pages/_frames/fm/action-json1.json"
+        let act = "jandcode/core/apx/webui/_tst/pages/_actions/action-json1.json"
 
         let res1 = await jsaBase.ajax.request({
             url: act,
