@@ -240,25 +240,8 @@ export default {
                 this.resizeObs = new Quasar.QResizeObserver()
                 this.resizeObs.$on('resize', (ev) => {
                     if (this.needSyncMinHeight) {
-                        let need = this.needSyncMinHeight
                         let parentMh = this.$el.parentNode.style.minHeight
-                        let curMh = this.lastMountedEl.style.minHeight
-                        if (curMh) {
-                            // уже установлена min-height
-                            try {
-                                let parentMhInt = parseInt(parentMh, 10)
-                                let curMhInt = parseInt(curMh, 10)
-                                if (curMhInt > parentMhInt) {
-                                    // min-height фрейма больше, не трогаем
-                                    need = false
-                                }
-                            } catch(e) {
-                                // ignore
-                            }
-                        }
-                        if (need) {
-                            this.lastMountedEl.style.minHeight = parentMh
-                        }
+                        this.lastMountedEl.style.minHeight = parentMh
                     }
                 })
                 let roEl = document.createElement('div')
