@@ -36,6 +36,7 @@ export * from './cnv'
 export * from './moduleLoader'
 export * from './error'
 export * from './app'
+export * from './wait'
 
 // глобализация
 Jc.ready = base.ready;

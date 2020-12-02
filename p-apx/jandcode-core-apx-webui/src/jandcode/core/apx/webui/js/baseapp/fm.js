@@ -122,14 +122,18 @@ export class FrameManager {
             fw.shower = shower
         }
 
-        // делаем класс компонента
-        await this._resolveFrameComp(fw)
+        jsaBase.waitShow()
+        try { // делаем класс компонента
+            await this._resolveFrameComp(fw)
 
-        // создаем экземпляр
-        fw.frameInst = new fw.frameCompCls({frameWrapper: fw})
+            // создаем экземпляр
+            fw.frameInst = new fw.frameCompCls({frameWrapper: fw})
 
-        // инициализаируем (возможна интенсивная загрузка данных)
-        await fw.initFrame()
+            // инициализаируем (возможна интенсивная загрузка данных)
+            await fw.initFrame()
+        } finally {
+            jsaBase.waitHide()
+        }
 
         // теперь фрейм готов к работе
         // показываем его

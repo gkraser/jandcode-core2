@@ -1,4 +1,5 @@
 //
+import './quasar-config'
 import {Quasar} from './vendor'
 
 // глобализация
