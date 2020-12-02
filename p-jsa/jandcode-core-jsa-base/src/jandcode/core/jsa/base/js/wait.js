@@ -35,6 +35,9 @@ export class WaitUI {
 export function waitShow() {
     _level++
     if (_level === 1) {
+        // для предотвращения моргания подряд идущих show/hide
+        // допустим когда запросы один за другим выполняются
+        _level++
         doShow()
     }
 }
@@ -48,6 +51,14 @@ export function waitHide() {
         return
     }
     _level--
+    if (_level === 1) {
+        // т.к. в waitShow 1 к уровню добавили, тут ее обрабатываем
+        setTimeout(() => {
+            if (_level === 1) {
+                waitHide()
+            }
+        }, 50)
+    }
     if (_level === 0) {
         doHide()
     }
