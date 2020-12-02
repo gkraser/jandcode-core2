@@ -1,6 +1,6 @@
 <template>
     <Page>
-        Frame2
+        Frame2. params: {{ paramsStr() }}
     </Page>
 </template>
 
@@ -12,7 +12,7 @@ export default {
     props: {},
 
     created() {
-        this.title = 'Frame2.vue'
+        this.title = 'Frame2 (' + apx.jsaBase.nextId("") + ")"
         console.info("Frame2-created", this);
         console.info("params:", this.params);
     },
@@ -28,13 +28,18 @@ export default {
         let res1 = await jsaBase.ajax.request({
             url: act,
             params: {
-                cnt: this.params.cnt || 2
+                cnt: this.params.cnt || 2,
+                pause: this.params.pause || 200,
             }
         })
     },
     data() {
         return {}
     },
-    methods: {},
+    methods: {
+        paramsStr() {
+            return JSON.stringify(this.params)
+        }
+    },
 }
 </script>

@@ -10,6 +10,9 @@ import upperFirst from 'lodash/upperFirst'
 
 /**
  * Стандартный shower для показа страниц
+ *
+ * При изменении состава фреймов уведомляет шину событий
+ * событием: "shower.main.change-frames"
  */
 export class FrameShower_main_default extends FrameShower {
 
@@ -20,23 +23,29 @@ export class FrameShower_main_default extends FrameShower {
     }
 
     async showFrameWrapper(fw) {
-        // сначала по быстрому монтируем фрейм
-        // старый должен исчезнуть с экрана, но остался как экземпляр
-        this.own.mountFrame(fw)
-
         // нужно ли помещать в стек
         let isStack = fw.options.stack
 
+        let old_frames = null
         if (!isStack) {
-            // уничттожаем все старые, если новый не хочет быть в стеке
-            while (this._frames.length > 0) {
-                let fw = this._frames.pop()
-                fw.destroy()
-            }
+            old_frames = this._frames
+            this._frames = []
         }
 
         // сохраняем новый
         this._frames.push(fw)
+
+        // сначала по быстрому монтируем фрейм
+        // старый должен исчезнуть с экрана, но остался как экземпляр
+        this.own.mountFrame(fw)
+
+        if (old_frames != null) {
+            // уничттожаем все старые, если новый не хочет быть в стеке
+            while (old_frames.length > 0) {
+                let fw = old_frames.pop()
+                fw.destroy()
+            }
+        }
 
         // меняем url, если допустимо
         let routePath = fw.getRoutePath()
@@ -44,6 +53,35 @@ export class FrameShower_main_default extends FrameShower {
             this.frameManager.history.updateHash(routePath)
         }
 
+        // уведомляем
+        jsaBase.app.eventBus.$emit("shower.main.change-frames", this)
+    }
+
+    /**
+     * Проверить возможность закрыть фрейм
+     */
+    async checkForClose(fw, cmd) {
+        // проверяем возможность закрыться. Почти как в диалоге
+        if (!cmd) {
+            cmd = 'cancel'
+        }
+        let frameInst = fw.frameInst
+        let handlerName = 'on' + upperFirst(cmd)
+
+        if (jsaBase.isFunction(frameInst[handlerName])) {
+            // у фрейма есть обработчик onXxx
+            if (await frameInst[handlerName](frameInst, cmd) === false) {
+                return false // закрываться нельзя
+            }
+        } else if (jsaBase.isFunction(frameInst.onCmd)) {
+            // у фрейма есть обработчик onCmd
+            if (await frameInst.onCmd(frameInst, cmd) === false) {
+                return false // закрываться нельзя
+            }
+        }
+
+        // закрывать можно
+        return true
     }
 
     async closeFrameWrapper(fw, cmd) {
@@ -57,23 +95,9 @@ export class FrameShower_main_default extends FrameShower {
             return
         }
 
-        // проверяем возможность закрытся. Почти как в диалоге
-        if (!cmd) {
-            cmd = 'cancel'
-        }
-        let frameInst = fw.frameInst
-        let handlerName = 'on' + upperFirst(cmd)
-
-        if (jsaBase.isFunction(frameInst[handlerName])) {
-            // у фрейма есть обработчик onXxx
-            if (await frameInst[handlerName](frameInst, cmd) === false) {
-                return  // закрываться нельзя
-            }
-        } else if (jsaBase.isFunction(frameInst.onCmd)) {
-            // у фрейма есть обработчик onCmd
-            if (await frameInst.onCmd(frameInst, cmd) === false) {
-                return  // закрываться нельзя
-            }
+        // проверяем возможность закрыться. Почти как в диалоге
+        if (!await this.checkForClose(fw)) {
+            return // закрываться нельзя
         }
 
         // все разрешили закрытся, закрываем
@@ -85,9 +109,71 @@ export class FrameShower_main_default extends FrameShower {
         // это который сверху в стеке
         let topFw = this._frames[this._frames.length - 1]
         // монтируем верхний
-        this.mountFrame(topFw)
+        this.own.mountFrame(topFw)
         // уничтожаем старый
         removedFw.destroy()
+
+        // уведомляем
+        jsaBase.app.eventBus.$emit("shower.main.change-frames", this)
+    }
+
+    isFrameWrapperClosable(fw) {
+        console.info("check", fw, this._frames);
+        if (this._frames.length <= 1) {
+            return false
+        }
+        let idx = this._frames.indexOf(fw)
+        // фрейм показан и ион не первый в стеке
+        return idx > 0
+    }
+
+    /**
+     * Активировать фрейм.
+     * Все, которые после него - закрыть.
+     * @param fw
+     */
+    async activateFrameWrapper(fw) {
+        if (this._frames.length <= 1) {
+            // стек либо пустой, либо там только один фрейм - ничего не делаем
+            return
+        }
+        let idx = this._frames.indexOf(fw)
+        if (idx === -1) {
+            // этот фрейм не в стеке
+            return
+        }
+        if (idx === this._frames.length - 1) {
+            // это последний фрейм в стеке, он и так активный
+            return
+        }
+
+        // проверяем возможность закрытия для всех после искомого
+        let curIdx = this._frames.length - 1
+        let closeIdx = null
+        while (curIdx > idx) {
+            if (!await this.checkForClose(this._frames[curIdx])) {
+                break
+            }
+            closeIdx = curIdx
+            curIdx--
+        }
+
+        if (closeIdx == null) {
+            // нечего закрывать
+            return
+        }
+
+        // монтируем активный
+        this.own.mountFrame(this._frames[closeIdx - 1])
+
+        // остальные уничтожаем
+        while (this._frames.length > closeIdx) {
+            let fwd = this._frames.pop()
+            fwd.destroy()
+        }
+
+        // уведомляем
+        jsaBase.app.eventBus.$emit("shower.main.change-frames", this)
     }
 
     destroy() {
@@ -131,6 +217,7 @@ export default {
 
     mounted() {
         jsaBase.app.frameManager.registerShower('main', this.shower)
+        jsaBase.app.eventBus.$emit("shower.main.change-frames", this.shower)
     },
 
     beforeDestroy() {

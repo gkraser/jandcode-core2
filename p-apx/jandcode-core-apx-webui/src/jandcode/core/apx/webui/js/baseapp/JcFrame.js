@@ -39,6 +39,13 @@ export default {
          */
         params: function() {
             return this.frameWrapper.params
+        },
+
+        /**
+         * Можно ли закрывать этот фрейм
+         */
+        isClosable() {
+            return this.frameWrapper.isClosable()
         }
 
     },

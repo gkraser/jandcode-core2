@@ -18,6 +18,10 @@
                 <slot name="toolbar">
                 </slot>
 
+                <template v-if="own.isClosable">
+                    <q-btn dense flat icon="close" @click="own.closeFrame('cancel')"/>
+                </template>
+
             </jc-toolbar>
 
         </div>

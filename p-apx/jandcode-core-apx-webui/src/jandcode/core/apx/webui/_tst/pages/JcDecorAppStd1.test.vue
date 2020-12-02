@@ -30,7 +30,7 @@
 
                 <template #main>
                     <q-page>
-                        <Frame1 ref="frame1"/>
+                        <jc-shower-main></jc-shower-main>
                     </q-page>
                 </template>
             </App>
@@ -81,6 +81,7 @@ export default {
     },
     created() {
         this.title = 'Заголовок приложения'
+        this.frame1 = null
         this.cfgStore.applyDefault({
             toolbarSetRight: 'menu1',
             toolbarSetLeft: null,
@@ -91,6 +92,13 @@ export default {
             // frame
             frameIcon: false,
             frameToolbar: null,
+        })
+    },
+    mounted() {
+        apx.showFrame({
+            frame: Frame1
+        }).then((finst)=>{
+            this.frame1 = finst
         })
     },
     data() {
@@ -108,7 +116,7 @@ export default {
             this.title2 = cfg.title2 ? 'Это такой подзаголовок приложения' : null;
 
             //
-            let frm = this.$refs.frame1
+            let frm = this.frame1
             if (frm) {
                 frm.title2 = cfg.title2 ? 'Это такой фрейма подзаголовок' : null;
                 frm.icon = cfg.frameIcon ? 'bus' : null;

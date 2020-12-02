@@ -11,9 +11,10 @@ export default {
     extends: apx.JcFrame,
     props: {},
     created() {
-        this.title = 'Frame1.vue'
-        console.info("Frame2-created", this);
+        this.title = 'Frame1 (' + apx.jsaBase.nextId("") + ")"
+        console.info("Frame1-created", this);
         console.info("params:", this.params);
+        console.info("shower:", this.frameWrapper.shower);
     },
 
     mounted() {

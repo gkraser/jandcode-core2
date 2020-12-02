@@ -171,6 +171,14 @@ export class FrameManager {
         return this._showers
     }
 
+    /**
+     * shower по имени
+     * @return {FrameShower}
+     */
+    getShower(name) {
+        return this._showers[name]
+    }
+
     //////
 
     /**
@@ -293,6 +301,9 @@ export class FrameWrapper {
      * @param options.params произвольные параметры
      */
     constructor(options) {
+        // уникальный id экземпляра
+        this.id = jsaBase.nextId("jc-frame-wrapper-")
+
         // копия параметров
         this.options = jsaBase.extend({}, options)
 
@@ -381,6 +392,47 @@ export class FrameWrapper {
     }
 
     /**
+     * Можно ли закрывать этот фрейм
+     * @return {boolean}
+     */
+    isClosable() {
+        if (!this.shower) {
+            return true
+        }
+        return this.shower.isFrameWrapperClosable(this)
+    }
+
+    /**
+     * Заголовок фрейма
+     */
+    getTitle() {
+        let res = this.frameInst.title
+        if (!res) {
+            res = ''
+        }
+        return res
+    }
+
+    /**
+     * Короткий заголовок фрейма
+     */
+    getTitleShort() {
+        let res = this.frameInst.titleShort
+        if (!res) {
+            res = this.getTitle()
+        }
+        return res
+    }
+
+    /**
+     * Уникальный id экземпляра
+     * @return {String}
+     */
+    getId() {
+        return this.id
+    }
+
+    /**
      * Уничтожить фрейм
      */
     destroy() {
@@ -426,6 +478,23 @@ export class FrameShower {
      */
     closeFrameWrapper(fw, cmd) {
         throw new Error("Not implemented closeFrameWrapper")
+    }
+
+    /**
+     * Возвращает true, если фрейм возможно закрыть.
+     * Например диалог всегда можно закрыть,
+     * а фрейм на main - только если он не первый в стеке.
+     * @param fw {FrameWrapper}
+     */
+    isFrameWrapperClosable(fw) {
+        return true
+    }
+
+    /**
+     * Все текущие фреймы в shower
+     */
+    getFrames() {
+        return this._frames
     }
 
     /**
