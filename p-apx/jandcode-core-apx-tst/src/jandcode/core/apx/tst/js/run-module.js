@@ -26,19 +26,29 @@ export function runModule(moduleName) {
             } else {
                 // приложение уже запущено - работаем поверх него
                 jsaBase.app.onAfterRun(() => {
-                    let vm = new apx.Vue({
-                        render: h => h('div', {'class': ['tst-overapp-wrap']}, [h(p)])
-                    })
-                    vm.$mount()
-                    // ищем место для монтирования
-                    let pagePlace = document.querySelector(main.mountTo || '.jc-app--main')
-                    if (pagePlace) {
-                        // нашли место
-                        pagePlace.insertAdjacentElement('afterbegin', vm.$el)
+
+                    if (p._showFrame) {
+                        // если есть _showFrame - просто показываем как фрейм
+                        let opts = {frame: p}
+                        if (jsaBase.isObject(p._showFrame)) {
+                            jsaBase.extend(opts, p._showFrame)
+                        }
+                        apx.showFrame(opts)
                     } else {
-                        // не нашли место - во весь экран
-                        vm.$el.classList.add('tst-overapp-fullscreen')
-                        document.body.appendChild(vm.$el)
+                        let vm = new apx.Vue({
+                            render: h => h('div', {'class': ['tst-overapp-wrap']}, [h(p)])
+                        })
+                        vm.$mount()
+                        // ищем место для монтирования
+                        let pagePlace = document.querySelector(main.mountTo || '.jc-app--main')
+                        if (pagePlace) {
+                            // нашли место
+                            pagePlace.insertAdjacentElement('afterbegin', vm.$el)
+                        } else {
+                            // не нашли место - во весь экран
+                            vm.$el.classList.add('tst-overapp-fullscreen')
+                            document.body.appendChild(vm.$el)
+                        }
                     }
                 })
             }
