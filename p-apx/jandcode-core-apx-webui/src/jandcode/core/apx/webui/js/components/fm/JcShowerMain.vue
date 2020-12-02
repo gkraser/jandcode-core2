@@ -118,7 +118,6 @@ export class FrameShower_main_default extends FrameShower {
     }
 
     isFrameWrapperClosable(fw) {
-        console.info("check", fw, this._frames);
         if (this._frames.length <= 1) {
             return false
         }
