@@ -1,6 +1,9 @@
 <template>
     <Page>
         Frame2. params: {{ paramsStr() }}
+        <br>
+        <jc-btn label="showOtherFrame" @click="showOtherFrame"/>
+        <jc-btn label="showDialog1" @click="showDialog1"/>
     </Page>
 </template>
 
@@ -39,7 +42,17 @@ export default {
     methods: {
         paramsStr() {
             return JSON.stringify(this.params)
-        }
+        },
+        showOtherFrame() {
+            this.showFrame({
+                frame: 'jandcode/core/apx/webui/_tst/pages/_frames/fm/Frame1.vue'
+            })
+        },
+        showDialog1() {
+            this.showDialog({
+                frame: 'jandcode/core/apx/webui/_tst/pages/_frames/fm/Dialog1.vue'
+            })
+        },
     },
 }
 </script>

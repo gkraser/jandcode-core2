@@ -98,6 +98,11 @@ export class FrameManager {
         return await this.showFrameWrapper(fw)
     }
 
+    async showDialog(options) {
+        options = jsaBase.extend({}, options, {shower: 'dialog'})
+        return await this.showFrame(options)
+    }
+
     /**
      * Показать фрейм
      * @param fw {FrameWrapper}
@@ -576,6 +581,5 @@ export async function showFrame(options) {
 }
 
 export async function showDialog(options) {
-    options = jsaBase.extend(options, {shower: 'dialog'})
-    return await jsaBase.app.frameManager.showFrame(options)
+    return await jsaBase.app.frameManager.showDialog(options)
 }

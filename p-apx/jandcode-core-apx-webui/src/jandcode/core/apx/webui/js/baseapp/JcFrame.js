@@ -1,6 +1,7 @@
 import Page from '../components/decor/JcDecorFramePage'
 import Dialog from '../components/decor/JcDecorFrameDialog'
 import {componentHolder} from './frame'
+import {jsaBase} from '../vendor'
 
 /**
  * Базовый предок для фреймов
@@ -52,7 +53,13 @@ export default {
 
     methods: {
 
+        /**
+         * showFrame из фрейма - автоматически помещается в стек
+         */
         async showFrame(options) {
+            if (!('stack' in options)) {
+                options = jsaBase.extend({}, options, {stack: true})
+            }
             return await this.frameWrapper.frameManager.showFrame(options)
         },
 

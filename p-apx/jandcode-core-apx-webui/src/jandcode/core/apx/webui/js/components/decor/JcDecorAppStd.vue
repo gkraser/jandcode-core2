@@ -28,6 +28,7 @@
                 </slot>
 
             </q-toolbar>
+            <jc-shower-main-breadcrumbs></jc-shower-main-breadcrumbs>
         </q-header>
 
         <q-drawer v-model="own.left" :elevated="false"
@@ -58,7 +59,6 @@
         <q-page-container class="jc-app--main jc-decor-app-std__main">
             <slot name="main">
                 <q-page>
-                    <jc-shower-main-breadcrumbs></jc-shower-main-breadcrumbs>
                     <jc-shower-main></jc-shower-main>
                 </q-page>
             </slot>

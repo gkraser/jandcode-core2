@@ -28,11 +28,6 @@
                     <SideMenu1 :items="sideMenu_itemsSet.items1" :levels="3"/>
                 </template>
 
-                <template #main>
-                    <q-page>
-                        <jc-shower-main></jc-shower-main>
-                    </q-page>
-                </template>
             </App>
         </div>
 
@@ -97,7 +92,7 @@ export default {
     mounted() {
         apx.showFrame({
             frame: Frame1
-        }).then((finst)=>{
+        }).then((finst) => {
             this.frame1 = finst
         })
     },
@@ -138,6 +133,20 @@ export default {
     & > * {
       background-color: #d7edc5;
     }
+  }
+
+  .jc-shower-main-breadcrumbs {
+    background-color: #C6E2A6 !important;
+
+    & > * {
+      background-color: #d7edc5;
+
+      & > * {
+        background-color: #b8d99d;
+      }
+
+    }
+
   }
 }
 

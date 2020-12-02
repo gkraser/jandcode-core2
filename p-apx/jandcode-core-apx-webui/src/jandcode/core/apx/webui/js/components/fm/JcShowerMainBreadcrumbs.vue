@@ -1,6 +1,6 @@
 <template>
     <div class="jc-shower-main-breadcrumbs">
-        <q-breadcrumbs>
+        <q-breadcrumbs v-show="showOne || items.length>1">
             <template v-for="it in items">
                 <q-breadcrumbs-el v-if="!it.last" :label="it.title"
                                   class="jc-shower-main-breadcrumbs--link"
@@ -19,7 +19,12 @@ import {jsaBase} from '../vendor'
  */
 export default {
     name: 'jc-shower-main-breadcrumbs',
-    props: {},
+    props: {
+        showOne: {
+            type: Boolean,
+            default: false
+        }
+    },
     created() {
         let th = this
         //
