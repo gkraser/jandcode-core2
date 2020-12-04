@@ -4,6 +4,7 @@
 import * as base from './base'
 import * as ajax from './ajax'
 import * as error from './error'
+import * as cnv from './cnv'
 
 /**
  * Простой клиент Json-Rpc
@@ -55,7 +56,13 @@ export class JsonRpcClient {
                 if (Jc.cfg.envDev) {
                     console.info(`${id} ${th.url} ERROR:`, methodName, 'result:', resp.response.data)
                 }
-                reject(error.createError(resp.response.data.error))
+                let err = resp.response.data
+                if (!cnv.isString(err)) {
+                    if (err.error) {
+                        err = error
+                    }
+                }
+                reject(error.createError(err))
             })
         });
 
