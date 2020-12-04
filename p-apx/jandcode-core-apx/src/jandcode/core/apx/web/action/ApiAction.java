@@ -1,5 +1,7 @@
 package jandcode.core.apx.web.action;
 
+import jandcode.commons.*;
+import jandcode.commons.error.*;
 import jandcode.core.apx.web.utils.*;
 import jandcode.core.web.action.*;
 
@@ -8,7 +10,7 @@ import jandcode.core.web.action.*;
  */
 public class ApiAction extends BaseAction {
 
-    private String daoHolderName = "api";
+    private String daoHolderName;
 
     /**
      * Выполнение dao.
@@ -22,6 +24,9 @@ public class ApiAction extends BaseAction {
     //////
 
     public String getDaoHolderName() {
+        if (UtString.empty(daoHolderName)) {
+            throw new XError("daoHolder not assigned");
+        }
         return daoHolderName;
     }
 

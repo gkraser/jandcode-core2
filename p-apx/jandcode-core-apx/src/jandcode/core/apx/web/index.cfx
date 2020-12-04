@@ -4,7 +4,8 @@
     <web>
 
         <action name="api"
-                class="jandcode.core.apx.web.action.ApiAction"/>
+                class="jandcode.core.apx.web.action.ApiAction"
+                daoHolder="api"/>
 
         <gsp name="jc/framemenu-js"
              path="res:jandcode/core/apx/web/gsp/framemenu-js.gsp"/>
