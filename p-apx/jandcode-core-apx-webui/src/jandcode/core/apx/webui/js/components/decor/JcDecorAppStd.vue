@@ -28,7 +28,7 @@
                 </slot>
 
             </q-toolbar>
-            <jc-shower-main-breadcrumbs></jc-shower-main-breadcrumbs>
+            <jc-shower-main-breadcrumbs show-one></jc-shower-main-breadcrumbs>
         </q-header>
 
         <q-drawer v-model="own.left" :elevated="false"
