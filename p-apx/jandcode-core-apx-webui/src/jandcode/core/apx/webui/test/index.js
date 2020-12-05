@@ -3,6 +3,8 @@
 
 export * from 'jandcode.core.jsa.base/test'
 import {Vue, jsaBase} from '../index'
+import Chance from 'chance'
+export * from './rnd-utils'
 
 import styleCss from './style.css'
 
@@ -14,6 +16,10 @@ Jc.requireCss(styleCss)
  * @type {number}
  */
 export let defaultPause = 250
+
+export {
+    Chance
+}
 
 //////
 

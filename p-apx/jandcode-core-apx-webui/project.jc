@@ -31,6 +31,9 @@ class P extends ProjectScript {
                     "fontsource-roboto",
                     "fontsource-roboto-condensed",
                     "path-to-regexp",
+
+                    // for tests
+                    "chance",
             )
         }
     }
