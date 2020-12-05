@@ -3,7 +3,7 @@
 
     <dao>
         <holder name="default">
-            <item name="apx.base.dao" prefix=""
+            <item name="i" prefix=""
                   package="jandcode.core.apx.dbm.dao"/>
         </holder>
     </dao>
