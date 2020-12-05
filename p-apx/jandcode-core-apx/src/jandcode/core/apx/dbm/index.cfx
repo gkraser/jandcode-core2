@@ -4,6 +4,7 @@
     <dbm>
 
         <model name="apx.base">
+            <x-include path="model.cfx"/>
         </model>
 
         <model name="default" instance="apx.base"/>
