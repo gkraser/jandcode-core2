@@ -139,4 +139,14 @@ public interface Store extends INamed, INamedSet, Iterable<StoreRecord>,
      */
     void clearIndex();
 
+    ////// sort
+
+    /**
+     * Отсортировать
+     *
+     * @param fields список полей через ','. Если имя поля начинается с '*', то по этому полю
+     *               сортируется по убыванию, иначе по возрастанию.
+     */
+    void sort(String fields);
+
 }

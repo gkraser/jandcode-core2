@@ -1,5 +1,8 @@
 package jandcode.core.store
 
+import jandcode.commons.*
+import jandcode.commons.datetime.*
+import jandcode.commons.rnd.*
 import jandcode.core.test.*
 import org.junit.jupiter.api.*
 
@@ -124,6 +127,38 @@ public class Store_Test extends App_Test {
         //
         utils.outTable(st)
         utils.outTable(st.get(0))
+    }
+
+    @Test
+    public void sort1() throws Exception {
+        def st = svc.createStore()
+        st.addField("id", "long")
+        st.addField("s1", "string")
+        st.addField("i2", "int")
+        st.addField("d3", "date")
+        st.addField("i4", "int")
+
+        Rnd rnd = new Rnd(123)
+        XDateTime today = UtDateTime.today()
+
+        for (i in 1..10) {
+            st.add(
+                    id: i,
+                    s1: rnd.text(Rnd.ERN_CHARS, 5, 10, 5),
+                    i2: rnd.num(20, 50),
+                    d3: today.addDays(-rnd.num(20, 50)),
+                    i4: rnd.num(2, 4),
+            )
+        }
+        utils.outTable(st)
+        //
+        st.sort("i4,i2")
+        utils.outTable(st)
+        //
+        st.sort("*i4,*i2")
+        utils.outTable(st)
+        //
+
     }
 
 }

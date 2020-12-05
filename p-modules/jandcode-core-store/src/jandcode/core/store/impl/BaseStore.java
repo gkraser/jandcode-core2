@@ -2,6 +2,7 @@ package jandcode.core.store.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.error.*;
+import jandcode.commons.variant.*;
 import jandcode.core.*;
 import jandcode.core.store.*;
 
@@ -274,6 +275,65 @@ public abstract class BaseStore implements Store, Cloneable {
 
     public StoreRecord getById(Object key) {
         return getBy("id", key);
+    }
+
+    ////// sort
+
+    public void sort(String fields) {
+        if (UtString.empty(fields)) {
+            return;
+        }
+        List<String> fieldsList = UtCnv.toList(fields);
+
+        class SortInfo {
+            VariantDataType dataType;
+            StoreField field;
+            int fieldIndex;
+            boolean desc;
+        }
+
+        List<SortInfo> sortInfos = new ArrayList<>();
+        for (String fn : fieldsList) {
+            SortInfo si = new SortInfo();
+            String f = UtString.removePrefix(fn, "*");
+            if (f == null) {
+                si.desc = false;
+                si.field = getField(fn);
+            } else {
+                si.desc = true;
+                si.field = getField(f);
+            }
+            si.fieldIndex = si.field.getIndex();
+            si.dataType = si.field.getStoreDataType().getDataType();
+            sortInfos.add(si);
+        }
+
+        if (sortInfos.size() == 1) {
+            SortInfo si = sortInfos.get(0);
+            getRecords().sort((o1, o2) -> {
+                int v = VariantDataType.compare(o1.getValue(si.fieldIndex),
+                        o2.getValue(si.fieldIndex), si.dataType);
+                if (si.desc) {
+                    v = -v;
+                }
+                return v;
+            });
+        } else {
+            getRecords().sort((o1, o2) -> {
+                int v = 0;
+                for (SortInfo si : sortInfos) {
+                    v = VariantDataType.compare(o1.getValue(si.fieldIndex),
+                            o2.getValue(si.fieldIndex), si.dataType);
+                    if (v != 0) {
+                        if (si.desc) {
+                            v = -v;
+                        }
+                        break;
+                    }
+                }
+                return v;
+            });
+        }
     }
 
 }

@@ -136,4 +136,26 @@ public enum VariantDataType {
         }
     }
 
+    public static int compare(Object v1, Object v2, VariantDataType dataType) {
+        switch (dataType) {
+            case INT:
+                return Integer.compare(UtCnv.toInt(v1), UtCnv.toInt(v2));
+            case LONG:
+                return Long.compare(UtCnv.toLong(v1), UtCnv.toLong(v2));
+            case DOUBLE:
+                return Double.compare(UtCnv.toDouble(v1), UtCnv.toDouble(v2));
+            case DATETIME:
+                return UtCnv.toDateTime(v1).compareTo(UtCnv.toDateTime(v2));
+            case BOOLEAN:
+                return Boolean.compare(UtCnv.toBoolean(v1), UtCnv.toBoolean(v2));
+            case STRING:
+                return UtCnv.toString(v1).compareTo(UtCnv.toString(v2));
+            // blob и object - не сравниваем...
+            case BLOB:
+            case OBJECT:
+            default:
+                return 0;
+        }
+    }
+
 }
