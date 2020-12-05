@@ -33,6 +33,15 @@ public class StoreIndexImpl implements StoreIndex {
         return index.get(key);
     }
 
+    public StoreRecord get(Object key, boolean autoAdd) {
+        StoreRecord rec = get(key);
+        if (rec == null && autoAdd) {
+            rec = store.add();
+            rec.setValue(field.getIndex(), key);
+        }
+        return rec;
+    }
+
     public void reindex() {
         index = new HashMap<>();
         int fidx = field.getIndex();

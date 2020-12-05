@@ -47,5 +47,19 @@ public class StoreIndex_Test extends App_Test {
         //
     }
 
+    @Test
+    public void auto_add() throws Exception {
+        Store st = createSt1();
+        StoreIndex idx = st.getIndex("id");
+        int sz = st.size();
+        StoreRecord rec = idx.get(5555);
+        assertNull(rec);
+        assertEquals(sz, st.size());
+
+        rec = idx.get(5555, true);
+        assertEquals(sz + 1, st.size());
+        assertEquals(rec.getValue("id"), 5555L);
+    }
+
 
 }
