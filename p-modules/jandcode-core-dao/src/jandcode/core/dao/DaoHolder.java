@@ -44,12 +44,18 @@ public interface DaoHolder extends Comp {
     Collection<DaoHolderRule> getRules();
 
     /**
-     * Получить имя daoInvoker для элемента хранилища с указанными именем.
+     * Получить имя daoInvoker для элемента хранилища.
      *
-     * @param itemName имя элемента
+     * @param item элемент
      * @return имя daoInvoker
      */
-    String resolveDaoInvokerName(String itemName);
+    String resolveDaoInvokerName(DaoHolderItem item);
+
+    /**
+     * Какой {@link DaoInvoker} используется для выполнения по умолчанию.
+     * По умолчанию: 'default'
+     */
+    String getDaoInvokerName();
 
     /**
      * Добавить правило для получения имени daoInvoker по имени элемента хранилища.
@@ -63,20 +69,22 @@ public interface DaoHolder extends Comp {
     /**
      * Добавить dao.
      *
-     * @param name       имя dao
-     * @param className  имя dao-класса
-     * @param methodName имя dao-метода
+     * @param name           имя dao
+     * @param className      имя dao-класса
+     * @param methodName     имя dao-метода
+     * @param daoInvokerName имя DaoInvoker, можут быть пустим для автоопределения
      */
-    void addItem(String name, String className, String methodName);
+    void addItem(String name, String className, String methodName, String daoInvokerName);
 
     /**
      * Добавить dao.
      *
-     * @param name       имя dao
-     * @param cls        dao-класс
-     * @param methodName имя dao-метода
+     * @param name           имя dao
+     * @param cls            dao-класс
+     * @param methodName     имя dao-метода
+     * @param daoInvokerName имя DaoInvoker, можут быть пустим для автоопределения
      */
-    void addItem(String name, Class cls, String methodName);
+    void addItem(String name, Class cls, String methodName, String daoInvokerName);
 
     /**
      * Добавить элемент из конфигурации.
@@ -98,7 +106,9 @@ public interface DaoHolder extends Comp {
      *     <li>item: дочерние элементы такой же структуры. К их именам будут добавлен
      *     префикс через '/' в виде имени текущего элемента</li>
      *     <li>prefix: если указан атрибут, то используется он в качестве префикса,
-     *     вместо имени. Можно указать пустое знаечение</li>
+     *     вместо имени. Можно указать пустое значение</li>
+     *     <li>provider: если указан, то эта конфигурация передается соотвествующему
+     *     провайдеру, который предоставит список элементов</li>
      * </ul>
      *
      * @param conf   конфигурация

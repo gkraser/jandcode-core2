@@ -17,7 +17,7 @@ class DaoHolder_Test extends App_Test {
         }
         utils.delim("items")
         for (z in h.getItems()) {
-            println "${UtString.padRight(z.name, 40)} ${z.daoInvokerName}"
+            println "${UtString.padRight(z.name, 40)} ${h.resolveDaoInvokerName(z)}"
         }
         utils.delim()
     }
@@ -83,7 +83,7 @@ class DaoHolder_Test extends App_Test {
         DaoService svc = app.bean(DaoService.class)
         DaoHolder h = svc.getDaoHolder("test1");
         //
-        assertEquals(h.getItems().get("d1/p1").getDaoInvokerName(), "filters1")
+        assertEquals(h.resolveDaoInvokerName(h.getItems().get("d1/p1")), "filters1")
         //
         Object a = h.invokeDao("d1/p1", 5, 6)
         assertEquals(a, 11)
@@ -96,9 +96,9 @@ class DaoHolder_Test extends App_Test {
         //
         prnHolder(h)
         //
-        assertEquals(h.items.get("dao1/sum").daoInvokerName, "global")
-        assertEquals(h.items.get("mySuper1/test1").daoInvokerName, "t1")
-        assertEquals(h.items.get("recursive_pak/mySuper2/test1").daoInvokerName, "x2")
+        assertEquals(h.resolveDaoInvokerName(h.items.get("dao1/sum")), "global")
+        assertEquals(h.resolveDaoInvokerName(h.items.get("mySuper1/test1")), "t1")
+        assertEquals(h.resolveDaoInvokerName(h.items.get("recursive_pak/mySuper2/test1")), "x2")
     }
 
 

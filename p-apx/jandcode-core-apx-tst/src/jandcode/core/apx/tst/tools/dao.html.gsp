@@ -29,7 +29,7 @@
     <% for (r in items) { %>
     <tr>
       <td>${r.name}</td>
-      <td>${r.daoInvokerName}</td>
+      <td>${dh.resolveDaoInvokerName(r)}</td>
       <td>${r.methodDef.cls.name}</td>
       <td>${r.methodDef.method.name}</td>
       <td>${r.methodDef.method}</td>

@@ -1,5 +1,6 @@
 package jandcode.core.dao;
 
+import jandcode.commons.named.*;
 import jandcode.core.*;
 
 import java.util.*;
@@ -33,5 +34,10 @@ public interface DaoService extends Comp, IDaoClassFactory {
      * logger для процесса исполнения dao
      */
     DaoLogger getDaoLogger();
+
+    /**
+     * Провайдеры элементов хранилища dao
+     */
+    NamedList<DaoHolderItemProvider> getDaoHolderItemProviders();
 
 }

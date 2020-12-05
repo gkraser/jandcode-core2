@@ -14,6 +14,8 @@ public class DaoServiceImpl extends BaseComp implements DaoService {
     private NamedList<DaoHolderDef> daoHolders = new DefaultNamedList<>("DaoHolder [{0}] not found");
     private List<DaoInvokerResolver> daoInvokerResolvers = new ArrayList<>();
     private DaoLogger daoLogger;
+    private NamedList<DaoHolderItemProvider> daoHolderItemProviders = new DefaultNamedList<>("item-provider [{0}] not found");
+
 
     class DaoInvokerDef extends Named {
         Conf conf;
@@ -73,6 +75,11 @@ public class DaoServiceImpl extends BaseComp implements DaoService {
         }
 
         //
+        for (Conf x : daoConf.getConfs("item-provider")) {
+            daoHolderItemProviders.add((DaoHolderItemProvider) getApp().create(x));
+        }
+
+        //
         for (Conf x : daoConf.getConfs("invoker")) {
             daoInvokers.add(new DaoInvokerDef(x));
         }
@@ -113,4 +120,9 @@ public class DaoServiceImpl extends BaseComp implements DaoService {
     public DaoLogger getDaoLogger() {
         return daoLogger;
     }
+
+    public NamedList<DaoHolderItemProvider> getDaoHolderItemProviders() {
+        return daoHolderItemProviders;
+    }
+
 }

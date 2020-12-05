@@ -62,7 +62,7 @@ public class Dao_Test extends App_Test {
     public void invoker_resolver() throws Exception {
         DaoHolder h1 = app.bean(DaoService.class).getDaoHolder("h1");
         for (var z : h1.getItems()) {
-            System.out.println(UtString.padRight(z.getName(), 40) + " " + z.getDaoInvokerName());
+            System.out.println(UtString.padRight(z.getName(), 40) + " " + h1.resolveDaoInvokerName(z));
         }
         String s;
         s = (String) h1.invokeDao("p1/checkModelLink/m1");

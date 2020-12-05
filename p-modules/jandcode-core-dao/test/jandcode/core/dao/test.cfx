@@ -14,9 +14,7 @@
                     class="jandcode.core.dao.data.Filter1"/>
         </invoker>
 
-        <holder name="test1">
-            <rule name="default" mask="**/*" invoker="filters1"/>
-
+        <holder name="test1" invoker="filters1">
             <item name="i" package="jandcode.core.dao.data"/>
             <item name="pfx" package="jandcode.core.dao.data">
                 <item name="c1/p1" class="jandcode.core.dao.data.recursive_pak.Dao11"
@@ -36,9 +34,8 @@
 
         </holder>
 
-        <holder name="check-rules">
+        <holder name="check-rules" invoker="global">
 
-            <rule name="i" mask="**/*" invoker="global"/>
             <rule name="i" mask="**/test*" invoker="t1"/>
             <rule name="i" mask="**/*2*/**/*" invoker="x2"/>
 

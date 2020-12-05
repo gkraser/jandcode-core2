@@ -12,7 +12,6 @@
         </invoker>
 
         <holder name="default">
-            <rule name="default" mask="**/*" invoker="default"/>
         </holder>
 
         <!--
@@ -22,6 +21,11 @@
         <invoker-resolver name="NAME"
                           class="jandcode.core.dao.DaoInvokerResolver"/>
         
+        Провайдеры элементов для daoInvoker:
+
+        <item-provider name="NAME"
+                       class="jandcode.core.dao.DaoHolderItemProvider"/>
+
         -->
     </dao>
 
