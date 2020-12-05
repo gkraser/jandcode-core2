@@ -4,6 +4,9 @@
     <dao>
         <invoker-resolver name="model"
                           class="jandcode.core.dbm.dao.impl.ModelDaoInvokerResolver"/>
+
+        <item-provider name="model"
+                       class="jandcode.core.dbm.dao.impl.ModelDaoHolderItemProvider"/>
     </dao>
 
     <dbm>
@@ -19,6 +22,10 @@
                     <filter name="model-db" weight="10"
                             class="jandcode.core.dbm.dao.impl.ModelDaoFilter"/>
                 </invoker>
+
+                <holder name="default">
+                </holder>
+
             </dao>
 
         </model>

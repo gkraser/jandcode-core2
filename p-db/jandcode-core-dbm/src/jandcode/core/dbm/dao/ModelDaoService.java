@@ -14,4 +14,9 @@ public interface ModelDaoService extends Comp, IModelMember {
      */
     DaoInvoker getDaoInvoker();
 
+    /**
+     * Личный DaoHolder для модели
+     */
+    DaoHolder getDaoHolder();
+
 }
