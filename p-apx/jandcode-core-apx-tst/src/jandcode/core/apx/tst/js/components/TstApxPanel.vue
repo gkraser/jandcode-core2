@@ -19,7 +19,8 @@
             </template>
         </div>
 
-        <template v-if="(isCfg && $slots['tools']) || (isCfg && debugBg) || (isCfg && fontsize)">
+        <template
+                v-if="(isCfg && !!$slots['tools']) || (isCfg && debugBg) || (isCfg && fontsize)">
             <div class="tst-apx-panel--head">
                 <tst-btn @click="resetCfg" label="resetCfg"/>
                 <tst-checkbox label="debugBg" v-model="own.cfg.debugBg" v-if="debugBg"/>
@@ -37,7 +38,8 @@
         </div>
 
         <div class="tst-apx-panel--body"
-             :class="[noPadding?'tst-apx-panel--no-padding':'']">
+             :class="[noPadding?'tst-apx-panel--no-padding':'', bodyClass]"
+             :style="bodyStyle">
             <slot></slot>
         </div>
     </div>
@@ -60,6 +62,12 @@ export default {
         noPadding: {
             type: Boolean,
             default: null
+        },
+        bodyClass: {
+            default: ''
+        },
+        bodyStyle: {
+            default: ''
         }
     },
     data() {
@@ -96,7 +104,7 @@ export default {
 
         // есть ли на странице конфигурация
         isCfg() {
-            return this.own && this.own.cfg && this.own.cfgStore
+            return !!this.own && !!this.own.cfg && !!this.own.cfgStore
         },
 
     },
