@@ -35,7 +35,7 @@
 
 <script>
 import {config as btnConfig} from 'jandcode.core.apx.webui/js/components/btn/JcBtn'
-
+import {tst} from '../vendor'
 
 let btnKinds = []
 for (let z in btnConfig.kind) {
@@ -43,7 +43,7 @@ for (let z in btnConfig.kind) {
 }
 
 export default {
-    extends: Vue.component('tst-apx-page'),
+    mixins: [tst.mixins.cfgStore],
 
     props: {},
     data() {

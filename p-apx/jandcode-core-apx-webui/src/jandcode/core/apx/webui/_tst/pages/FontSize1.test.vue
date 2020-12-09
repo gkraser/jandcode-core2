@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import * as tst from 'jandcode.core.apx.tst'
+import {tst} from '../vendor'
 
 let fontSizesStd = [
     'xs', 'sm', 'md', 'lg', 'xl'
@@ -37,9 +37,8 @@ let fontSizesVar = [
 ]
 
 export default {
-    extends: Vue.component('tst-apx-page'),
+    mixins: [tst.mixins.cfgStore, tst.mixins.lorem],
     components: {},
-    mixins: [tst.mixins.lorem],
 
     created() {
         this.cfgStore.applyDefault({})

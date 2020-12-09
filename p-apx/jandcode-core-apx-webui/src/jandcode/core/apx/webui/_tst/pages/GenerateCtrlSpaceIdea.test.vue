@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import {tst} from '../vendor'
 
 async function compFromModules(moduleNames) {
 
@@ -43,7 +44,7 @@ async function compFromModules(moduleNames) {
 
 
 export default {
-    extends: Vue.component('tst-apx-page'),
+    mixins: [tst.mixins.cfgStore],
     components: {},
     created() {
         this.cfgStore.applyDefault({})

@@ -17,6 +17,7 @@ Jc.tst.runModule = runModule
 
 //
 export * from './run-module'
+export * from './cfg-store'
 
 //
 export {

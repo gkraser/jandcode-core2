@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import {apx} from '../vendor'
+import {apx, tst} from '../vendor'
 import AppToolbarDemoSet, {createToolbarSets} from './_components/AppToolbarDemoSet'
 
 let dialogButtonGroups = []
@@ -30,8 +30,7 @@ for (let b in apx.frame.dialogButtonGroups) {
 }
 
 export default {
-    extends: Vue.component('tst-apx-page'),
-    mixins: [apx.JcFrame],
+    mixins: [tst.mixins.cfgStore, apx.JcFrame],
     components: {
         Dialog: apx.components.JcDecorFrameDialog,
         AppToolbarDemoSet,

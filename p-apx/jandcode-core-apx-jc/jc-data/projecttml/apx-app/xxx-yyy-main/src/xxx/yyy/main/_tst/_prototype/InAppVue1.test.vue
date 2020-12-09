@@ -6,7 +6,7 @@
 
 <script>
 
-import {main} from '../vendor'
+import {main, tst} from '../vendor'
 
 // куда монтировать (по умолчанию в .jc-app--main)
 // export let mountTo = '.jc-app--main'
@@ -14,7 +14,7 @@ import {main} from '../vendor'
 main.run()
 
 export default {
-    extends: Vue.component('tst-apx-page'),
+    mixins: [tst.mixins.cfgStore],
     components: {},
     created() {
         this.cfgStore.applyDefault({})

@@ -8,8 +8,10 @@
 </template>
 
 <script>
+import {tst} from '../vendor'
+
 export default {
-    extends: Vue.component('tst-apx-page'),
+    mixins: [tst.mixins.cfgStore],
     components: {},
     created() {
         this.cfgStore.applyDefault({})

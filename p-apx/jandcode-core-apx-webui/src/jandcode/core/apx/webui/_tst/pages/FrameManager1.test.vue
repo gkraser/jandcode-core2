@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import {apx, jsaBase} from '../vendor'
+import {apx, jsaBase, tst} from '../vendor'
 import Home from './_frames/fm/Home'
 import Frame2 from './_frames/fm/Frame2'
 import Dialog1 from './_frames/fm/Dialog1'
@@ -74,8 +74,7 @@ jsaBase.app.onBeforeRun(function() {
 })
 
 export default {
-    extends: Vue.component('tst-apx-page'),
-    mixins: [apx.JcApp],
+    mixins: [tst.mixins.cfgStore, apx.JcApp],
 
     components: {},
 

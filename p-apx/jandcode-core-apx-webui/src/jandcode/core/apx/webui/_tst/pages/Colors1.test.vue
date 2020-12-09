@@ -29,12 +29,13 @@
 </template>
 
 <script>
+import {tst} from '../vendor'
 
 let colors = ['gray', 'primary', 'secondary', 'accent', 'positive', 'negative', 'info', 'warning']
 let tones = [100, 200, 300, 400, 500, 600, 700, 800, 900]
 
 export default {
-    extends: Vue.component('tst-apx-page'),
+    mixins: [tst.mixins.cfgStore],
     components: {},
     created() {
         this.cfgStore.applyDefault({})

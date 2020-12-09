@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import {apx} from '../vendor'
+import {apx, tst} from '../vendor'
 
 import AppToolbarDemoSet, {createToolbarSets, SubMenu1} from './_components/AppToolbarDemoSet'
 import SideMenu1 from './_components/SideMenu1'
@@ -65,8 +65,7 @@ let sideMenu_itemsSet = {
 }
 
 export default {
-    extends: Vue.component('tst-apx-page'),
-    mixins: [apx.JcApp],
+    mixins: [tst.mixins.cfgStore, apx.JcApp],
     components: {
         App: apx.components.JcDecorAppStd,
         AppToolbarDemoSet,

@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import {tst} from '../vendor'
 import SideMenu1 from './_components/SideMenu1'
 
 let itemsSet = {
@@ -67,7 +68,7 @@ let itemsSet = {
 }
 
 export default {
-    extends: Vue.component('tst-apx-page'),
+    mixins: [tst.mixins.cfgStore],
     components: {
         SideMenu1
     },

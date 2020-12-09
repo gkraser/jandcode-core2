@@ -38,9 +38,10 @@
 
 <script>
 import AppToolbarDemoSet, {createToolbarSets, SubMenu1} from './_components/AppToolbarDemoSet'
+import {tst} from '../vendor'
 
 export default {
-    extends: Vue.component('tst-apx-page'),
+    mixins: [tst.mixins.cfgStore],
     components: {
         AppToolbarDemoSet,
         SubMenu1,

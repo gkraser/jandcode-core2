@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import {apx} from '../vendor'
+import {apx, tst} from '../vendor'
 import Frame1 from './_frames/fm/Frame1'
 import Frame2 from './_frames/fm/Frame2'
 
@@ -35,7 +35,7 @@ import Frame2 from './_frames/fm/Frame2'
 // })
 
 export default {
-    extends: Vue.component('tst-apx-page'),
+    mixins: [tst.mixins.cfgStore],
     components: {},
     created() {
         this.cfgStore.applyDefault({})

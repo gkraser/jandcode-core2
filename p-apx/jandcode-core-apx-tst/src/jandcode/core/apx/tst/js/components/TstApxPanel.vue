@@ -1,33 +1,31 @@
 <template>
     <div class="tst-apx-panel">
         <div class="tst-apx-panel--head">
-            <template v-if="cfg.path">
-                <div class="tst-apx-panel--value-big">{{ cfg.fileName }}</div>
+            <template v-if="cfgTst.path">
+                <div class="tst-apx-panel--value-big">{{ cfgTst.fileName }}</div>
                 <span class="tst-apx-panel--divider"></span>
                 <div class="tst-apx-panel--value-small"><a
-                        :href="'?path='+cfg.filePath">{{ cfg.filePath }}/</a>
+                        :href="'?path='+cfgTst.filePath">{{ cfgTst.filePath }}/</a>
                 </div>
                 <span class="tst-apx-panel--divider" :style="{flex:1}"></span>
                 <div class="tst-apx-panel--value-small">Theme:</div>
                 <select v-model="curTheme">
-                    <option v-for="theme in cfg.themes">{{ theme.path }}</option>
+                    <option v-for="theme in cfgTst.themes">{{ theme.path }}</option>
                 </select>
                 <button @click="resetTheme">Reset theme</button>
-                <button v-for="n in cfg.themeNamesSwitch" @click="switchTheme(n)">&#8594;
+                <button v-for="n in cfgTst.themeNamesSwitch" @click="switchTheme(n)">
+                    &#8594;
                     {{ n }}
                 </button>
             </template>
         </div>
 
-        <template
-                v-if="(isCfg && !!$slots['tools']) || (isCfg && debugBg) || (isCfg && fontsize)">
-            <div class="tst-apx-panel--head">
-                <tst-btn @click="resetCfg" label="resetCfg"/>
-                <tst-checkbox label="debugBg" v-model="own.cfg.debugBg" v-if="debugBg"/>
-                <tst-fontsize v-if="fontsize"/>
-                <slot name="tools"/>
-            </div>
-        </template>
+        <div class="tst-apx-panel--head">
+            <tst-btn @click="resetCfg" label="resetCfg"/>
+            <tst-checkbox label="debugBg" v-model="cfg.debugBg" v-if="debugBg"/>
+            <tst-fontsize v-if="fontsize"/>
+            <slot name="tools"/>
+        </div>
 
         <div class="tst-apx-panel--head" v-if="$slots['tools-1']">
             <slot name="tools-1"/>
@@ -47,9 +45,11 @@
 
 <script>
 import {jsaBase} from '../vendor'
+import * as mixins from '../mixins'
 
 export default {
     name: 'tst-apx-panel',
+    mixins: [mixins.cfgStore],
     props: {
         debugBg: {
             type: Boolean,
@@ -76,14 +76,9 @@ export default {
         }
     },
     created() {
-        if (this.isCfg || this.debugBg) {
-            this.own.cfgStore.applyDefault({
-                debugBg: false,
-            })
-            this.own.$watch('cfg', () => {
-                document.body.classList.toggle("debug-bg", this.own.cfg.debugBg)
-            }, {deep: true, immediate: true})
-        }
+        this.cfgStore.applyDefault({
+            debugBg: false,
+        })
     },
     watch: {
         curTheme: function(v) {
@@ -93,18 +88,8 @@ export default {
         }
     },
     computed: {
-        cfg() {
+        cfgTst() {
             return Jc.cfg.tst || {}
-        },
-
-        // какой компонент-страница использует этот в качестве шаблона
-        own() {
-            return this.$parent
-        },
-
-        // есть ли на странице конфигурация
-        isCfg() {
-            return !!this.own && !!this.own.cfg && !!this.own.cfgStore
         },
 
     },
@@ -120,7 +105,10 @@ export default {
             window.location.search = decodeURIComponent(jsaBase.url.params(prms))
         },
         resetCfg() {
-            return this.own.cfgStore.reset();
+            return this.cfgStore.reset();
+        },
+        applyCfg() {
+            document.body.classList.toggle("debug-bg", this.cfg.debugBg)
         }
     }
 }

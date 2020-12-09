@@ -22,12 +22,12 @@
 </template>
 
 <script>
-import {apx} from '../vendor'
+import {apx, tst} from '../vendor'
 
 let act = 'jandcode/core/apx/webui/_tst/pages/_actions/action-json1.json'
 
 export default {
-    extends: Vue.component('tst-apx-page'),
+    mixins: [tst.mixins.cfgStore],
     components: {},
     created() {
         this.cfgStore.applyDefault({})

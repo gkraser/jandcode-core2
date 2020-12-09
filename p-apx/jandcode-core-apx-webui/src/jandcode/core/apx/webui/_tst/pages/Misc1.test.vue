@@ -83,11 +83,10 @@
 </template>
 
 <script>
-import * as tst from 'jandcode.core.apx.tst'
+import {tst} from '../vendor'
 
 export default {
-    extends: Vue.component('tst-apx-page'),
-    mixins: [tst.mixins.lorem],
+    mixins: [tst.mixins.cfgStore, tst.mixins.lorem],
     components: {},
     created() {
         this.cfgStore.applyDefault({

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import {apx} from './vendor'
+import {apx, tst} from './vendor'
 
 //define some sample data
 let tabledata = [
@@ -23,7 +23,7 @@ let tabledata = [
 ];
 
 export default {
-    extends: Vue.component('tst-apx-page'),
+    mixins: [tst.mixins.cfgStore],
     components: {},
     created() {
         this.cfgStore.applyDefault({})

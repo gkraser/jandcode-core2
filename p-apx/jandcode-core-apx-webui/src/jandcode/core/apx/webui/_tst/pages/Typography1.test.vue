@@ -99,7 +99,7 @@
 
 <script>
 import ClassExam from './_components/ClassExam'
-import * as tst from 'jandcode.core.apx.tst'
+import {tst} from '../vendor'
 
 let textStyles = [
     '__no_style__',
@@ -126,8 +126,7 @@ let textSizes = [
 ]
 
 export default {
-    extends: Vue.component('tst-apx-page'),
-    mixins: [tst.mixins.lorem],
+    mixins: [tst.mixins.cfgStore, tst.mixins.lorem],
     components: {
         ClassExam,
     },
