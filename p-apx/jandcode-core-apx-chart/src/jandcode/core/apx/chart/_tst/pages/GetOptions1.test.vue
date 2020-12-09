@@ -1,12 +1,8 @@
 <template>
     <tst-apx-panel class="getoptions1-test-164005da">
-        <template #tools>
-        </template>
-
         <tst-panels>
             <jc-chart :options="chart1"></jc-chart>
         </tst-panels>
-
     </tst-apx-panel>
 </template>
 

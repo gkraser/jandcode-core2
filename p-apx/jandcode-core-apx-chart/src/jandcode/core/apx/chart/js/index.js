@@ -1,5 +1,7 @@
 import {echarts, apx} from './vendor'
 import * as components from './components'
+import langRU from './langRU'
+
 export * from './chart-builder'
 //
 
@@ -13,6 +15,8 @@ apx.jsaBase.cfg.setDefault({
 
 // компоненты
 apx.jsaVue.registerComponents(components)
+// локаль
+echarts.registerLocale('RU', langRU)
 
 export {
     components,

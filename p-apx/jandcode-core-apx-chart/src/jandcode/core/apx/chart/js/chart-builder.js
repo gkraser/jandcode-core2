@@ -28,8 +28,6 @@ export class ChartBuilder {
             base_2: '#59B06B',
             base_3: '#2B92BF',
         }
-        // основной dataset, считаем он всегда есть
-        this.dataset = this.params.dataset || []
         // утилиты для дат от Quasar
         this.q_date = apx.Quasar.date
     }

@@ -6,6 +6,10 @@
 <script>
 import {apx, echarts} from '../vendor'
 
+function getLocale() {
+    return 'RU' // todo locale нужно как то по правильному определять...
+}
+
 /**
  * Простой vue-binding для echarts.
  *
@@ -92,7 +96,10 @@ export default {
 
         __createChartInst() {
             let theme = this.theme || Jc.cfg.echarts.theme
-            let chartInst = echarts.init(this.$el, theme)
+            let locale = getLocale()
+            let chartInst = echarts.init(this.$el, theme, {
+                locale: locale,
+            })
             chartInst.setOption(this.__getOptions())
             return chartInst
         },
