@@ -5,7 +5,11 @@
         </template>
 
         <tst-panels>
-            <jc-panel :class="paneClass">hello</jc-panel>
+            <jc-panel :class="paneClass">hello panel</jc-panel>
+        </tst-panels>
+
+        <tst-panels cfg-key="key2">
+            <div :class="paneClass">hello div</div>
         </tst-panels>
 
     </tst-apx-panel>

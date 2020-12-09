@@ -1,14 +1,15 @@
 <template>
     <div>
         <portal to="tools">
-            <tst-select v-model="cfg.panels.count" :options="countSets"
+            <q-separator vertical/>
+            <tst-select v-model="cfgMy.count" :options="countSets"
                         label="count"/>
-            <tst-select v-model="cfg.panels.height" :options="heightSets"
+            <tst-select v-model="cfgMy.height" :options="heightSets"
                         label="height"/>
-            <tst-checkbox label="paddingLeft" v-model="cfg.panels.paddingLeft"/>
+            <tst-checkbox label="paddingLeft" v-model="cfgMy.paddingLeft"/>
         </portal>
 
-        <div class="row q-gutter-x-md" :style="bodyStyle">
+        <div class="row q-gutter-x-md q-mb-md" :style="bodyStyle">
             <template v-for="n in panels">
                 <jc-panel :title="'Панель ' + n" class="col"
                           :key="uniKey()">
@@ -55,11 +56,15 @@ export default {
     components: {
         PanelWrap,
     },
-    props: {},
+    props: {
+        cfgKey: {
+            default: 'panels'
+        }
+    },
     created() {
         this.key = 0
         this.cfgStore.applyDefault({
-            panels: {
+            [this.cfgKey]: {
                 count: '1',
                 height: '300px',
                 paddingLeft: false
@@ -76,20 +81,25 @@ export default {
             paddingLeftValue: '300px',
         }
     },
+    computed: {
+        cfgMy() {
+            return this.cfg[this.cfgKey]
+        }
+    },
     methods: {
         applyCfg() {
-            let cfg = this.cfg
+            let cfg = this.cfgMy
             //
-            let count = apx.jsaBase.toInt(cfg.panels.count, 1)
+            let count = apx.jsaBase.toInt(cfg.count, 1)
             let panels = []
             for (let i = 1; i <= count; i++) {
                 panels.push('' + i)
             }
             this.panels = panels
-            this.panelHeight = cfg.panels.height
+            this.panelHeight = cfg.height
             //
             let bodyStyle = {}
-            if (cfg.panels.paddingLeft) {
+            if (cfg.paddingLeft) {
                 bodyStyle.paddingLeft = this.paddingLeftValue
             }
             this.bodyStyle = bodyStyle

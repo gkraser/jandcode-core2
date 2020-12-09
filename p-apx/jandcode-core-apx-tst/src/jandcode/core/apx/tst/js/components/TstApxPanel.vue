@@ -25,7 +25,7 @@
             <tst-checkbox label="debugBg" v-model="cfg.debugBg" v-if="debugBg"/>
             <tst-fontsize v-if="fontsize"/>
             <slot name="tools"/>
-            <portal-target name="tools"></portal-target>
+            <portal-target name="tools" multiple></portal-target>
         </div>
 
         <div class="tst-apx-panel--head" v-if="$slots['tools-1']">
