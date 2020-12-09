@@ -154,4 +154,9 @@
         <module-mapping module="chance" real-module="chance/dist/chance.min.js"/>
     </lib>
 
+    <lib name="portal-vue" version="2.1.7" client="true">
+        <include-client mask="dist/**/*.min.js"/>
+        <module-mapping module="portal-vue" real-module="portal-vue/dist/portal-vue.umd.min.js"/>
+    </lib>
+
 </root>

@@ -25,6 +25,7 @@
             <tst-checkbox label="debugBg" v-model="cfg.debugBg" v-if="debugBg"/>
             <tst-fontsize v-if="fontsize"/>
             <slot name="tools"/>
+            <portal-target name="tools"></portal-target>
         </div>
 
         <div class="tst-apx-panel--head" v-if="$slots['tools-1']">
@@ -184,6 +185,16 @@ export default {
 
 .tst-apx-panel--divider {
   width: 4px;
+}
+
+.tst-apx-panel--head .vue-portal-target {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.tst-apx-panel--head .vue-portal-target > *:not(:first-child) {
+  margin-left: 8px;
 }
 
 </style>

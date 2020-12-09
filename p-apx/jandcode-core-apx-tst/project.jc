@@ -27,6 +27,7 @@ class P extends ProjectScript {
         include(JsaJavaProject).with {
             nodeJsDepends(
                     "chance",
+                    "portal-vue",
             )
         }
     }

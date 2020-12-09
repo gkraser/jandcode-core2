@@ -44,3 +44,14 @@ export default {
     }
 }
 </script>
+
+<style>
+.tst-select {
+  display: flex;
+  align-items: center;
+}
+
+.tst-select > span {
+  margin-right: 4px;
+}
+</style>

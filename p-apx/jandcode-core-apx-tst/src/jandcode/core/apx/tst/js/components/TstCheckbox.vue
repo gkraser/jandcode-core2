@@ -21,3 +21,14 @@ export default {
     }
 }
 </script>
+
+<style>
+.tst-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+.tst-checkbox > span {
+  margin-left: 4px;
+}
+</style>
