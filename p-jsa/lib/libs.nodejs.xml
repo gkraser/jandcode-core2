@@ -159,4 +159,10 @@
         <module-mapping module="portal-vue" real-module="portal-vue/dist/portal-vue.umd.min.js"/>
     </lib>
 
+    <lib name="echarts" version="5.0.0" client="true">
+        <include-client mask="dist/**/echarts.min.js"/>
+        <include-client mask="dist/extension/*.min.js"/>
+        <module-mapping module="echarts" real-module="echarts/dist/echarts.min.js"/>
+    </lib>
+
 </root>

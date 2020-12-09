@@ -18,6 +18,7 @@ class P extends ProjectScript {
                 "jandcode-core-apx",
                 "jandcode-core-apx-webui",
                 "jandcode-core-apx-datagrid",
+                "jandcode-core-apx-chart",
                 "jandcode-core-apx-jc",
                 "jandcode-core-apx-tst",
             )
