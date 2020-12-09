@@ -3,9 +3,9 @@
         <template #tools>
         </template>
 
-        hello chart
-
-        <jc-chart></jc-chart>
+        <tst-panels>
+            <jc-chart :options="options"></jc-chart>
+        </tst-panels>
 
     </tst-apx-panel>
 </template>
@@ -18,6 +18,20 @@ export default {
     components: {},
     created() {
         this.cfgStore.applyDefault({})
+        //
+        this.options = {
+            xAxis: {
+                type: 'category',
+                data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [{
+                data: [150, 230, 224, 218, 135, 147, 260],
+                type: 'line'
+            }]
+        }
     },
     data() {
         return {}
