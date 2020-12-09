@@ -81,6 +81,7 @@ export default {
     },
 
     beforeDestroy() {
+        this.__destroyChartInst(this.chartInst)
         this.rsw.destroy()
         this.rsw = null
         this.chartInst.dispose()
@@ -115,6 +116,15 @@ export default {
         __setChartInst(chartInst) {
             if (apx.jsaBase.isFunction(this.options.setChartInst)) {
                 this.options.setChartInst(chartInst, this)
+            }
+        },
+
+        /**
+         * Уведомить объект options, что экземпляр уничтожается, если он это поддерживает
+         */
+        __destroyChartInst(chartInst) {
+            if (apx.jsaBase.isFunction(this.options.destroyChartInst)) {
+                this.options.destroyChartInst(chartInst, this)
             }
         },
 
