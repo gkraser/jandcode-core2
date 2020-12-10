@@ -11,7 +11,7 @@
 
         <div class="row q-gutter-x-md q-mb-md" :style="bodyStyle">
             <template v-for="n in panels">
-                <jc-panel :title="'Панель ' + n" class="col"
+                <jc-panel :title="titleForNum(n)" class="col"
                           :key="uniKey()">
                     <PanelWrap :height="panelHeight">
                         <slot name="default">
@@ -59,7 +59,12 @@ export default {
     props: {
         cfgKey: {
             default: 'panels'
+        },
+
+        title: {
+            default: 'Панель'
         }
+
     },
     created() {
         this.key = 0
@@ -110,7 +115,18 @@ export default {
         uniKey() {
             this.key++
             return '' + this.key
+        },
+
+        /**
+         * Заголовок для панели номер n
+         */
+        titleForNum(n) {
+            if (this.panels.length <= 1) {
+                return this.title
+            }
+            return this.title + ' (' + n + ')'
         }
+
     },
 }
 </script>
