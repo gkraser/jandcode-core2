@@ -89,6 +89,18 @@ export class ChartBuilder {
     destroyChartInst(chartInst, compInst) {
     }
 
+    /**
+     * Обновить все или несколько параметров.
+     * После вызова этого метода, getOptions() будет пересчитано заново.
+     * Используется для имитации реактивности, например в тестах.
+     *
+     * @param params {Object} новые значения параметров
+     */
+    updateParams(params) {
+        apx.jsaBase.extend(this.params, params)
+        this.__options = null
+    }
+
     ////// options utils
 
     /**
