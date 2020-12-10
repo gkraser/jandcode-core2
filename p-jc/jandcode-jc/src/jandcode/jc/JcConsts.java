@@ -13,6 +13,7 @@ public class JcConsts {
     public static final String OPT_PROJECTFILE = "f";
     public static final String OPT_CSC = "csc";
     public static final String OPT_ENV_PROD = "env-prod";
+    public static final String OPT_ENV_DEBUG = "env-debug";
 
     /**
      * Cистемные опции, используемые в Main. Их нельзя использовать в командах.
@@ -26,6 +27,7 @@ public class JcConsts {
             OPT_PROJECTFILE,
             OPT_CSC,
             OPT_ENV_PROD,
+            OPT_ENV_DEBUG,
     };
 
     /**

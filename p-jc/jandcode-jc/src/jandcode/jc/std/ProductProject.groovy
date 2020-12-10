@@ -19,7 +19,7 @@ class ProductProject extends ProjectScript {
                 // есть сборщики
                 cm.add("product", "Сборка продукта", this.&cmProduct,
                         cm.opt("q", false, "Быстрая сборка. Пропустить этап компиляции (для отладки)"),
-                        cm.opt("dev", false, "Dev-сборка. Не устанавливается флаг ctx.env.prod"),
+                        cm.opt("debug", false, "debug-сборка. Устанавливается флаг ctx.env.debug"),
                         cm.opt("u", false, "Обновление сборки. Собирает, если изменилась версия"),
                         cm.opt("l", false, "Показать сборщики"),
                 )
@@ -38,7 +38,7 @@ class ProductProject extends ProjectScript {
 
         //
         boolean quick = args.containsKey("q")
-        boolean dev = args.containsKey("dev")
+        boolean debug = args.containsKey("debug")
         boolean update = args.containsKey("u")
         boolean showBuilders = args.containsKey("l")
 
@@ -56,9 +56,12 @@ class ProductProject extends ProjectScript {
             return
         }
 
-        if (!dev) {
-            // production mode
-            ctx.env.prod = true
+        // production mode
+        ctx.env.prod = true
+
+        if (debug) {
+            // debug mode
+            ctx.env.debug = true
         }
 
 
@@ -72,7 +75,7 @@ class ProductProject extends ProjectScript {
             if (needs == null || needs.contains(b.name)) {
                 cnt++
                 b.quick = quick
-                b.dev = dev
+                b.debug = debug
                 b.update = update
                 b.args.clear()
                 b.args.putAll(args)

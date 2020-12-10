@@ -23,6 +23,10 @@
       <td>${th.app.workdir}</td>
     </tr>
     <tr>
+      <td>appConfFile</td>
+      <td>${th.app.appConfFile}</td>
+    </tr>
+    <tr>
       <td>env.dev</td>
       <td>${th.app.env.dev}</td>
     </tr>

@@ -68,6 +68,15 @@ public class MainImpl extends BaseMain {
             ctx.getEnv().setProd(false);
         }
 
+        // env-debug
+        opt = JcConsts.OPT_ENV_DEBUG;
+        if (cli.containsKey(opt)) {
+            ctx.getEnv().setDebug(true);
+        } else {
+            // false ставим явно, что бы можно было отлавливать изменения флага в дальнейшем
+            ctx.getEnv().setDebug(false);
+        }
+
         // инициализируем и там же загружаем корневой проект, если есть
         ctx.applyConfig(cfg);
 
@@ -122,6 +131,9 @@ public class MainImpl extends BaseMain {
         if (ctx.getEnv().isProd()) {
             ctx.warn("set env.prod=true");
         }
+        if (ctx.getEnv().isDebug()) {
+            ctx.warn("set env.debug=true");
+        }
 
         // выполняем
         cm.exec(cli);
@@ -136,6 +148,7 @@ public class MainImpl extends BaseMain {
                 true);
         z.addOpt(JcConsts.OPT_CSC, "Очистить кеш скриптов");
         z.addOpt(JcConsts.OPT_ENV_PROD, "Включить режим production (ctx.env.prod=true)");
+        z.addOpt(JcConsts.OPT_ENV_DEBUG, "Включить режим debug (ctx.env.debug=true)");
     }
 
 }

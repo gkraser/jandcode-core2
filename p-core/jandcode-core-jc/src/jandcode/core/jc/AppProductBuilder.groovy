@@ -1,5 +1,6 @@
 package jandcode.core.jc
 
+import jandcode.commons.*
 import jandcode.jc.*
 import jandcode.jc.std.*
 
@@ -57,17 +58,30 @@ class AppProductBuilder extends ProductBuilder {
         def cp = createLibCopier()
         cp.add(include(RootProject).modules)
         cp.add(include(RootProject).depends.prod.names)
+        if (ctx.env.debug) {
+            cp.add(include(RootProject).depends.dev.names)
+        }
         cp.add(includeLibs)
         cp.copyTo("${destDir}/lib")
 
         // app
         ant.copy(file: wd("app.cfx"), todir: "${destDir}")
+        if (ctx.env.debug) {
+            String fnAppDev = wd("app-dev.cfx")
+            if (UtFile.exists(fnAppDev)) {
+                ant.copy(file: fnAppDev, todir: "${destDir}")
+            }
+        }
 
         // bat
         makeRunBat()
 
         // version
         makeVersionFile()
+
+        if (ctx.env.debug) {
+            ant.echo(message: "jandcode.env.dev=true\n", file: "${destDir}/.env")
+        }
 
         // уведомляем
         fireEvent(new Event_Exec(this))

@@ -120,8 +120,10 @@ class JsaRootProject extends ProjectScript {
             ant.jar(destfile: getFileJsaWebrootJar()) {
                 zipfileset(dir: "_gen/jsa-webroot", prefix: "jsa-webroot") {
                     include(name: '**/*')
-                    exclude(name: '**/_tst/**/*')
-                    exclude(name: '**/_tst')
+                    if (!ctx.env.debug) {
+                        exclude(name: '**/_tst/**/*')
+                        exclude(name: '**/_tst')
+                    }
                 }
             }
         }

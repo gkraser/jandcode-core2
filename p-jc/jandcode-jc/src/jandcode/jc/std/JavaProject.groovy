@@ -477,7 +477,7 @@ class JavaProject extends ProjectScript implements ILibDepends {
         ant.jar(destfile: fileJar, manifest: fileManifest) {
             fileset(dir: dirCompiled) {
                 include(name: '**/*')
-                if (ctx.env.prod) {
+                if (ctx.env.prod && !ctx.env.debug) {
                     for (String ex in excludeSrcProd) {
                         exclude(name: ex)
                     }
@@ -543,7 +543,7 @@ class JavaProject extends ProjectScript implements ILibDepends {
                     for (String sr in includeSrc) {
                         include(name: sr)
                     }
-                    if (ctx.env.prod) {
+                    if (ctx.env.prod && !ctx.env.debug) {
                         for (String ex in excludeSrcProd) {
                             exclude(name: ex)
                         }

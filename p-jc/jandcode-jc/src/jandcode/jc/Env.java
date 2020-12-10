@@ -6,7 +6,7 @@ package jandcode.jc;
 public interface Env {
 
     /**
-     * production режим. Можно учитывать компиляции.
+     * production режим. Можно учитывать при компиляции.
      */
     boolean isProd();
 
@@ -15,5 +15,16 @@ public interface Env {
      * Обычно явно устанавливается в jc product
      */
     void setProd(boolean v);
+
+    /**
+     * debug режим. Можно учитывать при компиляции.
+     */
+    boolean isDebug();
+
+    /**
+     * Установить/сбросить debug режим.
+     * Обычно явно устанавливается в jc product
+     */
+    void setDebug(boolean v);
 
 }

@@ -6,6 +6,7 @@ public class EnvImpl implements Env {
 
     private Ctx ctx;
     private Boolean prod;
+    private Boolean debug;
 
     public EnvImpl(Ctx ctx) {
         this.ctx = ctx;
@@ -24,4 +25,16 @@ public class EnvImpl implements Env {
         }
     }
 
+    public boolean isDebug() {
+        return debug == null ? false : debug;
+    }
+
+    public void setDebug(boolean v) {
+        if (this.debug == null) {
+            this.debug = v;
+        } else if (v != this.debug) {
+            this.debug = v;
+            ctx.warn("set env.debug=" + v);
+        }
+    }
 }
