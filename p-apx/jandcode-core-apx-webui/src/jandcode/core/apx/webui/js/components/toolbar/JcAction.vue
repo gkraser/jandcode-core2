@@ -8,7 +8,8 @@
             align="left"
             :stretch="isMenuItem?true:stretch"
             :icon="leftIcon"
-            :icon-right="rightIcon">
+            :icon-right="rightIcon"
+            :href="href_calc">
         <slot name="content"></slot>
         <template v-if="hasSubMenu">
             <q-menu content-class="jc-action--menu"
@@ -25,6 +26,8 @@
 </template>
 
 <script>
+import {jsaBase} from '../vendor'
+
 /*
 
 doc:
@@ -39,6 +42,7 @@ export default {
         icon: {default: null},
         stretch: {default: null},
         label: {default: null},
+        href: {default: null},
     },
     provide() {
         return {
@@ -85,6 +89,12 @@ export default {
         hasSubMenu() {
             return !!this.$slots.default;
         },
+        href_calc() {
+            if (this.href == null) {
+                return void 0
+            }
+            return jsaBase.url.ref(this.href)
+        }
     }
 }
 </script>

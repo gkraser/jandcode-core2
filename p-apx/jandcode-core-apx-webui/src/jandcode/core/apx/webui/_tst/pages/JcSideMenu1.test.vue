@@ -16,6 +16,12 @@
             <div class="block">
                 <jc-side-menu-item label="Пункт 1"/>
             </div>
+            <div class="block">
+                <jc-side-menu-item label="href local" href="_tst"/>
+            </div>
+            <div class="block">
+                <jc-side-menu-item label="href local blank" href="_tst" target="blank"/>
+            </div>
         </div>
 
         <div class="row q-gutter-md q-mb-md">

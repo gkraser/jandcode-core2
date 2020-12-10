@@ -5,7 +5,7 @@
         </template>
 
 
-        <div class="q-gutter-y-sm">
+        <div class="q-gutter-y-sm q-mb-md">
             <div>kind:</div>
             <div class="row q-gutter-x-sm">
                 <template v-for="c in kinds">
@@ -28,6 +28,20 @@
                     <div>С иконками (просто текст для сравнения)</div>
                 </div>
             </template>
+        </div>
+
+        <div class="q-gutter-y-sm q-mb-md">
+            <div>href btn:</div>
+            <jc-btn label="local" href="_tst"/>
+            <jc-btn label="local blank" href="_tst" target="_blank"/>
+            <jc-btn label="yandex" href="http://yandex.ru" target="_blank"/>
+        </div>
+
+        <div class="q-gutter-y-sm q-mb-md">
+            <div>href action:</div>
+            <jc-action label="local" href="_tst"/>
+            <jc-action label="local blank" href="_tst" target="_blank"/>
+            <jc-action label="yandex" href="http://yandex.ru" target="_blank"/>
         </div>
 
     </tst-apx-panel>

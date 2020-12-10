@@ -1,6 +1,7 @@
 <template>
     <q-item v-if="!hasItems" clickable :disable="disable"
             :style="style" :class="classes" @click="onClick"
+            :href="href_calc" :tag="tag_calc"
     >
         <q-item-section avatar>
             <q-icon :name="iconValue"/>
@@ -78,6 +79,10 @@ export default {
         showFrameParams: {
             default: null,
         },
+
+        href: {
+            default: null,
+        }
     },
 
     inject: {
@@ -166,7 +171,22 @@ export default {
                 jsaBase.extend(res, this.showFrameParams)
             }
             return res
+        },
+
+        href_calc() {
+            if (this.href == null) {
+                return void 0
+            }
+            return jsaBase.url.ref(this.href)
+        },
+
+        tag_calc() {
+            if (this.href == null) {
+                return 'div'
+            }
+            return 'a'
         }
+
     },
     methods: {
         onClick(ev) {
