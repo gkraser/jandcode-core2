@@ -75,8 +75,8 @@ export default {
                     if (data.attrs.frameParams) {
                         sfp.params = data.attrs.frameParams
                     }
-                    if (data.attrs.showFrameOptions) {
-                        jsaBase.extend(sfp, data.attrs.showFrameOptions)
+                    if (data.attrs.showFrameParams) {
+                        jsaBase.extend(sfp, data.attrs.showFrameParams)
                     }
                     fm.showFrame(sfp)
                 }

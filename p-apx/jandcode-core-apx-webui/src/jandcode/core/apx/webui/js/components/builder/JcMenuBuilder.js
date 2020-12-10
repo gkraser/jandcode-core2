@@ -62,23 +62,17 @@ export default {
                 }
             }
 
+            let props = jsaBase.extend({}, item)
 
-            let props = {
-                label: item[labelProp] || item.label,
-            }
+            props.label = item[labelProp] || item.label
 
-            let icon = item.icon
-            if (!icon) {
+            if (!props.icon) {
                 if (iconDefault) {
-                    icon = iconDefault
+                    props.icon = iconDefault
                 }
             }
-            if (icon) {
-                props.icon = icon
-            }
-
-            if (item.frame) {
-                props.frame = item.frame
+            if (props.href) {
+                props.href = jsaBase.url.ref(item.href)
             }
 
             if (folder) {

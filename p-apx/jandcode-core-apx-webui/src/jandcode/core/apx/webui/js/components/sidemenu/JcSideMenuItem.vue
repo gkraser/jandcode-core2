@@ -1,7 +1,14 @@
 <template>
-    <q-item v-if="!hasItems" clickable :disable="disable"
-            :style="style" :class="classes" @click="onClick"
-            :href="href_calc" :tag="tag_calc"
+    <q-item v-if="!hasItems"
+            v-bind="$attrs"
+            clickable
+            :disable="disable"
+            :style="style"
+            :class="classes"
+            @click="onClick"
+            :href="href_calc"
+            :target="target"
+            :tag="tag_calc"
     >
         <q-item-section avatar>
             <q-icon :name="iconValue"/>
@@ -81,6 +88,9 @@ export default {
         },
 
         href: {
+            default: null,
+        },
+        target: {
             default: null,
         }
     },
