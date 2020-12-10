@@ -55,8 +55,6 @@ export default {
 
 <style lang="less">
 
-@import "../../../../../../../../../../jandcode-core2-sandbox/projects/sandbox-apx2/sandbox-apx2-main/src/sandbox/apx2/main/_tst/newui1/vars.less";
-
 .modulegrid1-test-0d2967b7 {
 
   .txt-wrap {
