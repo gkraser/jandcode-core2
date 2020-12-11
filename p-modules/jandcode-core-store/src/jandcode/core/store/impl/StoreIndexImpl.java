@@ -25,19 +25,22 @@ public class StoreIndexImpl implements StoreIndex {
         return field;
     }
 
+    private Object prepareKey(Object key) {
+        return VariantDataType.toDataType(key, field.getStoreDataType().getDataType());
+    }
+
     public StoreRecord get(Object key) {
-        if (index == null) {
-            return null;
-        }
-        key = VariantDataType.toDataType(key, field.getStoreDataType().getDataType());
+        key = prepareKey(key);
         return index.get(key);
     }
 
     public StoreRecord get(Object key, boolean autoAdd) {
-        StoreRecord rec = get(key);
+        key = prepareKey(key);
+        StoreRecord rec = index.get(key);
         if (rec == null && autoAdd) {
             rec = store.add();
             rec.setValue(field.getIndex(), key);
+            index.put(key, rec);
         }
         return rec;
     }
