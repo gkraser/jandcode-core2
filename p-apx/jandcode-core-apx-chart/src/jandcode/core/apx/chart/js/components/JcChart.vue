@@ -58,7 +58,7 @@ export default {
         let defaultHeight = 200
         let defaultWidth = 300
         //
-        this.chartInst = this.__createChartInst()
+        let chartInst = this.__createChartInst()
         //
         this.$nextTick(() => {
             // приходится.. Если сразу el=(0,0), то потом никто ему размер не меняет
@@ -67,7 +67,7 @@ export default {
                 this.$el.style.width = '' + defaultWidth + 'px'
                 this.$el.style.height = '' + defaultHeight + 'px'
             }
-            this.__setChartInst(this.chartInst)
+            this.__setChartInst(chartInst)
         })
 
         this.rsw = apx.utils.resizeWatch(this.$el, (ev) => {
@@ -80,16 +80,22 @@ export default {
             if (bcr.width === 0) {
                 newWidth = defaultWidth
             }
-            this.chartInst.resize({height: newHeight, width: newWidth})
+            chartInst.resize({height: newHeight, width: newWidth})
         })
+
+        this.chartInst = chartInst
     },
 
     beforeDestroy() {
-        this.__destroyChartInst(this.chartInst)
+        if (this.chartInst != null) {
+            this.__destroyChartInst(this.chartInst)
+        }
         this.rsw.destroy()
         this.rsw = null
-        this.chartInst.dispose()
-        this.chartInst = null
+        if (this.chartInst != null) {
+            this.chartInst.dispose()
+            this.chartInst = null
+        }
     },
 
     methods: {
