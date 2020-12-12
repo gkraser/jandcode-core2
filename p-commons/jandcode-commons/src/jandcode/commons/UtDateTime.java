@@ -4,6 +4,7 @@ import jandcode.commons.datetime.*;
 import jandcode.commons.datetime.impl.*;
 
 import java.time.*;
+import java.time.format.*;
 import java.util.*;
 
 /**
@@ -173,6 +174,15 @@ public class UtDateTime {
      */
     public static XDateTimeFormatter createFormatter(String pattern, Locale locale) {
         return new XDateTimeFormatterImpl(pattern, locale);
+    }
+
+    /**
+     * Создать форматер
+     *
+     * @param fmt формат
+     */
+    public static XDateTimeFormatter createFormatter(DateTimeFormatter fmt) {
+        return new XDateTimeFormatterImpl(fmt);
     }
 
 }

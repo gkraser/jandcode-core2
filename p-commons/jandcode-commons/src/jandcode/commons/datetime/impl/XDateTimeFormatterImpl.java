@@ -19,6 +19,10 @@ public class XDateTimeFormatterImpl implements XDateTimeFormatter {
         this.fmt = DateTimeFormatter.ofPattern(pattern, locale).withResolverStyle(ResolverStyle.SMART);
     }
 
+    public XDateTimeFormatterImpl(DateTimeFormatter fmt) {
+        this.fmt = fmt;
+    }
+
     public String toString(XDateTime d) {
         if (d == null) {
             return "";

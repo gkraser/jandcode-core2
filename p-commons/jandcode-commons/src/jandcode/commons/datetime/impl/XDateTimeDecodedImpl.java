@@ -207,11 +207,10 @@ public class XDateTimeDecodedImpl implements XDateTimeDecoded {
 
         if (s.length() <= 10) {
             ((XDateTimeFormatterImpl) XDateTimeFormatter.ISO_DATE).parse(s, this);
-        } else if (s.length() <= 19) {
-            ((XDateTimeFormatterImpl) XDateTimeFormatter.ISO_DATE_TIME).parse(s, this);
         } else {
-            ((XDateTimeFormatterImpl) XDateTimeFormatter.ISO_DATE_TIME_MSEC).parse(s, this);
+            ((XDateTimeFormatterImpl) XDateTimeFormatter.ISO_DATE_TIME).parse(s, this);
         }
+
     }
 
 

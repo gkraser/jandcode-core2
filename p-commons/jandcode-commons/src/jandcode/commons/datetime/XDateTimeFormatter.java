@@ -2,6 +2,8 @@ package jandcode.commons.datetime;
 
 import jandcode.commons.*;
 
+import java.time.format.*;
+
 /**
  * Форматер дат и времени.
  */
@@ -10,22 +12,12 @@ public interface XDateTimeFormatter {
     /**
      * Дата в формате ISO
      */
-    XDateTimeFormatter ISO_DATE = UtDateTime.createFormatter("yyyy-MM-dd");
-
-    /**
-     * Дата и время в формате ISO
-     */
-    XDateTimeFormatter ISO_DATE_TIME = UtDateTime.createFormatter("yyyy-MM-dd'T'HH:mm:ss");
-
-    /**
-     * Дата и время с msec в формате ISO
-     */
-    XDateTimeFormatter ISO_DATE_TIME_MSEC = UtDateTime.createFormatter("yyyy-MM-dd'T'HH:mm:ss.SSS");
+    XDateTimeFormatter ISO_DATE = UtDateTime.createFormatter(DateTimeFormatter.ISO_LOCAL_DATE);
 
     /**
      * Время с msec в формате ISO
      */
-    XDateTimeFormatter ISO_TIME = UtDateTime.createFormatter("HH:mm:ss");
+    XDateTimeFormatter ISO_DATE_TIME = UtDateTime.createFormatter(DateTimeFormatter.ISO_DATE_TIME);
 
     /**
      * Дату в строку

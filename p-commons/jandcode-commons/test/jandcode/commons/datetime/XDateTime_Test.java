@@ -178,6 +178,15 @@ public class XDateTime_Test extends Utils_Test {
         d = new XDateTimeImpl("1994-12-23T12:13:14.567");
         System.out.println(d);
         //
+        d = new XDateTimeImpl("2020-11-12T00:00:00.000Z");
+        System.out.println(d);
+        //
+        d = new XDateTimeImpl("2020-11-12T06:00:00.000Z");
+        System.out.println(d);
+        //
+        d = new XDateTimeImpl("2020-11-12T06:00:00.000");
+        System.out.println(d);
+        //
     }
 
     @Test
