@@ -86,7 +86,7 @@ export class ErrorHandlersService extends jsaBase.AppService {
         if (!message) {
             return false
         }
-        if (message.indexOf('ResizeObserver loop limit exceeded') !== -1) {
+        if (message.indexOf('ResizeObserver loop') !== -1) {
             return true
         }
         return false
