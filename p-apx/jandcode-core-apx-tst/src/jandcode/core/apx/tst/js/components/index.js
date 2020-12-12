@@ -14,6 +14,7 @@ import TstFontsize from './TstFontsize'
 import TstIconBox from './TstIconBox'
 import TstIconList from './TstIconList'
 import TstPanels from './TstPanels'
+import TstShowFrame from './TstShowFrame'
 
 Vue.component(TstApxPanel.name, TstApxPanel)
 Vue.component(TstBtn.name, TstBtn)
@@ -23,6 +24,7 @@ Vue.component(TstFontsize.name, TstFontsize)
 Vue.component(TstIconBox.name, TstIconBox)
 Vue.component(TstIconList.name, TstIconList)
 Vue.component(TstPanels.name, TstPanels)
+Vue.component(TstShowFrame.name, TstShowFrame)
 
 export {
     TstApxPanel,
@@ -33,6 +35,7 @@ export {
     TstIconBox,
     TstIconList,
     TstPanels,
+    TstShowFrame,
 }
 
 

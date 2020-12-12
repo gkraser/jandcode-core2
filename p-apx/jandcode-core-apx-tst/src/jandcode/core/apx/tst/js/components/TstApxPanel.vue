@@ -36,7 +36,7 @@
             <slot name="tools-2"/>
         </div>
 
-        <div class="tst-apx-panel--body"
+        <div class="tst-apx-panel--body" ref="body"
              :class="[noPadding?'tst-apx-panel--no-padding':'', bodyClass]"
              :style="bodyStyle">
             <slot></slot>
