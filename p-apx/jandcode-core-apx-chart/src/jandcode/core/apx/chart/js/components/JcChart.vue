@@ -1,5 +1,5 @@
 <template>
-    <div class="jc-chart">
+    <div class="jc-chart" :style="style">
     </div>
 </template>
 
@@ -53,6 +53,13 @@ export default {
             default: null
         },
 
+        /**
+         * Высота диаграммы
+         */
+        height: {
+            default: 200,
+        }
+
     },
     mounted() {
         let defaultHeight = 200
@@ -96,6 +103,15 @@ export default {
             this.chartInst.dispose()
             this.chartInst = null
         }
+    },
+
+    computed: {
+        style() {
+            return {
+                height: apx.jsaBase.dom.toStyleSize(this.height)
+            }
+        },
+
     },
 
     methods: {
