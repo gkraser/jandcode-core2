@@ -59,7 +59,7 @@ export class JsonRpcClient {
                 let err = resp.response.data
                 if (!cnv.isString(err)) {
                     if (err.error) {
-                        err = error
+                        err = err.error
                     }
                 }
                 reject(error.createError(err))
