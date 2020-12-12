@@ -35,7 +35,9 @@ export class JsonRpcClient {
         //
         if (Jc.cfg.envDev) {
             params._m = methodName.replace(/\//g, ':')
-            console.info(`${id} ${th.url} start:`, methodName, 'params:', methodParams)
+            console.group(`${id} [${th.url}] ${methodName}`)
+            console.time("time")
+            console.info(`params:`, methodParams)
         }
         //
         let promise = new Promise(function(resolve, reject) {
@@ -49,12 +51,16 @@ export class JsonRpcClient {
                 }
             }).then((resp) => {
                 if (Jc.cfg.envDev) {
-                    console.info(`${id} ${th.url} ok   :`, methodName, 'result:', resp.data)
+                    console.info(`result:`, resp.data)
+                    console.timeEnd("time")
+                    console.groupEnd()
                 }
                 resolve(resp.data.result)
             }).catch((resp) => {
                 if (Jc.cfg.envDev) {
-                    console.info(`${id} ${th.url} ERROR:`, methodName, 'result:', resp.response.data)
+                    console.info(`ERROR result:`, resp.response.data)
+                    console.timeEnd("time")
+                    console.groupEnd()
                 }
                 let err = resp.response.data
                 if (!cnv.isString(err)) {
