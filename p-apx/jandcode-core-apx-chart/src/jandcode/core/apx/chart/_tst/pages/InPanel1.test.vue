@@ -3,11 +3,11 @@
         <template #tools>
         </template>
 
-        <div class="row q-gutter-x-md q-mb-md">
+        <div class="row q-gutter-x-md q-mb-md" style="height:400px">
             <jc-panel title="chart1" class="col" body-fit>
                 <jc-chart :options="chart1"/>
             </jc-panel>
-            <jc-panel title="chart1" class="col" body-fit style="height:400px">
+            <jc-panel title="chart1" class="col" body-fit>
                 <jc-chart :options="chart1"/>
             </jc-panel>
         </div>

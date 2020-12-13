@@ -12,12 +12,10 @@
         <div class="row q-gutter-x-md q-mb-md" :style="bodyStyle">
             <template v-for="n in panels">
                 <component :is="panelComp" :title="titleForNum(n)" class="col"
-                          :key="uniKey()">
-                    <PanelWrap :height="panelHeight">
-                        <slot name="default">
-                            <div>No content for slot default in tst-panels!</div>
-                        </slot>
-                    </PanelWrap>
+                           :key="uniKey()" body-fit>
+                    <slot name="default">
+                        <div>No content for slot default in tst-panels!</div>
+                    </slot>
                 </component>
             </template>
         </div>
@@ -29,33 +27,10 @@
 import * as mixins from '../mixins'
 import {apx} from '../vendor'
 
-/**
- * Обертка для показываемой панели, ставит высоту заказанную.
- */
-let PanelWrap = {
-    functional: true,
-    render(h, ctx) {
-        let data = apx.jsaVue.adaptCtxData(ctx)
-        let res = []
-        if (ctx.children && ctx.children.length > 0) {
-            let item = ctx.children[0]
-            let itemData = apx.jsaVue.adaptCtxData(item)
-            if (!apx.jsaBase.isObject(itemData.staticStyle)) {
-                itemData.staticStyle = {}
-            }
-            itemData.staticStyle.height = data.attrs.height || '150px'
-            res.push(item)
-        }
-        return res
-    }
-}
-
 export default {
     name: 'tst-panels',
     mixins: [mixins.cfgStore],
-    components: {
-        PanelWrap,
-    },
+    components: {},
     props: {
         cfgKey: {
             default: 'panels'
@@ -107,7 +82,9 @@ export default {
             this.panels = panels
             this.panelHeight = cfg.height
             //
-            let bodyStyle = {}
+            let bodyStyle = {
+                height: cfg.height
+            }
             if (cfg.paddingLeft) {
                 bodyStyle.paddingLeft = this.paddingLeftValue
             }
