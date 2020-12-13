@@ -15,7 +15,7 @@
             </slot>
         </q-card-section>
         <template v-if="$slots.footer">
-            <q-card-section class="jc-panel_footer">
+            <q-card-section class="jc-panel__footer">
                 <slot name="footer">
                 </slot>
             </q-card-section>
@@ -27,11 +27,18 @@
 export default {
     name: 'jc-panel',
     props: {
-        title: {}
+        title: {},
+        bodyFit: {
+            type: Boolean
+        }
     },
     computed: {
         classes() {
-            return ['jc-panel']
+            let res = ['jc-panel']
+            if (this.bodyFit) {
+                res.push('jc-panel--body-fit')
+            }
+            return res
         },
         hasHeader() {
             return !!this.title || !!this.$slots.toolbar;

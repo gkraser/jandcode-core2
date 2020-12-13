@@ -3,6 +3,13 @@
 
 .jc-panel {
 
+  display: flex;
+  flex-direction: column;
+
+  &__body {
+    flex: 1;
+  }
+
   &__header.q-card__section--vert {
     padding: 0.5em 1em 0 1em;
   }
@@ -16,4 +23,13 @@
 
   }
 
+}
+
+.jc-panel.jc-panel--body-fit > .jc-panel__body {
+  display: flex;
+  flex-direction: column;
+}
+
+.jc-panel.jc-panel--body-fit > .jc-panel__body > * {
+  flex: 1;
 }
