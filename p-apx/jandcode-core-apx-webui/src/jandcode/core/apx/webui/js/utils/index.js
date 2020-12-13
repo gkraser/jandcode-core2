@@ -1,13 +1,12 @@
 import * as icons from './icons'
-import * as modules from './modules'
+import * as date from './date'
 
 export {
     icons,
-    modules,
+    date,
 }
 
 // модули на верхний уровень
 export * from './icons'
-export * from './modules'
 export * from './dom'
 

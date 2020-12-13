@@ -28,8 +28,6 @@ export class ChartBuilder {
             base_2: '#59B06B',
             base_3: '#2B92BF',
         }
-        // утилиты для дат от Quasar
-        this.q_date = apx.Quasar.date
     }
 
     /**
