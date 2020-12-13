@@ -233,7 +233,40 @@ export class ChartBuilder {
         return res
     }
 
-
+    /**
+     * Нормализовать null в dataset.
+     * Если предполагается, что значение поля может быть, а может и нет,
+     * то в случае отсутствия поля оно все равно должно быть со значением null,
+     * иначе echarts начинает гнать. Например в таком случае:
+     * [{a:1},{a:2,b:2},{a:3}] при построении для b начнется неопределенность.
+     * Метод приводит такой dataset к виду: [{a:1,b:null},{a:2,b:2},{a:3,b:null}]
+     * @param {Object[]} dataset  какой dataset обрабатывать
+     * @param {String[]} addFields дополнительные поля, которые точно должны быть
+     */
+    datasetNormalizeNull(dataset, addFields = null) {
+        let fields = {}
+        if (addFields) {
+            for (let f of addFields) {
+                fields[f] = true
+            }
+        }
+        // собираем все поля
+        for (let rec of dataset) {
+            for (let f in rec) {
+                if (!(f in fields)) {
+                    fields[f] = true
+                }
+            }
+        }
+        // исправляем undefined
+        for (let rec of dataset) {
+            for (let f in fields) {
+                if (rec[f] === void 0) {
+                    rec[f] = null
+                }
+            }
+        }
+    }
 }
 
 /**
