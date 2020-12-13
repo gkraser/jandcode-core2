@@ -1,5 +1,5 @@
 //
-import {apx} from './vendor'
+import {apx, echarts} from './vendor'
 
 /**
  * api объекта, который можно передать в качестве options в jc-chart
@@ -267,6 +267,26 @@ export class ChartBuilder {
             }
         }
     }
+
+    //todo скорее всего это не нужно, нужно форматировать, а не округлять...
+    /**
+     * Округление данных в dataset
+     * @param dataset данные
+     * @param precision сколько цифр после запятой оставить
+     * @param fields для каких полей
+     */
+    datasetNumberRound(dataset, precision, fields) {
+        for (let rec of dataset) {
+            for (let f of fields) {
+                let v = rec[f]
+                if (v != null) {
+                    v = echarts.number.round(v, precision, false)
+                    rec[f] = v
+                }
+            }
+        }
+    }
+
 }
 
 /**
