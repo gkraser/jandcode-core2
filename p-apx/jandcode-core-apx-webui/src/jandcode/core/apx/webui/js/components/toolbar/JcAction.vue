@@ -10,6 +10,7 @@
             :icon="leftIcon"
             :icon-right="rightIcon"
             :href="href_calc">
+        <q-tooltip v-if="tooltip">{{tooltip}}</q-tooltip>
         <slot name="content"></slot>
         <template v-if="hasSubMenu">
             <q-menu content-class="jc-action--menu"
@@ -43,6 +44,7 @@ export default {
         stretch: {default: null},
         label: {default: null},
         href: {default: null},
+        tooltip: {default: null},
     },
     provide() {
         return {
