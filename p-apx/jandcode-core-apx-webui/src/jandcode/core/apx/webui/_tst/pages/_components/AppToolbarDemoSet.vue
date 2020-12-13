@@ -36,6 +36,7 @@
             </jc-action>
 
             <jc-action icon="mail"/>
+            <jc-action icon="more-h"/>
         </template>
 
         <template v-if="toolbarSet=='menu2'">

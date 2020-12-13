@@ -59,7 +59,7 @@ export default {
             if (this.isMenuItem) {
                 res.push('jc-action--menuitem')
             }
-            if (this.hasSubMenu) {
+            if (this.hasSubMenu && this.label && this.label !== '') {
                 res.push('jc-action--dropdown')
             }
             return res
