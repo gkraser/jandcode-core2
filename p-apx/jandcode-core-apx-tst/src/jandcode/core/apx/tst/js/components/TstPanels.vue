@@ -11,14 +11,14 @@
 
         <div class="row q-gutter-x-md q-mb-md" :style="bodyStyle">
             <template v-for="n in panels">
-                <jc-panel :title="titleForNum(n)" class="col"
+                <component :is="panelComp" :title="titleForNum(n)" class="col"
                           :key="uniKey()">
                     <PanelWrap :height="panelHeight">
                         <slot name="default">
                             <div>No content for slot default in tst-panels!</div>
                         </slot>
                     </PanelWrap>
-                </jc-panel>
+                </component>
             </template>
         </div>
 
@@ -63,6 +63,10 @@ export default {
 
         title: {
             default: 'Панель'
+        },
+
+        panelComp: {
+            default: 'jc-panel'
         }
 
     },
