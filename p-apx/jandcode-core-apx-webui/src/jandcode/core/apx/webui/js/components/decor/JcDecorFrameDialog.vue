@@ -53,6 +53,9 @@ export default {
         },
         buttons: {
             default: 'ok-cancel',
+        },
+        bodyFit: {
+            type: Boolean
         }
     },
 
@@ -64,6 +67,9 @@ export default {
             if (this.size) {
                 let s = '' + this.size
                 res.push('jc-decor-frame-dialog--size-' + s)
+            }
+            if (this.bodyFit) {
+                res.push('jc-decor-frame-dialog--body-fit')
             }
             return res;
         },
