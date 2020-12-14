@@ -56,10 +56,10 @@ export default {
     },
     computed: {
         iconName() {
-            return apx.utils.getIcon(this.icon) ? this.icon : 'empty'
+            return apx.icons.getIcon(this.icon) ? this.icon : 'empty'
         },
         iconValue() {
-            return apx.utils.getIcon(this.icon) || 'empty'
+            return apx.icons.getIcon(this.icon) || 'empty'
         },
         iconType() {
             let v = this.iconValue

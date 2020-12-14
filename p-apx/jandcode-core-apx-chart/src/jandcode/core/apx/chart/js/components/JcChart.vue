@@ -77,7 +77,7 @@ export default {
             this.__setChartInst(chartInst)
         })
 
-        this.rsw = apx.utils.resizeWatch(this.$el, (ev) => {
+        this.rsw = apx.dom.resizeWatch(this.$el, (ev) => {
             let bcr = this.$el.getBoundingClientRect()
             let newHeight = null
             let newWidth = null

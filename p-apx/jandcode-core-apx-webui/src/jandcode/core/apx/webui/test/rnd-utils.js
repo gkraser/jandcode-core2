@@ -1,4 +1,4 @@
-import {Quasar, utils} from '../js/index'
+import {Quasar, date} from '../js/index'
 import Chance from 'chance'
 
 /**
@@ -17,7 +17,7 @@ export class RndUtils {
      * @return {string}
      */
     dateToStr(dt) {
-        return utils.date.toStr(dt)
+        return date.toStr(dt)
     }
 
     /**
@@ -31,10 +31,10 @@ export class RndUtils {
         if (days < 1) {
             days = 1
         }
-        let startDate = utils.date.subDays(utils.date.today(), days)
+        let startDate = date.subDays(date.today(), days)
         let res = []
         for (let i = 0; i < days; i++) {
-            let dt = this.dateToStr(utils.date.addDays(startDate, i))
+            let dt = this.dateToStr(date.addDays(startDate, i))
             res.push(dt)
         }
         return res

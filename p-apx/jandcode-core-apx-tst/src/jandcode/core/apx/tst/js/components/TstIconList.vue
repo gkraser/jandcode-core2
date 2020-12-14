@@ -75,7 +75,7 @@ export default {
         iconsList() {
             let keys = []
             if (!this.icons) {
-                keys = Object.keys(apx.utils.icons.getIcons())
+                keys = Object.keys(apx.icons.getIcons())
             } else if (jsaBase.isObject(this.icons)) {
                 keys = Object.keys(this.icons)
             } else if (jsaBase.isArray(this.icons)) {
@@ -97,7 +97,7 @@ export default {
             let a = ev.target.closest('.tst-icon-box')
             if (a) {
                 this.selectedName = a.dataset.icon
-                this.selectedIcon = apx.utils.getIcon(this.selectedName)
+                this.selectedIcon = apx.icons.getIcon(this.selectedName)
             } else {
                 this.selectedName = ''
                 this.selectedIcon = ''
