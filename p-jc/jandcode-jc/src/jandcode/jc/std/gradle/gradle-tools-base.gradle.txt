@@ -111,6 +111,8 @@ class DepScanner {
     String saveToXml() {
         def writer = new StringWriter()
         def xml = new groovy.xml.MarkupBuilder(writer)
+        xml.setDoubleQuotes(true)
+        xml.mkp.xmlDeclaration(version: "1.0", encoding: "utf-8")
         def lst = []
         lst.addAll(allDeps.values())
         lst.sort { a, b -> a.displayName <=> b.displayName }
