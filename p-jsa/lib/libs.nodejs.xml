@@ -70,7 +70,7 @@
         <exclude-require mask="**/*.js"/>
     </lib>
 
-    <lib name="mocha" version="8.2.0" client="true">
+    <lib name="mocha" version="8.2.1" client="true">
         <include-client mask="mocha.*"/>
 
         <exclude-require mask="**/*.js"/>
@@ -103,7 +103,7 @@
         <module-mapping module="vuex" real-module="vuex/dist/vuex"/>
     </lib>
 
-    <lib name="quasar" version="1.14.5" client="true">
+    <lib name="quasar" version="1.14.7" client="true">
         <include-client mask="dist/*.js"/>
         <include-client mask="dist/*.css"/>
         <include-client mask="dist/*.sass"/>
@@ -120,7 +120,7 @@
 
     </lib>
 
-    <lib name="@quasar/extras" version="1.9.10" client="true">
+    <lib name="@quasar/extras" version="1.9.11" client="true">
         <include-client mask="material-icons/**/*"/>
         <include-client mask="animate/**/*"/>
     </lib>
@@ -131,10 +131,10 @@
         <exclude-client mask="fp/**/*"/>
     </lib>
 
-    <lib name="fontsource-roboto" version="3.0.3" client="true">
+    <lib name="fontsource-roboto" version="3.1.5" client="true">
     </lib>
 
-    <lib name="fontsource-roboto-condensed" version="3.0.9" client="true">
+    <lib name="fontsource-roboto-condensed" version="3.1.5" client="true">
     </lib>
 
     <lib name="path-to-regexp" version="6.2.0" client="true">
