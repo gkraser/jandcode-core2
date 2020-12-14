@@ -8,6 +8,32 @@ let API_Chart_Options = {
     getOptions: function() {},
     setChartInst: function(chartInst, compInst) {},
     destroyChartInst: function(chartInst, compInst) {},
+    exportData: function(chartInst, compInst) {},
+}
+
+/**
+ * api объекта, который возвращается при экспорте данных.
+ */
+let API_Chart_ExportDataset = {
+    /**
+     * Имя данных. Опционально.
+     */
+    name: String,
+
+    /**
+     * Данные. Массив записей.
+     */
+    data: Array,
+
+    /**
+     * Структута. Массив записей вида: {field:String, title: String}
+     */
+    struct: Array,
+
+    /**
+     * Поле с уникальным идентификатором записи.
+     */
+    idField: String
 }
 
 /**
@@ -97,6 +123,25 @@ export class ChartBuilder {
     updateParams(params) {
         apx.jsaBase.extend(this.params, params)
         this.__options = null
+    }
+
+    /**
+     * Экспорт данных из диаграммы.
+     * Возвращает массив объектов.
+     * По умоланию: если имеется dataset, то возвращает его, без описания структуры.
+     * @return {API_Chart_ExportDataset[]}
+     */
+    exportData() {
+        let res = []
+
+        if (this.params.dataset) {
+            let ds = {
+                data: this.params.dataset
+            }
+            res.push(ds)
+        }
+
+        return res
     }
 
     ////// options utils
