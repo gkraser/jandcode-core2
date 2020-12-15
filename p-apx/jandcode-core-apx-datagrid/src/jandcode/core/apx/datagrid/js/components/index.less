@@ -1,12 +1,33 @@
 @import "./vars";
 
-.tabulator {
+.jc-datagrid {
+
+  .tabulator {
     font-size: @body-font-size;
-}
+  }
 
-.tabulator .tabulator-header .tabulator-col.tabulator-sortable:hover {
-}
+  .tabulator-row.tabulator-selectable:hover {
+    background-color: rgba(0, 0, 0, .15); // типа currentColor + прозрачность, как в q...
+  }
 
-.tabulator-row.tabulator-selectable:hover {
-  background-color: rgba(0, 0, 0, .15); // типа currentColor + прозрачность, как в q...
+  // заголовок колонки
+  .tabulator .tabulator-header .tabulator-col .tabulator-col-content {
+    padding: 6px 8px;
+  }
+
+  // заголовок первой колонки
+  .tabulator .tabulator-headers .tabulator-col:first-child .tabulator-col-content {
+    padding-left: 14px;
+  }
+
+  // ячейка
+  .tabulator-row .tabulator-cell {
+    padding: 4px 8px;
+  }
+
+  // первая ячейка
+  .tabulator-row .tabulator-cell:first-child {
+    padding-left: 14px;
+  }
+
 }
