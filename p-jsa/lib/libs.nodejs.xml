@@ -156,13 +156,20 @@
 
     <lib name="portal-vue" version="2.1.7" client="true">
         <include-client mask="dist/**/*.min.js"/>
-        <module-mapping module="portal-vue" real-module="portal-vue/dist/portal-vue.umd.min.js"/>
+        <module-mapping module="portal-vue"
+                        real-module="portal-vue/dist/portal-vue.umd.min.js"/>
     </lib>
 
     <lib name="echarts" version="5.0.0" client="true">
         <include-client mask="dist/**/echarts.min.js"/>
         <include-client mask="dist/extension/*.min.js"/>
         <module-mapping module="echarts" real-module="echarts/dist/echarts.min.js"/>
+    </lib>
+
+    <lib name="xlsx" version="0.16.9" client="true">
+        <include-client mask="dist/xlsx.full.min.js"/>
+        <module-mapping module="xlsx" real-module="xlsx/dist/xlsx.full.min.js"/>
+        <exclude-require mask="**/*.js"/>
     </lib>
 
 </root>
