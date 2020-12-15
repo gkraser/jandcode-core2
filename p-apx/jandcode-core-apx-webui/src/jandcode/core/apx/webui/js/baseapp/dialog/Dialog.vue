@@ -3,7 +3,8 @@
               @hide="onHideDialog"
               content-class="jc-dialog"
               :transition-show="null"
-              :transition-hide="null">
+              :transition-hide="null"
+              no-backdrop-dismiss>
         <DialogFramePlace :own="this">
         </DialogFramePlace>
     </q-dialog>
