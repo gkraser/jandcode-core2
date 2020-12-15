@@ -8,32 +8,189 @@ let API_Chart_Options = {
     getOptions: function() {},
     setChartInst: function(chartInst, compInst) {},
     destroyChartInst: function(chartInst, compInst) {},
-    exportData: function(chartInst, compInst) {},
+    exportData: function() {},
 }
 
 /**
- * api объекта, который возвращается при экспорте данных.
+ * Класс для представления данных, экспортируемых из диаграммы
  */
-let API_Chart_ExportDataset = {
-    /**
-     * Имя данных. Опционально.
-     */
-    name: String,
+export class ExportDataset {
+
+    constructor() {
+        // данные
+        this.__data = []
+        // известные поля, определеляется по данным
+        this.__knownFields = null
+        // информация о полях
+        this.__fields = []
+        this.__fieldsByName = {}
+        // автотипы
+        this.__detectedType = {}
+    }
 
     /**
      * Данные. Массив записей.
      */
-    data: Array,
+    getData() {
+        return this.__data
+    }
 
     /**
-     * Структута. Массив записей вида: {field:String, title: String}
+     * Все известные поля. Определяется по данным.
      */
-    struct: Array,
+    __getKnownFields() {
+        if (!this.__knownFields) {
+            let idx = {}
+            for (let rec of this.__data) {
+                for (let fn in rec) {
+                    if (!(fn in idx)) {
+                        idx[fn] = true
+                    }
+                }
+            }
+            this.__knownFields = idx
+        }
+        return this.__knownFields
+    }
 
     /**
-     * Поле с уникальным идентификатором записи.
+     * Попытка автоматом определить тип поля
      */
-    idField: String
+    __detectTypes(rec) {
+        for (let fn in rec) {
+            if (!this.__detectedType[fn]) {
+                let v = rec[fn]
+                if (!v) {
+                    continue
+                }
+                if (apx.jsaBase.isNumber(v)) {
+                    this.__detectedType[fn] = 'number'
+                } else if (apx.jsaBase.isString(v)) {
+                    if (v.length === 10 && v.charAt(4) === '-' && v.charAt(7) === '-') {
+                        this.__detectedType[fn] = 'date'
+                    } else {
+                        this.__detectedType[fn] = 'string'
+                    }
+                } else {
+                    this.__detectedType[fn] = 'unknown'
+                }
+            }
+        }
+    }
+
+    /**
+     * Добавить записи из массива записей
+     * @param data
+     */
+    addData(data) {
+        if (!apx.jsaBase.isArray(data)) {
+            return
+        }
+        this.__knownFields = null
+        for (let rec of data) {
+            let z = Object.assign({}, rec)
+            this.__data.push(z)
+            this.__detectTypes(z)
+        }
+    }
+
+    /**
+     * Объеденить с данными
+     * @param data массив записей
+     * @param keyField ключевое поле. Должно быть и в текущих данных и в добавляемых.
+     */
+    joinData(data, keyField) {
+        if (!apx.jsaBase.isArray(data)) {
+            return
+        }
+        this.__knownFields = null
+        // индексируем текущие данные
+        let curIdx = {}
+        for (let rec of this.__data) {
+            let key = rec[keyField]
+            if (!key) {
+                continue
+            }
+            curIdx[key] = rec
+        }
+        // добавляем
+        for (let rec of data) {
+            let z = Object.assign({}, rec)
+            let key = z[keyField]
+            if (!key) {
+                continue
+            }
+            let curRec = curIdx[key]
+            if (curRec == null) {
+                curRec = {}
+                curRec[keyField] = key
+                this.__data.push(curRec)
+            }
+            Object.assign(curRec, z)
+            this.__detectTypes(z)
+        }
+
+    }
+
+    /**
+     * Добавить описание поля.
+     * @param opt
+     */
+    addFieldInfo(opt) {
+        let fn = opt.name
+        if (!fn) {
+            return
+        }
+        let f = this.__fieldsByName[fn]
+        if (f == null) {
+            f = {name: fn}
+            this.__fieldsByName[fn] = f
+            this.__fields.push(f)
+        }
+        Object.assign(f, opt)
+    }
+
+    /**
+     * Описание всех полей
+     * @return {Object[]}
+     */
+    getFields() {
+        let res = []
+        let used = {}
+
+        // явные
+        for (let f of this.__fields) {
+            used[f.name] = true
+            if (f.ignore) {
+                continue
+            }
+            let z = Object.assign({}, f)
+            res.push(z)
+        }
+
+        // остаток
+        for (let fn in this.__getKnownFields()) {
+            if (used[fn]) {
+                continue
+            }
+            res.push({name: fn})
+        }
+
+        console.info("this.__detectedType", this.__detectedType);
+        // постобработка
+        for (let f of res) {
+            if (!f.title) {
+                f.title = f.name
+            }
+            if (!f.type) {
+                if (this.__detectedType[f.name]) {
+                    f.type = this.__detectedType[f.name]
+                }
+            }
+        }
+
+        return res
+    }
 }
 
 /**
@@ -127,21 +284,30 @@ export class ChartBuilder {
 
     /**
      * Экспорт данных из диаграммы.
-     * Возвращает массив объектов.
+     * Возвращает массив объектов ExportDataset.
+     * Вызывает для экспорта метод onExportData.
      * По умоланию: если имеется dataset, то возвращает его, без описания структуры.
-     * @return {API_Chart_ExportDataset[]}
+     * @return {ExportDataset[]}
      */
     exportData() {
         let res = []
-
-        if (this.params.dataset) {
-            let ds = {
-                data: this.params.dataset
+        this.onExportData(res)
+        if (res.length === 0) {
+            if (this.params.dataset) {
+                let ds = new ExportDataset()
+                ds.addData(this.params.dataset)
+                res.push(ds)
             }
-            res.push(ds)
         }
-
         return res
+    }
+
+    /**
+     * Перекрыть метод для экспорта данных из диаграммы.
+     *
+     * @param dsList массив, в который нужно положить экземпляры ExportDataset
+     */
+    onExportData(dsList) {
     }
 
     ////// options utils
