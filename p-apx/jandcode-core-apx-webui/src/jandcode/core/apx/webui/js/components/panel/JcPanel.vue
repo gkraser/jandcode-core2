@@ -1,26 +1,30 @@
 <template>
-    <q-card :class="classes">
+    <div :class="classes">
         <template v-if="hasHeader">
-            <q-card-section class="jc-panel__header">
+            <div class="jc-panel__header">
                 <jc-toolbar>
-                    <jc-toolbar-title :text="title"/>
-                    <q-space/>
-                    <slot name="toolbar">
+                    <slot name="header">
+                        <jc-toolbar-title :text="title"/>
+                        <q-space/>
+                        <slot name="toolbar">
+                        </slot>
                     </slot>
                 </jc-toolbar>
-            </q-card-section>
+            </div>
         </template>
-        <q-card-section :class="classesBody">
+        <div :class="classesBody">
             <slot name="default">
             </slot>
-        </q-card-section>
+        </div>
         <template v-if="$slots.footer">
-            <q-card-section class="jc-panel__footer">
-                <slot name="footer">
-                </slot>
-            </q-card-section>
+            <div class="jc-panel__footer">
+                <jc-toolbar>
+                    <slot name="footer">
+                    </slot>
+                </jc-toolbar>
+            </div>
         </template>
-    </q-card>
+    </div>
 </template>
 
 <script>
@@ -51,7 +55,7 @@ export default {
             return res
         },
         hasHeader() {
-            return !!this.title || !!this.$slots.toolbar;
+            return !!this.title || !!this.$slots.toolbar || !!this.$slots.header;
         }
     },
 }

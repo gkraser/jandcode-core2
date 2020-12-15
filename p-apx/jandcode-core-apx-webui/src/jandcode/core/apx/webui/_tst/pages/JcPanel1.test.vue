@@ -37,6 +37,11 @@
                 </template>
                 без заголовка, тело в секции
             </jc-panel>
+<!--            <q-card>-->
+<!--                <q-card-section>-->
+<!--                    hello-->
+<!--                </q-card-section>-->
+<!--            </q-card>-->
         </div>
 
         <div class="row q-gutter-x-md q-mb-md">
@@ -169,7 +174,7 @@ export default {
 
 .debug-mark {
 
-  .jc-panel__body {
+  .jc-panel__body, .q-card__section {
     background-color: #a5d6a7;
   }
 
