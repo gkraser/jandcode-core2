@@ -1,6 +1,7 @@
 import {echarts, apx} from './vendor'
 import * as components from './components'
 import langRU from './langRU'
+import {hideAllTooltip} from './chart-holder'
 
 export * from './chart-builder'
 //
@@ -21,4 +22,5 @@ echarts.registerLocale('RU', langRU)
 export {
     components,
     echarts,
+    hideAllTooltip,
 }

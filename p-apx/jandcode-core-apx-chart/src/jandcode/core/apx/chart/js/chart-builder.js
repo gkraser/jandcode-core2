@@ -26,6 +26,8 @@ export class ExportDataset {
         this.__fieldsByName = {}
         // автотипы
         this.__detectedType = {}
+        // default fields info
+        this.__fieldInfoDefault = {}
     }
 
     /**
@@ -151,6 +153,18 @@ export class ExportDataset {
     }
 
     /**
+     * Установить информацию о полях по умолчанию.
+     * Если поле имеется и для него информации не назначено явно,
+     * то она будет братся отсюда.
+     * Можно вызывать несколько раз.
+     *
+     * @param opt ключ - имя поля, значение - объект с информацией
+     */
+    setFieldInfoDefault(opt) {
+        apx.jsaBase.extend(true, this.__fieldInfoDefault, opt)
+    }
+
+    /**
      * Описание всех полей
      * @return {Object[]}
      */
@@ -161,10 +175,13 @@ export class ExportDataset {
         // явные
         for (let f of this.__fields) {
             used[f.name] = true
-            if (f.ignore) {
+            let z = Object.assign({}, f)
+            if (this.__fieldInfoDefault[f.name]) {
+                Object.assign(z, this.__fieldInfoDefault[f.name])
+            }
+            if (z.ignore) {
                 continue
             }
-            let z = Object.assign({}, f)
             res.push(z)
         }
 
@@ -173,10 +190,13 @@ export class ExportDataset {
             if (used[fn]) {
                 continue
             }
-            res.push({name: fn})
+            let z = {name: fn}
+            if (this.__fieldInfoDefault[z.name]) {
+                Object.assign(z, this.__fieldInfoDefault[z.name])
+            }
+            res.push(z)
         }
 
-        console.info("this.__detectedType", this.__detectedType);
         // постобработка
         for (let f of res) {
             if (!f.title) {
@@ -308,6 +328,13 @@ export class ChartBuilder {
      * @param dsList массив, в который нужно положить экземпляры ExportDataset
      */
     onExportData(dsList) {
+    }
+
+    /**
+     * Создать пустой экземпляр ExportDataset
+     */
+    createExportDataset() {
+        return new ExportDataset()
     }
 
     ////// options utils

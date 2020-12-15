@@ -19,6 +19,22 @@ describe(__filename, function() {
         let ds = new m.ExportDataset()
         ds.addData(data)
         ds.joinData(data2, 'dt')
+        ds.setFieldInfoDefault({
+            f1: {
+                title: 'Поле F1'
+            }
+        })
+        ds.setFieldInfoDefault({
+            f2: {
+                title: 'F2 поле'
+            },
+            f3: {
+                title: 'F3 поле'
+            },
+            f4: {
+                title: 'F4 поле'
+            }
+        })
         //
         ds.addFieldInfo({name: 'dt', title: 'Дата'})
         ds.addFieldInfo({name: 'f1', ignore: true})

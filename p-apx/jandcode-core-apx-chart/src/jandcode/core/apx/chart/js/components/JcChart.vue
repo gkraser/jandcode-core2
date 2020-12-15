@@ -5,6 +5,7 @@
 
 <script>
 import {apx, echarts} from '../vendor'
+import * as chartHolder from '../chart-holder'
 
 function getLocale() {
     return 'RU' // todo locale нужно как то по правильному определять...
@@ -91,9 +92,11 @@ export default {
         })
 
         this.chartInst = chartInst
+        chartHolder.registerChart(this)
     },
 
     beforeDestroy() {
+        chartHolder.unregisterChart(this)
         if (this.chartInst != null) {
             this.__destroyChartInst(this.chartInst)
         }
@@ -156,6 +159,17 @@ export default {
                 this.options.destroyChartInst(chartInst, this)
             }
         },
+
+        /**
+         * Экспортировать данные из диаграммы
+         */
+        __exportData() {
+            if (apx.jsaBase.isFunction(this.options.exportData)) {
+                return this.options.exportData()
+            } else {
+                throw new Error("Экспорт данных не поддерживается")
+            }
+        }
 
     },
 }
