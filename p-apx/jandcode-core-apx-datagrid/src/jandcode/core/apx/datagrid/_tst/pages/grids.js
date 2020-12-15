@@ -26,9 +26,9 @@ export function grid1(opt) {
         layout: "fitColumns",
         selectable: 1,
         columns: [
-            {title: "Name", field: "name", width: 150},
+            {title: "Name", field: "name", width: 120},
             {title: "Age", field: "age", hozAlign: "left", formatter: "progress"},
-            {title: "Favourite Color", field: "col"},
+            {title: "Favourite Color", field: "col", widthGrow: 1},
             {
                 title: "Date Of Birth", field: "dob", sorter: "date",
                 hozAlign: "center"
