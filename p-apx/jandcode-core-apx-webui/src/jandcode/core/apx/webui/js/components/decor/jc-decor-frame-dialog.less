@@ -27,7 +27,18 @@
     width: 100vw;
   }
 
-  ///// далее минимальное оформление
+  // fit
+
+  &__body--fit {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__body--fit > * {
+    flex: 1;
+  }
+
+  // далее минимальное оформление
 
   border: 1px solid @color-gray-400;
   background-color: white;
@@ -44,13 +55,4 @@
     padding: 0.5em 1em;
   }
 
-}
-
-.jc-decor-frame-dialog.jc-decor-frame-dialog--body-fit > .jc-decor-frame-dialog__body {
-  display: flex;
-  flex-direction: column;
-}
-
-.jc-decor-frame-dialog.jc-decor-frame-dialog--body-fit > .jc-decor-frame-dialog__body > * {
-  flex: 1;
 }

@@ -10,7 +10,7 @@
                 </jc-toolbar>
             </q-card-section>
         </template>
-        <q-card-section class="jc-panel__body">
+        <q-card-section :class="classesBody">
             <slot name="default">
             </slot>
         </q-card-section>
@@ -35,8 +35,12 @@ export default {
     computed: {
         classes() {
             let res = ['jc-panel']
+            return res
+        },
+        classesBody() {
+            let res = ['jc-panel__body']
             if (this.bodyFit) {
-                res.push('jc-panel--body-fit')
+                res.push('jc-panel__body--fit')
             }
             return res
         },

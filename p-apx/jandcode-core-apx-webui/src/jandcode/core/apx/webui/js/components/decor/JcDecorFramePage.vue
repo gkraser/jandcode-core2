@@ -43,6 +43,13 @@ let nm = 'jc-decor-frame-page';
 export default {
     name: nm,
     extends: JcDecorFrame,
+    props: {
+        bodyFit: {
+            type: Boolean
+        },
+        bodyClass: {},
+        bodyStyle: {},
+    },
     computed: {
         classes() {
             let res = [nm]

@@ -21,7 +21,7 @@
             </jc-toolbar>
         </div>
 
-        <div class="jc-decor-frame-dialog__body" :class="bodyClass" :style="bodyStyle">
+        <div :class="classesBody" :style="bodyStyle">
             <slot name="default">
             </slot>
         </div>
@@ -56,7 +56,9 @@ export default {
         },
         bodyFit: {
             type: Boolean
-        }
+        },
+        bodyClass: {},
+        bodyStyle: {},
     },
 
     computed: {
@@ -68,8 +70,17 @@ export default {
                 let s = '' + this.size
                 res.push('jc-decor-frame-dialog--size-' + s)
             }
+            return res;
+        },
+        classesBody() {
+            let res = [
+                'jc-decor-frame-dialog__body',
+            ]
+            if (this.bodyClass) {
+                res.push(this.bodyClass)
+            }
             if (this.bodyFit) {
-                res.push('jc-decor-frame-dialog--body-fit')
+                res.push('jc-decor-frame-dialog__body--fit')
             }
             return res;
         },
