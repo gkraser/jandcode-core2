@@ -1,6 +1,6 @@
 <template>
-    <Dialog body-fit style="width: 700px;height:400px">
-        <jc-datagrid :options="opt1"/>
+    <Dialog body-fit no-padding _style="width: 700px;height:400px" _size="max">
+        <jc-datagrid :options="opt1" style1="width:500px"/>
     </Dialog>
 </template>
 

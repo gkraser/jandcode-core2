@@ -59,6 +59,9 @@ export default {
         },
         bodyClass: {},
         bodyStyle: {},
+        noPadding: {
+            type: Boolean
+        }
     },
 
     computed: {
@@ -81,6 +84,9 @@ export default {
             }
             if (this.bodyFit) {
                 res.push('jc-decor-frame-dialog__body--fit')
+            }
+            if (!this.noPadding) {
+                res.push('jc-decor-frame-dialog__body--padding')
             }
             return res;
         },

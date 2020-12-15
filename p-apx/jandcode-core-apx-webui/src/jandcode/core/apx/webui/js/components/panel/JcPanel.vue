@@ -30,6 +30,9 @@ export default {
         title: {},
         bodyFit: {
             type: Boolean
+        },
+        noPadding: {
+            type: Boolean
         }
     },
     computed: {
@@ -41,6 +44,9 @@ export default {
             let res = ['jc-panel__body']
             if (this.bodyFit) {
                 res.push('jc-panel__body--fit')
+            }
+            if (!this.noPadding) {
+                res.push('jc-panel__body--padding')
             }
             return res
         },
