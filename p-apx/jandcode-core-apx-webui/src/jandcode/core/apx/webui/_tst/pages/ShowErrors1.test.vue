@@ -9,6 +9,8 @@
                     @click="errorInTemplate1"/>
             <jc-btn label="axios error"
                     @click="errorAxios1"/>
+            <jc-btn label="ajax error"
+                    @click="errorAjax1"/>
             <jc-btn label="promise error"
                     @click="errorPromise1"/>
             <jc-btn label="Jc.loadModule error"
@@ -25,7 +27,7 @@
 
 <script>
 import axios from 'axios'
-import {tst} from '../vendor'
+import {apx, tst} from '../vendor'
 
 export default {
     mixins: [tst.mixins.cfgStore],
@@ -60,6 +62,11 @@ export default {
         },
         errorAxios1() {
             axios.get('xxx')
+        },
+        errorAjax1() {
+            apx.jsaBase.ajax.request({
+                url:'xxx'
+            })
         },
         errorPromise1() {
             let p = new Promise(function(reslove) {

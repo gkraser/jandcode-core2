@@ -37,7 +37,7 @@ export class JcError {
     }
 
     getMessage(devMode) {
-        let m = this.getMessageInternal(devMode)
+        let m = this.getMessageInternal(this.err, devMode)
         if (cnv.isObject(m)) {
             let s
             try {
@@ -53,8 +53,7 @@ export class JcError {
     /**
      * Превращает ошибку в текст сообщения
      */
-    getMessageInternal(devMode) {
-        let e = this.err;
+    getMessageInternal(e, devMode) {
         let m = "";
         let s;
 
@@ -67,7 +66,7 @@ export class JcError {
                 let rr = s.match(/<body.*?>((\n|\r|.)*?)<\/body>/);
                 if (rr) s = rr[1];
                 if (!devMode) {
-                    rr = s.match(/<div class="error-text">((\n|\r|.)*?)<\/div>/);
+                    rr = s.match(/<pre class="error">((\n|\r|.)*?)<\/pre>/);
                     if (rr) {
                         m = rr[1];
                     } else {
@@ -82,6 +81,11 @@ export class JcError {
 
 
         if (e instanceof Error) {
+            if (cnv.isObject(e.response)) {
+                if (e.response.data) {
+                    return this.getMessageInternal(e.response.data, devMode)
+                }
+            }
             return "" + e.message;
 
         } else if (cnv.isString(e)) {
