@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!--
+        Аутентификация и Авторизация
+    -->
+
+    <bean name="jandcode.core.auth.AuthService"
+          class="jandcode.core.auth.impl.AuthServiceImpl"/>
+
+</root>

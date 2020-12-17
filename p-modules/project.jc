@@ -15,6 +15,7 @@ class P extends ProjectScript {
         include(RootProject).with {
             moduleGroup = "jc-core/p-modules"
             modules(
+                    'jandcode-core-auth',
                     'jandcode-core-poi',
                     'jandcode-core-lucene',
                     'jandcode-core-groovy',
