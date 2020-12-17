@@ -7,6 +7,14 @@ import {waitShow, waitHide} from './wait'
 
 /**
  * axios.request с некоторыми умолчаниями, настроенными на среду jandcode
+ *
+ * url оборачивается функцией url.ref()
+ *
+ * formdata=true в этом случае данные передаются в формате
+ * application/x-www-form-urlencoded: обавляется заголовок
+ * application/x-www-form-urlencoded и data конвертируется в строку параметров
+ * и помещается в data
+ *
  * @param config {Object}
  */
 export function request(config) {
@@ -23,8 +31,13 @@ export function request(config) {
         config.method = 'post'
     }
 
+    if (config.formdata) {
+        config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+        config.data = url.params(config.data)
+    }
+
     // маркер ajax запроса
-    config.headers['X-Requested-With'] = 'XMLHttpRequest';
+    config.headers['X-Requested-With'] = 'XMLHttpRequest'
 
     //
     return axios.request(config)
