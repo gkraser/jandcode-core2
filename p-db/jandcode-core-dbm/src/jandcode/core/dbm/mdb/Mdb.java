@@ -13,6 +13,6 @@ import jandcode.core.dbm.domain.*;
  * Объект притворяется базой данных {@link Db}.
  */
 public interface Mdb extends IAppLink, IModelLink, Db,
-        IDaoInvoker, IDomainService, IDictService {
+        IDaoInvoker, IDomainService, IDictService, ILoadQueryRecord {
 
 }

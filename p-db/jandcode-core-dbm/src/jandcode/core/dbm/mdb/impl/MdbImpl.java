@@ -1,6 +1,7 @@
 package jandcode.core.dbm.mdb.impl;
 
 import jandcode.commons.conf.*;
+import jandcode.commons.error.*;
 import jandcode.commons.named.*;
 import jandcode.core.*;
 import jandcode.core.dao.*;
@@ -113,6 +114,28 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
 
     public DictData loadDictData(Dict dict, Collection<Object> ids) throws Exception {
         return getDictService().loadDictData(dict, ids);
+    }
+
+    ////// ILoadQueryRecord
+
+    protected StoreRecord oneRecord(Store st) {
+        if (st.size() == 0) {
+            throw new XError("Нет записей");
+        }
+        if (st.size() > 1) {
+            throw new XError("Слишком много записей ({0))", st.size());
+        }
+        return st.get(0);
+    }
+
+    public StoreRecord loadQueryRecord(String sql) throws Exception {
+        Store st = loadQuery(sql);
+        return oneRecord(st);
+    }
+
+    public StoreRecord loadQueryRecord(String sql, Object params) throws Exception {
+        Store st = loadQuery(sql, params);
+        return oneRecord(st);
     }
 
 }
