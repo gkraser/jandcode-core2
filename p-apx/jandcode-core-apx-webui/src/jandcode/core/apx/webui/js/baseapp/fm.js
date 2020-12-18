@@ -371,8 +371,6 @@ export class FrameWrapper {
         // кто показывает фрейм
         this.shower = this.options.shower
 
-        // удаляем не нужное
-        delete this.options.params
     }
 
     /**

@@ -25,11 +25,22 @@ export class FrameShower_main_default extends FrameShower {
     async showFrameWrapper(fw) {
         // нужно ли помещать в стек
         let isStack = fw.options.stack
+        // нужно ли заменить последний 
+        let isReplace = fw.options.replace
 
         let old_frames = null
         if (!isStack) {
             old_frames = this._frames
             this._frames = []
+        } else {
+            if (isReplace) {
+                // replace в стеке
+                // последний убираем для закрытия
+                old_frames = []
+                if (this._frames.length > 0) {
+                    old_frames.push(this._frames.pop())
+                }
+            }
         }
 
         // сохраняем новый

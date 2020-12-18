@@ -36,5 +36,6 @@ export default {
     'home': 'svg:home',
     'close': 'svg:close',
     'frame': 'svg:frame',
+    'refresh': 'svg:quasar.pullToRefresh.icon',
 
 }

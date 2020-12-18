@@ -86,6 +86,19 @@ export default {
         },
 
         /**
+         * Перезагрузить фрейм. Фрейм должен быть на вершине стека.
+         * @param params параметры, которые будут наложены на те, с которыми фрейм был
+         *        показан
+         * @return {Promise<void>}
+         */
+        reloadFrame(params) {
+            let opt = Object.assign(this.frameWrapper.options)
+            opt.params = Object.assign({}, this.frameWrapper.options.params, params)
+            opt.replace = true
+            this.frameWrapper.frameManager.showFrame(opt)
+        },
+
+        /**
          * Закрыть фрейм с указанной командой.
          * @param cmd команда
          */
