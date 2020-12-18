@@ -564,6 +564,9 @@ export class FrameShower {
 export class FrameShower_dialog extends FrameShower {
 
     async showFrameWrapper(fw) {
+        if (fw.options.replace) {
+            throw new Error("replace (and reloadFrame) not supported in dialogs")
+        }
         fw.frameInst.$mount(jsaBase.dom.createTmpElement())
         fw.dialogEl = jsaBase.dom.createTmpElement()
         let DialogCls = Vue.extend(Dialog)
