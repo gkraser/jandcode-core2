@@ -264,7 +264,7 @@ export default {
 
         unmountFrame() {
             if (this.lastMountedEl != null) {
-                this.lastMountedEl.remove()
+                this.lastMountedEl.style.display = 'none'
             }
             this.lastMountedEl = null
             this.needSyncMinHeight = false
@@ -298,7 +298,11 @@ export default {
             }
             if (frameEl_exists) {
                 // не сейчас создан, добавляем
-                parentEl.insertAdjacentElement('afterbegin', frameEl)
+                if (frameEl.parentElement !== parentEl) {
+                    parentEl.insertAdjacentElement('afterbegin', frameEl)
+                }
+                // делаем видимым, если он в стеке скрылся
+                frameEl.style.display = 'block'
             }
             this.lastMountedEl = frameEl
         },

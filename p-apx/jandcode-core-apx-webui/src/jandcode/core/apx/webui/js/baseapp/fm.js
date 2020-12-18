@@ -486,8 +486,12 @@ export class FrameWrapper {
      */
     destroy() {
         this.frameInst.$options.frameWrapper = null
+        let frameEl = this.frameInst.$el
         this.frameInst.$destroy()
         this.frameInst = null
+        if (frameEl && frameEl.parentElement) {
+            frameEl.remove()
+        }
         this.frameCompCls = null
         this.frameManager = null
         this.shower = null
