@@ -5,6 +5,10 @@ import {jsaBase} from '../vendor'
 
 /**
  * Базовый предок для фреймов
+ *
+ * Свойство frameParams описывает параметры фрейма.
+ *
+ * Метод frameInit() инициализует фрейм. Выполняется после created и до mount.
  */
 export default {
 
@@ -27,6 +31,9 @@ export default {
 
     computed: {
 
+        /**
+         * @return {FrameWrapper}
+         */
         frameWrapper: function() {
             let fw = this.$options.frameWrapper
             if (fw == null) {
@@ -40,6 +47,17 @@ export default {
          */
         params: function() {
             return this.frameWrapper.params
+        },
+
+        /**
+         * Типизированный доступ к параметрам фрейма.
+         * @return {FrameParams}
+         */
+        frameParams: function() {
+            if (this.__frameParams == null) {
+                this.__frameParams = this.frameWrapper.createFrameParams()
+            }
+            return this.__frameParams
         },
 
         /**

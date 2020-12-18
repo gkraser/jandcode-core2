@@ -296,6 +296,44 @@ export class FrameManager {
 }
 
 /**
+ * Типизированный доступ к параметрам фрейма
+ */
+export class FrameParams {
+
+    /**
+     * @param {FrameWrapper} fw
+     */
+    constructor(fw) {
+        if (!fw.frameInst) {
+            throw new Error('FrameParams доступен только внутри созданного фрейма')
+        }
+        this.__frameWrapper = fw
+    }
+
+    /**
+     * Значение параметра по имени. Как есть, без преобразований.
+     * @param name имя параметра
+     * @param defValue значение по умолчанию, если нет значение для параметра
+     * @return {*}
+     */
+    get(name, defValue = null) {
+        let v = this.__frameWrapper.params[name]
+        if (v == null) {
+            return defValue
+        }
+        return v
+    }
+
+    /**
+     * Значение параметра как целое число
+     */
+    getInt(name, defValue = 0) {
+        return jsaBase.toInt(this.get(name), defValue)
+    }
+
+}
+
+/**
  * Обертка вокруг экземпляра фрейма
  */
 export class FrameWrapper {
@@ -435,6 +473,14 @@ export class FrameWrapper {
      */
     getId() {
         return this.id
+    }
+
+    /**
+     * Создать экземпляр FrameParams
+     * @return {FrameParams}
+     */
+    createFrameParams() {
+        return new FrameParams(this)
     }
 
     /**
