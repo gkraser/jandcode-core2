@@ -13,7 +13,7 @@ export default {
     created() {
         this.title = 'ToContent'
     },
-    initFrame() {
+    frameInit() {
     },
     data() {
         return {}

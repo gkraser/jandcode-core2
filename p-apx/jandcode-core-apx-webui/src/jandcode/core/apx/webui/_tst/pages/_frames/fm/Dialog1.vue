@@ -13,7 +13,7 @@ export default {
     created() {
         this.title = 'Dialog1.vue'
     },
-    initFrame() {
+    frameInit() {
     },
     data() {
         return {}

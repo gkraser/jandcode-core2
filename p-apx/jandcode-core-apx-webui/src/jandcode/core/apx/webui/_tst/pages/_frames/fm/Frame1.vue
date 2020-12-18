@@ -24,8 +24,8 @@ export default {
         console.info("Frame1-mounted", this);
         console.info("params:", this.params);
     },
-    initFrame() {
-        console.info("Frame1-initFrame", this);
+    frameInit() {
+        console.info("Frame1-frameInit", this);
         console.info("params:", this.params);
     },
     data() {

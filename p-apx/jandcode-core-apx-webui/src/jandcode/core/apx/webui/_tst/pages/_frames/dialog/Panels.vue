@@ -27,7 +27,7 @@ export default {
     created() {
         this.title = 'Panels'
     },
-    initFrame() {
+    frameInit() {
 
     },
     data() {

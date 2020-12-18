@@ -20,7 +20,7 @@ export default {
     created() {
         this.title = 'Главная страница'
     },
-    initFrame() {
+    frameInit() {
     },
     data() {
         return {}

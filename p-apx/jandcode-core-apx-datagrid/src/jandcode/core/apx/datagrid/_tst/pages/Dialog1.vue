@@ -13,7 +13,7 @@ export default {
     created() {
         this.title = 'Dialog1.vue'
     },
-    initFrame() {
+    frameInit() {
         this.opt1 = grids.grid1({})
     },
     data() {

@@ -11,7 +11,7 @@ export default {
     created() {
         this.title = 'Empty'
     },
-    initFrame() {
+    frameInit() {
     },
     data() {
         return {}

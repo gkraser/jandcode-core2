@@ -45,7 +45,7 @@ describe(__filename, function() {
 
     })
 
-    it("initFrame1", async function() {
+    it("frameInit1", async function() {
         let s = ''
 
         let Comp1 = {
@@ -54,7 +54,7 @@ describe(__filename, function() {
             created() {
                 this.tag1 = true // маркер this
             },
-            async initFrame() {
+            async frameInit() {
                 test.assert.ok(this.tag1)
                 await new Promise(function(resolve) {
                     s += '0'
@@ -66,7 +66,7 @@ describe(__filename, function() {
 
         let frame = await showDialog({
             extends: Comp1,
-            initFrame() {
+            frameInit() {
                 test.assert.ok(this.tag1)
                 s += '2'
             }

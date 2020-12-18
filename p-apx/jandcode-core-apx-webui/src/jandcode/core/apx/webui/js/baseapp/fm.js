@@ -10,8 +10,8 @@ import upperFirst from 'lodash/upperFirst'
 import {FrameRouter} from './router'
 import {FrameHistory} from './history'
 
-// опция initFrame будет выглядеть как массив (аналогично другим life-cycle hookd)
-Vue.config.optionMergeStrategies.initFrame = Vue.config.optionMergeStrategies.created
+// опция frameInit будет выглядеть как массив (аналогично другим life-cycle hookd)
+Vue.config.optionMergeStrategies.frameInit = Vue.config.optionMergeStrategies.created
 
 /**
  * Сервис для менеджера фреймов
@@ -135,7 +135,7 @@ export class FrameManager {
             fw.frameInst = new fw.frameCompCls({frameWrapper: fw})
 
             // инициализаируем (возможна интенсивная загрузка данных)
-            await fw.initFrame()
+            await fw.frameInit()
         } finally {
             jsaBase.waitHide()
         }
@@ -348,12 +348,12 @@ export class FrameWrapper {
 
     /**
      * Инициализация фрейма. Возможна интенсивная загрузка данных.
-     * Вызов initFrame
+     * Вызов frameInit
      */
-    async initFrame() {
-        let initFrameArr = this.frameInst.$options['initFrame']
-        if (initFrameArr) {
-            for (let fn of initFrameArr) {
+    async frameInit() {
+        let frameInitArr = this.frameInst.$options['frameInit']
+        if (frameInitArr) {
+            for (let fn of frameInitArr) {
                 await fn.call(this.frameInst)
             }
         }

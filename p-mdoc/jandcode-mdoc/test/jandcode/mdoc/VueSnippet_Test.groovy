@@ -29,7 +29,7 @@ export default {
         this.title = 'Пустая страница'
         //= 
     },
-    initFrame() {
+    frameInit() {
     },
     data() {
         //= part2

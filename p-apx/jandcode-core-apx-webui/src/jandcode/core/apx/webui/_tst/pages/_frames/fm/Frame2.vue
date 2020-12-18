@@ -25,7 +25,7 @@ export default {
         console.info("params:", this.params);
     },
 
-    async initFrame() {
+    async frameInit() {
         let act = "jandcode/core/apx/webui/_tst/pages/_actions/action-json1.json"
 
         let res1 = await jsaBase.ajax.request({

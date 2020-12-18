@@ -16,7 +16,7 @@ export default {
     destroyed() {
         console.info("home destroyed", this);
     },
-    initFrame() {
+    frameInit() {
     },
     data() {
         return {}

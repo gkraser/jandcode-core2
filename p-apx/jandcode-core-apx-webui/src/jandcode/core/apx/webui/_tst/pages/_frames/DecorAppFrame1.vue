@@ -25,7 +25,7 @@ export default {
     created() {
         this.title = 'Заголовок фрейма'
     },
-    initFrame() {
+    frameInit() {
     },
     data() {
         return {

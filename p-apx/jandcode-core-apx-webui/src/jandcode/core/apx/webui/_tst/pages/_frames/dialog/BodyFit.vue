@@ -18,7 +18,7 @@ export default {
     created() {
         this.title = 'BodyFit.vue'
     },
-    initFrame() {
+    frameInit() {
     },
     data() {
         return {
