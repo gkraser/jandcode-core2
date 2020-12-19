@@ -19,7 +19,7 @@
         <div class="row items-center q-gutter-x-md q-mb-lg">
             <jc-inp-passwd v-model="passwd1"/>
             <jc-inp-passwd v-model="passwd1"/>
-            <jc-btn label="change model" @click="str1='777'"/>
+            <jc-btn label="change model" @click="passwd1='777'"/>
             <div>jc-inp-passwd</div>
             <div>model:[{{ passwd1 }}]</div>
         </div>
