@@ -18,10 +18,8 @@ describe(__filename, function() {
     })
 
     it("toDisplayStr", function() {
-        let s
-
-        s = m.toDisplayStr('2010-12-30')
-        test.assert.equal(s, '30.12.2010')
+        test.assert.equal(m.toDisplayStr('2010-12-30'), '30.12.2010')
+        test.assert.equal(m.toDisplayStr('2010-30-12'), null)
     })
 
     it("today", function() {
@@ -29,6 +27,16 @@ describe(__filename, function() {
 
         s = m.today()
         console.info("today", s);
+    })
+
+    it("parse", function() {
+        let s
+
+        test.assert.equal(m.parse('2009-12-23'), '2009-12-23')
+        test.assert.equal(m.parse('23.12.2009', 'DD.MM.YYYY'), '2009-12-23')
+        test.assert.equal(m.parse('23.12.200', 'DD.MM.YYYY'), null)
+        test.assert.equal(m.parse('23.12.20', 'DD.MM.YYYY'), null)
+        test.assert.equal(m.parse('sdfkjh', 'DD.MM.YYYY'), null)
     })
 
 })

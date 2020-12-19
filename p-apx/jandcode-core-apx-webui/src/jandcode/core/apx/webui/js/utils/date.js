@@ -6,6 +6,8 @@
 
 Связано с тем, что данные с сервера приходят в виде дат ISO.
 
+Используются утилиты для дат от Quasar.
+
 ----------------------------------------------------------------------------- */
 
 import {jsaBase, Quasar} from '../vendor'
@@ -17,6 +19,8 @@ export let q_date = Quasar.date
 
 // все форматы по требованиям quasar
 
+export let ISO_DATE = 'YYYY-MM-DD'
+
 // настройки echarts по умолчанию
 jsaBase.cfg.setDefault({
     date: {
@@ -26,11 +30,36 @@ jsaBase.cfg.setDefault({
 })
 
 /**
+ * Дату в строку указанного формата
+ * @param dt дата
+ * @param fmt формат
+ */
+export function format(dt, fmt) {
+    return q_date.formatDate(dt, fmt)
+}
+
+/**
+ * Строку в дату указанного формата
+ * @param dt дата
+ * @param fmt формат. Если не указан, используется iso
+ * @return null, если дата не правильная
+ */
+export function parse(dt, fmt) {
+    fmt = fmt || ISO_DATE
+    let dtTmp = q_date.extractDate(dt, fmt)
+    let sf = format(dtTmp, fmt)
+    if (sf.length !== fmt.length || dt !== sf) {
+        return null
+    }
+    return toStr(dtTmp)
+}
+
+/**
  * Дату в строку в iso-формате
  * @param dt дата
  */
 export function toStr(dt) {
-    return q_date.formatDate(dt, 'YYYY-MM-DD')
+    return format(dt, ISO_DATE)
 }
 
 /**
@@ -38,7 +67,7 @@ export function toStr(dt) {
  * @param dt дата
  */
 export function toDisplayStr(dt) {
-    return q_date.formatDate(dt, jsaBase.cfg.date.displayFormat)
+    return format(dt, jsaBase.cfg.date.displayFormat)
 }
 
 /**
