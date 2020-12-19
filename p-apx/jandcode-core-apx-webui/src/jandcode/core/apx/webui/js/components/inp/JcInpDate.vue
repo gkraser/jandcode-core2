@@ -5,19 +5,21 @@
             :mask="inputMask"
             v-model="inpValue"
     >
+        <q-menu v-model="showPopup"
+                :transition-show="null"
+                :transition-hide="null"
+                anchor="bottom left"
+                no-parent-event
+        >
+            <q-date v-model="inpValue"
+                    :mask="displayFormat"
+                    today-btn
+                    years-in-month-view
+            >
+            </q-date>
+        </q-menu>
         <template v-slot:append>
-            <q-icon name="calendar" class="cursor-pointer">
-                <q-popup-proxy v-model="showPopup"
-                               :transition-show="null"
-                               :transition-hide="null">
-                    <q-date v-model="inpValue"
-                            :mask="displayFormat"
-                            today-btn
-                            years-in-month-view
-                    >
-                    </q-date>
-                </q-popup-proxy>
-            </q-icon>
+            <q-icon name="calendar" class="cursor-pointer" @click="showPopup=true"/>
         </template>
     </q-input>
 </template>

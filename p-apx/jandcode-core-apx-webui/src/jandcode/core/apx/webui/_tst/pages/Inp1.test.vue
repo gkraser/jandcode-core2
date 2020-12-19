@@ -3,6 +3,8 @@
         <template #tools>
         </template>
 
+        <tst-big-content :maxRows="10"/>
+
         <div class="row items-center q-gutter-x-md q-mb-lg">
             <jc-inp-str v-model="str1"/>
             <jc-inp-str v-model="str1"/>
