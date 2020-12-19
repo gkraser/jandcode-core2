@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <vars
+            userprofile="#{env.USERPROFILE}"
+            javahome="#{env.java.home}"
+    >
+        <path>#{env.PATH}</path>
+    </vars>
+</root>

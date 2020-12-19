@@ -188,6 +188,9 @@ public class AppImpl implements App, IBeanIniter {
 
         Map<String, String> vars = new LinkedHashMap<>();
         vars.put("appdir", this.appdir);
+        for (Map.Entry<String, Object> en : this.env.getProperties().entrySet()) {
+            vars.put("env." + en.getKey(), UtCnv.toString(en.getValue()));
+        }
         vars.put("env.test", "" + this.env.isTest());
         vars.put("env.source", "" + this.env.isSource());
         vars.put("env.dev", "" + this.env.isDev());
