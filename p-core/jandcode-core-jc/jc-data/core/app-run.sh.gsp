@@ -14,6 +14,8 @@
 
 WD=`dirname $0`
 
+# in JC_JVM java parameters -Dxxx=yyy
+
 <% if (prod) { %>
 CP=${v('WD')}/lib:${v('WD')}/lib/*
 <% } else { %>
@@ -30,4 +32,4 @@ JVM="${v('JVM')} -Djandcode.app.appdir=${v('WD')}"
 JVM="${v('JVM')} -Dfile.encoding=UTF-8"
 MAIN=${mainClass}
 
-${java} ${v('JVM')} ${v('MAIN')} $*
+${java} ${v('JVM')} ${v('JC_JVM')} ${v('MAIN')} $*

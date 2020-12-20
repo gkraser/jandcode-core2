@@ -11,6 +11,8 @@
 %>                     
 @echo off
 
+rem in JC_JVM java parameters -Dxxx=yyy
+
 <% if (prod) { %>
 set CP=%~dp0lib;%~dp0lib\*
 <% } else { %>
@@ -27,4 +29,4 @@ set JVM=%JVM% -Djandcode.app.appdir=%~dp0
 set JVM=%JVM% -Dfile.encoding=UTF-8
 set MAIN=${mainClass}
 
-${java} %JVM% %MAIN% %*
+${java} %JVM% %JC_JVM% %MAIN% %*
