@@ -143,7 +143,7 @@ class ProductBuilder extends ProjectScript {
             return
         }
         ant.copy(todir: destDir, overwrite: true, preservelastmodified: true) {
-            fileset(dir: p1)
+            fileset(dir: p1, defaultexcludes: false)
         }
     }
 
