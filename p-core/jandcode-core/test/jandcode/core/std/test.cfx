@@ -3,8 +3,21 @@
 
     <x-include path="../test.cfx"/>
 
+    <bean name="jandcode.core.std.CfgService">
+        <expand-rule
+                name="ignore1"
+                mask="ignore1/**/*"
+                ignore="true"/>
+    </bean>
+
     <cfg
-        p1="${client/url/u1}">
+            p1="${client/url/u1}">
+
+        <ignore1 name="dbs1"
+                 param1="${p1}"
+                 param2="${p2}"
+        />
+
         <url
                 root="main"
                 extlink="extlink/open"

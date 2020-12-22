@@ -5,13 +5,41 @@ import jandcode.commons.conf.*;
 import jandcode.core.*;
 import jandcode.core.std.*;
 
+import java.util.*;
+
 public class CfgServiceImpl extends BaseComp implements CfgService {
 
     private Conf origConf;
     private Conf conf;
+    private List<ExpandRuleDef> expandRules = new ArrayList<>();
+
+    class ExpandRuleDef {
+        Conf conf;
+        String mask;
+        boolean ignore = false;
+
+        public ExpandRuleDef(Conf conf) {
+            this.conf = conf;
+            this.mask = conf.getString("mask");
+            this.ignore = conf.getBoolean("ignore", false);
+        }
+
+        boolean matchPath(String path) {
+            return UtVDir.matchPath(mask, path);
+        }
+
+        boolean isIgnore() {
+            return ignore;
+        }
+    }
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
+
+        // правила раскрытия
+        for (Conf x : cfg.getConf().getConfs("expand-rule")) {
+            expandRules.add(0, new ExpandRuleDef(x));
+        }
 
         // оригинальная, копия
         this.origConf = UtConf.create();
@@ -40,17 +68,22 @@ public class CfgServiceImpl extends BaseComp implements CfgService {
     protected Conf buildConf() {
         Conf res = UtConf.create();
         res.join(this.origConf);
-        expandProps(res, res);
+        expandProps(res, res, "");
         return res;
     }
 
-    protected void expandProps(Conf root, Conf x) {
+    protected void expandProps(Conf root, Conf x, String prefix) {
         for (String pn : x.keySet()) {
             Object v = x.getValue(pn);
+            String path = prefix + pn;
             if (v instanceof Conf) {
-                expandProps(root, (Conf) v);
+                expandProps(root, (Conf) v, path + "/");
             } else {
-                x.setValue(pn, expandPropValue(root, UtCnv.toString(v)));
+                if (rule_isIgnore(path)) {
+                    // ничего не делаем, остаются переменные ${} как есть
+                } else {
+                    x.setValue(pn, expandPropValue(root, UtCnv.toString(v)));
+                }
             }
         }
     }
@@ -60,6 +93,20 @@ public class CfgServiceImpl extends BaseComp implements CfgService {
             return value;
         }
         return UtString.substVar(value, v -> expandPropValue(root, root.getString(v)));
+    }
+
+    //////
+
+    protected boolean rule_isIgnore(String path) {
+        if (this.expandRules.size() == 0) {
+            return false;
+        }
+        for (ExpandRuleDef r : this.expandRules) {
+            if (r.matchPath(path)) {
+                return r.isIgnore();
+            }
+        }
+        return false;
     }
 
 }

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
+    <bean name="jandcode.core.std.CfgService">
+        <expand-rule
+                name="dbsource"
+                mask="dbsource/**/*"
+                ignore="true"/>
+    </bean>
+
     <bean name="jandcode.core.db.DbDriverService"
           class="jandcode.core.db.impl.DbDriverServiceImpl"/>
 

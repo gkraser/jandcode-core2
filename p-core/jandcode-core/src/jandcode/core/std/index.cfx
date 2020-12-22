@@ -11,7 +11,20 @@
     <!-- стандартные сервисы -->
 
     <bean name="jandcode.core.std.CfgService"
-          class="jandcode.core.std.impl.CfgServiceImpl"/>
+          class="jandcode.core.std.impl.CfgServiceImpl">
+
+        <!--
+
+        Можно настроить игнорирование свойст для раскрытия.
+        Для таких свойств подстановки ${xxx} не будут раскрыватся
+
+        <expand-rule
+                name="i"
+                mask="mask/as/in/ant/**"
+                ignore="true"/>
+
+        -->
+    </bean>
 
     <bean name="jandcode.core.std.CheckChangedResourceService"
           class="jandcode.core.std.impl.CheckChangedResourceServiceImpl"
