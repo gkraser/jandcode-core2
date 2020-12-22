@@ -15,8 +15,8 @@ _jc
 _gen
 node_modules
 .idea*
-app-run.bat
-app-run.sh
+/app-run.bat
+/app-run.sh
 /_*
 /lib/_*
 /package.json
