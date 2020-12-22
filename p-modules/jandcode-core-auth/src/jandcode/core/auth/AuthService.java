@@ -21,5 +21,9 @@ public interface AuthService extends Comp, IAuthLogin {
      */
     void setCurrentUser(AuthUser user);
 
+    /**
+     * Используемый аутентификатор
+     */
+    AuthProcessor getAuthProcessor();
 
 }
