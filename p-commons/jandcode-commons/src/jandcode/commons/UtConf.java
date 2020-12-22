@@ -84,6 +84,48 @@ public class UtConf {
         return m;
     }
 
+    /**
+     * Список всех используемых свойств в конфикурации.
+     * Вложенные свойства разделяются '/'
+     *
+     * @param x           конфигурация
+     * @param includeConf true - включать свойства, которые имеют тип Conf.
+     * @return список свойств
+     */
+    public static List<String> getPropNames(Conf x, boolean includeConf) {
+        List<String> res = new ArrayList<>();
+        if (x != null) {
+            internal_getPropNames(res, x, includeConf, "");
+        }
+        return res;
+    }
+
+    /**
+     * Список всех используемых свойств в конфикурации.
+     * Вложенные свойства разделяются '/'. Свойства типа Conf пропускаются.
+     *
+     * @param x конфигурация
+     * @return список свойств
+     */
+    public static List<String> getPropNames(Conf x) {
+        return getPropNames(x, false);
+    }
+
+    private static void internal_getPropNames(List<String> res, Conf x, boolean includeConf, String prefix) {
+        for (Map.Entry<String, Object> en : x.entrySet()) {
+            String k = en.getKey();
+            Object v = en.getValue();
+            if (v instanceof Conf) {
+                if (includeConf) {
+                    res.add(prefix + k);
+                }
+                internal_getPropNames(res, (Conf) v, includeConf, prefix + k + "/");
+            } else {
+                res.add(prefix + k);
+            }
+        }
+    }
+
     //////
 
     /**
