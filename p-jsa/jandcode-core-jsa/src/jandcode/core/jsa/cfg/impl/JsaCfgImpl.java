@@ -16,20 +16,20 @@ public class JsaCfgImpl extends BaseCfg implements JsaCfg {
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
         //
-        this.bootModule = getConf().getString("bootModule");
-        this.envModule = getConf().getString("envModule");
-        this.defaultTheme = getConf().getString("defaultTheme");
+        this.bootModule = getString("jsa/bootModule");
+        this.envModule = getString("jsa/envModule");
+        this.defaultTheme = getString("jsa/defaultTheme");
 
         String s;
 
-        s = getConf().getString("minify");
+        s = getString("jsa/minify");
         if (UtString.empty(s)) {
             this.minify = !getApp().getEnv().isDev();
         } else {
             this.minify = UtCnv.toBoolean(s);
         }
 
-        s = getConf().getString("moduleSource");
+        s = getString("jsa/moduleSource");
         if (UtString.empty(s)) {
             this.moduleSource = getApp().getEnv().isDev();
         } else {

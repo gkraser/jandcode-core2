@@ -10,6 +10,9 @@
 
     <!-- стандартные сервисы -->
 
+    <bean name="jandcode.core.std.CfgService"
+          class="jandcode.core.std.impl.CfgServiceImpl"/>
+
     <bean name="jandcode.core.std.CheckChangedResourceService"
           class="jandcode.core.std.impl.CheckChangedResourceServiceImpl"
           bean.autoCreate="true"/>

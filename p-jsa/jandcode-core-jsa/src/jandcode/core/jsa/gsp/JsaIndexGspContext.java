@@ -1,6 +1,7 @@
 package jandcode.core.jsa.gsp;
 
 import jandcode.commons.*;
+import jandcode.commons.conf.*;
 import jandcode.core.jsa.cfg.*;
 import jandcode.core.jsa.jsmodule.*;
 import jandcode.core.jsa.theme.*;
@@ -20,7 +21,7 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
     private String title;
     private String env;
     private String main;
-    private Map<String, Object> cfg;
+    private Conf cfg;
     private String theme;
     private List<String> otherModules = new ArrayList<>();
 
@@ -131,7 +132,7 @@ public class JsaIndexGspContext implements IGspContextLinkSet {
     /**
      * Конфигурация для клиента
      */
-    public Map<String, Object> getCfg() {
+    public Conf getCfg() {
         if (this.cfg == null) {
             JsaClientCfgService cfgSvc = gspContext.getApp().bean(JsaClientCfgService.class);
             this.cfg = cfgSvc.grabClientCfg();

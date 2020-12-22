@@ -1,8 +1,7 @@
 package jandcode.core.jsa.cfg;
 
+import jandcode.commons.conf.*;
 import jandcode.core.*;
-
-import java.util.*;
 
 /**
  * Сервис для предоставления конфигурации для клиентского приложения
@@ -11,7 +10,7 @@ public interface JsaClientCfgService extends Comp {
 
     /**
      * Для всех сервисов приложения, которые реализуют {@link JsaClientCfgProvider},
-     * вызывает метод {@link JsaClientCfgProvider#grabClientCfg(Map)}.
+     * вызывает метод {@link JsaClientCfgProvider#grabClientCfg(Conf)}.
      * Полученный результат возвращает.
      * <p>
      * Метод ничего не кеширует. Формировать конфигурацию можно с учетом
@@ -21,6 +20,6 @@ public interface JsaClientCfgService extends Comp {
      * Поэтому стоит использовать только простые значения, которые
      * однозначно можно в json преобразовать.
      */
-    Map<String, Object> grabClientCfg();
+    Conf grabClientCfg();
 
 }

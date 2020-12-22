@@ -1,6 +1,7 @@
 package jandcode.core.jsa.tst
 
 import jandcode.commons.*
+import jandcode.commons.conf.*
 import jandcode.core.jsa.gsp.*
 import jandcode.core.web.*
 import jandcode.core.web.gsp.*
@@ -14,7 +15,7 @@ class TstIndexGspContext implements IGspContextLinkSet {
 
     private GspContext gspContext
     private String title
-    private Map cfg
+    private Conf cfg
 
     void setGspContext(GspContext gspContext) {
         this.gspContext = gspContext;
@@ -33,7 +34,7 @@ class TstIndexGspContext implements IGspContextLinkSet {
      */
     Map getCfg() {
         if (cfg == null) {
-            cfg = [:]
+            cfg = UtConf.create()
 
             JsaIndexGspContext ctx = gspContext.inst(JsaIndexGspContext)
             String main = getMain()

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-include path="../test.cfx"/>
+
+    <cfg
+        p1="${client/url/u1}">
+        <url
+                root="main"
+                extlink="extlink/open"
+                u1="url1"
+                u1.call="${url/u1}/call-1"
+        />
+
+        <client>
+            <url
+                    u1="${url/u1.call}"/>
+        </client>
+
+    </cfg>
+
+</root>
