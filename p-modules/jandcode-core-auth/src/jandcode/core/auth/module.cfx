@@ -6,6 +6,12 @@
     -->
 
     <bean name="jandcode.core.auth.AuthService"
-          class="jandcode.core.auth.impl.AuthServiceImpl"/>
+          class="jandcode.core.auth.impl.AuthServiceImpl">
+
+        <!-- AuthProcessor. По умолчанию - заглушка для admin/111, user1/111 -->
+        <auth-processor name="default"
+                        class="jandcode.core.auth.std.DummyAuthProcessor"/>
+
+    </bean>
 
 </root>
