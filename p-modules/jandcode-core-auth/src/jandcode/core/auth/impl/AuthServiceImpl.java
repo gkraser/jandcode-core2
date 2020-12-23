@@ -1,8 +1,8 @@
 package jandcode.core.auth.impl;
 
+import jandcode.commons.error.*;
 import jandcode.core.*;
 import jandcode.core.auth.*;
-import jandcode.core.auth.std.*;
 
 public class AuthServiceImpl extends BaseComp implements AuthService {
 
@@ -53,7 +53,7 @@ public class AuthServiceImpl extends BaseComp implements AuthService {
 
     public AuthUser login(AuthToken authToken) throws Exception {
         if (!getAuthProcessor().isSupportedAuthToken(authToken)) {
-            throw new AuthError();
+            throw new XError(XErrorAuth.msg_unsupported_token);
         }
         return getAuthProcessor().login(authToken);
     }

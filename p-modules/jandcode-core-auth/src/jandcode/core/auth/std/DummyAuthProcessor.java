@@ -27,7 +27,7 @@ public class DummyAuthProcessor extends BaseComp implements AuthProcessor {
             return createUser(token.getUsername(), 101);
 
         } else {
-            throw new AuthError();
+            throw new XErrorAuth(XErrorAuth.msg_invalid_user_passwd);
         }
 
     }
