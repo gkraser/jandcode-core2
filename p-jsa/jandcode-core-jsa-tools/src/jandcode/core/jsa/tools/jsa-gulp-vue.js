@@ -36,7 +36,9 @@ function vue_taskFactory(g, taskName, module, taskParams) {
                     filename: file.path,
                     syncImport: true,
                     sync: true,
-                    plugins: [new jsaLess.JsaLessPlugin()]
+                    plugins: [new jsaLess.JsaLessPlugin({
+                        taskName: taskName, g: g, module: module
+                    })]
 
                 }
                 , function(err, out) {
@@ -91,9 +93,8 @@ function vue_taskFactory(g, taskName, module, taskParams) {
     gulp.task(taskName, function() {
         let lastRun = gulp.lastRun(taskName)
 
-        return g.makeSrcAllModules(module, taskParams)
+        return g.makeSrcAllModules(module, taskParams, {since: lastRun})
             .pipe(g.showWatchError()) // error handler
-            .pipe(cached('vue'))
             .pipe(debug({title: 'compile', showFiles: !!lastRun}))
             .pipe(through2(vue))
             .pipe(rename(function(path) {

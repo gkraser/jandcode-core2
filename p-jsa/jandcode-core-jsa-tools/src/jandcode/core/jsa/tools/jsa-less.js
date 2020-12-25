@@ -10,6 +10,7 @@ const gulp = require('gulp');
 const fs = require('fs');
 
 let tmpFileCounter = 0
+let tmpImportPrefix = "TMP-IMPORT--"
 
 /**
  * Поддержка import '~xxx'
@@ -36,7 +37,7 @@ JsaLessFileManager.prototype.loadFile = function(filename, currentDirectory, opt
         let res = {}
         res.contents = fstr
         tmpFileCounter++
-        res.filename = path.resolve(currentDirectory, "TMP-IMPORT--" + tmpFileCounter + ".less")
+        res.filename = path.resolve(currentDirectory, tmpImportPrefix + tmpFileCounter + ".less")
         callback(null, res)
         return
     }
@@ -91,6 +92,9 @@ JsaLessPostProcessor.prototype = {
         let globs = []
         for (let fi of imports) {
             if (used[fi]) {
+                continue
+            }
+            if (fi.indexOf(tmpImportPrefix) !== -1) {
                 continue
             }
             used[fi] = true
