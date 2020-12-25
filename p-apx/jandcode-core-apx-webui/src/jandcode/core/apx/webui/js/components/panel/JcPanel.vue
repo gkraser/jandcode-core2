@@ -1,33 +1,33 @@
 <template>
     <div :class="classes">
-        <template v-if="hasHeader">
-            <div class="jc-panel__header">
-                <jc-toolbar>
-                    <slot name="header">
-                        <jc-toolbar-title :text="title"/>
-                        <q-space/>
-                        <slot name="toolbar">
-                        </slot>
-                    </slot>
-                </jc-toolbar>
-            </div>
-        </template>
-        <div :class="classesBody">
+        <template v-if="hasPanelParts()">
             <slot name="default">
             </slot>
-        </div>
-        <template v-if="$slots.footer">
-            <div class="jc-panel__footer">
-                <jc-toolbar>
+        </template>
+        <template v-else>
+            <template v-if="hasHeader">
+                <jc-panel-bar :title="title">
+                    <slot name="toolbar">
+                    </slot>
+                </jc-panel-bar>
+            </template>
+            <jc-panel-body :body-fit="bodyFit" :no-padding="noPadding">
+                <slot name="default">
+                </slot>
+            </jc-panel-body>
+            <template v-if="$slots.footer">
+                <jc-panel-bar>
                     <slot name="footer">
                     </slot>
-                </jc-toolbar>
-            </div>
+                </jc-panel-bar>
+            </template>
         </template>
     </div>
 </template>
 
 <script>
+import {jsaVue} from '../vendor'
+
 export default {
     name: 'jc-panel',
     props: {
@@ -44,19 +44,19 @@ export default {
             let res = ['jc-panel']
             return res
         },
-        classesBody() {
-            let res = ['jc-panel__body']
-            if (this.bodyFit) {
-                res.push('jc-panel__body--fit')
-            }
-            if (!this.noPadding) {
-                res.push('jc-panel__body--padding')
-            }
-            return res
-        },
         hasHeader() {
-            return !!this.title || !!this.$slots.toolbar || !!this.$slots.header;
+            return !!this.title || !!this.$slots.toolbar;
         }
     },
+    methods: {
+        /**
+         * Есть ли явно определенные части панели
+         */
+        hasPanelParts() {
+            return jsaVue.hasChild(this, (name) => {
+                return name.startsWith('jc-panel-')
+            })
+        }
+    }
 }
 </script>

@@ -37,11 +37,11 @@
                 </template>
                 без заголовка, тело в секции
             </jc-panel>
-<!--            <q-card>-->
-<!--                <q-card-section>-->
-<!--                    hello-->
-<!--                </q-card-section>-->
-<!--            </q-card>-->
+            <!--            <q-card>-->
+            <!--                <q-card-section>-->
+            <!--                    hello-->
+            <!--                </q-card-section>-->
+            <!--            </q-card>-->
         </div>
 
         <div class="row q-gutter-x-md q-mb-md">
@@ -128,6 +128,32 @@
 
         </div>
 
+        <div class="row q-gutter-x-md q-mb-md">
+
+            <jc-panel class="col" :style="panelStyle">
+
+                <jc-panel-bar title="Xxx2">
+                    <jc-action icon="more-v"/>
+                    <jc-action icon="bus" label="Привет"/>
+                </jc-panel-bar>
+
+                <jc-panel-bar>
+                    <jc-action icon="more-v"/>
+                    <jc-action icon="bus" label="Привет"/>
+                </jc-panel-bar>
+
+                <jc-panel-body body-fit>
+                    <div class="content">CONTENT</div>
+                </jc-panel-body>
+
+                <jc-panel-bar title="Footer">
+                    Это footer
+                </jc-panel-bar>
+
+            </jc-panel>
+
+        </div>
+
 
     </tst-apx-panel>
 </template>
@@ -178,11 +204,7 @@ export default {
     background-color: #a5d6a7;
   }
 
-  .jc-panel__header {
-    background-color: #bcced6;
-  }
-
-  .jc-panel__footer {
+  .jc-panel__bar {
     background-color: #efcfe2;
   }
 

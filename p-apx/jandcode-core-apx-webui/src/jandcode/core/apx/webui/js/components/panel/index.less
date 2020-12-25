@@ -20,34 +20,15 @@
     border-bottom-right-radius: inherit;
   }
 
+  //////
+
   &__body {
     flex: 1;
-  }
-
-  &__header {
-    padding: 0.2em 1em 0.2em 1em;
-    border-bottom: 1px solid #ddd;
-  }
-
-  &__header {
-
-    .jc-toolbar-title {
-      font-size: @font-size-large-1;
-      font-weight: 500;
-    }
-
-  }
-
-  &__footer {
-    padding: 0.2em 1em 0.2em 1em;
-    border-top: 1px solid #ddd;
   }
 
   &__body--padding {
     padding: 0.5em 1em 0.5em 1em;
   }
-
-  // fit
 
   &__body--fit {
     display: flex;
@@ -56,6 +37,25 @@
 
   &__body--fit > * {
     flex: 1;
+  }
+
+  //////
+
+  &__bar {
+    padding: 0.2em 1em 0.2em 1em;
+  }
+
+  &__bar {
+
+    .jc-toolbar-title {
+      font-size: @font-size-large-1;
+      font-weight: 500;
+    }
+
+  }
+
+  & > div:not(:last-child) {
+    border-bottom: 1px solid #ddd;
   }
 
 }
