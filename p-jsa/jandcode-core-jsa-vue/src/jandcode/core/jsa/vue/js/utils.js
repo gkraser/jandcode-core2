@@ -91,7 +91,7 @@ export function hasChild(comp, type) {
     let vnode = comp.$vnode
     if (vnode) {
         let opt = vnode.componentOptions
-        if (opt) {
+        if (opt && opt.children) {
             for (let z of opt.children) {
                 if (isComp(z, type)) {
                     return true
