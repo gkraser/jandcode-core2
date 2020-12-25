@@ -7,13 +7,19 @@
 import {Vue, jsaBase} from './vendor'
 
 function _isCompCheckType(name, type) {
-    return type === name;
+    if (jsaBase.isFunction(type)) {
+        return type(name)
+    } else {
+        return type === name;
+    }
 }
 
 /**
- * Проверка, что компонент является опрееделенным компонентом
+ * Проверка, что компонент является определенным компонентом
  * @param comp экземпляр компонента или VNode
- * @param type тип
+ * @param type тип. Может быть строкой, тогда проверяется имя компонента.
+ *        Может быть функцией вида fn(compName). Если функция возвращает
+ *        true, значит наш компонент.
  */
 export function isComp(comp, type) {
     if (!comp) {
@@ -44,7 +50,8 @@ export function isComp(comp, type) {
  * Ищет компонент с указанным типом, которому принадлежит компонент from.
  * Возвращает найденный компонент или null, если не найден.
  * @param from с какого компонента искать
- * @param type тип искомого компонента (включая его самого)
+ * @param type тип искомого компонента (включая его самого).
+ * @see isComp
  */
 export function findCompUp(from, type) {
     if (!from) return null;
@@ -58,6 +65,7 @@ export function findCompUp(from, type) {
  * Возвращает найденный компонент или null, если не найден.
  * @param from с какого компонента искать
  * @param type тип искомого компонента
+ * @see isComp
  */
 export function findCompTop(from, type) {
     let res = null
@@ -69,6 +77,30 @@ export function findCompTop(from, type) {
         cur = cur.$parent;
     }
     return res;
+}
+
+/**
+ * Есть ли у компонента дочерние указанного типа.
+ * Проверяются дочерние vnode, т.к. в основном эта функция используется при
+ * особом рендеринге при наличии определенных детей.
+ * @param comp корневой компонент
+ * @param type тип компонента
+ * @see isComp
+ */
+export function hasChild(comp, type) {
+    let vnode = comp.$vnode
+    if (vnode) {
+        let opt = vnode.componentOptions
+        if (opt) {
+            for (let z of opt.children) {
+                if (isComp(z, type)) {
+                    return true
+                }
+            }
+        }
+    }
+
+    return false
 }
 
 /**
