@@ -9,6 +9,9 @@
   border-radius: 4px;
   box-shadow: @shadow-1;
 
+  // без этого - панель прозрачная
+  background-color: white;
+
   // если изменить фон, то без этого фон не примет border-radius!
   & > div:first-child {
     border-top-left-radius: inherit;
