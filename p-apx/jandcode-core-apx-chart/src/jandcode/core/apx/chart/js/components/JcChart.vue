@@ -63,8 +63,8 @@ export default {
 
     },
     mounted() {
-        let defaultHeight = 200
-        let defaultWidth = 300
+        let defaultHeight = this.defaultHeight = 200
+        let defaultWidth = this.defaultWidth = 300
         //
         let chartInst = this.__createChartInst()
         //
@@ -78,20 +78,12 @@ export default {
             this.__setChartInst(chartInst)
         })
 
+        this.chartInst = chartInst
+
         this.rsw = apx.dom.resizeWatch(this.$el, (ev) => {
-            let bcr = this.$el.getBoundingClientRect()
-            let newHeight = null
-            let newWidth = null
-            if (bcr.height === 0) {
-                newHeight = defaultHeight
-            }
-            if (bcr.width === 0) {
-                newWidth = defaultWidth
-            }
-            chartInst.resize({height: newHeight, width: newWidth})
+            this.syncSize()
         })
 
-        this.chartInst = chartInst
         chartHolder.registerChart(this)
     },
 
@@ -118,6 +110,19 @@ export default {
     },
 
     methods: {
+
+        syncSize() {
+            let bcr = this.$el.getBoundingClientRect()
+            let newHeight = null
+            let newWidth = null
+            if (bcr.height === 0) {
+                newHeight = this.defaultHeight
+            }
+            if (bcr.width === 0) {
+                newWidth = this.defaultWidth
+            }
+            this.chartInst.resize({height: newHeight, width: newWidth})
+        },
 
         __createChartInst() {
             let theme = this.theme || Jc.cfg.echarts.theme
