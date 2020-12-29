@@ -116,6 +116,9 @@ class Ut extends ProjectScript {
      *
      * @param err : boolean
      *    При true (по умолчанию) генерить ошибку если код возврата не 0
+     *
+     * @param env : Map
+     *    Переменные среды
      */
     public List<String> runcmd(Map pp) {
         def p = asVariantMap(pp)
@@ -131,6 +134,10 @@ class Ut extends ProjectScript {
         }
 
         boolean err = p.getBoolean('err', true)
+
+        if (p.containsKey('env')) {
+            runCmd.getEnv().putAll((Map) p.get('env'))
+        }
 
         log.debug "runcmd: [" + runCmd.getCmd().join(' ') + "] in [${runCmd.dir}]"
 
