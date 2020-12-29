@@ -174,4 +174,19 @@ class GitRelease extends ProjectScript {
         }
     }
 
+    /**
+     * Загрузить версию из каталога.
+     * Версия определяется по файлу VERSION. Если его нет, то по версии GitVersion.
+     */
+    String loadVersion(String path) {
+        String fn = UtFile.join(path, "VERSION")
+        if (UtFile.exists(fn)) {
+            String ver = UtFile.loadString(fn).trim()
+            return ver
+        }
+        GitVersion gv = create(GitVersion)
+        gv.setWorkDir(path)
+        return gv.getVersion().getText()
+    }
+
 }
