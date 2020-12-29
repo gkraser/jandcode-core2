@@ -13,6 +13,7 @@ class CfgProject extends ProjectScript {
         onEvent(Event_GrabDefaultCfg, this.&grabDefaultCfg)
 
         cm.add("cfg-show", "Показать конфигурацию", this.&cmCfgShow)
+        cm.add("cfg-prepare", "Создать файл для перекрытия конфигурации", this.&cmCfgPrepare)
     }
 
     /**
@@ -70,6 +71,49 @@ class CfgProject extends ProjectScript {
 
     void cmCfgShow() {
         ut.printMap(getCfg())
+    }
+
+    /**
+     * Конфигурация по умолчанию.
+     * @param cls параметр: cfg
+     */
+    void defaultCfg(Closure cls) {
+        if (cls != null) {
+            onEvent(Event_GrabDefaultCfg) { ev ->
+                cls(ev.cfg)
+            }
+        }
+    }
+
+    /**
+     * Генерация _cfg.cfx файла
+     */
+    void cmCfgPrepare() {
+        def cfgFile = wd("_${cfgFileName}")
+        if (UtFile.exists(cfgFile)) {
+            log.warn "Файл уже существует: ${cfgFile}"
+            return
+        }
+        Conf cfg = getCfg()
+        String s = ""
+        for (key in cfg.keySet()) {
+            s += "${key}=\"${UtString.xmlEscape(cfg.getString(key))}\"\n"
+        }
+        String content = """\
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <!--
+    <cfg
+${UtString.indent(s, 8)}
+    />
+    -->
+    <cfg
+    />
+
+</root>
+"""
+        UtFile.saveString(content, new File(cfgFile))
+        log "Файл создан: ${cfgFile}"
     }
 
 }

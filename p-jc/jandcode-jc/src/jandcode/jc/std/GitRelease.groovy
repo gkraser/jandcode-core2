@@ -22,7 +22,7 @@ class GitRelease extends ProjectScript {
 
         /**
          * Имя репозитория.
-         * Если не задоно - берется из последней части url
+         * Если не задано - берется из последней части url
          */
         String name
 
@@ -80,6 +80,9 @@ class GitRelease extends ProjectScript {
             if (!this.path) {
                 return wd("${reposDir}/${getName()}")
             }
+            if (UtFile.isAbsolute(this.path)) {
+                return this.path
+            }
             return wd("${reposDir}/${this.path}")
         }
 
@@ -108,7 +111,7 @@ class GitRelease extends ProjectScript {
         }
 
 
-        public String toString() {
+        String toString() {
             return "Repo{" +
                     "name='" + getName() + '\'' +
                     ", path='" + getPath() + '\'' +
@@ -129,15 +132,25 @@ class GitRelease extends ProjectScript {
     String reposDir = "_repos"
 
     /**
-     * Добавить репозиторий
+     * Создать репозиторий
      * @param url откуда брать
      * @param name имя репозитория для дальнейшего доступа. Если не указана, то равно
      *             имени репозитория
-     * @return добавленный экземпляр {@link Repo}
+     * @return экземпляр репозитория
      */
-    Repo repoAdd(String url, String name = "") {
+    Repo createRepo(String url, String name = "") {
         Repo r = new Repo(url)
         r.name = name
+        return r
+    }
+
+    /**
+     * Добавить репозиторий
+     * @see GitRelease#createRepo(java.lang.String, java.lang.String)
+     * @return добавленный экземпляр {@link Repo}
+     */
+    Repo addRepo(String url, String name = "") {
+        Repo r = createRepo(url, name)
         repos[r.name] = r
     }
 
