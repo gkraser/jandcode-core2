@@ -23,6 +23,7 @@ public class RunCmd {
     private int exitCode;
     private List<String> out = new ArrayList<>();
     private List<String> params = new ArrayList<>();
+    private Map<String, String> env = new LinkedHashMap<>();
 
     /**
      * Установить команду для выполнения в виде списка параметром.
@@ -123,6 +124,13 @@ public class RunCmd {
         return params;
     }
 
+    /**
+     * Переменные среды для перекрытия.
+     */
+    public Map<String, String> getEnv() {
+        return env;
+    }
+
     //////
 
     public void run() throws Exception {
@@ -151,6 +159,10 @@ public class RunCmd {
         //
         ProcessBuilder pb = new ProcessBuilder(this.params);
         pb.directory(new File(dir));
+
+        if (this.env.size() > 0) {
+            pb.environment().putAll(this.env);
+        }
 
         Process pr;
 
