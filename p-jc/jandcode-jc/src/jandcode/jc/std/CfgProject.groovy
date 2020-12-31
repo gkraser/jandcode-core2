@@ -12,8 +12,9 @@ class CfgProject extends ProjectScript {
     protected void onInclude() throws Exception {
         onEvent(Event_GrabDefaultCfg, this.&grabDefaultCfg)
 
-        cm.add("cfg-show", "Показать конфигурацию", this.&cmCfgShow)
-        cm.add("cfg-prepare", "Создать файл для перекрытия конфигурации", this.&cmCfgPrepare)
+        cm.add("cfg-show", "Показать конфигурацию", this.&cmCfgShow,
+                cm.opt("g", false, "Создать файл с примером конфигурации с актуальными параметрами"),
+        )
     }
 
     /**
@@ -69,8 +70,15 @@ class CfgProject extends ProjectScript {
         ev.cfg.setValue("java.home", System.properties['java.home'])
     }
 
-    void cmCfgShow() {
+    void cmCfgShow(CmArgs args) {
+
+        boolean grab = args.containsKey("g")
+
         ut.printMap(getCfg())
+
+        if (grab) {
+            saveCfgExample(wd("temp/_${cfgFileName}"))
+        }
     }
 
     /**
@@ -88,12 +96,7 @@ class CfgProject extends ProjectScript {
     /**
      * Генерация _cfg.cfx файла
      */
-    void cmCfgPrepare() {
-        def cfgFile = wd("_${cfgFileName}")
-        if (UtFile.exists(cfgFile)) {
-            log.warn "Файл уже существует: ${cfgFile}"
-            return
-        }
+    void saveCfgExample(String cfgFile) {
         Conf cfg = getCfg()
         String s = ""
         for (key in cfg.keySet()) {
@@ -112,6 +115,7 @@ ${UtString.indent(s, 8)}
 
 </root>
 """
+        ut.cleanfile(cfgFile)
         UtFile.saveString(content, new File(cfgFile))
         log "Файл создан: ${cfgFile}"
     }
