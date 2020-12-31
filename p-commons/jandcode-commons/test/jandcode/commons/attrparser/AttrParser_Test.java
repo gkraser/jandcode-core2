@@ -34,6 +34,7 @@ public class AttrParser_Test extends Utils_Test {
         parse("a", "{a=}");
         parse("a=1 b=2", "{a=1, b=2}");
         parse("a=\"\" b=2", "{a=, b=2}");
+        parse("a/b=\"\" c/b/d=2", "{a/b=, c/b/d=2}");
     }
 
 
