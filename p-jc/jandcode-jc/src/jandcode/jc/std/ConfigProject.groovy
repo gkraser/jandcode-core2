@@ -7,7 +7,7 @@ import jandcode.jc.*
 /**
  * Конфиг для проекта
  */
-class CfgProject extends ProjectScript {
+class ConfigProject extends ProjectScript {
 
     protected void onInclude() throws Exception {
         onEvent(Event_GrabDefaultCfg, this.&grabDefaultCfg)

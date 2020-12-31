@@ -11,6 +11,7 @@ import jandcode.jc.*
  *
  * Считается, что все собираемые проекты хранятся на mercurial.
  */
+@Deprecated
 class HgRelease extends ProjectScript {
 
     /**

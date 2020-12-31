@@ -12,10 +12,7 @@ import jandcode.jc.*
 class GitRepos extends ProjectScript {
 
     protected void onInclude() throws Exception {
-
         cm.add("repos-show", "Показать репозитории", this.&cmReposShow)
-
-        cm.add("step-update-repos", "Обновить все репозитории", this.&updateRepos)
     }
 
     /**
@@ -119,15 +116,15 @@ class GitRepos extends ProjectScript {
         }
 
         /**
-         * Загрузить конфигурацию репозитория из {@link CfgProject#getCfg()},
+         * Загрузить конфигурацию репозитория из {@link ConfigProject#getCfg()},
          * если он подключен в проекте.
          *
          * Конфигурация загружается из 'repo/NAME'.
          */
         void loadCfg() {
-            CfgProject cfgProject = getIncluded(CfgProject)
-            if (cfgProject) {
-                Conf repoConf = cfgProject.cfg.findConf("repo/${getName()}")
+            ConfigProject config = getIncluded(ConfigProject)
+            if (config) {
+                Conf repoConf = config.cfg.findConf("repo/${getName()}")
                 if (repoConf != null) {
                     UtReflect.getUtils().setProps(this, repoConf);
                 }
@@ -147,7 +144,7 @@ class GitRepos extends ProjectScript {
     /**
      * Зарегистрированные репозитории
      */
-    Map<String, Repo> repos = [:]
+    NamedList<Repo> repos = new DefaultNamedList<>("Repo [{0}] not found")
 
     /**
      * Каталог, где будут репозитории
@@ -174,7 +171,15 @@ class GitRepos extends ProjectScript {
      */
     Repo addRepo(String url, String name = "") {
         Repo r = createRepo(url, name)
-        repos[r.name] = r
+        repos.add(r)
+        return r
+    }
+
+    /**
+     * Репзоиторий по имени
+     */
+    Repo getRepo(String name) {
+        return this.repos.get(name)
     }
 
     /**
@@ -182,7 +187,7 @@ class GitRepos extends ProjectScript {
      * @param cb
      */
     void eachRepo(Closure cb) {
-        for (r in repos.values()) {
+        for (r in repos) {
             ut.delim(r.name)
             cb(r)
         }
@@ -214,7 +219,7 @@ class GitRepos extends ProjectScript {
 
     void cmReposShow(CmArgs args) {
         Map res = [:]
-        for (r in repos.values()) {
+        for (r in repos) {
             Map m = [:]
             res[r.name] = m
             m.url = r.url
