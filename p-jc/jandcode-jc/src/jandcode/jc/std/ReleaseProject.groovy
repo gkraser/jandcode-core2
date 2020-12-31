@@ -50,4 +50,18 @@ class ReleaseProject extends ProjectScript {
         repos.updateRepos()
     }
 
+    /**
+     * Создать батник
+     * @param filename имя файла
+     * @param env переменные среды
+     */
+    void createBat(String filename, Map env) {
+        String text = "@echo off\n"
+        for (en in env) {
+            text += "set ${en.key}=${en.value}\n"
+        }
+        ant.echo(message: text, file: filename)
+        log "create file: ${filename}"
+    }
+
 }
