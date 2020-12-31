@@ -1,0 +1,46 @@
+import jandcode.jc.*
+
+class P1 extends ProjectScript {
+
+    void onInclude() {
+        println "in include!"
+        cm.add("cm1", this.&cm1)
+    }
+
+    void cm1() {
+        println "cm1 run"
+    }
+
+    @CmDef(help = "cm2 help")
+    void cm2() {
+        println "cm2 run"
+    }
+
+    @CmDef
+    void cm3(CmArgs args) {
+        println "cm2 run: ${args}"
+    }
+
+    @CmDef
+    void cmRunDo1(CmArgs args) {
+        println "run-do1 run: ${args}"
+    }
+
+    @CmDef
+    void run_this_cm(CmArgs args) {
+        println "run-this-cm run: ${args }"
+    }
+
+    @CmDef(name = "cm-over")
+    void run_this_cm1(CmArgs args) {
+        println "cm-over run: ${args}"
+    }
+
+    @CmDef()
+    @CmOptDef(name = "a", help = "Opt a")
+    @CmOptDef(name = "b", help = "Opt b")
+    void with_opt1(CmArgs args) {
+        println "with_opt1 run: ${args}"
+    }
+
+}

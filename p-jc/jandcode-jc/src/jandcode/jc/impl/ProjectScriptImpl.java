@@ -1,11 +1,12 @@
 package jandcode.jc.impl;
 
-import groovy.lang.*;
 import groovy.ant.*;
+import groovy.lang.*;
 import jandcode.commons.*;
 import jandcode.commons.error.*;
 import jandcode.commons.event.*;
 import jandcode.jc.*;
+import jandcode.jc.impl.cm.*;
 import jandcode.jc.impl.just.*;
 import jandcode.jc.std.*;
 
@@ -171,6 +172,7 @@ public class ProjectScriptImpl implements Project, IProjectScript {
         }
         doIncludeExecuted = true;
         try {
+            ((CmHolderImpl) getCm()).addFromAnnotations(this);
             onInclude();
         } catch (Exception e) {
             throw new XErrorWrap(e);

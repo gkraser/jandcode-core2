@@ -1,10 +1,13 @@
 package jandcode.jc.impl.cm;
 
 import groovy.lang.*;
+import jandcode.commons.*;
 import jandcode.commons.error.*;
 import jandcode.commons.named.*;
 import jandcode.jc.*;
+import org.codehaus.groovy.runtime.*;
 
+import java.lang.reflect.*;
 import java.util.*;
 
 @SuppressWarnings("unchecked")
@@ -71,6 +74,14 @@ public class CmHolderImpl implements CmHolder {
     //////
 
     protected String toCmName(String cmName) {
+        if (cmName.length() > 2) {
+            if (cmName.startsWith("cm") && Character.isUpperCase(cmName.charAt(2))) {
+                // cmXxxx
+                cmName = cmName.substring(2);
+                UtString.uncapFirst(cmName);
+            }
+        }
+        cmName = UtString.unCamelCase(cmName);
         return cmName.replace('_', '-');
     }
 
@@ -143,6 +154,51 @@ public class CmHolderImpl implements CmHolder {
             }
         }
         return res;
+    }
+
+    ////// @JcCm
+
+    /**
+     * Добавить команды по аннотациям @CmDef и @CmOptDef
+     *
+     * @param inst откуда брать аннотации
+     */
+    public void addFromAnnotations(Object inst) {
+        Class cls = inst.getClass();
+        for (Method method : cls.getDeclaredMethods()) {
+            if (method.isAnnotationPresent(CmDef.class)) {
+                CmDef ann = method.getAnnotation(CmDef.class);
+                //
+
+                String cmName = method.getName();
+                String help = ann.help();
+                if (!UtString.empty(ann.name())) {
+                    cmName = ann.name();
+                }
+
+                List<Object> args = new ArrayList<>();
+                args.add(help);
+                args.add(InvokerHelper.getMethodPointer(inst, method.getName()));
+
+                CmOptDef[] annOpt = method.getAnnotationsByType(CmOptDef.class);
+                if (annOpt != null) {
+                    for (CmOptDef optDef : annOpt) {
+                        String optName = optDef.name();
+                        String optHelp = optDef.help();
+                        String optDefaultValue = optDef.defaultValue();
+                        Object defVal = false;
+                        if (!UtString.empty(optDefaultValue)) {
+                            defVal = optDefaultValue;
+                        }
+                        args.add(opt(optName, defVal, optHelp));
+                    }
+
+                }
+
+                add(cmName, args.toArray());
+            }
+        }
+
     }
 
 }
