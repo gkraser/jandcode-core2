@@ -1,6 +1,7 @@
 package jandcode.jc.std
 
 import jandcode.commons.*
+import jandcode.commons.attrparser.*
 import jandcode.commons.conf.*
 import jandcode.jc.*
 
@@ -42,6 +43,16 @@ class ConfigProject extends ProjectScript {
      */
     String cfgFileName = "jc-cfg.cfx"
 
+    /**
+     * Префикс переменных для конфигурации.
+     * Значение переменных строка вида 'a=b c=d'.
+     * В качестве имени можно использовать путь, например: 'a/b/c=d'.
+     * Переменные сортируются по имени.
+     * Применяются самыми последними.
+     * @see AttrParser
+     */
+    String envCfgPrefix = "JC_CFG_"
+
     private Conf _cfg
 
     Conf getCfg() {
@@ -58,6 +69,23 @@ class ConfigProject extends ProjectScript {
                 Conf tmp = UtConf.create()
                 UtConf.load(tmp).fromFile(fn)
                 tmpCfg.join(tmp.findConf("cfg", true))
+            }
+        }
+
+        // загружаем переменные JC_CFG_xxx
+        Map<String, String> envCfg = new TreeMap<String, String>()
+        Map<String, String> osenv = System.getenv();
+        for (String key : osenv.keySet()) {
+            String keyUp = key.toUpperCase()
+            if (keyUp.startsWith(envCfgPrefix)) {
+                envCfg.put(keyUp, osenv.get(key))
+            }
+        }
+        for (en in envCfg) {
+            AttrParser p = new AttrParser()
+            p.loadFrom(en.getValue())
+            for (e2 in p.getResult()) {
+                tmpCfg.setValue(e2.getKey(), e2.getValue())
             }
         }
 
