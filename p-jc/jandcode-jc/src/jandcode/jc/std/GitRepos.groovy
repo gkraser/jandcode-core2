@@ -6,12 +6,10 @@ import jandcode.commons.named.*
 import jandcode.jc.*
 
 /**
- * Набор утилит для использования в скриптах,
- * собирающих релизы.
- *
- * Считается, что все собираемые проекты хранятся в git.
+ * Репозитории git.
+ * Используется в скриптах, собирающих релизы.
  */
-class GitRelease extends ProjectScript {
+class GitRepos extends ProjectScript {
 
     protected void onInclude() throws Exception {
 
@@ -35,7 +33,7 @@ class GitRelease extends ProjectScript {
         private String _name
 
         /**
-         * Путь относительно каталога {@link GitRelease#reposDir}.
+         * Путь относительно каталога {@link GitRepos#reposDir}.
          * Если не задано = name
          */
         String path
@@ -171,7 +169,7 @@ class GitRelease extends ProjectScript {
 
     /**
      * Добавить репозиторий
-     * @see GitRelease#createRepo(java.lang.String, java.lang.String)
+     * @see GitRepos#createRepo(java.lang.String, java.lang.String)
      * @return добавленный экземпляр {@link Repo}
      */
     Repo addRepo(String url, String name = "") {
