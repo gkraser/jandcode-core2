@@ -1,6 +1,8 @@
 package jandcode.jc.std
 
 import jandcode.commons.*
+import jandcode.commons.conf.*
+import jandcode.commons.named.*
 import jandcode.jc.*
 
 /**
@@ -12,19 +14,25 @@ import jandcode.jc.*
 class GitRelease extends ProjectScript {
 
     protected void onInclude() throws Exception {
+
+        cm.add("repos-show", "Показать репозитории", this.&cmReposShow)
+
         cm.add("step-update-repos", "Обновить все репозитории", this.&updateRepos)
     }
 
     /**
      * Описание репозитория
      */
-    class Repo {
+    class Repo implements INamed {
 
         /**
          * Имя репозитория.
          * Если не задано - берется из последней части url
          */
-        String name
+        String getName() {
+            return _name
+        }
+        private String _name
 
         /**
          * Путь относительно каталога {@link GitRelease#reposDir}.
@@ -65,15 +73,17 @@ class GitRelease extends ProjectScript {
 
         private boolean _updated
 
-        Repo(String url) {
+        /**
+         * @param url url репозитория по умолчанию
+         * @param name имя этого экземпляра. Если не задано, берется из
+         * последней части url
+         */
+        Repo(String url, String name) {
             this.url = url
-        }
-
-        String getName() {
-            if (!this.name) {
-                return UtFile.filename(this.getUrl())
+            this._name = name
+            if (UtString.empty(this._name)) {
+                this._name = UtFile.filename(this.url)
             }
-            return name
         }
 
         String getPath() {
@@ -110,6 +120,21 @@ class GitRelease extends ProjectScript {
             this._updated = true
         }
 
+        /**
+         * Загрузить конфигурацию репозитория из {@link CfgProject#getCfg()},
+         * если он подключен в проекте.
+         *
+         * Конфигурация загружается из 'repo/NAME'.
+         */
+        void loadCfg() {
+            CfgProject cfgProject = getIncluded(CfgProject)
+            if (cfgProject) {
+                Conf repoConf = cfgProject.cfg.findConf("repo/${getName()}")
+                if (repoConf != null) {
+                    UtReflect.getUtils().setProps(this, repoConf);
+                }
+            }
+        }
 
         String toString() {
             return "Repo{" +
@@ -139,8 +164,8 @@ class GitRelease extends ProjectScript {
      * @return экземпляр репозитория
      */
     Repo createRepo(String url, String name = "") {
-        Repo r = new Repo(url)
-        r.name = name
+        Repo r = new Repo(url, name)
+        r.loadCfg()
         return r
     }
 
@@ -187,6 +212,33 @@ class GitRelease extends ProjectScript {
         GitVersion gv = create(GitVersion)
         gv.setWorkDir(path)
         return gv.getVersion().getText()
+    }
+
+    void cmReposShow(CmArgs args) {
+        Map res = [:]
+        for (r in repos.values()) {
+            Map m = [:]
+            res[r.name] = m
+            m.url = r.url
+            m.branch = r.branch
+            m.path = r.path
+            if (!UtString.empty(r.cloneOpts)) {
+                m.cloneOpts = r.cloneOpts
+            }
+            if (!UtString.empty(r.pullOpts)) {
+                m.pullOpts = r.pullOpts
+            }
+            if (!UtString.empty(r.checkoutOpts)) {
+                m.checkoutOpts = r.checkoutOpts
+            }
+            if (r.attrs.size() > 0) {
+                m.attrs = [:]
+                m.attrs.putAll(r.attrs)
+            }
+        }
+
+        //
+        ut.printMap(res)
     }
 
 }
