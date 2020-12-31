@@ -37,10 +37,10 @@ class CfgProject extends ProjectScript {
 
     /**
      * Конфигурационный файл в корне проекта.
-     * Загружаются если есть cfg.cfx, затем _cfg.cfx.
+     * Загружаются если есть jc-cfg.cfx, затем _jc-cfg.cfx.
      * Формат: cfx. Забираются свойства из тега cfg.
      */
-    String cfgFileName = "cfg.cfx"
+    String cfgFileName = "jc-cfg.cfx"
 
     private Conf _cfg
 
@@ -52,7 +52,7 @@ class CfgProject extends ProjectScript {
         Conf tmpCfg = UtConf.create()
         fireEvent(new Event_GrabDefaultCfg(tmpCfg))
 
-        // загружаем cfg.cfx, _cfg.cfx
+        // загружаем jc-cfg.cfx, _jc-cfg.cfx
         for (fn in [wd("${cfgFileName}"), wd("_${cfgFileName}")]) {
             if (UtFile.exists(fn)) {
                 Conf tmp = UtConf.create()
@@ -94,7 +94,7 @@ class CfgProject extends ProjectScript {
     }
 
     /**
-     * Генерация _cfg.cfx файла
+     * Генерация _jc-cfg.cfx файла
      */
     void saveCfgExample(String cfgFile) {
         Conf cfg = getCfg()
