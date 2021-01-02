@@ -51,17 +51,10 @@ class ReleaseProject extends ProjectScript {
     }
 
     /**
-     * Создать батник
-     * @param filename имя файла
-     * @param env переменные среды
+     * Создать построитель bat-файлов
      */
-    void createBat(String filename, Map env) {
-        String text = "@echo off\n"
-        for (en in env) {
-            text += "set ${en.key}=${en.value}\n"
-        }
-        ant.echo(message: text, file: filename)
-        log "create file: ${filename}"
+    BatBuilder createBatBuilder() {
+        return create(BatBuilder)
     }
 
 }
