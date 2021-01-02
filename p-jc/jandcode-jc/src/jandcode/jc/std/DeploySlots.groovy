@@ -102,7 +102,7 @@ class DeploySlots extends ProjectScript {
     /**
      * Создать новый слот и распаковать туда zip
      */
-    Slot unpakZip(String zipFilename) {
+    Slot unzip(String zipFilename) {
         Slot slot = createSlot()
         ant.unzip(src: zipFilename, dest: slot.slotPath)
         slot.workPath = null // сбрасываем, определится автоматом
