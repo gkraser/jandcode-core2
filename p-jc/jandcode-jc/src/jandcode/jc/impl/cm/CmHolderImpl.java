@@ -185,10 +185,9 @@ public class CmHolderImpl implements CmHolder {
                     for (CmOptDef optDef : annOpt) {
                         String optName = optDef.name();
                         String optHelp = optDef.help();
-                        String optDefaultValue = optDef.defaultValue();
                         Object defVal = false;
-                        if (!UtString.empty(optDefaultValue)) {
-                            defVal = optDefaultValue;
+                        if (optDef.hasArg()) {
+                            defVal = "";
                         }
                         args.add(opt(optName, defVal, optHelp));
                     }

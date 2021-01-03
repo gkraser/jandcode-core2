@@ -21,8 +21,8 @@ public @interface CmOptDef {
     String help() default "";
 
     /**
-     * Значение по умолчанию
+     * Имеется ли аргумент у опции
      */
-    String defaultValue() default "";
-    
+    boolean hasArg() default false;
+
 }
