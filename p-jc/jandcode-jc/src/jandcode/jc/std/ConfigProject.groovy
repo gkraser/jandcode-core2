@@ -102,7 +102,9 @@ class ConfigProject extends ProjectScript {
 
         boolean grab = args.containsKey("g")
 
+        ut.delim("cfg")
         ut.printMap(getCfg())
+        ut.delim()
 
         if (grab) {
             saveCfgExample(wd("temp/_${cfgFileName}"))

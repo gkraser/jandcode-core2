@@ -218,6 +218,7 @@ class GitRepos extends ProjectScript {
     }
 
     void cmReposShow(CmArgs args) {
+
         Map res = [:]
         for (r in repos) {
             Map m = [:]
@@ -241,7 +242,9 @@ class GitRepos extends ProjectScript {
         }
 
         //
+        ut.delim("repos")
         ut.printMap(res)
+        ut.delim()
     }
 
 }
