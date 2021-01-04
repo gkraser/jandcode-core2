@@ -1,6 +1,8 @@
 package jandcode.core.web.jc
 
+import jandcode.commons.simxml.*
 import jandcode.core.jc.*
+import jandcode.core.web.webxml.*
 import jandcode.jc.*
 import jandcode.jc.std.*
 
@@ -15,6 +17,18 @@ class WebRootProject extends ProjectScript {
                     "jandcode.core.web.tst",
             )
         }
+        onEvent(AppProductBuilder.Event_Exec, this.&onAppProductBuild)
+    }
+
+    void onAppProductBuild(AppProductBuilder.Event_Exec ev) {
+        genWebXml("${ev.builder.destDir}/web.xml")
+    }
+
+    void genWebXml(String destFile) {
+        def outFile = wd(destFile)
+        WebXml wx = new DefaultWebXmlFactory().createWebXml()
+        SimXml x = new WebXmlUtils().saveToXml(wx)
+        x.save().toFile(outFile)
     }
 
 }
