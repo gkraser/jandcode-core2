@@ -32,6 +32,11 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
             props.put(key, UtCnv.toString(value));
         }
 
+        // jdbcDriverClass прописываем для информации
+        if (!UtString.empty(this.dbDriver.getJdbcDriverClassName())) {
+            props.put("jdbcDriverClass", this.dbDriver.getJdbcDriverClassName());
+        }
+
         //
         getBeanFactory().beanConfigure(new DefaultBeanConfig(this.conf));
     }

@@ -4,7 +4,8 @@
     <db>
 
         <dbdriver name="h2" parent="base" class="jandcode.core.db.h2.H2DbDriver"
-                  dbtype="h2">
+                  dbtype="h2"
+                  jdbcDriverClass="org.h2.Driver">
             <dbsource-default
                     url="jdbc:h2:${database}">
             </dbsource-default>

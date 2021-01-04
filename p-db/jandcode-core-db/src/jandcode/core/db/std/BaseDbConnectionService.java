@@ -55,5 +55,20 @@ public abstract class BaseDbConnectionService extends BaseDbSourceMember impleme
         }
     }
 
+    //////
+
+    /**
+     * Проверить доступность класса jdbcDriverClass для драйвера.
+     */
+    protected void checkJdbcDriverClass() {
+        String cn = getDbSource().getDbDriver().getJdbcDriverClassName();
+        if (!UtString.empty(cn)) {
+            try {
+                UtClass.getClass(cn);
+            } catch (Exception e) {
+                throw new XErrorMark(e, "check jdbcDriverClass: " + cn);
+            }
+        }
+    }
 
 }

@@ -60,6 +60,9 @@ public class PoolingDbConnectionService extends BaseDbConnectionService {
         DbSource dbSource = getDbSource();
         IVariantMap dbsProps = dbSource.getProps();
 
+        //
+        checkJdbcDriverClass();
+
         // создаем datasource с использованием свойств dbcp.XXXX
         Properties dbcpProps = new Properties();
         dbcpProps.putAll(dbSource.getProps().subMap("dbcp"));

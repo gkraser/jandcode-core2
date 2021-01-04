@@ -4,7 +4,8 @@
     <db>
         <dbdriver name="mariadb" parent="base"
                   class="jandcode.core.db.mariadb.MariadbDbDriver"
-                  dbtype="mysql">
+                  dbtype="mysql"
+                  jdbcDriverClass="org.mariadb.jdbc.Driver">
             <dbsource-default
                     url="jdbc:mariadb://${host}"
                     host="localhost"

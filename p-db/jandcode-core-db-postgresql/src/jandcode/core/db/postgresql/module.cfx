@@ -3,7 +3,8 @@
 
     <db>
         <dbdriver name="postgresql" parent="base" dbtype="postgresql"
-                  class="jandcode.core.db.postgresql.PostgresqlDbDriver">
+                  class="jandcode.core.db.postgresql.PostgresqlDbDriver"
+                  jdbcDriverClass="org.postgresql.Driver">
 
             <dbsource-default
                     url="jdbc:postgresql://${host}:${port}/${database}"

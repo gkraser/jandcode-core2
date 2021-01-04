@@ -13,7 +13,8 @@
     <db>
 
         <dbdriver name="oracle" parent="base" dbtype="oracle"
-                  class="jandcode.core.db.oracle.OracleDbDriver">
+                  class="jandcode.core.db.oracle.OracleDbDriver"
+                  jdbcDriverClass="oracle.jdbc.OracleDriver">
 
             <dbsource-default
                     url="jdbc:oracle:thin:@${host}:${port}:${database}"

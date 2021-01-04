@@ -18,6 +18,7 @@ public class DbDriverImpl extends BaseComp implements DbDriver {
     private String dbType;
     private NamedList<DbDataType> dbDataTypes = new DefaultNamedList<>();
     private ClassLinks<String> dbDatatypesByClass = new ClassLinks<>();
+    private String jdbcDriverClassName;
 
     //////
 
@@ -40,6 +41,14 @@ public class DbDriverImpl extends BaseComp implements DbDriver {
         for (Conf x : this.conf.getConfs("type")) {
             addType(x);
         }
+    }
+
+    public String getJdbcDriverClassName() {
+        return jdbcDriverClassName;
+    }
+
+    public void setJdbcDriverClassName(String jdbcDriverClassName) {
+        this.jdbcDriverClassName = jdbcDriverClassName;
     }
 
     protected void addDbDataType(Conf x) {
