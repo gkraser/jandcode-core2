@@ -54,7 +54,7 @@ class DeploySlots extends ProjectScript {
         String resolveWorkPath() {
             File fd = new File(this.getSlotPath())
             File[] fls = fd.listFiles()
-            if (fls.length == 1 && fls[0].isDirectory()) {
+            if (fls.length == 1 && fls[0].isDirectory() && fls[0].name != "WEB-INF") {
                 return fls[0].getAbsolutePath()
             }
             return this.getSlotPath()
