@@ -7,6 +7,7 @@ import jandcode.commons.error.impl.*;
 import jandcode.core.*;
 import jandcode.core.std.*;
 import jandcode.core.web.impl.*;
+import org.apache.commons.vfs2.*;
 import org.slf4j.*;
 
 import javax.servlet.*;
@@ -101,6 +102,16 @@ public class AppServlet extends HttpServlet implements IAppLink {
             }
             app = null;
         }
+
+        // VFS reset, иначе файлы jar не закрываются и при deploy на tomcat
+        // старое приложение не удаляется
+        try {
+            log.info("VFS.reset()");
+            VFS.reset();
+        } catch (FileSystemException e) {
+            log.error("Error VFS.reset()", e);
+        }
+
         super.destroy();
     }
 
