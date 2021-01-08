@@ -69,7 +69,7 @@ public class Launcher {
         String appDir = AppConsts.resolveAppdir(null);
 
         // менеджер логов
-        LogManager logManager = new LogManager(appDir);
+        AppLogManager logManager = new AppLogManager(appDir);
 
         // заказана ли помощь
         boolean needHelp = args.containsKey(LauncherConsts.OPT_HELP) || args.containsKey(LauncherConsts.OPT_HELP2);
