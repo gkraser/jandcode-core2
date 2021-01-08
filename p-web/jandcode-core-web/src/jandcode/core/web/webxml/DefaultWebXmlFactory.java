@@ -14,7 +14,7 @@ public class DefaultWebXmlFactory implements WebXmlFactory {
         //
         WebXml.Servlet sv = b.addServlet(WebConsts.WEB_SERVLET_NAME, "jandcode.core.web.AppServlet", "/*", 1);
         b.addInitParam(sv, "app", "app.cfx");
-        b.addInitParam(sv, "log", "_logback.xml");
+        b.addInitParam(sv, "log", "true");
 
         //
         b.setMultipartConfig(sv);

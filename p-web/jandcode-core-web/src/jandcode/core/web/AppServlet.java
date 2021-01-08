@@ -35,7 +35,8 @@ public class AppServlet extends HttpServlet implements IAppLink {
     protected static Logger log = LoggerFactory.getLogger(AppServlet.class);
 
     /**
-     * Настройка логирования
+     * Настройка логирования.
+     * Значение: boolean. По умолчанию - true (логирование включено).
      */
     public static final String initParameter_log = "log";
 
@@ -134,22 +135,16 @@ public class AppServlet extends HttpServlet implements IAppLink {
             baseDir = UtFile.getWorkdir();
         }
 
+        // определяем каталог приложения
+        String appDir = AppConsts.resolveAppdir(baseDir);
+
+        // менеджер логов
+        AppLogManager logManager = new AppLogManager(appDir);
+
         // настраиваем логирование
         s = getInitParameter(initParameter_log);
-        if (!UtString.empty(s)) {
-            String p = UtFile.path(s);
-            if (UtString.empty(p)) {
-                s = UtFile.findFileUp(s, baseDir);
-            }
-            if (s != null) {
-                if (!UtFile.exists(s)) {
-                    s = null;
-                }
-            }
-            UtLog.logOn(s);
-            if (s != null) {
-                log.info("load log config from: " + s);
-            }
+        if (UtCnv.toBoolean(s, true)) {
+            logManager.logOn();
         }
 
         // ищем конфиг
@@ -157,15 +152,15 @@ public class AppServlet extends HttpServlet implements IAppLink {
         if (UtString.empty(appConfFile)) {
             appConfFile = AppConsts.FILE_APP_CONF;
         }
-        appConfFile = UtFile.join(baseDir, appConfFile);
+        appConfFile = UtFile.join(appDir, appConfFile);
 
         // загружаем приложение
-        app = loadApp(appConfFile);
+        app = loadApp(appConfFile, appDir);
     }
 
-    protected App loadApp(String appConfFile) throws Exception {
+    protected App loadApp(String appConfFile, String appDir) throws Exception {
         // загружаем приложение
-        App app = AppLoader.load(appConfFile);
+        App app = AppLoader.load(appConfFile, appDir, null, false);
 
         useApp(app);
 
@@ -204,7 +199,7 @@ public class AppServlet extends HttpServlet implements IAppLink {
         try {
             // загружаем до убивания старого приложения
             // что бы если новое не загрузилось, старое не перестало работать
-            App tempApp = loadApp(app.getAppConfFile());
+            App tempApp = loadApp(app.getAppConfFile(), app.getAppdir());
 
             // уведомляем о убивании приложения
             try {

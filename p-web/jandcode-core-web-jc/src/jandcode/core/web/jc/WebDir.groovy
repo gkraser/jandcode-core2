@@ -32,14 +32,6 @@ class WebDir extends ProjectScript {
         if (!UtFile.exists(wxFile)) {
             include(GenWebXml).genWebXml(wxFile)
         }
-        String appFile = UtFile.join(dirWebInf, "app.cfx")
-        if (!UtFile.exists(appFile)) {
-            SimXml x = new SimXmlNode()
-            x.name = "root"
-            SimXml x1 = x.addChild("x-include")
-            x1.setValue("path", "#{appdir}/app.cfx")
-            x.save().toFile(appFile)
-        }
     }
 
 }
