@@ -137,6 +137,9 @@
     <lib name="@fontsource/roboto-condensed" version="4.1.0" client="true">
     </lib>
 
+    <lib name="@fontsource/roboto-mono" version="4.1.0" client="true">
+    </lib>
+
     <lib name="path-to-regexp" version="6.2.0" client="true">
         <include-client mask="dist/**/*.js"/>
     </lib>
