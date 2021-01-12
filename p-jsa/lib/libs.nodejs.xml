@@ -56,7 +56,7 @@
         <module-mapping module="jquery" real-module="jquery/dist/jquery.slim.js"/>
     </lib>
 
-    <lib name="axios" version="0.21.0" client="true">
+    <lib name="axios" version="0.21.1" client="true">
         <include-client mask="dist/**/*"/>
 
         <exclude-client mask="**/*.map"/>
@@ -103,7 +103,7 @@
         <module-mapping module="vuex" real-module="vuex/dist/vuex"/>
     </lib>
 
-    <lib name="quasar" version="1.14.7" client="true">
+    <lib name="quasar" version="1.15.0" client="true">
         <include-client mask="dist/*.js"/>
         <include-client mask="dist/*.css"/>
         <include-client mask="dist/*.sass"/>
@@ -120,7 +120,7 @@
 
     </lib>
 
-    <lib name="@quasar/extras" version="1.9.11" client="true">
+    <lib name="@quasar/extras" version="1.9.13" client="true">
         <include-client mask="material-icons/**/*"/>
         <include-client mask="animate/**/*"/>
     </lib>
@@ -141,7 +141,7 @@
         <include-client mask="dist/**/*.js"/>
     </lib>
 
-    <lib name="tabulator-tables" version="4.9.1" client="true">
+    <lib name="tabulator-tables" version="4.9.3" client="true">
         <include-client mask="dist/**/*"/>
         <exclude-client mask="**/*.map"/>
         <exclude-client mask="**/*.es2015.*"/>
