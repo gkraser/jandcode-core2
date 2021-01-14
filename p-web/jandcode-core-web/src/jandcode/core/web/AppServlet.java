@@ -94,8 +94,11 @@ public class AppServlet extends HttpServlet implements IAppLink {
             getServletContext().removeAttribute(servletRefAttrName);
         }
 
+        boolean envTest = false;
+
         // уведомляем о конце
         if (app != null) {
+            envTest = app.getEnv().isTest();
             try {
                 app.shutdown();
             } catch (Exception e) {
@@ -106,11 +109,13 @@ public class AppServlet extends HttpServlet implements IAppLink {
 
         // VFS reset, иначе файлы jar не закрываются и при deploy на tomcat
         // старое приложение не удаляется
-        try {
-            log.info("VFS.reset()");
-            VFS.reset();
-        } catch (FileSystemException e) {
-            log.error("Error VFS.reset()", e);
+        if (!envTest) {
+            try {
+                log.info("VFS.reset()");
+                VFS.reset();
+            } catch (FileSystemException e) {
+                log.error("Error VFS.reset()", e);
+            }
         }
 
         super.destroy();
