@@ -6,9 +6,11 @@ import io.undertow.server.handlers.*;
 import io.undertow.servlet.*;
 import io.undertow.servlet.api.*;
 import jandcode.commons.*;
+import jandcode.commons.error.*;
 import jandcode.core.*;
 import jandcode.core.web.*;
 import jandcode.core.web.webxml.*;
+import org.slf4j.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -18,9 +20,14 @@ import javax.servlet.http.*;
  */
 public class UndertowRunner {
 
+    protected static Logger log = LoggerFactory.getLogger(UndertowRunner.class);
+
     private int port = 8080;
     private String context = "/jc";
     private String listenerHost = "0.0.0.0";
+
+    private Undertow server;
+    private DeploymentManager manager;
 
     ////// настройки
 
@@ -51,24 +58,63 @@ public class UndertowRunner {
     ////// запускалки
 
     /**
-     * Запуск
+     * Запуск сервера с настройками WebXml по умолчанию.
      */
     public void start() throws Exception {
-        startWebXml(new DefaultWebXmlFactory().createWebXml());
+        start(new DefaultWebXmlFactory().createWebXml());
     }
 
     /**
-     * Запуск с указанным экземпляром приложения
+     * Запуск сервера с указанным экземпляром приложения
      */
     public void start(App app) throws Exception {
         WebXml wx = new DefaultWebXmlFactory().createWebXml();
         AppServlet svInst = new AppServlet(app);
         wx.getServlet(WebConsts.WEB_SERVLET_NAME).setServletInstance(svInst);
-        startWebXml(wx);
+        start(wx);
     }
 
+    protected void checkNotStarted() {
+        if (this.server != null) {
+            throw new XError("undertow server already started");
+        }
+    }
+
+    /**
+     * Остановить сервер
+     */
+    public void stop() {
+        if (this.server == null) {
+            return;
+        }
+        try {
+            this.manager.stop();
+        } catch (Exception e) {
+            log.error("manager stop error", e);
+        }
+        try {
+            this.manager.undeploy();
+        } catch (Exception e) {
+            log.error("manager undeploy error", e);
+        }
+        this.server.stop();
+        this.server = null;
+    }
+
+    /**
+     * Запущен ли сервер
+     */
+    public boolean isStarted() {
+        return this.server != null;
+    }
+
+    /**
+     * Запустить сервер по настройкам в WebXml
+     */
     @SuppressWarnings("unchecked")
-    public void startWebXml(WebXml wx) throws Exception {
+    public void start(WebXml wx) throws Exception {
+
+        checkNotStarted();
 
         DeploymentInfo servletBuilder = Servlets.deployment()
                 .setClassLoader(UtClass.getClassLoader())
@@ -131,7 +177,7 @@ public class UndertowRunner {
     ////// internal
 
     protected void startServer(DeploymentInfo deploymentInfo) throws Exception {
-        DeploymentManager manager = Servlets.defaultContainer().addDeployment(deploymentInfo);
+        DeploymentManager manager = Servlets.newContainer().addDeployment(deploymentInfo);
         manager.deploy();
         HttpHandler h = manager.start();
 
@@ -143,6 +189,9 @@ public class UndertowRunner {
                 .setHandler(path1)
                 .build();
         server.start();
+        //
+        this.server = server;
+        this.manager = manager;
     }
 
 
