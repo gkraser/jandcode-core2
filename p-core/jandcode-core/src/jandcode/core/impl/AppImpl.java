@@ -184,6 +184,9 @@ public class AppImpl implements App, IBeanIniter {
             if (this.env.isSource()) {
                 log.info("env.source: {}", this.env.isSource());
             }
+            if (this.env.isTest()) {
+                log.info("env.test: {}", this.env.isTest());
+            }
         }
 
         Map<String, String> vars = new LinkedHashMap<>();
@@ -313,6 +316,9 @@ public class AppImpl implements App, IBeanIniter {
         this.startupLevel++;
         if (this.startupLevel == 1) {
             try {
+                if (log.isInfoEnabled()) {
+                    log.info("app startup");
+                }
                 for (IAppStartup z : impl(IAppStartup.class)) {
                     z.appStartup();
                 }
@@ -329,6 +335,9 @@ public class AppImpl implements App, IBeanIniter {
         this.startupLevel--;
         if (this.startupLevel == 0) {
             try {
+                if (log.isInfoEnabled()) {
+                    log.info("app shutdown");
+                }
                 for (IAppShutdown z : impl(IAppShutdown.class)) {
                     z.appShutdown();
                 }
