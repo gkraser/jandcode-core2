@@ -54,7 +54,10 @@
         }
 
         if (typeof _modFunc === 'string') {
-            let text = _modFunc + "\n//# sourceURL=jc-jsa:///" + _name;
+            let text = _modFunc
+            if (Jc.cfg.envDev) {
+                text = text + "\n//# sourceURL=jc-jsa:///" + _name
+            }
             try {
                 _modFunc = new Function('exports,require,module,__filename,__dirname', text)
             } catch(e) {
@@ -167,12 +170,14 @@
             cssIdxText = cssIdxText.padStart(2, '0')
         }
         if (filename) {
-            css = css + "\n/*# sourceURL=jc-jsa:///inline-styles/[" + cssIdxText + "]/" + filename + "*/";
             if (Jc.cfg.envDev) {
+                css = css + "\n/*# sourceURL=jc-jsa:///inline-styles/[" + cssIdxText + "]/" + filename + "*/";
                 styleTag.dataset.path = filename
             }
         } else {
-            css = css + "\n/*# sourceURL=jc-jsa:///inline-styles/style-" + cssIdxText + ".css*/";
+            if (Jc.cfg.envDev) {
+                css = css + "\n/*# sourceURL=jc-jsa:///inline-styles/style-" + cssIdxText + ".css*/";
+            }
         }
         if (group) {
             styleTag.dataset.group = group
