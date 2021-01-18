@@ -80,7 +80,7 @@ export default {
 
         this.chartInst = chartInst
 
-        this.rsw = apx.dom.resizeWatch(this.$el, (ev) => {
+        this.rsw = apx.jsaBase.dom.resizeWatch(this.$el, (ev) => {
             this.syncSize()
         })
 

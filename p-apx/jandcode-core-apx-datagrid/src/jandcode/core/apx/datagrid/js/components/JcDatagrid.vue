@@ -35,7 +35,7 @@ export default {
         this.$el.style.padding = '0'
         this.gridInst = this.createGridInst()
         //
-        this.rsw = apx.dom.resizeWatch(this.$el, (ev) => {
+        this.rsw = apx.jsaBase.dom.resizeWatch(this.$el, (ev) => {
             let curHeight = this.$refs.table.style.height
             let newHeight = '' + this.calcGridHeight() + 'px'
             if (curHeight !== newHeight) {
