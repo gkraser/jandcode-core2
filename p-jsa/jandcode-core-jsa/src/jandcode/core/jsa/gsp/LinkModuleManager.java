@@ -79,6 +79,16 @@ public class LinkModuleManager extends BaseComp {
         WebService webSvc = g.getApp().bean(WebService.class);
         Request request = webSvc.getRequest();
         Map<String, String> params = new LinkedHashMap<>();
+
+        if (getApp().getEnv().isDev()) {
+            // список подключаемых модулей в фиктивный параметр, для отладки
+            List<String> tmp = new ArrayList<>();
+            for (JsModule m : inc) {
+                tmp.add(m.getName());
+            }
+            params.put("_m", UtString.join(tmp, ";"));
+        }
+
         StringBuilder incStr = new StringBuilder();
         for (JsModule m : inc) {
             incStr.append(m.getId());
