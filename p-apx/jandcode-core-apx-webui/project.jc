@@ -27,7 +27,6 @@ class P extends ProjectScript {
         //
         include(JsaJavaProject).with {
             nodeJsDepends(
-                    "lodash",
                     "@fontsource/roboto",
                     "@fontsource/roboto-condensed",
                     "@fontsource/roboto-mono",
