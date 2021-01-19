@@ -15,6 +15,9 @@ function getLocale() {
  * Простой vue-binding для echarts.
  *
  * После mount имеется экземпляр chartInst, делайте с ним что хотите.
+ *
+ * @event setChartInst см. {@link ChartBuilder.setChartInst}
+ * @event destroyChartInst см. {@link ChartBuilder.destroyChartInst}
  */
 export default {
     name: 'jc-chart',
@@ -153,6 +156,7 @@ export default {
         __setChartInst(chartInst) {
             if (apx.jsaBase.isFunction(this.options.setChartInst)) {
                 this.options.setChartInst(chartInst, this)
+                this.$emit('setChartInst', chartInst, this)
             }
         },
 
@@ -162,6 +166,7 @@ export default {
         __destroyChartInst(chartInst) {
             if (apx.jsaBase.isFunction(this.options.destroyChartInst)) {
                 this.options.destroyChartInst(chartInst, this)
+                this.$emit('destroyChartInst', chartInst, this)
             }
         },
 
