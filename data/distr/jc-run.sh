@@ -16,4 +16,4 @@ JVM="${JVM} -Djandcode.launcher.main=jandcode.jc.Main"
 JVM="${JVM} -Djandcode.jc.appdir=${WD}"
 JVM="${JVM} -Dfile.encoding=UTF-8"
 
-java ${JVM} ${JC_JVM} jandcode.jc.Main ${JC_CLI} $*
+java ${JVM} ${JC_JVM} jandcode.commons.launcher.Launcher ${JC_CLI} $*
