@@ -39,10 +39,14 @@ public class RunCmd {
      * Установить команду для выполнения в виде строки, разделенной пробелами
      */
     public void setCmd(String cmd) {
+        if (cmd == null) {
+            return;
+        }
+        cmd = cmd.trim();
         if (UtString.empty(cmd)) {
             return;
         }
-        String[] ar = cmd.split(" ");
+        String[] ar = cmd.split("\\s+");
         setCmd(Arrays.asList(ar));
     }
 
