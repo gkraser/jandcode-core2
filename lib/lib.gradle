@@ -3,9 +3,9 @@ repositories {
 }
 
 configurations {
-    compile1  // для индивидуальных тестов
+    implementation1  // для индивидуальных тестов
 
-    compile {
+    implementation {
         // это предоставляет slf4j
         exclude group: "commons-logging"
         // это предоставляет flexmark
@@ -23,120 +23,120 @@ dependencies {
 
     // ant
     v = '1.10.9'
-    compile group: 'org.apache.ant', name: 'ant', version: v
-    compile group: 'org.apache.ant', name: 'ant-launcher', version: v
-    compile(group: 'org.apache.ant', name: 'ant-junit', version: v) {
+    implementation group: 'org.apache.ant', name: 'ant', version: v
+    implementation group: 'org.apache.ant', name: 'ant-launcher', version: v
+    implementation(group: 'org.apache.ant', name: 'ant-junit', version: v) {
         transitive = false
     }
-    compile(group: 'org.apache.ant', name: 'ant-junitlauncher', version: v) {
+    implementation(group: 'org.apache.ant', name: 'ant-junitlauncher', version: v) {
         transitive = false
     }
 
     // junit5
     v = '5.7.1'
     vp = '1.7.1'  // platform
-    compile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: v
-    compile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: v
-    compile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: v
-    compile group: 'org.junit.platform', name: 'junit-platform-launcher', version: vp
-    compile group: 'org.junit.platform', name: 'junit-platform-console', version: vp
+    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: v
+    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: v
+    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: v
+    implementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: vp
+    implementation group: 'org.junit.platform', name: 'junit-platform-console', version: vp
 
     // apache commons
-    compile group: 'org.apache.commons', name: 'commons-vfs2', version: '2.8.0'
-    compile group: 'commons-io', name: 'commons-io', version: '2.8.0'
-    compile group: 'commons-codec', name: 'commons-codec', version: '1.15'
-    compile group: 'org.apache.commons', name: 'commons-compress', version: '1.20'
-    compile group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.8.0'
-    compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.9.0'
-    compile group: 'org.apache.commons', name: 'commons-csv', version: '1.8'
-    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
-    compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+    implementation group: 'org.apache.commons', name: 'commons-vfs2', version: '2.8.0'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.8.0'
+    implementation group: 'commons-codec', name: 'commons-codec', version: '1.15'
+    implementation group: 'org.apache.commons', name: 'commons-compress', version: '1.20'
+    implementation group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.8.0'
+    implementation group: 'org.apache.commons', name: 'commons-pool2', version: '2.9.0'
+    implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.8'
+    implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+    implementation group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
 
     // groovy
     v = '3.0.7'
-    compile group: 'org.codehaus.groovy', name: 'groovy', version: v
-    compile(group: 'org.codehaus.groovy', name: 'groovy-ant', version: v) {
+    implementation group: 'org.codehaus.groovy', name: 'groovy', version: v
+    implementation(group: 'org.codehaus.groovy', name: 'groovy-ant', version: v) {
         exclude group: 'org.apache.ant'
         exclude module: 'groovy-groovydoc'
     }
-    compile group: 'org.codehaus.groovy', name: 'groovy-json', version: v
-    compile group: 'org.codehaus.groovy', name: 'groovy-xml', version: v
-    compile group: 'org.codehaus.groovy', name: 'groovy-templates', version: v
-    compile(group: 'org.codehaus.groovy', name: 'groovy-groovydoc', version: v) {
+    implementation group: 'org.codehaus.groovy', name: 'groovy-json', version: v
+    implementation group: 'org.codehaus.groovy', name: 'groovy-xml', version: v
+    implementation group: 'org.codehaus.groovy', name: 'groovy-templates', version: v
+    implementation(group: 'org.codehaus.groovy', name: 'groovy-groovydoc', version: v) {
         exclude module: 'groovy-docgenerator'
     }
 
     // jansi
-    compile group: 'org.fusesource.jansi', name: 'jansi', version: '1.18'
+    implementation group: 'org.fusesource.jansi', name: 'jansi', version: '1.18'
 
     // picocli, для groovy
-    compile group: 'info.picocli', name: 'picocli', version: '4.6.1'
+    implementation group: 'info.picocli', name: 'picocli', version: '4.6.1'
 
     // slf4j
     v = '1.7.30'
-    compile group: 'org.slf4j', name: 'slf4j-api', version: v
-    compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: v
-    compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: v
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: v
+    implementation group: 'org.slf4j', name: 'jcl-over-slf4j', version: v
+    implementation group: 'org.slf4j', name: 'log4j-over-slf4j', version: v
 
     // logback
-    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
 
     // gson
-    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
 
     // jdbc
-    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.19'
-    compile group: 'com.h2database', name: 'h2', version: '1.4.200'
-    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.2'
-    compile group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '19.8.0.0', transitive: false
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.19'
+    implementation group: 'com.h2database', name: 'h2', version: '1.4.200'
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.2'
+    implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '19.8.0.0', transitive: false
 
     // flexmark
     v = '0.62.2'
-    compile group: 'com.vladsch.flexmark', name: 'flexmark', version: v
-    compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-gfm-strikethrough', version: v
-    compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-tables', version: v
-    compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-yaml-front-matter', version: v
-    compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-admonition', version: v
-    compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-definition', version: v
-    compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-anchorlink', version: v
-    compile group: 'com.vladsch.flexmark', name: 'flexmark-ext-attributes', version: v
+    implementation group: 'com.vladsch.flexmark', name: 'flexmark', version: v
+    implementation group: 'com.vladsch.flexmark', name: 'flexmark-ext-gfm-strikethrough', version: v
+    implementation group: 'com.vladsch.flexmark', name: 'flexmark-ext-tables', version: v
+    implementation group: 'com.vladsch.flexmark', name: 'flexmark-ext-yaml-front-matter', version: v
+    implementation group: 'com.vladsch.flexmark', name: 'flexmark-ext-admonition', version: v
+    implementation group: 'com.vladsch.flexmark', name: 'flexmark-ext-definition', version: v
+    implementation group: 'com.vladsch.flexmark', name: 'flexmark-ext-anchorlink', version: v
+    implementation group: 'com.vladsch.flexmark', name: 'flexmark-ext-attributes', version: v
 
     // servlet-api
-    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 
     // undertow
-    compile(group: 'io.undertow', name: 'undertow-servlet', version: '2.2.5.Final') {
+    implementation(group: 'io.undertow', name: 'undertow-servlet', version: '2.2.5.Final') {
         exclude module: 'jboss-annotations-api_1.2_spec'
         exclude module: 'jboss-servlet-api_4.0_spec'
     }
 
     // xmlbeans
-    compile group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '3.1.0'
+    implementation group: 'org.apache.xmlbeans', name: 'xmlbeans', version: '3.1.0'
 
     // poi
     v = '4.1.2'
-    compile group: 'org.apache.poi', name: 'poi', version: v
-    compile group: 'org.apache.poi', name: 'poi-ooxml', version: v
-    compile group: 'org.apache.poi', name: 'poi-scratchpad', version: v
+    implementation group: 'org.apache.poi', name: 'poi', version: v
+    implementation group: 'org.apache.poi', name: 'poi-ooxml', version: v
+    implementation group: 'org.apache.poi', name: 'poi-scratchpad', version: v
 
     // lucene
     v = '8.7.0'
     v = '8.8.1'
-    compile group: 'org.apache.lucene', name: 'lucene-core', version: v
-    compile group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: v
-    compile group: 'org.apache.lucene', name: 'lucene-queryparser', version: v
+    implementation group: 'org.apache.lucene', name: 'lucene-core', version: v
+    implementation group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: v
+    implementation group: 'org.apache.lucene', name: 'lucene-queryparser', version: v
 
     // tika
     v = '1.25'
-    compile group: 'org.apache.tika', name: 'tika-core', version: v
-    compile(group: 'org.apache.tika', name: 'tika-parsers', version: v) {
+    implementation group: 'org.apache.tika', name: 'tika-core', version: v
+    implementation(group: 'org.apache.tika', name: 'tika-parsers', version: v) {
         transitive = false
     }
 
     // javassist
     v = '3.27.0-GA'
-    compile group: 'org.javassist', name: 'javassist', version: v
+    implementation group: 'org.javassist', name: 'javassist', version: v
 
 }
 

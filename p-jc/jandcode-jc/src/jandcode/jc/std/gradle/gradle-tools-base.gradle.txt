@@ -34,7 +34,7 @@ class DepScanner {
 
     DepScanner(Project project) {
         this.project = project
-        this.cfg = project.configurations.compile
+        this.cfg = project.configurations.compileClasspath
     }
 
     void build() {
