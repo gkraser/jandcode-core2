@@ -11,6 +11,7 @@ void onInclude() {
             "commons-io",
             "commons-vfs2",
             "gson",
+            "commons-lang3",
 
             // logging
             "slf4j-api",

@@ -21,3 +21,4 @@ logback-classic
 logback-core
 opentest4j
 slf4j-api
+commons-lang3
