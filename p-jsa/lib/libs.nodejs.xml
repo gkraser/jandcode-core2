@@ -2,17 +2,17 @@
 <root>
 
     <!-- tools  -->
-    <lib name="@babel/cli" version="7.12.1"/>
-    <lib name="@babel/core" version="7.12.3"/>
-    <lib name="@babel/preset-env" version="7.12.1"/>
+    <lib name="@babel/cli" version="7.13.10"/>
+    <lib name="@babel/core" version="7.13.13"/>
+    <lib name="@babel/preset-env" version="7.13.12"/>
     <lib name="@babel/polyfill" version="7.12.1"/>
-    <lib name="@babel/plugin-external-helpers" version="7.12.1"/>
+    <lib name="@babel/plugin-external-helpers" version="7.12.13"/>
 
-    <lib name="cross-env" version="7.0.2"/>
+    <lib name="cross-env" version="7.0.3"/>
     <lib name="find-requires" version="1.0.0"/>
 
-    <lib name="fs-extra" version="9.0.1"/>
-    <lib name="globby" version="11.0.1"/>
+    <lib name="fs-extra" version="9.1.0"/>
+    <lib name="globby" version="11.0.3"/>
     <lib name="require-from-string" version="2.0.2"/>
     <lib name="del" version="6.0.0"/>
 
@@ -21,7 +21,7 @@
     <lib name="vue-template-compiler" version="2.6.12"/>
     <lib name="vue-template-es2015-compiler" version="1.9.1"/>
     <lib name="@vue/babel-helper-vue-jsx-merge-props" version="1.2.1" client="true"/>
-    <lib name="@vue/babel-preset-jsx" version="1.2.3"/>
+    <lib name="@vue/babel-preset-jsx" version="1.2.4"/>
 
     <lib name="gulp" version="4.0.2"/>
     <lib name="gulp-babel" version="8.0.0"/>
@@ -36,19 +36,19 @@
     <lib name="through2" version="4.0.2"/>
     <lib name="vinyl" version="2.2.1"/>
 
-    <lib name="postcss" version="7.0.32"/>
-    <lib name="gulp-postcss" version="8.0.0"/>
-    <lib name="postcss-pxtorem" version="5.1.1"/>
+    <lib name="postcss" version="8.2.8"/>
+    <lib name="gulp-postcss" version="9.0.0"/>
+    <lib name="postcss-pxtorem" version="6.0.0"/>
 
-    <lib name="node-sass" version="4.14.1"/>
+    <lib name="node-sass" version="5.0.0"/>
     <lib name="gulp-sass" version="4.1.0"/>
 
-    <lib name="terser" version="5.3.8"/>
-    <lib name="clean-css" version="4.2.3"/>
+    <lib name="terser" version="5.6.1"/>
+    <lib name="clean-css" version="5.1.2"/>
 
     <!-- client -->
 
-    <lib name="jquery" version="3.5.1" client="true">
+    <lib name="jquery" version="3.6.0" client="true">
         <include-client mask="dist/**/*"/>
 
         <exclude-client mask="**/*.map"/>
@@ -64,13 +64,13 @@
         <module-mapping module="axios" real-module="axios/dist/axios"/>
     </lib>
 
-    <lib name="chai" version="4.2.0" client="true">
+    <lib name="chai" version="4.3.4" client="true">
         <include-client mask="chai.js"/>
 
         <exclude-require mask="**/*.js"/>
     </lib>
 
-    <lib name="mocha" version="8.2.1" client="true">
+    <lib name="mocha" version="8.3.2" client="true">
         <include-client mask="mocha.*"/>
 
         <exclude-require mask="**/*.js"/>
@@ -85,7 +85,7 @@
         <module-mapping module="vue" real-module="vue/dist/vue"/>
     </lib>
 
-    <lib name="vue-router" version="3.4.8" client="true">
+    <lib name="vue-router" version="3.5.1" client="true">
         <include-client mask="dist/*.js"/>
 
         <exclude-client mask="dist/*.common.*"/>
@@ -94,7 +94,7 @@
         <module-mapping module="vue-router" real-module="vue-router/dist/vue-router"/>
     </lib>
 
-    <lib name="vuex" version="3.5.1" client="true">
+    <lib name="vuex" version="3.6.2" client="true">
         <include-client mask="dist/*.js"/>
 
         <exclude-client mask="dist/*.common.*"/>
@@ -103,7 +103,7 @@
         <module-mapping module="vuex" real-module="vuex/dist/vuex"/>
     </lib>
 
-    <lib name="quasar" version="1.15.0" client="true">
+    <lib name="quasar" version="1.15.9" client="true">
         <include-client mask="dist/*.js"/>
         <include-client mask="dist/*.css"/>
         <include-client mask="dist/*.sass"/>
@@ -120,24 +120,24 @@
 
     </lib>
 
-    <lib name="@quasar/extras" version="1.9.13" client="true">
+    <lib name="@quasar/extras" version="1.10.0" client="true">
         <include-client mask="material-icons/**/*"/>
         <include-client mask="animate/**/*"/>
     </lib>
 
-    <lib name="lodash" version="4.17.20" client="true">
+    <lib name="lodash" version="4.17.21" client="true">
         <include-client mask="**/*"/>
 
         <exclude-client mask="fp/**/*"/>
     </lib>
 
-    <lib name="@fontsource/roboto" version="4.1.0" client="true">
+    <lib name="@fontsource/roboto" version="4.2.2" client="true">
     </lib>
 
-    <lib name="@fontsource/roboto-condensed" version="4.1.0" client="true">
+    <lib name="@fontsource/roboto-condensed" version="4.2.2" client="true">
     </lib>
 
-    <lib name="@fontsource/roboto-mono" version="4.1.0" client="true">
+    <lib name="@fontsource/roboto-mono" version="4.2.2" client="true">
     </lib>
 
     <lib name="path-to-regexp" version="6.2.0" client="true">
@@ -163,7 +163,7 @@
                         real-module="portal-vue/dist/portal-vue.umd.min.js"/>
     </lib>
 
-    <lib name="echarts" version="5.0.1" client="true">
+    <lib name="echarts" version="5.0.2" client="true">
         <include-client mask="dist/**/echarts.min.js"/>
         <include-client mask="dist/extension/*.min.js"/>
         <module-mapping module="echarts" real-module="echarts/dist/echarts.min.js"/>
