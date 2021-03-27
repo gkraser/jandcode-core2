@@ -332,7 +332,7 @@ class GradleTools extends ProjectScript implements ILibDirBuilder {
         if (!markFileBuild.exists()) {
             cmPrepare()
         }
-        ut.runcmd(cmd: "gradle dependencies --configuration compileClasspath", dir: wd(tempDir))
+        ut.runcmd(cmd: "gradle dependencies --configuration runtimeClasspath", dir: wd(tempDir))
     }
 
     /**

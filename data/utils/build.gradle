@@ -13,7 +13,7 @@ task copyLibs {
         ant.delete(dir: libDir)
         def f = new File('../../jc-libs.txt')
         def ff = new HashSet(f.readLines())
-        configurations.compileClasspath.resolvedConfiguration.resolvedArtifacts.each { artifact ->
+        configurations.runtimeClasspath.resolvedConfiguration.resolvedArtifacts.each { artifact ->
             if (ff.contains(artifact.name)) {
                 project.copy {
                     from artifact.file
