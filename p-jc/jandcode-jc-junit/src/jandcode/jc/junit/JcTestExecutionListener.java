@@ -32,15 +32,18 @@ public class JcTestExecutionListener implements TestExecutionListener {
                     ConsoleWrap.println("");
                 }
             } else {
-                ConsoleWrap.print("\r#" + counter);
-                ConsoleWrap.flush();
+                // Если System.console()==null, значит идет перенаправление в файл
+                if (System.console() != null) {
+                    ConsoleWrap.print("\r#" + counter);
+                    ConsoleWrap.flush();
+                }
             }
         }
     }
 
     public void testPlanExecutionFinished(TestPlan testPlan) {
         ConsoleWrap.print("\r" + counter + " tests completed");
-        if (counterError>0) {
+        if (counterError > 0) {
             ConsoleWrap.print(", " + counterError + " tests failed");
         }
         ConsoleWrap.println("");
