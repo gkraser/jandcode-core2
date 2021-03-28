@@ -17,6 +17,8 @@ public interface ISaver {
     /**
      * Создание записывальщика этого объекта ISaver
      */
-    SaveTo save();
+    default SaveTo save() {
+        return new SaveTo(this);
+    }
 
 }

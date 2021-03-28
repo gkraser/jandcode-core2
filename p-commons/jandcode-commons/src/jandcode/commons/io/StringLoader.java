@@ -17,10 +17,6 @@ public class StringLoader implements ILoader {
         return sb.toString();
     }
 
-    public LoadFrom load() {
-        return new LoadFrom(this);
-    }
-
     public void loadFrom(Reader reader) throws Exception {
         Reader rdr = reader;
         char[] b = new char[BUFSIZE];

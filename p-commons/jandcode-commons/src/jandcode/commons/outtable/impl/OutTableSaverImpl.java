@@ -30,10 +30,6 @@ public class OutTableSaverImpl implements OutTableSaver {
         this.limit = limit;
     }
 
-    public SaveTo save() {
-        return new SaveTo(this);
-    }
-
     protected String getCellText(int row, int col) {
         Object v = outTable.getCell(row, col);
         if (v == null) {

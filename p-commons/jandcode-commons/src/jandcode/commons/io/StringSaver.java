@@ -13,10 +13,6 @@ public class StringSaver implements ISaver {
         this.data = data;
     }
 
-    public SaveTo save() {
-        return new SaveTo(this);
-    }
-
     public void saveTo(Writer writer) throws Exception {
         if (data != null) {
             writer.write(data);

@@ -26,10 +26,6 @@ public class SimXmlLoader extends DefaultHandler2 implements ILoader {
         this.root = root;
     }
 
-    public LoadFrom load() {
-        return new LoadFrom(this);
-    }
-
     public void loadFrom(Reader reader) throws Exception {
         root.clear();
         buffer = new StringBuilder();

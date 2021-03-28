@@ -128,10 +128,6 @@ public class ConfLoaderImpl implements ConfLoaderContext {
         throw new XError("Не найден загрузчик для типа файла [{0}]", ext);
     }
 
-    public LoadFrom load() {
-        return new LoadFrom(this);
-    }
-
     //////
 
     public void registerPlugin(ConfLoaderPlugin pluginInst) {

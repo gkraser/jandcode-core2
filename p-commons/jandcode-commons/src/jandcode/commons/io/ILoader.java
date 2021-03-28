@@ -17,6 +17,8 @@ public interface ILoader {
     /**
      * Создание загрузчика для загрузки из этого ILoader
      */
-    LoadFrom load();
+    default LoadFrom load() {
+        return new LoadFrom(this);
+    }
 
 }

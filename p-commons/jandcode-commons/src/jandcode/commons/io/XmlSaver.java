@@ -28,10 +28,6 @@ public abstract class XmlSaver implements ISaver {
 
     //////
 
-    public SaveTo save() {
-        return new SaveTo(this);
-    }
-
     public void saveTo(Writer writer) throws Exception {
         this.writer = new IndentWriter(writer);
         getIndentWriter().setEnable(isUseIndent());

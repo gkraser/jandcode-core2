@@ -23,10 +23,6 @@ public class OutMapSaver implements ISaver {
         this.showClass = showClass;
     }
 
-    public SaveTo save() {
-        return new SaveTo(this);
-    }
-
     public void saveTo(Writer writer) throws Exception {
         wr = new IndentWriter(writer);
         outValue(data);

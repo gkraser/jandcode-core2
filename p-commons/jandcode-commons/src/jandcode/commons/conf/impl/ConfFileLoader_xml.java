@@ -30,10 +30,6 @@ public class ConfFileLoader_xml extends DefaultHandler2 implements ILoader {
         this.loader = loader;
     }
 
-    public LoadFrom load() {
-        return new LoadFrom(this);
-    }
-
     public void loadFrom(Reader reader) throws Exception {
         buffer = new StringBuilder();
         stack = new StackList<>();

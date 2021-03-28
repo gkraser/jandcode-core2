@@ -30,7 +30,4 @@ public class ConfFileLoader_json implements ILoader {
         this.root.join(tmp);
     }
 
-    public LoadFrom load() {
-        return new LoadFrom(this);
-    }
 }

@@ -18,10 +18,6 @@ public class PropertiesLoader implements ILoader {
         _properties = properties;
     }
 
-    public LoadFrom load() {
-        return new LoadFrom(this);
-    }
-
     public void loadFrom(Reader reader) throws Exception {
         _properties.load(reader);
     }

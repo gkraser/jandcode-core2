@@ -78,10 +78,6 @@ public abstract class TextParser implements ILoader {
         }
     }
 
-    public LoadFrom load() {
-        return new LoadFrom(this);
-    }
-
     public void loadFrom(Reader reader) throws Exception {
         _reader = reader;
         last = EOF;
