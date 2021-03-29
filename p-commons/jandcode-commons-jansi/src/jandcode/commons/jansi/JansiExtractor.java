@@ -41,12 +41,11 @@ public class JansiExtractor {
      * Без всяких проверок, только процесс.
      */
     public void extractNativeLibs(String todir) throws FileSystemException {
-        String s = JansiExtractor.class.getResource(getJansiPomPath()).toString();
-        int b = s.indexOf('!');
-        s = s.substring(0, b) + "!/META-INF/native";
+        // откуда берем библиотеки
+        String src = "res:org/fusesource/jansi/internal/native";
 
         FileObject fdest = UtFile.getFileObject(todir);
-        FileObject fsrc = UtFile.getFileObject(s);
+        FileObject fsrc = UtFile.getFileObject(src);
         fdest.copyFrom(fsrc, new AllFileSelector());
     }
 

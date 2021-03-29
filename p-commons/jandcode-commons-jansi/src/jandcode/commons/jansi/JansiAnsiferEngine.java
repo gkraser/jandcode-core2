@@ -13,7 +13,7 @@ public class JansiAnsiferEngine implements AnsiferEngine {
             if (!jansiInstalled) {
 
                 // уюеждаемся, что jansi присутствует
-                UtClass.getClass("org.fusesource.jansi.AnsiString");
+                UtClass.getClass("org.fusesource.jansi.AnsiColors");
 
                 // извлекаем нативные библиотеки jansi
                 JansiExtractor q = new JansiExtractor();
