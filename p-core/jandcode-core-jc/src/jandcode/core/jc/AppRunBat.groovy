@@ -56,7 +56,7 @@ class AppRunBat extends ProjectScript {
             UtFile.saveString("CP=${UtString.join(rlibs.classpathRaw, ":")}", new File(wd("_jc/app-run-classpath.sh")))
         }
 
-        generateBat(wd("app-run.bat"), false, false, null)
+        generateBat(wd("app-run.bat"), false, true, null)
     }
 
     /**
