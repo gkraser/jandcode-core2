@@ -18,6 +18,18 @@ configurations {
     }
 }
 
+if (tasks.findByName('dependencyUpdates')) {
+    tasks.named("dependencyUpdates").configure {
+        rejectVersionIf {
+            String s = it.candidate.version.toLowerCase()
+            if (s.contains('alpha')) return true
+            if (s.contains('-m')) return true
+            if (s.contains('-beta')) return true
+            return false
+        }
+    }
+}
+
 dependencies {
     String v, vp
 
