@@ -16,11 +16,6 @@ public class ModuleDefConsts {
     public static final String FILE_MODULE_CONF = "module.cfx";
 
     /**
-     * Системное свойство - корневой каталог проекта.
-     */
-    public static final String PROP_PROJECT_ROOT = "jandcode.project.root";
-
-    /**
      * Атрибут в jar-манифесте с именами модулей, которые содержатся в библиотке.
      */
     public static final String MANIFEST_MODULES = "Jandcode-Modules";

@@ -25,5 +25,10 @@ public interface SysProp {
      */
     String PROP_APP_DIR = "jandcode.app.appdir";
 
+    /**
+     * Системное свойство - корневой каталог проекта.
+     * Сейчас не успользуется. Сохранено по историческим причинам.
+     */
+    String PROP_PROJECT_ROOT = "jandcode.project.root";
 
 }
