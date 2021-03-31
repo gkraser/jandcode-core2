@@ -5,6 +5,7 @@ import jandcode.commons.cli.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.error.*;
 import jandcode.commons.io.*;
+import jandcode.commons.log.*;
 import jandcode.commons.named.*;
 import jandcode.core.*;
 import jandcode.core.launcher.impl.*;
@@ -69,7 +70,7 @@ public class Launcher {
         String appDir = UtEnv.resolveAppdir(null);
 
         // менеджер логов
-        AppLogManager logManager = new AppLogManager(appDir);
+        AppLogManager logManager = UtLog.createAppLogManager(appDir);
 
         // заказана ли помощь
         boolean needHelp = args.containsKey(LauncherConsts.OPT_HELP) || args.containsKey(LauncherConsts.OPT_HELP2);

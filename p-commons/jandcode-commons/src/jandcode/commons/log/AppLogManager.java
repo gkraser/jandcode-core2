@@ -1,4 +1,4 @@
-package jandcode.core;
+package jandcode.commons.log;
 
 import jandcode.commons.*;
 import org.slf4j.*;
@@ -10,7 +10,7 @@ import java.util.*;
  * Экземпляр создается для каталога приложения.
  * При включении логирования через этот экземпляр, настройки будут братся из первого
  * (в порядке приоритета) файла: _logback.xml, logback.xml.
- * Так же можно явно указать файл с конфигурацией логгирования.
+ * Так же можно явно указать файл с конфигурацией логирования.
  */
 public class AppLogManager {
 

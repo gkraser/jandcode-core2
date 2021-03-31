@@ -52,4 +52,17 @@ public class UtLog {
         return LoggerFactory.getLogger(LOG_CONSOLE);
     }
 
+    //////
+
+    /**
+     * Создать {@link AppLogManager} для указанного каталога приложения.
+     * С его помощью можно включать логирование с загрузкой конфигурации из указанного
+     * каталога.
+     *
+     * @param appDir каталог приложения, откуда будут братся конфиги для логирования
+     */
+    public static AppLogManager createAppLogManager(String appDir) {
+        return new AppLogManager(appDir);
+    }
+
 }

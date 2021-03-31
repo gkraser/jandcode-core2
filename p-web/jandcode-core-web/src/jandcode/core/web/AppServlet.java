@@ -4,6 +4,7 @@ package jandcode.core.web;
 import jandcode.commons.*;
 import jandcode.commons.error.*;
 import jandcode.commons.error.impl.*;
+import jandcode.commons.log.*;
 import jandcode.core.*;
 import jandcode.core.std.*;
 import jandcode.core.web.impl.*;
@@ -144,7 +145,7 @@ public class AppServlet extends HttpServlet implements IAppLink {
         String appDir = UtEnv.resolveAppdir(baseDir);
 
         // менеджер логов
-        AppLogManager logManager = new AppLogManager(appDir);
+        AppLogManager logManager = UtLog.createAppLogManager(appDir);
 
         // настраиваем логирование
         s = getInitParameter(initParameter_log);
