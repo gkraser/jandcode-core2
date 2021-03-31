@@ -94,7 +94,7 @@ public class AppTestSvc extends BaseTestSvc implements App {
     public List<String> findCompiledFileInTestSource(String compiledFile) throws Exception {
         List<String> res = new ArrayList<>();
 
-        String appdir = AppConsts.resolveAppdir(UtFile.getWorkdir());
+        String appdir = UtEnv.resolveAppdir(UtFile.getWorkdir());
         String regFile = UtFile.join(appdir, ModuleDefConsts.FILE_REGISTRY_MODULE_DEF);
         if (!UtFile.exists(regFile)) {
             System.out.println("WARNING: Необходимо выполнить jc prepare " +

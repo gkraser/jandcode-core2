@@ -155,7 +155,7 @@ public class AppImpl implements App, IBeanIniter {
 
         // определяем каталог приложения
         if (UtString.empty(this.appdir)) {
-            this.appdir = AppConsts.resolveAppdir(
+            this.appdir = UtEnv.resolveAppdir(
                     UtFile.path(UtFile.vfsPathToLocalPath(appConfFile))
             );
         }
@@ -166,7 +166,7 @@ public class AppImpl implements App, IBeanIniter {
 
         // определяем среду
         if (this.env == null) {
-            this.env = UtEnv.loadEnv(UtFile.join(this.appdir, AppConsts.FILE_ENV), this.test);
+            this.env = UtEnv.loadEnv(UtFile.join(this.appdir, UtilsConsts.FILE_ENV), this.test);
         }
 
         // resolver

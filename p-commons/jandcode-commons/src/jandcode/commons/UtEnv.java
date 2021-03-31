@@ -18,5 +18,41 @@ public class UtEnv {
         return new EnvLoader().load(fileName, test);
     }
 
+    /**
+     * Выяснить каталог приложения.
+     * Определяется переменной {@link UtilsConsts#PROP_APP_DIR}.
+     * <p>
+     * Если она не определена, ищется каталог, который содержит {@link UtilsConsts#FILE_ENV},
+     * начиная с defaultAppDir и вверх по иерархии каталогов.
+     * <p>
+     * Если она не определена, принимается defaultAppDir.
+     *
+     * @param defaultAppDir каталог по умолчанию, если не удалось определить.
+     *                      Если null, то принимается как workDir
+     */
+    public static String resolveAppdir(String defaultAppDir) {
+        String appdir = System.getProperty(UtilsConsts.PROP_APP_DIR);
+        if (!UtString.empty(appdir)) {
+            return UtFile.abs(appdir);
+        }
+
+        if (defaultAppDir == null) {
+            defaultAppDir = UtFile.getWorkdir();
+        }
+
+        if (UtString.empty(appdir)) {
+            String f = UtFile.findFileUp(UtilsConsts.FILE_ENV, defaultAppDir);
+            if (f != null) {
+                appdir = UtFile.path(f);
+            }
+        }
+
+        if (UtString.empty(appdir)) {
+            appdir = defaultAppDir;
+        }
+
+        return UtFile.abs(appdir);
+    }
+
 
 }

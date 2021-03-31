@@ -18,7 +18,7 @@ public class AppLoader {
      *                    нужно передать true, иначе (в подавляющем большинстве случаев - false)
      * @param appdir      каталог с приложением. Каталог в котором приложение установлено.
      *                    Если передать null - определится автоматически.
-     *                    см: {@link AppConsts#resolveAppdir(java.lang.String)}
+     *                    см: {@link UtEnv#resolveAppdir(java.lang.String)}
      * @param env         среда, если передать null - загрузится автоматически.
      *                    см: {@link UtEnv#loadEnv(java.lang.String, boolean)}
      */

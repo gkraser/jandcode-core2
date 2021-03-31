@@ -141,7 +141,7 @@ public class AppServlet extends HttpServlet implements IAppLink {
         }
 
         // определяем каталог приложения
-        String appDir = AppConsts.resolveAppdir(baseDir);
+        String appDir = UtEnv.resolveAppdir(baseDir);
 
         // менеджер логов
         AppLogManager logManager = new AppLogManager(appDir);

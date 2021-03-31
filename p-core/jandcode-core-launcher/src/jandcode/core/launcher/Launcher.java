@@ -66,7 +66,7 @@ public class Launcher {
         CliArgs args = UtCli.createArgs(argsArr);
 
         // определяем каталог приложения, не зависимо от app.cfx
-        String appDir = AppConsts.resolveAppdir(null);
+        String appDir = UtEnv.resolveAppdir(null);
 
         // менеджер логов
         AppLogManager logManager = new AppLogManager(appDir);
