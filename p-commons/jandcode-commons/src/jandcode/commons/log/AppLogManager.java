@@ -1,7 +1,6 @@
 package jandcode.commons.log;
 
 import jandcode.commons.*;
-import org.slf4j.*;
 
 import java.util.*;
 
@@ -54,14 +53,14 @@ public class AppLogManager {
             String f1 = UtFile.join(appDir, f);
             if (UtFile.exists(f1)) {
                 UtLog.logOn(f1);
-                LoggerFactory.getLogger(AppLogManager.class).info("load log config from: " + f1);
+                UtLog.getLogConsole().info("load log config from: " + f1);
                 return;
             }
         }
 
         // файлов с конфигами не найдено - включаем по умолчанию
         UtLog.logOn();
-        LoggerFactory.getLogger(AppLogManager.class).info("load default log config");
+        UtLog.getLogConsole().info("load default log config");
     }
 
 }
