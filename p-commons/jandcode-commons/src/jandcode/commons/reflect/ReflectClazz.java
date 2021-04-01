@@ -12,12 +12,12 @@ public interface ReflectClazz {
 
     /**
      * Установить свойство объекту.
-     * Генерится ошибка, если произошла при присвоении/
+     * Генерится ошибка, если произошла при присвоении.
      *
      * @param inst     экземпляр
      * @param propname имя свойства. Определяется методами inst:
      *                 setPropname(Object), setPropnameName(String).
-     *                 Если таких методов нет, но экхемпляр реализует интерфейс
+     *                 Если таких методов нет, но экземпляр реализует интерфейс
      *                 {@link IReflectUnknownSetter}, то вызывается метод
      *                 {@link IReflectUnknownSetter#onUnknownSetter(java.lang.String, java.lang.Object)}.
      * @param value    значение
