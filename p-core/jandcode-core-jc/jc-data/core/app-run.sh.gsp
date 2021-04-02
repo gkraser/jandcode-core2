@@ -13,6 +13,7 @@
 #!/bin/sh
 
 WD=`dirname $0`
+CMDNAME=`basename "$0"`
 
 # in JC_JVM java parameters -Dxxx=yyy
 
@@ -29,6 +30,7 @@ fi
 JVM=
 JVM="${v('JVM')} -cp ${v('CP')}"
 JVM="${v('JVM')} -Djandcode.app.appdir=${v('WD')}"
+JVM="${v('JVM')} -Djandcode.app.cmdname=${v('CMDNAME')}"
 JVM="${v('JVM')} -Dfile.encoding=UTF-8"
 MAIN=${mainClass}
 

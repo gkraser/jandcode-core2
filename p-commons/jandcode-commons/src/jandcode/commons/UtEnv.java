@@ -54,5 +54,26 @@ public class UtEnv {
         return UtFile.abs(appdir);
     }
 
+    /**
+     * Выяснить main-класс, который запустил приложение.
+     */
+    public static String resolveMainClass() {
+        StackTraceElement[] cause = Thread.currentThread().getStackTrace();
+        return cause[cause.length - 1].getClassName();
+    }
+
+    /**
+     * Выяснить команду, которая запустила приложение.
+     * Определяется переменной {@link UtilsConsts#PROP_APP_CMDNAME}.
+     * <p>
+     * Если она не определена, возвращается main-class, который запустил приложение.
+     */
+    public static String resolveCmdName() {
+        String cmdName = System.getProperty(UtilsConsts.PROP_APP_CMDNAME);
+        if (!UtString.empty(cmdName)) {
+            return cmdName;
+        }
+        return resolveMainClass();
+    }
 
 }

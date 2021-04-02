@@ -26,6 +26,7 @@ set CP=@%P1%
 set JVM=
 set JVM=%JVM% -cp %CP%
 set JVM=%JVM% -Djandcode.app.appdir=%~dp0
+set JVM=%JVM% -Djandcode.app.cmdname=%~n0
 set JVM=%JVM% -Dfile.encoding=UTF-8
 set MAIN=${mainClass}
 
