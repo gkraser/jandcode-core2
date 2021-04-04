@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
-    <launcher>
-
-        <cmd name="serve"
-             class="jandcode.core.web.launcher.ServeLauncherCmd"/>
-
-    </launcher>
-
     <bean name="jandcode.core.web.WebService"
           class="jandcode.core.web.impl.WebServiceImpl"
           bean.autoCreate="true">

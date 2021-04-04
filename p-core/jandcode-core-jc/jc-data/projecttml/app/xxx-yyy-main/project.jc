@@ -13,7 +13,6 @@ class P extends ProjectScript {
         include(JavaProject).with {
             moduleDef("xxx.yyy.main").with {
                 depends.prod(
-                    "jandcode.core.launcher",
                 )
                 depends.dev(
                 )

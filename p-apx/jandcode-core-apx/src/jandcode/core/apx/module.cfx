@@ -8,6 +8,5 @@
 
     <x-include path="web/index.cfx"/>
     <x-include path="dbm/index.cfx"/>
-    <x-include path="launcher/index.cfx"/>
 
 </root>

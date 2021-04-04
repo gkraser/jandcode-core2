@@ -28,7 +28,7 @@ class AppRunBat extends ProjectScript {
     /**
      * Класс с методом main, который запускает приложение
      */
-    String mainClass = "jandcode.core.launcher.Launcher"
+    String mainClass = "mainclass.not.defined"
 
     /**
      * Шаблон файла bat

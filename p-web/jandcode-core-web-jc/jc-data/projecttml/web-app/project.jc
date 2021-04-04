@@ -13,6 +13,9 @@ class P extends ProjectScript {
         project.name = "xxx-yyy"
         project.version = include(GitVersion)
         //
+        include(AppRunBat).with {
+            mainClass = "xxx.yyy.main.Main"
+        }
         include(RootProject).with {
             modules(
                     "xxx-yyy-main",
