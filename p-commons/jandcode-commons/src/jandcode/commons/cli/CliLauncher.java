@@ -24,6 +24,8 @@ public class CliLauncher implements CliConfigure {
 
     private List<String> args = new ArrayList<>();
     private String appDir;
+    private boolean exitOnError = true;
+    private boolean showError = true;
     private boolean logEnabled;
     private String logConfig;
     private boolean verbose;
@@ -97,6 +99,28 @@ public class CliLauncher implements CliConfigure {
 
     public void setAppDir(String appDir) {
         this.appDir = appDir;
+    }
+
+    /**
+     * При значении true: если возникла ошибка при выполнении, будет вызван System.exit(1)
+     */
+    public boolean isExitOnError() {
+        return exitOnError;
+    }
+
+    public void setExitOnError(boolean exitOnError) {
+        this.exitOnError = exitOnError;
+    }
+
+    /**
+     * При значении true: будет показано сообщение об ошибке в консоле.
+     */
+    public boolean isShowError() {
+        return showError;
+    }
+
+    public void setShowError(boolean showError) {
+        this.showError = showError;
     }
 
     /**
@@ -297,8 +321,14 @@ public class CliLauncher implements CliConfigure {
         try {
             doExec();
         } catch (Exception e) {
-            showError(e);
-            System.exit(1);
+            if (isShowError()) {
+                showError(e);
+            }
+            if (isExitOnError()) {
+                System.exit(1);
+            } else {
+                throw new XErrorWrap(e);
+            }
         }
     }
 
