@@ -9,7 +9,7 @@ class WebRootProject extends ProjectScript {
 
     protected void onInclude() throws Exception {
         include(AppRunBat).with {
-            addRunConfig("app-run serve", "serve -log -p:8080 -c:/jc")
+            addRunConfig("app-run serve", "serve -log -p 8080 -c /jc")
         }
         include(RootProject).with {
             depends.dev(
