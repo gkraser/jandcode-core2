@@ -47,6 +47,20 @@ class AppProductBuilder extends ProductBuilder {
      */
     List includeLibs = []
 
+    /**
+     * Маски имен модулей, которые не попадют в product
+     */
+    List<String> ignoreModules = []
+
+    boolean isIgnoreModule(String name) {
+        for (String mask in ignoreModules) {
+            if (UtVDir.matchPath(mask, name)) {
+                return true
+            }
+        }
+        return false
+    }
+
     void onExec() {
         // собираем проект
         buildProject()
@@ -56,7 +70,13 @@ class AppProductBuilder extends ProductBuilder {
 
         // копируем библиотеки в libs
         def cp = createLibCopier()
-        cp.add(include(RootProject).modules)
+        for (Project p in include(RootProject).modules) {
+            if (p.getIncluded(JavaProject) != null) {
+                if (!isIgnoreModule(p.name)) {
+                    cp.add(p.name)
+                }
+            }
+        }
         cp.add(include(RootProject).depends.prod.names)
         if (ctx.env.debug) {
             cp.add(include(RootProject).depends.dev.names)
