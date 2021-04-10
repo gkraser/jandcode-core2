@@ -1,0 +1,110 @@
+package jandcode.jc.nodejs
+
+import jandcode.commons.*
+import jandcode.commons.simxml.*
+import jandcode.jc.*
+import jandcode.jc.std.*
+import jandcode.jc.std.idea.*
+
+class NodeJsGenIdea extends ProjectScript {
+
+    protected void onInclude() throws Exception {
+        include(GenIdea)
+        onEvent(GenIdea.Event_GenIpr, this.&genIprHandler)
+        onEvent(GenIdea.Event_GenIws, this.&genIwsHandler)
+    }
+
+    ////// idea
+
+    void genIprHandler(GenIdea.Event_GenIpr e) {
+        IprXml x = e.x
+
+        SimXml x1
+
+        NodeJsUtils nut = create(NodeJsUtils)
+        def mods = nut.getAllModules()
+
+        // для маппинга библиотек nodejs
+        def x_libMap = x.root.findChild("component@name=JavaScriptLibraryMappings", true)
+        x_libMap.clearChilds()
+
+        for (mod in mods) {
+            if (mod.ownerProject == null) {
+                continue
+            }
+            String ideaModuleName = nut.nodeJsModuleNameToIdeaModuleName(mod.name)
+            String ideaImlFile = UtFile.join(mod.path, ideaModuleName + ".iml")
+
+            log.info("Generate iml: ${ideaImlFile}")
+
+            ImlXml iml = getWebImlXml(ideaImlFile)
+            iml.root.save().toFile(ideaImlFile)
+
+            def x_mod = x.addModule(ideaImlFile)
+
+            // группа
+            String grpName = "nodejs"
+            def grpParts = mod.name.split("/")
+            if (grpParts.length > 1) {
+                grpName = grpName + "/" + grpParts[0]
+            }
+            x_mod['group'] = grpName
+
+            // nodejs mapping
+            SimXml xx2 = x_libMap.addChild("file")
+            xx2['url'] = "file://" + mod.path
+            xx2['libraries'] = "{Node.js Core}"
+
+        }
+
+        // поддержка конфига webpack
+        x1 = x.root.findChild("component@name=WebPackConfiguration/option@name=path", true)
+        x1['value'] = nut.getMetaDataPath(nut.PATH_WEBPACK_DUMMY)
+
+    }
+
+    void genIwsHandler(GenIdea.Event_GenIws e) {
+        IwsXml x = e.x
+
+        NodeJsUtils nut = create(NodeJsUtils)
+
+        // поддержка Node Js
+        String nodeExe = nut.getNodeExe()
+        if (nodeExe) {
+            String nodeVer = nut.getNodeVersion(nodeExe)
+            if (nodeVer) {
+                SimXml x1 = x.root.findChild("component@name=PropertiesComponent", true)
+                x1['property@name=nodejs_interpreter_path:value'] = nodeExe.replace('\\', '/')
+                x1['property@name=javascript.nodejs.core.library.configured.version:value'] = nodeVer
+            }
+        }
+
+        // запуск js через node по умолчанию
+        SimXml x1 = x.addDefaultRunConfig("NodeJSConfigurationType", "Node.js")
+        x1['node-parameters'] = "-r ${nut.getMetaDataPath(nut.PATH_JC_NODEJS_MODULES)}"
+
+        // запуск gulp
+        x1 = x.addDefaultRunConfig("js.build_tools.gulp", "Gulp.js")
+        x1.findChild('node-options', true).text = "-r ${nut.getMetaDataPath(nut.PATH_JC_NODEJS_MODULES)}"
+
+    }
+
+    /**
+     * Получиение iml-файла для модуля
+     */
+    ImlXml getWebImlXml(String path) {
+        SimXml x = new SimXmlNode()
+
+        // если есть файл модуля, грузим его, иначе - шаблон
+        if (UtFile.exists(path)) {
+            x.load().fromFile(path)
+        } else {
+            String tf = ctx.service(JcDataService).getFile("idea/iml-template-web.xml")
+            x.load().fromFile(tf)
+        }
+        ImlXml ix = new ImlXml(project, x)
+
+        return ix
+    }
+
+}

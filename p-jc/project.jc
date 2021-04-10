@@ -17,6 +17,7 @@ class P extends ProjectScript {
             modules(
                 "jandcode-jc",
                 "jandcode-jc-junit",
+                "jandcode-jc-nodejs",
             )
         }
 
