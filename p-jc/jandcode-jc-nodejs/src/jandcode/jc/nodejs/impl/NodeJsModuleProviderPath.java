@@ -1,6 +1,7 @@
 package jandcode.jc.nodejs.impl;
 
 import jandcode.commons.named.*;
+import jandcode.commons.stopwatch.*;
 import jandcode.jc.*;
 import jandcode.jc.nodejs.*;
 
@@ -24,7 +25,7 @@ public class NodeJsModuleProviderPath extends BaseNodeJsModuleProvider {
     }
 
     protected void doFillLibs(NamedList<NodeJsModule> modules) {
-        NodeJsModuleLoader ldr = new NodeJsModuleLoader(this.path, this.ownerProject);
+        NodeJsModuleLoader ldr = new NodeJsModuleLoader(this.ctx, this.path, this.ownerProject);
         NamedList<NodeJsModule> tmp = ldr.load();
         modules.addAll(tmp);
     }

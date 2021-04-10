@@ -7,6 +7,7 @@ import jandcode.jc.*;
 import jandcode.jc.nodejs.*;
 
 import java.io.*;
+import java.text.*;
 import java.util.*;
 
 /**
@@ -21,16 +22,18 @@ import java.util.*;
  */
 public class NodeJsModuleLoader extends ProjectScript {
 
+    private Ctx ctx;
     private String path;
     private Project ownerProject;
 
-    public NodeJsModuleLoader(String path, Project ownerProject) {
+    public NodeJsModuleLoader(Ctx ctx, String path, Project ownerProject) {
+        this.ctx = ctx;
         this.path = path;
         this.ownerProject = ownerProject;
     }
 
-    public NodeJsModuleLoader(String path) {
-        this(path, null);
+    public NodeJsModuleLoader(Ctx ctx, String path) {
+        this(ctx, path, null);
     }
 
     public NamedList<NodeJsModule> load() {
@@ -40,9 +43,10 @@ public class NodeJsModuleLoader extends ProjectScript {
             // из маски получаем список, далее работаем с ним индивидуально
             DirScanner<File> ds = UtFile.createDirScanner(this.path);
             ds.setNeedDirs(true);
+            ds.exclude("**/node_modules");
             List<File> fs = ds.load();
             for (File f : fs) {
-                NodeJsModuleLoader tmpLdr = new NodeJsModuleLoader(f.getAbsolutePath(), this.ownerProject);
+                NodeJsModuleLoader tmpLdr = new NodeJsModuleLoader(ctx, f.getAbsolutePath(), this.ownerProject);
                 NamedList<NodeJsModule> tmpLst = tmpLdr.load();
                 res.addAll(tmpLst);
             }
@@ -57,8 +61,7 @@ public class NodeJsModuleLoader extends ProjectScript {
             // если файл, то он должен иметь имя package.json
             String fn = UtFile.filename(this.path);
             if (NodeJsConsts.PACKAGE_JSON.equals(fn)) {
-                NodeJsModule m = new NodeJsModuleImpl(this.path, this.ownerProject);
-                res.add(m);
+                addModule(res, this.path);
             }
             return res;
         }
@@ -66,8 +69,7 @@ public class NodeJsModuleLoader extends ProjectScript {
         // если каталог с package.json, то грузим только его
         String pjf = UtFile.join(this.path, NodeJsConsts.PACKAGE_JSON);
         if (UtFile.exists(pjf)) {
-            NodeJsModule m = new NodeJsModuleImpl(pjf, this.ownerProject);
-            res.add(m);
+            addModule(res, pjf);
             return res;
         }
 
@@ -79,11 +81,19 @@ public class NodeJsModuleLoader extends ProjectScript {
         List<File> fs = ds.load();
 
         for (File f : fs) {
-            NodeJsModule mod = new NodeJsModuleImpl(f.toString(), this.ownerProject);
-            res.add(mod);
+            addModule(res, f.toString());
         }
 
         return res;
+    }
+
+    protected void addModule(NamedList<NodeJsModule> res, String filePackageJson) {
+        NodeJsModule mod = new NodeJsModuleImpl(filePackageJson, this.ownerProject);
+        if (UtString.empty(mod.getName())) {
+            ctx.warn(MessageFormat.format("Файл {0} не содержит name, модуль проигнорирован", filePackageJson));
+            return;
+        }
+        res.add(mod);
     }
 
 }
