@@ -29,6 +29,18 @@ class IprXml extends BaseXml {
     }
 
     /**
+     * Добавить файл модуля в проект
+     * @return добавленный xml узел
+     */
+    SimXml addModule(String imlFile) {
+        SimXml xm = rootModules
+        def x1 = xm.addChild("module")
+        x1["fileurl"] = "file://${imlFile}"
+        x1["filepath"] = "${imlFile}.iml"
+        return x1
+    }
+
+    /**
      * Добавить проект как модуль
      * @return добавленный xml узел
      */
