@@ -7,13 +7,13 @@ import jandcode.jc.*
 
 class NodeJsUtils extends ProjectScript {
 
-    static String PATH_BASE = JcConsts.JC_METADATA_DIR + "/nodejs"
+    static String PATH_BASE = JcConsts.JC_METADATA_DIR
 
-    static String PATH_NM_HOLDER = "nm-holder"
+    static String PATH_NM_HOLDER = "nodejs-nm-holder"
     static String PATH_NODE_MODULES = "${PATH_NM_HOLDER}/node_modules"
     static String PATH_NODE_MODULES_BIN = "${PATH_NODE_MODULES}/.bin"
     static String PATH_PACKAGE_JSON = "${PATH_NM_HOLDER}/package.json"
-    static String PATH_PREPARE = "prepare"
+    static String PATH_PREPARE = "nodejs-prepare"
     static String FILE_JC_NODEJS_MODULES = "jc-nodejs-modules.js"
     static String PATH_JC_NODEJS_MODULES = "${PATH_PREPARE}/${FILE_JC_NODEJS_MODULES}"
     static String PATH_WEBPACK_DUMMY = "${PATH_PREPARE}/webpack-dummy.config.js"
