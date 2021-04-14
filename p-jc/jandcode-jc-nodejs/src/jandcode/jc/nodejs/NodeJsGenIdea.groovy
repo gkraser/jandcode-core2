@@ -79,13 +79,43 @@ class NodeJsGenIdea extends ProjectScript {
             }
         }
 
+
+        def fillEnvs = { SimXml envs ->
+            //sysenv =
+            String s
+
+            s = System.getenv("PATH")
+            envs["env@name=PATH:value"] = s
+
+            s = System.getenv("NODE_PATH")
+            if (!UtString.empty(s)) {
+                envs["env@name=NODE_PATH:value"] = s
+            }
+
+            s = System.getenv("NODE_OPTIONS")
+            if (!UtString.empty(s)) {
+                envs["env@name=NODE_OPTIONS:value"] = s
+            }
+        }
         // запуск js через node по умолчанию
+        SimXml envs
+
         SimXml x1 = x.addDefaultRunConfig("NodeJSConfigurationType", "Node.js")
-        x1['node-parameters'] = "-r ${nut.getMetaDataPath(nut.PATH_JC_NODEJS_MODULES)}"
+        envs = x1.findChild("envs", true)
+        fillEnvs(envs)
 
         // запуск gulp
         x1 = x.addDefaultRunConfig("js.build_tools.gulp", "Gulp.js")
-        x1.findChild('node-options', true).text = "-r ${nut.getMetaDataPath(nut.PATH_JC_NODEJS_MODULES)}"
+        envs = x1.findChild("envs", true)
+        fillEnvs(envs)
+
+        // запуск npm
+        x1 = x.addDefaultRunConfig("js.build_tools.npm", "")
+        x1.findChild('package-json', true)['value'] = "\$PROJECT_DIR\$/package.json"
+        x1.findChild('command', true)['value'] = "run"
+        envs = x1.findChild("envs", true)
+        fillEnvs(envs)
+
 
     }
 

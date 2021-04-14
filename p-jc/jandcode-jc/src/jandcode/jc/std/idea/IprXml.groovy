@@ -118,8 +118,7 @@ class IprXml extends BaseXml {
         // envs
         SimXml envs = z.findChild('envs', true)
         if (ctx.getConfig().getAutoLoadProjects().size() > 0) {
-            SimXml e1 = envs.addChild('env')
-            e1['name'] = JcConsts.ENV_JC_PATH
+            SimXml e1 = envs.findChild('env@name=' + JcConsts.ENV_JC_PATH, true)
             e1['value'] = UtString.join(ctx.getConfig().getAutoLoadProjects(), UtFile.isWindows() ? ";" : ":")
         }
 
