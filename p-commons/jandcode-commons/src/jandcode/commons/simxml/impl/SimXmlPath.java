@@ -5,7 +5,17 @@ import jandcode.commons.error.*;
 import java.util.*;
 
 /**
- * Представление пути для SimXml
+ * Представление пути для SimXml.
+ * Распознаются следующие пути:
+ * <ul>
+ *     <ul>{@code node1/node2} путь до первого найденного узла</ul>
+ *     <ul>{@code node1/node2@attrname=attrvalue} путь до первого найденного узла, у которого
+ *     атрибут attrname=attrvalue</ul>
+ *     <ul>{@code node1/node2:attrname} путь до первого найденного узла node1/node2, используется
+ *     attrname для значения</ul>
+ *     <ul>{@code node1/node2:#text} путь до первого найденного узла node1/node2, используется
+ *     текст узла для значения</ul>
+ * </ul>
  */
 public class SimXmlPath {
 
