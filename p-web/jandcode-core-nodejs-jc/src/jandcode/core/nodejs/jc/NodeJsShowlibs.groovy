@@ -7,7 +7,6 @@ import jandcode.jc.*
 class NodeJsShowlibs extends ProjectScript {
 
     protected void onInclude() throws Exception {
-        super.onInclude()
         cm.add("nodejs-showlibs", "Просмотр библиотек nodejs", this.&cmNodeJsShowlibs,
                 cm.opt("q", "", "Выбирать только библиотеки, содержащие в имени подстроку"),
         )

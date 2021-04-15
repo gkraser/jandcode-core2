@@ -14,6 +14,7 @@ class P extends ProjectScript {
             packageRoot = "jandcode.core.nodejs.jc"
             depends.prod(
                     "jandcode-jc",
+                    "jandcode-core-jc",
             )
             depends.dev(
             )
