@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <web>
+        <mount-module/>
+
+        <cache-control name="woff2"
+                       mask="**/*.woff2"
+                       cacheControl="max-age=3000000"/>
+
+        <cache-control name="woff"
+                       mask="**/*.woff"
+                       cacheControl="max-age=3000000"/>
+
+        <!-- монтирование сгенерированных ресурсов nodejs -->
+        <x-if env.source="false">
+            <!-- для продукта - используем ресурсы из jar -->
+            <mount name="nodejs-webroot"
+                   resourcePath="nodejs-webroot"
+                   class="jandcode.core.web.std.mount.ResourceMount"
+            />
+        </x-if>
+        <x-if env.source="true">
+            <!-- для исходников - используем ресурсы из сгенеренного каталога -->
+            <mount name="nodejs-webroot"
+                   realPath="#{appdir}/_gen/nodejs-webroot"
+            />
+        </x-if>
+
+    </web>
+
+</root>

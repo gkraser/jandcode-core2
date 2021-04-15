@@ -18,6 +18,9 @@ class P extends ProjectScript {
                     'jandcode-core-web',
                     'jandcode-core-web-jc',
                     'jandcode-core-web-tst',
+
+                    'jandcode-core-nodejs',
+                    'jandcode-core-nodejs-jc',
             )
         }
     }
