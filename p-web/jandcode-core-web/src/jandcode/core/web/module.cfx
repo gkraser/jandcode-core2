@@ -42,6 +42,9 @@
           class="jandcode.core.web.cachecontrol.impl.CacheControlServiceImpl"
           bean.autoCreate="true"/>
 
+    <bean name="jandcode.core.web.cfg.ClientCfgService"
+          class="jandcode.core.web.cfg.impl.ClientCfgServiceImpl"/>
+
     <!-- ===================================================================== -->
 
     <web>
