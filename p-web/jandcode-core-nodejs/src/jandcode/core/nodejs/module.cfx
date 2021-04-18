@@ -12,6 +12,11 @@
                        mask="**/*.woff"
                        cacheControl="max-age=3000000"/>
 
+        <gsp-context name="default">
+            <bean name="jandcode.core.nodejs.gsp.JsIndexGspContext"
+                  class="jandcode.core.nodejs.gsp.impl.JsIndexGspContextImpl"/>
+        </gsp-context>
+
         <!-- монтирование сгенерированных ресурсов nodejs -->
         <x-if env.source="false">
             <!-- для продукта - используем ресурсы из jar -->

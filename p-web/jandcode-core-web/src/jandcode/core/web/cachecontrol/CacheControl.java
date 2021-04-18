@@ -8,7 +8,7 @@ import jandcode.core.*;
 public interface CacheControl extends Comp {
 
     /**
-     * Маска фпйлов, для которой применяется это правило
+     * Маска файлов, для которой применяется это правило
      */
     String getMask();
 
