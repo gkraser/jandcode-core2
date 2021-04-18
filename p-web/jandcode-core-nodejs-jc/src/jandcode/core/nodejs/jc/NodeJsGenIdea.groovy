@@ -116,6 +116,14 @@ class NodeJsGenIdea extends ProjectScript {
         envs = x1.findChild("envs", true)
         fillEnvs(envs)
 
+        // mocha
+        String mochaPak = UtFile.join(nut.getMetaDataPath(nut.PATH_NODE_MODULES), "mocha")
+        if (UtFile.exists(mochaPak)) {
+            x1 = x.addDefaultRunConfig("mocha-javascript-test-runner", "")
+            x1.findChild("mocha-package", true).setText(mochaPak)
+            envs = x1.findChild("envs", true)
+            fillEnvs(envs)
+        }
 
     }
 
