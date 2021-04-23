@@ -17,20 +17,11 @@
                   class="jandcode.core.nodejs.gsp.impl.JsIndexGspContextImpl"/>
         </gsp-context>
 
-        <!-- монтирование сгенерированных ресурсов nodejs -->
-        <x-if env.source="false">
-            <!-- для продукта - используем ресурсы из jar -->
-            <mount name="nodejs-webroot"
-                   resourcePath="nodejs-webroot"
-                   class="jandcode.core.web.std.mount.ResourceMount"
-            />
-        </x-if>
-        <x-if env.source="true">
-            <!-- для исходников - используем ресурсы из сгенеренного каталога -->
-            <mount name="nodejs-webroot"
-                   realPath="#{appdir}/_gen/nodejs-webroot"
-            />
-        </x-if>
+        <!-- монтируем ресурсы из пути nodejs-webroot как корневые webroot -->
+        <mount name="nodejs-webroot"
+               resourcePath="nodejs-webroot"
+               class="jandcode.core.web.std.mount.ResourceMount"
+        />
 
     </web>
 
