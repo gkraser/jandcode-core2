@@ -1,5 +1,6 @@
 package jandcode.core.nodejs.jc
 
+import jandcode.commons.*
 import jandcode.core.jc.*
 import jandcode.jc.*
 import jandcode.jc.std.*
@@ -31,6 +32,8 @@ class NodeJsRootProject extends ProjectScript {
 
     }
 
+    private String _mainModule
+
     /**
      * Модули nodejs, которые содержатся в проекте.
      * Параметром может быть каталог, маска.
@@ -39,6 +42,23 @@ class NodeJsRootProject extends ProjectScript {
     void modules(String... modules) {
         include(NodeJsProject).modules(modules)
     }
+
+    /**
+     * Каталог с главным js-модулем приложения
+     */
+    String getMainModule() {
+        def res = this._mainModule
+        if (UtString.empty(res)) {
+            return wd("")
+        }
+        return wd(res)
+    }
+
+    void setMainModule(String v) {
+        this._mainModule = v
+    }
+
+    //////
 
     /**
      * Полное имя jar-файла со скомпиленными клиенскими файлами.
@@ -56,7 +76,8 @@ class NodeJsRootProject extends ProjectScript {
         if (ctx.env.prod || isProd) {
             env = "cross-env \"NODE_ENV=production\""
         }
-        ut.runcmd(cmd: "jc @ ${env} npm run watch")
+        log "npm run watch in ${mainModule}"
+        ut.runcmd(cmd: "jc @ ${env} npm run watch", dir: mainModule)
     }
 
     void cmNodejsBuild(CmArgs args) {
@@ -67,7 +88,8 @@ class NodeJsRootProject extends ProjectScript {
         if (ctx.env.prod || isProd) {
             env = "cross-env \"NODE_ENV=production\""
         }
-        ut.runcmd(cmd: "jc @ ${env} npm run build")
+        log "npm run build in ${mainModule}"
+        ut.runcmd(cmd: "jc @ ${env} npm run build", dir: mainModule)
 
         if (ctx.env.prod) {
             log.info("build jar: ${getFileNodejsWebrootJar()}")
