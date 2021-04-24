@@ -4,7 +4,6 @@ import jandcode.commons.*
 import jandcode.core.jc.*
 import jandcode.jc.*
 import jandcode.jc.std.*
-import org.apache.tools.ant.util.ScriptFixBSFPath
 
 /**
  * Корневой проект для nodejs
@@ -41,7 +40,7 @@ class NodeJsRootProject extends ProjectScript {
     /**
      * Путь, по которому будут доступны ресурсы nodejs. Этот путь используется в
      * приложениях для доступа к файлам, полученным при компиляции в nodejs.
-     * Например: {@code <jc:linkpath="frontend/main.bundle.js"/ >}
+     * Например: {@code <jc:linkpath="frontend/main.bundle.js"/  >}
      */
     String publicPath = "frontend"
 
