@@ -33,22 +33,16 @@ class NodeJsRootProject extends ProjectScript {
     }
 
     /**
-     * Корневой каталог ресурсов для скомпилированных файлов nodejs
+     * Корневой каталог ресурсов для скомпилированных файлов nodejs.
+     * По соглашению с модулем jandcode-core-web
      */
     String resourceRoot = "resource-webroot"
 
     /**
-     * Путь, по которому будут доступны ресурсы nodejs. Этот путь используется в
-     * приложениях для доступа к файлам, полученным при компиляции в nodejs.
-     * Например: {@code <jc:linkpath="frontend/main.bundle.js"/  >}
+     * Корневой каталог внутри mainModule, куда осуществляется генерация файлов.
+     * Этот каталог будет доступен в приложении как '/'
      */
-    String publicPath = "frontend"
-
-    /**
-     * Каталог внутри js-модуля, куда осуществляется генерация файлов.
-     * Этот каталог будет доступен в приложении как '/publicPath'
-     */
-    String genDir = "_gen"
+    String webrootDir = "_gen"
 
 
     private String _mainModule
@@ -63,7 +57,7 @@ class NodeJsRootProject extends ProjectScript {
     }
 
     /**
-     * Каталог с главным js-модулем приложения
+     * Каталог с главным js-модулем приложения.
      */
     String getMainModule() {
         def res = this._mainModule
@@ -114,11 +108,11 @@ class NodeJsRootProject extends ProjectScript {
             log.info("build jar: ${getFileNodejsWebrootJar()}")
 
             // откуда забираем скомпиленное
-            String srcPath = wd("${mainModule}/${genDir}")
+            String srcPath = wd.dir(mainModule).join(webrootDir)
 
             // собираем jar
             ant.jar(destfile: getFileNodejsWebrootJar()) {
-                zipfileset(dir: srcPath, prefix: "${resourceRoot}/${publicPath}") {
+                zipfileset(dir: srcPath, prefix: "${resourceRoot}") {
                     include(name: '**/*')
                 }
             }
