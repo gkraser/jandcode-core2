@@ -230,7 +230,7 @@ module.exports = {
     void updatePackageJson(String fn) {
         // не существует
         if (!UtFile.exists(fn)) {
-            String s = NodeJsUtJson.toJsonPretty(makeCommonPackageJson())
+            String s = UtJson.toJson(makeCommonPackageJson(), true)
             ant.echo(message: s, file: fn)
             return
         }
@@ -239,9 +239,9 @@ module.exports = {
         Map m
         String s = UtFile.loadString(fn)
         try {
-            m = (Map) NodeJsUtJson.fromJson(s)
+            m = (Map) UtJson.fromJson(s)
         } catch (e) {
-            s = NodeJsUtJson.toJsonPretty(makeCommonPackageJson())
+            s = UtJson.toJson(makeCommonPackageJson(), true)
             ant.echo(message: s, file: fn)
             return
         }
@@ -252,11 +252,11 @@ module.exports = {
         if (oldDeps.toString() != newDeps.toString()) {
             String tmpFile = wd("temp/${UtDateTime.now().toString(UtDateTime.createFormatter("yyyy-MM-dd--HHmmss"))}--dependencies.json")
             log.warn "Состав dependencies в ${fn} изменился. Предыдущий вариант в ${tmpFile}"
-            ant.echo(message: NodeJsUtJson.toJsonPretty([dependencies: oldDeps]), file: tmpFile)
+            ant.echo(message: UtJson.toJson([dependencies: oldDeps], true), file: tmpFile)
 
             // новый вариант
             m['dependencies'] = newDeps
-            s = NodeJsUtJson.toJsonPretty(m)
+            s = UtJson.toJson(m, true)
 
             ant.echo(message: s, file: fn)
         }

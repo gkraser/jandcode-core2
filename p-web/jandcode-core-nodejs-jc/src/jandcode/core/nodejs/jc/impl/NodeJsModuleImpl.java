@@ -72,7 +72,7 @@ public class NodeJsModuleImpl implements NodeJsModule {
     public void loadFromPackageJson(String filename) throws Exception {
         this.path = UtFile.path(filename);
         String s = UtFile.loadString(filename);
-        this.packageJson.putAll((Map) NodeJsUtJson.fromJson(s));
+        this.packageJson.putAll((Map) UtJson.fromJson(s));
         this.name = UtCnv.toString(this.packageJson.get("name"));
         this.version = UtCnv.toString(this.packageJson.get("version"));
         //
