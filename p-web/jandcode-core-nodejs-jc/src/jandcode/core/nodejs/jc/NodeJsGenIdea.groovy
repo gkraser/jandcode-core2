@@ -43,12 +43,17 @@ class NodeJsGenIdea extends ProjectScript {
             def x_mod = x.addModule(ideaImlFile)
 
             // группа
-            String grpName = "nodejs"
-            def grpParts = mod.name.split("/")
-            if (grpParts.length > 1) {
-                grpName = grpName + "/" + grpParts[0]
+            if (!pathInProjectDir(mod.path)) {
+                // группы генерим только для модулей вне каталога проекта
+                // иначе они попадают и в группу и доступны внутри проекта,
+                // что вносит сумятицу
+                String grpName = "nodejs"
+                def grpParts = mod.name.split("/")
+                if (grpParts.length > 1) {
+                    grpName = grpName + "/" + grpParts[0]
+                }
+                x_mod['group'] = grpName
             }
-            x_mod['group'] = grpName
 
             // nodejs mapping
             SimXml xx2 = x_libMap.addChild("file")
@@ -61,6 +66,21 @@ class NodeJsGenIdea extends ProjectScript {
         x1 = x.root.findChild("component@name=WebPackConfiguration/option@name=path", true)
         x1['value'] = nut.getMetaDataPath(nut.PATH_WEBPACK_DUMMY)
 
+    }
+
+    /**
+     * Проверка, что путь указывает на путь внутри проекта
+     * @param path какой путь проверяем
+     * @return true, если находится внутри проекта
+     */
+    boolean pathInProjectDir(String path) {
+        path = UtFile.abs(path)
+        String pd = wd()
+        if (path === pd) {
+            return true
+        }
+        pd = pd + File.separator
+        return path.startsWith(pd)
     }
 
     void genIwsHandler(GenIdea.Event_GenIws e) {
