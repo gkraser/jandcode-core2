@@ -1,7 +1,7 @@
 package jandcode.core.nodejs.jc
 
 import jandcode.commons.*
-import jandcode.core.jc.*
+import jandcode.core.web.jc.*
 import jandcode.jc.*
 import jandcode.jc.std.*
 
@@ -20,9 +20,6 @@ class NodeJsRootProject extends ProjectScript {
         include(BuildProject)
         onEvent(BuildProject.Event_Build, this.&buildHandler)
 
-        // product
-        onEvent(AppProductBuilder.Event_Exec, this.&productHandler)
-
         cm.add("nodejs-build", "Выполнить сборку клиенского кода (npm run build)", this.&cmNodejsBuild,
                 cm.opt('prod', 'Запустить в режиме production')
         )
@@ -30,13 +27,14 @@ class NodeJsRootProject extends ProjectScript {
                 cm.opt('prod', 'Запустить в режиме production')
         )
 
+        //
+        afterLoad {
+            // откуда забираем скомпиленное
+            String srcPath = wd.dir(mainModule).join(webrootDir)
+            // включаем его в jar для продукта
+            include(WebRootProject).addResourceWebroot(srcPath)
+        }
     }
-
-    /**
-     * Корневой каталог ресурсов для скомпилированных файлов nodejs.
-     * По соглашению с модулем jandcode-core-web
-     */
-    String resourceRoot = "resource-webroot"
 
     /**
      * Корневой каталог внутри mainModule, куда осуществляется генерация файлов.
@@ -73,13 +71,6 @@ class NodeJsRootProject extends ProjectScript {
 
     //////
 
-    /**
-     * Полное имя jar-файла со скомпиленными клиенскими файлами.
-     */
-    String getFileNodejsWebrootJar() {
-        return wd("temp/lib/nodejs-${resourceRoot}.jar")
-    }
-
     void cmNodejsWatch(CmArgs args) {
         boolean isProd = args.containsKey('prod')
 
@@ -103,31 +94,10 @@ class NodeJsRootProject extends ProjectScript {
         }
         log "npm run build in ${mainModule}"
         ut.runcmd(cmd: "jc @ ${env} npm run build", dir: mainModule)
-
-        if (ctx.env.prod) {
-            log.info("build jar: ${getFileNodejsWebrootJar()}")
-
-            // откуда забираем скомпиленное
-            String srcPath = wd.dir(mainModule).join(webrootDir)
-
-            // собираем jar
-            ant.jar(destfile: getFileNodejsWebrootJar()) {
-                zipfileset(dir: srcPath, prefix: "${resourceRoot}") {
-                    include(name: '**/*')
-                }
-            }
-        }
     }
 
     void buildHandler() {
         cm.exec("nodejs-build")
-    }
-
-    void productHandler(AppProductBuilder.Event_Exec e) {
-        AppProductBuilder builder = e.builder
-
-        // nodejs-resouurce-webroot.jar
-        ant.copy(file: getFileNodejsWebrootJar(), todir: "${builder.destDir}/lib")
     }
 
 }
