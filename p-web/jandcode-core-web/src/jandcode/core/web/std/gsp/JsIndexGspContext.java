@@ -23,10 +23,25 @@ public interface JsIndexGspContext extends IGspContextLinkSet {
      */
     Conf getCfg();
 
-    /**
-     * Конфигурация для клиента {@link JsIndexGspContext#getCfg} в виде json-строки.
-     */
-    String getCfgJson();
+    ////// links
 
+    /**
+     * Добавить js/css в вывод {@link JsIndexGspContext#outLinks()}.
+     * css определяется по расширению (css,less,sass,scss).
+     */
+    void addLink(String path);
+
+    /**
+     * Добавить js/css в вывод {@link JsIndexGspContext#outLinks()}.
+     * css определяется по расширению (css,less,sass,scss).
+     * @param isJs true - это js, иначе - css
+     */
+    void addLink(String path, boolean isJs);
+
+    /**
+     * Вывести все теги для подключения всех модулей.
+     * Может включать дополнительный системный вывод.
+     */
+    void outLinks();
 
 }
