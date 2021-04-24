@@ -10,8 +10,9 @@ public class StaticInit {
 
         // json
 
-        UtJson.getJsonEngine().getGsonBuilder().registerTypeHierarchyAdapter(
-                GString.class, new GStringAdapter());
+        UtJson.getJsonEngine().addGsonBuilderIniter(gsonBuilder -> {
+            gsonBuilder.registerTypeHierarchyAdapter(GString.class, new GStringAdapter());
+        });
 
     }
 

@@ -23,7 +23,16 @@ public class UtJson {
      * Конвертация объекта в json
      */
     public static String toJson(Object value) {
-        return jsonEngine.toJson(value);
+        return jsonEngine.toJson(value, false);
+    }
+
+    /**
+     * Конвертация объекта в json
+     *
+     * @param pretty true - офрмленный json
+     */
+    public static String toJson(Object value, boolean pretty) {
+        return jsonEngine.toJson(value, pretty);
     }
 
     /**
@@ -48,6 +57,5 @@ public class UtJson {
     public static Gson getGson() {
         return jsonEngine.getGson();
     }
-
 
 }

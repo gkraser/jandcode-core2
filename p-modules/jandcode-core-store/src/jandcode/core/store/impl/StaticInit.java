@@ -14,11 +14,12 @@ public class StaticInit {
 
         // json
 
-        UtJson.getJsonEngine().getGsonBuilder().registerTypeHierarchyAdapter(
-                StoreRecord.class, new StoreRecordAdapter());
-
-        UtJson.getJsonEngine().getGsonBuilder().registerTypeHierarchyAdapter(
-                Store.class, new StoreAdapter());
+        UtJson.getJsonEngine().addGsonBuilderIniter(gsonBuilder -> {
+            gsonBuilder.registerTypeHierarchyAdapter(
+                    StoreRecord.class, new StoreRecordAdapter());
+            gsonBuilder.registerTypeHierarchyAdapter(
+                    Store.class, new StoreAdapter());
+        });
 
         // outtable
 

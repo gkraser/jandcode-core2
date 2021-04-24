@@ -4,21 +4,40 @@ import com.google.gson.*;
 import jandcode.commons.datetime.*;
 import jandcode.commons.json.impl.*;
 
+import java.util.*;
+
 /**
  * Поддержка json через gson
  */
 public class JsonEngine {
 
-    /**
-     * Стандартный gson builder
-     */
-    private GsonBuilder gsonBuilder = new GsonBuilder();
+    private List<GsonBuilderIniter> gsonBuilderIniters = new ArrayList<>();
 
     private Gson gson;
+    private Gson gsonPretty;
 
     public JsonEngine() {
         // стандартные адаптеры
-        gsonBuilder.registerTypeHierarchyAdapter(XDateTime.class, new XDateTimeAdapter());
+        addGsonBuilderIniter((gsonBuilder) -> {
+            gsonBuilder.registerTypeHierarchyAdapter(XDateTime.class, new XDateTimeAdapter());
+        });
+    }
+
+    /**
+     * Добавить инициализазатор GsonBuilder
+     */
+    public void addGsonBuilderIniter(GsonBuilderIniter initer) {
+        this.gson = null;
+        this.gsonPretty = null;
+        this.gsonBuilderIniters.add(initer);
+    }
+
+    protected GsonBuilder createGsonBuilder() {
+        GsonBuilder b = new GsonBuilder();
+        for (var initer : gsonBuilderIniters) {
+            initer.initGsonBuilder(b);
+        }
+        return b;
     }
 
     /**
@@ -28,7 +47,7 @@ public class JsonEngine {
         if (gson == null) {
             synchronized (this) {
                 if (gson == null) {
-                    gson = gsonBuilder.create();
+                    gson = createGsonBuilder().create();
                 }
             }
         }
@@ -36,22 +55,30 @@ public class JsonEngine {
     }
 
     /**
-     * Возвращает GsonBuilder, с помощью которого создан getGson().
-     * При выполнении сбрасывается текущий getGson() и будет создан при следующем
-     * обюращении к нему.
-     * <p>
-     * Используется для глобальной настройки gson.
+     * Ссылка на Gson с оформленными выводом
      */
-    public GsonBuilder getGsonBuilder() {
-        this.gson = null;
-        return gsonBuilder;
+    public Gson getGsonPretty() {
+        if (gsonPretty == null) {
+            synchronized (this) {
+                if (gsonPretty == null) {
+                    gsonPretty = createGsonBuilder().setPrettyPrinting().create();
+                }
+            }
+        }
+        return gsonPretty;
     }
 
     /**
      * Конвертация любого объекта в json
+     *
+     * @param pretty true - оформленный вывод
      */
-    public String toJson(Object value) {
-        return getGson().toJson(value);
+    public String toJson(Object value, boolean pretty) {
+        if (pretty) {
+            return getGsonPretty().toJson(value);
+        } else {
+            return getGson().toJson(value);
+        }
     }
 
     /**

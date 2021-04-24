@@ -21,6 +21,7 @@ public class UtJson_Test extends Utils_Test {
         if (r != null) {
             System.out.println("cls: " + r.getClass());
         }
+        System.out.println("prt:\n" + UtJson.toJson(data, true));
     }
 
     @Test
