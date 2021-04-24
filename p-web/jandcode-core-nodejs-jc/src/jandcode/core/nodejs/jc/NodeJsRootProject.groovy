@@ -35,7 +35,7 @@ class NodeJsRootProject extends ProjectScript {
     /**
      * Корневой каталог ресурсов для скомпилированных файлов nodejs
      */
-    String resourceRoot = "nodejs-webroot"
+    String resourceRoot = "resource-webroot"
 
     /**
      * Путь, по которому будут доступны ресурсы nodejs. Этот путь используется в
@@ -83,7 +83,7 @@ class NodeJsRootProject extends ProjectScript {
      * Полное имя jar-файла со скомпиленными клиенскими файлами.
      */
     String getFileNodejsWebrootJar() {
-        return wd("temp/lib/${resourceRoot}.jar")
+        return wd("temp/lib/nodejs-${resourceRoot}.jar")
     }
 
     void cmNodejsWatch(CmArgs args) {
@@ -132,7 +132,7 @@ class NodeJsRootProject extends ProjectScript {
     void productHandler(AppProductBuilder.Event_Exec e) {
         AppProductBuilder builder = e.builder
 
-        // nodejs-webroot.jar
+        // nodejs-resouurce-webroot.jar
         ant.copy(file: getFileNodejsWebrootJar(), todir: "${builder.destDir}/lib")
     }
 

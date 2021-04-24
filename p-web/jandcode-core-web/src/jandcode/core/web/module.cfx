@@ -83,13 +83,19 @@
         <!-- =================== -->
 
         <!-- монтирование каталогов jc-data/webroot -->
-        <mount name="jc-data"
+        <mount name="jc-data-webroot"
                class="jandcode.core.web.std.mount.JcDataMount"/>
 
         <!-- автоматическое монтирование модулей с mount-module -->
         <mount name="mount-module" class="jandcode.core.web.std.mount.ModuleMount">
             <special-folder name="webroot" virtualPath=""/>
         </mount>
+
+        <!-- монтируем ресурсы из пути resource-webroot как корневые webroot -->
+        <mount name="resource-webroot"
+               resourcePath="resource-webroot"
+               class="jandcode.core.web.std.mount.ResourceMount"
+        />
 
         <!-- =================== -->
 
@@ -194,8 +200,13 @@
         <!-- =================== -->
 
         <gsp-context name="default">
+
             <bean name="jandcode.core.web.std.gsp.GspPageManager"
                   class="jandcode.core.web.std.gsp.impl.GspPageManagerImpl"/>
+
+            <bean name="jandcode.core.web.std.gsp.JsIndexGspContext"
+                  class="jandcode.core.web.std.gsp.impl.JsIndexGspContextImpl"/>
+
         </gsp-context>
 
         <gsp name="jc/page"
@@ -233,15 +244,18 @@
 
         <!-- =================== -->
 
-        <!--
+        <!-- Контроль кеширования для файлов -->
 
-        Контроль кеширования для файлов
+        <!--  шрифты кешируем надолго, если их не кешировать, то они будут пытатся
+              загружатья при reload страницы и возникает неприятное моргание -->
 
         <cache-control name="woff2"
-                            mask="**/*.woff2"
-                            cacheControl="max-age=3000000"/>
+                       mask="**/*.woff2"
+                       cacheControl="max-age=3000000"/>
 
-        -->
+        <cache-control name="woff"
+                       mask="**/*.woff"
+                       cacheControl="max-age=3000000"/>
 
     </web>
 

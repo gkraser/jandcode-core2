@@ -1,10 +1,10 @@
-package jandcode.core.nodejs.gsp.impl;
+package jandcode.core.web.std.gsp.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
-import jandcode.core.nodejs.gsp.*;
 import jandcode.core.web.cfg.*;
 import jandcode.core.web.gsp.*;
+import jandcode.core.web.std.gsp.*;
 
 public class JsIndexGspContextImpl implements JsIndexGspContext {
 

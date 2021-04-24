@@ -1,4 +1,4 @@
-package jandcode.core.nodejs.gsp;
+package jandcode.core.web.std.gsp;
 
 import jandcode.commons.conf.*;
 import jandcode.core.web.cfg.*;
