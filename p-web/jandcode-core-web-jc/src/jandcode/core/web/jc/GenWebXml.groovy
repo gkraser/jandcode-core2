@@ -27,6 +27,7 @@ class GenWebXml extends ProjectScript {
         def outFile = wd(destFile)
         WebXml wx = new DefaultWebXmlFactory().createWebXml()
         SimXml x = new WebXmlUtils().saveToXml(wx)
+        ut.cleanfile(outFile)
         x.save().toFile(outFile)
         log "gen web.xml: ${outFile}"
     }
