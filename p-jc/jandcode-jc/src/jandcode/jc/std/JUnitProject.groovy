@@ -52,6 +52,7 @@ class JUnitProject extends ProjectScript {
                 'junit-jupiter-params',
                 'junit-jupiter-engine',
                 'junit-platform-launcher',
+                'apiguardian-api',
         )
     }
 

@@ -32,6 +32,7 @@ class JUnitRunner extends ProjectScript implements IJUnitRunner {
                         "junit-jupiter-api",
                         "junit-jupiter-engine",
                         "junit-platform-console",
+                        "apiguardian-api",
                         "jandcode-jc-junit",
                 ]
         )
