@@ -21,7 +21,6 @@ class P extends ProjectScript {
                     "p-modules",
                     "p-db",
                     "p-web",
-                    "p-jsa",
                     "p-mdoc",
                     "p-apx",
             )
@@ -62,9 +61,6 @@ class P extends ProjectScript {
                 cp.add(m, false)
             }
             cp.copyTo("${destDir}/lib", true, true)
-
-            // jsa libs
-            ant.copy(file: 'p-jsa/lib/libs.nodejs.xml', todir: "${destDir}/lib")
 
             //
             ant.copy(todir: destDir, overwrite: true, preservelastmodified: true) {

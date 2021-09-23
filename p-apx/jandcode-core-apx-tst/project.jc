@@ -1,11 +1,9 @@
-import jandcode.core.jsa.jc.*
 import jandcode.jc.*
 import jandcode.jc.std.*
 
 class P extends ProjectScript {
 
     static beforeLoad = {
-        classpath("jandcode-core-jsa-jc")
     }
 
     void onInclude() {
@@ -16,19 +14,10 @@ class P extends ProjectScript {
             moduleDef("jandcode.core.apx.tst").with {
                 depends.prod(
                         "jandcode.core.web.tst",
-                        "jandcode.core.jsa.tst",
-                        "jandcode.core.apx.webui",
                 )
                 depends.dev(
                 )
             }
-        }
-        //
-        include(JsaJavaProject).with {
-            nodeJsDepends(
-                    "chance",
-                    "portal-vue",
-            )
         }
     }
 

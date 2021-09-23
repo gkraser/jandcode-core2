@@ -13,7 +13,6 @@ class ApxRootProject extends ProjectScript {
         include(RootProject).with {
             depends.dev(
                     "jandcode.core.web.tst",
-                    "jandcode.core.jsa.tst",
                     "jandcode.core.apx.tst",
             )
         }

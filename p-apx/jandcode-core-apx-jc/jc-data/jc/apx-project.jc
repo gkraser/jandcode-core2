@@ -7,7 +7,7 @@ import jandcode.jc.*
 class P extends ProjectScript {
 
     void onInclude() {
-        include("jc/jsa-project")
+        include("jc/web-project")
         //
         classpath("jandcode-core-apx-jc")
         include("jandcode.core.apx.jc.ApxRootProject")

@@ -8,6 +8,9 @@ jandcode-core-jsa-vue--2019-10-31.zip
 svgicons--2019-11-03.zip
     Реализация svgicons для jsa-base
 
+jsa--2021-09-23.zip
+    jsa, удалено полностью из core
+
 
 
 
