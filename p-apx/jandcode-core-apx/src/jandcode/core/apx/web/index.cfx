@@ -7,19 +7,6 @@
                 class="jandcode.core.apx.web.action.ApiAction"
                 daoHolder="api"/>
 
-        <gsp name="jc/framemenu-js"
-             path="res:jandcode/core/apx/web/gsp/framemenu-js.gsp"/>
-
-        <!-- кешируем файлы шрифтов, что позволит частично избежать мерцания при F5 -->
-
-        <cache-control name="woff2"
-                       mask="**/*.woff2"
-                       cacheControl="max-age=3000000"/>
-
-        <cache-control name="woff"
-                       mask="**/*.woff"
-                       cacheControl="max-age=3000000"/>
-
     </web>
 
 </root>
