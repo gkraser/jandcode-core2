@@ -49,6 +49,11 @@ class ConfigProject extends ProjectScript {
      * В качестве имени можно использовать путь, например: 'a/b/c=d'.
      * Переменные сортируются по имени.
      * Применяются самыми последними.
+     *
+     * Если значение переменной начинается со знака '@', то значение рассматривается
+     * как имя файла с конфигурацией, которая будет подгружена. Забираютс свойства из
+     * тега cfg.
+     *
      * @see AttrParser
      */
     String envCfgPrefix = "JC_CFG_"
@@ -66,6 +71,7 @@ class ConfigProject extends ProjectScript {
         // загружаем jc-cfg.cfx, _jc-cfg.cfx
         for (fn in [wd("${cfgFileName}"), wd("_${cfgFileName}")]) {
             if (UtFile.exists(fn)) {
+                log "load cfg from [${fn}]"
                 Conf tmp = UtConf.create()
                 UtConf.load(tmp).fromFile(fn)
                 tmpCfg.join(tmp.findConf("cfg", true))
@@ -78,14 +84,26 @@ class ConfigProject extends ProjectScript {
         for (String key : osenv.keySet()) {
             String keyUp = key.toUpperCase()
             if (keyUp.startsWith(envCfgPrefix)) {
+                log "use var [${key}] for load cfg"
                 envCfg.put(keyUp, osenv.get(key))
             }
         }
         for (en in envCfg) {
-            AttrParser p = new AttrParser()
-            p.loadFrom(en.getValue())
-            for (e2 in p.getResult()) {
-                tmpCfg.setValue(e2.getKey(), e2.getValue())
+            String value = en.getValue().trim()
+            if (value.startsWith("@")) {
+                String fn = wd(value.substring(1))
+                if (UtFile.exists(fn)) {
+                    log "load cfg from [${fn}]"
+                    Conf cfgFromFile = UtConf.create()
+                    UtConf.load(cfgFromFile).fromFile(fn)
+                    tmpCfg.join(cfgFromFile.findConf("cfg", true))
+                }
+            } else {
+                AttrParser p = new AttrParser()
+                p.loadFrom(value)
+                for (e2 in p.getResult()) {
+                    tmpCfg.setValue(e2.getKey(), e2.getValue())
+                }
             }
         }
 
