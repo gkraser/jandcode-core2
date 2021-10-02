@@ -378,4 +378,104 @@ class Ut extends ProjectScript {
         }
     }
 
+    ////// files
+
+    /**
+     * Найти файлы по маске
+     *
+     * В качестве маски можно использовать:
+     * <ul>
+     *     <li>строку, интерпретируется как map [masks: STR]</li>
+     *     <li>список, интерпретируется как map [masks: LIST]</li>
+     *     <li>map, где ключи:
+     *      <ul>
+     *          <li>inc, include: включающие маски (строка через запятую или список)</li>
+     *          <li>exc, exclude: исключающие маски (строка через запятую или список)</li>
+     *          <li>masks: включающие и исключающие маски (строка через запятую или список).
+     *              исключающте маски начинаются с '!'
+     *          </li>
+     *      </ul>
+     *     </li>
+     * </ul>
+     *
+     * @param masks маски
+     * @param dir с какого каталога искать. Если не указано - с каталога проекта
+     * @return список полных имен файлов, пустой список если файлы не найдены
+     */
+    List<String> findFilesByMask(Object masks, String dir = null) {
+        List<String> res = []
+
+        Map params = [:]
+        if (masks instanceof Map) {
+            params.putAll(masks)
+        } else {
+            params['masks'] = masks
+        }
+        List inc = []
+        List exc = []
+
+        inc.addAll(UtCnv.toList(params['inc']))
+        inc.addAll(UtCnv.toList(params['include']))
+        exc.addAll(UtCnv.toList(params['exc']))
+        exc.addAll(UtCnv.toList(params['exclude']))
+
+        List m = UtCnv.toList(params['masks'])
+        for (m1 in m) {
+            if (m1.startsWith("!")) {
+                exc.add(m1.substring(1))
+            } else {
+                inc.add(m1)
+            }
+        }
+
+        if (UtString.empty(dir)) {
+            dir = wd()
+        }
+
+        if (inc.size() == 0 && exc.size() == 0) {
+            return res
+        }
+
+        def sc = ant.fileset(dir: dir) {
+            for (item in inc) {
+                include(name: item)
+            }
+            for (item in exc) {
+                exclude(name: item)
+            }
+        }
+
+        for (item in sc) {
+            res.add(item.toString())
+        }
+
+        return res
+    }
+
+    /**
+     * Получить один файл по маске. Если будет найденно более одного файла или
+     * не найдено вообще, то генерируется ошибка, если errorIfNotFound=true
+     * @param errorIfNotFound true - если не найдено, генерируется ошибка
+     * @return полние имя файла или null, если файл не найден
+     * @see jandcode.jc.std.Ut#findFilesByMask(java.lang.Object, java.lang.String)
+     */
+    String getFileByMask(Object masks, String dir = null, boolean errorIfNotFound = true) {
+        List<String> res = findFilesByMask(masks, dir)
+        if (res.size() == 0) {
+            if (errorIfNotFound) {
+                throw new RuntimeException("Файл не найден по маске: ${masks}")
+            } else {
+                return null
+            }
+        }
+        if (res.size() != 1) {
+            if (errorIfNotFound) {
+                throw new RuntimeException("Более одного файла (${res.size()} шт) соответсвует маске: ${masks}")
+            } else {
+                return null
+            }
+        }
+        return res[0]
+    }
+
 }
