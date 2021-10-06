@@ -72,7 +72,7 @@ public interface DaoHolder extends Comp {
      * @param name           имя dao
      * @param className      имя dao-класса
      * @param methodName     имя dao-метода
-     * @param daoInvokerName имя DaoInvoker, можут быть пустим для автоопределения
+     * @param daoInvokerName имя DaoInvoker, может быть пустым для автоопределения
      */
     void addItem(String name, String className, String methodName, String daoInvokerName);
 
