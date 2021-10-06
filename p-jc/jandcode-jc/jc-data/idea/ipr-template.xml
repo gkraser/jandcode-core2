@@ -57,5 +57,13 @@
         <option name="languageLevel" value="ES6"/>
     </component>
 
+    <component name="JavacSettings">
+        <option name="ADDITIONAL_OPTIONS_STRING" value="-parameters" />
+    </component>
+
+    <component name="GroovyCompilerProjectConfiguration">
+        <option name="configScript" value="$PROJECT_DIR$/_jc/idea-groovy-configscript.groovy" />
+    </component>
+
 </project>
 

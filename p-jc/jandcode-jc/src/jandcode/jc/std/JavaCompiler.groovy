@@ -94,6 +94,7 @@ class JavaCompiler extends ProjectScript {
             def javacParams = [destdir  : destdir, debug: debug, includeantruntime: false, fork: true,
                                classpath: cp_s, encoding: encoding]
             ant.javac(javacParams + javacParams_TS) {
+                compilerarg(value: "-parameters")
                 for (s in srcs) {
                     src(path: s)
                 }
@@ -110,7 +111,7 @@ class JavaCompiler extends ProjectScript {
                     src(path: s)
                 }
                 javac(javacParams + javacParams_TS) {
-                    compilerarg(value: "-Jclasspath=${cp_s}")
+                    compilerarg(value: "-Jclasspath=${cp_s} --parameters")
                 }
             }
 

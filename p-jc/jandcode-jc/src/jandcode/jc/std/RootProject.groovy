@@ -384,6 +384,15 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
             }
         }
 
+        // groovy configscript
+        String cfgscrFile = wd("_jc/idea-groovy-configscript.groovy")
+        String cfgscrText = """
+// meta data for method parameters
+configuration.parameters = true
+"""
+        ut.cleanfile(cfgscrFile)
+        UtFile.saveString(cfgscrText, new File(cfgscrFile))
+
         // для всех модулей генерим событие
         for (Project m : ideaModules) {
             m.fireEvent(new Event_GenIprForModule(x))
