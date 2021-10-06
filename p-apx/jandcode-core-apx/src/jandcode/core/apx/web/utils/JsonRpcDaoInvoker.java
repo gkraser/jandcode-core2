@@ -36,7 +36,7 @@ public class JsonRpcDaoInvoker {
         try {
             // разбираем параметры из тела запроса
             JsonElement po = UtJson.getGson().fromJson(req.getHttpRequest().getReader(), JsonElement.class);
-            if (!po.isJsonObject()) {
+            if (po == null || !po.isJsonObject()) {
                 throw new XError("Тело запроса должно быть json-объектом");
             }
 
