@@ -31,6 +31,9 @@ class P extends ProjectScript {
         }
         //
         cm.add("view-jc-libs", this.&cmViewJcLibs, "Показать список внешних библиотек для jc (для обновления файла jc-libs.txt)")
+        cm.add("distr", this.&cmDistr, "Сборка дистрибутива",
+            cm.opt("q", "Быстрая сборка (пропустить команду product)")
+        )
     }
 
     void cmViewJcLibs() {
@@ -43,6 +46,29 @@ class P extends ProjectScript {
         }
         lst.sort()
         println lst.join("\n")
+    }
+
+    void cmDistr(CmArgs args) {
+        boolean quick = args.getBoolean("q")
+
+        String outDir = wd("_jc/distr")
+        String productDir = wd("bin")
+
+        ut.cleandir(outDir)
+
+        if (!quick) {
+            cm.exec("product")
+        }
+
+        // zip distr
+        String zipFile = "${outDir}/${project.name}-bin-${project.version}.zip"
+        ant.zip(destfile: zipFile) {
+            zipfileset(dir: productDir, defaultexcludes: false) {
+                include(name: "**/*")
+            }
+        }
+        log "created: ${zipFile}"
+
     }
 
     static class ThisProductBuilder extends ProductBuilder {
