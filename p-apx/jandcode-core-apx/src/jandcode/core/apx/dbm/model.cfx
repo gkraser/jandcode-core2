@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
-    <dao>
-        <holder name="default">
-            <item name="i" prefix=""
-                  package="jandcode.core.apx.dbm.dao"/>
-        </holder>
-    </dao>
 
 </root>
