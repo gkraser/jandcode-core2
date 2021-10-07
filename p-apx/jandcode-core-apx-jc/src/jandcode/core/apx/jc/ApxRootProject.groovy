@@ -1,5 +1,6 @@
 package jandcode.core.apx.jc
 
+import jandcode.core.dbm.jc.*
 import jandcode.jc.*
 import jandcode.jc.std.*
 
@@ -10,6 +11,8 @@ import jandcode.jc.std.*
 class ApxRootProject extends ProjectScript {
 
     protected void onInclude() throws Exception {
+        include(DbmRootProject)
+        //
         include(RootProject).with {
             depends.dev(
                     "jandcode.core.web.tst",
