@@ -15,6 +15,7 @@ public class NodeJsModuleImpl implements NodeJsModule {
     private String path;
     private Map<String, String> dependencies = new LinkedHashMap<>();
     private Map<String, String> devDependencies = new LinkedHashMap<>();
+    private Map<String, String> optionalDependencies = new LinkedHashMap<>();
     private Map<String, String> allDependencies = new LinkedHashMap<>();
     private Map<String, Object> packageJson = new LinkedHashMap<>();
 
@@ -59,6 +60,10 @@ public class NodeJsModuleImpl implements NodeJsModule {
         return devDependencies;
     }
 
+    public Map<String, String> getOptionalDependencies() {
+        return optionalDependencies;
+    }
+
     public Map<String, String> getAllDependencies() {
         return allDependencies;
     }
@@ -78,8 +83,10 @@ public class NodeJsModuleImpl implements NodeJsModule {
         //
         fillMapFrom(this.dependencies, this.packageJson, "dependencies");
         fillMapFrom(this.devDependencies, this.packageJson, "devDependencies");
+        fillMapFrom(this.optionalDependencies, this.packageJson, "optionalDependencies");
         this.allDependencies.putAll(this.devDependencies);
         this.allDependencies.putAll(this.dependencies);
+        this.allDependencies.putAll(this.optionalDependencies);
     }
 
     private void fillMapFrom(Map<String, String> dest, Map from, String fromKey) {

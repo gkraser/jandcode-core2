@@ -16,6 +16,7 @@ class NodeJsModule_Test extends Utils_Test {
         //
         println m.getDependencies()
         println m.getDevDependencies()
+        println m.getOptionalDependencies()
         println m.getAllDependencies()
     }
 

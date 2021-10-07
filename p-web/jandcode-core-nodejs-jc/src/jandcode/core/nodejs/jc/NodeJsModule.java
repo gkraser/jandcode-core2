@@ -47,6 +47,11 @@ public interface NodeJsModule extends INamed {
     Map<String, String> getDevDependencies();
 
     /**
+     * Зависимости. Секция optionalDependencies в package.json
+     */
+    Map<String, String> getOptionalDependencies();
+
+    /**
      * Все зависимости из всех секций dependencies в package.json
      */
     Map<String, String> getAllDependencies();
