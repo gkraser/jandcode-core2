@@ -63,6 +63,8 @@ class NodeJsGenIdea extends ProjectScript {
         }
 
         // поддержка конфига webpack
+        x1 = x.root.findChild("component@name=WebPackConfiguration/option@name=mode", true)
+        x1['value'] = "MANUAL"
         x1 = x.root.findChild("component@name=WebPackConfiguration/option@name=path", true)
         x1['value'] = nut.getMetaDataPath(nut.PATH_WEBPACK_DUMMY)
 
