@@ -5,7 +5,35 @@ import jandcode.core.dao.impl.*;
 import jandcode.core.test.*;
 import org.junit.jupiter.api.*;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class DaoClassDef_Test extends App_Test {
+
+    public static class Dao2_override_normal extends Dao2 {
+        @DaoMethod
+        public int sum(int a, int b) {
+            return super.sum(a, b);
+        }
+    }
+
+    public static class Dao2_override_bad extends Dao2 {
+        @DaoMethod
+        public int sum(int a, int b, int c) {
+            return super.sum(a, b);
+        }
+    }
+
+    public static class Dao2_nopublic1 extends Dao2 {
+        @DaoMethod
+        void sum3() {
+        }
+    }
+
+    public static class Dao2_nopublic2 extends Dao2_nopublic1 {
+        @DaoMethod
+        public void sum3() {
+        }
+    }
 
     void prnMethod(DaoMethodDef m) {
         System.out.println(m.getName() + ": " + m.getMethod());
@@ -24,6 +52,45 @@ public class DaoClassDef_Test extends App_Test {
     public void groovy1() throws Exception {
         DaoClassDef cd = new DaoClassDefImpl(DaoGroovy1.class);
         prnClass(cd);
+    }
+
+    @Test
+    public void override_normal1() throws Exception {
+        DaoClassDef cd = new DaoClassDefImpl(Dao2_override_normal.class);
+        prnClass(cd);
+    }
+
+    @Test
+    public void override_bad1() throws Exception {
+        DaoClassDef cd = null;
+        try {
+            cd = new DaoClassDefImpl(Dao2_override_bad.class);
+            fail("Dao2_override_bad не должен создаваться");
+        } catch (Exception e) {
+            utils.showError(e);
+        }
+    }
+
+    @Test
+    public void nopublic1() throws Exception {
+        DaoClassDef cd = null;
+        try {
+            cd = new DaoClassDefImpl(Dao2_nopublic1.class);
+            fail("Dao2_nopublic1 не должен создаваться");
+        } catch (Exception e) {
+            utils.showError(e);
+        }
+    }
+
+    @Test
+    public void nopublic2() throws Exception {
+        DaoClassDef cd = null;
+        try {
+            cd = new DaoClassDefImpl(Dao2_nopublic2.class);
+            fail("Dao2_nopublic2 не должен создаваться");
+        } catch (Exception e) {
+            utils.showError(e);
+        }
     }
 
 

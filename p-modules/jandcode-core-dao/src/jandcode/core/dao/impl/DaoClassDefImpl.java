@@ -32,14 +32,12 @@ public class DaoClassDefImpl implements DaoClassDef {
 
     protected void grabMethods(NamedList<DaoMethodDef> methods) {
 
+        validatePublicMethods(this.cls);
+
         for (Method mt : this.cls.getMethods()) {
             DaoMethod an = mt.getAnnotation(DaoMethod.class);
             if (an == null) {
                 continue;
-            }
-            int md = mt.getModifiers();
-            if (!Modifier.isPublic(md)) {
-                throw new XError("@DaoMethod указан для не публичного метода: {0}", mt);
             }
             String nm = mt.getName();
             if (methods.find(nm) != null) {
@@ -49,6 +47,22 @@ public class DaoClassDefImpl implements DaoClassDef {
             methods.add(mdef);
         }
 
+    }
+
+    protected void validatePublicMethods(Class cls) {
+        while (cls != null && cls != Object.class) {
+            for (Method mt : cls.getDeclaredMethods()) {
+                DaoMethod an = mt.getAnnotation(DaoMethod.class);
+                if (an == null) {
+                    continue;
+                }
+                int md = mt.getModifiers();
+                if (!Modifier.isPublic(md)) {
+                    throw new XError("@DaoMethod указан для не публичного метода: {0}", mt);
+                }
+            }
+            cls = cls.getSuperclass();
+        }
     }
 
 }
