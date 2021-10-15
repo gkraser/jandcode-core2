@@ -141,4 +141,29 @@ public class DbmTestSvc extends BaseTestSvc {
         return rec.getValues().toString();
     }
 
+    ////// store
+
+    /**
+     * Создать store со структурой указанного store
+     *
+     * @param store для какого store создать структуру
+     * @return store со структурой
+     */
+    public Store createStoreStruct(Store store) {
+        Store st = getMdb().createStore();
+        st.addField("name", "string");
+        st.addField("type", "string");
+        st.addField("size", "int");
+        st.addField("dict", "string");
+
+        for (StoreField f : store.getFields()) {
+            StoreRecord rec = st.add();
+            rec.setValue("name", f.getName());
+            rec.setValue("type", f.getStoreDataType().getName());
+            rec.setValue("size", f.getSize());
+            rec.setValue("dict", f.getDict());
+        }
+
+        return st;
+    }
 }
