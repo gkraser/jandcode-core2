@@ -64,7 +64,8 @@ class ProductProject extends ProjectScript {
             ctx.env.debug = true
         }
 
-
+        cm.exec("prepare")
+        
         Set<String> needs = null
         if (args.containsKey("b")) {
             needs = new HashSet<>(UtCnv.toList(args.get("b")))
