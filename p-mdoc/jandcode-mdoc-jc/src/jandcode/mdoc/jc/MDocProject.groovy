@@ -179,6 +179,7 @@ class MDocProject extends ProjectScript implements ILibDepends {
         String outDir = wd(this.getOutDir())
         ut.cleandir(outDir)
         builder.outTo(new OutDir(outDir))
+        ant.echo(message: project.version, file: "${outDir}/VERSION")
         ut.stopwatch.stop("out doc")
     }
 
