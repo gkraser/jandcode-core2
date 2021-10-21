@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <x-set-default v1="111" v2="222"/>
+    <x-set v1="11"/>
+    <x-set-default v2="2222"/>
+    <a v1="#{v1}" v2="#{v2}" v3="#{v3}"/>
+</root>

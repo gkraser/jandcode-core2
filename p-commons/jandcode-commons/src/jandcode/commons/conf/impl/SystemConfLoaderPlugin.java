@@ -30,12 +30,26 @@ public class SystemConfLoaderPlugin extends BaseConfLoaderPlugin {
             // функция фактически выполняется в загрузчике
             return true;
         } else if ("set".equals(funcName)) {
+            Map<String, String> vars = getLoader().getVars();
             for (Map.Entry<String, Object> en : params.entrySet()) {
                 Object value = en.getValue();
                 if (value instanceof Conf) {
                     continue;
                 }
-                getLoader().getVars().put(en.getKey(), UtString.toString(value));
+                vars.put(en.getKey(), UtString.toString(value));
+            }
+            return true;
+        } else if ("set-default".equals(funcName)) {
+            Map<String, String> vars = getLoader().getVars();
+            for (Map.Entry<String, Object> en : params.entrySet()) {
+                if (vars.containsKey(en.getKey())) {
+                    continue;
+                }
+                Object value = en.getValue();
+                if (value instanceof Conf) {
+                    continue;
+                }
+                vars.put(en.getKey(), UtString.toString(value));
             }
             return true;
         } else {

@@ -44,5 +44,19 @@ public class ConfLoader_Test extends CustomConf_Test {
         assertEquals(x.getString("a/v2"), "");
     }
 
+    @Test
+    public void set2_default() throws Exception {
+        Conf x = UtConf.create();
+        ConfLoader ldr = UtConf.createLoader(x);
+        //
+        String f = utils.getTestFile("data/set2-default.cfx");
+        ldr.load().fromFile(f);
+        //
+        conf.printConf(x);
+        assertEquals(x.getString("a/v1"), "11");
+        assertEquals(x.getString("a/v2"), "222");
+        assertEquals(x.getString("a/v3"), "");
+    }
+
 
 }
