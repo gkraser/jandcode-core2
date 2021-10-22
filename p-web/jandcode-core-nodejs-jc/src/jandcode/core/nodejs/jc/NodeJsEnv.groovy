@@ -12,6 +12,7 @@ class NodeJsEnv extends ProjectScript {
 
     protected void onInclude() throws Exception {
         include(NodeJsShowlibs)
+        include(NodeJsShowdeps)
 
         // prepare
         include(PrepareProject)

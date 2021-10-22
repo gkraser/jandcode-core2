@@ -11,6 +11,7 @@ class NodeJsProject extends ProjectScript {
 
     protected void onInclude() throws Exception {
         include(NodeJsShowlibs)
+        include(NodeJsShowdeps)
         include(NodeJsGenIdea)
     }
 
