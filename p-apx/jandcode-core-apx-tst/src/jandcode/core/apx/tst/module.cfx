@@ -8,11 +8,23 @@
 
         <tst>
             <menu name="tools">
+            </menu>
+
+            <menu name="main">
+
                 <item name="dao"
                       href="jandcode/core/apx/tst/tools/dao.html"
                       title="Dao"/>
+
+                <item name="tst-webpack"
+                      href="/_tst/webpack"
+                      title="/_tst/webpack"/>
             </menu>
+
         </tst>
+
+        <action name="_tst/webpack"
+                template="jandcode/core/apx/tst/actions/webpack-tst.gsp"/>
 
     </web>
 
