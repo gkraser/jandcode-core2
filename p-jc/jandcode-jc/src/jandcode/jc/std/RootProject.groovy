@@ -475,7 +475,16 @@ configuration.parameters = true
      */
     void checkDependsLibCompiled() {
         ListLib rlibs = depends.all.libsAll
-        rlibs.classpath
+        for (Lib lib in rlibs) {
+            if (lib.getSourceProject() != null) {
+                if (getModules().indexOf(lib.getSourceProject()) != -1) {
+                    // это модуль проекта, пропускаем
+                    continue
+                }
+            }
+            // берем classpath, модуль должен перекомпилироваться при необходимости
+            lib.classpath
+        }
     }
 
     ////// modules
