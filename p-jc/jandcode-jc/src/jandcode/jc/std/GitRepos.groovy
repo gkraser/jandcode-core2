@@ -106,8 +106,8 @@ class GitRepos extends ProjectScript {
                 return
             }
             if (UtFile.exists(getPath())) {
-                ut.runcmd(cmd: "git checkout ${getCheckoutOpts()} ${getBranch()}", dir: getPath())
                 ut.runcmd(cmd: "git pull --all -q ${getPullOpts()}", dir: getPath())
+                ut.runcmd(cmd: "git checkout ${getCheckoutOpts()} ${getBranch()}", dir: getPath())
             } else {
                 ut.runcmd(cmd: "git clone ${getCloneOpts()} ${getUrl()} ${getPath()}")
                 ut.runcmd(cmd: "git checkout ${getCheckoutOpts()} ${getBranch()}", dir: getPath())
