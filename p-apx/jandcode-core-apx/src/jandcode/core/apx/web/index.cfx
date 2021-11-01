@@ -10,8 +10,8 @@
         
         <gsp-context name="default">
 
-            <bean name="jandcode.core.apx.web.gsp.WebpackIndexGspContext"
-                  class="jandcode.core.apx.web.gsp.impl.WebpackIndexGspContextImpl"/>
+            <bean name="jandcode.core.apx.web.gsp.FrontendIndexGspContext"
+                  class="jandcode.core.apx.web.gsp.impl.FrontendIndexGspContextImpl"/>
 
         </gsp-context>
 

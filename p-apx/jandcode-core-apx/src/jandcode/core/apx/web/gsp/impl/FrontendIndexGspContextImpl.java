@@ -11,10 +11,10 @@ import jandcode.core.web.virtfile.*;
 
 import java.util.*;
 
-public class WebpackIndexGspContextImpl implements WebpackIndexGspContext, IAppLink {
+public class FrontendIndexGspContextImpl implements FrontendIndexGspContext, IAppLink {
 
     private GspContext gspContext;
-    private String srcPath = "public";
+    private String srcPath = "frontend";
     private String entrypointsManifestPath = "entrypoints-manifest.json";
     private String libraryName = "JcEntry";
     private Map<String, Object> entrypointsManifest = null;

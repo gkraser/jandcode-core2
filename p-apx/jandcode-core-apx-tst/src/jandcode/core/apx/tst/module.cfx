@@ -16,15 +16,15 @@
                       href="jandcode/core/apx/tst/tools/dao.html"
                       title="Dao"/>
 
-                <item name="tst-webpack"
-                      href="/_tst/webpack"
-                      title="/_tst/webpack"/>
+                <item name="tst-frontend"
+                      href="/_tst/frontend"
+                      title="/_tst/frontend"/>
             </menu>
 
         </tst>
 
-        <action name="_tst/webpack"
-                template="jandcode/core/apx/tst/actions/webpack-tst.gsp"/>
+        <action name="_tst/frontend"
+                template="jandcode/core/apx/tst/actions/frontend-tst.gsp"/>
 
     </web>
 

@@ -2,15 +2,15 @@
 <!doctype html>
 <%
   /*
-    Запуск entry tst из сгенерированного webpack приложения
+    Запуск entry tst из сгенерированного frontend приложения
    */
 
   BaseGsp th = this
   //
   def ctx = th.inst(JsIndexGspContext)
-  def wpCtx = th.inst(WebpackIndexGspContext)
+  def wpCtx = th.inst(FrontendIndexGspContext)
   //
-  ctx.title = "Webpback tst"
+  ctx.title = "_tst/frontend"
 
   wpCtx.addLink("tst")
 %>

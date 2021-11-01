@@ -10,7 +10,7 @@ import jandcode.core.web.std.gsp.*;
  * Считается, что приложение собрано с помощтю модуля @jandcode/tools и следует
  * определенным в нем соглашениям.
  */
-public interface WebpackIndexGspContext extends IGspContextLinkSet {
+public interface FrontendIndexGspContext extends IGspContextLinkSet {
 
     /**
      * Каталог в виртуальной файловой системе web, в котором собрано webpack
@@ -26,13 +26,13 @@ public interface WebpackIndexGspContext extends IGspContextLinkSet {
 
     /**
      * Путь до файла с манифестом entrypoints, сгенерерованного WebpackAssetsManifest.
-     * Путь указывается относительно {@link WebpackIndexGspContext#getSrcPath()}.
+     * Путь указывается относительно {@link FrontendIndexGspContext#getSrcPath()}.
      * По умолчанию - entrypoints-manifest.json
      */
     String getEntrypointsManifestPath();
 
     /**
-     * @see WebpackIndexGspContext#getEntrypointsManifestPath()
+     * @see FrontendIndexGspContext#getEntrypointsManifestPath()
      */
     void setEntrypointsManifestPath(String path);
 
@@ -43,7 +43,7 @@ public interface WebpackIndexGspContext extends IGspContextLinkSet {
     String getLibraryName();
 
     /**
-     * @see WebpackIndexGspContext#getLibraryName()
+     * @see FrontendIndexGspContext#getLibraryName()
      */
     void setLibraryName(String libraryName);
 
