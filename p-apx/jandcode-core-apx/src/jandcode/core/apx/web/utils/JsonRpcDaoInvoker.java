@@ -12,7 +12,6 @@ import jandcode.core.dbm.std.*;
 import jandcode.core.store.*;
 import jandcode.core.web.action.*;
 
-import java.lang.reflect.*;
 import java.util.*;
 
 /**
@@ -54,14 +53,16 @@ public class JsonRpcDaoInvoker {
             }
 
             JsonElement params = pm.get("params");
-            JsonArray listParams;
+            JsonArray listParams = null;
+            JsonObject objectParams = null;
             if (params == null) {
-                listParams = new JsonArray();
+                throw new XError("params не указан");
             } else if (params.isJsonArray()) {
                 listParams = params.getAsJsonArray();
+            } else if (params.isJsonObject()) {
+                objectParams = params.getAsJsonObject();
             } else {
-                listParams = new JsonArray();
-                listParams.add(params);
+                throw new XError("params должен быть Array или Object");
             }
 
             // ну все, готовы к выполнению
@@ -71,23 +72,35 @@ public class JsonRpcDaoInvoker {
             DaoHolder daoHolder = req.getApp().bean(DaoService.class).getDaoHolder(this.daoHolderName);
             dhItem = daoHolder.getItems().get(method);
 
-            Method javaMethod = dhItem.getMethodDef().getMethod();
-            int javaMethoodPrmCnt = javaMethod.getParameterCount();
-            if (javaMethoodPrmCnt != listParams.size()) {
-                throw new XError("Число параметров метода ({0}) не совпадает с " +
-                        "числом переданных переметров ({1})",
-                        javaMethoodPrmCnt,
-                        listParams.size());
-            }
+            DaoMethodDef methodDef = dhItem.getMethodDef();
+            int paramsCount = methodDef.getParams().size();
+            Object[] args = new Object[paramsCount];
 
-            Class<?>[] javaMethodParams = javaMethod.getParameterTypes();
-            Object[] args = new Object[javaMethoodPrmCnt];
-            for (int i = 0; i < javaMethoodPrmCnt; i++) {
-                try {
-                    args[i] = UtJson.getGson().fromJson(listParams.get(i), javaMethodParams[i]);
-                } catch (JsonSyntaxException e) {
-                    throw new XErrorMark(e, "параметр " + i);
+            if (listParams != null) {
+                if (paramsCount != listParams.size()) {
+                    throw new XError("Число параметров метода ({0}) не совпадает с " +
+                            "числом переданных переметров ({1})",
+                            paramsCount,
+                            listParams.size());
                 }
+                for (int i = 0; i < paramsCount; i++) {
+                    try {
+                        args[i] = UtJson.getGson().fromJson(listParams.get(i), methodDef.getParams().get(i).getType());
+                    } catch (JsonSyntaxException e) {
+                        throw new XErrorMark(e, "параметр " + i);
+                    }
+                }
+            } else if (objectParams != null) {
+                var keys = objectParams.keySet();
+                for (var p : methodDef.getParams()) {
+                    if (keys.contains(p.getName())) {
+                        args[p.getIndex()] = UtJson.getGson().fromJson(objectParams.get(p.getName()), p.getType());
+                    } else {
+                        throw new XError("Отсуствует параметр {0}", p.getName());
+                    }
+                }
+            } else {
+                throw new XError("unknown error");
             }
 
             // вызываем
