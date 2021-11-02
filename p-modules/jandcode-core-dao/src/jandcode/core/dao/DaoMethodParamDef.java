@@ -10,9 +10,9 @@ import java.lang.reflect.*;
 public interface DaoMethodParamDef extends INamed {
 
     /**
-     * Какому методу принадлежит
+     * java параметр
      */
-    Method getMethod();
+    Parameter getParameter();
 
     /**
      * Тип параметра

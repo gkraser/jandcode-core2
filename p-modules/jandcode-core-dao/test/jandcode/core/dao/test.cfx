@@ -33,9 +33,9 @@
             <item name="flat" package="jandcode.core.dao.data" flat="true"/>
 
             <item name="i" prefix="prefix1"
-                           class="jandcode.core.dao.data.MySuper1Dao"/>
+                  class="jandcode.core.dao.data.MySuper1Dao"/>
             <item name="named-override-prefix2" prefix="prefix2"
-                           class="jandcode.core.dao.data.MySuper1Dao"/>
+                  class="jandcode.core.dao.data.MySuper1Dao"/>
             <item name="prefix3">
                 <item name="prefix4">
                     <item name="prefix5" prefix="prefix6"

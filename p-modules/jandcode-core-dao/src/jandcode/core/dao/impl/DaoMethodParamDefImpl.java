@@ -7,14 +7,14 @@ import java.lang.reflect.*;
 public class DaoMethodParamDefImpl implements DaoMethodParamDef {
 
     private String name;
-    private Method method;
+    private Parameter parameter;
     private Class<?> type;
     private int index;
 
-    public DaoMethodParamDefImpl(String name, Method method, Class<?> type, int index) {
+    public DaoMethodParamDefImpl(String name, Parameter parameter, int index) {
         this.name = name;
-        this.method = method;
-        this.type = type;
+        this.parameter = parameter;
+        this.type = parameter.getType();
         this.index = index;
     }
 
@@ -22,8 +22,8 @@ public class DaoMethodParamDefImpl implements DaoMethodParamDef {
         return name;
     }
 
-    public Method getMethod() {
-        return method;
+    public Parameter getParameter() {
+        return parameter;
     }
 
     public Class<?> getType() {

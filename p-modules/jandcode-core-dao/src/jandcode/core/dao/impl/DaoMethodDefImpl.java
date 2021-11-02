@@ -21,7 +21,7 @@ public class DaoMethodDefImpl implements DaoMethodDef {
         Parameter[] prms = this.method.getParameters();
         for (int i = 0; i < prms.length; i++) {
             Parameter p = prms[i];
-            DaoMethodParamDef mp = new DaoMethodParamDefImpl(p.getName(), this.method, p.getType(), i);
+            DaoMethodParamDef mp = new DaoMethodParamDefImpl(p.getName(), p, i);
             this.params.add(mp);
         }
     }
