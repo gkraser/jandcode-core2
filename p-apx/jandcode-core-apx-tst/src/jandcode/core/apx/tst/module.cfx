@@ -26,6 +26,17 @@
         <action name="_tst/frontend"
                 template="jandcode/core/apx/tst/actions/frontend-tst.gsp"/>
 
+        <action name="_tst/tst-api"
+                class="jandcode.core.apx.web.action.ApiAction"
+                daoHolder="tst-api"/>
+
     </web>
+
+    <dao>
+        <holder name="tst-api">
+            <item name="dao" prefix=""
+                  package="jandcode.core.apx.tst.dao"/>
+        </holder>
+    </dao>
 
 </root>
