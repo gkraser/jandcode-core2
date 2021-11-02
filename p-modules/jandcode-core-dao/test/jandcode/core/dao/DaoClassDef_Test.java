@@ -93,5 +93,25 @@ public class DaoClassDef_Test extends App_Test {
         }
     }
 
+    @Test
+    public void param_name_java1() throws Exception {
+        DaoClassDef cd = new DaoClassDefImpl(Dao2_override_normal.class);
+        DaoMethodDef m = cd.getMethods().get("sum");
+        assertEquals(m.getParams().size(), 2);
+        assertEquals(m.getParams().get(1).getName(), "b");
+        assertEquals(m.getParams().get(1).getIndex(), 1);
+        assertEquals(m.getParams().get(1).getType(), int.class);
+    }
+
+    @Test
+    public void param_name_groovy1() throws Exception {
+        DaoClassDef cd = new DaoClassDefImpl(DaoGroovy2.class);
+        DaoMethodDef m = cd.getMethods().get("sum");
+        assertEquals(m.getParams().size(), 2);
+        assertEquals(m.getParams().get(1).getName(), "b");
+        assertEquals(m.getParams().get(1).getIndex(), 1);
+        assertEquals(m.getParams().get(1).getType(), int.class);
+    }
+
 
 }

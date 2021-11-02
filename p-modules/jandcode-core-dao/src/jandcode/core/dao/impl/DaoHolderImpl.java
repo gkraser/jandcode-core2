@@ -103,7 +103,7 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
             for (DaoHolderItem it : itms) {
                 this.items.add(it);
             }
-            
+
         } else {
 
             if (hasClass) {

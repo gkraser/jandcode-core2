@@ -20,4 +20,9 @@ public interface DaoMethodDef extends INamed {
      */
     Method getMethod();
 
+    /**
+     * Параметры метода
+     */
+    NamedList<DaoMethodParamDef> getParams();
+
 }
