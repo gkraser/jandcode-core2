@@ -27,7 +27,7 @@
                 template="jandcode/core/apx/tst/actions/frontend-tst.gsp"/>
 
         <action name="_tst/tst-api"
-                class="jandcode.core.apx.web.action.ApiAction"
+                class="jandcode.core.apx.jsonrpc.JsonRpcAction"
                 daoHolder="tst-api"/>
 
     </web>

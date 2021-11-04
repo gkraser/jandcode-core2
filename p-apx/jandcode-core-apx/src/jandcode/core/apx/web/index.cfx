@@ -3,11 +3,6 @@
 
     <web>
 
-        <action name="api"
-                class="jandcode.core.apx.web.action.ApiAction"
-                daoHolder="api"/>
-
-        
         <gsp-context name="default">
 
             <bean name="jandcode.core.apx.web.gsp.FrontendIndexGspContext"

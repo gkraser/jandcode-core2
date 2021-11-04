@@ -1,4 +1,4 @@
-package jandcode.core.apx.web.utils.impl;
+package jandcode.core.apx.jsonrpc.impl;
 
 import jandcode.core.dbm.dict.*;
 import jandcode.core.store.*;

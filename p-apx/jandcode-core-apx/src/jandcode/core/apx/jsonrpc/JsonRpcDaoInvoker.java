@@ -1,10 +1,10 @@
-package jandcode.core.apx.web.utils;
+package jandcode.core.apx.jsonrpc;
 
 import com.google.gson.*;
 import jandcode.commons.*;
 import jandcode.commons.error.*;
 import jandcode.core.*;
-import jandcode.core.apx.web.utils.impl.*;
+import jandcode.core.apx.jsonrpc.impl.*;
 import jandcode.core.dao.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.dict.*;

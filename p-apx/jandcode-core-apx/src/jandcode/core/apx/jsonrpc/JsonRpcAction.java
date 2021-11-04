@@ -1,20 +1,19 @@
-package jandcode.core.apx.web.action;
+package jandcode.core.apx.jsonrpc;
 
 import jandcode.commons.*;
 import jandcode.commons.error.*;
-import jandcode.core.apx.web.utils.*;
 import jandcode.core.web.action.*;
 
 /**
  * Вызов dao через json rpc
  */
-public class ApiAction extends BaseAction {
+public class JsonRpcAction extends BaseAction {
 
     private String daoHolderName;
 
     /**
      * Выполнение dao.
-     * dao берется из {@link ApiAction#getDaoHolderName()}.
+     * dao берется из {@link JsonRpcAction#getDaoHolderName()}.
      */
     public void index() throws Exception {
         JsonRpcDaoInvoker inv = new JsonRpcDaoInvoker(getReq(), getDaoHolderName());

@@ -1,4 +1,4 @@
-package jandcode.core.apx.web.utils.impl;
+package jandcode.core.apx.jsonrpc.impl;
 
 import jandcode.core.store.*;
 
@@ -9,6 +9,7 @@ import java.util.*;
  */
 public class JsonModelStoreRecordWrapper {
 
+    // эти приватные поля используются конвертором в json!
     private StoreRecord data;
     private Map dictdata;
 
