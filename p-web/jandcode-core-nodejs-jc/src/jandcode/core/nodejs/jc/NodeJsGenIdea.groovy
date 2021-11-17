@@ -58,7 +58,7 @@ class NodeJsGenIdea extends ProjectScript {
             // nodejs mapping
             SimXml xx2 = x_libMap.addChild("file")
             xx2['url'] = "file://" + mod.path
-            xx2['libraries'] = "{Node.js Core}"
+            xx2['libraries'] = "{HTML, Node.js Core}"
 
         }
 
