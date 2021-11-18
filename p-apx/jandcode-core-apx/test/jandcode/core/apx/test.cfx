@@ -3,4 +3,11 @@
 
     <x-depends module="jandcode.core.apx"/>
 
+    <dao>
+        <holder name="api">
+            <item name="test1" prefix=""
+                  package="jandcode.core.apx.data"/>
+        </holder>
+    </dao>
+
 </root>

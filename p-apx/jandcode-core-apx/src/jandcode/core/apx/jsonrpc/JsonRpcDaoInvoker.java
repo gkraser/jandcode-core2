@@ -24,7 +24,7 @@ public class JsonRpcDaoInvoker {
     private String daoHolderName;
     private String id;
     private String method;
-    private DaoHolderItem dhItem;
+    private DaoMethodDef methodDef;
 
     public JsonRpcDaoInvoker(ActionRequestUtils req, String daoHolderName) {
         this.req = req;
@@ -70,9 +70,8 @@ public class JsonRpcDaoInvoker {
             // конвертируем параметры
 
             DaoHolder daoHolder = req.getApp().bean(DaoService.class).getDaoHolder(this.daoHolderName);
-            dhItem = daoHolder.getItems().get(method);
+            methodDef = daoHolder.getItems().get(method).getMethodDef();
 
-            DaoMethodDef methodDef = dhItem.getMethodDef();
             int paramsCount = methodDef.getParams().size();
             Object[] args = new Object[paramsCount];
 
@@ -150,10 +149,10 @@ public class JsonRpcDaoInvoker {
             if (method != null) {
                 res.put("$method", method);
             }
-            if (dhItem != null) {
-                res.put("$javaClass", dhItem.getMethodDef().getCls().getName());
-                res.put("$javaMethodName", dhItem.getMethodDef().getMethod().getName());
-                res.put("$javaMethod", dhItem.getMethodDef().getMethod().toString());
+            if (methodDef != null) {
+                res.put("$javaClass", methodDef.getCls().getName());
+                res.put("$javaMethodName", methodDef.getMethod().getName());
+                res.put("$javaMethod", methodDef.getMethod().toString());
             }
         }
     }
