@@ -4,6 +4,7 @@ import jandcode.commons.error.*;
 import jandcode.core.*;
 import jandcode.core.web.undertow.*;
 
+import java.net.*;
 import java.net.http.*;
 
 /**
@@ -78,7 +79,11 @@ public class WebServer {
 
     public HttpClient getHttpClient() {
         if (httpClient == null) {
-            httpClient = HttpClient.newBuilder().build();
+            CookieManager cm = new CookieManager();
+            cm.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+            httpClient = HttpClient.newBuilder()
+                    .cookieHandler(cm)
+                    .build();
         }
         return httpClient;
     }

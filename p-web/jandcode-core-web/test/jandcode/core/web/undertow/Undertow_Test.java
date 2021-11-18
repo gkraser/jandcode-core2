@@ -1,10 +1,14 @@
 package jandcode.core.web.undertow;
 
+import jandcode.commons.*;
 import jandcode.core.web.test.*;
 import org.junit.jupiter.api.*;
 
 import java.net.*;
 import java.net.http.*;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class Undertow_Test extends Web_Test {
 
@@ -43,7 +47,27 @@ public class Undertow_Test extends Web_Test {
         WebClientResponse resp = req.exec();
 
         System.out.println(resp.getBodyText());
-
     }
+
+
+    @Test
+    public void cookie2() throws Exception {
+        // в разных запросах cookie должны быть одинаков в рамках одного сервера
+        List<String> q = new ArrayList<>();
+        for (int i = 1; i <= 3; i++) {
+            stopwatch.start("" + i);
+            int finalI = i;
+            web.execAction(request -> {
+                String id = request.getHttpRequest().getSession().getId();
+                q.add(id);
+                System.out.println("" + finalI + "-" + id);
+            });
+            stopwatch.stop("" + i);
+        }
+        assertEquals(q.get(0), q.get(1));
+        assertEquals(q.get(0), q.get(2));
+        assertFalse(UtString.empty(q.get(0)));
+    }
+
 
 }
