@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-depends module="jandcode.core.web"/>
+
+    <web>
+        <action name="a1"
+                class="jandcode.core.web.undertow.A1Action"/>
+    </web>
+
+</root>

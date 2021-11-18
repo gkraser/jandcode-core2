@@ -16,6 +16,8 @@ import java.util.*;
  */
 public class WebTestSvc extends BaseTestSvc {
 
+    private static WebServerHolder webServerHolder = new WebServerHolder();
+
     public String serverUrl = "http://unittest";
     public String contextPath = "/test";
 
@@ -152,6 +154,16 @@ public class WebTestSvc extends BaseTestSvc {
      */
     public String renderGsp(String gspName) throws Exception {
         return renderGsp(gspName, null);
+    }
+
+    ////// webserver
+
+    /**
+     * Возвращает webserver, запущенный для текущего приложения.
+     * Запуск осуществляется при первом обращении к методу.
+     */
+    public WebServer getWebServer() {
+        return webServerHolder.getWebServer(getApp());
     }
 
 }
