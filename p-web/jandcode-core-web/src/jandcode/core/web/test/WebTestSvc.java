@@ -55,7 +55,22 @@ public class WebTestSvc extends BaseTestSvc {
         return getApp().bean(WebService.class);
     }
 
+    /**
+     * Возвращает webserver, запущенный для текущего приложения.
+     * Запуск осуществляется при первом обращении к методу.
+     */
+    public WebServer getWebServer() {
+        return webServerHolder.getWebServer(getApp());
+    }
+
     //////
+
+    /**
+     * Создать запрос для текущего тестового web-сервера
+     */
+    public WebClientRequest createRequest() {
+        return getWebServer().createRequest();
+    }
 
     /**
      * Выполнить action в контексте исполнения запроса на сервере.
@@ -68,7 +83,7 @@ public class WebTestSvc extends BaseTestSvc {
         ActionDef tmpAction = new TmpAction(action);
         actions.add(tmpAction);
         try {
-            WebClientRequest req = getWebServer().createRequest();
+            WebClientRequest req = createRequest();
             req.setUri(tmpAction.getName());
             try {
                 return req.exec();
@@ -84,7 +99,7 @@ public class WebTestSvc extends BaseTestSvc {
      * Выполнить запрос и вернуть результат как строку
      */
     public String execRequest(String uri, Map<String, String> queryParams) throws Exception {
-        WebClientRequest req = getWebServer().createRequest();
+        WebClientRequest req = createRequest();
         req.setUri(uri);
         if (queryParams != null) {
             req.getQueryParams().putAll(queryParams);
@@ -123,16 +138,6 @@ public class WebTestSvc extends BaseTestSvc {
      */
     public String renderGsp(String gspName) throws Exception {
         return renderGsp(gspName, null);
-    }
-
-    ////// webserver
-
-    /**
-     * Возвращает webserver, запущенный для текущего приложения.
-     * Запуск осуществляется при первом обращении к методу.
-     */
-    public WebServer getWebServer() {
-        return webServerHolder.getWebServer(getApp());
     }
 
 }

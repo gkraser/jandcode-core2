@@ -1,6 +1,7 @@
 package jandcode.core.web.test;
 
 import jandcode.commons.*;
+import jandcode.commons.error.*;
 
 import java.net.*;
 import java.net.http.*;
@@ -18,21 +19,41 @@ public class WebClientRequest {
 
     //////
 
-    public HttpRequest createHttpRequest() {
+    public HttpRequest createHttpRequest(IHttpRequestBuilder builder) {
         HttpRequest.Builder b = HttpRequest.newBuilder();
 
         b.uri(URI.create(getUrl()));
 
+        if (builder != null) {
+            builder.build(b);
+        }
+
         return b.build();
+    }
+
+    public HttpRequest createHttpRequest() {
+        return createHttpRequest(null);
+    }
+
+    /**
+     * Выполнить запрос
+     */
+    public WebClientResponse exec(IHttpRequestBuilder builder) {
+        HttpRequest httpRequest = createHttpRequest(builder);
+        HttpResponse<?> httpResponse = null;
+        try {
+            httpResponse = this.webServer.getHttpClient().send(httpRequest, HttpResponse.BodyHandlers.ofString());
+        } catch (Exception e) {
+            throw new XErrorWrap(e);
+        }
+        return new WebClientResponse(this.webServer, httpResponse);
     }
 
     /**
      * Выполнить запрос
      */
     public WebClientResponse exec() throws Exception {
-        HttpRequest httpRequest = createHttpRequest();
-        HttpResponse<?> httpResponse = this.webServer.getHttpClient().send(httpRequest, HttpResponse.BodyHandlers.ofString());
-        return new WebClientResponse(this.webServer, httpResponse);
+        return exec(null);
     }
 
     //////
