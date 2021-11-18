@@ -13,14 +13,14 @@ public class Undertow_Test extends Web_Test {
         utils.logOn();
         //
         UndertowRunner ur = new UndertowRunner();
-        ur.setContext("/test1");
+        ur.setContext("/test");
         ur.setPort(3366);
         ur.start(app);
         //
         HttpClient client = HttpClient.newBuilder()
                 .build();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:3366/test1/a1/m1"))
+                .uri(URI.create("http://localhost:3366/test/a1/m1"))
                 .build();
         HttpResponse<String> resp = client.send(request, HttpResponse.BodyHandlers.ofString());
         //

@@ -15,7 +15,7 @@ public class WebServerHolder {
 
     /**
      * Путь в конфигурации приложения.
-     * Контекст, на котором будет запускаться webserver, по умолчанию /test1
+     * Контекст, на котором будет запускаться webserver, по умолчанию /test
      */
     public static final String APP_CONF_WEBSERVER_CONTEXT = APP_CONF_WEBSERVER + "/context";
 
@@ -25,7 +25,7 @@ public class WebServerHolder {
      */
     public static final String APP_CONF_WEBSERVER_ID = APP_CONF_WEBSERVER + "/webserver-id";
 
-    private String contextDefault = "/test1";
+    private String contextDefault = "/test";
     private int nextPort = 3366;
     private Map<String, WebServer> servers = new HashMap<>();
 

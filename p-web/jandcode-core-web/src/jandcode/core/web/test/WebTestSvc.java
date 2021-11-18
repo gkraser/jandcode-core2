@@ -1,35 +1,44 @@
 package jandcode.core.web.test;
 
-import jandcode.commons.*;
 import jandcode.commons.error.*;
+import jandcode.commons.named.*;
 import jandcode.commons.test.*;
 import jandcode.core.test.*;
 import jandcode.core.web.*;
+import jandcode.core.web.action.*;
+import jandcode.core.web.action.impl.*;
 import jandcode.core.web.gsp.*;
-import jandcode.core.web.impl.*;
-import jandcode.core.web.test.dummy.*;
 
 import java.util.*;
+import java.util.concurrent.atomic.*;
 
 /**
- * Расширение для web-тестов
+ * Расширение web-тестов
  */
 public class WebTestSvc extends BaseTestSvc {
 
     private static WebServerHolder webServerHolder = new WebServerHolder();
 
-    public String serverUrl = "http://unittest";
-    public String contextPath = "/test";
-
     protected UtilsTestSvc utils;
+
+    static class TmpAction extends CustomActionDef {
+
+        IAction action;
+
+        public TmpAction(IAction action) {
+            setName(UUID.randomUUID().toString());
+            this.action = action;
+        }
+
+        public IAction createInst() {
+            return action;
+        }
+    }
+
 
     public void setUp() throws Exception {
         super.setUp();
         this.utils = testSvc(UtilsTestSvc.class);
-        HttpServletDummy servlet = new HttpServletDummy();
-        servlet.setContextPath(contextPath);
-        getWebService().setHttpServlet(servlet);
-        createRequest("/");
     }
 
     /**
@@ -46,92 +55,48 @@ public class WebTestSvc extends BaseTestSvc {
         return getApp().bean(WebService.class);
     }
 
-    /**
-     * Последний созданный запрос
-     */
-    public Request getRequest() {
-        return getWebService().getRequest();
-    }
-
-    /**
-     * Создать запрос с указанными свойствами и сделать его текущим.
-     *
-     * @param uri    часть строки запроса без host и contextPath
-     * @param params параметры запроса
-     */
-    public Request createRequest(String uri, Map params) {
-        //
-        HttpServletResponseDummy httpResponse = new HttpServletResponseDummy();
-        httpResponse.createOutWriter();
-
-        //
-        HttpServletRequestDummy httpRequest = new HttpServletRequestDummy();
-        httpRequest.setContextPath(contextPath);
-        uri = UtVDir.normalize(uri);
-        httpRequest.setPathInfo("/" + uri);
-        httpRequest.setRequestURL(serverUrl + contextPath + "/" + uri);
-        httpRequest.setRequestURI(contextPath + "/" + uri);
-
-        // params
-        if (params != null) {
-            for (Object key : params.keySet()) {
-                Object value = params.get(key);
-                String ks = UtString.toString(key);
-                httpRequest.putParameter(ks, UtString.toString(value));
-            }
-        }
-
-        //
-        Request request = new RequestImpl(getApp(), httpRequest, httpResponse);
-        ((WebServiceImpl) getWebService()).setRequest(request);
-        //
-        return request;
-    }
-
-    /**
-     * Создать запрос с указанными свойствами и сделать его текущим
-     */
-    public Request createRequest(String url) {
-        return createRequest(url, null);
-    }
-
     //////
 
     /**
-     * Обработать запрос
+     * Выполнить action в контексте исполнения запроса на сервере.
+     * Создается временная action, которая выполняется как переменный обработчик.
+     *
+     * @param action что выполнить
      */
-    public void handleRequest(Request request) {
+    public WebClientResponse execAction(IAction action) {
+        NamedList<ActionDef> actions = getWebService().getActions();
+        ActionDef tmpAction = new TmpAction(action);
+        actions.add(tmpAction);
         try {
-            ((WebServiceImpl) getWebService()).handleRequest(request);
-            if (request.getException() != null) {
-                throw request.getException();
+            WebClientRequest req = getWebServer().createRequest();
+            req.setUri(tmpAction.getName());
+            try {
+                return req.exec();
+            } catch (Exception e) {
+                throw new XErrorWrap(e);
             }
-        } catch (Throwable e) {
-            throw new XErrorWrap(e);
+        } finally {
+            actions.remove(tmpAction);
         }
     }
 
     /**
-     * Ответ на запрос в виде текста с обрезанными пробелами
+     * Выполнить запрос и вернуть результат как строку
      */
-    public String getOutText(Request request) {
-        HttpServletResponseDummy r = (HttpServletResponseDummy) request.getHttpResponse();
-        return r.getOutText().trim();
+    public String execRequest(String uri, Map<String, String> queryParams) throws Exception {
+        WebClientRequest req = getWebServer().createRequest();
+        req.setUri(uri);
+        if (queryParams != null) {
+            req.getQueryParams().putAll(queryParams);
+        }
+        WebClientResponse resp = req.exec();
+        return resp.getBodyText();
     }
 
     /**
-     * Выполнить запрос и вернуть результат как строку с обрезанными пробелами
+     * Выполнить запрос и вернуть результат как строку
      */
-    public String execRequest(String uri, Map params) {
-        Request r = createRequest(uri, params);
-        handleRequest(r);
-        return getOutText(r);
-    }
-
-    /**
-     * Выполнить запрос и вернуть результат как строку с обрезанными пробелами
-     */
-    public String execRequest(String uri) {
+    public String execRequest(String uri) throws Exception {
         return execRequest(uri, null);
     }
 
@@ -142,9 +107,13 @@ public class WebTestSvc extends BaseTestSvc {
      * @param args    аргументы. Может быть null
      */
     public String renderGsp(String gspName, Map args) throws Exception {
-        GspContext ctx = getWebService().createGspContext();
-        ITextBuffer buf = ctx.render(gspName, args);
-        return buf.toString();
+        AtomicReference<String> res = new AtomicReference<>();
+        execAction((request) -> {
+            GspContext ctx = getWebService().createGspContext();
+            ITextBuffer buf = ctx.render(gspName, args);
+            res.set(buf.toString());
+        });
+        return res.get();
     }
 
     /**

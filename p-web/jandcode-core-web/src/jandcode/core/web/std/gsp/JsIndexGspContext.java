@@ -34,6 +34,7 @@ public interface JsIndexGspContext extends IGspContextLinkSet {
     /**
      * Добавить js/css в вывод {@link JsIndexGspContext#outLinks()}.
      * css определяется по расширению (css,less,sass,scss).
+     *
      * @param isJs true - это js, иначе - css
      */
     void addLink(String path, boolean isJs);

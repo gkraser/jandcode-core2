@@ -41,8 +41,11 @@ public class WebClientResponse {
         return getHttpResponse().uri();
     }
 
+    /**
+     * Тело ответа с обрезанными пробелами в начале и конце.
+     */
     public String getBodyText() {
-        return UtCnv.toString(getHttpResponse().body());
+        return UtCnv.toString(getHttpResponse().body()).trim();
     }
 
 }

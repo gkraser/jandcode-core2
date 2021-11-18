@@ -5,25 +5,33 @@ import jandcode.core.web.action.impl.*;
 import jandcode.core.web.test.*;
 import org.junit.jupiter.api.*;
 
+import java.util.concurrent.atomic.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SystemActionFactory_Test extends Web_Test {
 
-    private Request check(String uri, String actionName) {
-        Request r = web.createRequest(uri);
-        SystemActionFactory f = app.create(SystemActionFactory.class);
+    private Request check(String uri, String actionName) throws Exception {
 
-        BaseAction a = (BaseAction) f.createAction(r);
+        AtomicReference<BaseAction> a = new AtomicReference<>();
+        AtomicReference<Request> r = new AtomicReference<>();
+
+        web.execAction((request) -> {
+            r.set(request);
+            request.setPathInfo(uri);
+            SystemActionFactory f = app.create(SystemActionFactory.class);
+            a.set((BaseAction) f.createAction(request));
+        });
+
 
         String an = null;
-        if (a != null) {
-            an = a.getName();
+        if (a.get() != null) {
+            an = a.get().getName();
         }
 
         assertEquals(actionName, an);
 
-        r.setAction(a);
-        return r;
+        return r.get();
     }
 
     @Test
