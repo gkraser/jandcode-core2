@@ -32,9 +32,37 @@
 
     </web>
 
+    <dbm>
+        <model name="jandcode.core.apx.tst">
+            <include name="apx.base"/>
+            <dbsource name="default"/>
+
+            <domain name="dict.std" parent="dict.base">
+                <field name="text_short" parent="string"/>
+            </domain>
+
+            <dict name="color" parent="base" domain="dict.std"
+                  handler="jandcode.core.dbm.dict.std.ConfDictHandler">
+                <dictdata>
+                    <i id="1" text="red" text_short="r"/>
+                    <i id="2" text="green" text_short="g"/>
+                    <i id="3" text="blue" text_short="b"/>
+                </dictdata>
+            </dict>
+
+            <dict name="dict20" parent="base" domain="dict.std"
+                  handler="jandcode.core.apx.tst.dict.Dummy_DictHandler"
+                  countRecords="20">
+            </dict>
+
+        </model>
+
+        <model name="tst-apx" instance="jandcode.core.apx.tst"/>
+    </dbm>
+
     <dao>
         <holder name="tst-api">
-            <item name="dao" prefix=""
+            <item name="dao" prefix="" invoker="model:tst-apx"
                   package="jandcode.core.apx.tst.dao"/>
         </holder>
     </dao>

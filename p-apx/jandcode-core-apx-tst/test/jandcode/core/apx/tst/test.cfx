@@ -3,4 +3,8 @@
 
     <x-depends module="jandcode.core.apx.tst"/>
 
+    <test>
+        <dbm model-default="tst-apx"/>
+    </test>
+
 </root>
