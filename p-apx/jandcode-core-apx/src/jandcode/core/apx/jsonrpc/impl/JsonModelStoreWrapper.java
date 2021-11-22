@@ -9,11 +9,11 @@ import java.util.*;
  */
 public class JsonModelStoreWrapper {
 
-    private Store data;
+    private Store records;
     private Map dictdata;
 
     public JsonModelStoreWrapper(Store store) {
-        this.data = store;
+        this.records = store;
         this.dictdata = JsonModelUtils.dictdata(store);
     }
 

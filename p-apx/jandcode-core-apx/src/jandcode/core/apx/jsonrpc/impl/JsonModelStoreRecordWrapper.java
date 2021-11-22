@@ -10,11 +10,11 @@ import java.util.*;
 public class JsonModelStoreRecordWrapper {
 
     // эти приватные поля используются конвертором в json!
-    private StoreRecord data;
+    private StoreRecord records;
     private Map dictdata;
 
     public JsonModelStoreRecordWrapper(StoreRecord record) {
-        this.data = record;
+        this.records = record;
         this.dictdata = JsonModelUtils.dictdata(record.getStore());
     }
 

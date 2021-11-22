@@ -78,7 +78,7 @@ public class JsonRpcDaoInvoker {
             if (listParams != null) {
                 if (paramsCount != listParams.size()) {
                     throw new XError("Число параметров метода ({0}) не совпадает с " +
-                            "числом переданных переметров ({1})",
+                            "числом переданных параметров ({1})",
                             paramsCount,
                             listParams.size());
                 }
