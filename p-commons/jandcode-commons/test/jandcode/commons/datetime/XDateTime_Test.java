@@ -222,4 +222,127 @@ public class XDateTime_Test extends Utils_Test {
         assertEquals(d.toJavaDate(ZoneId.of("UTC")).toString().startsWith("Fri Nov 12 19:14:15 "), true);
     }
 
+    //////
+
+    @Test
+    public void addMonths_1() throws Exception {
+        XDateTime d1 = UtDateTime.create("2011-11-30");
+        XDateTime d2;
+
+        // +
+        d2 = d1.addMonths(13);
+        assertEquals(d2.toString(), "2012-12-30");
+
+        d2 = d1.addMonths(2);
+        assertEquals(d2.toString(), "2012-01-30");
+
+        d2 = d1.addMonths(3);
+        assertEquals(d2.toString(), "2012-02-29");
+
+        d2 = d1.addMonths(15);
+        assertEquals(d2.toString(), "2013-02-28");
+
+        d2 = d1.addMonths(12);
+        assertEquals(d2.toString(), "2012-11-30");
+
+        d2 = d1.addMonths(14);
+        assertEquals(d2.toString(), "2013-01-30");
+
+        d2 = d1.addMonths(24);
+        assertEquals(d2.toString(), "2013-11-30");
+
+        // -
+        d2 = d1.addMonths(-13);
+        assertEquals(d2.toString(), "2010-10-30");
+
+        d2 = d1.addMonths(-11);
+        assertEquals(d2.toString(), "2010-12-30");
+
+        d2 = d1.addMonths(-2);
+        assertEquals(d2.toString(), "2011-09-30");
+
+        d2 = d1.addMonths(-12);
+        assertEquals(d2.toString(), "2010-11-30");
+
+        d2 = d1.addMonths(-14);
+        assertEquals(d2.toString(), "2010-09-30");
+
+        d2 = d1.addMonths(-24);
+        assertEquals(d2.toString(), "2009-11-30");
+
+        d2 = d1.addMonths(-35);
+        assertEquals(d2.toString(), "2008-12-30");
+
+    }
+
+    private void cmp_addMonth_plus() {
+        int startY = 1999;
+        for (int y = 0; y <= 200; y++) {
+            for (int m = 0; m < 12; m++) {
+                XDateTime d = UtDateTime.create(startY + y, m + 1, 1);
+                int months = y * 12 + m;
+                XDateTime startDt = UtDateTime.create(startY, 1, 1);
+                XDateTime d2 = startDt.addMonths(months);
+                //System.out.println("" + months + " " + d + " = " + d2);
+                assertEquals(d2.toString(), d.toString());
+            }
+        }
+    }
+
+    private void cmp_addMonth_minus() {
+        int startY = 1999;
+        for (int y = 0; y <= 200; y++) {
+            for (int m = 0; m < 12; m++) {
+                XDateTime d = UtDateTime.create(startY - y, 12 - m, 1);
+                int months = y * 12 + m;
+                XDateTime startDt = UtDateTime.create(startY, 12, 1);
+                XDateTime d2 = startDt.addMonths(-months);
+                //System.out.println("" + months + " " + d + " = " + d2);
+                assertEquals(d2.toString(), d.toString());
+            }
+        }
+    }
+
+    @Test
+    public void addMonths_2_all() throws Exception {
+        cmp_addMonth_plus();
+        cmp_addMonth_minus();
+    }
+
+    @Test
+    public void addYear_1() throws Exception {
+        XDateTime d1 = UtDateTime.create("2004-02-29");
+        XDateTime d2;
+
+        d2 = d1.addYears(1);
+        assertEquals(d2.toString(), "2005-02-28");
+
+        d2 = d1.addYears(-1);
+        assertEquals(d2.toString(), "2003-02-28");
+    }
+
+    @Test
+    public void beginOfMonth() throws Exception {
+        assertEquals(UtDateTime.create("1999-12-25").beginOfMonth().toString(), "1999-12-01");
+        assertEquals(UtDateTime.create("1999-12-25T12:13:14").beginOfMonth().toString(), "1999-12-01T12:13:14");
+    }
+
+    @Test
+    public void endOfMonth() throws Exception {
+        assertEquals(UtDateTime.create("2004-02-25").endOfMonth().toString(), "2004-02-29");
+        assertEquals(UtDateTime.create("1999-12-25T12:13:14").endOfMonth().toString(), "1999-12-31T12:13:14");
+    }
+
+    @Test
+    public void beginOfYear() throws Exception {
+        assertEquals(UtDateTime.create("1999-12-25").beginOfYear().toString(), "1999-01-01");
+        assertEquals(UtDateTime.create("1999-12-25T12:13:14").beginOfYear().toString(), "1999-01-01T12:13:14");
+    }
+
+    @Test
+    public void endOfYear() throws Exception {
+        assertEquals(UtDateTime.create("2004-02-25").endOfYear().toString(), "2004-12-31");
+        assertEquals(UtDateTime.create("1999-12-25T12:13:14").endOfYear().toString(), "1999-12-31T12:13:14");
+    }
+
 }

@@ -1,5 +1,6 @@
 package jandcode.commons.datetime.impl;
 
+import jandcode.commons.*;
 import jandcode.commons.datetime.*;
 
 import java.time.*;
@@ -267,5 +268,89 @@ public class XDateTimeImpl implements XDateTime, DateTimeConsts {
         return new XDateTimeImpl(jdn + days, time);
     }
 
+    public XDateTime addMonths(int months) {
+        if (months == 0) {
+            return this;
+        }
+
+        XDateTimeDecodedImpl dt = decode();
+
+        int y = dt.getYear();
+        int m = dt.getMonth();
+        int d = dt.getDay();
+
+        int sign = 1;
+        if (months < 0) {
+            sign = -1;
+            months = -months;
+        }
+
+        if (months > 12) {
+            int overYear = months / 12;
+            y = y + overYear * sign;
+            months = months - overYear * 12;
+        }
+
+        if (months != 0) {
+            m = m + months * sign;
+            if (m > 12) {
+                y = y + 1;
+                m = m - 12;
+            } else if (m < 1) {
+                y = y - 1;
+                m = m + 12;
+            }
+        }
+
+        if (d > 28) {
+            int dim = UtDateTime.getDaysInMonth(y, m);
+            if (d > dim) {
+                d = dim;
+            }
+        }
+
+        int jdn = encodeJulianDay(y, m, d);
+        return new XDateTimeImpl(jdn, this.time);
+    }
+
+    public XDateTime addYears(int years) {
+        XDateTimeDecodedImpl dt = decode();
+        int y = dt.getYear() + years;
+        int d = dt.getDay();
+        if (d > 28) {
+            int dim = UtDateTime.getDaysInMonth(y, dt.getMonth());
+            if (d > dim) {
+                d = dim;
+            }
+        }
+        int jdn = encodeJulianDay(y, dt.getMonth(), d);
+        return new XDateTimeImpl(jdn, this.time);
+    }
+
+    //////
+
+    public XDateTime beginOfMonth() {
+        XDateTimeDecodedImpl dt = decode();
+        int jdn = encodeJulianDay(dt.getYear(), dt.getMonth(), 1);
+        return new XDateTimeImpl(jdn, this.time);
+    }
+
+    public XDateTime endOfMonth() {
+        XDateTimeDecodedImpl dt = decode();
+        int jdn = encodeJulianDay(dt.getYear(), dt.getMonth(), UtDateTime.getDaysInMonth(dt.getYear(), dt.getMonth()));
+        return new XDateTimeImpl(jdn, this.time);
+    }
+
+    public XDateTime beginOfYear() {
+        XDateTimeDecodedImpl dt = decode();
+        int jdn = encodeJulianDay(dt.getYear(), 1, 1);
+        return new XDateTimeImpl(jdn, this.time);
+    }
+
+    public XDateTime endOfYear() {
+        XDateTimeDecodedImpl dt = decode();
+        int jdn = encodeJulianDay(dt.getYear(), 12, UtDateTime.getDaysInMonth(dt.getYear(), 12));
+        return new XDateTimeImpl(jdn, this.time);
+    }
 
 }
