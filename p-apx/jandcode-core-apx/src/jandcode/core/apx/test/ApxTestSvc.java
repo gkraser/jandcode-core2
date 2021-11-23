@@ -1,7 +1,7 @@
 package jandcode.core.apx.test;
 
 import jandcode.commons.*;
-import jandcode.core.dao.*;
+import jandcode.core.dbm.test.*;
 import jandcode.core.test.*;
 import jandcode.core.web.test.*;
 
@@ -14,35 +14,12 @@ import java.util.*;
 public class ApxTestSvc extends BaseAppTestSvc {
 
     public WebTestSvc web;
+    public DbmTestSvc dbm;
 
     public void setUp() throws Exception {
         super.setUp();
         this.web = testSvc(WebTestSvc.class);
-    }
-
-    /**
-     * Создать экземпляр dao.
-     *
-     * @param cls            для какого класса
-     * @param daoInvokerName какой daoInvoker использовать.
-     *                       Если не указано - 'default'. Можно например указать модельный 'model:default'
-     */
-    public <A> A createDao(Class<A> cls, String daoInvokerName) throws Exception {
-        if (UtString.empty(daoInvokerName)) {
-            daoInvokerName = "default";
-        }
-        DaoService svc = getApp().bean(DaoService.class);
-        DaoInvoker di = svc.getDaoInvoker(daoInvokerName);
-        return di.createDao(cls);
-    }
-
-    /**
-     * Создать экземпляр dao для daoInvoker=default
-     *
-     * @param cls для какого класса
-     */
-    public <A> A createDao(Class<A> cls) throws Exception {
-        return createDao(cls, null);
+        this.dbm = testSvc(DbmTestSvc.class);
     }
 
     ////// json rpc

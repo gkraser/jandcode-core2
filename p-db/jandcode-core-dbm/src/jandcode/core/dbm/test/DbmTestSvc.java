@@ -1,7 +1,9 @@
 package jandcode.core.dbm.test;
 
+import jandcode.commons.*;
 import jandcode.commons.test.*;
 import jandcode.core.*;
+import jandcode.core.dao.*;
 import jandcode.core.db.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.impl.*;
@@ -166,4 +168,34 @@ public class DbmTestSvc extends BaseTestSvc {
 
         return st;
     }
+
+    ////// dao
+
+    /**
+     * Создать экземпляр dao.
+     *
+     * @param cls            для какого класса
+     * @param daoInvokerName какой daoInvoker использовать.
+     *                       Если не указано, то используется invoker текущей модели,
+     *                       полученной из {@link DbmTestSvc#getModelName()}.
+     *                       Можно например указать модельный 'model:default'
+     */
+    public <A> A createDao(Class<A> cls, String daoInvokerName) throws Exception {
+        if (UtString.empty(daoInvokerName)) {
+            daoInvokerName = "model:" + getModelName();
+        }
+        DaoService svc = getApp().bean(DaoService.class);
+        DaoInvoker di = svc.getDaoInvoker(daoInvokerName);
+        return di.createDao(cls);
+    }
+
+    /**
+     * Создать экземпляр dao для daoInvoker текущей модели
+     *
+     * @param cls для какого класса
+     */
+    public <A> A createDao(Class<A> cls) throws Exception {
+        return createDao(cls, null);
+    }
+
 }
