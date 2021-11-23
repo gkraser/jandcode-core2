@@ -8,7 +8,7 @@ public class DbLink extends BaseModelDao {
 
     @DaoMethod
     public String m1() throws Exception {
-        Store st = getDb().loadQuery("select 111");
+        Store st = getMdb().loadQuery("select 111");
         String s = st.get(0).getString(0);
         return "m1-ok-" + getModel().getName() + "-" + s;
     }
