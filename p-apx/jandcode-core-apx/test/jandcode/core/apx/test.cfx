@@ -5,9 +5,25 @@
 
     <dao>
         <holder name="api">
-            <item name="test1" prefix=""
+            <item name="test1" prefix="" invoker="model:default"
                   package="jandcode.core.apx.data"/>
         </holder>
     </dao>
+
+    <dbm>
+        <model name="test1.model">
+            <include name="apx.base"/>
+            <dict name="color" parent="base"
+                  handler="jandcode.core.dbm.dict.std.ConfDictHandler">
+                <dictdata>
+                    <i id="1" text="red"/>
+                    <i id="2" text="green"/>
+                    <i id="3" text="blue"/>
+                </dictdata>
+            </dict>
+        </model>
+
+        <model name="default" instance="test1.model"/>
+    </dbm>
 
 </root>

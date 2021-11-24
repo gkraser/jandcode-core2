@@ -4,12 +4,9 @@ import com.google.gson.*;
 import jandcode.commons.*;
 import jandcode.commons.error.*;
 import jandcode.core.*;
-import jandcode.core.apx.jsonrpc.impl.*;
 import jandcode.core.dao.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.dict.*;
-import jandcode.core.dbm.std.*;
-import jandcode.core.store.*;
 import jandcode.core.web.action.*;
 
 import java.util.*;
@@ -169,27 +166,6 @@ public class JsonRpcDaoInvoker {
             // есть модель. Нужно кое-что с результатом сделать
             DictService dictService = model.bean(DictService.class);
             dictService.resolveDicts(result);
-
-            // 
-            result = wrapResult(daoContext, result, model);
-        }
-        return result;
-    }
-
-    protected Object wrapResult(DaoContext daoContext, Object result, Model model) throws Exception {
-        if (result instanceof Store) {
-            return new JsonModelStoreWrapper((Store) result);
-
-        } else if (result instanceof StoreRecord) {
-            return new JsonModelStoreRecordWrapper((StoreRecord) result);
-
-        } else if (result instanceof DataBox) {
-            DataBox b = (DataBox) result;
-            for (String key : b.keySet()) {
-                b.put(key, wrapResult(daoContext, b.get(key), model));
-            }
-            return b;
-
         }
         return result;
     }

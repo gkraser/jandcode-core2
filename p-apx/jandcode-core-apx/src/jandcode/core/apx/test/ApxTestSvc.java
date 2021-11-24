@@ -40,7 +40,7 @@ public class ApxTestSvc extends BaseAppTestSvc {
             Map<String, Object> p = new LinkedHashMap<>();
 
             p.put("id", UUID.randomUUID().toString());
-            p.put("method", "dao1/str1");
+            p.put("method", methodName);
             p.put("params", params);
 
             String bodyRequest = UtJson.toJson(p);

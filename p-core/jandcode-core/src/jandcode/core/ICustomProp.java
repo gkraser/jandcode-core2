@@ -1,5 +1,7 @@
 package jandcode.core;
 
+import java.util.*;
+
 /**
  * Произвольный набор свойств, которыми может обладать
  * компонент.
@@ -15,12 +17,17 @@ public interface ICustomProp {
     void setCustomProp(String name, Object value);
 
     /**
-     * Получить значение произвольного свойства для записи.
+     * Получить значение произвольного свойства.
      * Если свойства нет, возвращается null.
      *
      * @param name имя свойства
      * @return null, если свойства нет
      */
     Object getCustomProp(String name);
+
+    /**
+     * Все имена произвольных свойств
+     */
+    Collection<String> getCustomPropNames();
 
 }

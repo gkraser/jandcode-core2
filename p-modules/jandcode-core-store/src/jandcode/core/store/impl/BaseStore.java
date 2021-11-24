@@ -192,7 +192,7 @@ public abstract class BaseStore implements Store, Cloneable {
             }
         } else {
             if (customProps == null) {
-                customProps = new HashMap<>();
+                customProps = new LinkedHashMap<>();
             }
             customProps.put(name, value);
         }
@@ -203,6 +203,13 @@ public abstract class BaseStore implements Store, Cloneable {
             return null;
         }
         return customProps.get(name);
+    }
+
+    public Collection<String> getCustomPropNames() {
+        if (customProps == null) {
+            return new ArrayList<>();
+        }
+        return customProps.keySet();
     }
 
     //////

@@ -9,7 +9,7 @@ import java.util.*;
  * Хранилище записей данных. Представляет собой список записей.
  * Используется как таблица с данными.
  * <p>
- * Не предназнаено для работы в конкурентной среде!
+ * Не предназначено для работы в конкурентной среде!
  */
 public interface Store extends INamed, INamedSet, Iterable<StoreRecord>,
         IAppLink, ICustomProp,

@@ -1,5 +1,7 @@
 package jandcode.core.store;
 
+import java.util.*;
+
 /**
  * Интерфейс для получения значений словарных полей.
  */
@@ -15,5 +17,22 @@ public interface IStoreDictResolver {
      * @return значение поля словаря или null, если не найдено
      */
     Object getDictValue(String dictName, Object key, String dictFieldName);
+
+    /**
+     * Получить данные словарей в виде Map формата dictdata:
+     * <pre>{@code
+     * {
+     *      dict: {                   // имя словаря
+     *          key: {                // значение id
+     *              field:            // имя словарного поля
+     *                  value         // значение словарного поля
+     *          }
+     *      }
+     *  }
+     * }</pre>
+     */
+    default Map<String, Object> toDictdata() {
+        return new HashMap<>();
+    }
 
 }

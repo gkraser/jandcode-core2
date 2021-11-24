@@ -1,5 +1,6 @@
 package jandcode.core.dbm.dict
 
+import jandcode.commons.*
 import jandcode.core.dbm.*
 import jandcode.core.store.*
 import jandcode.core.test.*
@@ -98,5 +99,26 @@ class Dict_Test extends App_Test {
         assertEquals(dd.data.get(0).getValue("text"), "YES")
     }
 
+    @Test
+    public void to_json() throws Exception {
+        Store st = z.createStore()
+        st.addField("id", "long")
+        st.addField("dict1", "long").setDict("dict1")
+        st.addField("dict2", "long").setDict("dict2")
+        for (i in 1..3) {
+            if (i == 2) {
+                st.add(id: i)
+            } else {
+                st.add(id: i, dict1: i, dict2: 100 + i)
+            }
+        }
+        //
+        svc.resolveDicts(st)
+        //
+        assertEquals(
+                UtJson.toJson(st),
+                """{"records":[{"id":1,"dict1":1,"dict2":101},{"id":2},{"id":3,"dict1":3,"dict2":103}],"dictdata":{"dict1":{"1":{"text":"dict1-text-1"},"3":{"text":"dict1-text-3"}},"dict2":{"101":{"text":"dict2-text-101"},"103":{"text":"dict2-text-103"}}}}"""
+        )
+    }
 
 }

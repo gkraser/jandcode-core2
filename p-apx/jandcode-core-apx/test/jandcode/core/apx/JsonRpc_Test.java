@@ -16,4 +16,11 @@ public class JsonRpc_Test extends Apx_Test {
         }
     }
 
+    @Test
+    public void storeWithDict() throws Exception {
+        utils.logOn();
+        Map<String, Object> m = apx.execJsonRpc("api", "store1/storeWithDict", List.of());
+        utils.outMap(m);
+    }
+
 }
