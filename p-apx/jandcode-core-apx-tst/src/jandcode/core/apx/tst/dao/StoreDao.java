@@ -15,6 +15,8 @@ public class StoreDao extends BaseModelDao {
      * Настройки генерируемого store
      */
     public static class StoreConfig {
+        public long fromId = 1;
+        public int incId = 1;
         public int countRecords;
         public int countFields;
 
@@ -24,6 +26,14 @@ public class StoreDao extends BaseModelDao {
 
         public int getCountFields() {
             return countFields <= 0 ? 5 : Math.min(countFields, 1000);
+        }
+
+        public long getFromId() {
+            return fromId <= 0 ? 1 : fromId;
+        }
+
+        public int getIncId() {
+            return incId <= 0 ? 1 : incId;
         }
     }
 
@@ -48,7 +58,7 @@ public class StoreDao extends BaseModelDao {
      */
     @DaoMethod
     public Store small() throws Exception {
-        return genStore1(1, 5, 3);
+        return genStore1(1, 1, 5, 3);
     }
 
     /**
@@ -56,7 +66,8 @@ public class StoreDao extends BaseModelDao {
      */
     @DaoMethod
     public Store custom(StoreConfig config) throws Exception {
-        return genStore1(1, config.getCountRecords(), config.getCountFields());
+        return genStore1(config.getFromId(), config.getIncId(),
+                config.getCountRecords(), config.getCountFields());
     }
 
     /**
@@ -64,14 +75,15 @@ public class StoreDao extends BaseModelDao {
      */
     @DaoMethod
     public Store customFiltered(StoreConfig config, StoreFilter filter) throws Exception {
-        Store st = genStore1(1, config.getCountRecords(), config.getCountFields());
+        Store st = genStore1(config.getFromId(), config.getIncId(),
+                config.getCountRecords(), config.getCountFields());
         st.getRecords().removeIf(rec -> !filter.isTrue(rec));
         return st;
     }
 
     //////
 
-    private Store genStore1(long fromId, long countRecords, int countFields) {
+    private Store genStore1(long fromId, int incId, int countRecords, int countFields) {
 
         Rnd rnd = new Rnd(fromId);
 
@@ -87,9 +99,8 @@ public class StoreDao extends BaseModelDao {
 
         String rndEnChars = "qwertyasdfg";
 
-        long id;
+        long id = fromId;
         for (int i = 0; i < countRecords; i++) {
-            id = fromId + i;
             StoreRecord rec = st.add();
             rec.setValue("id", id);
             rec.setValue("color", (id % 3) + 1);
@@ -99,6 +110,8 @@ public class StoreDao extends BaseModelDao {
             for (int j = 1; j <= countFields; j++) {
                 rec.setValue("f" + j, "v-" + id + "-" + j);
             }
+
+            id = id + incId;
         }
 
         return st;
