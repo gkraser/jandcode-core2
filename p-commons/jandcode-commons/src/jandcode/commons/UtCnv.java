@@ -272,7 +272,7 @@ public class UtCnv {
      * Конвертация в XDateTime.
      */
     public static XDateTime toDateTime(Object value) {
-        return toDateTime(value, UtDateTime.EMPTY_DATE);
+        return toDateTime(value, UtDateTime.EMPTY_DATETIME);
     }
 
     /**
@@ -309,7 +309,7 @@ public class UtCnv {
      * Конвертация в XDateTime.
      */
     public static XDate toDate(Object value) {
-        return toDate(value, UtDateTime.EMPTY_DATE.toDate());
+        return toDate(value, UtDateTime.EMPTY_DATE);
     }
 
     /**

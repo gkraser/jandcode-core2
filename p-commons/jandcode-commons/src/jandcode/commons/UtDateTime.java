@@ -15,12 +15,23 @@ public class UtDateTime {
     /**
      * Специальная дата, которая рассматривается как пустая
      */
-    public static XDateTime EMPTY_DATE = XDateTime.create(0, 1, 1);
+    public static XDate EMPTY_DATE = XDate.create(0, 1, 1);
+
+    /**
+     * Специальная дата, которая рассматривается как пустая
+     */
+    public static XDateTime EMPTY_DATETIME = XDateTime.create(0, 1, 1);
 
     /**
      * Специальная дата, которая рассматривается как пустая дата конца
      */
-    public static XDateTime EMPTY_DATE_END = XDateTime.create(3333, 12, 31);
+    public static XDate EMPTY_DATE_END = XDate.create(3333, 12, 31);
+
+    /**
+     * Специальная дата, которая рассматривается как пустая дата конца
+     */
+    public static XDateTime EMPTY_DATETIME_END = XDateTime.create(3333, 12, 31);
+
 
     private static final int[] DAYS_PER_MONTH = {
             0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
@@ -34,14 +45,14 @@ public class UtDateTime {
      * Проверка на пустую дату
      */
     public static boolean isEmpty(XDateTime d) {
-        return d == null || d.equals(EMPTY_DATE) || d.equals(EMPTY_DATE_END);
+        return d == null || d.equals(EMPTY_DATETIME) || d.equals(EMPTY_DATETIME_END);
     }
 
     /**
      * Проверка на пустую дату
      */
     public static boolean isEmpty(XDate d) {
-        return d == null || d.equals(EMPTY_DATE.toDate()) || d.equals(EMPTY_DATE_END.toDate());
+        return d == null || d.equals(EMPTY_DATE) || d.equals(EMPTY_DATE_END);
     }
 
     /**
