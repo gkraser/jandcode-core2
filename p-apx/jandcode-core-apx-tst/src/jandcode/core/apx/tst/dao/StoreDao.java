@@ -85,7 +85,7 @@ public class StoreDao extends BaseModelDao {
             st.addField("f" + j, "string");
         }
 
-        String rndRusChars = "абвгдежзи";
+        String rndEnChars = "qwertyasdfg";
 
         long id;
         for (int i = 0; i < countRecords; i++) {
@@ -94,7 +94,7 @@ public class StoreDao extends BaseModelDao {
             rec.setValue("id", id);
             rec.setValue("color", (id % 3) + 1);
             rec.setValue("dict20", (id % 20) + 1);
-            rec.setValue("text1", rnd.text(rndRusChars, 10, 15, 4));
+            rec.setValue("text1", rnd.text(rndEnChars, 10, 15, 4));
 
             for (int j = 1; j <= countFields; j++) {
                 rec.setValue("f" + j, "v-" + id + "-" + j);
