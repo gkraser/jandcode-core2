@@ -127,4 +127,10 @@ public final class XDateTimeImpl implements XDateTime {
         return create(jdn.clearMSec());
     }
 
+    //////
+
+    public XDate toDate() {
+        return XDateImpl.create(jdn);
+    }
+
 }

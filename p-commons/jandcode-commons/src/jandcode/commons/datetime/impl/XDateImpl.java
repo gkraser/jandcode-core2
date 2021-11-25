@@ -85,4 +85,10 @@ public final class XDateImpl implements XDate {
         }
     }
 
+    //////
+
+    public XDateTime toDateTime() {
+        return XDateTimeImpl.create(jdn);
+    }
+
 }

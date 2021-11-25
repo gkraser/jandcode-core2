@@ -28,6 +28,10 @@ public interface IVariant extends IValue {
         return UtCnv.toDateTime(getValue());
     }
 
+    default XDate getDate() {
+        return UtCnv.toDate(getValue());
+    }
+
     default String getString() {
         return UtCnv.toString(getValue());
     }

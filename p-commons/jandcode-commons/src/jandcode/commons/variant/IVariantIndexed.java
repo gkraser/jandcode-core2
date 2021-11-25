@@ -28,6 +28,10 @@ public interface IVariantIndexed extends IValueIndexed {
         return UtCnv.toDateTime(getValue(index));
     }
 
+    default XDate getDate(int index) {
+        return UtCnv.toDate(getValue(index));
+    }
+
     default String getString(int index) {
         return UtCnv.toString(getValue(index));
     }

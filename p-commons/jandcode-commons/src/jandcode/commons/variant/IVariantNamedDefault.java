@@ -24,6 +24,10 @@ public interface IVariantNamedDefault extends IValueNamed {
         return UtCnv.toDateTime(getValue(name), defValue);
     }
 
+    default XDate getDate(String name, XDate defValue) {
+        return UtCnv.toDate(getValue(name), defValue);
+    }
+
     default String getString(String name, String defValue) {
         return UtCnv.toString(getValue(name), defValue);
     }

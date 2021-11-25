@@ -114,6 +114,13 @@ public class UtDateTime {
     }
 
     /**
+     * Проверка на пустую дату
+     */
+    public static boolean isEmpty(XDate d) {
+        return d == null || d.equals(EMPTY_DATE.toDate()) || d.equals(EMPTY_DATE_END.toDate());
+    }
+
+    /**
      * Проверка, что дата - это сегодня
      *
      * @param dt проверяемая дата

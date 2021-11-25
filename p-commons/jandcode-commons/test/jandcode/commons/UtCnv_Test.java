@@ -73,6 +73,20 @@ public class UtCnv_Test extends Utils_Test {
     }
 
     @Test
+    public void test_toDate() throws Exception {
+        assertEquals(UtCnv.toDate("").toString(), "0000-01-01");
+        assertEquals(UtCnv.toDate("1999").toString(), "0000-01-01");
+        assertEquals(UtCnv.toDate("1999-12").toString(), "0000-01-01");
+        assertEquals(UtCnv.toDate("1999-12-23").toString(), "1999-12-23");
+        long a = 1382432226328L;
+        assertEquals(UtCnv.toDate(a).toString(), "2013-10-22");
+        assertEquals(UtCnv.toDate(new Date(a)).toString(), "2013-10-22");
+        assertEquals(UtCnv.toDate(new java.sql.Date(a)).toString(), "2013-10-22");
+        assertEquals(UtCnv.toDate(new java.sql.Time(a)).toString(), "2013-10-22");
+        assertEquals(UtCnv.toDate(new java.sql.Timestamp(a)).toString(), "2013-10-22");
+    }
+
+    @Test
     public void test_toName() throws Exception {
         assertEquals(UtCnv.toName(null), "");
         assertEquals(UtCnv.toName("a"), "a");

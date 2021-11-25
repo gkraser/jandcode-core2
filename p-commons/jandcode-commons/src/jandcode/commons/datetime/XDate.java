@@ -91,4 +91,11 @@ public interface XDate extends Comparable<XDate>, IDateApi<XDate> {
         return create(Jdn.create(d));
     }
 
+    //////
+
+    /**
+     * Сконвертировать в дату
+     */
+    XDateTime toDateTime();
+
 }

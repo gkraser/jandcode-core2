@@ -12,6 +12,7 @@ public enum VariantDataType {
     INT,
     LONG,
     DOUBLE,
+    DATE,
     DATETIME,
     STRING,
     BOOLEAN,
@@ -74,6 +75,9 @@ public enum VariantDataType {
         } else if (XDateTime.class.isAssignableFrom(cls)) {
             return DATETIME;
 
+        } else if (XDate.class.isAssignableFrom(cls)) {
+            return DATE;
+
         } else if (cls == byte[].class) {
             return BLOB;
 
@@ -123,6 +127,8 @@ public enum VariantDataType {
                 return UtCnv.toDouble(value);
             case DATETIME:
                 return UtCnv.toDateTime(value);
+            case DATE:
+                return UtCnv.toDate(value);
             case BOOLEAN:
                 return UtCnv.toBoolean(value);
             case STRING:
@@ -146,6 +152,8 @@ public enum VariantDataType {
                 return Double.compare(UtCnv.toDouble(v1), UtCnv.toDouble(v2));
             case DATETIME:
                 return UtCnv.toDateTime(v1).compareTo(UtCnv.toDateTime(v2));
+            case DATE:
+                return UtCnv.toDate(v1).compareTo(UtCnv.toDate(v2));
             case BOOLEAN:
                 return Boolean.compare(UtCnv.toBoolean(v1), UtCnv.toBoolean(v2));
             case STRING:

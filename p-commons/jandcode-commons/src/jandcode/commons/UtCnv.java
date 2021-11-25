@@ -175,6 +175,8 @@ public class UtCnv {
                 }
             } else if (value instanceof XDateTime) {
                 return value.toString();
+            } else if (value instanceof XDate) {
+                return value.toString();
             } else if (value instanceof byte[]) {
                 return UtString.encodeBase64((byte[]) value);
             } else
@@ -245,17 +247,19 @@ public class UtCnv {
             if (value == null) {
                 return defValue;
             } else if (value instanceof String) {
-                return UtDateTime.create((String) value);
+                return XDateTime.create((String) value);
             } else if (value instanceof XDateTime) {
                 return (XDateTime) value;
+            } else if (value instanceof XDate) {
+                return ((XDate) value).toDateTime();
             } else if (value instanceof java.util.Date) {
-                return UtDateTime.create((java.util.Date) value);
+                return XDateTime.create((java.util.Date) value);
             } else if (value instanceof LocalDateTime) {
-                return UtDateTime.create(((LocalDateTime) value));
+                return XDateTime.create(((LocalDateTime) value));
             } else if (value instanceof LocalDate) {
-                return UtDateTime.create(((LocalDate) value));
+                return XDateTime.create(((LocalDate) value));
             } else if (value instanceof Number) {
-                return UtDateTime.create(((Number) value).longValue());
+                return XDateTime.create(((Number) value).longValue());
             } else {
                 return defValue;
             }
@@ -269,6 +273,43 @@ public class UtCnv {
      */
     public static XDateTime toDateTime(Object value) {
         return toDateTime(value, UtDateTime.EMPTY_DATE);
+    }
+
+    /**
+     * Конвертация в XDate.
+     * Если значение не может быть сконвертировано, возвращает значение по умолчанию defValue.
+     */
+    public static XDate toDate(Object value, XDate defValue) {
+        try {
+            if (value == null) {
+                return defValue;
+            } else if (value instanceof String) {
+                return XDate.create((String) value);
+            } else if (value instanceof XDate) {
+                return (XDate) value;
+            } else if (value instanceof XDateTime) {
+                return ((XDateTime) value).toDate();
+            } else if (value instanceof java.util.Date) {
+                return XDate.create((java.util.Date) value);
+            } else if (value instanceof LocalDateTime) {
+                return XDate.create(((LocalDateTime) value));
+            } else if (value instanceof LocalDate) {
+                return XDate.create(((LocalDate) value));
+            } else if (value instanceof Number) {
+                return XDate.create(((Number) value).longValue());
+            } else {
+                return defValue;
+            }
+        } catch (Exception e) {
+            return defValue;
+        }
+    }
+
+    /**
+     * Конвертация в XDateTime.
+     */
+    public static XDate toDate(Object value) {
+        return toDate(value, UtDateTime.EMPTY_DATE.toDate());
     }
 
     /**
@@ -566,6 +607,8 @@ public class UtCnv {
             return ((String) value).length() == 0;
         } else if (value instanceof XDateTime) {
             return UtDateTime.isEmpty((XDateTime) value);
+        } else if (value instanceof XDate) {
+            return UtDateTime.isEmpty((XDate) value);
         } else if (value instanceof byte[]) {
             return ((byte[]) value).length == 0;
         }
