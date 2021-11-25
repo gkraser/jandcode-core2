@@ -79,7 +79,7 @@ public final class XDateImpl implements XDate {
 
     public boolean equals(Object obj) {
         if (obj instanceof XDateImpl) {
-            return jdn.equals(obj);
+            return jdn.equals(((XDateImpl) obj).jdn);
         } else {
             return false;
         }

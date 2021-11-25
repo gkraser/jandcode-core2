@@ -19,6 +19,8 @@ public interface XDateTimeFormatter {
      */
     XDateTimeFormatter ISO_DATE_TIME = UtDateTime.createFormatter(DateTimeFormatter.ISO_DATE_TIME);
 
+    //////
+
     /**
      * Дату в строку
      *
@@ -30,22 +32,7 @@ public interface XDateTimeFormatter {
     /**
      * Строку в дату
      */
-    XDateTime parse(String s);
-
-    //////
-
-    /**
-     * Дату в строку
-     *
-     * @param d дата
-     * @return строковое представление
-     */
-    String toString(XDateTime2 d);
-
-    /**
-     * Строку в дату
-     */
-    XDateTime2 parseDateTime(String s);
+    XDateTime parseDateTime(String s);
 
     /**
      * Дату в строку

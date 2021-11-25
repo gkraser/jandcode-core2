@@ -23,14 +23,6 @@ public class XDateTimeFormatterImpl implements XDateTimeFormatter {
         this.fmt = fmt;
     }
 
-    public String toString(XDateTime d) {
-        if (d == null) {
-            return "";
-        }
-        LocalDateTime d1 = d.toJavaLocalDateTime();
-        return d1.format(fmt);
-    }
-
     protected void parse(String s, XDateTimeDecodedImpl d) {
         TemporalAccessor t = fmt.parse(s);
         //
@@ -61,22 +53,20 @@ public class XDateTimeFormatterImpl implements XDateTimeFormatter {
         }
     }
 
-    public XDateTime parse(String s) {
-        XDateTimeDecodedImpl d = new XDateTimeDecodedImpl();
-        parse(s, d);
-        return new XDateTimeImpl(d);
-    }
-
     //////
 
-    public String toString(XDateTime2 d) {
-        // todo: not implemented toString
-        return null;
+    public String toString(XDateTime d) {
+        if (d == null) {
+            return "";
+        }
+        LocalDateTime d1 = d.toJavaLocalDateTime();
+        return d1.format(fmt);
     }
 
-    public XDateTime2 parseDateTime(String s) {
-        // todo: not implemented parseDateTime
-        return null;
+    public XDateTime parseDateTime(String s) {
+        XDateTimeDecodedImpl d = new XDateTimeDecodedImpl();
+        parse(s, d);
+        return XDateTimeImpl.create(Jdn.create(d));
     }
 
     public String toString(XDate d) {

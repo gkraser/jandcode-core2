@@ -49,7 +49,7 @@ public class UtWeb {
      */
     public static XDateTime stringToDateGMT(String s) {
         try {
-            return FORMATTER_DATETIME_GMT.parse(s).toZone(UtDateTime.ZONE_UTC, ZoneId.systemDefault()).clearMSec();
+            return FORMATTER_DATETIME_GMT.parseDateTime(s).toZone(UtDateTime.ZONE_UTC, ZoneId.systemDefault()).clearMSec();
         } catch (Exception e) {
             return null;
         }

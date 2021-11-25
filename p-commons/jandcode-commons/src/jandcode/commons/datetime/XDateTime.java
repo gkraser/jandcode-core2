@@ -1,119 +1,94 @@
 package jandcode.commons.datetime;
 
+import jandcode.commons.datetime.impl.*;
+
 import java.time.*;
 import java.util.*;
 
 /**
  * Дата и время. Без учета timezone. Неизменяемая.
  */
-public interface XDateTime extends Comparable<XDateTime> {
+public interface XDateTime extends Comparable<XDateTime>, IDateApi<XDateTime>, ITimeApi<XDateTime> {
+
+    private static XDateTime create(Jdn jdn) {
+        return XDateTimeImpl.create(jdn);
+    }
 
     /**
-     * Декодировать дату на составные части
+     * Возвращает текущую дату и время
      */
-    XDateTimeDecoded decode();
+    static XDateTime now() {
+        return create(Jdn.create(LocalDateTime.now()));
+    }
 
     /**
-     * Перевести в строку указанного формата
+     * Создать из строки в формате iso
      */
-    String toString(XDateTimeFormatter fmt);
+    static XDateTime create(String s) {
+        return create(Jdn.create(s));
+    }
 
     /**
-     * Перевести в java LocalDateTime
+     * Создать из строки в указанном формате
      */
-    LocalDateTime toJavaLocalDateTime();
+    static XDateTime create(String s, XDateTimeFormatter fmt) {
+        return fmt.parseDateTime(s);
+    }
 
     /**
-     * Перевести в java ZonedDateTime, считая, что дата XDateTime в текущей зоне
+     * Создать дату из java Date
      */
-    ZonedDateTime toJavaZonedDateTime();
+    static XDateTime create(Date z) {
+        return create(Jdn.create(z));
+    }
 
     /**
-     * Перевести в java ZonedDateTime, считая, что дата XDateTime в зоне zone
+     * Создать дату из милисекунд
      */
-    ZonedDateTime toJavaZonedDateTime(ZoneId zone);
+    static XDateTime create(long z) {
+        return create(Jdn.create(z));
+    }
 
     /**
-     * Перевести в java Date, считая, что дата XDateTime в текущей зоне
+     * Создать дату из милисекунд
      */
-    Date toJavaDate();
+    static XDateTime create(long z, ZoneId zone) {
+        return create(Jdn.create(z, zone));
+    }
 
     /**
-     * Перевести в java Date, считая, что дата XDateTime в зоне zone
+     * Создать дату по указанным частям
      */
-    Date toJavaDate(ZoneId zone);
+    static XDateTime create(int year, int month, int day) {
+        return create(Jdn.create(year, month, day));
+    }
 
     /**
-     * Считая, что дата в зоне from, перевести ее в to
+     * Создать дату по указанным частям
      */
-    XDateTime toZone(ZoneId from, ZoneId to);
+    static XDateTime create(int year, int month, int day, int hour, int min, int sec) {
+        return create(Jdn.create(year, month, day, hour, min, sec, 0));
+    }
 
     /**
-     * Считая, что дата в текущей зоне, перевести ее в to
+     * Создать дату по указанным частям
      */
-    XDateTime toZone(ZoneId to);
-
-    //////
+    static XDateTime create(int year, int month, int day, int hour, int min, int sec, int msec) {
+        return create(Jdn.create(year, month, day, hour, min, sec, msec));
+    }
 
     /**
-     * Очистить время
+     * Создать дату по LocalDateTime
      */
-    XDateTime clearTime();
+    static XDateTime create(LocalDateTime d) {
+        return create(Jdn.create(d));
+    }
 
     /**
-     * Есть ли время
+     * Создать дату по LocalDate
      */
-    boolean hasTime();
-
-    /**
-     * Очистить милисекунды
-     */
-    XDateTime clearMSec();
-
-    //////
-
-    /**
-     * Прибавить количество дней (+/-) и вернуть новую дату
-     */
-    XDateTime addDays(int days);
-
-    /**
-     * Прибавить количество месяцев (+/-) и вернуть новую дату.
-     * Если новая дата за границами месяца, то она приводится к концу месяца.
-     */
-    XDateTime addMonths(int months);
-
-    /**
-     * Прибавить количество лет (+/-) и вернуть новую дату.
-     * Если новая дата за границами месяца, то она приводится к концу месяца.
-     */
-    XDateTime addYears(int years);
-
-    //////
-
-    /**
-     * Возвращает дату начала месяца.
-     * Время стирается.
-     */
-    XDateTime beginOfMonth();
-
-    /**
-     * Возвращает дату конца месяца.
-     * Время стирается.
-     */
-    XDateTime endOfMonth();
-
-    /**
-     * Возвращает дату начала года.
-     * Время стирается.
-     */
-    XDateTime beginOfYear();
-
-    /**
-     * Возвращает дату конца года.
-     * Время стирается.
-     */
-    XDateTime endOfYear();
+    static XDateTime create(LocalDate d) {
+        return create(Jdn.create(d));
+    }
 
 }
-

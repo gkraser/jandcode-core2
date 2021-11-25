@@ -15,12 +15,12 @@ public class UtDateTime {
     /**
      * Специальная дата, которая рассматривается как пустая
      */
-    public static XDateTime EMPTY_DATE = new XDateTimeImpl(0, 1, 1);
+    public static XDateTime EMPTY_DATE = XDateTime.create(0, 1, 1);
 
     /**
      * Специальная дата, которая рассматривается как пустая дата конца
      */
-    public static XDateTime EMPTY_DATE_END = new XDateTimeImpl(3333, 12, 31);
+    public static XDateTime EMPTY_DATE_END = XDateTime.create(3333, 12, 31);
 
     private static final int[] DAYS_PER_MONTH = {
             0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
@@ -33,8 +33,9 @@ public class UtDateTime {
     /**
      * Возвращает текущую дату и временя
      */
+    @Deprecated
     public static XDateTime now() {
-        return new XDateTimeImpl();
+        return XDateTime.now();
     }
 
     /**
@@ -42,78 +43,65 @@ public class UtDateTime {
      *
      * @return дата без времени
      */
+    @Deprecated
     public static XDateTime today() {
-        return new XDateTimeImpl().clearTime();
+        return XDateTime.now().clearTime();
     }
 
     /**
      * Создать дату из строки в формате iso
      */
+    @Deprecated
     public static XDateTime create(String s) {
-        return new XDateTimeImpl(s);
+        return XDateTime.create(s);
     }
 
     /**
      * Создать дату из строки в указанном формате
      */
+    @Deprecated
     public static XDateTime create(String s, XDateTimeFormatter fmt) {
-        return new XDateTimeImpl(s, (XDateTimeFormatterImpl) fmt);
+        return XDateTime.create(s, (XDateTimeFormatterImpl) fmt);
     }
 
     /**
      * Создать дату из java Date
      */
+    @Deprecated
     public static XDateTime create(Date z) {
-        return new XDateTimeImpl(z);
+        return XDateTime.create(z);
     }
 
     /**
      * Создать дату из милисекунд
      */
+    @Deprecated
     public static XDateTime create(long z) {
-        return new XDateTimeImpl(z);
-    }
-
-    /**
-     * Создать дату из милисекунд
-     */
-    public static XDateTime create(long z, ZoneId zone) {
-        return new XDateTimeImpl(z, zone);
+        return XDateTime.create(z);
     }
 
     /**
      * Создать дату по указанным частям
      */
+    @Deprecated
     public static XDateTime create(int year, int month, int day) {
-        return new XDateTimeImpl(year, month, day);
-    }
-
-    /**
-     * Создать дату по указанным частям
-     */
-    public static XDateTime create(int year, int month, int day, int hour, int min, int sec) {
-        return new XDateTimeImpl(year, month, day, hour, min, sec);
-    }
-
-    /**
-     * Создать дату по указанным частям
-     */
-    public static XDateTime create(int year, int month, int day, int hour, int min, int sec, int msec) {
-        return new XDateTimeImpl(year, month, day, hour, min, sec, msec);
+        return XDateTime.create(year, month, day);
     }
 
     /**
      * Создать дату по LocalDateTime
      */
+    @Deprecated
     public static XDateTime create(LocalDateTime d) {
-        return new XDateTimeImpl(d);
+        return XDateTime.create(d);
     }
 
     /**
      * Создать дату по LocalDate
      */
+    @Deprecated
     public static XDateTime create(LocalDate d) {
-        return new XDateTimeImpl(d);
+        return XDateTime.create(d);
     }
 
     //////

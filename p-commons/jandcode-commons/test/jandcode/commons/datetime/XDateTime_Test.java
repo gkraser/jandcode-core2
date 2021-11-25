@@ -1,6 +1,5 @@
 package jandcode.commons.datetime;
 
-import jandcode.commons.*;
 import jandcode.commons.datetime.impl.*;
 import jandcode.commons.test.*;
 import org.junit.jupiter.api.*;
@@ -16,15 +15,15 @@ public class XDateTime_Test extends Utils_Test {
     @Test
     public void test_decodeJulianDay_1() throws Exception {
         XDateTimeDecodedImpl d = new XDateTimeDecodedImpl();
-        XDateTimeImpl.decodeJulianDay(d, 2305448);
+        Jdn.decodeJulianDay(d, 2305448);
         assertEquals(d.toString(), "1600-01-01");
-        XDateTimeImpl.decodeJulianDay(d, 2455940);
+        Jdn.decodeJulianDay(d, 2455940);
         assertEquals(d.toString(), "2012-01-13");
-        XDateTimeImpl.decodeJulianDay(d, 3182030);
+        Jdn.decodeJulianDay(d, 3182030);
         assertEquals(d.toString(), "4000-01-01");
-        XDateTimeImpl.decodeJulianDay(d, 2440587);
+        Jdn.decodeJulianDay(d, 2440587);
         assertEquals(d.toString(), "1969-12-31");
-        XDateTimeImpl.decodeJulianDay(d, 2440588);
+        Jdn.decodeJulianDay(d, 2440588);
         assertEquals(d.toString(), "1970-01-01");
     }
 
@@ -35,8 +34,8 @@ public class XDateTime_Test extends Utils_Test {
         long n = 10000000;
         n = 100; // quick
         for (long i = 0; i < n; i++) {
-            XDateTimeImpl.decodeJulianDay(d, 2455940);
-            XDateTimeImpl.decodeTime(d, 2455940);
+            Jdn.decodeJulianDay(d, 2455940);
+            Jdn.decodeTime(d, 2455940);
         }
         stopwatch.stop(n);
         System.out.println(d);
@@ -49,8 +48,8 @@ public class XDateTime_Test extends Utils_Test {
         long n = 10000000;
         n = 100; // quick
         for (long i = 0; i < n; i++) {
-            XDateTimeImpl.encodeJulianDay(d);
-            XDateTimeImpl.encodeTime(d);
+            Jdn.encodeJulianDay(d);
+            Jdn.encodeTime(d);
         }
         stopwatch.stop(n);
         System.out.println(d);
@@ -58,8 +57,8 @@ public class XDateTime_Test extends Utils_Test {
 
     @Test
     public void test_equals1() throws Exception {
-        XDateTime d1 = new XDateTimeImpl(2000, 1, 2, 3, 4, 5, 6);
-        XDateTime d2 = new XDateTimeImpl(2000, 1, 2, 3, 4, 5, 60);
+        XDateTime d1 = XDateTime.create(2000, 1, 2, 3, 4, 5, 6);
+        XDateTime d2 = XDateTime.create(2000, 1, 2, 3, 4, 5, 60);
         System.out.println("compare: " + d1.toString() + " - " + d2.clearMSec().toString());
         assertEquals(d1.equals(d2), false);
         assertEquals(d1.clearMSec().equals(d2.clearMSec()), true);
@@ -83,12 +82,12 @@ public class XDateTime_Test extends Utils_Test {
     public void test_checkAllDates() throws Exception {
         // java 8 dates
         DateTimeFormatter f = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
-        LocalDateTime d1 = LocalDateTime.of(0001, 1, 1, 0, 0, 0);
+        LocalDateTime d1 = LocalDateTime.of(1, 1, 1, 5, 6, 7);
         LocalDateTime d2 = d1;
         XDateTimeFormatter f2 = new XDateTimeFormatterImpl("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
         // jc dates
-        XDateTime m1 = new XDateTimeImpl(1, 1, 1);
+        XDateTime m1 = XDateTime.create(1, 1, 1, 5, 6, 7);
         XDateTime m2 = m1;
 
 
@@ -115,22 +114,22 @@ public class XDateTime_Test extends Utils_Test {
     @Test
     public void test_now() throws Exception {
         XDateTime d;
-        d = new XDateTimeImpl();
+        d = XDateTime.now();
         System.out.println(d.toString());
         System.out.println(LocalDateTime.now());
     }
 
     @Test
     public void test_fromJavaDateTime() throws Exception {
-        XDateTime d = new XDateTimeImpl(LocalDateTime.now());
+        XDateTime d = XDateTime.create(LocalDateTime.now());
         System.out.println(d.decode());
-        d = new XDateTimeImpl(LocalDate.now());
+        d = XDateTime.create(LocalDate.now());
         System.out.println(d.decode());
     }
 
     @Test
     public void test_toJavaDateTime() throws Exception {
-        XDateTime d2 = new XDateTimeImpl(2000, 1, 2, 3, 4, 5, 60);
+        XDateTime d2 = XDateTime.create(2000, 1, 2, 3, 4, 5, 60);
         System.out.println(d2.toJavaLocalDateTime());
     }
 
@@ -141,25 +140,25 @@ public class XDateTime_Test extends Utils_Test {
         XDateTime d;
         //
         f = new XDateTimeFormatterImpl("dd/MMMM/yy");
-        System.out.println(f.toString(new XDateTimeImpl()));
+        System.out.println(f.toString(XDateTime.now()));
         //
         f = new XDateTimeFormatterImpl("dd/MMMM/yy", Locale.US);
-        System.out.println(f.toString(new XDateTimeImpl()));
+        System.out.println(f.toString(XDateTime.now()));
         //
         f = new XDateTimeFormatterImpl("dd/MM/yyyy");
-        d = f.parse("23/10/1994");
+        d = f.parseDateTime("23/10/1994");
         System.out.println(d);
         //
         f = new XDateTimeFormatterImpl("dd/MM/yyyy mm SSS");
-        d = f.parse("23/10/1994 25 001");
+        d = f.parseDateTime("23/10/1994 25 001");
         System.out.println(d);
         //
         f = new XDateTimeFormatterImpl("dd/MM/yyyy ss");
-        d = f.parse("23/10/1994 25");
+        d = f.parseDateTime("23/10/1994 25");
         System.out.println(d);
         //
         f = new XDateTimeFormatterImpl("yyyy-MM-dd HH:mm:ss.S[SS]");
-        d = f.parse("2012-11-30 22:23:24.1");
+        d = f.parseDateTime("2012-11-30 22:23:24.1");
         System.out.println(d);
 
 
@@ -169,44 +168,44 @@ public class XDateTime_Test extends Utils_Test {
     public void test_fromString_fmt1() throws Exception {
         XDateTime d;
         //
-        d = new XDateTimeImpl("1994-12-23");
+        d = XDateTime.create("1994-12-23");
         System.out.println(d);
         //
-        d = new XDateTimeImpl("1994-12-23T12:13:14");
+        d = XDateTime.create("1994-12-23T12:13:14");
         System.out.println(d);
         //
-        d = new XDateTimeImpl("1994-12-23T12:13:14.567");
+        d = XDateTime.create("1994-12-23T12:13:14.567");
         System.out.println(d);
         //
-        d = new XDateTimeImpl("2020-11-12T00:00:00.000Z");
+        d = XDateTime.create("2020-11-12T00:00:00.000Z");
         System.out.println(d);
         //
-        d = new XDateTimeImpl("2020-11-12T06:00:00.000Z");
+        d = XDateTime.create("2020-11-12T06:00:00.000Z");
         System.out.println(d);
         //
-        d = new XDateTimeImpl("2020-11-12T06:00:00.000");
+        d = XDateTime.create("2020-11-12T06:00:00.000");
         System.out.println(d);
         //
     }
 
     @Test
     public void test_toZone() throws Exception {
-        XDateTime t = new XDateTimeImpl();
+        XDateTime t = XDateTime.now();
         System.out.println(t.toZone(ZoneId.of("UTC")));
     }
 
     @Test
     public void test_mills() throws Exception {
         long a = System.currentTimeMillis();
-        System.out.println(new XDateTimeImpl(a));
-        System.out.println(new XDateTimeImpl(a, ZoneId.of("UTC")));
+        System.out.println(XDateTime.create(a));
+        System.out.println(XDateTime.create(a, ZoneId.of("UTC")));
     }
 
     @Test
     public void test_fromJavaOldDate() throws Exception {
         Date z = new Date();
         System.out.println(z);
-        XDateTime d = new XDateTimeImpl(z);
+        XDateTime d = XDateTime.create(z);
         System.out.println(d);
     }
 
@@ -214,7 +213,7 @@ public class XDateTime_Test extends Utils_Test {
 
     @Test
     public void test_toJava() throws Exception {
-        XDateTime d = UtDateTime.create("2010-11-12T13:14:15");
+        XDateTime d = XDateTime.create("2010-11-12T13:14:15");
         assertEquals(d.toJavaLocalDateTime().toString(), "2010-11-12T13:14:15");
         assertEquals(d.toJavaZonedDateTime().toString().startsWith("2010-11-12T13:14:15+"), true);
         assertEquals(d.toJavaZonedDateTime(ZoneId.of("UTC")).toString(), "2010-11-12T13:14:15Z[UTC]");
@@ -226,7 +225,7 @@ public class XDateTime_Test extends Utils_Test {
 
     @Test
     public void addMonths_1() throws Exception {
-        XDateTime d1 = UtDateTime.create("2011-11-30");
+        XDateTime d1 = XDateTime.create("2011-11-30");
         XDateTime d2;
 
         // +
@@ -279,9 +278,9 @@ public class XDateTime_Test extends Utils_Test {
         int startY = 1999;
         for (int y = 0; y <= 200; y++) {
             for (int m = 0; m < 12; m++) {
-                XDateTime d = UtDateTime.create(startY + y, m + 1, 1);
+                XDateTime d = XDateTime.create(startY + y, m + 1, 1);
                 int months = y * 12 + m;
-                XDateTime startDt = UtDateTime.create(startY, 1, 1);
+                XDateTime startDt = XDateTime.create(startY, 1, 1);
                 XDateTime d2 = startDt.addMonths(months);
                 //System.out.println("" + months + " " + d + " = " + d2);
                 assertEquals(d2.toString(), d.toString());
@@ -293,9 +292,9 @@ public class XDateTime_Test extends Utils_Test {
         int startY = 1999;
         for (int y = 0; y <= 200; y++) {
             for (int m = 0; m < 12; m++) {
-                XDateTime d = UtDateTime.create(startY - y, 12 - m, 1);
+                XDateTime d = XDateTime.create(startY - y, 12 - m, 1);
                 int months = y * 12 + m;
-                XDateTime startDt = UtDateTime.create(startY, 12, 1);
+                XDateTime startDt = XDateTime.create(startY, 12, 1);
                 XDateTime d2 = startDt.addMonths(-months);
                 //System.out.println("" + months + " " + d + " = " + d2);
                 assertEquals(d2.toString(), d.toString());
@@ -311,7 +310,7 @@ public class XDateTime_Test extends Utils_Test {
 
     @Test
     public void addYear_1() throws Exception {
-        XDateTime d1 = UtDateTime.create("2004-02-29");
+        XDateTime d1 = XDateTime.create("2004-02-29");
         XDateTime d2;
 
         d2 = d1.addYears(1);
@@ -323,26 +322,26 @@ public class XDateTime_Test extends Utils_Test {
 
     @Test
     public void beginOfMonth() throws Exception {
-        assertEquals(UtDateTime.create("1999-12-25").beginOfMonth().toString(), "1999-12-01");
-        assertEquals(UtDateTime.create("1999-12-25T12:13:14").beginOfMonth().toString(), "1999-12-01T12:13:14");
+        assertEquals(XDateTime.create("1999-12-25").beginOfMonth().toString(), "1999-12-01");
+        assertEquals(XDateTime.create("1999-12-25T12:13:14").beginOfMonth().toString(), "1999-12-01T12:13:14");
     }
 
     @Test
     public void endOfMonth() throws Exception {
-        assertEquals(UtDateTime.create("2004-02-25").endOfMonth().toString(), "2004-02-29");
-        assertEquals(UtDateTime.create("1999-12-25T12:13:14").endOfMonth().toString(), "1999-12-31T12:13:14");
+        assertEquals(XDateTime.create("2004-02-25").endOfMonth().toString(), "2004-02-29");
+        assertEquals(XDateTime.create("1999-12-25T12:13:14").endOfMonth().toString(), "1999-12-31T12:13:14");
     }
 
     @Test
     public void beginOfYear() throws Exception {
-        assertEquals(UtDateTime.create("1999-12-25").beginOfYear().toString(), "1999-01-01");
-        assertEquals(UtDateTime.create("1999-12-25T12:13:14").beginOfYear().toString(), "1999-01-01T12:13:14");
+        assertEquals(XDateTime.create("1999-12-25").beginOfYear().toString(), "1999-01-01");
+        assertEquals(XDateTime.create("1999-12-25T12:13:14").beginOfYear().toString(), "1999-01-01T12:13:14");
     }
 
     @Test
     public void endOfYear() throws Exception {
-        assertEquals(UtDateTime.create("2004-02-25").endOfYear().toString(), "2004-12-31");
-        assertEquals(UtDateTime.create("1999-12-25T12:13:14").endOfYear().toString(), "1999-12-31T12:13:14");
+        assertEquals(XDateTime.create("2004-02-25").endOfYear().toString(), "2004-12-31");
+        assertEquals(XDateTime.create("1999-12-25T12:13:14").endOfYear().toString(), "1999-12-31T12:13:14");
     }
 
 }
