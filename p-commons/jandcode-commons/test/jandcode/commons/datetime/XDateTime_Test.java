@@ -344,4 +344,22 @@ public class XDateTime_Test extends Utils_Test {
         assertEquals(XDateTime.create("1999-12-25T12:13:14").endOfYear().toString(), "1999-12-31T12:13:14");
     }
 
+    @Test
+    public void compare_date_and_datetime() throws Exception {
+        XDateTime dt = XDateTime.create(2011, 11, 22);
+        XDate d = XDate.create(2011, 11, 22);
+
+        assertEquals(dt, d);
+        assertEquals(dt.compareTo(d), 0);
+    }
+
+    @Test
+    public void is_today() throws Exception {
+        XDateTime dt = XDateTime.now();
+        assertTrue(dt.isToday());
+
+        XDate d = XDate.today();
+        assertTrue(d.isToday());
+    }
+
 }

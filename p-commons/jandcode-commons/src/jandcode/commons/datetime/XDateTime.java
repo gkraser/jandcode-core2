@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Дата и время. Без учета timezone. Неизменяемая.
  */
-public interface XDateTime extends Comparable<XDateTime>, IDateApi<XDateTime>, ITimeApi<XDateTime> {
+public interface XDateTime extends Comparable<Object>, IDateApi<XDateTime>, ITimeApi<XDateTime> {
 
     private static XDateTime create(Jdn jdn) {
         return XDateTimeImpl.create(jdn);
@@ -19,6 +19,13 @@ public interface XDateTime extends Comparable<XDateTime>, IDateApi<XDateTime>, I
      */
     static XDateTime now() {
         return create(Jdn.create(LocalDateTime.now()));
+    }
+
+    /**
+     * Возвращает сегодняшнюю дату
+     */
+    static XDateTime today() {
+        return now().clearTime();
     }
 
     /**

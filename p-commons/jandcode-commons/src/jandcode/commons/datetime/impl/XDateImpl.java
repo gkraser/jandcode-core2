@@ -6,7 +6,7 @@ import java.time.*;
 
 public final class XDateImpl implements XDate {
 
-    private final Jdn jdn;
+    final Jdn jdn;
 
     public static XDate create(Jdn jdn) {
         return new XDateImpl(jdn);
@@ -66,11 +66,14 @@ public final class XDateImpl implements XDate {
 
     ////// system
 
-    public int compareTo(XDate o) {
-        if (!(o instanceof XDateImpl)) {
-            return 1;
+    public int compareTo(Object o) {
+        if (o instanceof XDateImpl) {
+            return jdn.compareTo(((XDateImpl) o).jdn);
         }
-        return jdn.compareTo(((XDateImpl) o).jdn);
+        if (o instanceof XDateTimeImpl) {
+            return jdn.compareTo(((XDateTimeImpl) o).jdn);
+        }
+        return 1;
     }
 
     public int hashCode() {
@@ -80,6 +83,8 @@ public final class XDateImpl implements XDate {
     public boolean equals(Object obj) {
         if (obj instanceof XDateImpl) {
             return jdn.equals(((XDateImpl) obj).jdn);
+        } else if (obj instanceof XDateTimeImpl) {
+            return jdn.equals(((XDateTimeImpl) obj).jdn);
         } else {
             return false;
         }
@@ -91,4 +96,7 @@ public final class XDateImpl implements XDate {
         return XDateTimeImpl.create(jdn);
     }
 
+    public boolean isToday() {
+        return this.equals(XDate.today());
+    }
 }

@@ -139,26 +139,26 @@ abstract class DbDatatype_Test extends App_Test {
         //
         XDateTime dt;
 
-        dt = UtDateTime.create("2012-11-30")
+        dt = XDateTime.create("2012-11-30")
         assertEquals(z.dbdatatypeRetrive("date", dt), dt)
 
-        dt = UtDateTime.create("2012-11-30T22:23:24")
+        dt = XDateTime.create("2012-11-30T22:23:24")
         if (z.dbType == "oracle") {
             assertEquals(z.dbdatatypeRetrive("date", dt), dt)
         } else {
             assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearTime())
         }
 
-        dt = UtDateTime.create("2012-11-30T22:23:24.123")
+        dt = XDateTime.create("2012-11-30T22:23:24.123")
         if (z.dbType == "oracle") {
             assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearMSec())
         } else {
             assertEquals(z.dbdatatypeRetrive("date", dt), dt.clearTime())
         }
 
-        dt = UtDateTime.create("1984-04-01")
+        dt = XDateTime.create("1984-04-01")
         if (z.dbType == "oracle") {
-            assertEquals(z.dbdatatypeRetrive("date", dt), UtDateTime.create("1984-04-01T01:00:00"))
+            assertEquals(z.dbdatatypeRetrive("date", dt), XDateTime.create("1984-04-01T01:00:00"))
         } else {
             assertEquals(z.dbdatatypeRetrive("date", dt), dt)
         }
@@ -172,19 +172,19 @@ abstract class DbDatatype_Test extends App_Test {
         //
         XDateTime dt;
 
-        dt = UtDateTime.create("2012-11-30")
+        dt = XDateTime.create("2012-11-30")
         assertEquals(z.dbdatatypeRetrive("datetime", dt), dt)
 
-        dt = UtDateTime.create("2012-11-30T22:23:24")
+        dt = XDateTime.create("2012-11-30T22:23:24")
         assertEquals(z.dbdatatypeRetrive("datetime", dt), dt)
 
-        dt = UtDateTime.create("2012-11-30T22:23:24.123")
+        dt = XDateTime.create("2012-11-30T22:23:24.123")
         assertEquals(z.dbdatatypeRetrive("datetime", dt), dt.clearMSec())
 
-        dt = UtDateTime.create("1984-04-01")
-        assertEquals(z.dbdatatypeRetrive("datetime", dt), UtDateTime.create("1984-04-01T01:00:00"))
+        dt = XDateTime.create("1984-04-01")
+        assertEquals(z.dbdatatypeRetrive("datetime", dt), XDateTime.create("1984-04-01T01:00:00"))
 
-        dt = UtDateTime.create("1984-04-01T15:16:17")
+        dt = XDateTime.create("1984-04-01T15:16:17")
         assertEquals(z.dbdatatypeRetrive("datetime", dt), dt)
 
         assertEquals(z.dbdatatypeRetrive("date", null), UtDateTime.EMPTY_DATE)

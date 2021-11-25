@@ -2,6 +2,7 @@ package jandcode.commons.json;
 
 import com.google.gson.*;
 import jandcode.commons.*;
+import jandcode.commons.datetime.*;
 import jandcode.commons.test.*;
 import org.junit.jupiter.api.*;
 
@@ -29,8 +30,8 @@ public class UtJson_Test extends Utils_Test {
 
         cnv(UtCnv.toMap(1, 2, 2, 3, "ффф", "апю", "z", UtCnv.toMap(1, 2, 2, 3)));
 
-        cnv(Arrays.asList(UtDateTime.today(), UtDateTime.now().clearMSec(),
-                UtCnv.toMap(1, UtDateTime.today(), 2, UtDateTime.now())));
+        cnv(Arrays.asList(XDateTime.today(), XDateTime.now().clearMSec(),
+                UtCnv.toMap(1, XDateTime.today(), 2, XDateTime.now())));
 
     }
 

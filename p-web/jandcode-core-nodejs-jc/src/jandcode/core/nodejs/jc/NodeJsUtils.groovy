@@ -1,7 +1,7 @@
 package jandcode.core.nodejs.jc
 
-
 import jandcode.commons.*
+import jandcode.commons.datetime.*
 import jandcode.commons.named.*
 import jandcode.jc.*
 
@@ -250,7 +250,7 @@ module.exports = {
         Map oldDeps = sortDependsMap(m['dependencies'])
 
         if (oldDeps.toString() != newDeps.toString()) {
-            String tmpFile = wd("temp/${UtDateTime.now().toString(UtDateTime.createFormatter("yyyy-MM-dd--HHmmss"))}--dependencies.json")
+            String tmpFile = wd("temp/${XDateTime.now().toString(UtDateTime.createFormatter("yyyy-MM-dd--HHmmss"))}--dependencies.json")
             log.warn "Состав dependencies в ${fn} изменился. Предыдущий вариант в ${tmpFile}"
             ant.echo(message: UtJson.toJson([dependencies: oldDeps], true), file: tmpFile)
 

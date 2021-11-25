@@ -139,7 +139,7 @@ public class Store_Test extends App_Test {
         st.addField("i4", "int")
 
         Rnd rnd = new Rnd(123)
-        XDateTime today = UtDateTime.today()
+        XDateTime today = XDateTime.today()
 
         for (i in 1..10) {
             st.add(

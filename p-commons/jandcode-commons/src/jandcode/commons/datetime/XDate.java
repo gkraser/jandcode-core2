@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Дата. Неизменяемая.
  */
-public interface XDate extends Comparable<XDate>, IDateApi<XDate> {
+public interface XDate extends Comparable<Object>, IDateApi<XDate> {
 
     private static XDate create(Jdn jdn) {
         return XDateImpl.create(jdn);

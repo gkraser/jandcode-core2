@@ -370,7 +370,7 @@ public class RequestImpl extends BaseComp implements Request {
         }
         this.disableCacheExecuted = true;
         //
-        String pastDate = UtWeb.dateToStringGMT(UtDateTime.create("1973-09-15"));
+        String pastDate = UtWeb.dateToStringGMT(XDateTime.create("1973-09-15"));
         setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         setHeader("Pragma", "no-cache");
         setHeader("Last-Modified", pastDate);

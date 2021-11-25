@@ -25,6 +25,13 @@ public interface IDateApi<TYPE> {
     //////
 
     /**
+     * Является ли дата сегодняшним днем
+     */
+    boolean isToday();
+
+    //////
+
+    /**
      * Прибавить количество дней (+/-) и вернуть новую дату
      */
     TYPE addDays(int days);

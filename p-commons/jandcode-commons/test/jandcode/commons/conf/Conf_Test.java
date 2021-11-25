@@ -1,6 +1,7 @@
 package jandcode.commons.conf;
 
 import jandcode.commons.*;
+import jandcode.commons.datetime.*;
 import org.junit.jupiter.api.*;
 
 import java.util.*;
@@ -20,8 +21,8 @@ public class Conf_Test extends CustomConf_Test {
         x.setValue("str", "s1");
         x.setValue("int", 1);
         x.setValue("bool", true);
-        x.setValue("date", UtDateTime.create("2017-01-30"));
-        x.setValue("datetime", UtDateTime.create("2017-01-30T12:13:14"));
+        x.setValue("date", XDateTime.create("2017-01-30"));
+        x.setValue("datetime", XDateTime.create("2017-01-30T12:13:14"));
 
         conf.printConf(x);
         assertEquals(x.getString("int"), "1");

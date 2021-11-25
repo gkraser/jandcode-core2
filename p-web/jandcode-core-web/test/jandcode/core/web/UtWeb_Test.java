@@ -11,7 +11,7 @@ public class UtWeb_Test extends App_Test {
 
     @Test
     public void testGMT() throws Exception {
-        XDateTime d1 = UtDateTime.now().clearMSec();
+        XDateTime d1 = XDateTime.now().clearMSec();
         String s1 = UtWeb.dateToStringGMT(d1);
         XDateTime d2 = UtWeb.stringToDateGMT(s1);
 

@@ -29,7 +29,7 @@ public class Json_Test extends App_Test {
         st.addField("dt", "date");
         st.addField("null1", "string");
         //
-        XDateTime d = UtDateTime.create("2012-11-30");
+        XDateTime d = XDateTime.create("2012-11-30");
         for (int i = 1; i <= 2; i++) {
             StoreRecord r = st.add();
             r.setValue("id", i);

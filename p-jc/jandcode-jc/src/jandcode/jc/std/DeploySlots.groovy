@@ -91,7 +91,7 @@ class DeploySlots extends ProjectScript {
      * Создать новый слот
      */
     Slot createSlot() {
-        XDateTime dt = UtDateTime.now()
+        XDateTime dt = XDateTime.now()
         String dirName = dt.toString(dateFmt)
         String destDir = wd("${rootDir}/${dirName}")
         UtFile.mkdirs(destDir)

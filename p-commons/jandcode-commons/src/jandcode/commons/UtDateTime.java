@@ -28,82 +28,6 @@ public class UtDateTime {
 
     public static final ZoneId ZONE_UTC = ZoneId.of("UTC");
 
-    ////// constructors
-
-    /**
-     * Возвращает текущую дату и временя
-     */
-    @Deprecated
-    public static XDateTime now() {
-        return XDateTime.now();
-    }
-
-    /**
-     * Возвращает сегодняшнюю дату без времени
-     *
-     * @return дата без времени
-     */
-    @Deprecated
-    public static XDateTime today() {
-        return XDateTime.now().clearTime();
-    }
-
-    /**
-     * Создать дату из строки в формате iso
-     */
-    @Deprecated
-    public static XDateTime create(String s) {
-        return XDateTime.create(s);
-    }
-
-    /**
-     * Создать дату из строки в указанном формате
-     */
-    @Deprecated
-    public static XDateTime create(String s, XDateTimeFormatter fmt) {
-        return XDateTime.create(s, (XDateTimeFormatterImpl) fmt);
-    }
-
-    /**
-     * Создать дату из java Date
-     */
-    @Deprecated
-    public static XDateTime create(Date z) {
-        return XDateTime.create(z);
-    }
-
-    /**
-     * Создать дату из милисекунд
-     */
-    @Deprecated
-    public static XDateTime create(long z) {
-        return XDateTime.create(z);
-    }
-
-    /**
-     * Создать дату по указанным частям
-     */
-    @Deprecated
-    public static XDateTime create(int year, int month, int day) {
-        return XDateTime.create(year, month, day);
-    }
-
-    /**
-     * Создать дату по LocalDateTime
-     */
-    @Deprecated
-    public static XDateTime create(LocalDateTime d) {
-        return XDateTime.create(d);
-    }
-
-    /**
-     * Создать дату по LocalDate
-     */
-    @Deprecated
-    public static XDateTime create(LocalDate d) {
-        return XDateTime.create(d);
-    }
-
     //////
 
     /**
@@ -119,18 +43,6 @@ public class UtDateTime {
     public static boolean isEmpty(XDate d) {
         return d == null || d.equals(EMPTY_DATE.toDate()) || d.equals(EMPTY_DATE_END.toDate());
     }
-
-    /**
-     * Проверка, что дата - это сегодня
-     *
-     * @param dt проверяемая дата
-     * @return true, если дата=сегодня
-     */
-    public static boolean isToday(XDateTime dt) {
-        XDateTime today = today();
-        return today.equals(dt.clearTime());
-    }
-
 
     /**
      * Проверка на високосный год
