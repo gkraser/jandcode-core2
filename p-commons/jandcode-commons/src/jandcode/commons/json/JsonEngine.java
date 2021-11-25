@@ -20,6 +20,7 @@ public class JsonEngine {
         // стандартные адаптеры
         addGsonBuilderIniter((gsonBuilder) -> {
             gsonBuilder.registerTypeHierarchyAdapter(XDateTime.class, new XDateTimeAdapter());
+            gsonBuilder.registerTypeHierarchyAdapter(XDate.class, new XDateAdapter());
         });
     }
 
