@@ -8,7 +8,7 @@ import jandcode.core.store.*;
 public class StoreDataType_date extends BaseStoreDataType {
 
     public StoreDataType_date() {
-        setDataType(VariantDataType.DATETIME);
+        setDataType(VariantDataType.DATE);
     }
 
     public void setFieldValue(IRawRecord rawRec, int index, Object value, StoreRecord rec, StoreField field) {
@@ -16,8 +16,7 @@ public class StoreDataType_date extends BaseStoreDataType {
             value = null;
         }
         if (value != null) {
-            XDateTime dt = UtCnv.toDateTime(value);
-            dt = dt.clearTime();
+            XDate dt = UtCnv.toDate(value);
             rawRec.setRawValue(index, dt);
         } else {
             rawRec.setRawValue(index, value);
@@ -25,7 +24,7 @@ public class StoreDataType_date extends BaseStoreDataType {
     }
 
     public Object getFieldValue(IRawRecord rawRec, int index, StoreRecord rec, StoreField field) {
-        return UtCnv.toDateTime(rawRec.getRawValue(index));
+        return UtCnv.toDate(rawRec.getRawValue(index));
     }
 
 }

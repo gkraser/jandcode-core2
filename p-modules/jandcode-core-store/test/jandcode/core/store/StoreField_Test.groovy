@@ -43,17 +43,17 @@ class StoreField_Test extends App_Test {
         def rec = createRec("date")
 
         v = rec["f"]
-        assertEquals(v.class, XDateTimeImpl)
+        assertEquals(v.class, XDateImpl)
 
         rec["f"] = "2012-12-30"
         v = rec["f"]
-        assertEquals(v.class, XDateTimeImpl)
+        assertEquals(v.class, XDateImpl)
         assertEquals(v.toString(), "2012-12-30")
         println rec["f"]
 
         rec["f"] = "2012-12-30T12:13:14"
         v = rec["f"]
-        assertEquals(v.class, XDateTimeImpl)
+        assertEquals(v.class, XDateImpl)
         assertEquals(v.toString(), "2012-12-30")
         println rec["f"]
     }
