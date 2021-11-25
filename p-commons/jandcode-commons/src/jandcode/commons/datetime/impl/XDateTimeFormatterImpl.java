@@ -67,4 +67,29 @@ public class XDateTimeFormatterImpl implements XDateTimeFormatter {
         return new XDateTimeImpl(d);
     }
 
+    //////
+
+    public String toString(XDateTime2 d) {
+        // todo: not implemented toString
+        return null;
+    }
+
+    public XDateTime2 parseDateTime(String s) {
+        // todo: not implemented parseDateTime
+        return null;
+    }
+
+    public String toString(XDate d) {
+        if (d == null) {
+            return "";
+        }
+        LocalDate d1 = d.toJavaLocalDate();
+        return d1.format(fmt);
+    }
+
+    public XDate parseDate(String s) {
+        XDateTimeDecodedImpl d = new XDateTimeDecodedImpl();
+        parse(s, d);
+        return XDateImpl.create(Jdn.create(d));
+    }
 }

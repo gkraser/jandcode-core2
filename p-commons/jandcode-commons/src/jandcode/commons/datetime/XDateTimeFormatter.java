@@ -32,4 +32,32 @@ public interface XDateTimeFormatter {
      */
     XDateTime parse(String s);
 
+    //////
+
+    /**
+     * Дату в строку
+     *
+     * @param d дата
+     * @return строковое представление
+     */
+    String toString(XDateTime2 d);
+
+    /**
+     * Строку в дату
+     */
+    XDateTime2 parseDateTime(String s);
+
+    /**
+     * Дату в строку
+     *
+     * @param d дата
+     * @return строковое представление
+     */
+    String toString(XDate d);
+
+    /**
+     * Строку в дату
+     */
+    XDate parseDate(String s);
+
 }
