@@ -76,7 +76,7 @@
                         sqltype="datetime"
                         storedatatype="datetime"/>
 
-            <dbdatatype name="date" parent="datetime"
+            <dbdatatype name="date" class="jandcode.core.db.std.DbDataType_date"
                         sqltype="date"
                         storedatatype="date"/>
 
