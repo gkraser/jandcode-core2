@@ -181,6 +181,15 @@ public class ReflectUtilsImpl implements ReflectUtils {
         public Class getCls() {
             return clazz;
         }
+
+        public Collection<String> getGetterNames() {
+            return getters.keySet();
+        }
+
+        public Collection<String> getSetterNames() {
+            return setters.keySet();
+        }
+
     }
 
 

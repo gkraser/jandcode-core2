@@ -1,5 +1,7 @@
 package jandcode.commons.reflect;
 
+import java.util.*;
+
 /**
  * Интерфейс к обертке класса в {@link ReflectUtils}
  */
@@ -33,5 +35,15 @@ public interface ReflectClazz {
      * @return значение свойства
      */
     Object invokeGetter(Object inst, String propname);
+
+    /**
+     * Имена getters
+     */
+    Collection<String> getGetterNames();
+
+    /**
+     * Имена setters
+     */
+    Collection<String> getSetterNames();
 
 }
