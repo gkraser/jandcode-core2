@@ -48,6 +48,13 @@ public interface StoreRecord extends
      */
     void setValues(StoreRecord rec);
 
+    /**
+     * Установить значения для полей из getters указанного объекта.
+     * Если значение есть в getters, но такого поля не существует,
+     * то оно игнорируется.
+     */
+    void setValues(Object inst);
+
 
     ////// для groovy
 

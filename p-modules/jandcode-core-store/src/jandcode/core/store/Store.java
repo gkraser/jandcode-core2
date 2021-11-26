@@ -50,6 +50,11 @@ public interface Store extends INamed, INamedSet, Iterable<StoreRecord>,
     StoreRecord add(StoreRecord rec);
 
     /**
+     * Добавить новую запись из getters указанного объекта.
+     */
+    StoreRecord add(Object inst);
+
+    /**
      * Добавить все записи из указанной store
      */
     void add(Store store);

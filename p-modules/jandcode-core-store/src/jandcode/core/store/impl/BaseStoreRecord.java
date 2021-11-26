@@ -1,6 +1,7 @@
 package jandcode.core.store.impl;
 
 import jandcode.commons.*;
+import jandcode.commons.reflect.*;
 import jandcode.commons.variant.*;
 import jandcode.core.store.*;
 
@@ -78,6 +79,21 @@ public abstract class BaseStoreRecord implements StoreRecord, IRawRecord {
                 continue;
             }
             setValue(f.getIndex(), rec.getValue(fsrc.getIndex()));
+        }
+    }
+
+    public void setValues(Object inst) {
+        if (inst == null) {
+            return;
+        }
+        ReflectClazz cls = UtReflect.getUtils().getClazz(inst.getClass());
+        for (String fn : cls.getGetterNames()) {
+            StoreField f = findField(fn);
+            if (f == null) {
+                continue;
+            }
+            Object v = cls.invokeGetter(inst, fn);
+            setValue(f.getIndex(), v);
         }
     }
 

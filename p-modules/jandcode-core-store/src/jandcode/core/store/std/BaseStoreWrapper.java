@@ -70,6 +70,10 @@ public class BaseStoreWrapper implements Store {
         return getStore().add(rec);
     }
 
+    public StoreRecord add(Object inst) {
+        return getStore().add(inst);
+    }
+
     public void add(Store store) {
         getStore().add(store);
     }

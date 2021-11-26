@@ -161,4 +161,36 @@ public class Store_Test extends App_Test {
 
     }
 
+    ////// add from instance
+
+    class InstanceRec {
+        long id
+        String text
+        XDate date1
+        XDateTime datetime1
+    }
+
+    @Test
+    void add_rec_from_instance() {
+        def st = svc.createStore()
+        st.addField("id", "long")
+        st.addField("text", "string")
+        st.addField("date1", "date")
+        st.addField("datetime1", "datetime")
+
+        def r = new InstanceRec()
+        r.id = 123
+        r.text = "hello"
+        r.date1 = XDate.create(2001, 01, 30)
+        r.datetime1 = XDateTime.create(2001, 01, 29, 10, 11, 12)
+        st.add(r)
+        utils.outTable(st)
+
+        def rec = st.get(0)
+        assertEquals(rec.getLong("id"), 123)
+        assertEquals(rec.getString("text"), "hello")
+        assertEquals(rec.getDate("date1"), XDate.create(2001, 01, 30))
+        assertEquals(rec.getDateTime("datetime1"), XDateTime.create(2001, 01, 29, 10, 11, 12))
+    }
+
 }

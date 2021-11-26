@@ -176,6 +176,14 @@ public abstract class BaseStore implements Store, Cloneable {
         return r;
     }
 
+    public StoreRecord add(Object inst) {
+        this.index = null;
+        StoreRecord r = createRecord();
+        r.setValues(inst);
+        records.add(r);
+        return r;
+    }
+
     public void add(Store store) {
         this.index = null;
         store.copyTo(this);
