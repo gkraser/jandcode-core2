@@ -2,6 +2,7 @@ package jandcode.core.apx.tst.dao;
 
 import jandcode.commons.*;
 import jandcode.commons.rnd.*;
+import jandcode.core.apx.store.*;
 import jandcode.core.dao.*;
 import jandcode.core.dbm.dao.*;
 import jandcode.core.store.*;
@@ -54,60 +55,6 @@ public class StoreDao extends BaseModelDao {
     }
 
     /**
-     * Информация о пагинации
-     */
-    public static class Paginate {
-        public int offset;
-        public int limit;
-        public int total;
-
-        public Paginate() {
-        }
-
-        public Paginate(int offset, int limit, int total) {
-            this.offset = offset;
-            this.limit = limit;
-            this.total = total;
-        }
-
-        public Paginate(int offset, int limit) {
-            this.offset = offset;
-            this.limit = limit;
-        }
-
-        public int getOffset() {
-            return offset;
-        }
-
-        public void setOffset(int offset) {
-            this.offset = offset;
-        }
-
-        public int getLimit() {
-            return limit;
-        }
-
-        public void setLimit(int limit) {
-            this.limit = limit;
-        }
-
-        public int getTotal() {
-            return total;
-        }
-
-        public void setTotal(int total) {
-            this.total = total;
-        }
-    }
-
-    /**
-     * Константы для Store
-     */
-    public static class StoreConsts {
-        public static final String paginate = "paginate";
-    }
-
-    /**
      * Маленькое store
      */
     @DaoMethod
@@ -155,10 +102,13 @@ public class StoreDao extends BaseModelDao {
                 paginate.getLimit(),
                 stSrc.size()
         );
-        st.setCustomProp(StoreConsts.paginate, resPaginate);
+        ApxStoreUtils.setPaginate(st, resPaginate);
 
         int starRec = resPaginate.getOffset();
         int endRec = Math.min(starRec + resPaginate.getLimit(), stSrc.size());
+        if (resPaginate.getLimit() == 0) {
+            endRec = stSrc.size();
+        }
 
         for (int i = starRec; i < endRec; i++) {
             st.add(stSrc.get(i));
