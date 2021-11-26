@@ -54,6 +54,60 @@ public class StoreDao extends BaseModelDao {
     }
 
     /**
+     * Информация о пагинации
+     */
+    public static class Paginate {
+        public int offset;
+        public int limit;
+        public int total;
+
+        public Paginate() {
+        }
+
+        public Paginate(int offset, int limit, int total) {
+            this.offset = offset;
+            this.limit = limit;
+            this.total = total;
+        }
+
+        public Paginate(int offset, int limit) {
+            this.offset = offset;
+            this.limit = limit;
+        }
+
+        public int getOffset() {
+            return offset;
+        }
+
+        public void setOffset(int offset) {
+            this.offset = offset;
+        }
+
+        public int getLimit() {
+            return limit;
+        }
+
+        public void setLimit(int limit) {
+            this.limit = limit;
+        }
+
+        public int getTotal() {
+            return total;
+        }
+
+        public void setTotal(int total) {
+            this.total = total;
+        }
+    }
+
+    /**
+     * Константы для Store
+     */
+    public static class StoreConsts {
+        public static final String paginate = "paginate";
+    }
+
+    /**
      * Маленькое store
      */
     @DaoMethod
@@ -78,6 +132,38 @@ public class StoreDao extends BaseModelDao {
         Store st = genStore1(config.getFromId(), config.getIncId(),
                 config.getCountRecords(), config.getCountFields());
         st.getRecords().removeIf(rec -> !filter.isTrue(rec));
+        return st;
+    }
+
+    /**
+     * Произвольное store с фильтрацией
+     */
+    @DaoMethod
+    public Store customPaginate(StoreConfig config, StoreFilter filter, Paginate paginate) throws Exception {
+        // полный набор данных
+        Store stSrc = genStore1(config.getFromId(), config.getIncId(),
+                config.getCountRecords(), config.getCountFields());
+
+        // фильтруем
+        stSrc.getRecords().removeIf(rec -> !filter.isTrue(rec));
+
+        // извлекаем запрашиваемую часть
+
+        Store st = stSrc.cloneStore();
+        Paginate resPaginate = new Paginate(
+                paginate.getOffset(),
+                paginate.getLimit(),
+                stSrc.size()
+        );
+        st.setCustomProp(StoreConsts.paginate, resPaginate);
+
+        int starRec = resPaginate.getOffset();
+        int endRec = Math.min(starRec + resPaginate.getLimit(), stSrc.size());
+
+        for (int i = starRec; i < endRec; i++) {
+            st.add(stSrc.get(i));
+        }
+
         return st;
     }
 
