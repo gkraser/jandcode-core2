@@ -146,7 +146,13 @@ public class ReflectTableHolderImpl {
         if (fieldProps == null) {
             return;
         }
-        field.setPropIfNotExist("dict", fieldProps.dict());
+
+        if (!UtString.empty(fieldProps.dict())) {
+            field.setPropIfNotExist("dict", fieldProps.dict());
+        }
+        if (fieldProps.size() > 0) {
+            field.setPropIfNotExist("size", fieldProps.size());
+        }
     }
 
 }

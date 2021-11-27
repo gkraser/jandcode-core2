@@ -42,6 +42,14 @@ public class BaseStoreWrapper implements Store {
         return getStore().addField(name, type, size);
     }
 
+    public StoreField addField(String name, Class valueType) {
+        return getStore().addField(name, valueType);
+    }
+
+    public StoreField addField(String name, Class valueType, int size) {
+        return getStore().addField(name, valueType, size);
+    }
+
     public void removeField(String name) {
         getStore().removeField(name);
     }

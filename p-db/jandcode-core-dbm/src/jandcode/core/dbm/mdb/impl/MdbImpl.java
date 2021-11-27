@@ -23,6 +23,7 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
     private DaoInvoker daoInvoker;
     private DomainService domainService;
     private DictService dictService;
+    private StoreService storeService;
 
     public MdbImpl(Model model, Db db) {
         this.model = model;
@@ -136,6 +137,27 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
     public StoreRecord loadQueryRecord(String sql, Object params) throws Exception {
         Store st = loadQuery(sql, params);
         return oneRecord(st);
+    }
+
+    ////// IStoreService
+
+    private StoreService getStoreService() {
+        if (storeService == null) {
+            storeService = getApp().bean(StoreService.class);
+        }
+        return storeService;
+    }
+
+    public StoreField createStoreField(String type) {
+        return getStoreService().createStoreField(type);
+    }
+
+    public StoreField createStoreField(Class valueType) {
+        return getStoreService().createStoreField(valueType);
+    }
+
+    public Store createStore(Class cls) {
+        return getStoreService().createStore(cls);
     }
 
 }

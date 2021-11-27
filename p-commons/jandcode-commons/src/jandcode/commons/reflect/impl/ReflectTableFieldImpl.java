@@ -1,6 +1,5 @@
 package jandcode.commons.reflect.impl;
 
-import jandcode.commons.*;
 import jandcode.commons.reflect.*;
 
 import java.lang.reflect.*;
@@ -55,11 +54,8 @@ public class ReflectTableFieldImpl extends BaseReflectProps implements ReflectTa
 
     //////
 
-    void setPropIfNotExist(String propName, String propValue) {
-        if (UtString.empty(propValue)) {
-            return;
-        }
-        if (UtString.empty(propName)) {
+    void setPropIfNotExist(String propName, Object propValue) {
+        if (propValue == null) {
             return;
         }
         if (this.props == null || !this.props.containsKey(propName)) {

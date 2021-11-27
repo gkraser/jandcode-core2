@@ -34,6 +34,25 @@ public interface IStoreFieldBuilder {
     StoreField addField(String name, String type, int size);
 
     /**
+     * Добавить поле
+     *
+     * @param name      имя поля
+     * @param valueType тип значения поля
+     * @return добавленный экземпляр поля
+     */
+    StoreField addField(String name, Class valueType);
+
+    /**
+     * Добавить поле
+     *
+     * @param name      имя поля
+     * @param valueType тип значения поля
+     * @param size      размер поля
+     * @return добавленный экземпляр поля
+     */
+    StoreField addField(String name, Class valueType, int size);
+
+    /**
      * Удалить поле
      */
     void removeField(String name);

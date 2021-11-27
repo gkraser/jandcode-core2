@@ -98,6 +98,17 @@ public abstract class BaseStore implements Store, Cloneable {
         return addField(name, type, 0);
     }
 
+    public StoreField addField(String name, Class valueType) {
+        return addField(name, valueType, 0);
+    }
+
+    public StoreField addField(String name, Class valueType, int size) {
+        StoreField f = storeService.createStoreField(valueType);
+        f.setSize(size);
+        addFieldInst(name, (BaseStoreField) f);
+        return f;
+    }
+
     public void removeField(String name) {
         checkIsEmptyStore();
         StoreField f = findField(name);

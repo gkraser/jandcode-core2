@@ -39,6 +39,33 @@
         <storedatatype name="string"
                        class="jandcode.core.store.std.StoreDataType_string"/>
 
+        <!-- =================== -->
+
+        <type name="null" storedatatype="null"/>
+
+        <type name="java.lang.CharSequence" storedatatype="string"/>
+        <type name="java.lang.String" storedatatype="string"/>
+
+        <type name="java.lang.Long" storedatatype="long"/>
+        <type name="long" storedatatype="long"/>
+
+        <type name="java.lang.Integer" storedatatype="int"/>
+        <type name="int" storedatatype="int"/>
+
+        <type name="java.lang.Short" storedatatype="int"/>
+        <type name="short" storedatatype="int"/>
+
+        <type name="java.lang.Double" storedatatype="double"/>
+        <type name="double" storedatatype="double"/>
+
+        <type name="java.lang.Boolean" storedatatype="boolean"/>
+        <type name="boolean" storedatatype="boolean"/>
+
+        <type name="jandcode.commons.datetime.XDateTime" storedatatype="datetime"/>
+        <type name="jandcode.commons.datetime.XDate" storedatatype="date"/>
+
+        <type name="byte-array" storedatatype="blob"/>
+
     </store>
 
 </root>

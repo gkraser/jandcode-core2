@@ -15,4 +15,9 @@ public @interface FieldProps {
      */
     String dict() default "";
 
+    /**
+     * Размер поля.
+     */
+    int size() default 0;
+
 }

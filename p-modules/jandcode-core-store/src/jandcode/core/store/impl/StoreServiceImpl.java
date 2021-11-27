@@ -1,7 +1,10 @@
 package jandcode.core.store.impl;
 
+import jandcode.commons.*;
+import jandcode.commons.collect.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.named.*;
+import jandcode.commons.reflect.*;
 import jandcode.core.*;
 import jandcode.core.store.*;
 
@@ -12,6 +15,7 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
     }
 
     private NamedList<StoreDataType> storeDataTypes = new DefaultNamedList<>("Not found StoreDataType: {0}");
+    private ClassLinks<String> storeDatatypesByClass = new ClassLinks<>();
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
@@ -22,6 +26,15 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
         for (Conf sf : topConf.getConfs("storedatatype")) {
             StoreDataType sdt = (StoreDataType) getApp().create(sf);
             storeDataTypes.add(sdt);
+        }
+
+        //
+        for (Conf x : topConf.getConfs("type")) {
+            String rn = x.getString("storedatatype");
+            if (UtString.empty(rn)) {
+                continue; // пропускаем, видимо для чего-то еще нужен
+            }
+            storeDatatypesByClass.add(x.getName(), rn);
         }
 
     }
@@ -35,8 +48,45 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
         return new DefaultStoreField(sdt);
     }
 
+    public StoreField createStoreField(Class valueType) {
+        String type = storeDatatypesByClass.get(valueType);
+        if (UtString.empty(type)) {
+            type = "object";
+        }
+        return createStoreField(type);
+    }
+
     public Store createStore() {
         return new DefaultStore(getApp(), this);
+    }
+
+    public Store createStore(Class cls) {
+        ReflectTable rt = UtReflect.getReflectTable(cls);
+        Store storeStruct = (Store) rt.getProp("storeStruct");
+        if (storeStruct == null) {
+            synchronized (this) {
+                storeStruct = (Store) rt.getProp("storeStruct");
+                if (storeStruct == null) {
+                    storeStruct = createStore();
+                    for (ReflectTableField rtf : rt.getFields()) {
+                        StoreField f = storeStruct.addField(rtf.getName(), rtf.getType());
+
+                        String dict = UtCnv.toString(rtf.getProp("dict"));
+                        if (!UtString.empty(dict)) {
+                            f.setDict(dict);
+                        }
+
+                        int size = UtCnv.toInt(rtf.getProp("size"));
+                        if (size > 0) {
+                            f.setSize(size);
+                        }
+
+                    }
+                    rt.setProp("storeStruct", storeStruct);
+                }
+            }
+        }
+        return storeStruct.cloneStore();
     }
 
 }

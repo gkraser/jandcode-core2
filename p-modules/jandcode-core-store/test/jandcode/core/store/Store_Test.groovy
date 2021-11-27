@@ -1,7 +1,7 @@
 package jandcode.core.store
 
-
 import jandcode.commons.datetime.*
+import jandcode.commons.reflect.*
 import jandcode.commons.rnd.*
 import jandcode.core.test.*
 import org.junit.jupiter.api.*
@@ -168,6 +168,9 @@ public class Store_Test extends App_Test {
         String text
         XDate date1
         XDateTime datetime1
+
+        @FieldProps(dict = "dict1")
+        long dict1
     }
 
     @Test
@@ -191,6 +194,44 @@ public class Store_Test extends App_Test {
         assertEquals(rec.getString("text"), "hello")
         assertEquals(rec.getDate("date1"), XDate.create(2001, 01, 30))
         assertEquals(rec.getDateTime("datetime1"), XDateTime.create(2001, 01, 29, 10, 11, 12))
+    }
+
+    //////
+
+    @Test
+    public void field_by_class() throws Exception {
+        Store st = svc.createStore()
+        st.addField("id", long)
+        st.addField("date", XDate)
+        //
+        st.add(id: 1, date: XDate.create(2000, 1, 2))
+        //
+        utils.outTable(st)
+    }
+
+    @Test
+    public void store_by_class() throws Exception {
+        Store st = svc.createStore(InstanceRec)
+
+        def r = new InstanceRec()
+        r.id = 123
+        r.text = "hello"
+        r.date1 = XDate.create(2001, 01, 30)
+        r.datetime1 = XDateTime.create(2001, 01, 29, 10, 11, 12)
+        r.dict1 = 135
+        st.add(r)
+        utils.outTable(st)
+
+        def rec = st.get(0)
+        assertEquals(rec.getLong("id"), 123)
+        assertEquals(rec.getString("text"), "hello")
+        assertEquals(rec.getDate("date1"), XDate.create(2001, 01, 30))
+        assertEquals(rec.getDateTime("datetime1"), XDateTime.create(2001, 01, 29, 10, 11, 12))
+        assertEquals(rec.getLong("dict1"), 135)
+
+        assertEquals(st.getField("dict1").getDict(), "dict1")
+        assertEquals(st.getField("id").getDict(), null)
+
     }
 
 }
