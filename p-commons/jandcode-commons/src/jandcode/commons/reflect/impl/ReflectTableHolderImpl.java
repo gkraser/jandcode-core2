@@ -33,9 +33,34 @@ public class ReflectTableHolderImpl {
         Map<String, ReflectTableFieldImpl> fields = new LinkedHashMap<>();
         List<Method> setters = new ArrayList<>();
 
+        // собираем gettres/setters и создаем поля
+        grab(cls, fields, setters);
+
+        // setters настраиваем
+        for (Method m : setters) {
+            String fieldName = m.getName().substring(3);
+            ReflectTableFieldImpl field = fields.get(fieldName);
+            if (field != null) {
+                if (field.getType().isAssignableFrom(m.getReturnType())) {
+                    // правильный тип параметра
+                    field.setSetter(m);
+                }
+            }
+        }
+
+        // и поля, включая приватные
+        grabFields(cls, fields);
+
+        return new ReflectTableImpl(cls, fields.values());
+    }
+
+    private void grab(Class cls, Map<String, ReflectTableFieldImpl> fields, List<Method> setters) {
+        if (cls == null || cls == Object.class) {
+            return;
+        }
         // собираем все публичные getters, они определяют состав полей
         // заодно собираем более-менее похожие на правильные setters
-        for (Method m : cls.getMethods()) {
+        for (Method m : cls.getDeclaredMethods()) {
 
             // статические пропускаем
             if (Modifier.isStatic(m.getModifiers())) {
@@ -77,6 +102,8 @@ public class ReflectTableHolderImpl {
                     field.setType(m.getReturnType());
                     fields.put(fieldName, field);
                 }
+                // свойства из аннотации
+                grabProps(field, m.getAnnotation(FieldProps.class));
 
             } else if (nm.startsWith("set")) {
                 // пропускаем просто set
@@ -96,23 +123,7 @@ public class ReflectTableHolderImpl {
             }
 
         }
-
-        // setters настраиваем
-        for (Method m : setters) {
-            String fieldName = m.getName().substring(3);
-            ReflectTableFieldImpl field = fields.get(fieldName);
-            if (field != null) {
-                if (field.getType().isAssignableFrom(m.getReturnType())) {
-                    // правильный тип параметра
-                    field.setSetter(m);
-                }
-            }
-        }
-
-        // и поля, включая приватные
-        grabFields(cls, fields);
-
-        return new ReflectTableImpl(cls, fields.values());
+        grab(cls.getSuperclass(), fields, setters);
     }
 
     private void grabFields(Class cls, Map<String, ReflectTableFieldImpl> fields) {
@@ -125,9 +136,17 @@ public class ReflectTableHolderImpl {
                 if (tf.getField() == null) {
                     tf.setField(f);
                 }
+                grabProps(tf, f.getAnnotation(FieldProps.class));
             }
         }
         grabFields(cls.getSuperclass(), fields);
+    }
+
+    private void grabProps(ReflectTableFieldImpl field, FieldProps fieldProps) {
+        if (fieldProps == null) {
+            return;
+        }
+        field.setPropIfNotExist("dict", fieldProps.dict());
     }
 
 }

@@ -9,7 +9,7 @@ import java.lang.reflect.*;
  *
  * @see ReflectTable
  */
-public interface ReflectTableField extends INamed {
+public interface ReflectTableField extends INamed, IReflectProps {
 
     /**
      * Тип поля
@@ -30,6 +30,5 @@ public interface ReflectTableField extends INamed {
      * Поле класса, может быть null
      */
     Field getField();
-
 
 }

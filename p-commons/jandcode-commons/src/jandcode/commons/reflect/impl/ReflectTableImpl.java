@@ -5,7 +5,7 @@ import jandcode.commons.reflect.*;
 
 import java.util.*;
 
-public class ReflectTableImpl implements ReflectTable {
+public class ReflectTableImpl extends BaseReflectProps implements ReflectTable {
 
     private Class cls;
     private List<ReflectTableField> fields;
@@ -34,5 +34,6 @@ public class ReflectTableImpl implements ReflectTable {
         }
         return fieldsByName.get(name.toLowerCase());
     }
+
 
 }

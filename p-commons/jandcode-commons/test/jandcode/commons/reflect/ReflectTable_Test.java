@@ -33,8 +33,22 @@ public class ReflectTable_Test extends Utils_Test {
             this.text = text;
         }
 
+        @FieldProps(dict = "dict1")
         public String getByName() {
             return byName;
+        }
+    }
+
+    static class Table3 extends Table2 {
+        @FieldProps(dict = "dict2")
+        private String dict2;
+
+        public String getDict2() {
+            return dict2;
+        }
+
+        public void setDict2(String dict2) {
+            this.dict2 = dict2;
         }
     }
 
@@ -42,12 +56,19 @@ public class ReflectTable_Test extends Utils_Test {
     public void test1() throws Exception {
         ReflectTable t = UtReflect.getReflectTable(Table2.class);
         for (var f : t.getFields()) {
-            System.out.println("" + f.getName() + ":" + f.getGetter());
+            System.out.println("" + f.getName() + ":" + f.getPropNames() + ":" + f.getGetter());
         }
         assertEquals(t.getFields().size(), 3);
         assertEquals(t.findField("ID").getName(), "id");
         assertEquals(t.findField("TExt").getName(), "text");
         assertEquals(t.findField("byName").getName(), "byName");
+    }
+
+    @Test
+    public void dict1() throws Exception {
+        ReflectTable t = UtReflect.getReflectTable(Table3.class);
+        assertEquals(t.findField("byName").getProp("dict"), "dict1");
+        assertEquals(t.findField("dict2").getProp("dict"), "dict2");
     }
 
 
