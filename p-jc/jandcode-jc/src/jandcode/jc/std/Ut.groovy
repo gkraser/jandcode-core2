@@ -478,4 +478,31 @@ class Ut extends ProjectScript {
         return res[0]
     }
 
+    ////// env
+
+    private jandcode.commons.env.Env _env
+
+    /**
+     * Переменные среды из файла .env в корне проекта
+     * @see jandcode.commons.UtEnv#loadEnv(java.lang.String, boolean)
+     */
+    jandcode.commons.env.Env getEnv() {
+        if (_env == null) {
+            _env = UtEnv.loadEnv(wd('.env'), false)
+        }
+        return _env
+    }
+
+    /**
+     * Получить значение переменной из .env в корне проекта.
+     *
+     * @param varName имя переменной
+     * @param defaultValue значение по умолчанию
+     * @return значение переменной
+     * @see jandcode.commons.UtEnv#loadEnv(java.lang.String, boolean)
+     */
+    String env(String varName, String defaultValue = null) {
+        return getEnv().getProperties().getString(varName, defaultValue)
+    }
+
 }
