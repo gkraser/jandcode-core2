@@ -73,25 +73,36 @@ class NodeJsRootProject extends ProjectScript {
 
     void cmNodejsWatch(CmArgs args) {
         boolean isProd = args.containsKey('prod')
+        boolean isDebug = args.containsKey('debug')
 
         cm.exec("prepare")
 
-        String env = ""
+        String env = "cross-env JC_NODE_COMMAND=build"
         if (ctx.env.prod || isProd) {
-            env = "cross-env \"NODE_ENV=production\""
+            env += " NODE_ENV=production"
         }
+        if (ctx.env.debug || isDebug) {
+            env += " JC_NODE_DEBUG=true"
+        }
+
         log "npm run watch in ${mainModule}"
         ut.runcmd(cmd: "jc @ ${env} npm run watch", dir: mainModule)
     }
 
     void cmNodejsBuild(CmArgs args) {
         boolean isProd = args.containsKey('prod')
+        boolean isDebug = args.containsKey('debug')
+
         cm.exec("prepare")
 
-        String env = ""
+        String env = "cross-env JC_NODE_COMMAND=build"
         if (ctx.env.prod || isProd) {
-            env = "cross-env \"NODE_ENV=production\""
+            env += " NODE_ENV=production"
         }
+        if (ctx.env.debug || isDebug) {
+            env += " JC_NODE_DEBUG=true"
+        }
+
         log "npm run build in ${mainModule}"
         ut.runcmd(cmd: "jc @ ${env} npm run build", dir: mainModule)
     }
