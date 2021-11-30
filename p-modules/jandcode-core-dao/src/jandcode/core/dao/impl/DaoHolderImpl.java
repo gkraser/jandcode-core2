@@ -66,6 +66,30 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
         }
     }
 
+    protected String classNameToDaoName(Class<?> cls) {
+        String cn;
+        DaoName ann = cls.getAnnotation(DaoName.class);
+        if (ann != null) {
+            cn = ann.value();
+            if (!UtString.empty(cn)) {
+                return cn;
+            }
+        }
+        cn = cls.getSimpleName();
+        String cn1 = UtString.removeSuffix(cn, "_Dao");
+        if (cn1 != null) {
+            cn = cn1;
+        } else {
+            cn1 = UtString.removeSuffix(cn, "Dao");
+            if (cn1 != null) {
+                cn = cn1;
+            }
+        }
+        cn = UtString.uncapFirst(cn);
+
+        return cn;
+    }
+
     public void addItem(Conf x, String prefix) {
         String name = prefix;
         String namePrefix = name;
@@ -128,17 +152,7 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
                     if (Dao.class.isAssignableFrom(cls)) {
 
                         //
-                        String cn = cls.getSimpleName();
-                        String cn1 = UtString.removeSuffix(cn, "_Dao");
-                        if (cn1 != null) {
-                            cn = cn1;
-                        } else {
-                            cn1 = UtString.removeSuffix(cn, "Dao");
-                            if (cn1 != null) {
-                                cn = cn1;
-                            }
-                        }
-                        cn = UtString.uncapFirst(cn);
+                        String cn = classNameToDaoName(cls);
 
                         //
                         String pn = cls.getPackage().getName();
