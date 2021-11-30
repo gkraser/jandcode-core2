@@ -48,7 +48,8 @@ class AppProductBuilder extends ProductBuilder {
     List includeLibs = []
 
     /**
-     * Маски имен модулей, которые не попадют в product
+     * Маски имен модулей, которые не попадют в product при сборке в режиме prod.
+     * Если сборка в режиме debug, то этот список не используется.
      */
     List<String> ignoreModules = []
 
@@ -70,13 +71,15 @@ class AppProductBuilder extends ProductBuilder {
 
         // копируем библиотеки в libs
         def cp = createLibCopier()
+
         for (Project p in include(RootProject).modules) {
             if (p.getIncluded(JavaProject) != null) {
-                if (!isIgnoreModule(p.name)) {
+                if (!isIgnoreModule(p.name) || ctx.env.debug) {
                     cp.add(p.name)
                 }
             }
         }
+
         cp.add(include(RootProject).depends.prod.names)
         if (ctx.env.debug) {
             cp.add(include(RootProject).depends.dev.names)
