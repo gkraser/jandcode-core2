@@ -11,6 +11,10 @@ public abstract class BaseMdbUtils implements IAppLink, IModelLink {
 
     private Mdb mdb;
 
+    public BaseMdbUtils(Mdb mdb) {
+        this.mdb = mdb;
+    }
+
     public Mdb getMdb() {
         if (mdb == null) {
             throw new XError("Mdb не назначена");
