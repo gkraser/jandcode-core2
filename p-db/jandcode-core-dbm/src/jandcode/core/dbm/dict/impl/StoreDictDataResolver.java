@@ -23,6 +23,28 @@ public class StoreDictDataResolver {
             return dict.getName();
         }
 
+        public void addId(Object id) {
+            if (id == null) {
+                return;
+            }
+            if (id instanceof Collection) {
+                Collection<?> lst = (Collection<?>) id;
+                // коллекция - каждый элемент - id
+                for (Object it : lst) {
+                    addId(it);
+                }
+            } else if (id instanceof CharSequence) {
+                String s = UtCnv.toString(id);
+                if (s.indexOf(',') != -1) {
+                    // значения через ','
+                    addId(UtCnv.toList(s, ","));
+                } else {
+                    this.ids.add(id);
+                }
+            } else {
+                this.ids.add(id);
+            }
+        }
     }
 
     class DictRefHolder {
@@ -82,7 +104,7 @@ public class StoreDictDataResolver {
                 if (rec.isValueNull(rf.fieldIndex)) {
                     continue;
                 }
-                rf.dictRef.ids.add(rec.getValue(rf.fieldIndex));
+                rf.dictRef.addId(rec.getValue(rf.fieldIndex));
             }
         }
 

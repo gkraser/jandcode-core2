@@ -64,11 +64,16 @@ class Dict_Test extends App_Test {
         st.addField("dict2", "long").setDict("dict2")
         st.addField("dict22", "string").setDict("dict2")
         st.addField("nodict1", "string")
+        st.addField("list_dict", "object").setDict("dict1")
+        st.addField("delim_dict", "string").setDict("dict2")
         for (i in 1..10) {
             if (i == 5) {
                 st.add(id: i)
             } else {
-                st.add(id: i, dict1: i, dict2: 100 + i, dict22: "1000[${i}]", nodict1: "nodict-${i}")
+                st.add(id: i, dict1: i, dict2: 100 + i, dict22: "1000[${i}]", nodict1: "nodict-${i}",
+                        list_dict: [9991, 9992],
+                        delim_dict: "777,888"
+                )
             }
         }
         //
@@ -87,6 +92,7 @@ class Dict_Test extends App_Test {
         assertEquals(r.getDictValue("dict2"), "dict2-text-103")
         assertEquals(r.getDictValue("dict22"), "dict2-text-1000[3]")
 
+        utils.outMap(st.getDictResolver().toDictdata())
 
     }
 
