@@ -23,7 +23,7 @@ public class ConfFileLoader_json implements ILoader {
         StringLoader ldr = new StringLoader();
         ldr.loadFrom(reader);
         Object ob = UtJson.fromJson(ldr.getResult());
-        Conf tmp = UtConf.create(ob);
+        Conf tmp = Conf.create(ob);
         for (String key : tmp.keySet()) {
             loader.addOrigin(tmp, key, 0);
         }

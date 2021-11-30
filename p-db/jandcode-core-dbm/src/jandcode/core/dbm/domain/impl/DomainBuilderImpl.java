@@ -12,7 +12,7 @@ public class DomainBuilderImpl extends BaseComp implements DomainBuilder {
 
     public DomainBuilderImpl(DomainServiceImpl domainSvc, String parent) {
         this.domainSvc = domainSvc;
-        this.conf = UtConf.create("noname");
+        this.conf = Conf.create("noname");
         if (!UtString.empty(parent)) {
             this.conf.setValue("parent", parent);
         }

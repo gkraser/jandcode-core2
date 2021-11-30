@@ -49,7 +49,7 @@ public class ConfFileLoader_xml extends DefaultHandler2 implements ILoader {
         } else {
             assignValue();
             if (qName.startsWith(ConfFileLoader_cfx.FUNC_PREFIX)) {
-                cur = UtConf.create(qName);
+                cur = Conf.create(qName);
             } else {
                 cur = stack.last().findConf("#", true);
                 cur.setValue("$name", qName);

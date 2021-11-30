@@ -39,7 +39,7 @@ public class DbDriverServiceImpl extends BaseComp implements DbDriverService {
         //
 
         // формируем раскрытую conf для dbdriver
-        Conf xExp = UtConf.create();
+        Conf xExp = Conf.create();
         xExp.setValue("dbdriver", getApp().getConf().getConf("db/dbdriver"));
 
         ConfExpander exp = UtConf.createExpander(xExp);

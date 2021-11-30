@@ -12,7 +12,7 @@ public class DbService_Test extends App_Test {
     @Test
     public void createDbSource1() throws Exception {
         DbService svc = app.bean(DbService.class);
-        Conf conf = UtConf.create();
+        Conf conf = Conf.create();
         DbSource dbs = svc.createDbSource(conf);
         utils.outMap(dbs.getConf());
     }

@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ConfLoader_If_Test extends CustomConf_Test {
 
     Conf load(String data) throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         ConfLoader ldr = UtConf.createLoader(x);
         //language=XML
         ldr.load().fromString(data);

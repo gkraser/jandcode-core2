@@ -42,7 +42,7 @@ public class CfgServiceImpl extends BaseComp implements CfgService {
         }
 
         // оригинальная, копия
-        this.origConf = UtConf.create();
+        this.origConf = Conf.create();
         this.origConf.join(getApp().getConf().getConf("cfg"));
 
     }
@@ -66,7 +66,7 @@ public class CfgServiceImpl extends BaseComp implements CfgService {
     //////
 
     protected Conf buildConf() {
-        Conf res = UtConf.create();
+        Conf res = Conf.create();
         res.join(this.origConf);
         expandProps(res, res, "");
         return res;

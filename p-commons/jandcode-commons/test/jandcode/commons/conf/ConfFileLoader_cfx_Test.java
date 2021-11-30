@@ -24,7 +24,7 @@ public class ConfFileLoader_cfx_Test extends CustomConf_Test {
                 "        <b a=\"2\" x-name=\"i\"/>\n" +
                 "    </fields>\n" +
                 "</root>";
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         ConfFileLoader_cfx ldr = new ConfFileLoader_cfx(x, (ConfLoaderImpl) UtConf.createLoader(x));
         ldr.load().fromString(s);
 

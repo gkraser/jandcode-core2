@@ -10,7 +10,7 @@ public class ConfExpanderImpl implements ConfExpander {
 
     private Conf root;
     private Map<String, TypeDef> types = new LinkedHashMap<>();
-    private Conf cache = UtConf.create();
+    private Conf cache = Conf.create();
 
     // общие параметры для всех типов
     private TypeDef anyType;
@@ -144,7 +144,7 @@ public class ConfExpanderImpl implements ConfExpander {
 
     public ConfExpanderImpl(Conf root) {
         this.root = root;
-        this.anyType = new TypeDef("ANY", UtConf.create());
+        this.anyType = new TypeDef("ANY", Conf.create());
         init();
     }
 
@@ -176,7 +176,7 @@ public class ConfExpanderImpl implements ConfExpander {
         TypeDef td = types.get(type);
         if (td == null) {
             if (createIfNotExist) {
-                td = new TypeDef(type, UtConf.create());
+                td = new TypeDef(type, Conf.create());
                 types.put(td.name, td);
             } else {
                 throw new XError("Не найден тип [{0}]", type);
@@ -247,7 +247,7 @@ public class ConfExpanderImpl implements ConfExpander {
         TypeDef td = getTypeDef(type, false);
         String parent = obj.getString(this.parentAttrName);
         //
-        Conf res = UtConf.create(obj.getName());
+        Conf res = Conf.create(obj.getName());
         //
         if (UtString.empty(parent)) {
             // предок не указан, накладываем заказанный

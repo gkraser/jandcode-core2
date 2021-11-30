@@ -11,7 +11,7 @@ class ConfUtils extends BaseCodeGen {
      * @attr src исходный cfx
      */
     void confToText() {
-        Conf x = UtConf.create()
+        Conf x = Conf.create()
         SourceFile f = attrs.getSourceFile("src")
         UtConf.load(x).fromString(f.getText())
         outText(new OutMapSaver(x).save().toString())

@@ -10,7 +10,7 @@ public class ConfXmlSaver_Test extends CustomConf_Test {
 
     @Test
     public void test1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         x.setValue("a", 1);
         x.setValue("b", 2);
         x.setValue("#0", 3);
@@ -18,7 +18,7 @@ public class ConfXmlSaver_Test extends CustomConf_Test {
         x.setValue("i", 5);
         x.setValue("x-prop", 6);
 
-        Conf x1 = UtConf.create();
+        Conf x1 = Conf.create();
         x1.setValue("c", 3);
 
         x.setValue("bb", x1);

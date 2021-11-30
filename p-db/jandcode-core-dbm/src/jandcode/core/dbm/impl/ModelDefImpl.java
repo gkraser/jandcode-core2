@@ -52,7 +52,7 @@ public class ModelDefImpl extends BaseComp implements ModelDef {
     }
 
     protected Conf createJoinConf() {
-        Conf tmp = UtConf.create(getName());
+        Conf tmp = Conf.create(getName());
 
         // накладываем все включенные модели
         for (ModelDef md : getIncludedModels()) {

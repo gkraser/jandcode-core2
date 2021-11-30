@@ -28,7 +28,7 @@ public class FieldImpl extends BaseModelMember implements Field, IBeanIniter {
             // нет собственных bean
             beanConf = this.domainService.getDomainConfHolder().getFieldBaseConf();
         } else {
-            Conf tmp = UtConf.create();
+            Conf tmp = Conf.create();
             tmp.join(this.domainService.getDomainConfHolder().getFieldBaseConf());
             Conf tmp2 = tmp.findConf("bean", true);
             tmp2.join(beanConf);

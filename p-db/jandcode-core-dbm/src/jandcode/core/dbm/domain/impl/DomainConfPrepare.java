@@ -95,7 +95,7 @@ public class DomainConfPrepare {
         Collection<Conf> lst = domain.getConfs("include");
         if (lst.size() > 0) {
             // есть include, сохраняем оригинал
-            Conf tmp = UtConf.create();
+            Conf tmp = Conf.create();
             tmp.join(domain);
 
             // чистим, добиваясь эффекта, что include срабатывает до свойст домена

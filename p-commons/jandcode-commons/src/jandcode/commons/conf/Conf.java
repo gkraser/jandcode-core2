@@ -1,5 +1,6 @@
 package jandcode.commons.conf;
 
+import jandcode.commons.conf.impl.*;
 import jandcode.commons.named.*;
 import jandcode.commons.variant.*;
 
@@ -27,6 +28,31 @@ import java.util.*;
  * Имя Conf - регистрозависимое.
  */
 public interface Conf extends IVariantMap, INamed {
+
+    /**
+     * Создать экземпляр Conf
+     */
+    static Conf create() {
+        return new ConfImpl(null);
+    }
+
+    /**
+     * Создать поименнованный экземпляр Conf
+     */
+    static Conf create(String name) {
+        return new ConfImpl(name);
+    }
+
+    /**
+     * Создать экземпляр Conf из Conf, Map, Collection
+     */
+    static Conf create(Object data) {
+        Conf x = new ConfImpl(null);
+        x.join(data);
+        return x;
+    }
+
+    //////
 
     /**
      * Проверка на совпадение имени.

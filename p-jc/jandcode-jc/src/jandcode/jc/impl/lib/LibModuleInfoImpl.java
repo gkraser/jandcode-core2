@@ -49,7 +49,7 @@ public class LibModuleInfoImpl extends Named implements LibModuleInfo {
             throw new XError("No moduleDefInfo for " + getName());
         }
         //
-        Conf conf = UtConf.create();
+        Conf conf = Conf.create();
         UtConf.load(conf).fromFileObject(mdi.getModuleDef().getModuleFile());
         //
         return conf;
@@ -57,7 +57,7 @@ public class LibModuleInfoImpl extends Named implements LibModuleInfo {
 
     private Conf loadConfJar() throws Exception {
         String mf = "jar:file:///" + lib.getJar() + "!/" + getName().replace('.', '/') + '/' + ModuleDefConsts.FILE_MODULE_CONF;
-        Conf conf = UtConf.create();
+        Conf conf = Conf.create();
         UtConf.load(conf).fromFileObject(mf);
         //
         return conf;

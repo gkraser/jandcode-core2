@@ -46,7 +46,7 @@ public class BeanConfigImpl implements BeanConfig {
 
     public Conf getConf() {
         if (conf == null) {
-            conf = UtConf.create();
+            conf = Conf.create();
         }
         return conf;
     }

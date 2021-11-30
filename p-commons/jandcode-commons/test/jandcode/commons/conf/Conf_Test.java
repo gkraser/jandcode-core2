@@ -12,12 +12,12 @@ public class Conf_Test extends CustomConf_Test {
 
     @Test
     public void create1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
     }
 
     @Test
     public void set1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         x.setValue("str", "s1");
         x.setValue("int", 1);
         x.setValue("bool", true);
@@ -32,7 +32,7 @@ public class Conf_Test extends CustomConf_Test {
 
     @Test
     public void caseSent1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         x.setValue("str", "s1");
         x.setValue("sTr", "s2");
 
@@ -43,7 +43,7 @@ public class Conf_Test extends CustomConf_Test {
 
     @Test
     public void objProp1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         x.setValue("a", 1);
 
         // как сделать свойство-объект:
@@ -52,7 +52,7 @@ public class Conf_Test extends CustomConf_Test {
         x.setValue("fromMap", UtCnv.toMap("k1", "v1", "k2", "v2"));
 
         // from conf
-        Conf x1 = UtConf.create();
+        Conf x1 = Conf.create();
         x1.setValue("b", 2);
         x.setValue("fromConf", x1);
 
@@ -75,7 +75,7 @@ public class Conf_Test extends CustomConf_Test {
 
     @Test
     public void objList1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         x.setValue("a", 1);
 
         // как сделать свойство-список:
@@ -100,16 +100,16 @@ public class Conf_Test extends CustomConf_Test {
 
     @Test
     public void confList1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         x.setValue("a", 1);
-        x.setValue("b", UtConf.create(UtCnv.toMap("bb", "1")));
-        x.setValue("c", UtConf.create(UtCnv.toMap("cc", "1")));
+        x.setValue("b", Conf.create(UtCnv.toMap("bb", "1")));
+        x.setValue("c", Conf.create(UtCnv.toMap("cc", "1")));
         x.setValue("d", 1);
 
         Collection<Conf> lst = x.getConfs();
 
         conf.printConf(x);
-        Conf xx = UtConf.create(lst);
+        Conf xx = Conf.create(lst);
         conf.printConf(xx);
 
         assertEquals(conf.toMap(x).toString(), "" +
@@ -122,7 +122,7 @@ public class Conf_Test extends CustomConf_Test {
 
     @Test
     public void findPath1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         x.setValue("a", 1);
         x.setValue("b", 2);
 
@@ -139,7 +139,7 @@ public class Conf_Test extends CustomConf_Test {
 
     @Test
     public void toString1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         x.setValue("a", 1);
         x.setValue("b", 2);
         assertEquals(x.toString(), "{a=1, b=2}");
@@ -147,9 +147,9 @@ public class Conf_Test extends CustomConf_Test {
 
     @Test
     public void join_addStr1() throws Exception {
-        Conf x1 = UtConf.create();
+        Conf x1 = Conf.create();
         x1.setValue("a", 1);
-        Conf x2 = UtConf.create();
+        Conf x2 = Conf.create();
         x2.setValue("b", 2);
         x1.join(x2);
         assertEquals(conf.toMap(x1).toString(), "{a=1, b=2}");
@@ -157,9 +157,9 @@ public class Conf_Test extends CustomConf_Test {
 
     @Test
     public void join_overrideStr1() throws Exception {
-        Conf x1 = UtConf.create();
+        Conf x1 = Conf.create();
         x1.setValue("a", 1);
-        Conf x2 = UtConf.create();
+        Conf x2 = Conf.create();
         x2.setValue("a", 2);
         x1.join(x2);
         assertEquals(conf.toMap(x1).toString(), "{a=2}");
@@ -167,9 +167,9 @@ public class Conf_Test extends CustomConf_Test {
 
     @Test
     public void join_overrideStr_noname1() throws Exception {
-        Conf x1 = UtConf.create();
+        Conf x1 = Conf.create();
         x1.setValue("#", 1);
-        Conf x2 = UtConf.create();
+        Conf x2 = Conf.create();
         x2.setValue("#", 2);
         x1.join(x2);
         assertEquals(conf.toMap(x1).toString(), "{#0=1, #1=2}");
@@ -177,28 +177,28 @@ public class Conf_Test extends CustomConf_Test {
 
     @Test
     public void join_overrideStrWithObj1() throws Exception {
-        Conf x1 = UtConf.create();
+        Conf x1 = Conf.create();
         x1.setValue("a", 1);
-        Conf x2 = UtConf.create();
-        x2.setValue("a", UtConf.create(UtCnv.toMap("s", 1)));
+        Conf x2 = Conf.create();
+        x2.setValue("a", Conf.create(UtCnv.toMap("s", 1)));
         x1.join(x2);
         assertEquals(conf.toMap(x1).toString(), "{a={s=1}}");
     }
 
     @Test
     public void join_joinObj1() throws Exception {
-        Conf x1 = UtConf.create();
-        x1.setValue("a", UtConf.create(UtCnv.toMap("s", 1)));
-        Conf x2 = UtConf.create();
-        x2.setValue("a", UtConf.create(UtCnv.toMap("d", 2)));
+        Conf x1 = Conf.create();
+        x1.setValue("a", Conf.create(UtCnv.toMap("s", 1)));
+        Conf x2 = Conf.create();
+        x2.setValue("a", Conf.create(UtCnv.toMap("d", 2)));
         x1.join(x2);
         assertEquals(conf.toMap(x1).toString(), "{a={s=1, d=2}}");
     }
 
     @Test
     public void link1() throws Exception {
-        Conf x1 = UtConf.create();
-        Conf x2 = UtConf.create();
+        Conf x1 = Conf.create();
+        Conf x2 = Conf.create();
         x2.setValue("a", 1);
         x1.setValue("link", x2);
 
@@ -211,8 +211,8 @@ public class Conf_Test extends CustomConf_Test {
 
     @Test
     public void no_link_withJoin1() throws Exception {
-        Conf x1 = UtConf.create();
-        Conf x2 = UtConf.create();
+        Conf x1 = Conf.create();
+        Conf x2 = Conf.create();
         x2.setValue("a", 1);
 
         Conf x3 = x1.findConf("nolink", true);
@@ -227,7 +227,7 @@ public class Conf_Test extends CustomConf_Test {
 
     @Test
     public void clone1() throws Exception {
-        Conf x1 = UtConf.create(
+        Conf x1 = Conf.create(
                 UtCnv.toMap(
                         "a", 1,
                         "b", UtCnv.toMap(
@@ -251,7 +251,7 @@ public class Conf_Test extends CustomConf_Test {
 
     @Test
     public void uniqueKey1() throws Exception {
-        Conf x1 = UtConf.create();
+        Conf x1 = Conf.create();
         x1.setValue("#", 0);
         x1.setValue("#", 1);
         x1.remove("#0");
@@ -262,7 +262,7 @@ public class Conf_Test extends CustomConf_Test {
 
     @Test
     public void setValuePath1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         x.setValue("a", 0);
         x.setValue("a/b/c", 1);
         x.setValue("a/b/d", 11);
@@ -278,7 +278,7 @@ public class Conf_Test extends CustomConf_Test {
 
     @Test
     public void named1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         x.setValue("a/b/x", 1);
         x.setValue("a/c/x", 11);
 

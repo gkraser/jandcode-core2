@@ -9,7 +9,7 @@ public class ConfExpander_Test extends CustomConf_Test {
 
     @Test
     public void field1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         UtConf.load(x).fromFile(utils.getTestFile("data/expander1.cfx"));
         conf.printConf(x);
 
@@ -24,7 +24,7 @@ public class ConfExpander_Test extends CustomConf_Test {
 
     @Test
     public void domain1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         UtConf.load(x).fromFile(utils.getTestFile("data/expander1.cfx"));
         conf.printConf(x);
 
@@ -46,7 +46,7 @@ public class ConfExpander_Test extends CustomConf_Test {
 
     @Test
     public void notInherited1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         UtConf.load(x).fromFile(utils.getTestFile("data/expander2-not-inherited.cfx"));
         conf.printConf(x);
 

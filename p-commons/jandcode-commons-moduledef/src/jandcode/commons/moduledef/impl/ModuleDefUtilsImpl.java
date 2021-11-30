@@ -46,7 +46,7 @@ public class ModuleDefUtilsImpl {
 
     public static List<ModuleDef> loadModuleDefsFromConfFile(String filename) throws Exception {
         NamedList<ModuleDef> res = new DefaultNamedList<>();
-        Conf r = UtConf.create();
+        Conf r = Conf.create();
         UtConf.load(r).fromFile(filename);
         for (Conf x : r.getConfs("system/module-def")) {
             ModuleDef m = loadModuleDefFromConf(x);

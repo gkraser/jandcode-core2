@@ -48,7 +48,7 @@ public class JsIndexGspContextImpl implements JsIndexGspContext, IAppLink {
             ClientCfgService cfgSvc = getApp().bean(ClientCfgService.class);
             Env env = getApp().getEnv();
 
-            Conf tmpBase = UtConf.create();
+            Conf tmpBase = Conf.create();
 
             // базовые умолчания
             tmpBase.setValue("baseUrl", gspContext.getRootGsp().ref("/"));
@@ -63,7 +63,7 @@ public class JsIndexGspContextImpl implements JsIndexGspContext, IAppLink {
             Conf tmpGrab = cfgSvc.grabClientCfg();
 
 
-            this.cfg = UtConf.create();
+            this.cfg = Conf.create();
             // сначала base
             this.cfg.join(tmpBase);
             // потом собранную

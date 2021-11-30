@@ -7,7 +7,7 @@ public class ConfOrigin_Test extends CustomConf_Test {
 
     @Test
     public void origin_cfx1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         ConfLoader ldr = UtConf.createLoader(x);
         //
         String f = utils.getTestFile("data/file1.cfx");
@@ -18,7 +18,7 @@ public class ConfOrigin_Test extends CustomConf_Test {
 
     @Test
     public void origin1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         //
         String f = utils.getTestFile("data/origin1-named.cfx");
         UtConf.load(x).fromFile(f);
@@ -28,7 +28,7 @@ public class ConfOrigin_Test extends CustomConf_Test {
 
     @Test
     public void clone1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         //
         String f = utils.getTestFile("data/origin1-named.cfx");
         UtConf.load(x).fromFile(f);
@@ -43,12 +43,12 @@ public class ConfOrigin_Test extends CustomConf_Test {
 
     @Test
     public void join1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         //
         String f = utils.getTestFile("data/origin1-named.cfx");
         UtConf.load(x).fromFile(f);
         //
-        Conf x1 = UtConf.create();
+        Conf x1 = Conf.create();
         x1.join(x);
         //
         conf.printConf(conf.toConfWithOrigin(x1));

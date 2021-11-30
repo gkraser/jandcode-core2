@@ -24,7 +24,7 @@ public class DomainConfHolder {
     public void buildConf(Conf modelConf) {
 
         // это все что мы собрали для себя, обработанная копия
-        this.root = UtConf.create();
+        this.root = Conf.create();
 
         // собираем все, что нам нужно из modelConf
         new DomainConfGrab().grab(modelConf, root);
@@ -119,7 +119,7 @@ public class DomainConfHolder {
         if (UtString.empty(domainName)) {
             domainName = domainConf.getName();
         }
-        Conf tmp = UtConf.create(domainName);
+        Conf tmp = Conf.create(domainName);
         tmp.join(domainConf);
 
         // обработка такая же, как и для доменов ис структуры

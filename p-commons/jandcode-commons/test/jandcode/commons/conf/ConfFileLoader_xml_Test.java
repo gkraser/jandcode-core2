@@ -26,7 +26,7 @@ public class ConfFileLoader_xml_Test extends CustomConf_Test {
                 "        <b a=\"2\" x-name=\"i\"/>\n" +
                 "    </fields>\n" +
                 "</root>";
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         ConfFileLoader_xml ldr = new ConfFileLoader_xml(x, (ConfLoaderImpl) UtConf.createLoader(x));
         ldr.load().fromString(s);
 
@@ -40,14 +40,14 @@ public class ConfFileLoader_xml_Test extends CustomConf_Test {
 
     @Test
     public void include1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         UtConf.load(x).fromFile(utils.getTestFile("data/xml-inc1.xml"));
         conf.printConf(x);
     }
 
     @Test
     public void include2() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         UtConf.load(x).fromFile(utils.getTestFile("data/xml-inc2.xml"));
         conf.printConf(x);
         //

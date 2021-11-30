@@ -28,7 +28,7 @@ public class DbDriverImpl extends BaseComp implements DbDriver {
         this.conf = cfg.getConf();
         //
         // формируем раскрытую conf для dbdatatype
-        Conf xExp = UtConf.create();
+        Conf xExp = Conf.create();
         xExp.setValue("dbdatatype", this.conf.getConf("dbdatatype"));
 
         ConfExpander exp = UtConf.createExpander(xExp);

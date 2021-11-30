@@ -68,7 +68,7 @@ public class ConfFileLoader_cfx extends DefaultHandler2 implements ILoader {
                 // первый раз
                 if (func != null) {
                     // функция имеет собственный не связанный conf
-                    conf = UtConf.create();
+                    conf = Conf.create();
                 } else {
                     // берем у родителя
                     conf = prev.getConf().findConf(this.name, true);

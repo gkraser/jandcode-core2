@@ -31,7 +31,7 @@ public class AppInfoImpl extends BaseComp implements AppInfo {
         }
 
         this.mainModule = getApp().getModules().get(mm);
-        this.conf = UtConf.create();
+        this.conf = Conf.create();
         this.conf.join(appConf);
     }
 

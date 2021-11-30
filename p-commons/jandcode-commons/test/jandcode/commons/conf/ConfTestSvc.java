@@ -17,7 +17,7 @@ public class ConfTestSvc extends BaseUtilsTestSvc {
     }
 
     public Conf toConfWithOrigin(Conf x) {
-        Conf m = UtConf.create();
+        Conf m = Conf.create();
         Conf m_orig = m.findConf("$ORIG$", true);
         String s = x.origin().toString();
         String[] ar = s.split("\n");

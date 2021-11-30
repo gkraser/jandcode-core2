@@ -8,7 +8,7 @@ import java.util.*;
 
 public class ModuleDefConfigImpl implements ModuleDefConfig {
 
-    private Conf conf = UtConf.create();
+    private Conf conf = Conf.create();
     private List<String> files = new ArrayList<>();
     private List<String> depends = new ArrayList<>();
     private Map<String, String> confVars = new LinkedHashMap<>();

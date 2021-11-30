@@ -36,7 +36,7 @@ public class DomainImpl extends BaseModelMember implements Domain, IBeanIniter {
             // нет собственных bean
             beanConf = this.domainService.getDomainConfHolder().getDomainBaseConf();
         } else {
-            Conf tmp = UtConf.create();
+            Conf tmp = Conf.create();
             tmp.join(this.domainService.getDomainConfHolder().getDomainBaseConf());
             Conf tmp2 = tmp.findConf("bean", true);
             tmp2.join(beanConf);

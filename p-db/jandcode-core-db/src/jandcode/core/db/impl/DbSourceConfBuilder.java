@@ -19,7 +19,7 @@ public class DbSourceConfBuilder {
     public Conf buildConf(App app, Conf params) throws Exception {
 
         // будущая конфигурация DbSource
-        Conf dbSourceConf = UtConf.create();
+        Conf dbSourceConf = Conf.create();
 
         if (params.getBoolean("^full")) {
             // передан вариант, который уже обработан
@@ -44,7 +44,7 @@ public class DbSourceConfBuilder {
         // драйвер может предоставить конфиг по умолчанию для dbsource
         Conf dbDriverConf = dbDriver.getConf().findConf("dbsource-default");
         if (dbDriverConf != null) {
-            Conf tmp = UtConf.create();
+            Conf tmp = Conf.create();
             tmp.join(defaultConfig);
             tmp.join(dbDriverConf);
             tmp.join(params);
@@ -52,7 +52,7 @@ public class DbSourceConfBuilder {
         }
 
         // в конфигурации есть бины, собираем из них конфигурацию
-        Conf beanConf = UtConf.create();
+        Conf beanConf = Conf.create();
         for (Conf bc : dbSourceConf.getConfs("bean")) {
             Conf dcDs = bc.findConf("dbsource-default");
             if (dcDs != null) {

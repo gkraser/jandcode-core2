@@ -31,13 +31,13 @@
   if (ref == null) {
     throw new XError("Файл не найден: ${file}")
   }
-  def confRoot = UtConf.create()
+  def confRoot = Conf.create()
   UtConf.load(confRoot).fromString(ref.sourceFile.text)
   if (root != "") {
     confRoot = confRoot.findConf(root, true)
   }
   if (join.size() > 0) {
-    Conf tmp = UtConf.create()
+    Conf tmp = Conf.create()
     for (String join1 : join) {
       int a = join1.indexOf('@')
       if (a == -1) {

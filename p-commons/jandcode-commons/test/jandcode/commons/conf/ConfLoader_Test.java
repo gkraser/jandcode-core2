@@ -9,7 +9,7 @@ public class ConfLoader_Test extends CustomConf_Test {
 
     @Test
     public void test1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         ConfLoader ldr = UtConf.createLoader(x);
         //
         String f = utils.getTestFile("data/file1.cfx");
@@ -22,7 +22,7 @@ public class ConfLoader_Test extends CustomConf_Test {
 
     @Test
     public void test_json1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         ConfLoader ldr = UtConf.createLoader(x);
         //
         String f = utils.getTestFile("data/file3.json");
@@ -33,7 +33,7 @@ public class ConfLoader_Test extends CustomConf_Test {
 
     @Test
     public void set1() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         ConfLoader ldr = UtConf.createLoader(x);
         //
         String f = utils.getTestFile("data/set1.cfx");
@@ -46,7 +46,7 @@ public class ConfLoader_Test extends CustomConf_Test {
 
     @Test
     public void set2_default() throws Exception {
-        Conf x = UtConf.create();
+        Conf x = Conf.create();
         ConfLoader ldr = UtConf.createLoader(x);
         //
         String f = utils.getTestFile("data/set2-default.cfx");

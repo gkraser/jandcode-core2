@@ -12,31 +12,6 @@ import java.util.*;
 public class UtConf {
 
     /**
-     * Создать экземпляр Conf
-     */
-    public static Conf create() {
-        return new ConfImpl(null);
-    }
-
-    /**
-     * Создать поименнованный экземпляр Conf
-     */
-    public static Conf create(String name) {
-        return new ConfImpl(name);
-    }
-
-    /**
-     * Создать экземпляр Conf из Conf, Map, Collection
-     */
-    public static Conf create(Object data) {
-        Conf x = new ConfImpl(null);
-        x.join(data);
-        return x;
-    }
-
-    //////
-
-    /**
      * Создать загрузчик
      */
     public static ConfLoader createLoader(Conf x) {

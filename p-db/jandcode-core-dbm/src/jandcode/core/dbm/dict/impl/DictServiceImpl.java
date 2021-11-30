@@ -23,7 +23,7 @@ public class DictServiceImpl extends BaseModelMember implements DictService {
         //
 
         Conf modelConf = getModel().getConf();
-        Conf xExp = UtConf.create();
+        Conf xExp = Conf.create();
         xExp.setValue("dict", modelConf.getConf("dict"));
 
         ConfExpander exp = UtConf.createExpander(xExp);

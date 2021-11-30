@@ -223,7 +223,7 @@ public class AppImpl implements App, IBeanIniter {
 
         // загрузка закончена
         moduleHolder = tmpMh;
-        conf = UtConf.create();   // временная!
+        conf = Conf.create();   // временная!
 
         //
         workdir = UtFile.getWorkdir();
@@ -249,7 +249,7 @@ public class AppImpl implements App, IBeanIniter {
         //
 
         // объединяем для App.getConf()
-        Conf tmpRt = UtConf.create();
+        Conf tmpRt = Conf.create();
         for (ModuleInst m : tmpMh) {
             tmpRt.join(m.getConf());
         }
