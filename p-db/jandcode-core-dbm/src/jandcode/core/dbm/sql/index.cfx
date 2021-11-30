@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!--
+        Сервисы для работы с sql
+    -->
+
+    <dbm>
+        <!-- расширяем базовую модель -->
+        <model name="jandcode.core.dbm">
+
+            <bean name="jandcode.core.dbm.sql.SqlService"
+                  class="jandcode.core.dbm.sql.impl.SqlServiceImpl"/>
+
+        </model>
+    </dbm>
+
+</root>
