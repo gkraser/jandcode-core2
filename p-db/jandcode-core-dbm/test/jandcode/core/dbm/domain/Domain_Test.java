@@ -3,12 +3,12 @@ package jandcode.core.dbm.domain;
 import jandcode.commons.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.domain.data.*;
-import jandcode.core.test.*;
+import jandcode.core.dbm.test.*;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class Domain_Test extends App_Test {
+public class Domain_Test extends Dbm_Test {
 
     DomainService svc;
 

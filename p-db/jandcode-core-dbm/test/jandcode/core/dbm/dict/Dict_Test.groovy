@@ -1,23 +1,20 @@
 package jandcode.core.dbm.dict
 
 import jandcode.commons.*
-import jandcode.core.dbm.*
+import jandcode.core.dbm.test.*
 import jandcode.core.store.*
-import jandcode.core.test.*
 import org.junit.jupiter.api.*
 
 import static org.junit.jupiter.api.Assertions.*
 
-class Dict_Test extends App_Test {
-
-    DbmDbTestSvc z = testSvc(DbmDbTestSvc)
+class Dict_Test extends Dbm_Test {
 
     DictService svc
 
     void setUp() throws Exception {
         super.setUp()
         //
-        svc = z.model.bean(DictService)
+        svc = model.bean(DictService)
     }
 
     void prnDictHolder(Store st) {
@@ -58,7 +55,7 @@ class Dict_Test extends App_Test {
 
     @Test
     public void resolve_dicts_for_store() throws Exception {
-        Store st = z.createStore()
+        Store st = mdb.createStore()
         st.addField("id", "long")
         st.addField("dict1", "long").setDict("dict1")
         st.addField("dict2", "long").setDict("dict2")
@@ -107,7 +104,7 @@ class Dict_Test extends App_Test {
 
     @Test
     public void to_json() throws Exception {
-        Store st = z.createStore()
+        Store st = mdb.createStore()
         st.addField("id", "long")
         st.addField("dict1", "long").setDict("dict1")
         st.addField("dict2", "long").setDict("dict2")

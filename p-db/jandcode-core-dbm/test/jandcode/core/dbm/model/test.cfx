@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
-    <x-depends module="jandcode.core.dbm"/>
-    <x-depends module="jandcode.core.db.h2"/>
-    <x-depends module="jandcode.core.db.mariadb"/>
-    <x-depends module="jandcode.core.db.oracle"/>
+    <x-include path="../test.cfx"/>
 
     <dbm>
 
@@ -32,10 +29,6 @@
 
         <!-- =================== -->
 
-        <model name="test1" instance="test.2">
-        </model>
-
-
     </dbm>
 
     <!-- ===================================================================== -->
@@ -43,12 +36,6 @@
     <cfg>
         <dbsource name="test.2.inst"
                   dbdriver="mariadb" flag.db.mysql="1"/>
-
-        <dbsource name="test1"
-                  dbdriver="h2.mem"
-                  database="test1"
-        />
-
     </cfg>
 
 </root>

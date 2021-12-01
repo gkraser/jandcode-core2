@@ -3,4 +3,78 @@
 
     <x-depends module="jandcode.core.dbm"/>
 
+    <x-depends module="jandcode.core.db.h2"/>
+    <x-depends module="jandcode.core.db.mariadb"/>
+    <x-depends module="jandcode.core.db.oracle"/>
+    <x-depends module="jandcode.core.db.postgresql"/>
+
+    <cfg>
+        <dbsource name="testdb.h2.mem"
+                  dbdriver="h2.mem"
+                  database="testdb1"/>
+
+        <dbsource name="testdb.mariadb"
+                  dbdriver="mariadb"
+                  database="test_dbm_testdb1"
+                  username="root"/>
+
+        <dbsource name="testdb.oracle"
+                  dbdriver="oracle"
+                  host="localhost"
+                  database="xe"
+                  username="c##test_dbm_testdb1"
+                  password="111"
+                  system.username="sys as sysdba"
+                  system.password="111"/>
+
+        <dbsource name="testdb.postgresql"
+                  dbdriver="postgresql"
+                  database="test_dbm_testdb1"
+                  username="ks"/>
+    </cfg>
+
+
+    <dbm>
+
+        <model name="testdb.base">
+            <dbsource name="default"
+                      cfg="cfg/dbsource/testdb.${dbdriver}"/>
+        </model>
+
+        <model name="testdb.h2">
+            <include name="testdb.base"/>
+            <dbsource name="default"
+                      dbdriver="h2.mem"/>
+        </model>
+
+        <model name="testdb.mariadb">
+            <include name="testdb.base"/>
+            <dbsource name="default"
+                      dbdriver="mariadb"/>
+        </model>
+
+        <model name="testdb.oracle">
+            <include name="testdb.base"/>
+            <dbsource name="default"
+                      dbdriver="oracle"/>
+        </model>
+
+        <model name="testdb.postgresql">
+            <include name="testdb.base"/>
+            <dbsource name="default"
+                      dbdriver="postgresql"/>
+        </model>
+
+        <!-- эта модель используется как модель по умолчанию в тестах -->
+        <model name="testdb" instance="testdb.h2">
+        </model>
+
+    </dbm>
+
+    <test>
+        <!-- определение модели по умолчанию в тестах и указание,
+             что базу данных нужно создавать, если она не существует -->
+        <dbm model-default="testdb" create-db="true"/>
+    </test>
+
 </root>

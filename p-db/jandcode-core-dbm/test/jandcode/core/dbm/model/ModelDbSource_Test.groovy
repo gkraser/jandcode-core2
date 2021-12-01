@@ -1,35 +1,32 @@
 package jandcode.core.dbm.model
 
 import jandcode.core.db.*
-import jandcode.core.dbm.*
 import jandcode.core.dbm.impl.*
-import jandcode.core.test.*
+import jandcode.core.dbm.test.*
 import org.junit.jupiter.api.*
 
 import static org.junit.jupiter.api.Assertions.*
 
-class ModelDbSource_Test extends App_Test {
-
-    DbmDbTestSvc z = testSvc(DbmDbTestSvc)
+class ModelDbSource_Test extends Dbm_Test {
 
     @Test
     void simple_load_sql() throws Exception {
-        def a = z.createStore()
+        def a = mdb.createStore()
         a.addField("id", "long")
         a.addField("name", "string", 20)
         a.add(id: 1, name: 'n1')
         //
         utils.outTable(a)
         //
-        z.createTable("t1", a)
+        dbm.createDbTable("t1", a)
         //
-        def st = z.db.loadQuery("select * from t1")
+        def st = mdb.loadQuery("select * from t1")
         utils.outTable(st)
     }
 
     @Test
     void db_wrapper_auto_connect() {
-        Db db = z.model.createDb(true)
+        Db db = dbm.model.createDb(true)
         ModelDbWrapper dbw = new ModelDbWrapper(db, true, true)
 
         //
@@ -69,7 +66,7 @@ class ModelDbSource_Test extends App_Test {
 
     @Test
     public void model_db_instance() throws Exception {
-        Db db = z.model.createDb(true)
+        Db db = dbm.model.createDb(true)
         assertEquals(db instanceof ModelDb, true)
     }
 

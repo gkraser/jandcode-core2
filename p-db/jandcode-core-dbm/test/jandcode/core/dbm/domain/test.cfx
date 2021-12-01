@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
-    <x-depends module="jandcode.core.dbm"/>
-    <x-depends module="jandcode.core.db.mariadb"/>
-    <x-depends module="jandcode.core.db.oracle"/>
+    <x-include path="../test.cfx"/>
 
     <!-- ===================================================================== -->
 

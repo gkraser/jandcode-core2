@@ -44,10 +44,6 @@ public class TestDbWrapper extends ModelDbWrapper {
             dbmTestSvc.utils.outMap(man.getDbSource().getProps());
             man.createDatabase();
             dbmTestSvc.utils.delim();
-        } else {
-            dbmTestSvc.utils.delim("use exists database");
-            dbmTestSvc.utils.outMap(man.getDbSource().getProps());
-            dbmTestSvc.utils.delim();
         }
     }
 

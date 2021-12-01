@@ -4,12 +4,12 @@ import jandcode.commons.*;
 import jandcode.core.dao.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.dao.data.*;
-import jandcode.core.test.*;
+import jandcode.core.dbm.test.*;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class Dao_Test extends App_Test {
+public class Dao_Test extends Dbm_Test {
 
     Model model;
     Model model2;
@@ -41,21 +41,19 @@ public class Dao_Test extends App_Test {
         utils.logOn();
         //
         stopwatch.start();
-        DbmDbTestSvc z = testSvc(DbmDbTestSvc.class);
         //
-        ModelDaoService svc = z.getModel().bean(ModelDaoService.class);
+        ModelDaoService svc = getModel().bean(ModelDaoService.class);
         DbLink dao = svc.getDaoInvoker().createDao(DbLink.class);
         String s = dao.m1();
-        assertEquals(s, "m1-ok-test1-111");
+        assertEquals(s, "m1-ok-testdb-111");
         stopwatch.stop();
     }
 
     @Test
     public void mdb_link() throws Exception {
-        DbmDbTestSvc z = testSvc(DbmDbTestSvc.class);
-        MdbLink dao = z.getMdb().createDao(MdbLink.class);
+        MdbLink dao = getMdb().createDao(MdbLink.class);
         String s = dao.m1();
-        assertEquals(s, "m1-ok-mdb-test1-111");
+        assertEquals(s, "m1-ok-mdb-testdb-111");
     }
 
     @Test
@@ -66,9 +64,9 @@ public class Dao_Test extends App_Test {
         }
         String s;
         s = (String) h1.invokeDao("p1/checkModelLink/m1");
-        assertEquals(s, "m1-ok-test1");
+        assertEquals(s, "m1-ok-testdb");
         s = (String) h1.invokeDao("p1/dbLink/m1");
-        assertEquals(s, "m1-ok-test1-111");
+        assertEquals(s, "m1-ok-testdb-111");
     }
 
 

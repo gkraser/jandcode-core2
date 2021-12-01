@@ -1,43 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
-    <x-depends module="jandcode.core.dbm"/>
-    <x-depends module="jandcode.core.db.h2"/>
+    <x-include path="../test.cfx"/>
 
     <dbm>
 
-        <model name="base1">
+        <model name="default" instance="testdb.base">
         </model>
 
-        <model name="default" instance="base1">
-        </model>
-
-        <model name="model2" instance="base1">
-        </model>
-
-        <model name="test1" instance="base1">
+        <model name="model2" instance="testdb.base">
         </model>
 
     </dbm>
 
     <dao>
         <holder name="h1">
-            <rule name="i" mask="**/*" invoker="model:test1"/>
+            <rule name="i" mask="**/*" invoker="model:testdb"/>
             <item name="p1"
                   package="jandcode.core.dbm.dao.data"/>
         </holder>
     </dao>
-
-    <!-- ===================================================================== -->
-
-    <cfg>
-
-        <dbsource name="test1"
-                  dbdriver="h2.mem"
-                  database="test1"
-        />
-
-    </cfg>
 
 
 </root>
