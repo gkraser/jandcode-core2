@@ -13,7 +13,7 @@ public class TestDbWrapper extends ModelDbWrapper {
     private DbmTestSvc dbmTestSvc;
 
     public TestDbWrapper(Db db, DbmTestSvc dbmTestSvc) {
-        super(db, true, true);
+        super(db, true, false);
         this.dbmTestSvc = dbmTestSvc;
     }
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!-- тесты специфичные для dbtype   -->
+
+    <x-include path="../test.cfx"/>
+
+</root>

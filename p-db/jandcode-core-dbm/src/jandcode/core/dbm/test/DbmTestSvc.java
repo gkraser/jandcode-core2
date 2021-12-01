@@ -269,9 +269,15 @@ public class DbmTestSvc extends BaseAppTestSvc {
     public void insertDbTable(String tableName, Store store) throws Exception {
         String sql = generateInsertSql(tableName, store);
         DbQuery q = getDb().createQuery(sql);
-        for (StoreRecord rec : store) {
-            q.setParams(rec);
-            q.exec();
+        getDb().startTran();
+        try {
+            for (StoreRecord rec : store) {
+                q.setParams(rec);
+                q.exec();
+            }
+            getDb().commit();
+        } catch (Exception e) {
+            getDb().rollback(e);
         }
     }
 
