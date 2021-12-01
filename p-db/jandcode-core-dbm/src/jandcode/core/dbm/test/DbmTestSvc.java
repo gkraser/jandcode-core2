@@ -2,25 +2,31 @@ package jandcode.core.dbm.test;
 
 import jandcode.commons.*;
 import jandcode.commons.test.*;
-import jandcode.core.*;
 import jandcode.core.dao.*;
 import jandcode.core.db.*;
 import jandcode.core.dbm.*;
-import jandcode.core.dbm.impl.*;
 import jandcode.core.dbm.mdb.*;
 import jandcode.core.store.*;
 import jandcode.core.test.*;
 
+import java.util.*;
+
 /**
- * Расширение для тестов: поддержка dbm
+ * Расширение для тестов: поддержка dbm.
+ * <p>
+ * Используются следующие настройки из конфигурации приложения:
+ * <ul>
+ *     <li>test/dbm/model-default - имя модели, которая будет использоватся в тестах.
+ *     По умолчанию - 'default'.</li>
+ *     <li>test/dbm/create-db - создавать ли базу данных, если она не существует.
+ *     По умолчанию - false.</li>
+ * </ul>
  */
-public class DbmTestSvc extends BaseTestSvc {
+public class DbmTestSvc extends BaseAppTestSvc {
 
     private String modelName;
     private Db db;
     private Mdb mdb;
-
-    protected UtilsTestSvc utils;
 
     public void setUp() throws Exception {
         super.setUp();
@@ -49,13 +55,6 @@ public class DbmTestSvc extends BaseTestSvc {
                 }
             }
         }
-    }
-
-    /**
-     * Ссылка на приложение
-     */
-    public App getApp() {
-        return testSvc(AppTestSvc.class).getApp();
     }
 
     ////// model
@@ -105,7 +104,7 @@ public class DbmTestSvc extends BaseTestSvc {
     public Db getDb() {
         if (this.db == null) {
             Db dbOrig = getModel().createDb();
-            this.db = new ModelDbWrapper(dbOrig, true, false);
+            this.db = new TestDbWrapper(dbOrig, this);
         }
         return this.db;
     }
@@ -196,6 +195,84 @@ public class DbmTestSvc extends BaseTestSvc {
      */
     public <A> A createDao(Class<A> cls) throws Exception {
         return createDao(cls, null);
+    }
+
+    ////// database
+
+    /**
+     * Удалить таблицу, если она существует.
+     * Ошибки игнорируются.
+     */
+    public void dropDbTable(String tableName) {
+        try {
+            db.execQuery("drop table " + tableName);
+        } catch (Exception e) {
+            // ignore
+        }
+    }
+
+    /**
+     * Создать таблицу в базе со структурой и данными как у store.
+     * Без индексов.
+     * Если таблица уже существует, она удаляется.
+     *
+     * @param tableName имя таблицы
+     * @param store     структура таблицы
+     */
+    public void createDbTable(String tableName, Store store) throws Exception {
+        dropDbTable(tableName);
+
+        DbDriver drv = getDb().getDbSource().getDbDriver();
+        StringBuilder sbCreate = new StringBuilder();
+        for (StoreField f : store.getFields()) {
+            DbDataType dbt = drv.getDbDataTypes().get(f.getStoreDataType().getName());
+            String s1 = dbt.getSqlType(f.getSize());
+            if (sbCreate.length() != 0) {
+                sbCreate.append(",\n");
+            }
+            sbCreate.append("  ").append(f.getName()).append(" ").append(s1);
+        }
+        String ddl = "create table " + tableName + "(\n" + sbCreate + "\n)";
+        db.execQueryNative(ddl);
+        //
+        insertDbTable(tableName, store);
+    }
+
+    protected String generateInsertSql(String tableName, Store store) {
+        StringBuilder sb = new StringBuilder();
+
+        List<String> fields = new ArrayList<>();
+        List<String> params = new ArrayList<>();
+
+        for (StoreField f : store.getFields()) {
+            fields.add(f.getName());
+            params.add(":" + f.getName());
+        }
+
+        sb.append("insert into ");
+        sb.append(tableName);
+        sb.append("(");
+        sb.append(UtString.join(fields, ","));
+        sb.append(") values (");
+        sb.append(UtString.join(params, ","));
+        sb.append(")");
+
+        return sb.toString();
+    }
+
+    /**
+     * Вставить данные из store в таблицу в базе данных.
+     *
+     * @param tableName в какую таблицу
+     * @param store     данные
+     */
+    public void insertDbTable(String tableName, Store store) throws Exception {
+        String sql = generateInsertSql(tableName, store);
+        DbQuery q = getDb().createQuery(sql);
+        for (StoreRecord rec : store) {
+            q.setParams(rec);
+            q.exec();
+        }
     }
 
 }
