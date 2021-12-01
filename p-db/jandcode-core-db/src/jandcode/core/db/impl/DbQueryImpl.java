@@ -20,7 +20,8 @@ public class DbQueryImpl implements DbQuery {
     private String sqlPrepared;
     private List<String> sqlPreparedParams;
     private IVariantNamed params;
-    private NamedList<DbQueryField> fields = new DefaultNamedList<>();
+    private NamedList<DbQueryField> fieldsAll = new DefaultNamedList<>();
+    private NamedList<DbQueryField> fieldsUser = new DefaultNamedList<>();
     private Statement statement;
     private ResultSet resultSet;
     private QueryLogger queryLogger;
@@ -49,7 +50,7 @@ public class DbQueryImpl implements DbQuery {
     }
 
     public NamedList<DbQueryField> getFields() {
-        return fields;
+        return fieldsUser;
     }
 
     public void setParams(Object params) {
@@ -143,7 +144,8 @@ public class DbQueryImpl implements DbQuery {
             }
         }
         hasRowData = false;
-        fields.clear();
+        fieldsAll.clear();
+        fieldsUser.clear();
     }
 
     public void next() throws Exception {
@@ -205,7 +207,8 @@ public class DbQueryImpl implements DbQuery {
         hasRowData = true;
         this.resultSet = resultSet;
         //
-        fields.clear();
+        fieldsAll.clear();
+        fieldsUser.clear();
         ResultSetMetaData md = resultSet.getMetaData();
         int cols = md.getColumnCount();
         for (int i = 1; i <= cols; i++) {
@@ -213,14 +216,18 @@ public class DbQueryImpl implements DbQuery {
             //
             String fnOrig = md.getColumnLabel(i);
             String fn = fnOrig;
-            if (fields.find(fn) != null) {
+            if (fieldsAll.find(fn) != null) {
                 fn = fn + "#" + i;
             }
             // все имена колонок переводим в нижний регистр для унификации
             fn = fn.toLowerCase();
             //
             DbQueryFieldImpl f = new DbQueryFieldImpl(fn, fnOrig, i - 1, dt);
-            fields.add(f);
+            fieldsAll.add(f);
+            // в пользовательских полях игнорируем начинающиеся с указанного префикса
+            if (!fn.startsWith(DbConsts.IGNORE_FIELD_PREFIX)) {
+                fieldsUser.add(f);
+            }
         }
 
         data = new DbDataType.Value[cols];
@@ -236,7 +243,7 @@ public class DbQueryImpl implements DbQuery {
                 // поле еще не читалось
                 // читаем последовательно до нужного
                 for (int i = lastRead + 1; i <= index; i++) {
-                    DbQueryField vf = fields.get(i);
+                    DbQueryField vf = fieldsAll.get(i);
                     data[i] = vf.getDbDataType().getValue(resultSet, i + 1);
                 }
                 lastRead = index;
@@ -269,21 +276,21 @@ public class DbQueryImpl implements DbQuery {
     //////  IVariantNamed
 
     public Object getValue(String name) {
-        return getValueForField(fields.get(name)).getValue();
+        return getValueForField(fieldsAll.get(name)).getValue();
     }
 
     public boolean isNull(String name) {
-        return getValueForField(fields.get(name)).isNull();
+        return getValueForField(fieldsAll.get(name)).isNull();
     }
 
     //////
 
     public Object getValue(int index) {
-        return getValueForField(fields.get(index)).getValue();
+        return getValueForField(fieldsAll.get(index)).getValue();
     }
 
     public boolean isNull(int index) {
-        return getValueForField(fields.get(index)).isNull();
+        return getValueForField(fieldsAll.get(index)).isNull();
     }
 
     //////
