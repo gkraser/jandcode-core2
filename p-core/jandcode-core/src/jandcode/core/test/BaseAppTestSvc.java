@@ -7,7 +7,7 @@ import jandcode.commons.test.*;
  */
 public abstract class BaseAppTestSvc extends BaseTestSvc {
 
-    protected UtilsTestSvc utils;
+    public UtilsTestSvc utils;
     public MemoryTestSvc memory;
     public StopwatchTestSvc stopwatch;
 
