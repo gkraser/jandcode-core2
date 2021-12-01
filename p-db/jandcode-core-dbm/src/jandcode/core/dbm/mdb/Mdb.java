@@ -6,6 +6,7 @@ import jandcode.core.db.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.dict.*;
 import jandcode.core.dbm.domain.*;
+import jandcode.core.dbm.sql.*;
 import jandcode.core.store.*;
 
 /**
@@ -15,5 +16,10 @@ import jandcode.core.store.*;
  */
 public interface Mdb extends IAppLink, IModelLink, Db,
         IDaoInvoker, IDomainService, IDictService, ILoadQueryRecord, IStoreService {
+
+    /**
+     * Утилиты для текста sql
+     */
+    SqlUtils getSqlUtils();
 
 }

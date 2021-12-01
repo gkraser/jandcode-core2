@@ -12,6 +12,7 @@ import jandcode.core.dbm.dao.*;
 import jandcode.core.dbm.dict.*;
 import jandcode.core.dbm.domain.*;
 import jandcode.core.dbm.mdb.*;
+import jandcode.core.dbm.sql.*;
 import jandcode.core.store.*;
 
 import java.util.*;
@@ -24,6 +25,7 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
     private DomainService domainService;
     private DictService dictService;
     private StoreService storeService;
+    private SqlUtils sqlUtils;
 
     public MdbImpl(Model model, Db db) {
         this.model = model;
@@ -158,6 +160,15 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
 
     public Store createStore(Class cls) {
         return getStoreService().createStore(cls);
+    }
+
+    ////// SqlUtils
+
+    public SqlUtils getSqlUtils() {
+        if (sqlUtils == null) {
+            sqlUtils = SqlUtils.create(getModel());
+        }
+        return sqlUtils;
     }
 
 }
