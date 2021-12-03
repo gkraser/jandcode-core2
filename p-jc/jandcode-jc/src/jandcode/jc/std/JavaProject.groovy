@@ -743,9 +743,10 @@ class JavaProject extends ProjectScript implements ILibDepends {
      * Добавить каталог и процесс генерации исходников
      * @param destdir куда будем генерировать
      * @param doTask closure с кодом генерации. В качестве параметра принимает
-     * ссылку на объект JavaProject.GenTask
+     * ссылку на объект JavaProject.GenTask. Если не указана, то этот каталог не будет
+     * очищается, подразумевается что исходники в нем сгенерированы вне процесса компиляции
      */
-    void genSrc(String destdir, Closure doTask) {
+    void genSrc(String destdir, Closure doTask = null) {
         GenTask t = new GenTask()
         t.dir = wd(destdir)
         t.test = false
@@ -757,9 +758,10 @@ class JavaProject extends ProjectScript implements ILibDepends {
      * Добавить каталог и процесс генерации тестовых исходников
      * @param destdir куда будем генерировать
      * @param doTask closure с кодом генерации. В качестве параметра принимает
-     * ссылку на объект JavaProject.GenTask
+     * ссылку на объект JavaProject.GenTask. Если не указана, то этот каталог не будет
+     * очищается, подразумевается что исходники в нем сгенерированы вне процесса компиляции
      */
-    void genSrcTest(String destdir, Closure doTask) {
+    void genSrcTest(String destdir, Closure doTask = null) {
         GenTask t = new GenTask()
         t.dir = wd(destdir)
         t.test = true
@@ -775,7 +777,10 @@ class JavaProject extends ProjectScript implements ILibDepends {
         // собираем уникальные пути
         Set<String> dirs = new HashSet<>()
         for (GenTask t in _genTasks) {
-            dirs.add(UtFile.abs(t.dir))
+            if (t.doTask) {
+                // добавляем каталог для очистки, если указана задача генерации
+                dirs.add(UtFile.abs(t.dir))
+            }
         }
 
         //clean
@@ -785,8 +790,10 @@ class JavaProject extends ProjectScript implements ILibDepends {
 
         // генерация
         for (GenTask t in _genTasks) {
-            log.info("gen-src to path [${t.dir}]")
-            t.doTask(t)
+            if (t.doTask) {
+                log.info("gen-src to path [${t.dir}]")
+                t.doTask(t)
+            }
         }
 
     }
