@@ -8,7 +8,6 @@ class DaoGroovy1 extends BaseDao {
         println "CALLED notDaoMethod"
     }
 
-    @DaoMethod
     void dummy1() {
     }
 

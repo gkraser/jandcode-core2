@@ -57,7 +57,6 @@ public class StoreDao extends BaseModelDao {
     /**
      * Маленькое store
      */
-    @DaoMethod
     public Store small() throws Exception {
         return genStore1(1, 1, 5, 3);
     }
@@ -65,7 +64,6 @@ public class StoreDao extends BaseModelDao {
     /**
      * Произвольное store
      */
-    @DaoMethod
     public Store custom(StoreConfig config) throws Exception {
         return genStore1(config.getFromId(), config.getIncId(),
                 config.getCountRecords(), config.getCountFields());
@@ -74,7 +72,6 @@ public class StoreDao extends BaseModelDao {
     /**
      * Произвольное store с фильтрацией
      */
-    @DaoMethod
     public Store customFiltered(StoreConfig config, StoreFilter filter) throws Exception {
         Store st = genStore1(config.getFromId(), config.getIncId(),
                 config.getCountRecords(), config.getCountFields());
@@ -85,7 +82,6 @@ public class StoreDao extends BaseModelDao {
     /**
      * Произвольное store с фильтрацией
      */
-    @DaoMethod
     public Store customPaginate(StoreConfig config, StoreFilter filter, Paginate paginate) throws Exception {
         // полный набор данных
         Store stSrc = genStore1(config.getFromId(), config.getIncId(),

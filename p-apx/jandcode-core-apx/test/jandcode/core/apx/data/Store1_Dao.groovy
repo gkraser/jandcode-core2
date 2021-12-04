@@ -1,12 +1,11 @@
 package jandcode.core.apx.data
 
-import jandcode.core.dao.*
+
 import jandcode.core.dbm.dao.*
 import jandcode.core.store.*
 
 class Store1_Dao extends BaseModelDao {
 
-    @DaoMethod
     Store storeWithDict() {
         Store st = mdb.createStore()
         st.addField("id", "long")

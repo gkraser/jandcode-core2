@@ -4,7 +4,6 @@ import jandcode.core.dao.*
 
 class MySuper2_Dao extends BaseDao {
 
-    @DaoMethod
     void test1() {
 
     }
