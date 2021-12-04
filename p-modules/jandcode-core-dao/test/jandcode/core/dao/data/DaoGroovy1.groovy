@@ -4,7 +4,7 @@ import jandcode.core.dao.*
 
 class DaoGroovy1 extends BaseDao {
 
-    void notDaoMethod() {
+    void daoMethod1() {
         println "CALLED notDaoMethod"
     }
 

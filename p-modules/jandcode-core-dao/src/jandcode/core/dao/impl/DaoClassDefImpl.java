@@ -8,6 +8,8 @@ import java.lang.reflect.*;
 
 public class DaoClassDefImpl implements DaoClassDef {
 
+    private static IgnoreMethods ignoreMethods = new IgnoreMethods();
+
     private Class cls;
     private NamedList<DaoMethodDef> methods;
 
@@ -30,13 +32,27 @@ public class DaoClassDefImpl implements DaoClassDef {
         return cls.getName();
     }
 
+    protected boolean isStopClass(Class cls) {
+        return cls == null || cls == BaseDao.class || cls == Object.class;
+    }
+
+    protected boolean isIgnore(Method m) {
+        return ignoreMethods.isIgnore(m);
+    }
+
     protected void grabMethods(NamedList<DaoMethodDef> methods) {
 
-        validatePublicMethods(this.cls);
+        validatePackageMethods(this.cls);
 
         for (Method mt : this.cls.getMethods()) {
-            DaoMethod an = mt.getAnnotation(DaoMethod.class);
-            if (an == null) {
+            int md = mt.getModifiers();
+            if (!Modifier.isPublic(md)) {
+                continue;
+            }
+            if (Modifier.isStatic(md)) {
+                continue;
+            }
+            if (isIgnore(mt)) {
                 continue;
             }
             String nm = mt.getName();
@@ -49,20 +65,17 @@ public class DaoClassDefImpl implements DaoClassDef {
 
     }
 
-    protected void validatePublicMethods(Class cls) {
-        while (cls != null && cls != Object.class) {
-            for (Method mt : cls.getDeclaredMethods()) {
-                DaoMethod an = mt.getAnnotation(DaoMethod.class);
-                if (an == null) {
-                    continue;
-                }
-                int md = mt.getModifiers();
-                if (!Modifier.isPublic(md)) {
-                    throw new XError("@DaoMethod указан для не публичного метода: {0}", mt);
-                }
-            }
-            cls = cls.getSuperclass();
+    protected void validatePackageMethods(Class cls) {
+        if (isStopClass(cls)) {
+            return;
         }
+        for (Method mt : cls.getDeclaredMethods()) {
+            int md = mt.getModifiers();
+            if (md == 0) {
+                throw new XError("Метод должен быть public, private или protected: {0}", mt);
+            }
+        }
+        validatePackageMethods(cls.getSuperclass());
     }
 
 }

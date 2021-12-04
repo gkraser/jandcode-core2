@@ -10,6 +10,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DaoClassDef_Test extends App_Test {
 
     public static class Dao2_override_normal extends Dao2 {
+        
+        public static void staticMethod1() {
+        }
+
         @DaoMethod
         public int sum(int a, int b) {
             return super.sum(a, b);
