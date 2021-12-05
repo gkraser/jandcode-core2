@@ -90,6 +90,15 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
         return cn;
     }
 
+    protected boolean isClassUsed(Class cls) {
+        for (var it : this.items) {
+            if (cls == it.getMethodDef().getCls()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addItem(Conf x, String prefix) {
         String name = prefix;
         String namePrefix = name;
@@ -149,6 +158,9 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
                 String pakPfx = pak + ".";
                 for (ReflectClazz clazz : lst) {
                     Class cls = clazz.getCls();
+                    if (isClassUsed(cls)) {
+                        continue;
+                    }
                     if (Dao.class.isAssignableFrom(cls)) {
 
                         //
