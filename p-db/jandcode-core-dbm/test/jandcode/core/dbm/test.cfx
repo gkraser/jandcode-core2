@@ -30,7 +30,8 @@
         <dbsource name="testdb.postgresql"
                   dbdriver="postgresql"
                   database="test_dbm_testdb1"
-                  username="ks"/>
+                  username="ks"
+                  password="111"/>
     </cfg>
 
 

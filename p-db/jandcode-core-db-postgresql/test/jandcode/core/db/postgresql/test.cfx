@@ -9,6 +9,7 @@
                   dbdriver="postgresql"
                   database="jc2_db_test"
                   username="ks"
+                  password="111"
         />
 
         <!-- для тестирования create/drop -->
@@ -16,6 +17,7 @@
                   dbdriver="postgresql"
                   database="jc2_db_test_create"
                   username="ks"
+                  password="111"
         />
 
     </cfg>
