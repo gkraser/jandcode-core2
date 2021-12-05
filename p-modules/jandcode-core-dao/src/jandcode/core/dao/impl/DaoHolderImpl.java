@@ -120,6 +120,7 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
         String pak = x.getString("package");
         boolean recursive = x.getBoolean("recursive", true);
         boolean flat = x.getBoolean("flat");
+        boolean skipUsed = x.getBoolean("skipUsed");
         String invoker = x.getString("invoker", null);
         String provider = x.getString("provider", null);
 
@@ -141,15 +142,27 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
 
             if (hasClass) {
                 if (hasMethod) {
-                    if (!hasName) {
-                        throw new XError("Имя не указано");
+                    if (methodName.indexOf('*') == -1) {
+                        if (!hasName) {
+                            throw new XError("При регистрации конкретного метода dao нужно указавать имя item");
+                        }
+                        addItem(name, className, methodName, invoker);
+                    } else {
+                        // имя метода с '*'
+                        Class cls = UtClass.getClass(className);
+                        DaoClassDef cd = svc.getDaoClassDef(cls);
+                        for (DaoMethodDef md : cd.getMethods()) {
+                            if (UtVDir.matchPath(methodName, md.getName())) {
+                                addItem(namePrefix + md.getName(), cls, md.getName(), invoker);
+                            }
+                        }
                     }
-                    addItem(name, className, methodName, invoker);
                 } else {
                     Class cls = UtClass.getClass(className);
                     DaoClassDef cd = svc.getDaoClassDef(cls);
+                    String cn = classNameToDaoName(cls) + "/";
                     for (DaoMethodDef md : cd.getMethods()) {
-                        addItem(namePrefix + md.getName(), cls, md.getName(), invoker);
+                        addItem(namePrefix + cn + md.getName(), cls, md.getName(), invoker);
                     }
                 }
 
@@ -158,7 +171,7 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
                 String pakPfx = pak + ".";
                 for (ReflectClazz clazz : lst) {
                     Class cls = clazz.getCls();
-                    if (isClassUsed(cls)) {
+                    if (skipUsed && isClassUsed(cls)) {
                         continue;
                     }
                     if (Dao.class.isAssignableFrom(cls)) {

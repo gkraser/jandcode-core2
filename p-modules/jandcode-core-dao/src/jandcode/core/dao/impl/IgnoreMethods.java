@@ -35,6 +35,10 @@ public class IgnoreMethods {
     }
 
     public boolean isIgnore(Method m) {
+        String nm = m.getName();
+        if (nm.indexOf("$") != -1) {
+            return true;
+        }
         return ignoreMethods.contains(m.getName());
     }
 
