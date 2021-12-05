@@ -68,13 +68,6 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
 
     protected String classNameToDaoName(Class<?> cls) {
         String cn;
-        DaoName ann = cls.getAnnotation(DaoName.class);
-        if (ann != null) {
-            cn = ann.value();
-            if (!UtString.empty(cn)) {
-                return cn;
-            }
-        }
         cn = cls.getSimpleName();
         String cn1 = UtString.removeSuffix(cn, "_Dao");
         if (cn1 != null) {
