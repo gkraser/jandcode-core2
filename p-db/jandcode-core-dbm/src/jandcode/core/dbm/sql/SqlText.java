@@ -71,6 +71,22 @@ public interface SqlText extends CharSequence {
     }
 
     /**
+     * см. {@link SqlText#replaceWhere(java.lang.String, java.util.List)},
+     * где whereTexts это список из одного элемента whereText
+     */
+    default void replaceWhere(String whereName, String whereText) {
+        replaceWhere(whereName, List.of(whereText));
+    }
+
+    /**
+     * см. {@link SqlText#replaceWhere(java.util.List)},
+     * где whereTexts это список из одного элемента whereText
+     */
+    default void replaceWhere(String whereText) {
+        replaceWhere(null, List.of(whereText));
+    }
+
+    /**
      * Заменить поля в select.
      * Вызов метода отменяет предыдущий вызов replaceWhere.
      *
@@ -78,6 +94,14 @@ public interface SqlText extends CharSequence {
      * @param append false - заменить текст полностью, true - добавить текст
      */
     void replaceSelect(String text, boolean append);
+
+    /**
+     * см. {@link SqlText#replaceSelect(java.lang.String, boolean)},
+     * где append=false
+     */
+    default void replaceSelect(String text) {
+        replaceSelect(text, false);
+    }
 
     /**
      * Заменить order by.
