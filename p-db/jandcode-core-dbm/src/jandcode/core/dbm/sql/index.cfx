@@ -12,6 +12,10 @@
             <bean name="jandcode.core.dbm.sql.ISqlPaginate"
                   class="jandcode.core.dbm.sql.impl.SqlPaginateImpl"/>
 
+            <bean name="jandcode.core.dbm.sql.SqlText"
+                  class="jandcode.core.dbm.sql.impl.SqlTextImpl"
+                  bean.prototype="true"/>
+
             <!-- различные реализации для разных типов баз данных -->
             <!-- ... -->
 
