@@ -31,4 +31,21 @@ public interface ReflectRecordField extends INamed, IReflectProps {
      */
     Field getField();
 
+    /**
+     * Получить значение поля для указанного экземпляра
+     *
+     * @param inst экземпляр записи
+     * @return null, если нет getter
+     */
+    Object getValue(Object inst);
+
+    /**
+     * Установить значение поля для указанного экземпляра.
+     * Если нет setter, вызов игнорируется.
+     *
+     * @param inst  экземпляр записи
+     * @param value значение
+     */
+    void setValue(Object inst, Object value);
+
 }

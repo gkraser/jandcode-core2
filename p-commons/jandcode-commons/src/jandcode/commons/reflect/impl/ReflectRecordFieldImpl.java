@@ -1,5 +1,6 @@
 package jandcode.commons.reflect.impl;
 
+import jandcode.commons.error.*;
 import jandcode.commons.reflect.*;
 
 import java.lang.reflect.*;
@@ -50,6 +51,28 @@ public class ReflectRecordFieldImpl extends BaseReflectProps implements ReflectR
 
     public void setField(Field field) {
         this.field = field;
+    }
+
+    public Object getValue(Object inst) {
+        if (this.getter == null) {
+            return null;
+        }
+        try {
+            return this.getter.invoke(inst);
+        } catch (Exception e) {
+            throw new XErrorWrap(e);
+        }
+    }
+
+    public void setValue(Object inst, Object value) {
+        if (this.setter == null) {
+            return;
+        }
+        try {
+            this.setter.invoke(inst, value);
+        } catch (Exception e) {
+            throw new XErrorWrap(e);
+        }
     }
 
     //////
