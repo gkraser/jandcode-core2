@@ -141,6 +141,20 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
         return oneRecord(st);
     }
 
+    public StoreRecord loadQueryRecord(StoreRecord rec, CharSequence sql) throws Exception {
+        rec.clear();
+        StoreRecord tmp = loadQueryRecord(sql);
+        rec.setValues(tmp);
+        return rec;
+    }
+
+    public StoreRecord loadQueryRecord(StoreRecord rec, CharSequence sql, Object params) throws Exception {
+        rec.clear();
+        StoreRecord tmp = loadQueryRecord(sql, params);
+        rec.setValues(tmp);
+        return rec;
+    }
+
     ////// IStoreService
 
     private StoreService getStoreService() {

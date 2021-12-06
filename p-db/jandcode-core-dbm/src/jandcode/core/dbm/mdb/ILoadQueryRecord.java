@@ -19,4 +19,20 @@ public interface ILoadQueryRecord {
      */
     StoreRecord loadQueryRecord(CharSequence sql, Object params) throws Exception;
 
+    /**
+     * Загрузить одну запись в rec. Перед загрузкой - очищается.
+     * Если записей нет или более чем одна, генерируется ошибка.
+     *
+     * @return rec
+     */
+    StoreRecord loadQueryRecord(StoreRecord rec, CharSequence sql) throws Exception;
+
+    /**
+     * Загрузить одну запись в rec. Перед загрузкой - очищается.
+     * Если записей нет или более чем одна, генерируется ошибка.
+     *
+     * @return rec
+     */
+    StoreRecord loadQueryRecord(StoreRecord rec, CharSequence sql, Object params) throws Exception;
+
 }
