@@ -1,7 +1,10 @@
 package jandcode.core.dbm.sql.impl;
 
+import jandcode.commons.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.sql.*;
+
+import java.util.*;
 
 public class SqlTextImpl extends BaseModelMember implements SqlText {
 
@@ -10,6 +13,67 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
 
     private boolean paginate;
     private String paginateParamsPrefix;
+
+    private Map<String, ReplaceWhere> replaceWhere;
+    private ReplaceSelect replaceSelect;
+    private ReplaceOrderBy replaceOrderBy;
+
+    static class ReplaceWhere {
+        String name;
+        List<String> wheres;
+
+        public ReplaceWhere(String name, List<String> wheres) {
+            this.name = name;
+            if (UtString.empty(this.name)) {
+                this.name = "default";
+            }
+            this.wheres = new ArrayList<>();
+            if (wheres != null) {
+                this.wheres.addAll(wheres);
+            }
+        }
+
+        String replace(String sql) {
+            if (this.wheres.size() == 0) {
+                return sql;
+            }
+            return SqlPartsUtils.replaceWhere(sql, this.name, this.wheres);
+        }
+
+    }
+
+    static class ReplaceSelect {
+        String text;
+        boolean append;
+
+        public ReplaceSelect(String text, boolean append) {
+            this.text = text;
+            this.append = append;
+        }
+
+        String replace(String sql) {
+            if (UtString.empty(this.text)) {
+                return sql;
+            }
+            return SqlPartsUtils.replaceSelect(sql, this.text, this.append);
+        }
+
+    }
+
+    static class ReplaceOrderBy {
+        String text;
+
+        public ReplaceOrderBy(String text) {
+            this.text = text;
+        }
+
+        String replace(String sql) {
+            return SqlPartsUtils.replaceOrderBy(sql, this.text);
+        }
+
+    }
+
+    //////
 
     public SqlTextImpl(Model model, String sql) {
         setModel(model);
@@ -24,6 +88,18 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
 
     private String prepareSql() {
         String res = this.sql;
+
+        if (this.replaceWhere != null) {
+            for (ReplaceWhere rw : this.replaceWhere.values()) {
+                res = rw.replace(res);
+            }
+        }
+        if (this.replaceSelect != null) {
+            res = this.replaceSelect.replace(res);
+        }
+        if (this.replaceOrderBy != null) {
+            res = this.replaceOrderBy.replace(res);
+        }
 
         if (this.paginate) {
             SqlPaginate pgImpl = getModel().bean(SqlPaginate.class);
@@ -54,8 +130,8 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
     }
 
     public void setSql(String sql) {
-        this.sql = sql;
         reset();
+        this.sql = sql;
     }
 
     public String getSql() {
@@ -76,13 +152,35 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
     }
 
     public void setPaginate(boolean v) {
-        this.paginate = v;
         reset();
+        this.paginate = v;
     }
 
     public void paginateParamsPrefix(String prefix) {
-        this.paginateParamsPrefix = prefix;
         reset();
+        this.paginateParamsPrefix = prefix;
+    }
+
+    //////
+
+
+    public void replaceWhere(String whereName, List<String> whereTexts) {
+        reset();
+        if (this.replaceWhere == null) {
+            this.replaceWhere = new LinkedHashMap<>();
+        }
+        ReplaceWhere rw = new ReplaceWhere(whereName, whereTexts);
+        this.replaceWhere.put(rw.name, rw);
+    }
+
+    public void replaceSelect(String text, boolean append) {
+        reset();
+        this.replaceSelect = new ReplaceSelect(text, append);
+    }
+
+    public void replaceOrderBy(String text) {
+        reset();
+        this.replaceOrderBy = new ReplaceOrderBy(text);
     }
 
 }
