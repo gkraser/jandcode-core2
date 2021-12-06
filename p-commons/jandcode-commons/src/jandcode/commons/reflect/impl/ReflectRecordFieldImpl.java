@@ -12,6 +12,7 @@ public class ReflectRecordFieldImpl extends BaseReflectProps implements ReflectR
     private Method getter;
     private Method setter;
     private Field field;
+    private int weight;
 
     public String getName() {
         return name;
@@ -84,6 +85,20 @@ public class ReflectRecordFieldImpl extends BaseReflectProps implements ReflectR
         if (this.props == null || !this.props.containsKey(propName)) {
             setProp(propName, propValue);
         }
+    }
+
+    //////
+
+    /**
+     * Вес поля. Чем больше, тем ниже по списку.
+     * Определяется порядком декларации полей в классе.
+     */
+    int getWeight() {
+        return weight;
+    }
+
+    void setWeight(int weight) {
+        this.weight = weight;
     }
 
 }

@@ -51,7 +51,32 @@ public class ReflectRecordHolderImpl {
         // и поля, включая приватные
         grabFields(cls, fields);
 
-        return new ReflectRecordImpl(cls, fields.values());
+        // собираем веса полей (декларативный порядок)
+        Map<String, Integer> fieldsWeight = new HashMap<>();
+        grabFieldsWeight(cls, fieldsWeight);
+        List<ReflectRecordFieldImpl> fieldsList = new ArrayList<>(fields.values());
+        for (ReflectRecordFieldImpl f : fieldsList) {
+            Integer weight = fieldsWeight.get(f.getName());
+            if (weight == null) {
+                weight = 1000000;
+            }
+            f.setWeight(weight);
+        }
+        // сортируем в правильном порядке
+        fieldsList.sort((o1, o2) -> {
+            Integer i1 = o1.getWeight();
+            Integer i2 = o2.getWeight();
+            int n = i1.compareTo(i2);
+            if (n == 0) {
+                String s1 = o1.getName();
+                String s2 = o2.getName();
+                n = s1.compareToIgnoreCase(s2);
+            }
+            return n;
+        });
+
+        // готово
+        return new ReflectRecordImpl(cls, fieldsList);
     }
 
     private void grab(Class cls, Map<String, ReflectRecordFieldImpl> fields, List<Method> setters) {
@@ -155,4 +180,22 @@ public class ReflectRecordHolderImpl {
         }
     }
 
+    /**
+     * Собираем декларативный порядок определеня полей
+     */
+    private void grabFieldsWeight(Class cls, Map<String, Integer> fieldsWeight) {
+        if (cls == null || cls == Object.class) {
+            return;
+        }
+        // сначала у предка
+        grabFieldsWeight(cls.getSuperclass(), fieldsWeight);
+
+        // потом у себя
+        for (Field f : cls.getDeclaredFields()) {
+            Integer ord = fieldsWeight.get(f.getName());
+            if (ord == null) {
+                fieldsWeight.put(f.getName(), fieldsWeight.size() + 1);
+            }
+        }
+    }
 }
