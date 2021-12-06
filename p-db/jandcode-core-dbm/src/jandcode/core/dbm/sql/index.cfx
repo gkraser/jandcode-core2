@@ -12,7 +12,7 @@
             <bean name="jandcode.core.dbm.sql.SqlService"
                   class="jandcode.core.dbm.sql.impl.SqlServiceImpl"/>
 
-            <bean name="jandcode.core.dbm.sql.ISqlPaginate"
+            <bean name="jandcode.core.dbm.sql.SqlPaginate"
                   class="jandcode.core.dbm.sql.impl.SqlPaginateImpl"/>
 
             <!-- различные реализации для разных типов баз данных -->

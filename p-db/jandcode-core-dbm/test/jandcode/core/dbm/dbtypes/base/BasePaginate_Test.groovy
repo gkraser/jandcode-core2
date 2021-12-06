@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 abstract class BasePaginate_Test extends Dbm_Test {
 
-    SqlUtils sqlUtils
+    SqlPaginate sqlPaginate
 
     void setUp() throws Exception {
         super.setUp()
         //
-        sqlUtils = SqlUtils.create(getModel())
+        sqlPaginate = model.bean(SqlPaginate)
     }
 
     protected void create_t1() throws Exception {
@@ -32,7 +32,7 @@ abstract class BasePaginate_Test extends Dbm_Test {
         """
 
         // by param
-        String sqlPg = sqlUtils.paginate(sql)
+        String sqlPg = sqlPaginate.paginate(sql)
 
         Store st = mdb.loadQuery(sqlPg, [offset: offset, limit: limit])
 
@@ -45,7 +45,7 @@ abstract class BasePaginate_Test extends Dbm_Test {
         }
 
         // by text
-        sqlPg = sqlUtils.paginate(sql, offset, limit)
+        sqlPg = sqlPaginate.paginate(sql, offset, limit)
 
         st = mdb.loadQuery(sqlPg)
 

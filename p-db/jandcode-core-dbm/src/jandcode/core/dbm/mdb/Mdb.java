@@ -18,9 +18,4 @@ public interface Mdb extends IAppLink, IModelLink, Db,
         IDaoInvoker, IDomainService, IDictService, ILoadQueryRecord, IStoreService,
         ISqlService {
 
-    /**
-     * Утилиты для текста sql
-     */
-    SqlUtils getSqlUtils();
-
 }

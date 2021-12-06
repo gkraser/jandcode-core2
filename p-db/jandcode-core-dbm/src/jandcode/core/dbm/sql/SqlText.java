@@ -3,9 +3,9 @@ package jandcode.core.dbm.sql;
 /**
  * Класс для хранения текста sql и манипуляций с ними.
  * <p>
- * Метод toString() возвращает преобразованный
+ * Метод toString() возвращает преобразованный sql.
  */
-public interface SqlText {
+public interface SqlText extends CharSequence {
 
     /**
      * Установить sql текст

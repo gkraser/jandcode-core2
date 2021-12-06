@@ -4,7 +4,7 @@ import jandcode.commons.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.sql.*;
 
-public class SqlPaginateImpl extends BaseModelMember implements ISqlPaginate {
+public class SqlPaginateImpl extends BaseModelMember implements SqlPaginate {
 
     public String paginate(String srcSql, long offset, long limit) {
         return makePaginateSql(srcSql, UtString.toString(offset), UtString.toString(limit));

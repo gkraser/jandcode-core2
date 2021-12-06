@@ -3,7 +3,7 @@ package jandcode.core.dbm.sql;
 /**
  * Методы для пагинации
  */
-public interface ISqlPaginate {
+public interface SqlPaginate {
 
     /**
      * Сделать запрос с пагинацией.

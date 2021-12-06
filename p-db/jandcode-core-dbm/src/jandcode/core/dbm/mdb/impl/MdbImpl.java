@@ -26,7 +26,6 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
     private DictService dictService;
     private StoreService storeService;
     private SqlService sqlService;
-    private SqlUtils sqlUtils;
 
     public MdbImpl(Model model, Db db) {
         this.model = model;
@@ -167,22 +166,13 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
 
     private SqlService getSqlService() {
         if (sqlService == null) {
-            sqlService = getApp().bean(SqlService.class);
+            sqlService = getModel().bean(SqlService.class);
         }
         return sqlService;
     }
 
     public SqlText createSqlText(String sql) {
         return getSqlService().createSqlText(sql);
-    }
-
-    ////// SqlUtils
-
-    public SqlUtils getSqlUtils() {
-        if (sqlUtils == null) {
-            sqlUtils = SqlUtils.create(getModel());
-        }
-        return sqlUtils;
     }
 
 }

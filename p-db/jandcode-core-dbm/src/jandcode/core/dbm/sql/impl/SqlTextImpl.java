@@ -15,7 +15,7 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
         setModel(model);
         this.sql = sql;
     }
-    
+
     //////
 
     private void reset() {
@@ -26,11 +26,25 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
         String res = this.sql;
 
         if (this.paginate) {
-            ISqlPaginate pgImpl = getModel().bean(ISqlPaginate.class);
+            SqlPaginate pgImpl = getModel().bean(SqlPaginate.class);
             res = pgImpl.paginate(res, this.paginateParamsPrefix);
         }
 
         return res;
+    }
+
+    ////// CharSequence
+
+    public int length() {
+        return getSql().length();
+    }
+
+    public char charAt(int index) {
+        return getSql().charAt(index);
+    }
+
+    public CharSequence subSequence(int start, int end) {
+        return getSql().subSequence(start, end);
     }
 
     //////
