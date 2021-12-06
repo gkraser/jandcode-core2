@@ -86,13 +86,13 @@ public abstract class BaseStoreRecord implements StoreRecord, IRawRecord {
         if (inst == null) {
             return;
         }
-        ReflectClazz cls = UtReflect.getUtils().getClazz(inst.getClass());
-        for (String fn : cls.getGetterNames()) {
-            StoreField f = findField(fn);
+        ReflectRecord rr = UtReflect.getReflectRecord(inst.getClass());
+        for (ReflectRecordField rf : rr.getFields()) {
+            StoreField f = findField(rf.getName());
             if (f == null) {
                 continue;
             }
-            Object v = cls.invokeGetter(inst, fn);
+            Object v = rf.getValue(inst);
             setValue(f.getIndex(), v);
         }
     }
