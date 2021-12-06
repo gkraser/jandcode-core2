@@ -126,16 +126,16 @@ public abstract class BaseDbWrapper implements Db {
         return getWrapConnected().loadQueryNative(sql);
     }
 
-    public void loadQuery(Store store, CharSequence sql) throws Exception {
-        getWrapConnected().loadQuery(store, sql);
+    public Store loadQuery(Store store, CharSequence sql) throws Exception {
+        return getWrapConnected().loadQuery(store, sql);
     }
 
-    public void loadQuery(Store store, CharSequence sql, Object params) throws Exception {
-        getWrapConnected().loadQuery(store, sql, params);
+    public Store loadQuery(Store store, CharSequence sql, Object params) throws Exception {
+        return getWrapConnected().loadQuery(store, sql, params);
     }
 
-    public void loadQueryNative(Store store, CharSequence sql) throws Exception {
-        getWrapConnected().loadQueryNative(store, sql);
+    public Store loadQueryNative(Store store, CharSequence sql) throws Exception {
+        return getWrapConnected().loadQueryNative(store, sql);
     }
 
     public Store createStore() {
@@ -146,8 +146,8 @@ public abstract class BaseDbWrapper implements Db {
         return getWrapConnected().createStore(query);
     }
 
-    public void loadQuery(Store store, DbQuery query) throws Exception {
-        getWrapConnected().loadQuery(store, query);
+    public Store loadQuery(Store store, DbQuery query) throws Exception {
+        return getWrapConnected().loadQuery(store, query);
     }
 
     public Store loadQuery(DbQuery query) throws Exception {

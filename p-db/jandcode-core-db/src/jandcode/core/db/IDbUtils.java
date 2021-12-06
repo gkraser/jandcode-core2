@@ -11,12 +11,14 @@ public interface IDbUtils {
 
     /**
      * Создать запрос с указанием sql
+     *
      * @param sql
      */
     DbQuery createQuery(CharSequence sql);
 
     /**
      * Выполнить запрос без параметров
+     *
      * @param sql
      */
     void execQuery(CharSequence sql) throws Exception;
@@ -28,6 +30,7 @@ public interface IDbUtils {
 
     /**
      * Открыть запрос без параметров
+     *
      * @param sql
      */
     DbQuery openQuery(CharSequence sql) throws Exception;
@@ -42,12 +45,14 @@ public interface IDbUtils {
 
     /**
      * Выполнить нативный запрос без параметров
+     *
      * @param sql
      */
     void execQueryNative(CharSequence sql) throws Exception;
 
     /**
      * Открыть нативный запрос без параметров
+     *
      * @param sql
      */
     DbQuery openQueryNative(CharSequence sql) throws Exception;
@@ -77,8 +82,10 @@ public interface IDbUtils {
     /**
      * Загрузить данные из query в указанный store.
      * query не закрывается (не я открыл, не мне закрывать)!
+     *
+     * @return store
      */
-    void loadQuery(Store store, DbQuery query) throws Exception;
+    Store loadQuery(Store store, DbQuery query) throws Exception;
 
     /**
      * Загрузить query в новый store.
@@ -90,6 +97,7 @@ public interface IDbUtils {
 
     /**
      * Загрузить результат запроса в новый store
+     *
      * @param sql
      */
     Store loadQuery(CharSequence sql) throws Exception;
@@ -101,6 +109,7 @@ public interface IDbUtils {
 
     /**
      * Загрузить результат нативного запроса в новый store
+     *
      * @param sql
      */
     Store loadQueryNative(CharSequence sql) throws Exception;
@@ -109,18 +118,24 @@ public interface IDbUtils {
 
     /**
      * Загрузить результат запроса в указанный store
+     *
+     * @return store
      */
-    void loadQuery(Store store, CharSequence sql) throws Exception;
+    Store loadQuery(Store store, CharSequence sql) throws Exception;
 
     /**
      * Загрузить результат запроса с параметрами в указанный store
+     *
+     * @return store
      */
-    void loadQuery(Store store, CharSequence sql, Object params) throws Exception;
+    Store loadQuery(Store store, CharSequence sql, Object params) throws Exception;
 
     /**
      * Загрузить результат нативного запроса в указанный store
+     *
+     * @return store
      */
-    void loadQueryNative(Store store, CharSequence sql) throws Exception;
+    Store loadQueryNative(Store store, CharSequence sql) throws Exception;
 
 
     //////

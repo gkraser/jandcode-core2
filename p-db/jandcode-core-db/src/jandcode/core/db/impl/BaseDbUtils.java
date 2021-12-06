@@ -84,7 +84,7 @@ public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
         return store;
     }
 
-    public void loadQuery(Store store, DbQuery query) throws Exception {
+    public Store loadQuery(Store store, DbQuery query) throws Exception {
         // строим кеш
         int mx = store.getCountFields();
         int[] queryIdx = new int[mx];
@@ -112,6 +112,7 @@ public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
             query.next();
         }
         //
+        return store;
     }
 
     public Store loadQuery(DbQuery query) throws Exception {
@@ -148,28 +149,31 @@ public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
 
     //////
 
-    public void loadQuery(Store store, CharSequence sql) throws Exception {
+    public Store loadQuery(Store store, CharSequence sql) throws Exception {
         DbQuery q = createQuery(sql);
         q.open();
         try (q) {
             loadQuery(store, q);
         }
+        return store;
     }
 
-    public void loadQuery(Store store, CharSequence sql, Object params) throws Exception {
+    public Store loadQuery(Store store, CharSequence sql, Object params) throws Exception {
         DbQuery q = createQuery(sql, params);
         q.open();
         try (q) {
             loadQuery(store, q);
         }
+        return store;
     }
 
-    public void loadQueryNative(Store store, CharSequence sql) throws Exception {
+    public Store loadQueryNative(Store store, CharSequence sql) throws Exception {
         DbQuery q = createQuery(sql);
         q.openNative();
         try (q) {
             loadQuery(store, q);
         }
+        return store;
     }
 
     //////
