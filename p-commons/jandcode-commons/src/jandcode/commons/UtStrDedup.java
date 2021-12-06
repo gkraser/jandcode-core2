@@ -10,6 +10,8 @@ public class UtStrDedup {
 
     public static StrDedup DEDUP_NORMAL = new NormalStrDedup();
     public static StrDedup DEDUP_LOWER = new LowerStrDedup();
+    public static StrDedup DEDUP_CAMEL_CASE = new CameCaseStrDedup();
+    public static StrDedup DEDUP_SNAKE_CASE = new SnakeCaseStrDedup();
 
 
     /**
@@ -24,6 +26,20 @@ public class UtStrDedup {
      */
     public static String lower(String s) {
         return DEDUP_LOWER.dedup(s);
+    }
+
+    /**
+     * Возвращает дедублицированный camelCase вариант строки.
+     */
+    public static String camelCase(String s) {
+        return DEDUP_CAMEL_CASE.dedup(s);
+    }
+
+    /**
+     * Возвращает дедублицированный snakeCase вариант строки.
+     */
+    public static String snakeCase(String s) {
+        return DEDUP_SNAKE_CASE.dedup(s);
     }
 
 }
