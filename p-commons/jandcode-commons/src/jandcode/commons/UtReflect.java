@@ -9,7 +9,7 @@ import jandcode.commons.reflect.impl.*;
 public class UtReflect {
 
     private static ReflectUtils utils = new ReflectUtilsImpl();
-    private static ReflectTableHolderImpl tableHolder = new ReflectTableHolderImpl();
+    private static ReflectRecordHolderImpl tableHolder = new ReflectRecordHolderImpl();
 
     /**
      * Глобальный экземпляр {@link ReflectUtils}.
@@ -24,7 +24,7 @@ public class UtReflect {
      * @param cls класс
      * @return структура таблицы
      */
-    public static ReflectTable getReflectTable(Class cls) {
+    public static ReflectRecord getReflectRecord(Class cls) {
         return tableHolder.getItem(cls);
     }
 

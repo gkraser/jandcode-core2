@@ -61,14 +61,14 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
     }
 
     public Store createStore(Class cls) {
-        ReflectTable rt = UtReflect.getReflectTable(cls);
+        ReflectRecord rt = UtReflect.getReflectRecord(cls);
         Store storeStruct = (Store) rt.getProp("storeStruct");
         if (storeStruct == null) {
             synchronized (this) {
                 storeStruct = (Store) rt.getProp("storeStruct");
                 if (storeStruct == null) {
                     storeStruct = createStore();
-                    for (ReflectTableField rtf : rt.getFields()) {
+                    for (ReflectRecordField rtf : rt.getFields()) {
                         StoreField f = storeStruct.addField(rtf.getName(), rtf.getType());
 
                         String dict = UtCnv.toString(rtf.getProp("dict"));

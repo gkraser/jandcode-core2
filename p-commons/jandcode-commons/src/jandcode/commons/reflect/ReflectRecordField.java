@@ -7,9 +7,9 @@ import java.lang.reflect.*;
 /**
  * Интерфейс для поля таблицы, полученной из класса.
  *
- * @see ReflectTable
+ * @see ReflectRecord
  */
-public interface ReflectTableField extends INamed, IReflectProps {
+public interface ReflectRecordField extends INamed, IReflectProps {
 
     /**
      * Тип поля

@@ -8,7 +8,7 @@ import java.util.*;
  * Это взгляд на некий класс, как на строку таблицы.
  * Каждое свойство класса - поле таблицы. Свойство представленно соответствующим getter.
  */
-public interface ReflectTable extends IReflectProps {
+public interface ReflectRecord extends IReflectProps {
 
     /**
      * Реальный класс
@@ -18,12 +18,12 @@ public interface ReflectTable extends IReflectProps {
     /**
      * Поля. Список потенциально может быть пустым.
      */
-    Collection<ReflectTableField> getFields();
+    Collection<ReflectRecordField> getFields();
 
     /**
      * Найти поле по имени без учета регистра.
      */
-    ReflectTableField findField(String name);
+    ReflectRecordField findField(String name);
 
 
 }

@@ -5,17 +5,17 @@ import jandcode.commons.reflect.*;
 
 import java.util.*;
 
-public class ReflectTableImpl extends BaseReflectProps implements ReflectTable {
+public class ReflectRecordImpl extends BaseReflectProps implements ReflectRecord {
 
     private Class cls;
-    private List<ReflectTableField> fields;
-    private Map<String, ReflectTableField> fieldsByName = new HashMap<>();
+    private List<ReflectRecordField> fields;
+    private Map<String, ReflectRecordField> fieldsByName = new HashMap<>();
 
-    public ReflectTableImpl(Class cls, Collection<ReflectTableFieldImpl> fields) {
+    public ReflectRecordImpl(Class cls, Collection<ReflectRecordFieldImpl> fields) {
         this.cls = cls;
-        List<ReflectTableField> flds = new ArrayList<>(fields);
+        List<ReflectRecordField> flds = new ArrayList<>(fields);
         this.fields = Collections.unmodifiableList(flds);
-        for (ReflectTableField f : fields) {
+        for (ReflectRecordField f : fields) {
             this.fieldsByName.put(UtStrDedup.lower(f.getName()), f);
         }
     }
@@ -24,11 +24,11 @@ public class ReflectTableImpl extends BaseReflectProps implements ReflectTable {
         return cls;
     }
 
-    public Collection<ReflectTableField> getFields() {
+    public Collection<ReflectRecordField> getFields() {
         return fields;
     }
 
-    public ReflectTableField findField(String name) {
+    public ReflectRecordField findField(String name) {
         if (UtString.empty(name)) {
             return null;
         }

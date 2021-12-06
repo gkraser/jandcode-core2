@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ReflectTable_Test extends Utils_Test {
+public class ReflectRecord_Test extends Utils_Test {
 
     static class Table1 {
         private long id;
@@ -54,7 +54,7 @@ public class ReflectTable_Test extends Utils_Test {
 
     @Test
     public void test1() throws Exception {
-        ReflectTable t = UtReflect.getReflectTable(Table2.class);
+        ReflectRecord t = UtReflect.getReflectRecord(Table2.class);
         for (var f : t.getFields()) {
             System.out.println("" + f.getName() + ":" + f.getPropNames() + ":" + f.getGetter());
         }
@@ -66,7 +66,7 @@ public class ReflectTable_Test extends Utils_Test {
 
     @Test
     public void dict1() throws Exception {
-        ReflectTable t = UtReflect.getReflectTable(Table3.class);
+        ReflectRecord t = UtReflect.getReflectRecord(Table3.class);
         assertEquals(t.findField("byName").getProp("dict"), "dict1");
         assertEquals(t.findField("dict2").getProp("dict"), "dict2");
     }

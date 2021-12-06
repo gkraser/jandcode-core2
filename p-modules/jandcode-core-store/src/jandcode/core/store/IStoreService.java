@@ -26,7 +26,7 @@ public interface IStoreService {
      * Создать store с полями, как у класса. Учитываются аннотации {@link FieldProps}
      * для полей и getter.
      *
-     * @see ReflectTable
+     * @see ReflectRecord
      */
     Store createStore(Class cls);
 

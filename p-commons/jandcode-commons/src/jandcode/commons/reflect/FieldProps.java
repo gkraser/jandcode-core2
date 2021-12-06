@@ -3,7 +3,7 @@ package jandcode.commons.reflect;
 import java.lang.annotation.*;
 
 /**
- * Стандартные свойства, которыми может обладать поле {@link ReflectTableField}.
+ * Стандартные свойства, которыми может обладать поле {@link ReflectRecordField}.
  * Аннотация может быть назначена на getter или field.
  * Свойства из класса наследника перекрывают свойства из предка.
  */

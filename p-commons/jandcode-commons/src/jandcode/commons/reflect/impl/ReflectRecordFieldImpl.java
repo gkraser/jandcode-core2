@@ -4,7 +4,7 @@ import jandcode.commons.reflect.*;
 
 import java.lang.reflect.*;
 
-public class ReflectTableFieldImpl extends BaseReflectProps implements ReflectTableField {
+public class ReflectRecordFieldImpl extends BaseReflectProps implements ReflectRecordField {
 
     private String name;
     private Class type;

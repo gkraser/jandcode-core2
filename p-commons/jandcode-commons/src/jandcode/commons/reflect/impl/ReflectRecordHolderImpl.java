@@ -8,15 +8,15 @@ import java.lang.reflect.*;
 import java.util.*;
 import java.util.concurrent.*;
 
-public class ReflectTableHolderImpl {
+public class ReflectRecordHolderImpl {
 
-    protected Map<Class, ReflectTable> items = new ConcurrentHashMap<>();
+    protected Map<Class, ReflectRecord> items = new ConcurrentHashMap<>();
 
-    public ReflectTable getItem(Class cls) {
+    public ReflectRecord getItem(Class cls) {
         if (cls == null) {
             throw new XError("cls is null");
         }
-        ReflectTable res = items.get(cls);
+        ReflectRecord res = items.get(cls);
         if (res == null) {
             synchronized (this) {
                 res = items.get(cls);
@@ -29,8 +29,8 @@ public class ReflectTableHolderImpl {
         return res;
     }
 
-    private ReflectTable makeItem(Class cls) {
-        Map<String, ReflectTableFieldImpl> fields = new LinkedHashMap<>();
+    private ReflectRecord makeItem(Class cls) {
+        Map<String, ReflectRecordFieldImpl> fields = new LinkedHashMap<>();
         List<Method> setters = new ArrayList<>();
 
         // собираем gettres/setters и создаем поля
@@ -39,7 +39,7 @@ public class ReflectTableHolderImpl {
         // setters настраиваем
         for (Method m : setters) {
             String fieldName = m.getName().substring(3);
-            ReflectTableFieldImpl field = fields.get(fieldName);
+            ReflectRecordFieldImpl field = fields.get(fieldName);
             if (field != null) {
                 if (field.getType().isAssignableFrom(m.getReturnType())) {
                     // правильный тип параметра
@@ -51,10 +51,10 @@ public class ReflectTableHolderImpl {
         // и поля, включая приватные
         grabFields(cls, fields);
 
-        return new ReflectTableImpl(cls, fields.values());
+        return new ReflectRecordImpl(cls, fields.values());
     }
 
-    private void grab(Class cls, Map<String, ReflectTableFieldImpl> fields, List<Method> setters) {
+    private void grab(Class cls, Map<String, ReflectRecordFieldImpl> fields, List<Method> setters) {
         if (cls == null || cls == Object.class) {
             return;
         }
@@ -93,10 +93,10 @@ public class ReflectTableHolderImpl {
                 }
 
                 String fieldName = UtString.uncapFirst(nm.substring(3));
-                ReflectTableFieldImpl field = fields.get(fieldName);
+                ReflectRecordFieldImpl field = fields.get(fieldName);
                 // если не определен, создаем
                 if (field == null) {
-                    field = new ReflectTableFieldImpl();
+                    field = new ReflectRecordFieldImpl();
                     field.setName(fieldName);
                     field.setGetter(m);
                     field.setType(m.getReturnType());
@@ -126,12 +126,12 @@ public class ReflectTableHolderImpl {
         grab(cls.getSuperclass(), fields, setters);
     }
 
-    private void grabFields(Class cls, Map<String, ReflectTableFieldImpl> fields) {
+    private void grabFields(Class cls, Map<String, ReflectRecordFieldImpl> fields) {
         if (cls == null || cls == Object.class) {
             return;
         }
         for (Field f : cls.getDeclaredFields()) {
-            ReflectTableFieldImpl tf = fields.get(f.getName());
+            ReflectRecordFieldImpl tf = fields.get(f.getName());
             if (tf != null) {
                 if (tf.getField() == null) {
                     tf.setField(f);
@@ -142,7 +142,7 @@ public class ReflectTableHolderImpl {
         grabFields(cls.getSuperclass(), fields);
     }
 
-    private void grabProps(ReflectTableFieldImpl field, FieldProps fieldProps) {
+    private void grabProps(ReflectRecordFieldImpl field, FieldProps fieldProps) {
         if (fieldProps == null) {
             return;
         }
