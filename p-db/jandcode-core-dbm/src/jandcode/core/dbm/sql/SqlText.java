@@ -34,21 +34,23 @@ public interface SqlText extends CharSequence {
      * Пагинация.
      *
      * @param v true - включить пагинацию
+     * @return ссылка на себя
      */
-    void paginate(boolean v);
+    SqlText paginate(boolean v);
 
     /**
      * @see SqlText#paginate(boolean)
      */
-    void setPaginate(boolean v);
+    SqlText setPaginate(boolean v);
 
     /**
      * Префикс имен параметров для пагинации.
      * По умолчанию параметры без префиксов: offset и limit.
      *
      * @param prefix префикс для имен параметров
+     * @return ссылка на себя
      */
-    void paginateParamsPrefix(String prefix);
+    SqlText paginateParamsPrefix(String prefix);
 
 
     ////// replace parts
@@ -59,31 +61,32 @@ public interface SqlText extends CharSequence {
      *
      * @param whereName  имя where, по умолчанию 'default'
      * @param whereTexts условия where, между ними ставится 'and'
+     * @return ссылка на себя
      */
-    void replaceWhere(String whereName, List<String> whereTexts);
+    SqlText replaceWhere(String whereName, List<String> whereTexts);
 
     /**
      * см. {@link SqlText#replaceWhere(java.lang.String, java.util.List)},
      * где whereName=default
      */
-    default void replaceWhere(List<String> whereTexts) {
-        replaceWhere(null, whereTexts);
+    default SqlText replaceWhere(List<String> whereTexts) {
+        return replaceWhere(null, whereTexts);
     }
 
     /**
      * см. {@link SqlText#replaceWhere(java.lang.String, java.util.List)},
      * где whereTexts это список из одного элемента whereText
      */
-    default void replaceWhere(String whereName, String whereText) {
-        replaceWhere(whereName, List.of(whereText));
+    default SqlText replaceWhere(String whereName, String whereText) {
+        return replaceWhere(whereName, List.of(whereText));
     }
 
     /**
      * см. {@link SqlText#replaceWhere(java.util.List)},
      * где whereTexts это список из одного элемента whereText
      */
-    default void replaceWhere(String whereText) {
-        replaceWhere(null, List.of(whereText));
+    default SqlText replaceWhere(String whereText) {
+        return replaceWhere(null, List.of(whereText));
     }
 
     /**
@@ -92,15 +95,16 @@ public interface SqlText extends CharSequence {
      *
      * @param text   на что заменить
      * @param append false - заменить текст полностью, true - добавить текст
+     * @return ссылка на себя
      */
-    void replaceSelect(String text, boolean append);
+    SqlText replaceSelect(String text, boolean append);
 
     /**
      * см. {@link SqlText#replaceSelect(java.lang.String, boolean)},
      * где append=false
      */
-    default void replaceSelect(String text) {
-        replaceSelect(text, false);
+    default SqlText replaceSelect(String text) {
+        return replaceSelect(text, false);
     }
 
     /**
@@ -108,7 +112,8 @@ public interface SqlText extends CharSequence {
      * Вызов метода отменяет предыдущий вызов replaceWhere.
      *
      * @param text на что. Если пусто - order by удаляется
+     * @return ссылка на себя
      */
-    void replaceOrderBy(String text);
+    SqlText replaceOrderBy(String text);
 
 }

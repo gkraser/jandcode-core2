@@ -147,40 +147,45 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
 
     //////
 
-    public void paginate(boolean v) {
+    public SqlText paginate(boolean v) {
         setPaginate(v);
+        return this;
     }
 
-    public void setPaginate(boolean v) {
+    public SqlText setPaginate(boolean v) {
         reset();
         this.paginate = v;
+        return this;
     }
 
-    public void paginateParamsPrefix(String prefix) {
+    public SqlText paginateParamsPrefix(String prefix) {
         reset();
         this.paginateParamsPrefix = prefix;
+        return this;
     }
 
     //////
 
-
-    public void replaceWhere(String whereName, List<String> whereTexts) {
+    public SqlText replaceWhere(String whereName, List<String> whereTexts) {
         reset();
         if (this.replaceWhere == null) {
             this.replaceWhere = new LinkedHashMap<>();
         }
         ReplaceWhere rw = new ReplaceWhere(whereName, whereTexts);
         this.replaceWhere.put(rw.name, rw);
+        return this;
     }
 
-    public void replaceSelect(String text, boolean append) {
+    public SqlText replaceSelect(String text, boolean append) {
         reset();
         this.replaceSelect = new ReplaceSelect(text, append);
+        return this;
     }
 
-    public void replaceOrderBy(String text) {
+    public SqlText replaceOrderBy(String text) {
         reset();
         this.replaceOrderBy = new ReplaceOrderBy(text);
+        return this;
     }
 
 }
