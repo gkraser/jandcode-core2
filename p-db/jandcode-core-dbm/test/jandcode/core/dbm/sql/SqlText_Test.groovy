@@ -8,9 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SqlText_Test extends Dbm_Test {
 
     SqlText create(String text) {
-        SqlText sql = model.create(SqlText)
-        sql.setSql(text)
-        return sql
+        return model.bean(SqlService).createSqlText(text)
     }
 
     @Test

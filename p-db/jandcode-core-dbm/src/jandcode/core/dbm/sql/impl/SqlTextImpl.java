@@ -11,6 +11,11 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
     private boolean paginate;
     private String paginateParamsPrefix;
 
+    public SqlTextImpl(Model model, String sql) {
+        setModel(model);
+        this.sql = sql;
+    }
+    
     //////
 
     private void reset() {
