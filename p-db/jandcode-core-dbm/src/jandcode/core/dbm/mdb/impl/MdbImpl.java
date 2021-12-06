@@ -131,12 +131,12 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
         return st.get(0);
     }
 
-    public StoreRecord loadQueryRecord(String sql) throws Exception {
+    public StoreRecord loadQueryRecord(CharSequence sql) throws Exception {
         Store st = loadQuery(sql);
         return oneRecord(st);
     }
 
-    public StoreRecord loadQueryRecord(String sql, Object params) throws Exception {
+    public StoreRecord loadQueryRecord(CharSequence sql, Object params) throws Exception {
         Store st = loadQuery(sql, params);
         return oneRecord(st);
     }

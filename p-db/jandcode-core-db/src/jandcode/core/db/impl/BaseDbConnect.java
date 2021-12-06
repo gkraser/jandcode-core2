@@ -59,8 +59,8 @@ public abstract class BaseDbConnect extends BaseDbSourceMember implements IDbCon
 
     ////// query
 
-    public DbQuery createQuery(String sql, Object params) {
-        return new DbQueryImpl(this, getConnection(), sql, params);
+    public DbQuery createQuery(CharSequence sql, Object params) {
+        return new DbQueryImpl(this, getConnection(), sql.toString(), params);
     }
 
     ////// tran

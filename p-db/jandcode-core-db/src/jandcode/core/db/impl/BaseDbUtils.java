@@ -10,11 +10,11 @@ public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
 
     ////// query
 
-    public DbQuery createQuery(String sql) {
+    public DbQuery createQuery(CharSequence sql) {
         return createQuery(sql, null);
     }
 
-    public void execQuery(String sql) throws Exception {
+    public void execQuery(CharSequence sql) throws Exception {
         DbQuery q = createQuery(sql);
         try {
             q.exec();
@@ -23,7 +23,7 @@ public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
         }
     }
 
-    public void execQuery(String sql, Object params) throws Exception {
+    public void execQuery(CharSequence sql, Object params) throws Exception {
         DbQuery q = createQuery(sql, params);
         try {
             q.exec();
@@ -32,13 +32,13 @@ public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
         }
     }
 
-    public DbQuery openQuery(String sql) throws Exception {
+    public DbQuery openQuery(CharSequence sql) throws Exception {
         DbQuery q = createQuery(sql);
         q.open();
         return q;
     }
 
-    public DbQuery openQuery(String sql, Object params) throws Exception {
+    public DbQuery openQuery(CharSequence sql, Object params) throws Exception {
         DbQuery q = createQuery(sql, params);
         q.open();
         return q;
@@ -46,7 +46,7 @@ public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
 
     ////// query native
 
-    public void execQueryNative(String sql) throws Exception {
+    public void execQueryNative(CharSequence sql) throws Exception {
         DbQuery q = createQuery(sql);
         try {
             q.execNative();
@@ -55,7 +55,7 @@ public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
         }
     }
 
-    public DbQuery openQueryNative(String sql) throws Exception {
+    public DbQuery openQueryNative(CharSequence sql) throws Exception {
         DbQuery q = createQuery(sql);
         q.openNative();
         return q;
@@ -122,7 +122,7 @@ public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
 
     //////
 
-    public Store loadQuery(String sql) throws Exception {
+    public Store loadQuery(CharSequence sql) throws Exception {
         DbQuery q = createQuery(sql);
         q.open();
         try (q) {
@@ -130,7 +130,7 @@ public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
         }
     }
 
-    public Store loadQuery(String sql, Object params) throws Exception {
+    public Store loadQuery(CharSequence sql, Object params) throws Exception {
         DbQuery q = createQuery(sql, params);
         q.open();
         try (q) {
@@ -138,7 +138,7 @@ public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
         }
     }
 
-    public Store loadQueryNative(String sql) throws Exception {
+    public Store loadQueryNative(CharSequence sql) throws Exception {
         DbQuery q = createQuery(sql);
         q.openNative();
         try (q) {
@@ -148,7 +148,7 @@ public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
 
     //////
 
-    public void loadQuery(Store store, String sql) throws Exception {
+    public void loadQuery(Store store, CharSequence sql) throws Exception {
         DbQuery q = createQuery(sql);
         q.open();
         try (q) {
@@ -156,7 +156,7 @@ public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
         }
     }
 
-    public void loadQuery(Store store, String sql, Object params) throws Exception {
+    public void loadQuery(Store store, CharSequence sql, Object params) throws Exception {
         DbQuery q = createQuery(sql, params);
         q.open();
         try (q) {
@@ -164,7 +164,7 @@ public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
         }
     }
 
-    public void loadQueryNative(Store store, String sql) throws Exception {
+    public void loadQueryNative(Store store, CharSequence sql) throws Exception {
         DbQuery q = createQuery(sql);
         q.openNative();
         try (q) {

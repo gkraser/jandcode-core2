@@ -56,7 +56,7 @@ public abstract class BaseDbWrapper implements Db {
         return getWrap().isConnected();
     }
 
-    public DbQuery createQuery(String sql, Object params) {
+    public DbQuery createQuery(CharSequence sql, Object params) {
         return getWrapConnected().createQuery(sql, params);
     }
 
@@ -82,31 +82,31 @@ public abstract class BaseDbWrapper implements Db {
 
     ////// IDbUtils
 
-    public DbQuery createQuery(String sql) {
+    public DbQuery createQuery(CharSequence sql) {
         return getWrapConnected().createQuery(sql);
     }
 
-    public void execQuery(String sql) throws Exception {
+    public void execQuery(CharSequence sql) throws Exception {
         getWrapConnected().execQuery(sql);
     }
 
-    public void execQuery(String sql, Object params) throws Exception {
+    public void execQuery(CharSequence sql, Object params) throws Exception {
         getWrapConnected().execQuery(sql, params);
     }
 
-    public DbQuery openQuery(String sql) throws Exception {
+    public DbQuery openQuery(CharSequence sql) throws Exception {
         return getWrapConnected().openQuery(sql);
     }
 
-    public DbQuery openQuery(String sql, Object params) throws Exception {
+    public DbQuery openQuery(CharSequence sql, Object params) throws Exception {
         return getWrapConnected().openQuery(sql, params);
     }
 
-    public void execQueryNative(String sql) throws Exception {
+    public void execQueryNative(CharSequence sql) throws Exception {
         getWrapConnected().execQueryNative(sql);
     }
 
-    public DbQuery openQueryNative(String sql) throws Exception {
+    public DbQuery openQueryNative(CharSequence sql) throws Exception {
         return getWrapConnected().openQueryNative(sql);
     }
 
@@ -114,27 +114,27 @@ public abstract class BaseDbWrapper implements Db {
         getWrap().rollback(e);
     }
 
-    public Store loadQuery(String sql) throws Exception {
+    public Store loadQuery(CharSequence sql) throws Exception {
         return getWrapConnected().loadQuery(sql);
     }
 
-    public Store loadQuery(String sql, Object params) throws Exception {
+    public Store loadQuery(CharSequence sql, Object params) throws Exception {
         return getWrapConnected().loadQuery(sql, params);
     }
 
-    public Store loadQueryNative(String sql) throws Exception {
+    public Store loadQueryNative(CharSequence sql) throws Exception {
         return getWrapConnected().loadQueryNative(sql);
     }
 
-    public void loadQuery(Store store, String sql) throws Exception {
+    public void loadQuery(Store store, CharSequence sql) throws Exception {
         getWrapConnected().loadQuery(store, sql);
     }
 
-    public void loadQuery(Store store, String sql, Object params) throws Exception {
+    public void loadQuery(Store store, CharSequence sql, Object params) throws Exception {
         getWrapConnected().loadQuery(store, sql, params);
     }
 
-    public void loadQueryNative(Store store, String sql) throws Exception {
+    public void loadQueryNative(Store store, CharSequence sql) throws Exception {
         getWrapConnected().loadQueryNative(store, sql);
     }
 

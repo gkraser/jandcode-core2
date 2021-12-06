@@ -42,7 +42,7 @@ public interface IDbConnect extends IDbSourceLink {
     /**
      * Создать запрос с указанием sql и параметров
      */
-    DbQuery createQuery(String sql, Object params);
+    DbQuery createQuery(CharSequence sql, Object params);
 
 
     ////// tran
