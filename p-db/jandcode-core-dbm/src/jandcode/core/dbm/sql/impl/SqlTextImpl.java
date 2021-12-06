@@ -148,11 +148,6 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
     //////
 
     public SqlText paginate(boolean v) {
-        setPaginate(v);
-        return this;
-    }
-
-    public SqlText setPaginate(boolean v) {
         reset();
         this.paginate = v;
         return this;

@@ -39,11 +39,6 @@ public interface SqlText extends CharSequence {
     SqlText paginate(boolean v);
 
     /**
-     * @see SqlText#paginate(boolean)
-     */
-    SqlText setPaginate(boolean v);
-
-    /**
      * Префикс имен параметров для пагинации.
      * По умолчанию параметры без префиксов: offset и limit.
      *
