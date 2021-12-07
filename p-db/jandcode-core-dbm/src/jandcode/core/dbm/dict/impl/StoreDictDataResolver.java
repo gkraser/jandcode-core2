@@ -11,7 +11,7 @@ import java.util.*;
 
 public class StoreDictDataResolver {
 
-    class DictRef implements INamed {
+    static class DictRef implements INamed {
         Dict dict;
         Set<Object> ids = new HashSet<>();
 
@@ -47,7 +47,7 @@ public class StoreDictDataResolver {
         }
     }
 
-    class DictRefHolder {
+    static class DictRefHolder {
         NamedList<DictRef> dicts = new DefaultNamedList<>();
 
         DictRef getDictRef(Dict dict) {
@@ -60,7 +60,7 @@ public class StoreDictDataResolver {
         }
     }
 
-    class DictRefFld {
+    static class DictRefFld {
         DictRef dictRef;
         int fieldIndex;
 
@@ -70,43 +70,24 @@ public class StoreDictDataResolver {
         }
     }
 
+    static class StoreRef {
+        Store store;
+        List<StoreRecord> records;
+
+        public StoreRef(Store store, List<StoreRecord> records) {
+            this.store = store;
+            this.records = records;
+            if (this.records == null) {
+                this.records = store.getRecords();
+            }
+        }
+
+    }
 
     public void resolveDicts(Model model, Store store, List<StoreRecord> records) throws Exception {
 
-        if (records == null) {
-            records = store.getRecords();
-        }
-
-        DictService dictSvc = model.bean(DictService.class);
-
-        // собираем все словари
-        DictRefHolder holder = new DictRefHolder();
-        List<DictRefFld> byFields = new ArrayList<>();
-        for (StoreField f : store.getFields()) {
-            if (UtString.empty(f.getDict())) {
-                continue;  // не словарное поле
-            }
-            Dict dict = dictSvc.getDicts().find(f.getDict());
-            if (dict == null) {
-                continue; // нет такого словаря
-            }
-            DictRef dr = holder.getDictRef(dict);
-            byFields.add(new DictRefFld(dr, f.getIndex()));
-        }
-
-        if (holder.dicts.size() == 0) {
-            return; // словарей нет
-        }
-
-        // собираем все данные со всех полей
-        for (StoreRecord rec : records) {
-            for (DictRefFld rf : byFields) {
-                if (rec.isValueNull(rf.fieldIndex)) {
-                    continue;
-                }
-                rf.dictRef.addId(rec.getValue(rf.fieldIndex));
-            }
-        }
+        List<StoreRef> storeRefs = new ArrayList<>();
+        storeRefs.add(new StoreRef(store, records));
 
         // возможно у store уже есть DictDataHolder
         DictDataHolder dictDataHolder = null;
@@ -117,7 +98,73 @@ public class StoreDictDataResolver {
             dictDataHolder = new DictDataHolderImpl();
         }
 
-        // фармируем все нужные dictData
+        // собираем словари для записей store
+        boolean hasDicts = grabDicts(model, storeRefs, dictDataHolder);
+
+        if (hasDicts) {
+            // собираем словари у словарей, если у них есть словарные поля
+            int level = 0;
+            while (level < 5) { // ограничиваем разумным уровнем вложенности словарей со словарями
+                storeRefs = new ArrayList<>();
+                for (DictData dd : dictDataHolder.getItems()) {
+                    storeRefs.add(new StoreRef(dd.getData(), null));
+                }
+                if (!grabDicts(model, storeRefs, dictDataHolder)) {
+                    break;
+                }
+                level++;
+            }
+        }
+
+        // устанавливаем для store
+        store.setDictResolver(dictDataHolder);
+    }
+
+    /**
+     * Собрать словари
+     *
+     * @param model          модель
+     * @param storeRefs      набор store и их записей
+     * @param dictDataHolder куда собирать
+     * @return false - нет словарей
+     */
+    public boolean grabDicts(Model model, List<StoreRef> storeRefs, DictDataHolder dictDataHolder) throws Exception {
+
+        DictService dictSvc = model.bean(DictService.class);
+
+        DictRefHolder holder = new DictRefHolder();
+
+        // собираем все словари
+        for (StoreRef storeRef : storeRefs) {
+            List<DictRefFld> byFields = new ArrayList<>();
+            for (StoreField f : storeRef.store.getFields()) {
+                if (UtString.empty(f.getDict())) {
+                    continue;  // не словарное поле
+                }
+                Dict dict = dictSvc.getDicts().find(f.getDict());
+                if (dict == null) {
+                    continue; // нет такого словаря
+                }
+                DictRef dr = holder.getDictRef(dict);
+                byFields.add(new DictRefFld(dr, f.getIndex()));
+            }
+
+            if (byFields.size() == 0) {
+                continue; // словарей нет
+            }
+
+            // собираем все данные со всех полей
+            for (StoreRecord rec : storeRef.records) {
+                for (DictRefFld rf : byFields) {
+                    if (rec.isValueNull(rf.fieldIndex)) {
+                        continue;
+                    }
+                    rf.dictRef.addId(rec.getValue(rf.fieldIndex));
+                }
+            }
+        }
+
+        // формируем все нужные dictData
         List<DictDao.DictIds> daoParam = new ArrayList<>();
         for (DictRef dictRef : holder.dicts) {
             DictData dd = dictDataHolder.getItems().find(dictRef.getName());
@@ -135,7 +182,7 @@ public class StoreDictDataResolver {
 
         //
         if (daoParam.size() == 0) {
-            return;  // тут делать нечего
+            return false;  // тут делать нечего
         }
 
         // загружаем
@@ -148,8 +195,7 @@ public class StoreDictDataResolver {
             dd.updateData(dids.getDictData().getData());
         }
 
-        // устанавливаем для store
-        store.setDictResolver(dictDataHolder);
+        return true;
     }
 
 }
