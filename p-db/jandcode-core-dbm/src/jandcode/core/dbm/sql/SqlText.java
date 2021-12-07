@@ -32,7 +32,24 @@ public interface SqlText extends CharSequence {
      */
     SqlText cloneSqlText();
 
-    
+    /**
+     * Возвращает SqlText, где select заменен на 'count(*) as countFieldName'
+     *
+     * @param countFieldName имя поля для `count(*)`
+     * @return новый экземпляр
+     */
+    SqlText asCountSqlText(String countFieldName);
+
+    /**
+     * Возвращает SqlText, где select заменен на 'count(*) as cnt'
+     *
+     * @return новый экземпляр
+     */
+    default SqlText asCountSqlText() {
+        return asCountSqlText("cnt");
+    }
+
+
     ////// paginate
 
     /**

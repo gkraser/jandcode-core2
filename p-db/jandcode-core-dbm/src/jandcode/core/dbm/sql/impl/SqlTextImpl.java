@@ -89,7 +89,7 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
 
     //////
 
-    public SqlText cloneSqlText() {
+    public SqlTextImpl cloneSqlText() {
         SqlTextImpl res = new SqlTextImpl(getModel(), this.sql);
 
         res.paginate = this.paginate;
@@ -103,6 +103,13 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
             }
         }
 
+        return res;
+    }
+
+    public SqlText asCountSqlText(String countFieldName) {
+        SqlText res = cloneSqlText();
+        res.paginate(false);
+        res.replaceSelect("count(*) as " + countFieldName);
         return res;
     }
 
