@@ -1,6 +1,7 @@
 package jandcode.core.store;
 
 import jandcode.commons.named.*;
+import jandcode.commons.variant.*;
 import jandcode.core.*;
 
 import java.util.*;
@@ -79,6 +80,30 @@ public interface Store extends INamed, INamedSet, Iterable<StoreRecord>,
     IStoreDictResolver getDictResolver();
 
     void setDictResolver(IStoreDictResolver dictResolver);
+
+    //////
+
+    /**
+     * Добавить маппер для имен полей.
+     * Если установлен и поле не найдено в store, то оно будет пропущено через
+     * mapper.
+     *
+     * @return ссылку на себя
+     */
+    Store withFieldsMapper(IVariantFieldsMapper fieldsMapper);
+
+    /**
+     * Добавить маппер для имен полей.
+     *
+     * @param fields map вида "запрашиваемое-поле" -> "реальное-поле".
+     * @return ссылку на себя
+     */
+    Store withFieldsMapper(Map<String, String> fields);
+
+    /**
+     * Текущие мапперы для имен полей.
+     */
+    Iterable<IVariantFieldsMapper> getFieldsMappers();
 
     //////
 

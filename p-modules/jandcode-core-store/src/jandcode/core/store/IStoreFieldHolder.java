@@ -32,5 +32,4 @@ public interface IStoreFieldHolder extends IVariantFieldsOwner {
      */
     int getCountFields();
 
-
 }

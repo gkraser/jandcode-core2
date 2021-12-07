@@ -19,6 +19,7 @@ public abstract class BaseStore implements Store, Cloneable {
 
     private List<StoreRecord> records = new ArrayList<>();
     private IStoreDictResolver dictResolver;
+    private ContainerFieldsMapper fieldsMapper;
 
     public BaseStore(App app, IStoreService storeService) {
         this.app = app;
@@ -41,7 +42,14 @@ public abstract class BaseStore implements Store, Cloneable {
     }
 
     public StoreField findField(String fieldName) {
-        return fieldsByName.get(UtStrDedup.lower(fieldName));
+        StoreField f = fieldsByName.get(UtStrDedup.lower(fieldName));
+        if (f == null && fieldsMapper != null) {
+            String newFieldName = fieldsMapper.mapField(fieldName, this);
+            if (newFieldName != null) {
+                return fieldsByName.get(UtStrDedup.lower(newFieldName));
+            }
+        }
+        return f;
     }
 
     public StoreField getField(String fieldName) {
@@ -70,6 +78,29 @@ public abstract class BaseStore implements Store, Cloneable {
             res.add(f.getName());
         }
         return res;
+    }
+
+    public Store withFieldsMapper(IVariantFieldsMapper fieldsMapper) {
+        if (fieldsMapper == null) {
+            return this;
+        }
+        if (this.fieldsMapper == null) {
+            this.fieldsMapper = new ContainerFieldsMapper();
+        }
+        this.fieldsMapper.add(fieldsMapper);
+        return this;
+    }
+
+    public Store withFieldsMapper(Map<String, String> fields) {
+        return withFieldsMapper(new MapFieldsMapper(fields));
+    }
+
+    public Iterable<IVariantFieldsMapper> getFieldsMappers() {
+        if (this.fieldsMapper == null) {
+            return List.of();
+        } else {
+            return this.fieldsMapper.getFieldsMappers();
+        }
     }
 
     ////// fields modify

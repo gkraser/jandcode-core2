@@ -1,5 +1,6 @@
 package jandcode.core.store.std;
 
+import jandcode.commons.variant.*;
 import jandcode.core.*;
 import jandcode.core.store.*;
 
@@ -176,6 +177,18 @@ public class BaseStoreWrapper implements Store {
 
     public Collection<String> getFieldNames() {
         return getStore().getFieldNames();
+    }
+
+    public Store withFieldsMapper(IVariantFieldsMapper fieldsMapper) {
+        return getStore().withFieldsMapper(fieldsMapper);
+    }
+
+    public Store withFieldsMapper(Map<String, String> fields) {
+        return getStore().withFieldsMapper(fields);
+    }
+
+    public Iterable<IVariantFieldsMapper> getFieldsMappers() {
+        return getStore().getFieldsMappers();
     }
 
 }

@@ -234,4 +234,40 @@ public class Store_Test extends App_Test {
 
     }
 
+    //////
+
+    @Test
+    public void fieldsMapper1() throws Exception {
+        Store st = svc.createStore(InstanceRec)
+        st.withFieldsMapper(
+                "_t1": "text",
+                "_d1": "dict1",
+        )
+        //
+        assertEquals(st.getCountFields(), 5)
+        assertEquals(st.hasField("text"), true)
+        assertEquals(st.hasField("_t1"), false)
+        assertEquals(st.findField("text").getName(), "text")
+        assertEquals(st.findField("_t1").getName(), "text")
+        assertEquals(st.findField("_d1").getName(), "dict1")
+        assertEquals(st.findField("!_d1"), null)
+        //
+        StoreRecord rec = st.add(
+                text: "T1",
+                _t1: "T1-1",
+                _d1: 123,
+                __x: "qqq"
+        )
+        //
+        assertEquals(rec.getString("text"), "T1-1")
+        assertEquals(rec.getString("dict1"), "123")
+        assertEquals(rec.getString("_d1"), "123")
+        try {
+            assertEquals(rec.getString("__x"), "")
+            fail("поле __x не должно существовать")
+        } catch (ignored) {
+        }
+        //
+    }
+
 }
