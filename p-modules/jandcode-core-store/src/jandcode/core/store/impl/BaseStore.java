@@ -60,6 +60,18 @@ public abstract class BaseStore implements Store, Cloneable {
         return fields.size();
     }
 
+    public boolean hasField(String fieldName) {
+        return fieldsByName.get(UtStrDedup.lower(fieldName)) != null;
+    }
+
+    public Collection<String> getFieldNames() {
+        List<String> res = new ArrayList<>();
+        for (var f : this.fields) {
+            res.add(f.getName());
+        }
+        return res;
+    }
+
     ////// fields modify
 
     protected void checkIsEmptyStore() {

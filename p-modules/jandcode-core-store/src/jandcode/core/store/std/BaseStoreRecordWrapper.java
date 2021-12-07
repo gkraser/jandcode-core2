@@ -113,4 +113,12 @@ public class BaseStoreRecordWrapper implements StoreRecord {
         return getStoreRecord().getCountFields();
     }
 
+    public boolean hasField(String fieldName) {
+        return getStoreRecord().hasField(fieldName);
+    }
+
+    public Collection<String> getFieldNames() {
+        return getStoreRecord().getFieldNames();
+    }
+
 }

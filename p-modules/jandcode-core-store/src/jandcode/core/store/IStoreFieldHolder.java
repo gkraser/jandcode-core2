@@ -1,9 +1,11 @@
 package jandcode.core.store;
 
+import jandcode.commons.variant.*;
+
 /**
  * Хранилище полей
  */
-public interface IStoreFieldHolder {
+public interface IStoreFieldHolder extends IVariantFieldsOwner {
 
     /**
      * Поля store

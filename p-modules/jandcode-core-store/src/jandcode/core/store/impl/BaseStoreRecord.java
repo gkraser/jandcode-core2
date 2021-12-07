@@ -43,6 +43,14 @@ public abstract class BaseStoreRecord implements StoreRecord, IRawRecord {
         return getStore().getCountFields();
     }
 
+    public boolean hasField(String fieldName) {
+        return getStore().hasField(fieldName);
+    }
+
+    public Collection<String> getFieldNames() {
+        return getStore().getFieldNames();
+    }
+
     //////
 
     public Map<String, Object> getValues() {

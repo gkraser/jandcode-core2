@@ -169,4 +169,13 @@ public class BaseStoreWrapper implements Store {
     public int getCountFields() {
         return getStore().getCountFields();
     }
+
+    public boolean hasField(String fieldName) {
+        return getStore().hasField(fieldName);
+    }
+
+    public Collection<String> getFieldNames() {
+        return getStore().getFieldNames();
+    }
+
 }
