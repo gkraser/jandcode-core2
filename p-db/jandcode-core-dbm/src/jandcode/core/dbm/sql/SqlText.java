@@ -107,6 +107,25 @@ public interface SqlText extends CharSequence {
     }
 
     /**
+     * Добавить условие where. Существующие условия не изменяются.
+     *
+     * @param whereName имя where, по умолчанию 'default'
+     * @param whereText условие where
+     * @return ссылка на себя
+     */
+    SqlText addWhere(String whereName, String whereText);
+
+    /**
+     * Добавить условие для where с именем 'default'. Существующие условия не изменяются.
+     *
+     * @param whereText условие where
+     * @return ссылка на себя
+     */
+    default SqlText addWhere(String whereText) {
+        return addWhere(null, whereText);
+    }
+
+    /**
      * Заменить поля в select.
      * Вызов метода отменяет предыдущий вызов replaceWhere.
      *

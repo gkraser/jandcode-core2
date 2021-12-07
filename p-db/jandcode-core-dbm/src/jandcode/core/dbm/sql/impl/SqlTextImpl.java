@@ -204,6 +204,24 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
         return this;
     }
 
+    public SqlText addWhere(String whereName, String whereText) {
+        reset();
+        if (UtString.empty(whereName)) {
+            whereName = "default";
+        }
+        if (this.replaceWhere == null) {
+            replaceWhere(whereName, whereText);
+        } else {
+            ReplaceWhere rw = this.replaceWhere.get(whereName);
+            if (rw == null) {
+                replaceWhere(whereName, whereText);
+            } else {
+                rw.wheres.add(whereText);
+            }
+        }
+        return this;
+    }
+
     public SqlText replaceSelect(String text, boolean append) {
         reset();
         this.replaceSelect = new ReplaceSelect(text, append);
