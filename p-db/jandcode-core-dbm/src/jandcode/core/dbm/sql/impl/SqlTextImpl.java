@@ -40,6 +40,13 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
             return SqlPartsUtils.replaceWhere(sql, this.name, this.wheres);
         }
 
+        public String getName() {
+            return name;
+        }
+
+        public List<String> getWheres() {
+            return wheres;
+        }
     }
 
     static class ReplaceSelect {
@@ -78,6 +85,25 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
     public SqlTextImpl(Model model, String sql) {
         setModel(model);
         this.sql = sql;
+    }
+
+    //////
+
+    public SqlText cloneSqlText() {
+        SqlTextImpl res = new SqlTextImpl(getModel(), this.sql);
+
+        res.paginate = this.paginate;
+        res.paginateParamsPrefix = this.paginateParamsPrefix;
+        res.replaceSelect = this.replaceSelect;
+        res.replaceOrderBy = this.replaceOrderBy;
+
+        if (this.replaceWhere != null) {
+            for (var rw : this.replaceWhere.values()) {
+                res.replaceWhere(rw.name, rw.wheres);
+            }
+        }
+
+        return res;
     }
 
     //////

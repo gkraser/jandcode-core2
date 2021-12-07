@@ -27,7 +27,12 @@ public interface SqlText extends CharSequence {
      */
     String getSql();
 
+    /**
+     * Клонировать объект
+     */
+    SqlText cloneSqlText();
 
+    
     ////// paginate
 
     /**
