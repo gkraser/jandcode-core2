@@ -1,8 +1,10 @@
 package jandcode.core.dbm.mdb.impl;
 
+import jandcode.commons.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.error.*;
 import jandcode.commons.named.*;
+import jandcode.commons.test.*;
 import jandcode.core.*;
 import jandcode.core.dao.*;
 import jandcode.core.db.*;
@@ -187,6 +189,31 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
 
     public SqlText createSqlText(String sql) {
         return getSqlService().createSqlText(sql);
+    }
+
+    ////// IOutData
+
+    public void outMap(Map m, boolean showClass) {
+        OutMapSaver sv = new OutMapSaver(m, showClass);
+        String s = sv.save().toString();
+        System.out.println(s);
+    }
+
+    public void outMap(Map m) {
+        outMap(m, false);
+    }
+
+    public void outJson(Object data) {
+        String s = UtJson.toJson(data, true);
+        System.out.println(s);
+    }
+
+    public void outTable(Object data, int limit) {
+        UtOutTable.outTable(data, limit);
+    }
+
+    public void outTable(Object data) {
+        outTable(data, -1);
     }
 
 }
