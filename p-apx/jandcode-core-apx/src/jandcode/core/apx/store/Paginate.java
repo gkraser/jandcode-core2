@@ -1,5 +1,9 @@
 package jandcode.core.apx.store;
 
+import jandcode.commons.*;
+
+import java.util.*;
+
 /**
  * Информация о пагинации.
  * Используется в качестве параметра dao-метода.
@@ -17,6 +21,18 @@ public class Paginate {
     public Paginate() {
     }
 
+    public Paginate(Paginate src) {
+        this(src.offset, src.limit, src.total);
+    }
+
+    public Paginate(Map src) {
+        if (src != null) {
+            this.offset = UtCnv.toInt(src.get("offset"));
+            this.limit = UtCnv.toInt(src.get("limit"));
+            this.total = UtCnv.toInt(src.get("total"));
+        }
+    }
+
     public Paginate(int offset, int limit, int total) {
         this.offset = offset;
         this.limit = limit;
@@ -26,6 +42,14 @@ public class Paginate {
     public Paginate(int offset, int limit) {
         this.offset = offset;
         this.limit = limit;
+    }
+
+    public String toString() {
+        return "Paginate{" +
+                "offset=" + offset +
+                ", limit=" + limit +
+                ", total=" + total +
+                '}';
     }
 
     /**
