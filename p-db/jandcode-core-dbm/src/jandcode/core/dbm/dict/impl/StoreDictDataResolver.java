@@ -104,7 +104,7 @@ public class StoreDictDataResolver {
         if (hasDicts) {
             // собираем словари у словарей, если у них есть словарные поля
             int level = 0;
-            while (level < 5) { // ограничиваем разумным уровнем вложенности словарей со словарями
+            while (level < 50) { // ограничиваем некоторым уровнем вложенности словарей со словарями
                 storeRefs = new ArrayList<>();
                 for (DictData dd : dictDataHolder.getItems()) {
                     storeRefs.add(new StoreRef(dd.getData(), null));
