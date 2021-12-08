@@ -179,4 +179,16 @@ public interface Store extends INamed, INamedSet, Iterable<StoreRecord>,
      */
     void sort(String fields);
 
+    ////// values
+
+    /**
+     * Набор уникальных значений поля.
+     * null игнорируются.
+     * Порядок соотвествет порядку записей.
+     *
+     * @param fieldName имя поля
+     * @return набор значений
+     */
+    Set<Object> getUniqueValues(String fieldName);
+
 }

@@ -270,4 +270,23 @@ public class Store_Test extends App_Test {
         //
     }
 
+    @Test
+    public void uniqueValues1() throws Exception {
+        Store st = svc.createStore()
+        st.addField("f1", "string")
+
+        st.add(f1: "z1")
+        st.add(f1: "z2")
+        st.add()
+        st.add(f1: "z4")
+        st.add(f1: "z2")
+        st.add(f1: "z1")
+
+        def v = st.getUniqueValues("f1")
+
+        assertEquals(st.size(), 6)
+        assertEquals(v.size(), 3)
+        assertEquals(v.toString(), "[z1, z2, z4]")
+    }
+
 }

@@ -191,4 +191,8 @@ public class BaseStoreWrapper implements Store {
         return getStore().getFieldsMappers();
     }
 
+    public Set<Object> getUniqueValues(String fieldName) {
+        return getStore().getUniqueValues(fieldName);
+    }
+
 }

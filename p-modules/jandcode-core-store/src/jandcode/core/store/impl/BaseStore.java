@@ -405,4 +405,18 @@ public abstract class BaseStore implements Store, Cloneable {
         }
     }
 
+    ////// values
+
+    public Set<Object> getUniqueValues(String fieldName) {
+        Set<Object> res = new LinkedHashSet<>();
+        int fidx = getField(fieldName).getIndex();
+        for (StoreRecord record : this) {
+            if (record.isValueNull(fidx)) {
+                continue;
+            }
+            res.add(record.getValue(fidx));
+        }
+        return res;
+    }
+
 }

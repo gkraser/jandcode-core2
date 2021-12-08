@@ -56,4 +56,8 @@ public class StoreIndexImpl implements StoreIndex {
         }
     }
 
+    public Set<Object> getKeys() {
+        return index.keySet();
+    }
+
 }

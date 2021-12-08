@@ -1,5 +1,7 @@
 package jandcode.core.store;
 
+import java.util.*;
+
 /**
  * Индекс по полю для store
  */
@@ -36,5 +38,10 @@ public interface StoreIndex {
      * Переиндексировать
      */
     void reindex();
+
+    /**
+     * Все ключи в индексе
+     */
+    Set<Object> getKeys();
 
 }
