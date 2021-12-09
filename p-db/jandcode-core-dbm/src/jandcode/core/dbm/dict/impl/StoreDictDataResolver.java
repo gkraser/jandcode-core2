@@ -39,7 +39,9 @@ public class StoreDictDataResolver {
                     // значения через ','
                     addId(UtCnv.toList(s, ","));
                 } else {
-                    this.ids.add(id);
+                    if (((CharSequence) id).length()>0) {
+                        this.ids.add(id);
+                    }
                 }
             } else {
                 this.ids.add(id);

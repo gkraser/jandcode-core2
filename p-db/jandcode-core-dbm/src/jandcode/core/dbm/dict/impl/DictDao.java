@@ -2,6 +2,7 @@ package jandcode.core.dbm.dict.impl;
 
 import jandcode.core.dbm.dao.*;
 import jandcode.core.dbm.dict.*;
+import org.slf4j.*;
 
 import java.util.*;
 
@@ -10,6 +11,8 @@ import java.util.*;
  * Используется сервисом словарей для собственных внутренних нужд.
  */
 public class DictDao extends BaseModelDao {
+
+    protected static Logger log = LoggerFactory.getLogger(DictDao.class);
 
     public static class DictIds {
 
@@ -53,6 +56,19 @@ public class DictDao extends BaseModelDao {
     public void resolveListIds(List<DictIds> lst) throws Exception {
         for (DictIds d : lst) {
             if (d.ids != null && d.ids.size() > 0) {
+
+                if (log.isInfoEnabled()) {
+                    Collection<Object> tmp = d.ids;
+                    if (tmp.size() > 10) {
+                        tmp = new ArrayList<>(d.ids).subList(1, 10);
+                    }
+                    String s = "" + tmp;
+                    if (d.ids.size() > tmp.size()) {
+                        s = s + "...";
+                    }
+                    log.info("dict: " + d.getDict().getName() + ", size " + d.ids.size() + ", ids " + s);
+                }
+
                 d.dict.getHandler().resolveIds(getMdb(), d.dict, d.dictData.getData(), d.ids);
             }
         }
