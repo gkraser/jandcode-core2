@@ -14,6 +14,7 @@ import java.util.*;
  * <ul>
  *     <li>records - массив записей</li>
  *     <li>dictdata - данные словарей</li>
+ *     <li>dictfields - словарные поля в формате {имя_поля:имя_словаря, ...}</li>
  *     <li>другие - все customProps, которые являются правильными идентификаторами.
  *     Например свойство 'prop1' будет сконвертировано, а свойство 'no.prop1' - нет</li>
  * </ul>
@@ -54,6 +55,17 @@ public class StoreAdapter implements JsonSerializer<Store> {
             Map<String, Object> dictdata = dictResolver.toDictdata();
             if (dictdata != null && dictdata.size() > 0) {
                 res.add("dictdata", context.serialize(dictdata));
+            }
+
+            // словарные поля
+            Map<String, String> dictfields = new LinkedHashMap<>();
+            for (StoreField f : store.getFields()) {
+                if (!UtString.empty(f.getDict())) {
+                    dictfields.put(f.getName(), f.getDict());
+                }
+            }
+            if (dictfields.size() > 0) {
+                res.add("dictfields", context.serialize(dictfields));
             }
         }
 

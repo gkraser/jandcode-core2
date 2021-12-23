@@ -106,13 +106,13 @@ class Dict_Test extends Dbm_Test {
     public void to_json() throws Exception {
         Store st = mdb.createStore()
         st.addField("id", "long")
-        st.addField("dict1", "long").setDict("dict1")
-        st.addField("dict2", "long").setDict("dict2")
+        st.addField("d1", "long").setDict("dict1")
+        st.addField("d2", "long").setDict("dict2")
         for (i in 1..3) {
             if (i == 2) {
                 st.add(id: i)
             } else {
-                st.add(id: i, dict1: i, dict2: 100 + i)
+                st.add(id: i, d1: i, d2: 100 + i)
             }
         }
         //
@@ -120,7 +120,7 @@ class Dict_Test extends Dbm_Test {
         //
         assertEquals(
                 UtJson.toJson(st),
-                """{"records":[{"id":1,"dict1":1,"dict2":101},{"id":2},{"id":3,"dict1":3,"dict2":103}],"dictdata":{"dict1":{"1":{"text":"dict1-text-1"},"3":{"text":"dict1-text-3"}},"dict2":{"101":{"text":"dict2-text-101"},"103":{"text":"dict2-text-103"}}}}"""
+                """{"records":[{"id":1,"d1":1,"d2":101},{"id":2},{"id":3,"d1":3,"d2":103}],"dictdata":{"dict1":{"1":{"text":"dict1-text-1"},"3":{"text":"dict1-text-3"}},"dict2":{"101":{"text":"dict2-text-101"},"103":{"text":"dict2-text-103"}}},"dictfields":{"d1":"dict1","d2":"dict2"}}"""
         )
     }
 
