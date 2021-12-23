@@ -110,6 +110,7 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
         SqlText res = cloneSqlText();
         res.paginate(false);
         res.replaceSelect("count(*) as " + countFieldName);
+        res.replaceOrderBy("");
         return res;
     }
 

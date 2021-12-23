@@ -1,5 +1,7 @@
 package jandcode.core.dbm.sql;
 
+import jandcode.core.dbm.*;
+
 import java.util.*;
 
 /**
@@ -7,7 +9,7 @@ import java.util.*;
  * <p>
  * Метод toString() возвращает преобразованный sql.
  */
-public interface SqlText extends CharSequence {
+public interface SqlText extends CharSequence, IModelLink {
 
     /**
      * Установить sql текст
