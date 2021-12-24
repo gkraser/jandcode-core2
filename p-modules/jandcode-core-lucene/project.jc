@@ -15,8 +15,7 @@ class P extends ProjectScript {
                 depends.prod(
                     "lucene-core",
                     "lucene-queryparser",
-                    "lucene-queries",
-                    "lucene-analyzers-common",
+                    "lucene-analysis-common",
                 )
                 depends.dev(
                 )

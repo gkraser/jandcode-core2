@@ -45,8 +45,8 @@ dependencies {
     }
 
     // junit5
-    v = '5.8.1'
-    vp = '1.8.1'  // platform
+    v = '5.8.2'
+    vp = '1.8.2'  // platform
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: v
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: v
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: v
@@ -95,16 +95,16 @@ dependencies {
     implementation group: 'org.slf4j', name: 'log4j-over-slf4j', version: v
 
     // logback
-    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.6'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.10'
 
     // gson
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.9'
 
     // jdbc
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.1'
-    implementation group: 'com.h2database', name: 'h2', version: '1.4.200'
+    implementation group: 'com.h2database', name: 'h2', version: '2.0.204'
     implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.4'
-    implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '21.3.0.0', transitive: false
+    implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '21.4.0.0.1', transitive: false
 
     // flexmark
     v = '0.62.2'
@@ -121,7 +121,7 @@ dependencies {
     implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 
     // undertow
-    implementation(group: 'io.undertow', name: 'undertow-servlet', version: '2.2.12.Final') {
+    implementation(group: 'io.undertow', name: 'undertow-servlet', version: '2.2.14.Final') {
         exclude module: 'jboss-annotations-api_1.2_spec'
         exclude module: 'jboss-servlet-api_4.0_spec'
     }
@@ -136,9 +136,9 @@ dependencies {
     implementation group: 'org.apache.poi', name: 'poi-scratchpad', version: v
 
     // lucene
-    v = '8.10.1'
+    v = '9.0.0'
     implementation group: 'org.apache.lucene', name: 'lucene-core', version: v
-    implementation group: 'org.apache.lucene', name: 'lucene-analyzers-common', version: v
+    implementation group: 'org.apache.lucene', name: 'lucene-analysis-common', version: v
     implementation group: 'org.apache.lucene', name: 'lucene-queryparser', version: v
 
     // tika
