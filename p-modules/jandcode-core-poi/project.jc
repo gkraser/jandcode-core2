@@ -17,7 +17,6 @@ class P extends ProjectScript {
                     "xmlbeans",
                     "poi",
                     "poi-ooxml",
-                    "poi-ooxml-schemas",
                     "poi-scratchpad",
                 )
                 depends.dev(
