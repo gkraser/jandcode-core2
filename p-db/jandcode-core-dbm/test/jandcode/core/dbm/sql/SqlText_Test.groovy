@@ -1,14 +1,19 @@
 package jandcode.core.dbm.sql
 
+import jandcode.commons.conf.*
 import jandcode.core.dbm.test.*
 import org.junit.jupiter.api.*
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*
 
 class SqlText_Test extends Dbm_Test {
 
     SqlText create(String text) {
         return model.bean(SqlService).createSqlText(text)
+    }
+
+    SqlText create(Conf conf) {
+        return model.bean(SqlService).createSqlText(conf)
     }
 
     @Test
@@ -59,6 +64,38 @@ class SqlText_Test extends Dbm_Test {
 
         sql.replaceOrderBy(null)
         assertEquals(sql.toString(), "select * from tab1 ") // пробел в конце!
+    }
+
+    //////
+
+    @Test
+    public void conf_text1() throws Exception {
+        SqlText sql = create(model.conf.getConf("sql/s1.text"))
+        assertEquals(sql.toString(), "s1!")
+    }
+
+    @Test
+    public void conf_text_dbtype1() throws Exception {
+        SqlText sql = create(model.conf.getConf("sql/s1.text.dbtype"))
+        assertEquals(sql.toString(), "s1!!h2!")
+    }
+
+    @Test
+    public void conf_file1() throws Exception {
+        SqlText sql = create(model.conf.getConf("sql/s1.file"))
+        assertEquals(sql.toString(), "s1.sql!")
+    }
+
+    @Test
+    public void conf_file_dbtype1() throws Exception {
+        SqlText sql = create(model.conf.getConf("sql/s1.file.dbtype"))
+        assertEquals(sql.toString(), "s1.sql!h2!")
+    }
+
+    @Test
+    public void conf_file_gsp1() throws Exception {
+        SqlText sql = create(model.conf.getConf("sql/s1.file.gsp"))
+        assertEquals(sql.toString(), "model=testdb conf=s1.file.gsp!")
     }
 
 

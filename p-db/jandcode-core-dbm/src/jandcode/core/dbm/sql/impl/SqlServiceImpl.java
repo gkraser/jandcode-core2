@@ -1,5 +1,7 @@
 package jandcode.core.dbm.sql.impl;
 
+import jandcode.commons.conf.*;
+import jandcode.commons.error.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.sql.*;
 
@@ -9,4 +11,12 @@ public class SqlServiceImpl extends BaseModelMember implements SqlService {
         return new SqlTextImpl(getModel(), sql);
     }
 
+    public SqlText createSqlText(Conf conf) {
+        try {
+            String sql = SqlConfUtils.loadSqlTextFromRt(conf, getModel());
+            return createSqlText(sql);
+        } catch (Exception e) {
+            throw new XErrorMark(e, conf.origin().toString());
+        }
+    }
 }
