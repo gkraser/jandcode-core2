@@ -1,6 +1,9 @@
 package jandcode.core.db;
 
+import jandcode.commons.error.*;
 import jandcode.core.store.*;
+
+import java.util.*;
 
 /**
  * Методы-утилиты для {@link Db}.
@@ -138,7 +141,42 @@ public interface IDbUtils {
     Store loadQueryNative(Store store, CharSequence sql) throws Exception;
 
 
-    //////
+    ////// script
 
+    /**
+     * Исполнение скрипта. Скрипт - это набор sql операторов.
+     *
+     * @param script   элементы скрипта
+     * @param isNative true - выполняется execQueryNative, иначе execQuery
+     * @param onError  обработчик ошибок. Если возвращает false, обработка прекращается.
+     *                 Если не задан, то при первой ошибке выполнение прекращется.
+     */
+    void execScript(List<? extends CharSequence> script, boolean isNative, ErrorCallback onError) throws Exception;
+
+    /**
+     * Исполнение скрипта. Скрипт - это набор sql операторов, разделенных {@link DbConsts#SCRIPT_DELIMITER}.
+     *
+     * @param script   скрипт
+     * @param isNative true - выполняется execQueryNative, иначе execQuery
+     * @param onError  обработчик ошибок. Если возвращает false, обработка прекращается
+     *                 Если не задан, то при первой ошибке выполнение прекращется.
+     */
+    void execScript(CharSequence script, boolean isNative, ErrorCallback onError) throws Exception;
+
+    /**
+     * см: {@link IDbUtils#execScript(java.lang.CharSequence, boolean, ErrorCallback)},
+     * где isNative=true
+     */
+    default void execScript(CharSequence script, ErrorCallback onError) throws Exception {
+        execScript(script, true, onError);
+    }
+
+    /**
+     * см: {@link IDbUtils#execScript(java.lang.CharSequence, boolean, ErrorCallback)},
+     * где isNative=true, onError=null
+     */
+    default void execScript(CharSequence script) throws Exception {
+        execScript(script, true, null);
+    }
 
 }

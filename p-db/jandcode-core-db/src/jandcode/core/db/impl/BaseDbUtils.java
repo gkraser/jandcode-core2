@@ -1,7 +1,11 @@
 package jandcode.core.db.impl;
 
+import jandcode.commons.*;
+import jandcode.commons.error.*;
 import jandcode.core.db.*;
 import jandcode.core.store.*;
+
+import java.util.*;
 
 /**
  * Реализация интерфейса {@link IDbUtils}
@@ -178,5 +182,33 @@ public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
 
     //////
 
+    public void execScript(List<? extends CharSequence> script, boolean isNative, ErrorCallback onError) throws Exception {
+        for (CharSequence sql1 : script) {
+            String sql2 = UtString.toString(sql1).trim();
+            if (sql2.length() == 0) {
+                continue;
+            }
+            try {
+                if (isNative) {
+                    execQueryNative(sql2);
+                } else {
+                    execQuery(sql2);
+                }
+            } catch (Exception e) {
+                if (onError != null) {
+                    if (!onError.onErrorCallback(e)) {
+                        throw e;
+                    }
+                } else {
+                    throw e;
+                }
+            }
+        }
+    }
+
+    public void execScript(CharSequence script, boolean isNative, ErrorCallback onError) throws Exception {
+        List<String> sc = SqlScriptUtils.splitSqlScript(UtString.toString(script), DbConsts.SCRIPT_DELIMITER);
+        execScript(sc, isNative, onError);
+    }
 
 }

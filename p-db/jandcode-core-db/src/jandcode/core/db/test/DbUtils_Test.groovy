@@ -34,5 +34,31 @@ abstract class DbUtils_Test extends App_Test {
         assertEquals(flds, "id,field_lower,field_upper,fieldmix,fieldmixu,myfield")
     }
 
+    @Test
+    public void scrip1() throws Exception {
+        //utils.logOn()
+
+        def a = z.createStore()
+        a.addField("id", "int")
+        a.add(id: 1)
+        z.createTable("t1", a)
+
+        //
+        z.db.execScript("""
+insert into t1 (id) values (2)
+~~
+
+~~
+~~
+~~
+insert into t1 (id) values (3)
+~~
+insert into t1 (id) values (4)
+""")
+        //
+        def st = z.db.loadQuery("select sum(id) as sm from t1")
+        assertEquals(st.get(0).getInt("sm"), 10)
+    }
+
 
 }

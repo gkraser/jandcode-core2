@@ -1,9 +1,11 @@
 package jandcode.core.db.std;
 
+import jandcode.commons.error.*;
 import jandcode.core.db.*;
 import jandcode.core.store.*;
 
 import java.sql.*;
+import java.util.*;
 
 /**
  * Базовая обстрактная обертка для Db.
@@ -152,6 +154,14 @@ public abstract class BaseDbWrapper implements Db {
 
     public Store loadQuery(DbQuery query) throws Exception {
         return getWrapConnected().loadQuery(query);
+    }
+
+    public void execScript(List<? extends CharSequence> script, boolean isNative, ErrorCallback onError) throws Exception {
+        getWrapConnected().execScript(script, isNative, onError);
+    }
+
+    public void execScript(CharSequence script, boolean isNative, ErrorCallback onError) throws Exception {
+        getWrapConnected().execScript(script, isNative, onError);
     }
 
 }
