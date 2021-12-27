@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*
  * Базовый класс для тестирования Db и DbUtils.
  * Используется как предок при тестировании каждого драйвера для унификации поведения.
  */
-abstract class DbUtils_Test extends App_Test {
+abstract class Db_Test extends App_Test {
 
     DbSimpleTestSvc z = testSvc(DbSimpleTestSvc)
 

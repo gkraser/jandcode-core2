@@ -82,7 +82,7 @@ public abstract class BaseDbWrapper implements Db {
         return getWrap().getDbParams();
     }
 
-    ////// IDbUtils
+    ////// IDb
 
     public DbQuery createQuery(CharSequence sql) {
         return getWrapConnected().createQuery(sql);

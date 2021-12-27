@@ -8,9 +8,9 @@ import jandcode.core.store.*;
 import java.util.*;
 
 /**
- * Реализация интерфейса {@link IDbUtils}
+ * Реализация интерфейса {@link IDb}
  */
-public abstract class BaseDbUtils extends BaseDbConnect implements IDbUtils {
+public abstract class BaseDb extends BaseDbConnect implements IDb {
 
     ////// query
 

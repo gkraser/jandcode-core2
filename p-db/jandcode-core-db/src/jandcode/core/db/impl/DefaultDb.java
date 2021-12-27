@@ -5,5 +5,5 @@ import jandcode.core.db.*;
 /**
  * Реализация {@link Db} по умолчанию.
  */
-public class DefaultDb extends BaseDbUtils implements Db {
+public class DefaultDb extends BaseDb implements Db {
 }

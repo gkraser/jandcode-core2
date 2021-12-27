@@ -23,7 +23,7 @@ public class DirectDbConnectionService extends BaseDbConnectionService {
         //
         try {
             checkJdbcDriverClass();
-            
+
             //
             Properties props = new Properties();
             s = dbsProps.getString(DbSourcePropsConsts.username, null);

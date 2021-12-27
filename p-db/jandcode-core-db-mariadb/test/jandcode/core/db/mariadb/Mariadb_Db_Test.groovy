@@ -3,7 +3,7 @@ package jandcode.core.db.mariadb
 import jandcode.core.db.test.*
 import org.junit.jupiter.api.*
 
-class Mariadb_DbUtils_Test extends DbUtils_Test {
+class Mariadb_Db_Test extends Db_Test {
 
     @Test
     void test1() throws Exception {

@@ -6,9 +6,9 @@ import jandcode.core.store.*;
 import java.util.*;
 
 /**
- * Методы-утилиты для {@link Db}.
+ * Методы {@link Db}.
  */
-public interface IDbUtils {
+public interface IDb extends IDbConnect {
 
     ////// query
 
@@ -164,7 +164,7 @@ public interface IDbUtils {
     void execScript(CharSequence script, boolean isNative, ErrorCallback onError) throws Exception;
 
     /**
-     * см: {@link IDbUtils#execScript(java.lang.CharSequence, boolean, ErrorCallback)},
+     * см: {@link IDb#execScript(java.lang.CharSequence, boolean, ErrorCallback)},
      * где isNative=true
      */
     default void execScript(CharSequence script, ErrorCallback onError) throws Exception {
@@ -172,7 +172,7 @@ public interface IDbUtils {
     }
 
     /**
-     * см: {@link IDbUtils#execScript(java.lang.CharSequence, boolean, ErrorCallback)},
+     * см: {@link IDb#execScript(java.lang.CharSequence, boolean, ErrorCallback)},
      * где isNative=true, onError=null
      */
     default void execScript(CharSequence script) throws Exception {
