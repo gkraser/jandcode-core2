@@ -16,10 +16,8 @@ public interface DDLOper extends Comp {
 
     /**
      * Выполнить этот оператор для указанной mdb.
-     *
-     * @param mdb в каком контексте выполнять доступ к базе.
      */
-    void execDDL(Mdb mdb) throws Exception;
+    void exec(Mdb mdb) throws Exception;
 
     /**
      * Сохранить этот DDL в указанном узле xml.

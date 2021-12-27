@@ -41,5 +41,6 @@
     <x-include path="dao/index.cfx"/>
     <x-include path="dict/index.cfx"/>
     <x-include path="sql/index.cfx"/>
+    <x-include path="ddl/index.cfx"/>
 
 </root>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!--
+        Сервисы для работы с ddl
+    -->
+
+    <dbm>
+        <!-- расширяем базовую модель -->
+        <model name="jandcode.core.dbm">
+
+            <bean name="jandcode.core.dbm.ddl.DDLService"
+                  class="jandcode.core.dbm.ddl.impl.DDLServiceImpl"/>
+
+            <!-- типы ddl операторов -->
+
+            <ddl-type name="sql"
+                      class="jandcode.core.dbm.ddl.impl.DDLOper_sql"/>
+
+        </model>
+    </dbm>
+
+
+</root>
