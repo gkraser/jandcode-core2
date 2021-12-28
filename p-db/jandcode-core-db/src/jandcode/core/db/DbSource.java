@@ -58,4 +58,9 @@ public interface DbSource extends Comp, IConfLink, BeanFactoryOwner {
      */
     DbSource cloneComp();
 
+    /**
+     * Отключить все соединения
+     */
+    void disconnectAll();
+
 }
