@@ -1,6 +1,5 @@
 package jandcode.core.dbm.domain.impl;
 
-import jandcode.commons.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.variant.*;
 import jandcode.core.*;

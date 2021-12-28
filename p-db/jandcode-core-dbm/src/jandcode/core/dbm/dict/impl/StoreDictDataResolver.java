@@ -39,7 +39,7 @@ public class StoreDictDataResolver {
                     // значения через ','
                     addId(UtCnv.toList(s, ","));
                 } else {
-                    if (((CharSequence) id).length()>0) {
+                    if (((CharSequence) id).length() > 0) {
                         this.ids.add(id);
                     }
                 }

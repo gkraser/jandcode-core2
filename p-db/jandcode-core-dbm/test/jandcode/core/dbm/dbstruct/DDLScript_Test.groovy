@@ -19,5 +19,4 @@ public class DDLScript_Test extends Dbm_Test {
     }
 
 
-
 }
