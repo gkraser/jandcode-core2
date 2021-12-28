@@ -11,7 +11,13 @@ import java.util.*;
  */
 public class DefaultDDLProvider extends BaseDDLProvider {
 
+    private boolean used;
+
     protected void onLoad(List<DDLOper> res, DDLStage stage) throws Exception {
+        if (used) {
+            return; // должно отрабатывать только один раз
+        }
+        used = true;
         SqlText sql = getModel().bean(SqlService.class).createSqlText(getConf());
         List<DDLOper> a = DDLUtils.createFromSqlScript(getModel(), sql.toString(), getBaseName());
         res.addAll(a);

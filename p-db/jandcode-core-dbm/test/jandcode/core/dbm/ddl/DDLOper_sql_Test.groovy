@@ -28,5 +28,14 @@ public class DDLOper_sql_Test extends Dbm_Test {
         assertEquals(x2.save().toString(), """<?xml version="1.0" encoding="utf-8"?>\n<root name="s1name" type="sql">s1text</root>""")
     }
 
+    @Test
+    public void grab_script() throws Exception {
+        def svc = model.bean(DDLService)
+        def script = svc.grabScript()
+        SimXml x = new SimXmlNode()
+        script.saveToXml(x)
+        assertEquals(x.getChilds().size(), 5)
+    }
+
 
 }

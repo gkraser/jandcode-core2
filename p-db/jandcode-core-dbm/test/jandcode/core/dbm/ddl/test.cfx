@@ -6,6 +6,24 @@
     <dbm>
 
         <model name="testdb.base">
+            <ddl name="z1" stage="*">
+                <text>
+                    z1-s1
+                    ~~
+                    z1-s2
+                </text>
+            </ddl>
+            <ddl name="z2">
+                <text>
+                    z2-s1
+                    ~~
+                    z2-s2
+                    ~~
+                    ~~
+                    ~~ ~~ ~~
+                    z2-s3
+                </text>
+            </ddl>
         </model>
 
     </dbm>
