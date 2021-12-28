@@ -1,5 +1,6 @@
 package jandcode.core.dbm.ddl.impl;
 
+import jandcode.commons.*;
 import jandcode.commons.io.*;
 import jandcode.commons.simxml.*;
 import jandcode.core.dbm.*;
@@ -82,6 +83,17 @@ public class DDLScriptImpl extends BaseModelMember implements DDLScript {
 
     public SaveTo save() {
         return new SaveTo(new DDLScriptSaver());
+    }
+
+    public String getSqlScript() {
+        StringBuilder sb = new StringBuilder();
+        for (DDLOper op : items) {
+            sb.append(op.getSqlScript());
+            sb.append("\n");
+            sb.append(UtSql.SCRIPT_DELIMITER);
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
 }

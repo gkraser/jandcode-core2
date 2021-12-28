@@ -119,6 +119,13 @@ public class DbmTestSvc extends BaseAppTestSvc {
         return this.mdb;
     }
 
+    /**
+     * Показать настройки db
+     */
+    public void showDb() {
+        utils.outMap(getModel().getDbSource().getProps());
+    }
+
     ////// store assert
 
     /**

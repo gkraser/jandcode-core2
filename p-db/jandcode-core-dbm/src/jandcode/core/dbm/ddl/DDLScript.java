@@ -43,4 +43,10 @@ public interface DDLScript extends IModelMember {
      */
     SaveTo save();
 
+    /**
+     * Возвращает sql-скрипт.
+     */
+    String getSqlScript();
+
+
 }

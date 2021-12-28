@@ -14,7 +14,10 @@ public class DDLScript_Test extends Dbm_Test {
         SimXml x = new SimXmlNode()
         script.saveToXml(x)
         println x.save().toString()
+        utils.delim()
+        println script.getSqlScript()
     }
+
 
 
 }

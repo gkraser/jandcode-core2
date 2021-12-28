@@ -35,4 +35,8 @@ public class DDLOper_sql extends BaseDDLOper {
         setSqlText(UtString.normalizeIndent(x.getText()));
     }
 
+    public String getSqlScript() {
+        return DDLUtils.PREFIX_DDL_NAME + " " + getName() + "\n" + getSqlText();
+    }
+
 }

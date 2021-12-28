@@ -5,4 +5,26 @@
 
     <x-include path="../test.cfx"/>
 
+    <dbm>
+        <model name="testdb.base">
+
+            <domain name="tab1" parent="id" tag.db="true">
+                <field name="f_long" parent="long"/>
+                <field name="f_int" parent="int"/>
+                <field name="f_string" parent="string" size="14"/>
+
+                <dbindex name="i0" fields="f_int,*f_long" unique="true"/>
+            </domain>
+
+            <domain name="tab2" parent="tab1" tag.db="true">
+
+                <field name="tab1_id" parent="tab1/ref"/>
+
+                <dbindex name="i1" fields="f_long,f_int" unique="true"/>
+                <dbindex name="i2" fields="f_string"/>
+            </domain>
+
+        </model>
+    </dbm>
+
 </root>

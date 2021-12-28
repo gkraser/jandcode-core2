@@ -31,4 +31,9 @@ public interface DDLOper extends Comp {
      */
     void loadFromXml(SimXml x) throws Exception;
 
+    /**
+     * Возвращает sql-скрипт.
+     */
+    String getSqlScript();
+
 }
