@@ -2,7 +2,7 @@ package jandcode.core.dbm.ddl;
 
 import jandcode.commons.io.*;
 import jandcode.commons.simxml.*;
-import jandcode.core.*;
+import jandcode.core.dbm.*;
 import jandcode.core.dbm.mdb.*;
 
 import java.util.*;
@@ -11,7 +11,7 @@ import java.util.*;
  * ddl скрипт.
  * Набор ddl операторов.
  */
-public interface DDLScript extends Comp {
+public interface DDLScript extends IModelMember {
 
     /**
      * Список операций этого скрипта

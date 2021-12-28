@@ -13,5 +13,14 @@ public interface DDLService extends Comp, IModelMember {
      */
     DDLOper createOperInst(String type);
 
+    /**
+     * Создать новый экземпляр скрипта
+     */
+    DDLScript createScript();
+
+    /**
+     * Собрать ddl-скрипт из модели.
+     */
+    DDLScript grabScript();
 
 }

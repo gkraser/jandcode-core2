@@ -45,4 +45,14 @@ public class DDLServiceImpl extends BaseModelMember implements DDLService {
         return ddlTypes.get(type).createInst();
     }
 
+    public DDLScript createScript() {
+        return getModel().create(DDLScriptImpl.class);
+    }
+
+    public DDLScript grabScript() {
+        DDLScript script = createScript();
+        DDLScriptGrabber g = new DDLScriptGrabber();
+        g.grabScript(script, getModel().getConf());
+        return script;
+    }
 }

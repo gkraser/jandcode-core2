@@ -3,7 +3,7 @@ package jandcode.core.dbm.ddl;
 import java.util.*;
 
 /**
- * Провайдер dll операторов
+ * Интерфейс провайдера dll операторов
  */
 public interface IDDLProvider {
 
