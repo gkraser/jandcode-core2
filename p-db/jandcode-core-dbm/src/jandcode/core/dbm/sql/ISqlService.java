@@ -13,7 +13,17 @@ public interface ISqlService {
     SqlText createSqlText(String sql);
 
     /**
-     * Создать {@link SqlText} для указанной конфигурации.
+     * Создать {@link SqlText} по указанной конфигурации.
+     * <p>
+     * Как работает:
+     * <p>
+     * Если есть атрибут file, то берем этот файл.
+     * <p>
+     * Если файл указан, то либо берем его содержимое (любое расширение, кроме gsp),
+     * либо генерируем текст по gsp, через шаблон, в котором доступно:
+     * {@code this.getModel(), this.getConf()}.
+     * <p>
+     * Если файл не указан, то берем текст из атрибута text.
      */
     SqlText createSqlText(Conf conf);
 

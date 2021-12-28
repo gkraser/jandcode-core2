@@ -13,7 +13,7 @@ public class SqlServiceImpl extends BaseModelMember implements SqlService {
 
     public SqlText createSqlText(Conf conf) {
         try {
-            String sql = SqlConfUtils.loadSqlTextFromRt(conf, getModel());
+            String sql = SqlConfUtils.loadSqlTextFromConf(conf, getModel());
             return createSqlText(sql);
         } catch (Exception e) {
             throw new XErrorMark(e, conf.origin().toString());

@@ -42,29 +42,22 @@ public class SqlConfUtils {
      * <p>
      * Как работает:
      * <p>
-     * Если есть атрибут file.DBTYPE, то берем этот файл.
      * Если есть атрибут file, то берем этот файл.
      * <p>
      * Если файл указан, то либо берем его содержимое (любое расширение, кроме gsp),
-     * либо генерируем текст по gsp, через шаблон {@link SimpleGspTemplate},
-     * куда объект context и передаем.
+     * либо генерируем текст по gsp, через шаблон {@link SqlGenGspTemplate}.
      * <p>
-     * Если файл не указан, то берем текст из атрибутов text.DBTYPE или text.
+     * Если файл не указан, то берем текст из атрибута text.
      *
      * @param conf  из какого узла
      * @param model в контексте какой модели
      * @return текст sql
      */
-    public static String loadSqlTextFromRt(Conf conf, Model model) throws Exception {
-        String dbType = model.getDbType();
-
+    public static String loadSqlTextFromConf(Conf conf, Model model) throws Exception {
         String res = "";
 
         // сначала файл
-        String fn = conf.getString("file." + dbType);
-        if (UtString.empty(fn)) {
-            fn = conf.getString("file");
-        }
+        String fn = conf.getString("file");
         if (!UtString.empty(fn)) {
             String ext = UtFile.ext(fn);
             if ("gsp".equals(ext)) {
@@ -81,11 +74,8 @@ public class SqlConfUtils {
                 res = UtFile.loadString(fn);
             }
         } else {
-            // файла нет, текст тегов
-            res = conf.getString("text." + dbType);
-            if (UtString.empty(res)) {
-                res = conf.getString("text");
-            }
+            // файла нет, берем текст из text
+            res = conf.getString("text");
             res = UtString.normalizeIndent(res);
         }
 

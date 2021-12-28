@@ -75,21 +75,9 @@ class SqlText_Test extends Dbm_Test {
     }
 
     @Test
-    public void conf_text_dbtype1() throws Exception {
-        SqlText sql = create(model.conf.getConf("sql/s1.text.dbtype"))
-        assertEquals(sql.toString(), "s1!!h2!")
-    }
-
-    @Test
     public void conf_file1() throws Exception {
         SqlText sql = create(model.conf.getConf("sql/s1.file"))
         assertEquals(sql.toString(), "s1.sql!")
-    }
-
-    @Test
-    public void conf_file_dbtype1() throws Exception {
-        SqlText sql = create(model.conf.getConf("sql/s1.file.dbtype"))
-        assertEquals(sql.toString(), "s1.sql!h2!")
     }
 
     @Test

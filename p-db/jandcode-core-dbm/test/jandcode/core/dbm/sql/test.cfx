@@ -7,28 +7,17 @@
 
         <model name="testdb.base">
 
-            <sql name="s1.text" text="s1!"/>
-
-            <sql name="s1.text.dbtype">
+            <sql name="s1.text">
                 <text>
-                    s1!!
+                    s1!
                 </text>
-                <text.h2>
-                    s1!!h2!
-                </text.h2>
             </sql>
 
             <sql name="s1.file"
                  file="#{path}/data/s1.txt"/>
 
-            <sql name="s1.file.dbtype"
-                 file="#{path}/data/s1.txt"
-                 file.h2="#{path}/data/s2.txt"
-            />
-
             <sql name="s1.file.gsp"
                  file="#{path}/data/s1.txt.gsp"/>
-
 
         </model>
 

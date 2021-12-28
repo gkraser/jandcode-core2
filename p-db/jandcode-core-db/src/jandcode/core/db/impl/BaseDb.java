@@ -207,7 +207,7 @@ public abstract class BaseDb extends BaseDbConnect implements IDb {
     }
 
     public void execScript(CharSequence script, boolean isNative, ErrorCallback onError) throws Exception {
-        List<String> sc = SqlScriptUtils.splitSqlScript(UtString.toString(script), DbConsts.SCRIPT_DELIMITER);
+        List<String> sc = UtSql.splitScript(UtString.toString(script));
         execScript(sc, isNative, onError);
     }
 

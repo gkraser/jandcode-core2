@@ -1,29 +1,31 @@
-package jandcode.core.db.impl;
-
-import jandcode.commons.*;
-import jandcode.core.db.*;
+package jandcode.commons;
 
 import java.util.*;
 
 /**
- * Статические утилиты для скриптов
+ * Утилиты для текста sql
  */
-public class SqlScriptUtils {
+public class UtSql {
+
+    /**
+     * Разделитель в скриптах по умолчанию
+     */
+    public static final String SCRIPT_DELIMITER = "~~";
 
     /**
      * Разбивает sql-скрипт на список
      *
      * @param text      текст sql-скрипта
-     * @param delimiter разделитель. Если не задан, используется {@link DbConsts#SCRIPT_DELIMITER}
+     * @param delimiter разделитель. Если не задан, используется {@link UtSql#SCRIPT_DELIMITER}
      * @return список sql. Пустые sql исключаются из списка
      */
-    public static List<String> splitSqlScript(String text, String delimiter) {
+    public static List<String> splitScript(String text, String delimiter) {
         List<String> res = new ArrayList<>();
         if (UtString.empty(text)) {
             return res;
         }
         if (UtString.empty(delimiter)) {
-            delimiter = DbConsts.SCRIPT_DELIMITER;
+            delimiter = SCRIPT_DELIMITER;
         }
         StringBuilder sbDelim = new StringBuilder();
         for (int i = 0; i < delimiter.length(); i++) {
@@ -43,5 +45,14 @@ public class SqlScriptUtils {
         return res;
     }
 
+    /**
+     * Разбивает sql-скрипт на список. Разделитель: '~~'.
+     *
+     * @param text текст sql-скрипта
+     * @return список sql. Пустые sql исключаются из списка
+     */
+    public static List<String> splitScript(String text) {
+        return splitScript(text, null);
+    }
 
 }
