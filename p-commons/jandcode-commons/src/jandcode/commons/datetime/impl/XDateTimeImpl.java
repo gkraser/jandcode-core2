@@ -1,6 +1,7 @@
 package jandcode.commons.datetime.impl;
 
 import jandcode.commons.datetime.*;
+import jandcode.commons.error.*;
 
 import java.time.*;
 import java.util.*;
@@ -59,6 +60,13 @@ public final class XDateTimeImpl implements XDateTime {
 
     public XDateTime endOfYear() {
         return create(jdn.endOfYear());
+    }
+
+    public int diffDays(XDateTime dt) {
+        if (dt instanceof XDateTimeImpl) {
+            return this.jdn.jdn - ((XDateTimeImpl) dt).jdn.jdn;
+        }
+        throw new XError("Unsupported type parameter dt");
     }
 
     ////// system

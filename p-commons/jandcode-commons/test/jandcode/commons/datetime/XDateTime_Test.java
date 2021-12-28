@@ -362,4 +362,24 @@ public class XDateTime_Test extends Utils_Test {
         assertTrue(d.isToday());
     }
 
+    @Test
+    public void dateDiff_date() throws Exception {
+        XDate d1 = XDate.create(2001, 12, 30);
+        XDate d2 = XDate.create(2001, 12, 28);
+        //
+        assertEquals(d1.diffDays(d2), 2);
+        assertEquals(d2.diffDays(d1), -2);
+        assertEquals(d1.diffDays(d1), 0);
+    }
+
+    @Test
+    public void dateDiff_datetime() throws Exception {
+        XDateTime d1 = XDateTime.create(2001, 12, 30);
+        XDateTime d2 = XDateTime.create(2001, 12, 28);
+        //
+        assertEquals(d1.diffDays(d2), 2);
+        assertEquals(d2.diffDays(d1), -2);
+        assertEquals(d1.diffDays(d1), 0);
+    }
+
 }
