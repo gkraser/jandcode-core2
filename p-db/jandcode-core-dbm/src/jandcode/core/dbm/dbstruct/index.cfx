@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!--
+        Сервисы для работы со структурой базы данных, полученной по описанниям в модели
+    -->
+
+    <dbm>
+        <!-- расширяем базовую модель -->
+        <model name="jandcode.core.dbm">
+
+            <cfg>
+                <!-- максимальная длина идентификатора в базе данных -->
+                <db-params idn.maxlength="63"/>
+            </cfg>
+
+            <dbtype name="oracle">
+                <cfg>
+                    <!-- для oracle - 30 -->
+                    <db-params idn.maxlength="30"/>
+                </cfg>
+            </dbtype>
+
+            <field name="base">
+                <bean name="jandcode.core.dbm.dbstruct.FieldDb"
+                      class="jandcode.core.dbm.dbstruct.impl.FieldDbImpl"/>
+            </field>
+
+            <domain name="base">
+                <bean name="jandcode.core.dbm.dbstruct.DomainDb"
+                      class="jandcode.core.dbm.dbstruct.impl.DomainDbImpl"/>
+            </domain>
+
+        </model>
+    </dbm>
+
+
+</root>

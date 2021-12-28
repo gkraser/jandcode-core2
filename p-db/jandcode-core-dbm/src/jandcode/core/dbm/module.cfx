@@ -42,5 +42,6 @@
     <x-include path="dict/index.cfx"/>
     <x-include path="sql/index.cfx"/>
     <x-include path="ddl/index.cfx"/>
+    <x-include path="dbstruct/index.cfx"/>
 
 </root>
