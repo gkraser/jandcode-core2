@@ -31,6 +31,24 @@
                       class="jandcode.core.dbm.dbstruct.impl.DomainDbImpl"/>
             </domain>
 
+            <!-- ddl -->
+
+            <ddl name="domain.table"
+                 file="#{path}/ddl/doman-table.gsp"
+                 stage="tables"/>
+
+            <ddl name="domain.pk"
+                 file="#{path}/ddl/doman-pk.gsp"
+                 stage="afterData"/>
+
+            <ddl name="domain.idx"
+                 file="#{path}/ddl/doman-idx.gsp"
+                 stage="afterData"/>
+
+            <ddl name="domain.ref"
+                 file="#{path}/ddl/doman-ref.gsp"
+                 stage="afterData"/>
+
         </model>
     </dbm>
 
