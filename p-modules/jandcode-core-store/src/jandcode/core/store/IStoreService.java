@@ -30,4 +30,9 @@ public interface IStoreService {
      */
     Store createStore(Class cls);
 
+    /**
+     * Создать {@link StoreLoader} по имени.
+     */
+    StoreLoader createStoreLoader(String name);
+
 }

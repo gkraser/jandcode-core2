@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <row id="1" f_int="1" f_string="s1" f_date="2014-12-29"
+         f_datetime="2015-01-30T12:34:56"/>
+
+    <row id="2" f_int="2" f_string="s2" f_date="2014-12-30"
+         f_datetime="2015-01-31T12:34:57"/>
+
+    <row id="3" f_int="{null}" f_string="{null}" f_date="{null}"
+         f_datetime="2015-01-31T12:34:57"/>
+
+
+</root>

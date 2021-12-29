@@ -16,6 +16,20 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
 
     private NamedList<StoreDataType> storeDataTypes = new DefaultNamedList<>("Not found StoreDataType: {0}");
     private ClassLinks<String> storeDatatypesByClass = new ClassLinks<>();
+    private NamedList<StoreLoaderDef> storeLoaders = new DefaultNamedList<>("Not found StoreLoader: {0}");
+
+    class StoreLoaderDef extends Named {
+        Conf conf;
+
+        public StoreLoaderDef(String name, Conf conf) {
+            setName(name);
+            this.conf = conf;
+        }
+
+        StoreLoader createInst() {
+            return (StoreLoader) getApp().create(this.conf);
+        }
+    }
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
@@ -37,6 +51,10 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
             storeDatatypesByClass.add(x.getName(), rn);
         }
 
+        //
+        for (Conf x : topConf.getConfs("storeloader")) {
+            storeLoaders.add(new StoreLoaderDef(x.getName(), x));
+        }
     }
 
     public NamedList<StoreDataType> getStoreDataTypes() {
@@ -87,6 +105,10 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
             }
         }
         return storeStruct.cloneStore();
+    }
+
+    public StoreLoader createStoreLoader(String name) {
+        return this.storeLoaders.get(name).createInst();
     }
 
 }

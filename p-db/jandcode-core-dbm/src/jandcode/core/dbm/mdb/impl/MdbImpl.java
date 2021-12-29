@@ -182,6 +182,10 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
         return getStoreService().createStore(cls);
     }
 
+    public StoreLoader createStoreLoader(String name) {
+        return getStoreService().createStoreLoader(name);
+    }
+
     ////// ISqlService
 
     private SqlService getSqlService() {

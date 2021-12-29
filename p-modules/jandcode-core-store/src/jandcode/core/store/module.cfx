@@ -66,6 +66,14 @@
 
         <type name="byte-array" storedatatype="blob"/>
 
+        <!-- =================== -->
+
+        <storeloader name="csv"
+                     class="jandcode.core.store.std.StoreLoader_csv"/>
+
+        <storeloader name="xml"
+                     class="jandcode.core.store.std.StoreLoader_xml"/>
+
     </store>
 
 </root>
