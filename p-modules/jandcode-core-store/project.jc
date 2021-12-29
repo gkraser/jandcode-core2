@@ -13,6 +13,7 @@ class P extends ProjectScript {
         include(JavaProject).with {
             moduleDef("jandcode.core.store").with {
                 depends.prod(
+                        "commons-csv",
                 )
                 depends.dev(
                 )
