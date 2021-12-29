@@ -22,8 +22,6 @@
             </dbtype>
 
             <field name="base">
-                <bean name="jandcode.core.dbm.dbstruct.FieldDb"
-                      class="jandcode.core.dbm.dbstruct.impl.FieldDbImpl"/>
             </field>
 
             <domain name="base">

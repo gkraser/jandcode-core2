@@ -3,8 +3,10 @@ package jandcode.core.dbm.domain.impl;
 import jandcode.commons.conf.*;
 import jandcode.commons.variant.*;
 import jandcode.core.*;
+import jandcode.core.db.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.domain.*;
+import jandcode.core.store.*;
 
 public class FieldImpl extends BaseModelMember implements Field, IBeanIniter {
 
@@ -92,12 +94,16 @@ public class FieldImpl extends BaseModelMember implements Field, IBeanIniter {
         return getIField().getDataType();
     }
 
-    public String getDbDataType() {
+    public DbDataType getDbDataType() {
         return getIField().getDbDataType();
     }
 
-    public String getStoreDataType() {
+    public StoreDataType getStoreDataType() {
         return getIField().getStoreDataType();
+    }
+
+    public String getSqlType() {
+        return getIField().getSqlType();
     }
 
     public String getRef() {
@@ -106,6 +112,10 @@ public class FieldImpl extends BaseModelMember implements Field, IBeanIniter {
 
     public boolean hasRef() {
         return getIField().hasRef();
+    }
+
+    public boolean isRefCascade() {
+        return getIField().isRefCascade();
     }
 
     public String getDict() {

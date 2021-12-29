@@ -9,9 +9,8 @@
     for (def f : d.fields) {
       def refDomain = ut.getDbRefDomain(f)
       if (refDomain == null) continue
-      def fd = f.bean(FieldDb)
       def gname = ut.makeShortIdn("fk_${d.dbTableName}_${f.name}")
-      def refCascade = fd.refCascade ? " on delete cascade" : ""
+      def refCascade = f.refCascade ? " on delete cascade" : ""
 %>
 --@${gname}
 alter table ${d.name} add constraint ${gname}

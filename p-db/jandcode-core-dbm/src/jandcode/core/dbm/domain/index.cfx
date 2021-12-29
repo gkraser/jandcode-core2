@@ -27,8 +27,8 @@
             <field name="datetime" parent="base"
                    datatype="datetime" dbdatatype="datetime" storedatatype="datetime"/>
 
-            <field name="date" parent="datetime"
-                   dbdatatype="date" storedatatype="date"/>
+            <field name="date" parent="base"
+                   datatype="date" dbdatatype="date" storedatatype="date"/>
 
             <field name="double" parent="base"
                    datatype="double" dbdatatype="double" storedatatype="double"/>

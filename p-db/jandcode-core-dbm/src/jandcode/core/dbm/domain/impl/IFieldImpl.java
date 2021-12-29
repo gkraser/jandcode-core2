@@ -1,7 +1,9 @@
 package jandcode.core.dbm.domain.impl;
 
 import jandcode.commons.variant.*;
+import jandcode.core.db.*;
 import jandcode.core.dbm.domain.*;
+import jandcode.core.store.*;
 
 public class IFieldImpl extends BaseFieldMember implements IField {
 
@@ -9,9 +11,10 @@ public class IFieldImpl extends BaseFieldMember implements IField {
     private String titleShort;
     private int size;
     private VariantDataType dataType = VariantDataType.OBJECT;
-    private String dbDataType;
-    private String storeDataType;
+    private DbDataType dbDataType;
+    private StoreDataType storeDataType;
     private String ref;
+    private boolean refCascade;
     private String dict;
 
     //////
@@ -68,20 +71,32 @@ public class IFieldImpl extends BaseFieldMember implements IField {
         this.dataType = VariantDataType.fromString(dataType);
     }
 
-    public String getDbDataType() {
-        return dbDataType == null ? getDataType().toString() : dbDataType;
+    public DbDataType getDbDataType() {
+        return dbDataType;
     }
 
-    public void setDbDataType(String dbDataType) {
+    public void setDbDataType(DbDataType dbDataType) {
         this.dbDataType = dbDataType;
     }
 
-    public String getStoreDataType() {
-        return storeDataType == null ? "object" : storeDataType;
+    public void setDbDataType(String dbDataType) {
+        this.dbDataType = getModel().getDbSource().getDbDriver().getDbDataTypes().get(dbDataType);
+    }
+
+    public StoreDataType getStoreDataType() {
+        return storeDataType;
+    }
+
+    public void setStoreDataType(StoreDataType storeDataType) {
+        this.storeDataType = storeDataType;
     }
 
     public void setStoreDataType(String storeDataType) {
-        this.storeDataType = storeDataType;
+        this.storeDataType = getApp().bean(StoreService.class).getStoreDataTypes().get(storeDataType);
+    }
+
+    public String getSqlType() {
+        return getDbDataType().getSqlType(getSize());
     }
 
     public String getRef() {
@@ -90,6 +105,14 @@ public class IFieldImpl extends BaseFieldMember implements IField {
 
     public void setRef(String ref) {
         this.ref = ref;
+    }
+
+    public boolean isRefCascade() {
+        return refCascade;
+    }
+
+    public void setRefCascade(boolean refCascade) {
+        this.refCascade = refCascade;
     }
 
     public String getDict() {

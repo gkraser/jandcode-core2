@@ -64,4 +64,12 @@ public interface DbDataType extends INamed {
      */
     String getStoreDataTypeName();
 
+    /**
+     * Возвращает sql значение поля, пригодное для использования в DML.
+     *
+     * @param value значение
+     */
+    String getSqlValue(Object value);
+
+
 }

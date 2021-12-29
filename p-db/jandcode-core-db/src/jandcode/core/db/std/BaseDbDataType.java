@@ -9,6 +9,7 @@ public abstract class BaseDbDataType extends Named implements DbDataType {
     private VariantDataType datatype = VariantDataType.OBJECT;
     private String sqlType = "";
     private String storeDataTypeName;
+    private String sqlValue = "";
 
     class ValueImpl implements Value {
         Object value;
@@ -77,4 +78,17 @@ public abstract class BaseDbDataType extends Named implements DbDataType {
         return v;
     }
 
+    //////
+
+    public String getSqlValue() {
+        return sqlValue;
+    }
+
+    public void setSqlValue(String sqlValue) {
+        this.sqlValue = sqlValue;
+    }
+
+    public String getSqlValue(Object value) {
+        return getSqlValue().replace("${value}", "" + value); //todo
+    }
 }
