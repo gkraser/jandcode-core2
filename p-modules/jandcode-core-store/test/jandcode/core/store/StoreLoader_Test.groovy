@@ -14,6 +14,11 @@ class StoreLoader_Test extends App_Test {
     }
 
     @Test
+    public void names() throws Exception {
+        println svc.getStoreLoaderNames()
+    }
+
+    @Test
     public void csv() throws Exception {
         def ldr = svc.createStoreLoader("csv")
         ldr.load().fromFile(utils.getTestFile("data/csv1.csv"))

@@ -8,6 +8,8 @@ import jandcode.commons.reflect.*;
 import jandcode.core.*;
 import jandcode.core.store.*;
 
+import java.util.*;
+
 public class StoreServiceImpl extends BaseComp implements StoreService {
 
     static {
@@ -109,6 +111,14 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
 
     public StoreLoader createStoreLoader(String name) {
         return this.storeLoaders.get(name).createInst();
+    }
+
+    public Collection<String> getStoreLoaderNames() {
+        return this.storeLoaders.getNames();
+    }
+
+    public boolean hasStoreLoader(String name) {
+        return this.storeLoaders.find(name) != null;
     }
 
 }
