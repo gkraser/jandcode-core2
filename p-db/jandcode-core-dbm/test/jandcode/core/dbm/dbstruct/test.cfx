@@ -23,6 +23,10 @@
                 <dbindex name="i2" fields="string1"/>
             </domain>
 
+            <ddl name="dbdata-1" class="jandcode.core.dbm.ddl.std.DDLProvider_dbdata"
+                 stage="data"
+                 path="#{path}/dbdata/**/*.*"/>
+
         </model>
 
     </dbm>
