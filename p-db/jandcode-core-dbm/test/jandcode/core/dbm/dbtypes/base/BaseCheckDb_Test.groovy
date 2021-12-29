@@ -40,6 +40,7 @@ abstract class BaseCheckDb_Test extends Dbm_Test {
         st.addField("f_string", "string", 30)
         st.addField("f_date", "date")
         st.addField("f_datetime", "datetime")
+        st.addField("f_null_long", "long")
         //
         st.add(
                 id: 1,
@@ -50,6 +51,7 @@ abstract class BaseCheckDb_Test extends Dbm_Test {
                 f_string: "strin'g-с'трока",
                 f_date: XDate.create("2020-11-22"),
                 f_datetime: XDateTime.create("2020-11-22T12:34:56"),
+                f_null_long: null,
         )
         //
         dbm.createDbTable("t1", st)
@@ -61,7 +63,7 @@ abstract class BaseCheckDb_Test extends Dbm_Test {
         List<String> vls = []
         for (f in dmn.fields) {
             flds.add(f.name)
-            vls.add(f.getSqlValue(rec.getValue(f.name)))
+            vls.add(f.getSqlValue(rec.getValueNullable(f.name)))
         }
 
         String sql = "insert into t1 (${UtString.join(flds, ',')})\nvalues (${UtString.join(vls, ',')})"
