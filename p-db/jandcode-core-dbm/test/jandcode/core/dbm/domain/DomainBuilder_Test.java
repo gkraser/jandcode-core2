@@ -27,7 +27,7 @@ public class DomainBuilder_Test extends Dbm_Test {
         //
         assertEquals(d.getName(), "name1");
         assertEquals(d.getFields().size(), 1);
-        assertEquals(d.f("test0").getDbDataType(), "string");
+        assertEquals(d.f("test0").getDbDataType().getName(), "string");
         assertFalse(d.getConf().containsKey("parent"));
     }
 

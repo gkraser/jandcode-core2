@@ -1,5 +1,6 @@
 package jandcode.core.db.std;
 
+import jandcode.commons.*;
 import jandcode.commons.named.*;
 import jandcode.commons.variant.*;
 import jandcode.core.db.*;
@@ -89,6 +90,19 @@ public abstract class BaseDbDataType extends Named implements DbDataType {
     }
 
     public String getSqlValue(Object value) {
-        return getSqlValue().replace("${value}", "" + value); //todo
+        if (value == null) {
+            return "null";
+        }
+        String v = UtCnv.toString(value);
+        if (value instanceof Boolean) {
+            if ("true".equals(v)) {
+                v = "1";
+            } else {
+                v = "0";
+            }
+        } else if (v.indexOf("'") != -1) {
+            v = v.replace("'", "''");
+        }
+        return getSqlValue().replace("${value}", v);
     }
 }

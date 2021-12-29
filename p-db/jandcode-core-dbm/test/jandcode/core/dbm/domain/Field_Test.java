@@ -27,7 +27,7 @@ public class Field_Test extends Dbm_Test {
         assertEquals(d.f("f2").getDataType(), VariantDataType.LONG);
         assertEquals(d.f("f2").getTitle(), "F2 title");
         assertEquals(d.f("f2").getTitleShort(), "F2");
-        assertEquals(d.f("f2").getDbDataType(), "long");
+        assertEquals(d.f("f2").getDbDataType().getName(), "long");
     }
 
 

@@ -72,6 +72,17 @@ public class DomainServiceImpl extends BaseModelMember implements DomainService 
         });
     }
 
+    public Domain createDomain(Store store) {
+        DomainBuilder b = createDomainBuilder("base");
+        for (StoreField f : store.getFields()) {
+            Conf fconf = b.addField(f.getName(), f.getStoreDataType().getName());
+            if (f.getSize() > 0) {
+                fconf.setValue("size", f.getSize());
+            }
+        }
+        return b.createDomain("noname");
+    }
+
     public DomainBuilder createDomainBuilder(String parentDomain) {
         return new DomainBuilderImpl(this, parentDomain);
     }

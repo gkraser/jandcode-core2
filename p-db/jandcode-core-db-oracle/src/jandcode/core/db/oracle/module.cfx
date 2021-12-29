@@ -42,10 +42,12 @@
             <dbdatatype name="boolean" sqltype="number(1)"/>
 
             <dbdatatype name="date"
-                        sqltype="date"/>
+                        sqltype="date"
+                        sqlvalue="to_date('${value}', 'YYYY-MM-DD')"/>
 
             <dbdatatype name="datetime"
-                        sqltype="date"/>
+                        sqltype="date"
+                        sqlvalue="cast(to_timestamp('${value}', 'YYYY-MM-DD&quot;T&quot;HH24:MI:SS.ff3') as date)"/>
 
         </dbdriver>
 

@@ -48,6 +48,13 @@ public interface IDomainService {
     Domain createDomain(Conf x, String name);
 
     /**
+     * Создать экземпляр домена по структуре store.
+     *
+     * @param store для какого store
+     */
+    Domain createDomain(Store store);
+
+    /**
      * Создать пустой store со структурой как в домене.
      *
      * @param domain для какого домена

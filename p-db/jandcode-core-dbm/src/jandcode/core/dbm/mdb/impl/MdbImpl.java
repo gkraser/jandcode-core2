@@ -92,6 +92,10 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
         return getDomainService().createDomain(x, name);
     }
 
+    public Domain createDomain(Store store) {
+        return getDomainService().createDomain(store);
+    }
+
     public Store createStore(Domain domain) {
         return getDomainService().createStore(domain);
     }

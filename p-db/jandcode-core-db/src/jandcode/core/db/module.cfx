@@ -49,14 +49,17 @@
 
             <dbdatatype name="string" class="jandcode.core.db.std.DbDataType_string"
                         sqltype="varchar(${size})"
+                        sqlvalue="'${value}'"
                         storedatatype="string"/>
 
             <dbdatatype name="int" class="jandcode.core.db.std.DbDataType_int"
                         sqltype="int"
+                        sqlvalue="${value}"
                         storedatatype="int"/>
 
             <dbdatatype name="long" class="jandcode.core.db.std.DbDataType_long"
                         sqltype="bigint"
+                        sqlvalue="${value}"
                         storedatatype="long"/>
 
             <dbdatatype name="smallint" parent="int"
@@ -64,28 +67,34 @@
 
             <dbdatatype name="double" class="jandcode.core.db.std.DbDataType_double"
                         sqltype="double"
+                        sqlvalue="${value}"
                         storedatatype="double"/>
 
             <dbdatatype name="memo" parent="string"
                         sqltype="clob"
+                        sqlvalue="'${value}'"
                         storedatatype="rawstring"/>
 
             <dbdatatype name="rawstring" parent="memo"/>
 
             <dbdatatype name="datetime" class="jandcode.core.db.std.DbDataType_datetime"
                         sqltype="datetime"
+                        sqlvalue="'${value}'"
                         storedatatype="datetime"/>
 
             <dbdatatype name="date" class="jandcode.core.db.std.DbDataType_date"
                         sqltype="date"
+                        sqlvalue="'${value}'"
                         storedatatype="date"/>
 
             <dbdatatype name="blob" class="jandcode.core.db.std.DbDataType_blob"
                         sqltype="blob"
+                        sqlvalue="'${value}'"
                         storedatatype="blob"/>
 
             <dbdatatype name="boolean" parent="smallint"
                         sqltype="smallint"
+                        sqlvalue="${value}"
                         storedatatype="boolean"/>
 
             <dbdatatype name="object"

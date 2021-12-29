@@ -106,6 +106,10 @@ public class FieldImpl extends BaseModelMember implements Field, IBeanIniter {
         return getIField().getSqlType();
     }
 
+    public String getSqlValue(Object value) {
+        return getIField().getSqlValue(value);
+    }
+
     public String getRef() {
         return getIField().getRef();
     }

@@ -99,6 +99,10 @@ public class IFieldImpl extends BaseFieldMember implements IField {
         return getDbDataType().getSqlType(getSize());
     }
 
+    public String getSqlValue(Object value) {
+        return getDbDataType().getSqlValue(value);
+    }
+
     public String getRef() {
         return ref == null ? "" : ref;
     }

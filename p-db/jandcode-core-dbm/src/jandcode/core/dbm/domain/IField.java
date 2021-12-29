@@ -47,6 +47,11 @@ public interface IField {
     String getSqlType();
 
     /**
+     * sql значение для поля в виде строки
+     */
+    String getSqlValue(Object value);
+
+    /**
      * Имя домена, на который ссылается поле или пустая строки, если поле не ссылается
      * на домен.
      */

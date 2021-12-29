@@ -83,8 +83,8 @@ public class Domain_Test extends Dbm_Test {
     public void test_include_domain1() throws Exception {
         Domain d = svc.getDomain("include1.1");
         assertEquals(d.f("f1").getSize(), 100);
-        assertEquals(d.f("f2").getDbDataType(), "long");
-        assertEquals(d.f("f3").getDbDataType(), "long");
+        assertEquals(d.f("f2").getDbDataType().getName(), "long");
+        assertEquals(d.f("f3").getDbDataType().getName(), "long");
         assertEquals(d.f("ff1").getSize(), 30);
     }
 
