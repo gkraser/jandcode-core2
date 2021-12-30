@@ -16,6 +16,11 @@ public abstract class BaseDbDataType extends Named implements DbDataType {
         Object value;
         boolean isNull;
 
+        public ValueImpl(Object value, boolean isNull) {
+            this.value = value;
+            this.isNull = isNull;
+        }
+
         public Object getValue() {
             return value;
         }
@@ -56,13 +61,6 @@ public abstract class BaseDbDataType extends Named implements DbDataType {
     //////
 
     /**
-     * Создать null-значение
-     */
-    protected Value createValueNull() {
-        return new ValueImpl();
-    }
-
-    /**
      * Создать значение value. Если value==null, помечается как null
      */
     protected Value createValue(Object value) {
@@ -73,10 +71,7 @@ public abstract class BaseDbDataType extends Named implements DbDataType {
      * Создать значение value.
      */
     protected Value createValue(Object value, boolean isNull) {
-        ValueImpl v = new ValueImpl();
-        v.value = value;
-        v.isNull = isNull;
-        return v;
+        return new ValueImpl(value, isNull);
     }
 
     //////

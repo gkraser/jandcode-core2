@@ -13,7 +13,7 @@ public class DbDataType_object extends BaseDbDataType {
     public Value getValue(ResultSet rs, int columnIdx) throws Exception {
         Object value = rs.getObject(columnIdx);
         if (rs.wasNull()) {
-            return createValueNull();
+            return createValue(null);
         }
         return createValue(value);
     }

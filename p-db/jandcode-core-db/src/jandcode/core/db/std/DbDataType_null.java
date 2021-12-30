@@ -11,7 +11,7 @@ public class DbDataType_null extends BaseDbDataType {
     }
 
     public Value getValue(ResultSet rs, int columnIdx) throws Exception {
-        return createValueNull();
+        return createValue(null);
     }
 
     public void setValue(PreparedStatement st, int paramIdx, Object value) throws Exception {
