@@ -1,5 +1,6 @@
 package jandcode.core.db;
 
+import jandcode.commons.*;
 import jandcode.commons.error.*;
 import jandcode.core.store.*;
 
@@ -154,7 +155,7 @@ public interface IDb extends IDbConnect {
     void execScript(List<? extends CharSequence> script, boolean isNative, ErrorCallback onError) throws Exception;
 
     /**
-     * Исполнение скрипта. Скрипт - это набор sql операторов, разделенных {@link DbConsts#SCRIPT_DELIMITER}.
+     * Исполнение скрипта. Скрипт - это набор sql операторов, разделенных {@link UtSql#SCRIPT_DELIMITER}.
      *
      * @param script   скрипт
      * @param isNative true - выполняется execQueryNative, иначе execQuery

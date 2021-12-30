@@ -21,9 +21,4 @@ public class DbConsts {
      */
     public static final String IGNORE_FIELD_PREFIX = "zzz___";
 
-    /**
-     * Разделитель в скриптах по умолчанию
-     */
-    public static final String SCRIPT_DELIMITER = "~~";
-
 }
