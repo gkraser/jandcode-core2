@@ -289,4 +289,23 @@ public class Store_Test extends App_Test {
         assertEquals(v.toString(), "[z1, z2, z4]")
     }
 
+    @Test
+    public void null_values() throws Exception {
+        Store st = svc.createStore()
+        st.addField("f1", "string")
+        st.addField("f2", "long")
+        //
+        def rec = st.add()
+        //
+        assertEquals(rec.getValue("f1"), "")
+        assertEquals(rec.getValue("f2"), 0)
+        //
+        assertNull(rec.getValueNullable("f1"))
+        assertNull(rec.getValueNullable("f2"))
+        //
+        assertTrue(rec.isValueNull("f1"))
+        assertTrue(rec.isValueNull("f2"))
+        //
+    }
+
 }
