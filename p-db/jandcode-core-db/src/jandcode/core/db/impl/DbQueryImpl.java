@@ -279,8 +279,8 @@ public class DbQueryImpl implements DbQuery {
         return getValueForField(fieldsAll.get(name)).getValue();
     }
 
-    public boolean isNull(String name) {
-        return getValueForField(fieldsAll.get(name)).isNull();
+    public boolean isValueNull(String name) {
+        return getValueForField(fieldsAll.get(name)).isValueNull();
     }
 
     //////
@@ -289,8 +289,8 @@ public class DbQueryImpl implements DbQuery {
         return getValueForField(fieldsAll.get(index)).getValue();
     }
 
-    public boolean isNull(int index) {
-        return getValueForField(fieldsAll.get(index)).isNull();
+    public boolean isValueNull(int index) {
+        return getValueForField(fieldsAll.get(index)).isValueNull();
     }
 
     //////

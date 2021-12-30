@@ -20,7 +20,7 @@ public abstract class BaseDbDataType extends Named implements DbDataType {
             return value;
         }
 
-        public boolean isNull() {
+        public boolean isValueNull() {
             return isNull;
         }
     }

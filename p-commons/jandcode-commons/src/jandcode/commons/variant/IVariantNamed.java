@@ -40,8 +40,22 @@ public interface IVariantNamed extends IValueNamed {
         return UtCnv.toBoolean(getValue(name));
     }
 
-    default boolean isNull(String name) {
+    /**
+     * Возвращает true, если значение null.
+     * getValue(name) при этом может возвращать не null.
+     */
+    default boolean isValueNull(String name) {
         return getValue(name) == null;
+    }
+
+    /**
+     * Возвращает null, если isValueNull(name)==true, иначе возвращает getValue(name)
+     */
+    default Object getValueNullable(String name) {
+        if (isValueNull(name)) {
+            return null;
+        }
+        return getValue(name);
     }
 
 }

@@ -40,8 +40,22 @@ public interface IVariantIndexed extends IValueIndexed {
         return UtCnv.toBoolean(getValue(index));
     }
 
-    default boolean isNull(int index) {
+    /**
+     * Возвращает true, если значение null.
+     * getValue(index) при этом может возвращать не null.
+     */
+    default boolean isValueNull(int index) {
         return getValue(index) == null;
+    }
+
+    /**
+     * Возвращает null, если isValueNull(index)==true, иначе возвращает getValue(index)
+     */
+    default Object getValueNullable(int index) {
+        if (isValueNull(index)) {
+            return null;
+        }
+        return getValue(index);
     }
 
 }

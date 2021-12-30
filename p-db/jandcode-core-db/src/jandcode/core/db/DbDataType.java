@@ -23,7 +23,7 @@ public interface DbDataType extends INamed {
         /**
          * Признак null
          */
-        boolean isNull();
+        boolean isValueNull();
 
     }
 

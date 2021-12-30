@@ -198,7 +198,7 @@ public class DbDriverImpl extends BaseComp implements DbDriver {
 
             VariantDataType dt = paramValues.getDataType(paramName);
 
-            if (paramValues.isNull(paramName)) {
+            if (paramValues.isValueNull(paramName)) {
                 setNullParam(statement, paramIdx, dt);
             } else {
                 Object value = paramValues.getValue(paramName);

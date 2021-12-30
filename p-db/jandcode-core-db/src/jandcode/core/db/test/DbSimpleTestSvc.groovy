@@ -170,7 +170,7 @@ class DbSimpleTestSvc extends BaseAppTestSvc {
         db.execQuery("insert into ${checkDbDataType_table} (f1) values(:v)", [v: null])
         DbQuery q = db.openQuery("select * from ${checkDbDataType_table}")
         try {
-            res = q.isNull("f1")
+            res = q.isValueNull("f1")
         } finally {
             q.close()
         }

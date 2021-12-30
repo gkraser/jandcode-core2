@@ -40,8 +40,22 @@ public interface IVariant extends IValue {
         return UtCnv.toBoolean(getValue());
     }
 
-    default boolean isNull() {
+    /**
+     * Возвращает true, если значение null.
+     * getValue() при этом может возвращать не null.
+     */
+    default boolean isValueNull() {
         return getValue() == null;
+    }
+
+    /**
+     * Возвращает null, если isValueNull()==true, иначе возвращает getValue()
+     */
+    default Object getValueNullable() {
+        if (isValueNull()) {
+            return null;
+        }
+        return getValue();
     }
 
 }

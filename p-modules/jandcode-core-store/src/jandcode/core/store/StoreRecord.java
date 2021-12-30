@@ -23,28 +23,6 @@ public interface StoreRecord extends
     //////
 
     /**
-     * Проверка на null значения по индексу поля
-     */
-    boolean isValueNull(int index);
-
-    /**
-     * Проверка на null значения по имени поля
-     */
-    boolean isValueNull(String fieldName);
-
-    /**
-     * Значение поля. Если поле имеет значение null, возвращается null.
-     */
-    Object getValueNullable(int index);
-
-    /**
-     * Значение поля. Если поле имеет значение null, возвращается null.
-     */
-    Object getValueNullable(String fieldName);
-
-    //////
-
-    /**
      * Значения всех полей, которые не null, в виде map
      */
     Map<String, Object> getValues();

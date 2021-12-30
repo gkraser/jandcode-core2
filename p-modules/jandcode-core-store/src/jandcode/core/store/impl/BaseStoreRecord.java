@@ -128,29 +128,9 @@ public abstract class BaseStoreRecord implements StoreRecord, IRawRecord {
         return f.getStoreDataType().getFieldValue(this, f.getIndex(), this, f);
     }
 
-    public boolean isNull(String name) {
-        return isValueNull(name);
-    }
-
-    public boolean isNull(int index) {
-        return isValueNull(index);
-    }
-
     public boolean isValueNull(String fieldName) {
         StoreField f = getStore().getField(fieldName);
         return isValueNull(f.getIndex());
-    }
-
-    public Object getValueNullable(int index) {
-        if (isValueNull(index)) {
-            return null;
-        }
-        return getValue(index);
-    }
-
-    public Object getValueNullable(String fieldName) {
-        StoreField f = getStore().getField(fieldName);
-        return getValueNullable(f.getIndex());
     }
 
     public void setValue(int index, Object value) {

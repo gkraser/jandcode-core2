@@ -107,7 +107,7 @@ public abstract class BaseDb extends BaseDbConnect implements IDb {
         while (!query.eof()) {
             StoreRecord rec = store.add();
             for (int i = 0; i <= pos; i++) {
-                if (!query.isNull(queryIdx[i])) {
+                if (!query.isValueNull(queryIdx[i])) {
                     rec.setValue(storeIdx[i], query.getValue(queryIdx[i]));
                 } else {
                     rec.setValue(storeIdx[i], null);

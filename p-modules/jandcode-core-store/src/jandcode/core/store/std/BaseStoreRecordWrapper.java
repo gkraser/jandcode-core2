@@ -33,14 +33,6 @@ public class BaseStoreRecordWrapper implements StoreRecord {
         return getStoreRecord().isValueNull(fieldName);
     }
 
-    public Object getValueNullable(int index) {
-        return getStoreRecord().getValueNullable(index);
-    }
-
-    public Object getValueNullable(String fieldName) {
-        return getStoreRecord().getValueNullable(fieldName);
-    }
-
     public Map<String, Object> getValues() {
         return getStoreRecord().getValues();
     }
