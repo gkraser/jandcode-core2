@@ -56,7 +56,12 @@ public class SqlParamParser extends TextParser {
             } else if (c == ':') {
                 char c2 = next();
                 String s;
-                if (c2 == '{') {
+                if (c2 == ':') {
+                    // два ':' подряд, для postgres
+                    res.append(c);
+                    res.append(c2);
+                    continue;
+                } else if (c2 == '{') {
                     s = grabUntil('}');
                 } else {
                     push(c2);

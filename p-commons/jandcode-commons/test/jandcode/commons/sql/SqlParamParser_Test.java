@@ -21,6 +21,7 @@ class SqlParamParser_Test extends Utils_Test {
         check("aa :b c :{dd} ee", "aa ? c ? ee", "[b, dd]");
         check(":b c :{dd}", "? c ?", "[b, dd]");
         check(":b c :{dd}:z", "? c ??", "[b, dd, z]");
+        check(":b::c", "?::c", "[b]");
     }
 
 
