@@ -11,6 +11,7 @@ configurations {
         // это предоставляет flexmark
         exclude group: "junit"
         exclude group: "log4j"
+        exclude group: "org.apache.logging.log4j"
         // это (случайно видимо) тащит vfs
         exclude group: "org.apache.hadoop"
         // это не нужно
