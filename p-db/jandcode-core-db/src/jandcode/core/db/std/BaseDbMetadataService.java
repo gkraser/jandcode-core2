@@ -21,7 +21,7 @@ public class BaseDbMetadataService extends BaseDbSourceMember implements DbMetad
      * @param db база данных с установленным соединением
      */
     protected String getCurrentSchema(Db db) throws Exception {
-        return db.getConnection().getCatalog();
+        return db.getConnection().getSchema();
     }
 
     /**
@@ -71,7 +71,7 @@ public class BaseDbMetadataService extends BaseDbSourceMember implements DbMetad
                     if (nm.indexOf("$") != -1) {
                         continue;
                     }
-                    if ("TABLE".equals(typ) || "VIEW".equals(typ)) {
+                    if ("TABLE".equals(typ) || "VIEW".equals(typ) || "BASE TABLE".equals(typ) ) {
                         DbMetadataTable t = new DbMetadataTableImpl(nm);
                         res.add(t);
                     }

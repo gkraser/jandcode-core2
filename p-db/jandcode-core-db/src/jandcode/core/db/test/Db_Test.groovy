@@ -1,6 +1,7 @@
 package jandcode.core.db.test
 
 import jandcode.commons.*
+import jandcode.core.db.*
 import jandcode.core.test.*
 import org.junit.jupiter.api.*
 
@@ -35,7 +36,7 @@ abstract class Db_Test extends App_Test {
     }
 
     @Test
-    public void scrip1() throws Exception {
+    public void script1() throws Exception {
         //utils.logOn()
 
         def a = z.createStore()
@@ -58,6 +59,19 @@ insert into t1 (id) values (4)
         //
         def st = z.db.loadQuery("select sum(id) as sm from t1")
         assertEquals(st.get(0).getInt("sm"), 10)
+    }
+
+
+    @Test
+    public void metadata_tables() throws Exception {
+        def a = z.createStore()
+        a.addField("id", "int")
+        z.createTable("t1m", a)
+        //
+        def metaSvc = z.db.dbSource.bean(DbMetadataService)
+        metaSvc.reset()
+        def t1m = metaSvc.getTables().find("t1m")
+        assertNotNull(t1m)
     }
 
 
