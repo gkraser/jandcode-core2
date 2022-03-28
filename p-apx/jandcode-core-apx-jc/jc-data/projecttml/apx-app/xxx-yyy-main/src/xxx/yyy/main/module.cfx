@@ -9,6 +9,8 @@
 
         <model name="xxx.yyy.model">
             <include name="apx.base"/>
+            <x-include path="model/index-model.cfx"/>
+
             <dbsource name="default"
                       dbdriver="postgresql"
             />
