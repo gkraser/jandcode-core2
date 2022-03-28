@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <web>
+        <mount-module/>
+    </web>
+
+    <dbm>
+
+        <model name="xxx.yyy.model">
+            <include name="apx.base"/>
+            <dbsource name="default"
+                      dbdriver="postgresql"
+            />
+        </model>
+
+        <!-- =================== -->
+
+        <model name="default" instance="xxx.yyy.model"/>
+
+    </dbm>
+
+</root>
