@@ -2,8 +2,7 @@
 <%
   GspScript th = this
 
-  Model model = this.args.model
-  def ut = new DomainDbUtils(model)
+  DomainDbUtils dbUtils = this.args.dbUtils
 
   GspScript utils = th.create("${th.scriptDir}/_utils.gsp")
 
@@ -44,8 +43,7 @@
 <h2><a name="__toc_tab"></a>Таблицы</h2>
 <ul>
   <%
-    for (d in ut.dbTables) {
-      def dd = d.bean(DomainDb)
+    for (d in dbUtils.domains) {
   %>
   <li>
     <a href="#${d.dbTableName}">${d.dbTableName}</a>
@@ -62,8 +60,7 @@
 ==================================================================================
 --}%
 <%
-  for (d in ut.dbTables) {
-    def dd = d.bean(DomainDb)
+  for (d in dbUtils.domains) {
 %>
 <h2 class="table_desc"><a id="${d.dbTableName}"></a>${d.dbTableName}</h2>
 <% utils.vars.out_title(d) %>

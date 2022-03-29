@@ -1,4 +1,4 @@
-package jandcode.core.dbm.diagram;
+package jandcode.core.dbm.doc;
 
 import jandcode.commons.conf.*;
 import jandcode.commons.named.*;
@@ -30,12 +30,12 @@ public class DiagramDb extends BaseModelMember implements IConfLink {
         //
         this.conf = cfg.getConf();
         //
-        NamedList<Domain> dbTables = domainDbUils.getDbTables();
-        for (Conf conf : this.conf.getConfs("domain")) {
-            String domainName = conf.getName();
-            Domain domain = dbTables.get(domainName);
-            this.domains.add(domain);
-        }
+//        NamedList<Domain> dbTables = domainDbUils.getDbTables();
+//        for (Conf conf : this.conf.getConfs("domain")) {
+//            String domainName = conf.getName();
+//            Domain domain = dbTables.get(domainName);
+//            this.domains.add(domain);
+//        }
     }
 
     public Conf getConf() {

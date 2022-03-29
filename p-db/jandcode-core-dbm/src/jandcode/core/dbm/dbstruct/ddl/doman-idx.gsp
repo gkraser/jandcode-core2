@@ -5,7 +5,7 @@
 
   def ut = new DomainDbUtils(this.model)
 
-  for (def d : ut.dbTables) {
+  for (def d : ut.domains) {
     def dd = d.bean(DomainDb)
     for (def idx : dd.indexes) {
       def unique = idx.unique ? "unique " : ""

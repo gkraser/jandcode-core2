@@ -6,17 +6,17 @@ import jandcode.core.dbm.*;
 import jandcode.core.dbm.domain.*;
 
 /**
- * Утилитный класс для использования внутри генераторов ddl для базы данных
+ * Утилитный класс для использования внутри генераторов ddl и документации для базы данных.
  */
 public class DomainDbUtils implements IModelLink {
 
     protected Model model;
-    private NamedList<Domain> dbTables;
-    private DomainService domainSvc;
+    protected DomainGroup domainGroup;
 
     public DomainDbUtils(Model model) {
         this.model = model;
-        this.domainSvc = model.bean(DomainService.class);
+        this.domainGroup = new DomainGroup(model);
+        this.domainGroup.grabDbTables();
     }
 
     public Model getModel() {
@@ -24,55 +24,17 @@ public class DomainDbUtils implements IModelLink {
     }
 
     /**
-     * Домены, которые являются таблицами в базе данных.
-     * Для них нужно генерировать структуру базы данных.
+     * Группа доменов, с которыми нужно работать. Это таблицы в базе данных.
      */
-    public NamedList<Domain> getDbTables() {
-        prepare();
-        return this.dbTables;
-    }
-
-    private void prepare() {
-        if (this.dbTables != null) {
-            return;
-        }
-        //
-        NamedList<Domain> dbTables = new DefaultNamedList<>();
-        NamedList<Domain> allDomains = this.domainSvc.getDomains();
-        for (Domain d : allDomains) {
-            DomainDb dd = d.bean(DomainDb.class);
-            if (dd.isDbTable() && !dd.isDbExternal()) {
-                dbTables.add(d);
-            }
-        }
-        dbTables.sort();
-        //
-        this.dbTables = dbTables;
+    public DomainGroup getDomainGroup() {
+        return domainGroup;
     }
 
     /**
-     * Возвращает домен, на который ссылается поле в базе данных.
-     *
-     * @param f какое поле
-     * @return null, если нет домена, на который ссылается.
-     * Возможно такого домена нет или он не является частью структуры базы данных.
+     * Список доменов, с которыми нужно работать
      */
-    public Domain getDbRefDomain(Field f) {
-        if (!f.hasRef()) {
-            return null;
-        }
-        Domain refDomain = this.domainSvc.findDomain(f.getRef());
-        if (refDomain == null) {
-            return null;
-        }
-        if (refDomain.findField("id") == null) {
-            return null; // нет id в домене, куда ссылаемся
-        }
-        DomainDb refDbDomain = refDomain.bean(DomainDb.class);
-        if (!refDbDomain.isDbTable()) {
-            return null; // ссылка на не db-домен
-        }
-        return refDomain;
+    public NamedList<Domain> getDomains() {
+        return getDomainGroup().getDomains();
     }
 
     /**

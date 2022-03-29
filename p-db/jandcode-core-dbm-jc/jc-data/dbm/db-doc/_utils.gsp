@@ -2,8 +2,7 @@
 <%
   GspScript th = this
 
-  Model model = this.args.model
-  def ut = new DomainDbUtils(model)
+  DomainDbUtils dbUtils = this.args.dbUtils
 
   /**
    * Вывод title, если он есть. Иначе выводится имя с указанием, что title не указан
@@ -32,16 +31,25 @@
    * Возвращает строку с типом поля
    */
   th.vars.get_field_type = { Field f ->
-    if (f.hasRef()) {
-      // это ссылка
-      def domainRef = ut.getDbRefDomain(f)
-      if (domainRef != null) {
-        return "ref[" + domainRef.dbTableName + "]"
+    def res = [
+        text   : "?",       // текст типа
+        refInfo: null       // информация о ссылке, если не null
+    ]
+    // это ссылка?
+    def refInfo = dbUtils.domainGroup.getRefInfo(f, true)
+    if (refInfo != null) {
+      def s = refInfo.ref
+      if (refInfo.refDomain) {
+        s = refInfo.refDomain.dbTableName
       }
-    }
-    def res = f.dbDataType.name
-    if (f.size > 0) {
-      res = res + "[" + f.size + "]"
+      res['text'] = "ref[" + s + "]"
+      res['refInfo'] = refInfo
+    } else {
+      res['text'] = f.dbDataType.name
+
+      if (f.size > 0) {
+        res['text'] = res['text'] + "[" + f.size + "]"
+      }
     }
     return res
   }
@@ -50,14 +58,16 @@
    * Вывод типа поля. Если это ссылка на домен, выводится ссылка на таблицу
    */
   th.vars.out_field_type = { Field f ->
-    String s = th.vars.get_field_type(f)
-    if (f.hasRef()) {
+    def ft = th.vars.get_field_type(f)
+    def s = ft.text
+    if (ft.refInfo) {
       // это ссылка
-      def domainRef = ut.getDbRefDomain(f)
-      if (domainRef != null) {
-        s = """<a href="#${domainRef.dbTableName}">${s}</a>"""
+      if (ft.refInfo.refDomain != null) {
+        s = """<a href="#${ft.refInfo.refDomain.dbTableName}">${s}</a>"""
+      } else {
+        s = """<span class="bad-link">${s}</span>"""
       }
     }
     out(s)
   }
-%> ы
+%>

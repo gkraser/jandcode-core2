@@ -1,4 +1,4 @@
-package jandcode.core.dbm.diagram;
+package jandcode.core.dbm.doc;
 
 import jandcode.commons.conf.*;
 import jandcode.commons.error.*;

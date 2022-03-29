@@ -3,6 +3,7 @@ package jandcode.core.dbm.jc
 import jandcode.commons.*
 import jandcode.core.*
 import jandcode.core.dbm.*
+import jandcode.core.dbm.dbstruct.DomainDbUtils
 import jandcode.core.jc.*
 import jandcode.jc.*
 
@@ -48,10 +49,12 @@ class DbmRootProject extends ProjectScript {
         ut.cleandir(outDir)
         GspScript gs = create(script)
 
+        def dbUtils = new DomainDbUtils(model)
+
         log "Generating db-doc..."
         ut.stopwatch.start()
         gs.generate("${outDir}/out.txt", [
-                model: model,
+                dbUtils: dbUtils,
         ])
         log "db-doc generated to: ${outDir}"
         ut.stopwatch.stop()

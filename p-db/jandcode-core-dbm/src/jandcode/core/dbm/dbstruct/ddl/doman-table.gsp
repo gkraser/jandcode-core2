@@ -5,7 +5,7 @@
 
   def ut = new DomainDbUtils(this.model)
 
-  for (def d : ut.dbTables) {
+  for (def d : ut.domains) {
 %>
 --@${d.dbTableName}
 create table ${d.dbTableName} (

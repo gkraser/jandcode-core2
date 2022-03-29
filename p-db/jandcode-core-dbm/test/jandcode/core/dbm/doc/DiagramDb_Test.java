@@ -1,5 +1,6 @@
-package jandcode.core.dbm.diagram;
+package jandcode.core.dbm.doc;
 
+import jandcode.core.dbm.doc.*;
 import jandcode.core.dbm.test.*;
 import org.junit.jupiter.api.*;
 
