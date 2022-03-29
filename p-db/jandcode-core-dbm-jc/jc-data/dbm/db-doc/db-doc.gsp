@@ -1,4 +1,4 @@
-<%@ page import="jandcode.core.dbm.doc.*; jandcode.core.dbm.*; jandcode.core.dbm.dbstruct.*; jandcode.jc.*;jandcode.commons.*;jandcode.core.dbm.domain.*" %>
+<%@ page import="jandcode.commons.named.*; jandcode.core.dbm.doc.*; jandcode.core.dbm.*; jandcode.core.dbm.dbstruct.*; jandcode.jc.*;jandcode.commons.*;jandcode.core.dbm.domain.*" %>
 <%
   GspScript th = this
 
@@ -10,8 +10,17 @@
   def diags = diagUtils.loadDiagrams()
   this.args.diags = diags
 
+  def domainRefs = dbUtils.domainGroup.getDomainRefs()
+  this.args.domainRefs = domainRefs
+
+  Set<Domain> domainsInDiag = new HashSet()
+  for (d in diags) {
+    domainsInDiag.addAll(d.domains)
+  }
+
   GspScript utils = th.create("${th.scriptDir}/_utils.gsp")
   GspScript diag = th.create("${th.scriptDir}/_diag.gsp")
+  GspScript diag_refs = th.create("${th.scriptDir}/_diag_refs.gsp")
 
   // копируем все ресурсы
   th.ant.copy(todir: th.outDir) {
@@ -34,6 +43,8 @@
 <body>
 
 <h1><a id="_top"></a>Документация по базе данных</h1>
+
+<div>Модель: <b>${dbUtils.model.modelDef.instanceOf.name}</b></div>
 
 <h2>Содержание</h2>
 <ul>
@@ -60,6 +71,8 @@
 ==================================================================================
 --}%
 <h2><a id="__toc_tab"></a>Таблицы</h2>
+
+<div>Всего таблиц: <b>${dbUtils.domains.size()}</b></div>
 <ul>
   <%
     for (d in dbUtils.domains) {
@@ -124,12 +137,36 @@
 <h3>Диаграмма ссылок</h3>
 
 <div class="diagram-wrapper">
-  <img src="images/refs-diag--${d.dbTableName}.svg"/>
+  <object data="images/${d.name}__refs.svg"></object>
 </div>
 
 <%
   }
 %>
+
+%{--
+==================================================================================
+ таблицы без диаграм
+==================================================================================
+--}%
+<h2><a id="__toc_tab_not_in_diagram"></a>Таблицы, не попавшие на диаграммы</h2>
+
+<div>Всего таблиц: <b>${dbUtils.domains.size() - domainsInDiag.size()}</b></div>
+<ul>
+  <%
+    for (d in dbUtils.domains) {
+      if (domainsInDiag.contains(d)) {
+        continue
+      }
+  %>
+  <li>
+    <a href="#${d.dbTableName}">${d.dbTableName}</a>
+    <span class="small-title">${d.title}</span>
+  </li>
+  <%
+    }
+  %>
+</ul>
 
 </body>
 </html>
@@ -140,5 +177,6 @@
 --}%
 <%
   diag.vars.gen_diag_domains()
+  diag_refs.vars.gen_diag_refs()
   utils.vars.gen_diags_svg()
 %>

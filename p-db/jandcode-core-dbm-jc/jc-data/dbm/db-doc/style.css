@@ -10,7 +10,7 @@ body, td, th {
   font-size: 10pt;
 }
 
-a,a:visited {
+a, a:visited {
   text-decoration: none;
   color: #0066cc;
 }
@@ -49,7 +49,7 @@ h2 {
   padding: 5px;
   font-size: 14pt;
   background-color: #EFEFF7;
-  border: 1px solid #C8CDDE;  
+  border: 1px solid #C8CDDE;
 }
 
 h3 {

@@ -33,7 +33,7 @@ public class DomainGroup implements IModelLink, IDomainHolder {
     public Model getModel() {
         return model;
     }
-    
+
     /**
      * Все домены из модели
      */
@@ -101,4 +101,35 @@ public class DomainGroup implements IModelLink, IDomainHolder {
         return getRefInfo(f, false);
     }
 
+    /**
+     * Получить все ссылки для всех доменов в группе
+     */
+    public NamedList<DomainRefs> getDomainRefs() {
+        NamedList<DomainRefs> res = new DefaultNamedList<>();
+
+        // формируем список всех доменов
+        for (Domain d : getDomains()) {
+            DomainRefs dr = new DomainRefs(d);
+            res.add(dr);
+        }
+
+        // формируем ссылки
+        for (DomainRefs curDomainRefs : res) {
+            for (Field f : curDomainRefs.getDomain().getFields()) {
+                FieldRefInfo ri = getRefInfo(f);
+                if (ri == null) {
+                    continue;
+                }
+                DomainRefs dr = res.get(ri.getRefDomain().getName());
+                if (dr == null) {
+                    continue;
+                }
+                DomainRefs.Ref ref = new DomainRefs.Ref(f, curDomainRefs.getDomain(), ri.getRefDomain());
+                curDomainRefs.getOutRefs().add(ref);
+                dr.getInRefs().add(ref);
+            }
+        }
+
+        return res;
+    }
 }
