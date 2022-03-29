@@ -100,6 +100,9 @@ public abstract class GspScriptImpl extends ProjectScript implements IGspScript 
     ////// IGspGen
 
     public IVariantMap getArgs() {
+        if (this.ownerGspScript != null) {
+            return this.ownerGspScript.getArgs();
+        }
         return getGenContext().getArgs();
     }
 
