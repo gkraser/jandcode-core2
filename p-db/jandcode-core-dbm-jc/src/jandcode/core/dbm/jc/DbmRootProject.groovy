@@ -3,7 +3,6 @@ package jandcode.core.dbm.jc
 import jandcode.commons.*
 import jandcode.core.*
 import jandcode.core.dbm.*
-import jandcode.core.dbm.dbstruct.DomainDbUtils
 import jandcode.core.jc.*
 import jandcode.jc.*
 
@@ -14,8 +13,7 @@ class DbmRootProject extends ProjectScript {
 
     protected void onInclude() throws Exception {
         onEvent(AppProject.Event_SaveAppConf, this.&saveAppConfHandler)
-
-        cm.add("db-doc", "Генерация документации к базе данных", this.&cmDbDoc)
+        include(DbDocProject)
     }
 
     void saveAppConfHandler(AppProject.Event_SaveAppConf e) {
@@ -39,25 +37,5 @@ class DbmRootProject extends ProjectScript {
         }
     }
 
-    void cmDbDoc(CmArgs args) {
-        App app = include(AppProject).app
-        Model model = app.bean(ModelService).getModel()
-
-        def script = "dbm/db-doc/db-doc.gsp"
-        def outDir = wd("temp/db-doc")
-
-        ut.cleandir(outDir)
-        GspScript gs = create(script)
-
-        def dbUtils = new DomainDbUtils(model)
-
-        log "Generating db-doc..."
-        ut.stopwatch.start()
-        gs.generate("${outDir}/out.txt", [
-                dbUtils: dbUtils,
-        ])
-        log "db-doc generated to: ${outDir}"
-        ut.stopwatch.stop()
-    }
 
 }
