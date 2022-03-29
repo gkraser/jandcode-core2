@@ -7,7 +7,7 @@ import jandcode.core.store.*;
 /**
  * Методы сервиса доменов
  */
-public interface IDomainService {
+public interface IDomainService extends IDomainHolder {
 
     /**
      * Домены. Кешированный список.

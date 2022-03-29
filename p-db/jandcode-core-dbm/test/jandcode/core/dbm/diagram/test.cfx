@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-include path="../test.cfx"/>
+
+    <dbm>
+
+        <model name="testdb.base">
+
+            <domain name="tab1" parent="id" tag.db="true">
+                <field name="long1" parent="long"/>
+                <field name="int1" parent="int"/>
+                <field name="string1" parent="string" size="14"/>
+            </domain>
+
+            <domain name="tab2" parent="tab1" tag.db="true">
+                <field name="tab1_id" parent="tab1/ref"/>
+            </domain>
+
+            <diagram name="diag1" title="Di1">
+                <domain name="tab1"/>
+                <domain name="tab2"/>
+            </diagram>
+
+        </model>
+
+    </dbm>
+
+
+</root>

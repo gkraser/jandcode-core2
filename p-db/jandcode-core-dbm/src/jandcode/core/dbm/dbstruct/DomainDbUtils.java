@@ -10,7 +10,6 @@ import jandcode.core.dbm.domain.*;
  */
 public class DomainDbUtils implements IModelLink {
 
-    protected Object forInst;
     protected Model model;
     private NamedList<Domain> dbTables;
     private DomainService domainSvc;
