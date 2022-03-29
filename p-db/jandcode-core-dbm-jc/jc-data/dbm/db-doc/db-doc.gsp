@@ -1,10 +1,17 @@
-<%@ page import="jandcode.core.dbm.*; jandcode.core.dbm.dbstruct.*; jandcode.jc.*;jandcode.commons.*;jandcode.core.dbm.domain.*" %>
+<%@ page import="jandcode.core.dbm.doc.*; jandcode.core.dbm.*; jandcode.core.dbm.dbstruct.*; jandcode.jc.*;jandcode.commons.*;jandcode.core.dbm.domain.*" %>
 <%
   GspScript th = this
 
   DomainDbUtils dbUtils = this.args.dbUtils
 
+  def diagUtils = new DiagramUtils(dbUtils.domainGroup)
+  this.args.diagUtils = diagUtils
+
+  def diags = diagUtils.loadDiagrams()
+  this.args.diags = diags
+
   GspScript utils = th.create("${th.scriptDir}/_utils.gsp")
+  GspScript diag = th.create("${th.scriptDir}/_diag.gsp")
 
   // копируем все ресурсы
   th.ant.copy(todir: th.outDir) {
@@ -37,10 +44,22 @@
 
 %{--
 ==================================================================================
+ список диаграмм
+==================================================================================
+--}%
+<h2><a id="__toc_diagram"></a>Диаграммы</h2>
+<ul>
+  <% for (d in diags) { %>
+  <li><a href="#${d.name}__diagram">${d.title}</a></li>
+  <% } %>
+</ul>
+
+%{--
+==================================================================================
  список таблиц
 ==================================================================================
 --}%
-<h2><a name="__toc_tab"></a>Таблицы</h2>
+<h2><a id="__toc_tab"></a>Таблицы</h2>
 <ul>
   <%
     for (d in dbUtils.domains) {
@@ -53,6 +72,19 @@
     }
   %>
 </ul>
+
+%{--
+==================================================================================
+ диаграммы
+==================================================================================
+--}%
+<% for (d in diags) { %>
+<h2 class="table_desc"><a id="${d.name}__diagram"></a>${d.title}</h2>
+
+<div class="diagram-wrapper">
+  <object data="images/${d.name}__diagram.svg"></object>
+</div>
+<% } %>
 
 %{--
 ==================================================================================
@@ -90,6 +122,7 @@
 </table>
 
 <h3>Диаграмма ссылок</h3>
+
 <div class="diagram-wrapper">
   <img src="images/refs-diag--${d.dbTableName}.svg"/>
 </div>
@@ -100,3 +133,12 @@
 
 </body>
 </html>
+%{--
+==================================================================================
+ генерация файлов диаграм
+==================================================================================
+--}%
+<%
+  diag.vars.gen_diag_domains()
+  utils.vars.gen_diags_svg()
+%>

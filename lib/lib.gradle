@@ -143,5 +143,9 @@ dependencies {
     v = '3.28.0-GA'
     implementation group: 'org.javassist', name: 'javassist', version: v
 
+    // plantuml
+    v = '1.2022.2'
+    implementation group: 'net.sourceforge.plantuml', name: 'plantuml', version: v
+
 }
 

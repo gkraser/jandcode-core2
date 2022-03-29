@@ -25,10 +25,15 @@ public class DomainGroup implements IModelLink, IDomainHolder {
         this.parentHolder = parentHolder;
     }
 
+    public DomainGroup(DomainGroup parentHolder) {
+        this.model = parentHolder.getModel();
+        this.parentHolder = parentHolder;
+    }
+
     public Model getModel() {
         return model;
     }
-
+    
     /**
      * Все домены из модели
      */

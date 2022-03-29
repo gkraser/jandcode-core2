@@ -4,21 +4,26 @@ import jandcode.commons.conf.*;
 import jandcode.commons.error.*;
 import jandcode.core.*;
 import jandcode.core.dbm.*;
-import jandcode.core.dbm.dbstruct.*;
+import jandcode.core.dbm.domain.*;
 
 import java.util.*;
 
 /**
  * Утилиты для диаграм в рамках модели
  */
-public class DiagramDbUtils implements IModelLink {
+public class DiagramUtils implements IModelLink {
 
     protected Model model;
-    protected DomainDbUtils domainDbUils;
+    protected DomainGroup domainGroup;
 
-    public DiagramDbUtils(Model model) {
+    public DiagramUtils(Model model) {
         this.model = model;
-        this.domainDbUils = new DomainDbUtils(this.model);
+        this.domainGroup = new DomainGroup(model);
+    }
+
+    public DiagramUtils(DomainGroup domainGroup) {
+        this(domainGroup.getModel());
+        this.domainGroup.getDomains().addAll(domainGroup.getDomains());
     }
 
     public Model getModel() {
@@ -26,10 +31,17 @@ public class DiagramDbUtils implements IModelLink {
     }
 
     /**
+     * Все домены, которые потенциально могут быть использованы на диаграммах.
+     */
+    public DomainGroup getDomainGroup() {
+        return domainGroup;
+    }
+
+    /**
      * Создает пустую диаграмму
      */
-    public DiagramDb createDiagram() {
-        return new DiagramDb(getModel(), domainDbUils);
+    public Diagram createDiagram() {
+        return new Diagram(getDomainGroup());
     }
 
     /**
@@ -37,8 +49,8 @@ public class DiagramDbUtils implements IModelLink {
      *
      * @param conf конфигурация диаграммы
      */
-    public DiagramDb createDiagram(Conf conf) {
-        DiagramDb d = createDiagram();
+    public Diagram createDiagram(Conf conf) {
+        Diagram d = createDiagram();
         try {
             d.beanConfigure(new DefaultBeanConfig(conf));
         } catch (Exception e) {
@@ -50,10 +62,10 @@ public class DiagramDbUtils implements IModelLink {
     /**
      * Загружает все диаграммы из модели
      */
-    public List<DiagramDb> loadDiagrams() {
-        List<DiagramDb> res = new ArrayList<>();
+    public List<Diagram> loadDiagrams() {
+        List<Diagram> res = new ArrayList<>();
         for (Conf conf : getModel().getConf().getConfs("diagram")) {
-            DiagramDb d = createDiagram(conf);
+            Diagram d = createDiagram(conf);
             res.add(d);
         }
         return res;

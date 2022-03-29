@@ -28,15 +28,18 @@
   }
 
   /**
-   * Возвращает строку с типом поля
+   * Возвращает map с информацией о типе поля
    */
-  th.vars.get_field_type = { Field f ->
+  th.vars.get_field_type = { Field f, DomainGroup domainGroup = null ->
     def res = [
         text   : "?",       // текст типа
         refInfo: null       // информация о ссылке, если не null
     ]
     // это ссылка?
-    def refInfo = dbUtils.domainGroup.getRefInfo(f, true)
+    if (domainGroup == null) {
+      domainGroup = dbUtils.domainGroup
+    }
+    def refInfo = domainGroup.getRefInfo(f, true)
     if (refInfo != null) {
       def s = refInfo.ref
       if (refInfo.refDomain) {
@@ -69,5 +72,15 @@
       }
     }
     out(s)
+  }
+
+
+  /**
+   * Сгенерировать все svg для диаграм
+   */
+  th.vars.gen_diags_svg = {
+    th.classpath("plantuml")
+    def lib = th.ctx.getLib("plantuml")
+    ut.runcmd(cmd: ['java', '-jar', lib.jar, '-tsvg', '.'], dir: "${th.outDir}/images")
   }
 %>
