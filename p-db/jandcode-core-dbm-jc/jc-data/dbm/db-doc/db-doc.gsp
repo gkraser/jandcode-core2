@@ -29,6 +29,7 @@
       include(name: '**/*.css')
     }
   }
+  th.ant.mkdir(dir: "${th.outDir}/images")
 
   th.changeFile("index.html")
 %>
