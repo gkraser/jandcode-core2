@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!--
+        Сервисы для работы с verdb
+    -->
+
+    <dbm>
+        <!-- расширяем базовую модель -->
+        <model name="jandcode.core.dbm">
+
+            <bean name="jandcode.core.dbm.verdb.VerdbService"
+                  class="jandcode.core.dbm.verdb.impl.VerdbServiceImpl"/>
+
+        </model>
+    </dbm>
+
+</root>

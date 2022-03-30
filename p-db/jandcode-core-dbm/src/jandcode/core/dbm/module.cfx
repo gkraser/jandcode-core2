@@ -43,5 +43,6 @@
     <x-include path="sql/index.cfx"/>
     <x-include path="ddl/index.cfx"/>
     <x-include path="dbstruct/index.cfx"/>
+    <x-include path="verdb/index.cfx"/>
 
 </root>
