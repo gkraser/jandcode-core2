@@ -29,6 +29,20 @@ class AppProject extends ProjectScript implements ILibDependsGrab {
         }
     }
 
+    /**
+     * Событие: показать appinfo
+     */
+    public static class Event_ShowInfo extends BaseJcEvent {
+        /**
+         * Приложение, для которого нужно показать информацию
+         */
+        App app
+
+        Event_ShowInfo(App app) {
+            this.app = app
+        }
+    }
+
 
     private App _app
     private boolean _prepareSourceOk
@@ -95,6 +109,9 @@ class AppProject extends ProjectScript implements ILibDependsGrab {
             m[b.name] = b.getCls().getName()
         }
         ut.printMap(m)
+
+        // генерим событие для тех, кто еще что то показать желает
+        fireEvent(new Event_ShowInfo(a))
     }
 
     void cmSaveAppConf(IVariantNamed args) {
