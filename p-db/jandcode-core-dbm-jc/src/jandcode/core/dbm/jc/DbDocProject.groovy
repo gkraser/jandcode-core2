@@ -23,7 +23,8 @@ class DbDocProject extends ProjectScript {
     protected void onInclude() throws Exception {
         cm.add("db-doc", "Генерация документации к базе данных", this.&cmDbDoc,
                 cm.opt("m", "default", "Для какой модели, по умолчанию - default"),
-                cm.opt("o", "temp/db-doc", "В какой каталог вывдить, по умолчанию temp/db-doc")
+                cm.opt("o", "temp/db-doc", "В какой каталог вывдить, по умолчанию temp/db-doc"),
+                cm.opt("s", "dbm/db-doc/db-doc.gsp", "Скрипт генерации, по умолчанию dbm/db-doc/db-doc.gsp"),
         )
     }
 
@@ -39,7 +40,7 @@ class DbDocProject extends ProjectScript {
         App app = include(AppProject).app
         Model model = app.bean(ModelService).getModel(modelName)
 
-        def script = srcScript
+        def script = args.getString("s", this.srcScript)
 
         ut.cleandir(outDir)
         GspScript gs = create(script)

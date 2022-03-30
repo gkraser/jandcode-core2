@@ -83,7 +83,6 @@
    * Сгенерировать все svg для диаграм
    */
   th.vars.gen_diags_svg = {
-    th.classpath("plantuml")
     def lib = th.ctx.getLib("plantuml")
     ut.runcmd(cmd: ['java', '-jar', lib.jar, '-tsvg', '.'], dir: "${th.outDir}/images")
   }
