@@ -1,8 +1,11 @@
-<%@ page import="jandcode.core.dbm.domain.*; jandcode.core.dbm.dbstruct.*; jandcode.core.dbm.*; jandcode.jc.*" %>
+<%@ page import="jandcode.commons.*; jandcode.core.dbm.domain.*; jandcode.core.dbm.dbstruct.*; jandcode.core.dbm.*; jandcode.jc.*" %>
 <%
   GspScript th = this
 
   DomainDbUtils dbUtils = this.args.dbUtils
+
+  th.classpath("jandcode-mdoc")
+  def mdEngine = UtClass.createInst("jandcode.mdoc.flexmark.FlexmarkEngine")
 
   /**
    * Вывод title, если он есть. Иначе выводится имя с указанием, что title не указан
@@ -24,7 +27,8 @@
     if (!rem) {
       return
     }
-    out("""<div class="comment">${rem}</div>""")
+    def html = th.vars.md_to_html(rem)
+    out("""<div class="comment">${html}</div>""")
   }
 
   /**
@@ -82,5 +86,13 @@
     th.classpath("plantuml")
     def lib = th.ctx.getLib("plantuml")
     ut.runcmd(cmd: ['java', '-jar', lib.jar, '-tsvg', '.'], dir: "${th.outDir}/images")
+  }
+
+  /**
+   * Конвертация md -> html
+   */
+  th.vars.md_to_html = { s ->
+    def doc = mdEngine.parser.parse(s)
+    return mdEngine.renderer.render(doc)
   }
 %>
