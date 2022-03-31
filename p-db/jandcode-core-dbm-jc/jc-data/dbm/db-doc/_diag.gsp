@@ -28,26 +28,37 @@ skinparam class {
     BorderColor #2688d4
 }
 
-<% for (d in diag.domains) { %>
-class ${d.dbTableName} [[../index.html#${d.dbTableName}]] {
 <%
-    for (f in d.fields) {
-      def ft = utils.vars.get_field_type(f, diag.domainGroup)
-      def ft_text = ft.text
-      if (ft.refInfo) {
-        // это ссылка
-        if (ft.refInfo.refDomain != null) {
-          ft_text = """<color:green>${ft_text}</color>"""
-          links.add("""${d.dbTableName} --> ${ft.refInfo.refDomain.dbTableName} : ${f.name}""")
-        } else {
-          ft_text = """<color:red>${ft_text}</color>"""
-        }
-      } else {
-        ft_text = """<color:gray>${ft_text}</color>"""
+    for (di in diag.domainInfos) {
+      Domain d = di.domain
+      def colors = ""
+      if (!di.showfields) {
+        colors = '#line:silver'
       }
 %>
+class ${d.dbTableName} [[../index.html#${d.dbTableName}]] ${colors} {
+<%
+    if (di.showfields) {
+      for (f in d.fields) {
+        def ft = utils.vars.get_field_type(f, diag.domainGroup)
+        def ft_text = ft.text
+        if (ft.refInfo) {
+          // это ссылка
+          if (ft.refInfo.refDomain != null) {
+            ft_text = """<color:green>${ft_text}</color>"""
+            links.add("""${d.dbTableName} --> ${ft.refInfo.refDomain.dbTableName} : ${f.name}""")
+          } else {
+            ft_text = """<color:silver>${ft_text}</color>"""
+          }
+        } else {
+          ft_text = """<color:gray>${ft_text}</color>"""
+        }
+%>
 ${f.name}: ${ft_text}
-<% } %>
+<%
+      }
+    }
+%>
 }
 <% } %>
 <%

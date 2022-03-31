@@ -1,5 +1,6 @@
 package jandcode.core.dbm.doc;
 
+import jandcode.commons.*;
 import jandcode.commons.conf.*;
 import jandcode.commons.named.*;
 import jandcode.core.*;
@@ -16,6 +17,48 @@ public class Diagram extends BaseModelMember implements IConfLink {
     private String title;
     private DomainGroup domainGroup;
     private Conf conf;
+    private NamedList<DomainInfo> domainInfos = new DefaultNamedList<>();
+
+    /**
+     * Информация о домене в диаграмме
+     */
+    public static class DomainInfo implements INamed {
+        private Conf conf;
+        private Domain domain;
+        private boolean showfields = true;
+
+        public DomainInfo(Conf conf, Domain domain) {
+            this.conf = conf;
+            this.domain = domain;
+            UtReflect.getUtils().setProps(this, conf);
+        }
+
+        public String getName() {
+            return getDomain().getDbTableName();
+        }
+
+        public Conf getConf() {
+            return conf;
+        }
+
+        /**
+         * Домен
+         */
+        public Domain getDomain() {
+            return domain;
+        }
+
+        /**
+         * Показывать ли поля для этого домена
+         */
+        public boolean isShowfields() {
+            return showfields;
+        }
+
+        public void setShowfields(boolean showfields) {
+            this.showfields = showfields;
+        }
+    }
 
     /**
      * Создать экземпляр
@@ -38,6 +81,7 @@ public class Diagram extends BaseModelMember implements IConfLink {
             String domainName = conf.getName();
             Domain domain = this.domainGroup.getParentDomains().get(domainName);
             this.domainGroup.getDomains().add(domain);
+            this.domainInfos.add(new DomainInfo(conf, domain));
         }
     }
 
@@ -57,6 +101,13 @@ public class Diagram extends BaseModelMember implements IConfLink {
      */
     public NamedList<Domain> getDomains() {
         return getDomainGroup().getDomains();
+    }
+
+    /**
+     * Список оберток доменов с атрибутами для этой диаграммы
+     */
+    public NamedList<DomainInfo> getDomainInfos() {
+        return domainInfos;
     }
 
     /**
