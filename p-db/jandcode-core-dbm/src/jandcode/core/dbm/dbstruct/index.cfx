@@ -32,19 +32,19 @@
             <!-- ddl -->
 
             <ddl name="domain.table"
-                 file="#{path}/ddl/doman-table.gsp"
+                 file="#{path}/ddl/domain-table.gsp"
                  stage="tables"/>
 
             <ddl name="domain.pk"
-                 file="#{path}/ddl/doman-pk.gsp"
+                 file="#{path}/ddl/domain-pk.gsp"
                  stage="afterData"/>
 
             <ddl name="domain.idx"
-                 file="#{path}/ddl/doman-idx.gsp"
+                 file="#{path}/ddl/domain-idx.gsp"
                  stage="afterData"/>
 
             <ddl name="domain.ref"
-                 file="#{path}/ddl/doman-ref.gsp"
+                 file="#{path}/ddl/domain-ref.gsp"
                  stage="afterData"/>
 
         </model>
