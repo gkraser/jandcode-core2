@@ -1,5 +1,6 @@
 package jandcode.core.dbm.domain.impl;
 
+import jandcode.commons.*;
 import jandcode.commons.variant.*;
 import jandcode.core.db.*;
 import jandcode.core.dbm.domain.*;
@@ -36,6 +37,12 @@ public class IFieldImpl extends BaseFieldMember implements IField {
     ////// props
 
     public String getTitle() {
+        if (UtString.empty(title) && hasRef()) {
+            Domain d = getModel().bean(DomainService.class).findDomain(getRef());
+            if (d != null) {
+                return d.getTitle();
+            }
+        }
         return title == null ? "" : title;
     }
 
