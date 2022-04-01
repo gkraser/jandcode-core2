@@ -6,7 +6,7 @@
         <dbsource name="default"
                   dbdriver="postgresql"  
                   host="localhost"
-                  database="xxx-yyy"
+                  database="xxx_yyy"
                   username="user"
                   password="password"
         />
