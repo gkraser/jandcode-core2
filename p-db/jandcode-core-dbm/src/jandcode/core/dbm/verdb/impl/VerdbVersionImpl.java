@@ -79,4 +79,11 @@ public class VerdbVersionImpl implements VerdbVersion {
         return compareTo(v1) == 0;
     }
 
+    public VerdbVersion with(long v1, long v2, long v3) {
+        return new VerdbVersionImpl(
+                v1 < 0 ? this.v1 : v1,
+                v2 < 0 ? this.v2 : v2,
+                v3 < 0 ? this.v3 : v3
+        );
+    }
 }

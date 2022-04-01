@@ -10,7 +10,7 @@ import jandcode.core.dbm.*;
 public interface VerdbService extends Comp, IModelMember {
 
     /**
-     * Модули verdb, которые присутсвуют в модели.
+     * Модули verdb, которые присутствуют в модели.
      * Список может быть пустым. В этом случае поддержка verdb не включена
      * для модели.
      */

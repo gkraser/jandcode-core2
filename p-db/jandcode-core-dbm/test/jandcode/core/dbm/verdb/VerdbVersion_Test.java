@@ -63,4 +63,12 @@ public class VerdbVersion_Test extends Utils_Test {
         assertEquals(v1.getV3(), 3);
     }
 
+    @Test
+    public void with1() throws Exception {
+        VerdbVersion v;
+
+        v = VerdbVersion.create(4, 6, 7);
+        assertEquals(v.with(-1, 8, -1).toString(), "4.8.7");
+    }
+
 }
