@@ -15,7 +15,7 @@ public abstract class Dbm_Test extends App_Test {
         return dbm.getModel();
     }
 
-    public Mdb getMdb() throws Exception {
+    public Mdb getMdb() {
         return dbm.getMdb();
     }
 
