@@ -23,4 +23,5 @@ public abstract class BaseVerdbOper extends BaseVerdbItem implements VerdbOper {
     public void setText(String text) {
         this.text = text;
     }
+
 }
