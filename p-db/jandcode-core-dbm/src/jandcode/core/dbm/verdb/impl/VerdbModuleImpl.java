@@ -1,31 +1,41 @@
 package jandcode.core.dbm.verdb.impl;
 
-import jandcode.commons.*;
-import jandcode.core.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.verdb.*;
+
+import java.util.*;
 
 public class VerdbModuleImpl extends BaseModelMember implements VerdbModule {
 
     private String path;
     private String moduleName;
+    private List<VerdbDir> dirs;
+
+    public VerdbModuleImpl(Model model, String path, String moduleName) {
+        setModel(model);
+        this.path = path;
+        this.moduleName = moduleName;
+    }
 
     public String getPath() {
         return path;
     }
 
-    public void setPath(String path) {
-        this.path = UtApp.getFileObject(getApp(), path).toString();
-    }
-
     public String getModuleName() {
-        if (UtString.empty(this.moduleName)) {
-            return getModel().getModelDef().getInstanceOf().getName();
-        }
         return moduleName;
     }
 
-    public void setModuleName(String moduleName) {
-        this.moduleName = moduleName;
+    public List<VerdbDir> getDirs() {
+        if (dirs == null) {
+            synchronized (this) {
+                if (dirs == null) {
+                    VerdbDirLoader ldr = new VerdbDirLoader();
+                    List<VerdbDir> tmp = ldr.loadDir(getPath());
+                    dirs = tmp;
+                }
+            }
+        }
+        return dirs;
     }
+
 }

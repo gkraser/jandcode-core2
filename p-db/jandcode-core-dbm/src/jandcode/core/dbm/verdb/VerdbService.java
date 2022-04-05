@@ -14,6 +14,6 @@ public interface VerdbService extends Comp, IModelMember {
      * Список может быть пустым. В этом случае поддержка verdb не включена
      * для модели.
      */
-    NamedList<VerdbModule> getVerdbModules();
+    NamedList<VerdbModuleDef> getVerdbModules();
 
 }

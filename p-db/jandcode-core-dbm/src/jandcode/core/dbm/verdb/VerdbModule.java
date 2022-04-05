@@ -1,8 +1,9 @@
 package jandcode.core.dbm.verdb;
 
 import jandcode.commons.named.*;
-import jandcode.core.*;
 import jandcode.core.dbm.*;
+
+import java.util.*;
 
 /**
  * Модуль verdb.
@@ -12,29 +13,17 @@ import jandcode.core.dbm.*;
  * Каждый модуль отвечает за некоторое
  * самостоятельное подножество объектов базы данных.
  * <p>
- * Имя самого объекта - это прости имя из конфигурации. Обычно 'default'.
+ * Имя самого объекта - это просто имя из конфигурации. Обычно 'default'.
  * <p>
  * По умолчанию модулей нет.
  * <p>
  * Используется конфигурация 'verdb-module'.
  */
-public interface VerdbModule extends INamed, IModelMember {
+public interface VerdbModule extends INamed, IModelMember, IVerdbModuleDef {
 
     /**
-     * Путь до каталога, в котором содержатся ресурсы changeset.
-     * При назначении пути можно использовать префикс 'jc-data:', для хранения
-     * ресурсов в каталоге jc-data.
-     *
-     * @return vfs путь
-     * @see UtApp#getFileObject(jandcode.core.App, java.lang.String)
+     * Каталоги в модуле.
      */
-    String getPath();
-
-    /**
-     * Имя модуля. Это имя используется как маркер в базе данных.
-     * В одной базе данных все имена всех модулей должны быть уникальны.
-     * По умолчанию инициализируется именем модели-прототипа.
-     */
-    String getModuleName();
+    List<VerdbDir> getDirs();
 
 }
