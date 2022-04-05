@@ -16,6 +16,6 @@ public interface VerdbDir extends IVerdbVersionLink {
     /**
      * Файлы в каталоге
      */
-    Collection<VerdbFile> getFiles();
+    List<VerdbFile> getFiles();
 
 }

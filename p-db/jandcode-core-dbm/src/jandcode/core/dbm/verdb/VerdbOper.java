@@ -6,4 +6,9 @@ package jandcode.core.dbm.verdb;
  */
 public interface VerdbOper extends IVerdbVersionLink {
 
+    /**
+     * Какому файлу принадлежит
+     */
+    VerdbFile getFile();
+
 }

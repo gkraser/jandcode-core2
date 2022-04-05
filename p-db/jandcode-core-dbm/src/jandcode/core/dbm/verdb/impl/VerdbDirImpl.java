@@ -6,14 +6,14 @@ import java.util.*;
 
 public class VerdbDirImpl extends BaseVerdbItem implements VerdbDir {
 
-    private Collection<VerdbFile> files = new ArrayList<>();
+    private List<VerdbFile> files = new ArrayList<>();
 
     public VerdbDirImpl(String path, long versionNum) {
         setPath(path);
         this.setVersion(VerdbVersion.create(versionNum, 0, 0));
     }
 
-    public Collection<VerdbFile> getFiles() {
+    public List<VerdbFile> getFiles() {
         return files;
     }
 

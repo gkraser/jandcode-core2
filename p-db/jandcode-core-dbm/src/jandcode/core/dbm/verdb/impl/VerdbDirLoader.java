@@ -52,7 +52,7 @@ public class VerdbDirLoader {
             tmp.put(d.getVersion().getText(), d);
 
             // теперь грузим файлы в каталоге
-            List<VerdbFile> files = loadFiles(d.getPath(), version1);
+            List<VerdbFile> files = loadFiles(d, version1);
             d.setFiles(files);
         }
 
@@ -62,10 +62,10 @@ public class VerdbDirLoader {
         return res;
     }
 
-    protected List<VerdbFile> loadFiles(String path, long version1) {
+    protected List<VerdbFile> loadFiles(VerdbDir dir, long version1) {
         Map<String, VerdbFileImpl> tmp = new HashMap<>();
 
-        DirScanner<FileObject> sc = UtFile.createDirScannerVfs(path + "/*");
+        DirScanner<FileObject> sc = UtFile.createDirScannerVfs(dir.getPath() + "/*");
         sc.setNeedDirs(false);
         sc.setNeedFiles(true);
 
@@ -83,7 +83,7 @@ public class VerdbDirLoader {
                 throw new XError("Версия файла не должна быть '0': [{0}]", fileS);
             }
 
-            VerdbFileImpl f = new VerdbFileImpl(fileS, version1, version2);
+            VerdbFileImpl f = new VerdbFileImpl(dir, fileS, version1, version2);
 
             String key = f.getVersion().getText();
             VerdbFileImpl fExist = tmp.get(key);

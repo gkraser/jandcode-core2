@@ -28,6 +28,7 @@ public class VerdbDirLoader_Test extends Dbm_Test {
         List<VerdbDir> lst = ldr.loadDir(path);
         String s = dirListToStr(lst);
         assertEquals(s, "|1.0.0|>1.1.0>1.3.0|2.0.0|>2.2.0>2.3.0>2.4.0|3.0.0|>3.2.0");
+        assertSame(lst.get(0), lst.get(0).getFiles().get(0).getDir());
     }
 
 }

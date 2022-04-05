@@ -7,6 +7,11 @@ package jandcode.core.dbm.verdb;
 public interface VerdbFile extends IVerdbVersionLink {
 
     /**
+     * Какому каталогу принадлежит
+     */
+    VerdbDir getDir();
+
+    /**
      * Полный vfs-путь до файла
      */
     String getPath();
