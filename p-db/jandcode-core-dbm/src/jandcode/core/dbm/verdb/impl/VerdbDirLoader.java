@@ -19,7 +19,7 @@ public class VerdbDirLoader {
      * @param path откуда грузим
      * @return набор правильно отсортированных каталогов вместе со всем содержимым
      */
-    public List<VerdbDir> loadDir(String path) {
+    public List<VerdbDir> loadDir(String path, VerdbModule module) {
         Map<String, VerdbDirImpl> tmp = new HashMap<>();
 
         DirScanner<FileObject> sc = UtFile.createDirScannerVfs(path + "/*");
@@ -40,7 +40,7 @@ public class VerdbDirLoader {
                 throw new XError("Версия каталога не должна быть '0': [{0}]", dirS);
             }
 
-            VerdbDirImpl d = new VerdbDirImpl(dirS, version1);
+            VerdbDirImpl d = new VerdbDirImpl(module, dirS, version1);
 
             String key = d.getVersion().getText();
             VerdbDirImpl dExist = tmp.get(key);

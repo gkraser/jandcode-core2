@@ -6,7 +6,7 @@
     <dbm>
 
         <model name="testdb.base">
-
+            <verdb-module name="dir2" module="dir2" path="#{path}/data/dir2"/>
         </model>
 
     </dbm>

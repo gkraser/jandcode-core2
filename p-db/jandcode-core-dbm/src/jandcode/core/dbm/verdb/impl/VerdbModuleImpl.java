@@ -30,7 +30,7 @@ public class VerdbModuleImpl extends BaseModelMember implements VerdbModule {
             synchronized (this) {
                 if (dirs == null) {
                     VerdbDirLoader ldr = new VerdbDirLoader();
-                    List<VerdbDir> tmp = ldr.loadDir(getPath());
+                    List<VerdbDir> tmp = ldr.loadDir(getPath(), this);
                     dirs = tmp;
                 }
             }

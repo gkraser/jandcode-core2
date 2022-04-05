@@ -25,7 +25,7 @@ public class VerdbDirLoader_Test extends Dbm_Test {
     public void test1() throws Exception {
         String path = utils.getTestFile("data/dir1");
         VerdbDirLoader ldr = new VerdbDirLoader();
-        List<VerdbDir> lst = ldr.loadDir(path);
+        List<VerdbDir> lst = ldr.loadDir(path, null);
         String s = dirListToStr(lst);
         assertEquals(s, "|1.0.0|>1.1.0>1.3.0|2.0.0|>2.2.0>2.3.0>2.4.0|3.0.0|>3.2.0");
         assertSame(lst.get(0), lst.get(0).getFiles().get(0).getDir());

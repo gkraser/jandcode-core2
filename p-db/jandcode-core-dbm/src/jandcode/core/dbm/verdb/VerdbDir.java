@@ -9,6 +9,11 @@ import java.util.*;
 public interface VerdbDir extends IVerdbVersionLink {
 
     /**
+     * Какому модулю принадлежит
+     */
+    VerdbModule getModule();
+
+    /**
      * Полный vfs-путь до каталога
      */
     String getPath();
