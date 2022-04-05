@@ -83,6 +83,12 @@ public class VerdbDirLoader {
                 throw new XError("Версия файла не должна быть '0': [{0}]", fileS);
             }
 
+            String ext = UtFile.ext(nm);
+            if (!VerdbConsts.isSupportedFile(ext)) {
+                throw new XError("Расширение файла [{0}] не поддерживается: [{1}]",
+                        ext, fileS);
+            }
+
             VerdbFileImpl f = new VerdbFileImpl(dir, fileS, version1, version2);
 
             String key = f.getVersion().getText();

@@ -22,4 +22,12 @@ public class VerdbDirImpl extends BaseVerdbItem implements VerdbDir {
         this.files.addAll(files);
     }
 
+    public VerdbVersion getLastVersion() {
+        if (getFiles().size() == 0) {
+            return getVersion();
+        } else {
+            VerdbFile f = getFiles().get(getFiles().size() - 1);
+            return f.getLastVersion();
+        }
+    }
 }

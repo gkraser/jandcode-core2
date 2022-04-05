@@ -18,4 +18,10 @@ public interface VerdbDir extends IVerdbVersionLink {
      */
     List<VerdbFile> getFiles();
 
+    /**
+     * Последняя версия в каталоге.
+     * Это версия последнего оператора в последнем файле.
+     */
+    VerdbVersion getLastVersion();
+
 }
