@@ -44,7 +44,7 @@ public interface VerdbVersion extends Comparable<VerdbVersion> {
     long getV3();
 
     /**
-     * Создает новый экземпляр версии. Если параметр <0, то в результат попадет текщий,
+     * Создает новый экземпляр версии. Если параметр <0, то в результат попадет текущий,
      * иначе - новый
      */
     VerdbVersion with(long v1, long v2, long v3);

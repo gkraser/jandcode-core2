@@ -2,7 +2,7 @@ package jandcode.core.dbm.verdb.impl;
 
 import jandcode.core.dbm.verdb.*;
 
-public class BaseVerdbItem implements IVerdbVersionLink {
+public abstract class BaseVerdbItem implements IVerdbVersionLink {
 
     private VerdbVersion version;
     private String path;
