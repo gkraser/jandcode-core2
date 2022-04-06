@@ -69,8 +69,8 @@ insert into t1 (id) values (4)
         z.createTable("t1m", a)
         //
         def metaSvc = z.db.dbSource.bean(DbMetadataService)
-        metaSvc.reset()
-        def t1m = metaSvc.getTables().find("t1m")
+        def tables = metaSvc.loadTables()
+        def t1m = tables.find("t1m")
         assertNotNull(t1m)
     }
 

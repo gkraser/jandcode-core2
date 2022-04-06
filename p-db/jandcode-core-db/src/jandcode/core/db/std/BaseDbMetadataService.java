@@ -1,6 +1,5 @@
 package jandcode.core.db.std;
 
-import jandcode.commons.error.*;
 import jandcode.commons.named.*;
 import jandcode.core.db.*;
 import jandcode.core.db.impl.*;
@@ -11,8 +10,6 @@ import java.sql.*;
  * Базовая реализация DbMetadataService и предок для специализированных.
  */
 public class BaseDbMetadataService extends BaseDbSourceMember implements DbMetadataService {
-
-    private NamedList<DbMetadataTable> tables;
 
     /**
      * Текущая схема.
@@ -34,22 +31,7 @@ public class BaseDbMetadataService extends BaseDbSourceMember implements DbMetad
         return db.getConnection().getCatalog();
     }
 
-    public NamedList<DbMetadataTable> getTables() {
-        if (tables == null) {
-            synchronized (this) {
-                if (tables == null) {
-                    try {
-                        tables = loadTables();
-                    } catch (Exception e) {
-                        throw new XErrorWrap(e);
-                    }
-                }
-            }
-        }
-        return tables;
-    }
-
-    protected NamedList<DbMetadataTable> loadTables() throws Exception {
+    public NamedList<DbMetadataTable> loadTables() throws Exception {
         NamedList<DbMetadataTable> res = new DefaultNamedList<>();
 
         Db db = getDbSource().createDb(true);
@@ -71,7 +53,7 @@ public class BaseDbMetadataService extends BaseDbSourceMember implements DbMetad
                     if (nm.indexOf("$") != -1) {
                         continue;
                     }
-                    if ("TABLE".equals(typ) || "VIEW".equals(typ) || "BASE TABLE".equals(typ) ) {
+                    if ("TABLE".equals(typ) || "VIEW".equals(typ) || "BASE TABLE".equals(typ)) {
                         DbMetadataTable t = new DbMetadataTableImpl(nm);
                         res.add(t);
                     }
@@ -101,10 +83,6 @@ public class BaseDbMetadataService extends BaseDbSourceMember implements DbMetad
         }
         return res;
 
-    }
-
-    public void reset() {
-        this.tables = null;
     }
 
 }

@@ -9,15 +9,8 @@ import jandcode.core.*;
 public interface DbMetadataService extends Comp, IDbSourceMember {
 
     /**
-     * Таблицы
+     * Загрузить все таблицы/view из базы данных
      */
-    NamedList<DbMetadataTable> getTables();
-
-
-    /**
-     * Сброс. Очистка кеша.
-     * После вызова данные будут загружены повторно.
-     */
-    void reset();
+    NamedList<DbMetadataTable> loadTables() throws Exception;
 
 }
