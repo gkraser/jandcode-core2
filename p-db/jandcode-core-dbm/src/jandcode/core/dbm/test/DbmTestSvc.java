@@ -126,6 +126,35 @@ public class DbmTestSvc extends BaseAppTestSvc {
         utils.outMap(getModel().getDbSource().getProps());
     }
 
+    /**
+     * Пересоздать базу данных
+     */
+    public void recreateDb() throws Exception {
+        System.out.println("RECREATE DATABASE:");
+        showDb();
+        getDb().getDbSource().disconnectAll();
+        DbManagerService dbManSvc = getModel().getDbSource().bean(DbManagerService.class);
+        if (dbManSvc.existDatabase()) {
+            System.out.println("DROP DATABASE");
+            dbManSvc.dropDatabase();
+        }
+        System.out.println("CREATE DATABASE");
+        dbManSvc.createDatabase();
+    }
+
+    /**
+     * Удалить базу данных
+     */
+    public void dropDb() throws Exception {
+        getDb().getDbSource().disconnectAll();
+        DbManagerService dbManSvc = getModel().getDbSource().bean(DbManagerService.class);
+        if (dbManSvc.existDatabase()) {
+            System.out.println("DROP DATABASE");
+            showDb();
+            dbManSvc.dropDatabase();
+        }
+    }
+
     ////// store assert
 
     /**
