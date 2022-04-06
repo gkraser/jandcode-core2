@@ -12,4 +12,9 @@ public interface DbMetadataTable extends INamed {
      */
     NamedList<DbMetadataField> getFields();
 
+    /**
+     * Является ли представлением
+     */
+    boolean isView();
+
 }

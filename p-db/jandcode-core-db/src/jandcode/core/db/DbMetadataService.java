@@ -13,4 +13,15 @@ public interface DbMetadataService extends Comp, IDbSourceMember {
      */
     NamedList<DbMetadataTable> loadTables() throws Exception;
 
+    /**
+     * Есть ли таблицы или view в базе данные.
+     * Работает быстрее, дем laadTables() с проверкой на пустой список.
+     */
+    boolean hasTables() throws Exception;
+
+    /**
+     * Есть ли указанная таблица в базе данных.
+     */
+    boolean hasTable(String name) throws Exception;
+
 }

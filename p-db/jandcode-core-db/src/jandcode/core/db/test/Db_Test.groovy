@@ -74,5 +74,49 @@ insert into t1 (id) values (4)
         assertNotNull(t1m)
     }
 
+    @Test
+    public void metadata_has_tables() throws Exception {
+        def metaSvc = z.db.dbSource.bean(DbMetadataService)
+
+        def tables = metaSvc.loadTables()
+        for (t in tables) {
+            println "drop: ${t.name}"
+            z.dropTable(t.name)
+        }
+
+        def hasTables = metaSvc.hasTables()
+        assertFalse(hasTables)
+
+        def a = z.createStore()
+        a.addField("id", "int")
+        z.createTable("t1m", a)
+        //
+        hasTables = metaSvc.hasTables()
+        assertTrue(hasTables)
+    }
+
+    @Test
+    public void metadata_has_table() throws Exception {
+        String tn = "MyTableOne"
+
+        def metaSvc = z.db.dbSource.bean(DbMetadataService)
+
+        z.dropTable(tn)
+        assertFalse(metaSvc.hasTable(tn))
+        assertFalse(metaSvc.hasTable(tn.toUpperCase()))
+        assertFalse(metaSvc.hasTable(tn.toLowerCase()))
+
+        def a = z.createStore()
+        a.addField("id", "int")
+
+        for (tn1 in [tn, tn.toUpperCase() + "1", tn.toLowerCase() + "2"]) {
+            z.createTable(tn1, a)
+            //
+            assertTrue(metaSvc.hasTable(tn1))
+            assertTrue(metaSvc.hasTable(tn1.toLowerCase()))
+            assertTrue(metaSvc.hasTable(tn1.toUpperCase()))
+        }
+    }
+
 
 }

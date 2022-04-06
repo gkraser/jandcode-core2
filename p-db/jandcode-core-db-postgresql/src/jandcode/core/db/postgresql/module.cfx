@@ -16,6 +16,9 @@
                 <bean name="jandcode.core.db.DbManagerService"
                       class="jandcode.core.db.postgresql.PostgresqlDbManagerService"/>
 
+                <bean name="jandcode.core.db.DbMetadataService"
+                      class="jandcode.core.db.postgresql.PostgresqlDbMetadataService"/>
+
             </dbsource-default>
 
             <!-- =================== -->

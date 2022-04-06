@@ -6,9 +6,11 @@ import jandcode.core.db.*;
 public class DbMetadataTableImpl extends Named implements DbMetadataTable {
 
     private NamedList<DbMetadataField> fields = new DefaultNamedList<>();
+    private boolean view;
 
-    public DbMetadataTableImpl(String name) {
+    public DbMetadataTableImpl(String name, boolean view) {
         setName(name);
+        this.view = view;
     }
 
     public NamedList<DbMetadataField> getFields() {
@@ -19,6 +21,10 @@ public class DbMetadataTableImpl extends Named implements DbMetadataTable {
         DbMetadataFieldImpl f = new DbMetadataFieldImpl(name, datatype, size);
         fields.add(f);
         return f;
+    }
+
+    public boolean isView() {
+        return view;
     }
 
 }
