@@ -12,7 +12,6 @@
       def gname = ut.makeShortIdn("fk_${d.dbTableName}_${f.name}")
       def refCascade = f.refCascade ? " on delete cascade" : ""
 %>
---@${gname}
 alter table ${d.name} add constraint ${gname}
 foreign key(${f.name}) references ${refInfo.refDomain.dbTableName}(id)${refCascade}
 ~~

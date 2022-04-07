@@ -12,7 +12,6 @@
       def gname = ut.makeShortIdn("i_${d.dbTableName}_${idx.name}")
       def flds = idx.sqlFields
 %>
---@${gname}
 create ${unique}index ${gname} on ${d.dbTableName}(${flds})
 ~~
 <%

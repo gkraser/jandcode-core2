@@ -10,7 +10,7 @@ class DomainDbUtils_Test extends Dbm_Test {
     @Test
     public void dbtables() throws Exception {
         def z = new DomainDbUtils(model)
-        def tabs = z.getDbTables()
+        def tabs = z.getDomains()
         println tabs.size()
         assertTrue(tabs.size() >= 2)
     }

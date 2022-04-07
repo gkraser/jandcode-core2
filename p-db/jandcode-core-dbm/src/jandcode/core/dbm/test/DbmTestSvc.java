@@ -241,7 +241,7 @@ public class DbmTestSvc extends BaseAppTestSvc {
      */
     public void dropDbTable(String tableName) {
         try {
-            db.execQuery("drop table " + tableName);
+            getDb().execQuery("drop table " + tableName);
         } catch (Exception e) {
             // ignore
         }
@@ -269,7 +269,7 @@ public class DbmTestSvc extends BaseAppTestSvc {
             sbCreate.append("  ").append(f.getName()).append(" ").append(s1);
         }
         String ddl = "create table " + tableName + "(\n" + sbCreate + "\n)";
-        db.execQueryNative(ddl);
+        getDb().execQueryNative(ddl);
         //
         insertDbTable(tableName, store);
     }

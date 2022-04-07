@@ -1,5 +1,6 @@
 package jandcode.core.dbm.doc;
 
+import jandcode.core.dbm.domain.*;
 import jandcode.core.dbm.test.*;
 import org.junit.jupiter.api.*;
 
@@ -9,7 +10,9 @@ public class DiagramDb_Test extends Dbm_Test {
 
     @Test
     public void test1() throws Exception {
-        DiagramUtils ut = new DiagramUtils(getModel());
+        DomainGroup gr = new DomainGroup(getModel());
+        gr.getDomains().addAll(gr.getParentDomains());
+        DiagramUtils ut = new DiagramUtils(gr);
         Diagram d = ut.createDiagram(getModel().getConf().getConf("diagram/diag1"));
         assertEquals(d.getName(), "diag1");
         assertEquals(d.getTitle(), "Di1");

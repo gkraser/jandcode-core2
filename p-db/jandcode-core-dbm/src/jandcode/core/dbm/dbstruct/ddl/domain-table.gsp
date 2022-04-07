@@ -7,7 +7,6 @@
 
   for (def d : ut.domains) {
 %>
---@${d.dbTableName}
 create table ${d.dbTableName} (
 <%
     for (def f : d.fields) {

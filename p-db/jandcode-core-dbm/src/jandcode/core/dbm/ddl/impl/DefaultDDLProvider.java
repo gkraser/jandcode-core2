@@ -19,7 +19,7 @@ public class DefaultDDLProvider extends BaseDDLProvider {
         }
         used = true;
         SqlText sql = getModel().bean(SqlService.class).createSqlText(getConf());
-        List<DDLOper> a = DDLUtils.createFromSqlScript(getModel(), sql.toString(), getBaseName());
+        List<DDLOper> a = DDLUtils.createFromSqlScript(getModel(), sql.toString());
         res.addAll(a);
     }
 
