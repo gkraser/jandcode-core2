@@ -15,9 +15,13 @@ public class LogbackConfigurator {
 
     private String logOffConfig = "" +
             "<configuration>\n" +
+            "    <appender name=\"jc.console\" class=\"jandcode.commons.log.SimpleConsoleAppender\">\n" +
+            "    </appender>\n" +
             "    <root level=\"off\">\n" +
+            "        <appender-ref ref=\"jc.console\"/>\n" +
             "    </root>\n" +
-            "</configuration>\n"; //NON-NLS
+            "    <logger name=\"jc.console\" level=\"info\"/>\n" +
+            "</configuration>"; //NON-NLS
 
     private String logOnConfig = "" +
             "<configuration>\n" +
