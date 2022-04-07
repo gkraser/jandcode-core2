@@ -1,16 +1,20 @@
 package jandcode.core.apx.cli;
 
+import jandcode.commons.*;
 import jandcode.commons.cli.*;
 import jandcode.commons.error.*;
 import jandcode.core.cli.*;
 import jandcode.core.db.*;
 import jandcode.core.dbm.mdb.*;
 import jandcode.core.dbm.std.*;
+import org.slf4j.*;
 
 /**
  * Команда cli: создание баз данных по текущему состоянию модели
  */
 public class DbCreateCliCmd extends BaseAppCliCmd {
+
+    protected static Logger log = UtLog.getLogConsole();
 
     public void exec() throws Exception {
         CliDbTools dbTools = new CliDbTools(getApp(), getModelName());
@@ -20,17 +24,17 @@ public class DbCreateCliCmd extends BaseAppCliCmd {
 
         if (dbMan.existDatabase()) {
             if (isDropExist()) {
-                System.out.println("drop exist database");
+                log.info("drop exist database");
                 dbMan.dropDatabase();
             } else {
                 throw new XError("База данных уже существует");
             }
         }
 
-        System.out.println("create empty database");
+        log.info("create empty database");
         dbMan.createDatabase();
 
-        System.out.println("exec create.sql");
+        log.info("exec create.sql");
         String createSql = dbTools.grabCreateSql();
         Mdb mdb = dbTools.getModel().createMdb(true);
         mdb.connect();
@@ -39,7 +43,7 @@ public class DbCreateCliCmd extends BaseAppCliCmd {
         } finally {
             mdb.disconnect();
         }
-        System.out.println("ok");
+        log.info("ok");
 
     }
 
