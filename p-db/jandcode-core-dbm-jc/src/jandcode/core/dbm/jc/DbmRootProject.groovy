@@ -16,6 +16,7 @@ class DbmRootProject extends ProjectScript {
         onEvent(AppProject.Event_ShowInfo, this.&showInfoHandler)
         include(DbDocProject)
         include(DbCmdProject)
+        include(VerdbProject)
     }
 
     void saveAppConfHandler(AppProject.Event_SaveAppConf e) {

@@ -15,6 +15,10 @@ public class VerdbConsts {
      */
     public static final String[] SUPPORTED_FILES = new String[]{"sql", "groovy"};
 
+    /**
+     * Путь до create.sql относительно каталога с версией.
+     */
+    public static final String CREATE_SQL_PATH = "snapshot/create.sql";
 
     /**
      * Поддерживается ли файл с указанным расширением

@@ -38,4 +38,9 @@ public interface VerdbModule extends INamed, IModelMember, IVerdbModuleDef {
      */
     List<VerdbOper> getOpers(VerdbVersion curVersion, VerdbVersion lastVersion);
 
+    /**
+     * Возвращает последнюю версию из ресурсов
+     */
+    VerdbVersion getLastVersion();
+
 }

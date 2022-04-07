@@ -29,4 +29,15 @@ public interface VerdbDir extends IVerdbVersionLink {
      */
     VerdbVersion getLastVersion();
 
+    /**
+     * Есть ли create.sql для этого каталога.
+     */
+    boolean hasCreateSql();
+
+    /**
+     * Возвращает текст create.sql для этого каталога.
+     * Если create.sql нет, возвращается пустая строка.
+     */
+    String getCreateSql();
+
 }

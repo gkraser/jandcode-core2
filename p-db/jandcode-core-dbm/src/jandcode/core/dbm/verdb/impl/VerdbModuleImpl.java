@@ -66,4 +66,14 @@ public class VerdbModuleImpl extends BaseModelMember implements VerdbModule {
 
         return res;
     }
+
+    public VerdbVersion getLastVersion() {
+        if (getDirs().size() == 0) {
+            return VerdbVersion.create(0, 0, 0);
+        } else {
+            VerdbDir d = getDirs().get(getDirs().size() - 1);
+            return d.getLastVersion();
+        }
+    }
+
 }
