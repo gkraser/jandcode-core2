@@ -1,6 +1,7 @@
 package jandcode.core.dbm.std;
 
 import jandcode.commons.*;
+import jandcode.commons.error.*;
 import jandcode.commons.named.*;
 import jandcode.core.*;
 import jandcode.core.db.*;
@@ -22,7 +23,7 @@ public class CliDbTools implements IAppLink, IModelLink {
 
     public CliDbTools(App app, String modelName) {
         this.app = app;
-        this.model = app.bean(ModelService.class).getModel(modelName);
+        this.model = getModel(app, modelName);
     }
 
     public CliDbTools(App app, Model model) {
@@ -47,6 +48,24 @@ public class CliDbTools implements IAppLink, IModelLink {
     }
 
     //////
+
+    /**
+     * Получить модель по имени со всеми проверками
+     */
+    public static Model getModel(App app, String name) {
+        ModelService modelSvc = app.bean(ModelService.class);
+        ModelDef md = modelSvc.getModels().find(name);
+        if (md == null) {
+            throw new XError("Модель не найдена: {0}", name);
+        }
+        if (!md.isInstance()) {
+            throw new XError("Модель не является экземпляром: {0}", name);
+        }
+        if (md.getInst().getDbSource().getDbType().equals("base")) {
+            throw new XError("Модель не имеет явно определенной базы данных: {0}", name);
+        }
+        return md.getInst();
+    }
 
     /**
      * Показать инфу о базе данных
