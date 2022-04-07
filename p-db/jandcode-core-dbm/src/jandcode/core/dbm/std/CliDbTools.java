@@ -68,6 +68,23 @@ public class CliDbTools implements IAppLink, IModelLink {
     }
 
     /**
+     * Получить список экземпляров моделей, у которых есть база данных
+     */
+    public static NamedList<Model> getModelsWithDb(App app) {
+        NamedList<Model> res = new DefaultNamedList<>();
+        ModelService modelSvc = app.bean(ModelService.class);
+        for (ModelDef md : modelSvc.getModels()) {
+            if (md.isInstance()) {
+                if (!md.getInst().getDbSource().getDbType().equals("base")) {
+                    // только для моделей с явными базами
+                    res.add(md.getInst());
+                }
+            }
+        }
+        return res;
+    }
+
+    /**
      * Показать инфу о базе данных
      */
     public void showInfo() {
@@ -88,17 +105,7 @@ public class CliDbTools implements IAppLink, IModelLink {
      * Получить список экземпляров моделей, у которых есть база данных
      */
     public NamedList<Model> getModelsWithDb() {
-        NamedList<Model> res = new DefaultNamedList<>();
-        ModelService modelSvc = getApp().bean(ModelService.class);
-        for (ModelDef md : modelSvc.getModels()) {
-            if (md.isInstance()) {
-                if (!md.getInst().getDbSource().getDbType().equals("base")) {
-                    // только для моделей с явными базами
-                    res.add(md.getInst());
-                }
-            }
-        }
-        return res;
+        return getModelsWithDb(getApp());
     }
 
     /**
