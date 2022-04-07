@@ -26,4 +26,16 @@ public interface VerdbModule extends INamed, IModelMember, IVerdbModuleDef {
      */
     List<VerdbDir> getDirs();
 
+    /**
+     * Для базы данных версии curVersion возвращает набор операторов, необходимый, что бы
+     * довести ее до версии lastVersion.
+     *
+     * @param curVersion  текущая версия
+     * @param lastVersion до какой версии довести. Может быть null, тогда до последней.
+     *                    Может быть не существующей версией, тогда ворзращаютя все,
+     *                    которые меньше или равны ей.
+     * @return набор операторов в правильном порядке. Список может быть пустой.
+     */
+    List<VerdbOper> getOpers(VerdbVersion curVersion, VerdbVersion lastVersion);
+
 }

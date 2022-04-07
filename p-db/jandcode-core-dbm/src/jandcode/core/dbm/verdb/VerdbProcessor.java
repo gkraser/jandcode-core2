@@ -5,11 +5,14 @@ import jandcode.core.db.*;
 import jandcode.core.dbm.mdb.*;
 import jandcode.core.dbm.verdb.impl.*;
 
+import java.util.*;
+
 public class VerdbProcessor {
 
     private VerdbModule verdbModule;
     private DbSource dbSource;
     private Mdb mdb;
+    private VerdbSystemDb systemDb;
 
     public VerdbProcessor(VerdbModule verdbModule, DbSource dbSource) {
         this.verdbModule = verdbModule;
@@ -35,11 +38,18 @@ public class VerdbProcessor {
         return getVerdbModule().getModel().createMdb(getDbSource().createDb(true));
     }
 
+    public VerdbSystemDb getSystemDb() {
+        if (systemDb == null) {
+            systemDb = new VerdbSystemDb(getMdb(), getVerdbModule().getModuleName());
+        }
+        return systemDb;
+    }
+
     /**
      * Инициализировать базу данных и внутренние объекты для работы verdb.
      * При невозможности инициализироать, генерируется ошибка.
      *
-     * @param autoCreate true - создавать, если не существует
+     * @param autoCreate true - создавать базу данных, если не существует
      */
     public void init(boolean autoCreate) throws Exception {
         DbSource dbs = getDbSource();
@@ -69,13 +79,45 @@ public class VerdbProcessor {
 
         // инициализируем таблицу verdb_info модулем
         Mdb mdb = getMdb();
+        VerdbSystemDb sysDb = getSystemDb();
         mdb.connect();
+        sysDb.install();
+    }
+
+    /**
+     * Закончить работы с объектом, очищаются все внутренности
+     */
+    public void done() {
         try {
-            VerdbSystemDb sysDb = new VerdbSystemDb(mdb, getVerdbModule().getModuleName());
-            sysDb.install();
-        } finally {
-            mdb.disconnect();
+            if (this.mdb != null) {
+                if (this.mdb.isConnected()) {
+                    this.mdb.disconnectForce();
+                }
+            }
+        } catch (Exception e) {
+            throw new XErrorWrap(e);
         }
     }
 
+    /**
+     * Обновить базу до указанной версии.
+     *
+     * @param lastVersion до какой версии. Если null, то до последней возможной.
+     */
+    public void upgrade(VerdbVersion lastVersion) throws Exception {
+        Mdb mdb = getMdb();
+        VerdbSystemDb sysDb = getSystemDb();
+        VerdbVersion curVersion = sysDb.loadVersion();
+        List<VerdbOper> opers = getVerdbModule().getOpers(curVersion, lastVersion);
+        for (VerdbOper oper : opers) {
+            mdb.startTran();
+            try {
+                oper.exec(mdb);
+                sysDb.saveVersion(oper.getVersion());
+                mdb.commit();
+            } catch (Exception e) {
+                mdb.rollback(e);
+            }
+        }
+    }
 }

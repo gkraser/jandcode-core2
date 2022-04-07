@@ -9,8 +9,7 @@ public class VerdbProcessor_Test extends Dbm_Test {
     private VerdbProcessor createProcessor() {
         VerdbService svc = getModel().bean(VerdbService.class);
         VerdbModule mod = svc.getVerdbModules().get("dir2").createInst();
-        VerdbProcessor p = new VerdbProcessor(mod, getModel().getDbSource());
-        return p;
+        return new VerdbProcessor(mod, getModel().getDbSource());
     }
 
     private Store outVerdb() throws Exception {
@@ -24,7 +23,27 @@ public class VerdbProcessor_Test extends Dbm_Test {
         dbm.dropDb();
         //
         VerdbProcessor p = createProcessor();
-        p.init(true);
+        try {
+            p.init(true);
+        } finally {
+            p.done();
+        }
+        //
+        outVerdb();
+    }
+
+    @Test
+    public void upgrade() throws Exception {
+        dbm.dropDb();
+        //
+        utils.logOn();
+        VerdbProcessor p = createProcessor();
+        try {
+            p.init(true);
+            p.upgrade(null);
+        } finally {
+            p.done();
+        }
         //
         outVerdb();
     }

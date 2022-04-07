@@ -38,4 +38,32 @@ public class VerdbModuleImpl extends BaseModelMember implements VerdbModule {
         return dirs;
     }
 
+    public List<VerdbOper> getOpers(VerdbVersion curVersion, VerdbVersion lastVersion) {
+        List<VerdbOper> res = new ArrayList<>();
+
+        dirs:
+        for (VerdbDir dir : getDirs()) {
+            if (dir.getVersion().getV1() >= curVersion.getV1()) {
+                // только после версии каталога больше или равной текущей
+                for (VerdbFile file : dir.getFiles()) {
+                    for (VerdbOper oper : file.getOpers()) {
+                        int cmpOper = oper.getVersion().compareTo(curVersion);
+                        if (cmpOper > 0) {
+                            // только для версий больше текущей
+                            if (lastVersion != null) {
+                                cmpOper = oper.getVersion().compareTo(lastVersion);
+                                if (cmpOper > 0) {
+                                    // прерываемся - вышли за границу
+                                    break dirs;
+                                }
+                            }
+                            res.add(oper);
+                        }
+                    }
+                }
+            }
+        }
+
+        return res;
+    }
 }
