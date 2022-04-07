@@ -78,6 +78,7 @@ public class UtFile_Test extends Utils_Test {
     public void test_join() throws Exception {
         assertEquals(UtFile.join("aa", "bb"), "aa\\bb");
         assertEquals(UtFile.join("aa", "bb", "cc"), "aa\\bb\\cc");
+        assertEquals(UtFile.join("file://aa", "//\\bb", "cc"), "file://aa/bb/cc");
     }
 
     @Test

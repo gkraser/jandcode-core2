@@ -223,8 +223,22 @@ public class UtFile {
      * Присоеденить к пути имя файла или другой путь
      */
     public static String join(String dir, String... files) {
-        for (String f : files) {
-            dir = FilenameUtils.concat(dir, f);
+        if (dir.contains("://")) {
+            // это vfs!
+            for (String f : files) {
+                if (!(dir.endsWith("\\") || dir.endsWith("/"))) {
+                    dir = dir + "/";
+                }
+                String f1 = f;
+                while (f1.startsWith("/") || f1.startsWith("\\")) {
+                    f1 = f1.substring(1);
+                }
+                dir = dir + f1;
+            }
+        } else {
+            for (String f : files) {
+                dir = FilenameUtils.concat(dir, f);
+            }
         }
         return dir;
     }
