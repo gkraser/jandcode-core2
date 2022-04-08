@@ -19,6 +19,12 @@
             <sql name="s1.file.gsp"
                  file="#{path}/data/s1.txt.gsp"/>
 
+            <domain name="tab1" parent="id">
+                <field name="a" parent="int"/>
+                <field name="b" parent="int"/>
+                <field name="c" parent="int"/>
+            </domain>
+
         </model>
 
     </dbm>
