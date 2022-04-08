@@ -127,24 +127,37 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
 
     ////// ILoadQueryRecord
 
-    protected StoreRecord oneRecord(Store st) {
+    protected StoreRecord oneRecord(Store st, boolean required) {
         if (st.size() == 0) {
+            if (!required) {
+                return null;
+            }
             throw new XError("Нет записей");
         }
         if (st.size() > 1) {
-            throw new XError("Слишком много записей ({0))", st.size());
+            throw new XError("Слишком много записей ({0})", st.size());
         }
         return st.get(0);
     }
 
     public StoreRecord loadQueryRecord(CharSequence sql) throws Exception {
         Store st = loadQuery(sql);
-        return oneRecord(st);
+        return oneRecord(st, true);
+    }
+
+    public StoreRecord loadQueryRecord(CharSequence sql, boolean required) throws Exception {
+        Store st = loadQuery(sql);
+        return oneRecord(st, required);
     }
 
     public StoreRecord loadQueryRecord(CharSequence sql, Object params) throws Exception {
         Store st = loadQuery(sql, params);
-        return oneRecord(st);
+        return oneRecord(st, true);
+    }
+
+    public StoreRecord loadQueryRecord(CharSequence sql, Object params, boolean required) throws Exception {
+        Store st = loadQuery(sql, params);
+        return oneRecord(st, required);
     }
 
     public StoreRecord loadQueryRecord(StoreRecord rec, CharSequence sql) throws Exception {
