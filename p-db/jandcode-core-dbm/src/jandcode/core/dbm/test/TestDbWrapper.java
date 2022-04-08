@@ -1,8 +1,13 @@
 package jandcode.core.dbm.test;
 
+import jandcode.commons.*;
 import jandcode.commons.error.*;
+import jandcode.core.*;
 import jandcode.core.db.*;
+import jandcode.core.dbm.*;
 import jandcode.core.dbm.impl.*;
+import jandcode.core.dbm.mdb.*;
+import jandcode.core.dbm.std.*;
 
 /**
  * Враппер для базы данных. При установке соединения может проверить наличие базы
@@ -34,16 +39,55 @@ public class TestDbWrapper extends ModelDbWrapper {
     }
 
     void doPrepare() throws Exception {
-        boolean createDb = dbmTestSvc.getApp().getConf().getBoolean("test/dbm/create-db");
+        App app = dbmTestSvc.getApp();
+        Model model = dbmTestSvc.getModel();
+        //
+        boolean createDb = app.getConf().getBoolean("test/dbm/create-db");
         if (!createDb) {
             return;
         }
-        DbManagerService man = dbmTestSvc.getModel().getDbSource().bean(DbManagerService.class);
+        boolean dbCreated = false;
+        DbManagerService man = model.getDbSource().bean(DbManagerService.class);
         if (!man.existDatabase()) {
             dbmTestSvc.utils.delim("create database");
-            dbmTestSvc.utils.outMap(man.getDbSource().getProps());
+            dbmTestSvc.showDb();
             man.createDatabase();
             dbmTestSvc.utils.delim();
+            dbCreated = true;
+        }
+        //
+        boolean createDbStruct = app.getConf().getBoolean("test/dbm/create-db-struct");
+        if (!createDbStruct) {
+            return;
+        }
+        Mdb mdb = model.createMdb(true);
+        mdb.connect();
+        try {
+            CliDbTools dbTools = new CliDbTools(app, model);
+            String createSql = dbTools.grabCreateSql();
+            String crcScript = UtString.md5Str(createSql);
+            //
+            TestDbProps props = new TestDbProps(mdb);
+            String crcInDb = props.getProp("dbstruct.crc");
+            if (!crcScript.equals(crcInDb)) {
+                if (!dbCreated) {
+                    props.reset();
+                    mdb.disconnect();
+                    mdb.getDbSource().disconnectAll();
+                    dbmTestSvc.utils.delim("recreate database");
+                    dbmTestSvc.showDb();
+                    man.dropDatabase();
+                    man.createDatabase();
+                    mdb.connect();
+                }
+                System.out.println("create.sql: start");
+                dbmTestSvc.stopwatch.start("create.sql");
+                mdb.execScript(createSql);
+                dbmTestSvc.stopwatch.stop("create.sql");
+                props.setProp("dbstruct.crc", crcScript);
+            }
+        } finally {
+            mdb.disconnect();
         }
     }
 
