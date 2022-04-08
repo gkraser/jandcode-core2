@@ -1,6 +1,7 @@
 package jandcode.core.dbm.verdb.impl;
 
 import jandcode.commons.*;
+import jandcode.core.db.*;
 import jandcode.core.dbm.mdb.*;
 import jandcode.core.dbm.verdb.*;
 import jandcode.core.store.*;
@@ -44,14 +45,14 @@ public class VerdbSystemDb {
             return; // уже проверяли
         }
 
-        StoreRecord rec;
-        try {
-            rec = doLoadRec();
-            if (rec == null) {
-                doInsertRec();
-            }
-        } catch (Exception e) {
+        DbMetadataService dbMeta = mdb.getDbSource().bean(DbMetadataService.class);
+        if (!dbMeta.hasTable(VerdbConsts.TABLE_VERDB_INFO)) {
             doCreateSystemTables();
+        }
+
+        StoreRecord rec;
+        rec = doLoadRec();
+        if (rec == null) {
             doInsertRec();
         }
 
