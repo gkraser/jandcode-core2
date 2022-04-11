@@ -21,15 +21,14 @@ public class GenIdServiceImpl extends BaseModelMember implements GenIdService {
     protected static Logger log = LoggerFactory.getLogger(GenIdService.class);
 
     private NamedList<GenId> genIds = new DefaultNamedList<>("Не найден genid [{0}]");
-    private GenIdDriver driver;
+    private NamedList<GenIdDriver> drivers = new DefaultNamedList<>();
+    private String defaultDriverName;
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
 
-        // драйвер
-        String drvName = cfg.getConf().getString("driver", "dummy");
-        Conf drvConf = getModel().getConf().getConf("genid-driver/" + drvName);
-        this.driver = (GenIdDriver) getModel().create(drvConf);
+        // драйвер по умолчанию
+        this.defaultDriverName = cfg.getConf().getString("driver", "dummy");
 
         // собираем генераторы из доменов tag.db=true
         DomainDbUtils dbu = new DomainDbUtils(getModel());
@@ -42,7 +41,7 @@ public class GenIdServiceImpl extends BaseModelMember implements GenIdService {
 
         // собираем генераторы из тегов genid
         for (Conf x : getModel().getConf().getConfs("genid")) {
-            GenId g = new GenIdImpl(getDriver(),
+            GenId g = new GenIdImpl(getDriver(x.getString("driver", this.defaultDriverName)),
                     x.getName(),
                     x.getLong("start", 1000),
                     x.getLong("step", 1)
@@ -52,15 +51,32 @@ public class GenIdServiceImpl extends BaseModelMember implements GenIdService {
 
     }
 
-    public GenIdDriver getDriver() {
-        return driver;
+    /**
+     * Получиь драйвер по имени. Если его нет в списке, то он создается
+     */
+    protected GenIdDriver getDriver(String name) {
+        GenIdDriver drv = this.drivers.find(name);
+        if (drv == null) {
+            try {
+                Conf drvConf = getModel().getConf().getConf("genid-driver/" + name);
+                drv = (GenIdDriver) getModel().create(drvConf);
+                this.drivers.add(drv);
+            } catch (Exception e) {
+                throw new XErrorMark(e, "создание genid: " + name);
+            }
+        }
+        return drv;
     }
 
-    protected GenIdDriver getDriver(GenId genId) {
-        return ((GenIdImpl) genId).getDriver();
+    public GenIdDriver getDriver() {
+        return getDriver(this.defaultDriverName);
     }
 
     //////
+
+    public NamedList<GenIdDriver> getDrivers() {
+        return drivers;
+    }
 
     public NamedList<GenId> getGenIds() {
         return genIds;
@@ -76,10 +92,10 @@ public class GenIdServiceImpl extends BaseModelMember implements GenIdService {
         }
         //
         GenId genId = getGenId(genIdName);
-        GenIdDriver drv = getDriver(genId);
+        GenIdDriver drv = genId.getDriver();
         //
         if (cacheSize > 1 && drv.isSupportGenIdCache(genId)) {
-            return new GenIdCachedImpl((GenIdImpl) genId, drv, cacheSize);
+            return new GenIdCachedImpl((GenIdImpl) genId, cacheSize);
         } else {
             return genId;
         }
@@ -87,7 +103,7 @@ public class GenIdServiceImpl extends BaseModelMember implements GenIdService {
 
     public void updateCurrentId(String genIdName, long value) {
         GenId genId = getGenId(genIdName);
-        GenIdDriver drv = getDriver(genId);
+        GenIdDriver drv = genId.getDriver();
         try {
             if (drv.isSupportUpdateCurrentId(genId)) {
                 drv.updateCurrentId(genId, value);

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-include path="../test.cfx"/>
+
+    <dbm>
+
+        <model name="testdb.base">
+
+            <domain name="tab1" parent="id" tag.db="true">
+            </domain>
+
+            <domain name="tab2" parent="id" tag.db="true"
+                    genid.start="4444" genid.step="2">
+            </domain>
+
+            <domain name="no_tab3" parent="id">
+            </domain>
+
+            <genid-driver name="dummy2"
+                          class="jandcode.core.dbm.genid.std.DummyGenIdDriver">
+            </genid-driver>
+
+            <genid name="g1"/>
+            <genid name="g2" start="6666" step="6" driver="dummy2"/>
+
+        </model>
+
+    </dbm>
+
+
+</root>

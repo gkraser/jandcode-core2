@@ -45,7 +45,7 @@ public class GenIdImpl extends BaseModelMember implements GenId {
 
     //////
 
-    protected GenIdDriver getDriver() {
+    public GenIdDriver getDriver() {
         return driver;
     }
 

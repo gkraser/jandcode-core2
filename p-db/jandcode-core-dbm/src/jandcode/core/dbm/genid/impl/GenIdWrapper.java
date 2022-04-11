@@ -27,6 +27,10 @@ public class GenIdWrapper extends BaseModelMember implements GenId {
 
     //////
 
+    public GenIdDriver getDriver() {
+        return wrapper.getDriver();
+    }
+
     public long getNextId() {
         return wrapper.getNextId();
     }

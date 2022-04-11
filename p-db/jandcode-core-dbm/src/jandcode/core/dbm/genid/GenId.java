@@ -11,6 +11,11 @@ import jandcode.core.dbm.*;
 public interface GenId extends Comp, IModelMember {
 
     /**
+     * Драйвер для этого генератора
+     */
+    GenIdDriver getDriver();
+
+    /**
      * Возвращает следующее уникальное значение
      */
     long getNextId();

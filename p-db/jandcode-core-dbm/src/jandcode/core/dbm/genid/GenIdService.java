@@ -12,6 +12,11 @@ import java.util.*;
 public interface GenIdService extends Comp, IModelMember {
 
     /**
+     * Используемые в генераторах драйвера.
+     */
+    NamedList<GenIdDriver> getDrivers();
+
+    /**
      * Зарегистрированные генераторы.
      */
     NamedList<GenId> getGenIds();
