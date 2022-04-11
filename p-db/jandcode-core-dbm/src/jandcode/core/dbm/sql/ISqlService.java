@@ -27,4 +27,9 @@ public interface ISqlService {
      */
     SqlText createSqlText(Conf conf);
 
+    /**
+     * Создать экземпляр {@link SqlBuilder}
+     */
+    SqlBuilder createSqlBuilder();
+
 }

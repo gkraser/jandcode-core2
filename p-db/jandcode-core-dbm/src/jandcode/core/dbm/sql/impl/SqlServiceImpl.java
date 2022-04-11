@@ -19,4 +19,9 @@ public class SqlServiceImpl extends BaseModelMember implements SqlService {
             throw new XErrorMark(e, conf.origin().toString());
         }
     }
+
+    public SqlBuilder createSqlBuilder() {
+        return getModel().create(SqlBuilder.class);
+    }
+
 }

@@ -216,6 +216,10 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
         return getSqlService().createSqlText(conf);
     }
 
+    public SqlBuilder createSqlBuilder() {
+        return getSqlService().createSqlBuilder();
+    }
+
     ////// IOutData
 
     public void outMap(Map m, boolean showClass) {

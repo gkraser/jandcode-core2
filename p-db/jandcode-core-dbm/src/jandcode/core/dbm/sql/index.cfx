@@ -15,6 +15,9 @@
             <bean name="jandcode.core.dbm.sql.SqlPaginate"
                   class="jandcode.core.dbm.sql.impl.SqlPaginateImpl"/>
 
+            <bean name="jandcode.core.dbm.sql.SqlBuilder"
+                  class="jandcode.core.dbm.sql.impl.SqlBuilderImpl"/>
+
             <!-- различные реализации для разных типов баз данных -->
             <!-- ... -->
 
