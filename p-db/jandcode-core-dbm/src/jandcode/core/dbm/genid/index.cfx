@@ -32,6 +32,24 @@
                 />
             </genid-driver>
 
+            <genid-driver name="mysql"
+                          class="jandcode.core.dbm.genid.std.simple.SimpleGenIdDriver">
+                <!-- genid.simple.system имя как у simple, что бы когда одновременно
+                     simple и mysql, только один раз таблица создавалась -->
+                <ddl name="genid.simple.system"
+                     file="res:jandcode/core/dbm/genid/std/simple/genid-simple-sys.gsp"
+                     stage="systemObjects"
+                />
+                <ddl name="genid.mysql.system"
+                     file="res:jandcode/core/dbm/genid/std/mysql/genid-mysql-sys.sql"
+                     stage="systemObjects"
+                />
+                <ddl name="genid.mysql.genids"
+                     file="res:jandcode/core/dbm/genid/std/simple/genid-simple-genids.gsp"
+                     stage="systemObjects"
+                />
+            </genid-driver>
+
         </model>
     </dbm>
 

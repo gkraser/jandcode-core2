@@ -1,6 +1,7 @@
 package jandcode.core.dbm.genid.std;
 
 import jandcode.commons.conf.*;
+import jandcode.commons.named.*;
 import jandcode.core.dbm.ddl.*;
 import jandcode.core.dbm.ddl.impl.*;
 import jandcode.core.dbm.genid.*;
@@ -30,19 +31,19 @@ public class GenIdDDLProvider extends BaseDDLProvider {
     }
 
     protected List<IDDLProvider> grabDDLProviders() {
-        List<IDDLProvider> tmp = new ArrayList<>();
-
+        NamedList<DDLProvider> tmp = new DefaultNamedList<>();
+        // если у провайдеров одинаковые имена, то попадет последний
         GenIdService genIdSvc = getModel().bean(GenIdService.class);
         for (GenIdDriver drv : genIdSvc.getDrivers()) {
             for (Conf x : drv.getConf().getConfs("ddl")) {
-                IDDLProvider p = getModel().create(x, DefaultDDLProvider.class);
+                DDLProvider p = getModel().create(x, DefaultDDLProvider.class);
                 if (p instanceof BaseDDLProvider p1) {
                     p1.setContext(drv);
                 }
                 tmp.add(p);
             }
         }
-        return tmp;
+        return (List) tmp;
     }
 
     protected void onLoad(List<DDLOper> res, DDLStage stage) throws Exception {

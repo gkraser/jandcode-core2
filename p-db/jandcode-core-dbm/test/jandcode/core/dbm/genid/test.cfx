@@ -24,6 +24,7 @@
             <genid name="g1"/>
             <genid name="g2" start="6666" step="6" driver="dummy2"/>
             <genid name="simple_g1" driver="simple"/>
+            <genid name="mysql_g1" driver="mysql"/>
 
         </model>
 
