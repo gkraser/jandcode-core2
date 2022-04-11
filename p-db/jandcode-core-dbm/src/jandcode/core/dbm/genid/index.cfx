@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <dbm>
+        <!-- расширяем базовую модель -->
+        <model name="jandcode.core.dbm">
+
+            <bean name="jandcode.core.dbm.genid.GenIdService"
+                  class="jandcode.core.dbm.genid.impl.GenIdServiceImpl"
+                  driver="dummy"
+            />
+
+            <genid-driver name="dummy"
+                          class="jandcode.core.dbm.genid.std.DummyGenIdDriver">
+            </genid-driver>
+
+        </model>
+    </dbm>
+
+</root>

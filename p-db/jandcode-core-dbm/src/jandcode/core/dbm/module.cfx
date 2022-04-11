@@ -44,5 +44,6 @@
     <x-include path="ddl/index.cfx"/>
     <x-include path="dbstruct/index.cfx"/>
     <x-include path="verdb/index.cfx"/>
+    <x-include path="genid/index.cfx"/>
 
 </root>
