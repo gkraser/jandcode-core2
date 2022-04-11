@@ -212,8 +212,8 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
         return getSqlService().createSqlText(sql);
     }
 
-    public SqlText createSqlText(Conf conf) {
-        return getSqlService().createSqlText(conf);
+    public SqlText createSqlText(Conf conf, Object context) {
+        return getSqlService().createSqlText(conf, context);
     }
 
     public SqlBuilder createSqlBuilder() {

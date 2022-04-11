@@ -1,5 +1,6 @@
 package jandcode.core.dbm.genid;
 
+import jandcode.core.dbm.ddl.*;
 import jandcode.core.dbm.test.*;
 import org.junit.jupiter.api.*;
 
@@ -17,6 +18,14 @@ public class GenId_Test extends Dbm_Test {
         for (GenIdDriver drv : gSvc.getDrivers()) {
             System.out.println(drv.getName());
         }
+    }
+
+    @Test
+    public void ddl1() throws Exception {
+        DDLService svc = getModel().bean(DDLService.class);
+        DDLScript script = svc.grabScript();
+        String text = script.getSqlScript();
+        System.out.println(text);
     }
 
 }

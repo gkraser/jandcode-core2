@@ -20,6 +20,18 @@
                           class="jandcode.core.dbm.genid.std.DummyGenIdDriver">
             </genid-driver>
 
+            <genid-driver name="simple"
+                          class="jandcode.core.dbm.genid.std.simple.SimpleGenIdDriver">
+                <ddl name="genid.simple.system"
+                     file="res:jandcode/core/dbm/genid/std/simple/genid-simple-sys.gsp"
+                     stage="systemObjects"
+                />
+                <ddl name="genid.simple.genids"
+                     file="res:jandcode/core/dbm/genid/std/simple/genid-simple-genids.gsp"
+                     stage="systemObjects"
+                />
+            </genid-driver>
+
         </model>
     </dbm>
 

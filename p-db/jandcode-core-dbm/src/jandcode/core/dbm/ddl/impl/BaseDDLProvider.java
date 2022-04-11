@@ -12,6 +12,7 @@ public abstract class BaseDDLProvider extends BaseModelMember implements DDLProv
 
     private Conf conf;
     private Set<DDLStage> stages = new HashSet<>();
+    private Object context;
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
@@ -75,6 +76,19 @@ public abstract class BaseDDLProvider extends BaseModelMember implements DDLProv
      */
     protected String getBaseName() {
         return getConf().getName();
+    }
+
+    /**
+     * В контексте какого объекта получать операторы.
+     * Опционально. Зависит от ситуации. Например, если ddl собираются из
+     * домена и генерируются, то в качестве контекста можно передать домен.
+     */
+    public Object getContext() {
+        return context;
+    }
+
+    public void setContext(Object context) {
+        this.context = context;
     }
 
 }

@@ -36,6 +36,9 @@ public class GenIdDDLProvider extends BaseDDLProvider {
         for (GenIdDriver drv : genIdSvc.getDrivers()) {
             for (Conf x : drv.getConf().getConfs("ddl")) {
                 IDDLProvider p = getModel().create(x, DefaultDDLProvider.class);
+                if (p instanceof BaseDDLProvider p1) {
+                    p1.setContext(drv);
+                }
                 tmp.add(p);
             }
         }

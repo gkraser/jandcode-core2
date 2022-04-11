@@ -19,6 +19,7 @@ public class SqlConfUtils {
 
         private Model model;
         private Conf conf;
+        private Object context;
 
         public Model getModel() {
             return model;
@@ -35,6 +36,14 @@ public class SqlConfUtils {
         public void setConf(Conf conf) {
             this.conf = conf;
         }
+
+        public Object getContext() {
+            return context;
+        }
+
+        public void setContext(Object context) {
+            this.context = context;
+        }
     }
 
     /**
@@ -49,11 +58,12 @@ public class SqlConfUtils {
      * <p>
      * Если файл не указан, то берем текст из атрибута text.
      *
-     * @param conf  из какого узла
-     * @param model в контексте какой модели
+     * @param conf    из какого узла
+     * @param model   в контексте какой модели
+     * @param context в контексте какого объекта, если не указано, то используется модель
      * @return текст sql
      */
-    public static String loadSqlTextFromConf(Conf conf, Model model) throws Exception {
+    public static String loadSqlTextFromConf(Conf conf, Model model, Object context) throws Exception {
         String res = "";
 
         // сначала файл
@@ -68,6 +78,7 @@ public class SqlConfUtils {
                 SqlGenGspTemplate t = (SqlGenGspTemplate) gcls.createInst();
                 t.setModel(model);
                 t.setConf(conf);
+                t.setContext(context == null ? model : context);
                 res = t.generate(model);
             } else {
                 // другой файл - загружаем

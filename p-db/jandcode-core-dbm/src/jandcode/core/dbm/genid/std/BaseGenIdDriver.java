@@ -29,10 +29,18 @@ public abstract class BaseGenIdDriver extends BaseModelMember implements GenIdDr
     }
 
     /**
-     * Зарегистрированные genid
+     * Зарегистрированные genid, которые принадлежат этому драйверу
      */
     protected NamedList<GenId> getGenIds() {
-        return getModel().bean(GenIdService.class).getGenIds();
+        NamedList<GenId> res = new DefaultNamedList<>();
+        GenIdService svc = getModel().bean(GenIdService.class);
+        for (GenId genId : svc.getGenIds()) {
+            if (genId.getDriver() == this) {
+                res.add(genId);
+            }
+        }
+        res.sort();
+        return res;
     }
 
     ////// interface

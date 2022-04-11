@@ -11,9 +11,9 @@ public class SqlServiceImpl extends BaseModelMember implements SqlService {
         return new SqlTextImpl(getModel(), sql);
     }
 
-    public SqlText createSqlText(Conf conf) {
+    public SqlText createSqlText(Conf conf, Object context) {
         try {
-            String sql = SqlConfUtils.loadSqlTextFromConf(conf, getModel());
+            String sql = SqlConfUtils.loadSqlTextFromConf(conf, getModel(), context);
             return createSqlText(sql);
         } catch (Exception e) {
             throw new XErrorMark(e, conf.origin().toString());

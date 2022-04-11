@@ -1,9 +1,12 @@
 package jandcode.core.dbm.dbstruct;
 
 import jandcode.commons.*;
+import jandcode.commons.conf.*;
 import jandcode.commons.named.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.domain.*;
+
+import java.util.*;
 
 /**
  * Утилитный класс для использования внутри генераторов ddl и документации для базы данных.
@@ -12,6 +15,7 @@ public class DomainDbUtils implements IModelLink {
 
     protected Model model;
     protected DomainGroup domainGroup;
+    protected Map<String, Field> tmpFields = new HashMap<>();
 
     public DomainDbUtils(Model model) {
         this.model = model;
@@ -68,6 +72,27 @@ public class DomainDbUtils implements IModelLink {
      */
     public String makeShortIdn(String src) {
         return makeShortIdn(src, getIdnMaxLength());
+    }
+
+    /**
+     * Возвращает поле указанного типа
+     *
+     * @param fieldType тип поля домена
+     * @param size      размеры
+     * @return поле
+     */
+    public Field getFieldByType(String fieldType, int size) {
+        String key = fieldType + "|" + size;
+        Field f = tmpFields.get(key);
+        if (f == null) {
+            DomainBuilder b = getModel().bean(DomainService.class).createDomainBuilder("base");
+            Conf f1 = b.addField("tmp", fieldType);
+            f1.setValue("size", size);
+            Domain d = b.createDomain("tmp");
+            f = d.getField("tmp");
+            tmpFields.put(key, f);
+        }
+        return f;
     }
 
 }
