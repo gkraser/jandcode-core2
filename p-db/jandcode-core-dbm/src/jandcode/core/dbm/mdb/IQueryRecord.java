@@ -3,9 +3,11 @@ package jandcode.core.dbm.mdb;
 import jandcode.core.store.*;
 
 /**
- * Загрузка одной записи
+ * Выполнение запросов для одной записи
  */
-public interface ILoadQueryRecord {
+public interface IQueryRecord {
+
+    ////// load record
 
     /**
      * Загрузить одну запись.
@@ -47,4 +49,7 @@ public interface ILoadQueryRecord {
      */
     StoreRecord loadQueryRecord(StoreRecord rec, CharSequence sql, Object params) throws Exception;
 
+    ////// save record
+
+    
 }

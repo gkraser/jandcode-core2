@@ -15,7 +15,7 @@ import jandcode.core.store.*;
  * Объект притворяется базой данных {@link Db}.
  */
 public interface Mdb extends IAppLink, IModelLink, Db,
-        IDaoInvoker, IDomainService, IDictService, ILoadQueryRecord, IStoreService,
+        IDaoInvoker, IDomainService, IDictService, IQueryRecord, IStoreService,
         ISqlService, IOutData {
 
 }
