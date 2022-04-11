@@ -1,13 +1,14 @@
 package jandcode.core.dbm.genid;
 
 
+import jandcode.commons.conf.*;
 import jandcode.core.*;
 import jandcode.core.dbm.*;
 
 /**
  * Драйвер реализации genid в базе данных.
  */
-public interface GenIdDriver extends Comp, IModelMember {
+public interface GenIdDriver extends Comp, IModelMember, IConfLink {
 
     /**
      * Возвращает следующее уникальное значение

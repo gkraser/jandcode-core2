@@ -10,6 +10,12 @@
                   driver="dummy"
             />
 
+            <!-- перенаправляет в ddl genid-драйверов, задействованных в GenIdService -->
+            <ddl name="genid.driver"
+                 class="jandcode.core.dbm.genid.std.GenIdDDLProvider"
+                 stage="*"
+            />
+
             <genid-driver name="dummy"
                           class="jandcode.core.dbm.genid.std.DummyGenIdDriver">
             </genid-driver>
