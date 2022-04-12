@@ -43,7 +43,7 @@
 
         -->
         <model name="jandcode.core.dbm.genid">
-            
+
             <genid-driver name="simple"
                           class="jandcode.core.dbm.genid.std.simple.SimpleGenIdDriver">
                 <ddl name="genid.simple.system"
@@ -82,6 +82,14 @@
                 />
             </genid-driver>
 
+            <genid-driver name="postgresql"
+                          class="jandcode.core.dbm.genid.std.postgresql.PostgresqlGenIdDriver">
+                <ddl name="genid.postgresql.genids"
+                     file="res:jandcode/core/dbm/genid/std/postgresql/genid-postgresql-genids.gsp"
+                     stage="systemObjects"
+                />
+            </genid-driver>
+
             <!-- ===================================================================== -->
 
             <bean name="jandcode.core.dbm.genid.GenIdService"
@@ -95,6 +103,11 @@
             <dbtype name="oracle">
                 <bean name="jandcode.core.dbm.genid.GenIdService"
                       driver="oracle"/>
+            </dbtype>
+
+            <dbtype name="postgresql">
+                <bean name="jandcode.core.dbm.genid.GenIdService"
+                      driver="postgresql"/>
             </dbtype>
 
         </model>

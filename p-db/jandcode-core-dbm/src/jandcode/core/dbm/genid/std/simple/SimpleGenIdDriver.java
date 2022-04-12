@@ -88,7 +88,7 @@ public class SimpleGenIdDriver extends BaseGenIdDriver {
     public GenIdCache getGenIdCache(GenId genId, long count) throws Exception {
         initDriver();
         long lastId = doGetNextIdCount(genId, count);
-        return new SimpleGenIdCache(lastId, count, genId.getStep());
+        return new DefaultGenIdCache(lastId, count, genId.getStep());
     }
 
     public long getCurrentId(GenId genId) throws Exception {

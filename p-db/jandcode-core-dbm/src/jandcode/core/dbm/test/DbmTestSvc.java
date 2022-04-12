@@ -6,6 +6,7 @@ import jandcode.core.dao.*;
 import jandcode.core.db.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.mdb.*;
+import jandcode.core.dbm.std.*;
 import jandcode.core.store.*;
 import jandcode.core.test.*;
 
@@ -153,6 +154,14 @@ public class DbmTestSvc extends BaseAppTestSvc {
             showDb();
             dbManSvc.dropDatabase();
         }
+    }
+
+    /**
+     * Возвращает собранный по модели create.sql
+     */
+    public String grabCreateSql() {
+        CliDbTools dbTools = new CliDbTools(getApp(), getModel());
+        return dbTools.grabCreateSql();
     }
 
     ////// store assert

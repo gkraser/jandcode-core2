@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-include path="../../test.cfx"/>
+
+    <dbm>
+
+        <model name="testdb.base">
+            <include name="jandcode.core.dbm.genid"/>
+
+            <domain name="gtab1" parent="id" tag.db="true">
+            </domain>
+
+            <domain name="gtab2" parent="id" tag.db="true"
+                    genid.start="4444" genid.step="2">
+            </domain>
+
+            <domain name="no_tab3" parent="id">
+            </domain>
+
+            <genid name="g1"/>
+            <genid name="g2" start="6666" step="6"/>
+
+        </model>
+
+        <model name="testdb.genid" instance="testdb.postgresql">
+        </model>
+
+    </dbm>
+
+    <test>
+        <dbm model-default="testdb.genid"
+             create-db="true"
+             create-db-struct="true"/>
+    </test>
+
+
+</root>

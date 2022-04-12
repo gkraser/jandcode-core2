@@ -22,6 +22,7 @@ public interface GenId extends Comp, IModelMember {
 
     /**
      * Текущее id. Это id уже выдано генератором.
+     * Не факт, что именно вызывающему.
      */
     long getCurrentId();
 

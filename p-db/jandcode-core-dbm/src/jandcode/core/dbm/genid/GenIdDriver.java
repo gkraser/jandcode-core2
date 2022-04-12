@@ -19,6 +19,7 @@ public interface GenIdDriver extends Comp, IModelMember, IConfLink {
 
     /**
      * Текущее id. Это id уже выдано генератором.
+     * Не факт, что именно вызывающему.
      *
      * @param genId для какого генератора
      */
