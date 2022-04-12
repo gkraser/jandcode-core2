@@ -96,6 +96,8 @@ public class DbDriverImpl extends BaseComp implements DbDriver {
 
             case Types.BIT:
             case Types.BOOLEAN:
+                return "boolean";
+
             case Types.TINYINT:
             case Types.SMALLINT:
                 return "smallint";

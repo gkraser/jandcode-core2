@@ -41,6 +41,9 @@
             <dbdatatype name="datetime"
                         sqltype="timestamp"/>
 
+            <dbdatatype name="boolean"
+                        class="jandcode.core.db.std.DbDataType_boolean"/>
+
         </dbdriver>
     </db>
 

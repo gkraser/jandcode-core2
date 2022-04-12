@@ -213,6 +213,8 @@ public class UtCnv {
                     return true;
                 } else if (s.equals("1")) {
                     return true;
+                } else if (s.equals("t")) {
+                    return true;
                 }
                 if (defValue && s.length() > 0) {
                     if (s.equalsIgnoreCase("false")) { //NON-NLS
@@ -220,6 +222,8 @@ public class UtCnv {
                     } else if (s.equalsIgnoreCase("off")) { //NON-NLS
                         return false;
                     } else if (s.equals("0")) {
+                        return false;
+                    } else if (s.equals("f")) {
                         return false;
                     }
                 }
