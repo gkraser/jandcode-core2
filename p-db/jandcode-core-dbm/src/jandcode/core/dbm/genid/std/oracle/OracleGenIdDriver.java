@@ -46,7 +46,7 @@ public class OracleGenIdDriver extends BaseGenIdDriver {
     public long getNextId(GenId genId) throws Exception {
         initDriver();
         long res;
-        Mdb mdb = getModel().createMdb();
+        Mdb mdb = genId.getMdb();
         mdb.connect();
         try {
             String s = seqPrefix + genId.getName() + ".nextval";
@@ -65,7 +65,7 @@ public class OracleGenIdDriver extends BaseGenIdDriver {
     public long getCurrentId(GenId genId) throws Exception {
         initDriver();
         long res;
-        Mdb mdb = getModel().createMdb();
+        Mdb mdb = genId.getMdb();
         mdb.connect();
         try {
             String s = seqPrefix + genId.getName();

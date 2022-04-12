@@ -15,7 +15,7 @@ public class MysqlGenIdDriver extends SimpleGenIdDriver {
         }
         String gn = genId.getName().toLowerCase();
         long res;
-        Mdb mdb = getModel().createMdb();
+        Mdb mdb = genId.getMdb();
         mdb.connect();
         try {
             DbQuery q = mdb.openQuery("select genid_nextid('" + gn + "', " + count + ")");

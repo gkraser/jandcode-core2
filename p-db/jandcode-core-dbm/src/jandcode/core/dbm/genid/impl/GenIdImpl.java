@@ -3,6 +3,7 @@ package jandcode.core.dbm.genid.impl;
 import jandcode.commons.error.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.genid.*;
+import jandcode.core.dbm.mdb.*;
 
 /**
  * Основная и единственная реализация GenId.
@@ -68,5 +69,13 @@ public class GenIdImpl extends BaseModelMember implements GenId {
     }
 
     //////
+
+    public GenId withMdb(Mdb mdb) {
+        return new GenIdWrapper(this, mdb);
+    }
+
+    public Mdb getMdb() {
+        return getModel().createMdb();
+    }
 
 }

@@ -53,7 +53,7 @@ public class PostgresqlGenIdDriver extends BaseGenIdDriver {
     public long getNextId(GenId genId) throws Exception {
         initDriver();
         long res;
-        Mdb mdb = getModel().createMdb();
+        Mdb mdb = genId.getMdb();
         mdb.connect();
         try {
             String s = seqPrefix + genId.getName();
@@ -72,7 +72,7 @@ public class PostgresqlGenIdDriver extends BaseGenIdDriver {
     public long getCurrentId(GenId genId) throws Exception {
         initDriver();
         long res;
-        Mdb mdb = getModel().createMdb();
+        Mdb mdb = genId.getMdb();
         mdb.connect();
         try {
             String s = seqPrefix + genId.getName();
@@ -104,7 +104,7 @@ public class PostgresqlGenIdDriver extends BaseGenIdDriver {
             }
         }
 
-        Mdb mdb = getModel().createMdb();
+        Mdb mdb = genId.getMdb();
         mdb.connect();
         try {
             String s = seqPrefix + genId.getName();
@@ -124,7 +124,7 @@ public class PostgresqlGenIdDriver extends BaseGenIdDriver {
         }
         String gn = seqPrefix + genId.getName();
         long res = 0;
-        Mdb mdb = getModel().createMdb();
+        Mdb mdb = genId.getMdb();
         mdb.connect();
         try {
             DbQuery q = mdb.openQuery("select setval('" + gn + "', nextval('" + gn +

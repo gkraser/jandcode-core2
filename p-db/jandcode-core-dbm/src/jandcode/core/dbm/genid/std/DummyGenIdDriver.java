@@ -17,7 +17,7 @@ public class DummyGenIdDriver extends BaseGenIdDriver {
 
     protected long loadMaxId(GenId genId) throws Exception {
         long res = 0;
-        Mdb mdb = getModel().createMdb();
+        Mdb mdb = genId.getMdb();
         mdb.connect();
         try {
             DbQuery q = mdb.openQuery("select max(id) from " + genId.getName());

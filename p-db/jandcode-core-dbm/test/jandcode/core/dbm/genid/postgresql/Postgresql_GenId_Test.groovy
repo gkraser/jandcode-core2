@@ -111,12 +111,12 @@ class Postgresql_GenId_Test extends Dbm_Test {
     public void test_work2_cached() throws Exception {
         def svc = model.bean(GenIdService)
 
-        def genNormal = svc.genIds.get("gtab3")
+        def genNormal = svc.genIds.get("gtab3").withMdb(mdb)
         updateCurrentId(genNormal, 0)
         assertEquals(genNormal.currentId, 1000)
 
         //
-        def genCached = svc.getGenId("gtab3", 2)
+        def genCached = svc.getGenId("gtab3", 2).withMdb(mdb)
 
         //logOn()
 

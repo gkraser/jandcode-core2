@@ -51,7 +51,7 @@ public class SimpleGenIdDriver extends BaseGenIdDriver {
         }
         String gn = genId.getName().toLowerCase();
         long res = 0;
-        Mdb mdb = getModel().createMdb();
+        Mdb mdb = genId.getMdb();
         mdb.connect();
         try {
             mdb.startTran();
@@ -95,7 +95,7 @@ public class SimpleGenIdDriver extends BaseGenIdDriver {
         initDriver();
         String gn = genId.getName().toLowerCase();
         long res;
-        Mdb mdb = getModel().createMdb();
+        Mdb mdb = genId.getMdb();
         mdb.connect();
         try {
             DbQuery q = mdb.openQuery("select val from genid_data where name='" + gn + "'");
@@ -127,7 +127,7 @@ public class SimpleGenIdDriver extends BaseGenIdDriver {
             }
         }
         //
-        Mdb mdb = getModel().createMdb();
+        Mdb mdb = genId.getMdb();
         mdb.connect();
         try {
             mdb.execQuery("update genid_data set val=:val where name=:name",

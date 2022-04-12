@@ -4,13 +4,16 @@ package jandcode.core.dbm.genid.impl;
 import jandcode.core.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.genid.*;
+import jandcode.core.dbm.mdb.*;
 
 public class GenIdWrapper extends BaseModelMember implements GenId {
 
-    protected GenIdImpl wrapper;
+    protected GenId wrapper;
+    private Mdb mdb;
 
-    public GenIdWrapper(GenId wrapper) {
-        this.wrapper = (GenIdImpl) wrapper;
+    public GenIdWrapper(GenId wrapper, Mdb mdb) {
+        this.wrapper = wrapper;
+        this.mdb = mdb;
     }
 
     public String getName() {
@@ -46,4 +49,19 @@ public class GenIdWrapper extends BaseModelMember implements GenId {
     public long getStep() {
         return wrapper.getStep();
     }
+
+    //////
+
+    public GenId withMdb(Mdb mdb) {
+        return new GenIdWrapper(this, mdb);
+    }
+
+    public Mdb getMdb() {
+        if (this.mdb == null) {
+            return getModel().createMdb();
+        } else {
+            return this.mdb;
+        }
+    }
+
 }

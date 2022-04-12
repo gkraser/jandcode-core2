@@ -2,6 +2,7 @@ package jandcode.core.dbm.genid;
 
 import jandcode.core.*;
 import jandcode.core.dbm.*;
+import jandcode.core.dbm.mdb.*;
 
 /**
  * Генератор уникальных id.
@@ -42,5 +43,20 @@ public interface GenId extends Comp, IModelMember {
      * репликационной базы данных установить специальный шаг и стартовое значение.
      */
     long getStep();
+
+    /**
+     * Возвращает генератор с привязкой к определенной {@link Mdb}.
+     * Все запросы будут осуществлятся через нее.
+     *
+     * @param mdb экземпляр {@link Mdb}
+     * @return обертка генератора с привязкой к {@link Mdb}
+     */
+    GenId withMdb(Mdb mdb);
+
+    /**
+     * Возвращает экземпляр {@link Mdb}, привязанный к этому экземпляру генератора.
+     * Если нет привязанной {@link Mdb}, создается новый экземпляр при каждом вызове.
+     */
+    Mdb getMdb();
 
 }

@@ -12,7 +12,7 @@ public class GenIdCachedImpl extends GenIdWrapper {
     private GenIdCache cache;
 
     public GenIdCachedImpl(GenIdImpl wrapper, long cacheSize) {
-        super(wrapper);
+        super(wrapper, null);
         if (cacheSize < 1) {
             throw new XError("Размер кеша должен быть > 0");
         }
@@ -22,7 +22,7 @@ public class GenIdCachedImpl extends GenIdWrapper {
     public long getNextId() {
         if (cache == null || !cache.hasNextId()) {
             try {
-                cache = wrapper.getDriver().getGenIdCache(wrapper, cacheSize);
+                cache = getDriver().getGenIdCache(this, cacheSize);
             } catch (Exception e) {
                 throw new XErrorWrap(e);
             }
