@@ -4,8 +4,6 @@ import jandcode.commons.named.*;
 import jandcode.core.*;
 import jandcode.core.dbm.*;
 
-import java.util.*;
-
 /**
  * Сервис уникальных id.
  */
@@ -53,27 +51,5 @@ public interface GenIdService extends Comp, IModelMember {
      *                  другое значение, если генератор имеет шаг, не равный 1.
      */
     void updateCurrentId(String genIdName, long value);
-
-    /**
-     * Восстановить состояние всех генераторов в соответствии с текущим положением в базе данных.
-     * Используется обычно только в цикле разработки/установки.
-     * <p>
-     * Ошибки игнорируются и выводятся в Log.
-     */
-    void recoverGenIds() throws Exception;
-
-    /**
-     * Восстановить состояние указанных генераторов в соответствии с текущим положением в базе данных.
-     * Используется обычно только в цикле разработки/установки.
-     * <p>
-     * Подразумевается, что для генератора имеется таблица с именем как у генератора,
-     * и в этой таблице имеется поле id, значение которого было сгенерировано генератором.
-     *
-     * @param genIdNames имена генераторов, которые нужно обработать. Если null, обрабатываются все
-     * @param throwError true - генерировать ошибки, если будут. При значении false -
-     *                   ошибки просто выводятся в log
-     */
-    void recoverGenIds(List<String> genIdNames, boolean throwError) throws Exception;
-
 
 }
