@@ -50,6 +50,14 @@
                 />
             </genid-driver>
 
+            <genid-driver name="oracle"
+                          class="jandcode.core.dbm.genid.std.oracle.OracleGenIdDriver">
+                <ddl name="genid.oracle.genids"
+                     file="res:jandcode/core/dbm/genid/std/oracle/genid-oracle-genids.gsp"
+                     stage="systemObjects"
+                />
+            </genid-driver>
+
         </model>
     </dbm>
 
