@@ -13,6 +13,7 @@ import jandcode.core.dbm.*;
 import jandcode.core.dbm.dao.*;
 import jandcode.core.dbm.dict.*;
 import jandcode.core.dbm.domain.*;
+import jandcode.core.dbm.genid.*;
 import jandcode.core.dbm.mdb.*;
 import jandcode.core.dbm.sql.*;
 import jandcode.core.store.*;
@@ -28,6 +29,7 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
     private DictService dictService;
     private StoreService storeService;
     private SqlService sqlService;
+    private GenIdService genIdService;
 
     public MdbImpl(Model model, Db db) {
         this.model = model;
@@ -243,6 +245,27 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
 
     public void outTable(Object data) {
         outTable(data, -1);
+    }
+
+    ////// IMdbGenId
+
+    private GenIdService getGenIdService() {
+        if (genIdService == null) {
+            genIdService = getApp().bean(GenIdService.class);
+        }
+        return genIdService;
+    }
+
+    public GenId getGenId(String genIdName) {
+        return getGenIdService().getGenId(genIdName).withMdb(this);
+    }
+
+    public GenId getGenId(String genIdName, long cacheSize) {
+        return getGenIdService().getGenId(genIdName, cacheSize).withMdb(this);
+    }
+
+    public long getNextId(String genIdName) {
+        return getGenId(genIdName).getNextId();
     }
 
 }
