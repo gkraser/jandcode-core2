@@ -22,6 +22,8 @@ import java.util.*;
 
 public class MdbImpl extends BaseDbWrapper implements Mdb {
 
+    private static final String FIELD_ID = "id";
+
     private Model model;
     private Db db;
     private DaoInvoker daoInvoker;
@@ -266,6 +268,78 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
 
     public long getNextId(String genIdName) {
         return getGenId(genIdName).getNextId();
+    }
+
+    ////// IMdbRec
+
+    private long getReqId(Map params) {
+        long id = UtCnv.toLong(params.get(FIELD_ID));
+        if (id == 0) {
+            throw new XError("Поле id должно иметь не нулевое значение");
+        }
+        return id;
+    }
+
+    private long getReqId(StoreRecord params) {
+        long id = UtCnv.toLong(params.get(FIELD_ID));
+        if (id == 0) {
+            throw new XError("Поле id должно иметь не нулевое значение");
+        }
+        return id;
+    }
+
+    public long insertRec(String tableName, Map params, boolean generateId) throws Exception {
+        Map p = params;
+        long id = UtCnv.toLong(params.get(FIELD_ID));
+        if (id == 0 || generateId) {
+            // генерим по имени таблицы
+            id = getNextId(tableName);
+            p = new HashMap<>(params);
+            p.put(FIELD_ID, id);
+        }
+
+        String sql = createSqlBuilder().makeSqlInsert(tableName, p);
+        execQuery(sql, p);
+        //
+        return id;
+    }
+
+    public long insertRec(String tableName, StoreRecord params, boolean generateId) throws Exception {
+        return insertRec(tableName, params.getValues(), generateId);
+    }
+
+    public void updateRec(String tableName, Map params) throws Exception {
+        getReqId(params);  // проверяем, что id присутсвует
+
+        SqlBuilder sqlBuilder = createSqlBuilder();
+
+        List<String> flds = sqlBuilder.makeFieldList(params);
+        flds.remove(FIELD_ID);
+
+        String sql = sqlBuilder.makeSqlUpdate(tableName, flds, FIELD_ID);
+        execQuery(sql, params);
+    }
+
+    public void updateRec(String tableName, StoreRecord params) throws Exception {
+        getReqId(params);  // проверяем, что id присутсвует
+
+        SqlBuilder sqlBuilder = createSqlBuilder();
+
+        List<String> flds = sqlBuilder.makeFieldList(params);
+        flds.remove(FIELD_ID);
+
+        String sql = sqlBuilder.makeSqlUpdate(tableName, flds, FIELD_ID);
+        execQuery(sql, params);
+    }
+
+    public void deleteRec(String tableName, Map params) throws Exception {
+        String sql = createSqlBuilder().makeSqlDelete(tableName, params);
+        execQuery(sql, params);
+    }
+
+    public void deleteRec(String tableName, long id) throws Exception {
+        String sql = createSqlBuilder().makeSqlDelete(tableName, FIELD_ID);
+        execQuery(sql, id);
     }
 
 }
