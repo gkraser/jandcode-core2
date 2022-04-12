@@ -6,6 +6,7 @@
     <dbm>
 
         <model name="testdb.base">
+            <include name="jandcode.core.dbm.genid"/>
 
             <domain name="tab1" parent="id" tag.db="true">
             </domain>

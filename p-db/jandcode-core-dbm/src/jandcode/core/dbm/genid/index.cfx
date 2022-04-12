@@ -16,10 +16,34 @@
                  stage="*"
             />
 
+            <genid>
+                <!--
+                    объекты genid:
+
+                    <genid name="MyGenId" start="1001" step="15" driver="driver(optional)"/>
+                 -->
+            </genid>
+
             <genid-driver name="dummy"
                           class="jandcode.core.dbm.genid.std.DummyGenIdDriver">
             </genid-driver>
 
+        </model>
+
+        <!--
+            Стандартные реализации genid для различных типов баз данных.
+
+            Для использования нужно включить в свою модель:
+
+            <dbm>
+                <model name="my">
+                    <include name="jandcode.core.dbm.genid"/>
+                </model>
+            </dbm>
+
+        -->
+        <model name="jandcode.core.dbm.genid">
+            
             <genid-driver name="simple"
                           class="jandcode.core.dbm.genid.std.simple.SimpleGenIdDriver">
                 <ddl name="genid.simple.system"
@@ -58,7 +82,23 @@
                 />
             </genid-driver>
 
+            <!-- ===================================================================== -->
+
+            <bean name="jandcode.core.dbm.genid.GenIdService"
+                  driver="simple"/>
+
+            <dbtype name="mysql">
+                <bean name="jandcode.core.dbm.genid.GenIdService"
+                      driver="mysql"/>
+            </dbtype>
+
+            <dbtype name="oracle">
+                <bean name="jandcode.core.dbm.genid.GenIdService"
+                      driver="oracle"/>
+            </dbtype>
+
         </model>
+
     </dbm>
 
 </root>
