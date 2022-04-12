@@ -90,11 +90,25 @@ public class PostgresqlGenIdDriver extends BaseGenIdDriver {
 
     public void updateCurrentId(GenId genId, long value) throws Exception {
         initDriver();
+
+        long start = genId.getStart();
+        long step = genId.getStep();
+        //
+        long v;
+        if (value < start) {
+            v = start;
+        } else {
+            v = (value - start) / step * step + start;
+            if (v < value) {
+                v = v + step;
+            }
+        }
+
         Mdb mdb = getModel().createMdb();
         mdb.connect();
         try {
             String s = seqPrefix + genId.getName();
-            mdb.execQuery("select setval('" + s + "'," + value + ")");
+            mdb.execQuery("select setval('" + s + "'," + v + ")");
         } finally {
             mdb.disconnect();
         }
@@ -108,7 +122,7 @@ public class PostgresqlGenIdDriver extends BaseGenIdDriver {
         if (count < 1) {
             throw new XError("count должен быть > 0");
         }
-        String gn = genId.getName();
+        String gn = seqPrefix + genId.getName();
         long res = 0;
         Mdb mdb = getModel().createMdb();
         mdb.connect();

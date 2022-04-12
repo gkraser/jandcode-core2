@@ -15,6 +15,10 @@
                     genid.start="4444" genid.step="2">
             </domain>
 
+            <domain name="gtab3" parent="id" tag.db="true"
+                    genid.step="3">
+            </domain>
+
             <domain name="no_tab3" parent="id">
             </domain>
 

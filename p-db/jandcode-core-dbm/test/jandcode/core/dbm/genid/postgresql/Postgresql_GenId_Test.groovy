@@ -36,13 +36,6 @@ class Postgresql_GenId_Test extends Dbm_Test {
     }
 
     @Test
-    public void pg_seq() throws Exception {
-        def st = mdb.loadQuery("select cycle from pg_sequences")
-        utils.outTable(st)
-    }
-
-
-    @Test
     public void test_work1() throws Exception {
         def svc = model.bean(GenIdService)
         //
@@ -54,21 +47,12 @@ class Postgresql_GenId_Test extends Dbm_Test {
     }
 
     @Test
-    public void test_work2() throws Exception {
-        def svc = model.bean(GenIdService)
-        //
-        for (i in 1..3) {
-            long a = svc.getGenId("tab1").nextId
-            println a
-        }
-        println "last=" + svc.genIds.get("tab2").currentId
-    }
-
-    @Test
     public void test_work2_upd() throws Exception {
+        mdb.createQuery("") // recreate db
+
         def svc = model.bean(GenIdService)
         //
-        def g = svc.genIds.get("tab2")
+        def g = svc.genIds.get("gtab3")
 
         updateCurrentId(g, 0)
         assertEquals(g.currentId, 1000)
@@ -99,48 +83,54 @@ class Postgresql_GenId_Test extends Dbm_Test {
     public void test_work1_cached() throws Exception {
         def svc = model.bean(GenIdService)
 
-        def genNormal = svc.genIds.get("tab1")
+        def genNormal = svc.genIds.get("gtab1")
         updateCurrentId(genNormal, 0)
         assertEquals(genNormal.currentId, 1000)
 
         //
-        def genCached = svc.getGenId("tab1", 2)
+        def genCached = svc.getGenId("gtab1", 2)
 
         //logOn()
 
         assertEquals(genNormal.currentId, 1000)
-        assertEquals(genCached.nextId, 1001)
-        assertEquals(genNormal.currentId, 1002)
-        assertEquals(genNormal.nextId, 1003)
+        assertEquals(genCached.currentId, 1000)
 
-        assertEquals(genCached.nextId, 1002)
+        assertEquals(genNormal.nextId, 1001)
+        assertEquals(genCached.nextId, 1003)
+
+        assertEquals(genNormal.nextId, 1005)
         assertEquals(genCached.nextId, 1004)
-        assertEquals(genCached.nextId, 1005)
-        assertEquals(genCached.nextId, 1006)
+        assertEquals(genCached.nextId, 1007)
+        assertEquals(genNormal.nextId, 1009)
+        assertEquals(genCached.nextId, 1008)
+        assertEquals(genCached.nextId, 1011)
+
     }
 
     @Test
     public void test_work2_cached() throws Exception {
         def svc = model.bean(GenIdService)
 
-        def genNormal = svc.genIds.get("tab2")
+        def genNormal = svc.genIds.get("gtab3")
         updateCurrentId(genNormal, 0)
         assertEquals(genNormal.currentId, 1000)
 
         //
-        def genCached = svc.getGenId("tab2", 2)
+        def genCached = svc.getGenId("gtab3", 2)
 
         //logOn()
 
         assertEquals(genNormal.currentId, 1000)
-        assertEquals(genCached.nextId, 1003)
-        assertEquals(genNormal.currentId, 1006)
-        assertEquals(genNormal.nextId, 1009)
+        assertEquals(genCached.currentId, 1000)
 
-        assertEquals(genCached.nextId, 1006)
+        assertEquals(genNormal.nextId, 1003)
+        assertEquals(genCached.nextId, 1009)
+        assertEquals(genNormal.nextId, 1015)
         assertEquals(genCached.nextId, 1012)
-        assertEquals(genCached.nextId, 1015)
-        assertEquals(genCached.nextId, 1018)
+        assertEquals(genCached.nextId, 1021)
+        assertEquals(genNormal.nextId, 1027)
+        assertEquals(genCached.nextId, 1024)
+        assertEquals(genCached.nextId, 1033)
     }
 
 }
