@@ -181,6 +181,25 @@ public class UtilsTestSvc extends BaseTestSvc {
         outTable(data, -1);
     }
 
+    /**
+     * Вывести таблицы на консоль
+     *
+     * @param lst   некий список объектов
+     * @param limit сколько записей выводить
+     */
+    public void outTableList(Collection lst, int limit) {
+        UtOutTable.outTableList(lst, limit);
+    }
+
+    /**
+     * Вывести таблицы на консоль
+     *
+     * @param lst некий список объектов
+     */
+    public void outTableList(Collection lst) {
+        outTableList(lst, -1);
+    }
+
     ////// errors
 
     /**

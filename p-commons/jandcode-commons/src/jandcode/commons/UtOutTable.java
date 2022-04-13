@@ -1,6 +1,9 @@
 package jandcode.commons;
 
+import jandcode.commons.named.*;
 import jandcode.commons.outtable.*;
+
+import java.util.*;
 
 /**
  * Утилиты для вывода информации в виде таблиц.
@@ -54,6 +57,34 @@ public class UtOutTable {
      */
     public static void outTable(Object data) {
         outTable(data, -1);
+    }
+
+    /**
+     * Вывести список таблиц на консоль
+     *
+     * @param lst   список объектов с данными для outTable
+     * @param limit сколько записей выводить, -1 - без лимита
+     */
+    public static void outTableList(Collection lst, int limit) {
+        int num = 0;
+        for (Object item : lst) {
+            String title = "#" + num;
+            if (item instanceof INamed nm) {
+                title = nm.getName();
+            }
+            System.out.println("");
+            System.out.println(title);
+            outTable(item, limit);
+        }
+    }
+
+    /**
+     * Вывести список таблиц на консоль
+     *
+     * @param lst список объектов с данными для outTable
+     */
+    public static void outTableList(Collection lst) {
+        outTableList(lst, -1);
     }
 
 }

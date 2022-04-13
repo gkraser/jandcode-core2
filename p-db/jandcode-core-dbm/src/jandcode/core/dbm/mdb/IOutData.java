@@ -44,4 +44,19 @@ public interface IOutData {
      */
     void outTable(Object data);
 
+    /**
+     * Вывести список таблиц на консоль
+     *
+     * @param lst   список объектов с данными (store, storeRecord, map)
+     * @param limit сколько записей выводить, -1 - без лимита
+     */
+    void outTableList(Collection lst, int limit);
+
+    /**
+     * Вывести список таблиц на консоль
+     *
+     * @param lst список объектов с данными (store, storeRecord, map)
+     */
+    void outTableList(Collection lst);
+
 }

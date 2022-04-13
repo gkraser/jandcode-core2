@@ -249,6 +249,15 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
         outTable(data, -1);
     }
 
+    public void outTableList(Collection lst, int limit) {
+        UtOutTable.outTableList(lst, limit);
+
+    }
+
+    public void outTableList(Collection lst) {
+        outTableList(lst, -1);
+    }
+
     ////// IMdbGenId
 
     private GenIdService getGenIdService() {
