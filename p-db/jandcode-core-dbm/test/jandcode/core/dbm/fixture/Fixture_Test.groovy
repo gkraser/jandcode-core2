@@ -6,7 +6,7 @@ import org.junit.jupiter.api.*
 class Fixture_Test extends Dbm_Test {
 
     @Test
-    public void test1() throws Exception {
+    void test1() throws Exception {
         def fx = Fixture.create(model)
         //
         fx.table('tab1').add(a: 1, b: 11)
@@ -17,7 +17,7 @@ class Fixture_Test extends Dbm_Test {
     }
 
     @Test
-    public void real_1() throws Exception {
+    void real_1() throws Exception {
         def fx = Fixture.create(model)
 
         def tab1 = fx.table("tab1")
@@ -31,7 +31,7 @@ class Fixture_Test extends Dbm_Test {
     }
 
     @Test
-    public void loadFromFile1() throws Exception {
+    void loadFromFile1() throws Exception {
         def fx = Fixture.create(model)
         fx.table("tab1").loadFromFile(utils.getTestFile("data/tab1.csv"))
 
@@ -39,11 +39,39 @@ class Fixture_Test extends Dbm_Test {
     }
 
     @Test
-    public void loadFromPath1() throws Exception {
+    void loadFromPath1() throws Exception {
         def fx = Fixture.create(model)
         fx.loadFromPath(utils.getTestFile("data"))
 
         utils.outTableList(fx.stores)
+
+        for (tb in fx.tables) {
+            println "${tb.name} ${tb.rangeId}"
+        }
+    }
+
+    @Test
+    void saveFixture1() throws Exception {
+        mdb.createQuery("")
+
+        def fx = Fixture.create(model)
+
+        def tab1 = fx.table("tab1")
+        def tab2 = fx.table("tab2")
+
+        for (i in 1..50000) {
+            tab1.add(id: i, a: i * 10)
+        }
+
+        for (i in 1..60000) {
+            tab2.add(id: i, b: i * 10)
+        }
+
+        //utils.outTableList(fx.stores, 3)
+
+        //
+        FixtureMdbUtils ut = new FixtureMdbUtils(mdb)
+        ut.saveFixture(fx, true)
     }
 
 

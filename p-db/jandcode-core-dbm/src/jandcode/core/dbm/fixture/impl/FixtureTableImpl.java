@@ -13,6 +13,7 @@ public class FixtureTableImpl extends Named implements FixtureTable {
 
     private Fixture fixture;
     private Store store;
+    private FixtureRangeId rangeId;
 
     public FixtureTableImpl(Fixture fixture, String name) {
         this.fixture = fixture;
@@ -44,5 +45,35 @@ public class FixtureTableImpl extends Named implements FixtureTable {
         StoreLoader ldr = svcStore.createStoreLoader(ldrName);
         ldr.setStore(getStore());
         ldr.load().fromFileObject(fileName);
+    }
+
+    protected FixtureRangeId calcRangeIdByStore() {
+        StoreField idField = getStore().findField("id");
+        if (idField == null || getStore().size() == 0) {
+            return new FixtureRangeIdImpl(0, 0);
+        }
+
+        long startId = Long.MAX_VALUE;
+        long endId = 0;
+
+        int idIdx = idField.getIndex();
+        for (StoreRecord rec : getStore()) {
+            long id = rec.getLong(idIdx);
+            if (id > endId) {
+                endId = id;
+            }
+            if (id < startId) {
+                startId = id;
+            }
+        }
+
+        return new FixtureRangeIdImpl(startId, endId);
+    }
+
+    public FixtureRangeId getRangeId() {
+        if (rangeId == null) {
+            return calcRangeIdByStore();
+        }
+        return rangeId;
     }
 }

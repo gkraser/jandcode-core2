@@ -7,22 +7,25 @@
 
         <model name="testdb.base">
 
-            <domain name="tab1" parent="id">
-                <field name="a" parent="string"/>
-                <field name="b" parent="string"/>
-                <field name="c" parent="string"/>
+            <domain name="tab1" parent="id" tag.db="true">
+                <field name="a" parent="string" size="40"/>
+                <field name="b" parent="string" size="40"/>
+                <field name="c" parent="string" size="40"/>
             </domain>
 
-            <domain name="tab2" parent="id">
-                <field name="a" parent="string"/>
-                <field name="b" parent="string"/>
-                <field name="c" parent="string"/>
-                <field name="d" parent="string"/>
+            <domain name="tab2" parent="id" tag.db="true">
+                <field name="a" parent="string" size="40"/>
+                <field name="b" parent="string" size="40"/>
+                <field name="c" parent="string" size="40"/>
+                <field name="d" parent="string" size="40"/>
             </domain>
 
         </model>
 
     </dbm>
 
+    <test>
+        <dbm create-db-struct="true"/>
+    </test>
 
 </root>

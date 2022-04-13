@@ -40,4 +40,9 @@ public interface FixtureTable extends INamed {
      */
     void loadFromFile(String fileName) throws Exception;
 
+    /**
+     * Получить диапазон задействованных id для таблицы.
+     */
+    FixtureRangeId getRangeId();
+
 }
