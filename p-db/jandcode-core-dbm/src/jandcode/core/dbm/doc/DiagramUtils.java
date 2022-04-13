@@ -71,4 +71,23 @@ public class DiagramUtils implements IModelLink {
         return res;
     }
 
+    /**
+     * Список диаграм, на которых используется указанный домен
+     *
+     * @param diagrams общий список диаграм, который будет анализироватся
+     * @param domain   искомый домен
+     * @return список диаграм, может быть пустым
+     */
+    public List<Diagram> usedInDiagrams(List<Diagram> diagrams, Domain domain) {
+        List<Diagram> res = new ArrayList<>();
+        for (Diagram diag : diagrams) {
+            for (Domain dd : diag.getDomains()) {
+                if (dd.getName().equalsIgnoreCase(domain.getName())) {
+                    res.add(diag);
+                    break;
+                }
+            }
+        }
+        return res;
+    }
 }

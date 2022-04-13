@@ -112,6 +112,19 @@
 <% utils.vars.out_title(d) %>
 <% utils.vars.out_comment(d) %>
 
+<%
+    def usedInDiags = diagUtils.usedInDiagrams(diags, d)
+    if (usedInDiags.size()>0) {
+%>
+<h3>Диаграммы</h3>
+<ul>
+  <% for (dg in usedInDiags) { %>
+  <li><a href="#${dg.name}__diagram">${dg.title}</a></li>
+  <% } %>
+</ul>
+<%
+    }
+%>
 <h3>Поля</h3>
 <table class="table-data">
   <tr>
