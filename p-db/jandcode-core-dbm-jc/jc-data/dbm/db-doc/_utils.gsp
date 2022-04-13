@@ -22,10 +22,13 @@
    * Вывод коментария, если он есть.
    * Коментарий берется из conf.
    */
-  th.vars.out_comment = { a ->
+  th.vars.out_comment = { a, title = null ->
     String rem = a.conf['comment']
     if (!rem) {
       return
+    }
+    if (title) {
+      out("""<h3>${title}</h3>""")
     }
     def html = th.vars.md_to_html(rem)
     out("""<div class="comment">${html}</div>""")

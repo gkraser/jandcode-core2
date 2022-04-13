@@ -98,6 +98,9 @@
 <div class="diagram-wrapper">
   <object data="images/${d.name}__diagram.svg"></object>
 </div>
+
+<% utils.vars.out_comment(d, "Описание") %>
+
 <% } %>
 
 %{--
