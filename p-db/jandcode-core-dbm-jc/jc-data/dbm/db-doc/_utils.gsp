@@ -28,7 +28,7 @@
       return
     }
     if (title) {
-      out("""<h3>${title}</h3>""")
+      out(title)
     }
     def html = th.vars.md_to_html(rem)
     out("""<div class="comment">${html}</div>""")

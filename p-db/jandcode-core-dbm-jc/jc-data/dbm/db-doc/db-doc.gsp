@@ -99,7 +99,7 @@
   <object data="images/${d.name}__diagram.svg"></object>
 </div>
 
-<% utils.vars.out_comment(d, "Описание") %>
+<% utils.vars.out_comment(d, "<h3>Описание</h3>") %>
 
 <% } %>
 
