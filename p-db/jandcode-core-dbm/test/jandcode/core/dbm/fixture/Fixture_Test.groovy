@@ -30,5 +30,21 @@ class Fixture_Test extends Dbm_Test {
         utils.outTableList(fx.stores)
     }
 
+    @Test
+    public void loadFromFile1() throws Exception {
+        def fx = Fixture.create(model)
+        fx.table("tab1").loadFromFile(utils.getTestFile("data/tab1.csv"))
+
+        utils.outTableList(fx.stores)
+    }
+
+    @Test
+    public void loadFromPath1() throws Exception {
+        def fx = Fixture.create(model)
+        fx.loadFromPath(utils.getTestFile("data"))
+
+        utils.outTableList(fx.stores)
+    }
+
 
 }

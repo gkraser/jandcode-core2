@@ -32,4 +32,12 @@ public interface FixtureTable extends INamed {
      */
     StoreRecord add(Map data);
 
+    /**
+     * Загрузить из файла. Используется StoreLoader, создаваемый по расширению
+     * файла (например csv, xml)
+     *
+     * @param fileName ия файла в формате vfs
+     */
+    void loadFromFile(String fileName) throws Exception;
+
 }

@@ -24,7 +24,7 @@ public interface FixtureGenId {
      * Конечная id (включительно)
      */
     long getEndId();
-    
+
     /**
      * Пропускает count id. Возвращает первую в пропущенном диапазоне.
      *

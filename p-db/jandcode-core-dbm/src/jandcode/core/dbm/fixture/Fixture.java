@@ -42,4 +42,18 @@ public interface Fixture extends INamed, INamedSet, IModelLink {
      */
     FixtureTable table(String name);
 
+    /**
+     * Загрузить по пути. Каждый файл должен иметь имя по
+     * шаблону DOMAINNAME[-xxx].[store_loader_name].
+     * <p>
+     * Если DOMAINNAME соотвествует домену, то данные загружаются
+     * в соответсвующую таблицу.
+     * <p>
+     * Используется StoreLoader, создаваемый по расширению
+     * файла (например csv, xml).
+     *
+     * @param path путь, можно использовать маски
+     */
+    void loadFromPath(String path) throws Exception;
+
 }

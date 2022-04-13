@@ -1,6 +1,8 @@
 package jandcode.core.dbm.fixture.impl;
 
+import jandcode.commons.error.*;
 import jandcode.commons.named.*;
+import jandcode.core.dbm.dbdata.*;
 import jandcode.core.dbm.domain.*;
 import jandcode.core.dbm.fixture.*;
 import jandcode.core.store.*;
@@ -31,4 +33,16 @@ public class FixtureTableImpl extends Named implements FixtureTable {
         return store.add(data);
     }
 
+    public void loadFromFile(String fileName) throws Exception {
+        StoreService svcStore = getFixture().getModel().getApp().bean(StoreService.class);
+        //
+        String ldrName = DbDataUtils.fileNameToStoreLoaderName(fileName);
+        if (!svcStore.hasStoreLoader(ldrName)) {
+            throw new XError("Для файла {0} не найден StoreLoader: {1}", fileName, ldrName);
+        }
+
+        StoreLoader ldr = svcStore.createStoreLoader(ldrName);
+        ldr.setStore(getStore());
+        ldr.load().fromFileObject(fileName);
+    }
 }
