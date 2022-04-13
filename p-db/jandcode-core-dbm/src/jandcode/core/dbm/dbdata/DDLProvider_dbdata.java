@@ -1,4 +1,4 @@
-package jandcode.core.dbm.ddl.std;
+package jandcode.core.dbm.dbdata;
 
 import jandcode.commons.*;
 import jandcode.commons.error.*;
@@ -11,6 +11,9 @@ import org.apache.commons.vfs2.*;
 
 import java.util.*;
 
+/**
+ * Провайдер ddl для формирования операторов insert из файлов csv, xml по указанному пути
+ */
 public class DDLProvider_dbdata extends BaseDDLProvider {
 
     private boolean used;
@@ -43,12 +46,12 @@ public class DDLProvider_dbdata extends BaseDDLProvider {
 
         for (FileObject f : lst) {
             String fn = f.toString();
-            String ldrName = DDLUtils.fileNameToStoreLoaderName(fn);
+            String ldrName = DbDataUtils.fileNameToStoreLoaderName(fn);
             if (!svcStore.hasStoreLoader(ldrName)) {
                 throw new XError("Для файла {0} не найден StoreLoader: {1}", fn, ldrName);
             }
             //
-            String domainName = DDLUtils.fileNameToDomainName(fn);
+            String domainName = DbDataUtils.fileNameToDomainName(fn);
             Domain domain = svcDomain.findDomain(domainName);
             if (domain == null) {
                 throw new XError("Для файла {0} не найден Domain: {1}", fn, ldrName);

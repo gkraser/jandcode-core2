@@ -16,5 +16,19 @@ class Fixture_Test extends Dbm_Test {
         utils.outTableList(fx.stores)
     }
 
+    @Test
+    public void real_1() throws Exception {
+        def fx = Fixture.create(model)
+
+        def tab1 = fx.table("tab1")
+        def tab2 = fx.table("tab2")
+
+        for (i in 1..5) {
+            tab1.add(a: i)
+        }
+
+        utils.outTableList(fx.stores)
+    }
+
 
 }
