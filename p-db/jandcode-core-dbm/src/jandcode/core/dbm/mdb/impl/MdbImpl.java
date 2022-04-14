@@ -262,7 +262,7 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
 
     private GenIdService getGenIdService() {
         if (genIdService == null) {
-            genIdService = getApp().bean(GenIdService.class);
+            genIdService = getModel().bean(GenIdService.class);
         }
         return genIdService;
     }
