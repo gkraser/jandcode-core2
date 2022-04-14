@@ -1,6 +1,7 @@
 package jandcode.core.dbm.jc
 
 import jandcode.commons.*
+import jandcode.commons.named.*
 import jandcode.core.*
 import jandcode.core.dbm.*
 import jandcode.core.jc.*
@@ -54,7 +55,12 @@ class DbmRootProject extends ProjectScript {
         //
         println ut.makeDelim("models")
         m = [:]
-        for (ModelDef md in svcModel.getModels()) {
+
+        NamedList<ModelDef> models = new DefaultNamedList<>()
+        models.addAll(svcModel.getModels())
+        models.sort()
+
+        for (ModelDef md in models) {
             String name = md.name
 
             Map value = [:]
