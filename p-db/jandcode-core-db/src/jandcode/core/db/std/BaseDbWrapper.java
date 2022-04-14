@@ -63,15 +63,15 @@ public abstract class BaseDbWrapper implements Db {
     }
 
     public void startTran() throws Exception {
-        getWrap().startTran();
+        getWrapConnected().startTran();
     }
 
     public void commit() throws Exception {
-        getWrap().commit();
+        getWrapConnected().commit();
     }
 
     public void rollback() throws Exception {
-        getWrap().rollback();
+        getWrapConnected().rollback();
     }
 
     public boolean isTran() {
@@ -113,7 +113,7 @@ public abstract class BaseDbWrapper implements Db {
     }
 
     public void rollback(Exception e) throws Exception {
-        getWrap().rollback(e);
+        getWrapConnected().rollback(e);
     }
 
     public Store loadQuery(CharSequence sql) throws Exception {

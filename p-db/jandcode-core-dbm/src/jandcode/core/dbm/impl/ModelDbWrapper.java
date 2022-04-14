@@ -48,5 +48,9 @@ public class ModelDbWrapper extends BaseDbWrapper {
         return db;
     }
 
-
+    public void connect() throws Exception {
+        // явный вызов connect - это вложенный connect!
+        // ибо явно connect не вызывается никогда в месте использования autoConnect
+        getWrapConnected().connect();
+    }
 }
