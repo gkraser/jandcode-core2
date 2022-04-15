@@ -1,6 +1,7 @@
 package jandcode.core.dbm.fixture;
 
 import jandcode.commons.error.*;
+import jandcode.core.*;
 import jandcode.core.db.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.impl.*;
@@ -9,7 +10,7 @@ import jandcode.core.dbm.mdb.*;
 /**
  * Предок построителей fixture
  */
-public abstract class BaseFixtureBuilder implements IModelLink {
+public abstract class BaseFixtureBuilder extends BaseComp implements FixtureBuilder {
 
     private Fixture fx;
     private Db db;
@@ -20,11 +21,9 @@ public abstract class BaseFixtureBuilder implements IModelLink {
      */
     protected abstract void onBuild();
 
-    /**
-     * Построить fixture для модели
-     */
     public Fixture build(Model model) {
         this.fx = Fixture.create(model);
+        setApp(model.getApp());
         doInternalBuild();
         return this.fx;
     }
@@ -32,28 +31,28 @@ public abstract class BaseFixtureBuilder implements IModelLink {
     /**
      * Какую фикстуру строим (синоним для getFixture())
      */
-    public Fixture getFx() {
+    protected Fixture getFx() {
         return fx;
     }
 
     /**
      * Какую фикстуру строим (синоним для getFx())
      */
-    public Fixture getFixture() {
+    protected Fixture getFixture() {
         return fx;
     }
 
     /**
      * Для какой модели
      */
-    public Model getModel() {
+    protected Model getModel() {
         return getFx().getModel();
     }
 
     /**
      * mdb с установленным соединением
      */
-    public Mdb getMdb() {
+    protected Mdb getMdb() {
         if (this.mdb == null) {
             Db dbTmp = getModel().createDb();
             this.db = new ModelDbWrapper(dbTmp, true, false);

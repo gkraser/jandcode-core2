@@ -75,4 +75,22 @@ class Fixture_Test extends Dbm_Test {
     }
 
 
+    @Test
+    public void suite1() throws Exception {
+        def svc = app.bean(FixtureService)
+        //
+        def suite = svc.createFixtureSuite("tab1")
+        def bs = suite.createBuilders()
+        //
+        FixtureMdbUtils ut = new FixtureMdbUtils(mdb)
+        for (b in bs) {
+            def fx = b.build(model)
+            utils.outTableList(fx.stores)
+            ut.saveFixture(fx, true)
+        }
+        //
+        def st = mdb.loadQuery("select * from tab1 where id>=50000 order by id")
+        utils.outTable(st)
+    }
+
 }
