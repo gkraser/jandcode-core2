@@ -4,6 +4,7 @@ import jandcode.commons.*
 import jandcode.commons.named.*
 import jandcode.core.*
 import jandcode.core.dbm.*
+import jandcode.core.dbm.fixture.*
 import jandcode.core.jc.*
 import jandcode.jc.*
 
@@ -52,6 +53,20 @@ class DbmRootProject extends ProjectScript {
         ModelService svcModel = app.bean(ModelService)
 
         Map m
+
+        // fixtures
+        FixtureService fxSvc = app.bean(FixtureService)
+        def fxNames = fxSvc.getFixtureSuiteNames()
+        if (fxNames.size() > 0) {
+            println ut.makeDelim("fixture-suites")
+            m = [:]
+            for (nm in fxNames) {
+                def suite = fxSvc.createFixtureSuite(nm)
+                m[nm] = suite.conf.origin().toString()
+            }
+            ut.printMap(m)
+        }
+
         //
         println ut.makeDelim("models")
         m = [:]
