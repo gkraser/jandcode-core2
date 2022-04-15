@@ -5,6 +5,7 @@ import jandcode.commons.test.*;
 import jandcode.core.dao.*;
 import jandcode.core.db.*;
 import jandcode.core.dbm.*;
+import jandcode.core.dbm.fixture.*;
 import jandcode.core.dbm.mdb.*;
 import jandcode.core.dbm.std.*;
 import jandcode.core.store.*;
@@ -324,6 +325,68 @@ public class DbmTestSvc extends BaseAppTestSvc {
         } catch (Exception e) {
             getDb().rollback(e);
         }
+    }
+
+    ////// fixtures
+
+    /**
+     * Записать fixture в базу, старые данные не удалять
+     */
+    public void saveFixture(Fixture fx) throws Exception {
+        new FixtureMdbUtils(getMdb()).saveFixture(fx, true);
+    }
+
+    /**
+     * Удалить данные fixture
+     */
+    public void cleanFixture(Fixture fx) throws Exception {
+        new FixtureMdbUtils(getMdb()).cleanFixture(fx, true);
+    }
+
+    /**
+     * Удалить данные fixture, а потом записать новые данные
+     */
+    public void updateFixture(Fixture fx) throws Exception {
+        new FixtureMdbUtils(getMdb()).updateFixture(fx, true);
+    }
+
+    /**
+     * Записать fixture в базу
+     *
+     * @param doClean true - сначала удаить старые данные
+     */
+    public void saveFixtureSuite(String fixtureSuiteName, boolean doClean) throws Exception {
+        getMdb().connect();
+        try {
+            System.out.println("fixture-suite: " + fixtureSuiteName);
+            FixtureService svc = getApp().bean(FixtureService.class);
+            FixtureSuite suite = svc.createFixtureSuite(fixtureSuiteName);
+            List<FixtureBuilder> bs = suite.createBuilders();
+            for (FixtureBuilder b : bs) {
+                System.out.println("fixture-builder: " + b.getClass().getName());
+                Fixture fx = b.build(getModel());
+                if (doClean) {
+                    cleanFixture(fx);
+                }
+                saveFixture(fx);
+            }
+        } finally {
+            getMdb().disconnect();
+        }
+    }
+
+    /**
+     * Записать fixture в базу, старые данные не удалять
+     */
+    public void saveFixtureSuite(String fixtureSuiteName) throws Exception {
+        saveFixtureSuite(fixtureSuiteName, false);
+    }
+
+    /**
+     * Записать fixture в базу, удалить старые данные
+     */
+    public void updateFixtureSuite(String fixtureSuiteName) throws Exception {
+        saveFixtureSuite(fixtureSuiteName, true);
     }
 
 }
