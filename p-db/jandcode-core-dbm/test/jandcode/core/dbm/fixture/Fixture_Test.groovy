@@ -51,7 +51,7 @@ class Fixture_Test extends Dbm_Test {
     }
 
     @Test
-    void saveFixture1() throws Exception {
+    void updateFixture1() throws Exception {
         mdb.createQuery("")
 
         def fx = Fixture.create(model)
@@ -71,7 +71,7 @@ class Fixture_Test extends Dbm_Test {
 
         //
         FixtureMdbUtils ut = new FixtureMdbUtils(mdb)
-        ut.saveFixture(fx, true)
+        ut.updateFixture(fx, true)
     }
 
 
@@ -86,7 +86,7 @@ class Fixture_Test extends Dbm_Test {
         for (b in bs) {
             def fx = b.build(model)
             utils.outTableList(fx.stores)
-            ut.saveFixture(fx, true)
+            ut.updateFixture(fx, true)
         }
         //
         def st = mdb.loadQuery("select * from tab1 where id>=50000 order by id")

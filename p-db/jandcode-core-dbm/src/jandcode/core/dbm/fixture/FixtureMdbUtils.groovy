@@ -69,19 +69,20 @@ class FixtureMdbUtils extends BaseMdbUtils {
     }
 
     /**
-     * Записать фикстуру.
-     * Перед записью будут удалены все записи в диапазоне startId-endID
+     * Очистить данные для фикстуры.
+     * Будут удалены все записи в диапазоне startId-endID
      * для всех таблиц в фикстуре.
      *
      * @param fx фикстура
+     * @param showProgress показывать ли progress
      */
-    void saveFixture(Fixture fx, boolean showProgress) throws Exception {
+    void cleanFixture(Fixture fx, boolean showProgress) throws Exception {
         mdb.startTran()
         try {
             Progress prg = null
             if (showProgress) {
                 prg = new Progress()
-                prg.stopwatch.start("save fixture")
+                prg.stopwatch.start("clean fixture")
             }
 
             // удаляем в обратном записи порядке
@@ -99,6 +100,32 @@ class FixtureMdbUtils extends BaseMdbUtils {
                     prg.stop()
                 }
 
+            }
+
+            mdb.commit()
+
+            if (prg != null) {
+                prg.stopwatch.stop("clean fixture")
+            }
+
+        } catch (Exception e) {
+            mdb.rollback(e)
+        }
+    }
+
+    /**
+     * Записать фикстуру.
+     *
+     * @param fx фикстура
+     * @param showProgress показывать ли progress
+     */
+    void saveFixture(Fixture fx, boolean showProgress) throws Exception {
+        mdb.startTran()
+        try {
+            Progress prg = null
+            if (showProgress) {
+                prg = new Progress()
+                prg.stopwatch.start("save fixture")
             }
 
             SqlBuilder sqlBuilder = mdb.createSqlBuilder()
@@ -132,6 +159,17 @@ class FixtureMdbUtils extends BaseMdbUtils {
         } catch (Exception e) {
             mdb.rollback(e)
         }
+    }
+
+    /**
+     * Обновить фикстуру. Сначала выполняется cleanFixture, потом saveFixture.
+     *
+     * @param fx фикстура
+     * @param showProgress показывать ли progress
+     */
+    void updateFixture(Fixture fx, boolean showProgress) throws Exception {
+        cleanFixture(fx, showProgress)
+        saveFixture(fx, showProgress)
     }
 
 }
