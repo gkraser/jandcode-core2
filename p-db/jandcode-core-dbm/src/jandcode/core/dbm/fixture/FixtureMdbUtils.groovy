@@ -3,6 +3,7 @@ package jandcode.core.dbm.fixture
 import groovy.transform.*
 import jandcode.commons.stopwatch.*
 import jandcode.core.db.*
+import jandcode.core.dbm.genid.std.*
 import jandcode.core.dbm.mdb.*
 import jandcode.core.dbm.sql.*
 import jandcode.core.store.*
@@ -154,6 +155,21 @@ class FixtureMdbUtils extends BaseMdbUtils {
 
             if (prg != null) {
                 prg.stopwatch.stop("save fixture")
+            }
+
+            if (prg != null) {
+                prg.stopwatch.start("recover genId")
+            }
+
+            List<String> genIdNames = []
+            for (t in fx.tables) {
+                genIdNames.add(t.name)
+            }
+            GenIdTools genIdTools = new GenIdTools(fx.model)
+            genIdTools.recoverGenIds(genIdNames, true)
+
+            if (prg != null) {
+                prg.stopwatch.stop("recover genId")
             }
 
         } catch (Exception e) {

@@ -3,6 +3,8 @@ package jandcode.core.dbm.fixture
 import jandcode.core.dbm.test.*
 import org.junit.jupiter.api.*
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class Fixture_Test extends Dbm_Test {
 
     @Test
@@ -91,6 +93,33 @@ class Fixture_Test extends Dbm_Test {
         //
         def st = mdb.loadQuery("select * from tab1 where id>=50000 order by id")
         utils.outTable(st)
+    }
+
+    void checkRange(FixtureRangeId r, long startId, long endId) {
+        assertEquals(r.startId, startId, "range startId")
+        assertEquals(r.endId, endId, "range endId")
+    }
+
+    @Test
+    public void genid() throws Exception {
+        def fx = Fixture.create(model)
+
+        def tab1 = fx.table("tab1")
+        checkRange(tab1.rangeId, 0, 0)
+
+        tab1.add(id: 3)
+        checkRange(tab1.rangeId, 3, 3)
+
+        tab1.rangeId(2)
+        checkRange(tab1.rangeId, 2, 3)
+
+        tab1.rangeId(2, 30)
+        checkRange(tab1.rangeId, 2, 30)
+
+        //
+        assertEquals(tab1.nextId, 2)
+        assertEquals(tab1.nextId, 3)
+        assertEquals(tab1.lastId, 3)
     }
 
 }

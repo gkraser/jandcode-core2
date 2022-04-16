@@ -13,7 +13,7 @@ public class FixtureTableImpl extends Named implements FixtureTable {
 
     private Fixture fixture;
     private Store store;
-    private FixtureRangeId rangeId;
+    private FixtureGenIdImpl genId = new FixtureGenIdImpl();
 
     public FixtureTableImpl(Fixture fixture, String name) {
         this.fixture = fixture;
@@ -31,7 +31,15 @@ public class FixtureTableImpl extends Named implements FixtureTable {
     }
 
     public StoreRecord add(Map data) {
-        return store.add(data);
+        StoreRecord rec = store.add(data);
+        //
+        long id = rec.getLong("id");
+        if (id == 0) {
+            id = getNextId();
+            rec.setValue("id", id);
+        }
+        //
+        return rec;
     }
 
     public void loadFromFile(String fileName) throws Exception {
@@ -71,9 +79,39 @@ public class FixtureTableImpl extends Named implements FixtureTable {
     }
 
     public FixtureRangeId getRangeId() {
-        if (rangeId == null) {
-            return calcRangeIdByStore();
+        if (getStartId() >= 0 && getEndId() >= 0) {
+            return new FixtureRangeIdImpl(getStartId(), getEndId());
         }
-        return rangeId;
+        FixtureRangeId rng = calcRangeIdByStore();
+        return new FixtureRangeIdImpl(
+                getStartId() < 0 ? rng.getStartId() : getStartId(),
+                getEndId() < 0 ? rng.getEndId() : getEndId()
+        );
+    }
+
+    ////// genId
+
+    public long getNextId() {
+        return genId.getNextId();
+    }
+
+    public long getLastId() {
+        return genId.getLastId();
+    }
+
+    public long getStartId() {
+        return genId.getStartId();
+    }
+
+    public long getEndId() {
+        return genId.getEndId();
+    }
+
+    public long skipId(long count) {
+        return genId.skipId(count);
+    }
+
+    public void rangeId(long startId, long endId) {
+        genId.rangeId(startId, endId);
     }
 }

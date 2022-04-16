@@ -10,7 +10,7 @@ import java.util.*;
  * Таблица фикстуры.
  * Имя соответствует имени таблицы в базе и имени Store.
  */
-public interface FixtureTable extends INamed {
+public interface FixtureTable extends INamed, IFixtureGenId {
 
     /**
      * Какой фикстуре принадлежит
