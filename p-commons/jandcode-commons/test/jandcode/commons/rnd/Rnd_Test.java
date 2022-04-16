@@ -9,7 +9,7 @@ public class Rnd_Test extends Utils_Test {
 
     public void setUp() throws Exception {
         super.setUp();
-        r = new Rnd();
+        r = Rnd.create(545);
     }
 
     //////
@@ -75,6 +75,19 @@ public class Rnd_Test extends Utils_Test {
     public void test_choiceChar() throws Exception {
         for (int i = 1; i <= 100; i++) {
             String s = String.format("%2c", r.choice("qaz"));
+            System.out.print(s);
+            if (i % 10 == 0) {
+                System.out.println();
+            }
+        }
+        System.out.println();
+    }
+
+    @Test
+    public void test_choiceFromArr() throws Exception {
+        String[] arr = new String[]{"i1", "i2", "i3"};
+        for (int i = 1; i <= 100; i++) {
+            String s = String.format("%3s", r.choice(arr));
             System.out.print(s);
             if (i % 10 == 0) {
                 System.out.println();

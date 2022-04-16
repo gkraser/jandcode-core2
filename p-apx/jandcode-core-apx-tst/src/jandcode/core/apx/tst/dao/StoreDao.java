@@ -117,7 +117,7 @@ public class StoreDao extends BaseModelDao {
 
     private Store genStore1(long fromId, int incId, int countRecords, int countFields) {
 
-        Rnd rnd = new Rnd(fromId);
+        Rnd rnd = Rnd.create(fromId);
 
         Store st = getMdb().createStore();
         st.addField("id", "long");

@@ -1,146 +1,119 @@
 package jandcode.commons.rnd;
 
-import jandcode.commons.*;
+import jandcode.commons.rnd.impl.*;
 
-import java.math.*;
 import java.util.*;
 
 /**
  * Набор утилит для генерации случайных данных.
  */
-@SuppressWarnings("unchecked")
-public class Rnd implements IRnd {
+public interface Rnd {
 
-    public static final String E_CHARS = "qwertyuiopasdfghjklzxcvbnm";
-    public static final String R_CHARS = "йцукенгшщзхъфывапролджэячсмитьбю";
-    public static final String N_CHARS = "0123456789";
-    public static final String ER_CHARS = E_CHARS + R_CHARS;
-    public static final String ERN_CHARS = E_CHARS + R_CHARS + N_CHARS;
-
-    //////
-
-    private Random random;
-    private Map<Class, RndExt> exts;
-
-    public Rnd() {
-    }
-
-    public Rnd(long seed) {
-        setSeed(seed);
+    /**
+     * Создать экземпляр {@link Rnd}
+     */
+    static Rnd create() {
+        return new RndImpl();
     }
 
     /**
-     * Текущий используемый random.
-     * Если явно не установлен, то будет автоматически создан.
+     * Создать экземпляр {@link Rnd} с начальным значение генератора Random для получения
+     * предсказуемых последовательностей.
      */
-    public Random getRandom() {
-        if (random == null) {
-            random = new Random();
-        }
-        return random;
+    static Rnd create(long seed) {
+        return new RndImpl(seed);
     }
+
+    //////
+
+    String E_CHARS = "qwertyuiopasdfghjklzxcvbnm";
+    String R_CHARS = "йцукенгшщзхъфывапролджэячсмитьбю";
+    String N_CHARS = "0123456789";
+    String ER_CHARS = E_CHARS + R_CHARS;
+    String ERN_CHARS = E_CHARS + R_CHARS + N_CHARS;
+
+    //////
+
+    /**
+     * Установить начальное значение генератора Random для получения
+     * предсказуемых последовательностей.
+     */
+    void setSeed(long seed);
+
+    /**
+     * Текущий используемый random.
+     */
+    Random getRandom();
 
     /**
      * Установить другой random для использования
      */
-    public void setRandom(Random random) {
-        this.random = random;
-    }
-
-    public void setSeed(long seed) {
-        getRandom().setSeed(seed);
-    }
-
-    public <A extends RndExt> A getExt(Class<A> cls) {
-        if (exts == null) {
-            exts = new HashMap<>();
-        }
-        RndExt res = exts.get(cls);
-        if (res == null) {
-            res = createExt(cls);
-            exts.put(cls, res);
-        }
-        return (A) res;
-    }
-
-    public <A extends RndExt> A createExt(Class<A> cls) {
-        RndExt res = (RndExt) UtClass.createInst(cls);
-        res.setRnd(this);
-        return (A) res;
-    }
+    void setRandom(Random random);
 
     //////
 
-    public boolean bool() {
-        return num(0, 1) == 1;
-    }
+    /**
+     * true/false с вероятностью 50%
+     */
+    boolean bool();
 
-    public boolean bool(int t, int f) {
-        return num(1, t + f) <= t;
-    }
+    /**
+     * true/false с вероятностью chanceTrue/chanceFalse
+     */
+    boolean bool(int chanceTrue, int chanceFalse);
 
-    public boolean bool(int t) {
-        return bool(t, 1);
-    }
+    //////
 
-    public int num(int min, int max) {
-        int cnt = max - min + 1;
-        int v = getRandom().nextInt(cnt);
-        return v + min;
-    }
+    /**
+     * int в указанном диапазоне
+     */
+    int num(int min, int max);
 
-    public double doub(double min, double max, int scale) {
-        double d = (max - min) * getRandom().nextDouble() + min;
-        if (scale == 0) {
-            return (int) d;
-        } else if (scale > 0) {
-            BigDecimal decimal = new BigDecimal(d);
-            decimal = decimal.setScale(scale, RoundingMode.DOWN);
-            return decimal.doubleValue();
-        }
-        return d;
-    }
+    /**
+     * double в указанном диапазоне с указанным числом знаков после запятой (scale).
+     */
+    double doub(double min, double max, int scale);
 
-    public char choice(CharSequence chars) {
-        if (chars == null) {
-            return 0;
-        }
-        return chars.charAt(num(0, chars.length() - 1));
-    }
+    //////
 
-    public Object choice(List items) {
-        if (items == null) {
-            return null;
-        }
-        return items.get(num(0, items.size() - 1));
-    }
+    /**
+     * Значение value или null с вероятностью chanceNull/chanceNotNull
+     */
+    Object nullValue(Object value, int chanceNull, int chanceNotNull);
 
-    public String choice(String[] items) {
-        if (items == null) {
-            return "";
-        }
-        return items[num(0, items.length - 1)];
-    }
+    /**
+     * Значение value или null с вероятностью 50%
+     */
+    Object nullValue(Object value);
 
-    ////// text
+    //////
 
-    public String text(String chars, int min, int max, int wordSize) {
-        int len = num(min, max);
-        StringBuilder sb = new StringBuilder();
-        int curWS = 0;
-        for (int i = 0; i < len; i++) {
-            char c = choice(chars);
-            if (wordSize > 0 && i < len - 1 && curWS > wordSize) {
-                int a = num(0, 2);
-                if (a == 0) {
-                    c = ' ';
-                    curWS = 0;
-                }
-            }
-            curWS++;
-            sb.append(c);
-        }
-        return sb.toString();
-    }
+    /**
+     * Один из символов из chars
+     */
+    char choice(CharSequence chars);
+
+    /**
+     * Один из объектов из items
+     */
+    Object choice(List items);
+
+    /**
+     * Один из объектов из items
+     */
+    Object choice(Object[] items);
+
+    //////
+
+    /**
+     * Текст
+     *
+     * @param chars    набор символов
+     * @param min      минимальная длина
+     * @param max      максимальная длина
+     * @param wordSize примерный размер слова. Если 0 - то пробелы не вставляются.
+     * @return текст
+     */
+    String text(String chars, int min, int max, int wordSize);
 
 }
