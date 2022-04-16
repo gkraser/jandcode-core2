@@ -150,4 +150,10 @@ public final class XDateTimeImpl implements XDateTime {
         return this.clearTime().equals(XDateTime.today());
     }
 
+    //////
+
+    public XDateTime withTime(int hour, int min, int sec, int msec) {
+        return create(Jdn.create(jdn.jdn, Jdn.encodeTime(hour, min, sec, msec)));
+    }
+    
 }

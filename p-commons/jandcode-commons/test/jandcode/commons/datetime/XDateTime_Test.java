@@ -382,4 +382,12 @@ public class XDateTime_Test extends Utils_Test {
         assertEquals(d1.diffDays(d1), 0);
     }
 
+    @Test
+    public void withTime_datetime() throws Exception {
+        XDateTime d1 = XDateTime.create(2001, 12, 30);
+        XDateTime d2 = XDateTime.create(2001, 12, 30, 1, 2, 3, 4);
+        XDateTime d3 = d1.withTime(1, 2, 3, 4);
+        assertEquals(d2, d3);
+    }
+
 }

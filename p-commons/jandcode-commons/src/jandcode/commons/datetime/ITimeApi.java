@@ -62,4 +62,9 @@ public interface ITimeApi<TYPE> {
 
     //////
 
+    /**
+     * Возвращает эту дату с указанным временем
+     */
+    TYPE withTime(int hour, int min, int sec, int msec);
+
 }

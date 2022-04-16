@@ -1,5 +1,6 @@
 package jandcode.commons.rnd.impl;
 
+import jandcode.commons.datetime.*;
 import jandcode.commons.rnd.*;
 
 import java.math.*;
@@ -117,4 +118,22 @@ public class RndImpl implements Rnd {
         return sb.toString();
     }
 
+    //////
+
+
+    public XDate date(XDate min, XDate max) {
+        if (min.equals(max)) {
+            return min;
+        }
+        int days = max.diffDays(min);
+        return min.addDays(num(0, days));
+    }
+
+    public XDateTime datetime(XDateTime min, XDateTime max) {
+        if (min.equals(max)) {
+            return min;
+        }
+        int days = max.diffDays(min);
+        return min.addDays(num(0, days));
+    }
 }

@@ -1,5 +1,6 @@
 package jandcode.commons.rnd;
 
+import jandcode.commons.datetime.*;
 import jandcode.commons.rnd.impl.*;
 
 import java.util.*;
@@ -115,5 +116,17 @@ public interface Rnd {
      * @return текст
      */
     String text(String chars, int min, int max, int wordSize);
+
+    //////
+
+    /**
+     * XDate в указанном диапазоне
+     */
+    XDate date(XDate min, XDate max);
+
+    /**
+     * XDateTime в указанном диапазоне
+     */
+    XDateTime datetime(XDateTime min, XDateTime max);
 
 }
