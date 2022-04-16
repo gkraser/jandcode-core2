@@ -134,6 +134,11 @@ public class RndImpl implements Rnd {
             return min;
         }
         int days = max.diffDays(min);
-        return min.addDays(num(0, days));
+        return min.addDays(num(0, days)).withTime(
+                num(0, 23),
+                num(0, 59),
+                num(0, 59),
+                num(0, 999)
+        );
     }
 }

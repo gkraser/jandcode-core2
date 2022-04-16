@@ -1,5 +1,6 @@
 package jandcode.commons.rnd;
 
+import jandcode.commons.datetime.*;
 import jandcode.commons.test.*;
 import org.junit.jupiter.api.*;
 
@@ -109,6 +110,34 @@ public class Rnd_Test extends Utils_Test {
             String s = String.format("%9.5f ", r.doub(-10.9, 11.3, 3));
             System.out.print(s);
             if (i % 10 == 0) {
+                System.out.println();
+            }
+        }
+        System.out.println();
+    }
+
+    @Test
+    public void test_date() throws Exception {
+        XDate min = XDate.create(1999, 12, 1);
+        XDate max = XDate.create(1999, 12, 5);
+        for (int i = 1; i <= 100; i++) {
+            String s = r.date(min, max).toString() + "  ";
+            System.out.print(s);
+            if (i % 10 == 0) {
+                System.out.println();
+            }
+        }
+        System.out.println();
+    }
+
+    @Test
+    public void test_datetime() throws Exception {
+        XDateTime min = XDateTime.create(1999, 12, 1);
+        XDateTime max = XDateTime.create(1999, 12, 5);
+        for (int i = 1; i <= 100; i++) {
+            String s = r.datetime(min, max).toString() + "  ";
+            System.out.print(s);
+            if (i % 5 == 0) {
                 System.out.println();
             }
         }
