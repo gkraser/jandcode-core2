@@ -73,9 +73,14 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
         if (cn1 != null) {
             cn = cn1;
         } else {
-            cn1 = UtString.removeSuffix(cn, "Dao");
+            cn1 = UtString.removeSuffix(cn, "_dao");
             if (cn1 != null) {
                 cn = cn1;
+            } else {
+                cn1 = UtString.removeSuffix(cn, "Dao");
+                if (cn1 != null) {
+                    cn = cn1;
+                }
             }
         }
         cn = UtString.uncapFirst(cn);
