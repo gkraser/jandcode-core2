@@ -11,20 +11,25 @@ public class IgnoreMethods {
     private Set<String> ignoreMethods = new HashSet<>();
 
     public IgnoreMethods() {
-        addIgnore(BaseDao.class);
-        addIgnore("groovy.lang.GroovyObjectSupport");
+        addIgnoreClass(BaseDao.class);
+        addIgnoreClass("groovy.lang.GroovyObjectSupport");
+        addIgnore("impl");
     }
 
-    public void addIgnore(Class cls) {
+    public void addIgnore(String methodName) {
+        ignoreMethods.add(methodName);
+    }
+
+    public void addIgnoreClass(Class cls) {
         for (Method m : cls.getMethods()) {
-            ignoreMethods.add(m.getName());
+            addIgnore(m.getName());
         }
     }
 
-    public void addIgnore(String clsName) {
+    public void addIgnoreClass(String clsName) {
         try {
             Class cls = UtClass.getClass(clsName);
-            addIgnore(cls);
+            addIgnoreClass(cls);
         } catch (Exception e) {
             // ignore
         }
