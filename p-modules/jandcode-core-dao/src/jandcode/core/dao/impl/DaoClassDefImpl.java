@@ -11,7 +11,9 @@ public class DaoClassDefImpl implements DaoClassDef {
     private static IgnoreMethods ignoreMethods = new IgnoreMethods();
 
     private Class cls;
+    private Class clsInst;
     private NamedList<DaoMethodDef> methods;
+
 
     public DaoClassDefImpl(Class cls) {
         this.cls = cls;
@@ -22,6 +24,17 @@ public class DaoClassDefImpl implements DaoClassDef {
 
     public Class getCls() {
         return cls;
+    }
+
+    public Class getClsInst() {
+        if (clsInst == null) {
+            return cls;
+        }
+        return clsInst;
+    }
+
+    public void setClsInst(Class clsInst) {
+        this.clsInst = clsInst;
     }
 
     public NamedList<DaoMethodDef> getMethods() {
@@ -59,10 +72,31 @@ public class DaoClassDefImpl implements DaoClassDef {
             if (methods.find(nm) != null) {
                 throw new XError("В dao-классе {0} дублирование имени dao-метода {1}", this.cls.getName(), mt.getName());
             }
-            DaoMethodDef mdef = new DaoMethodDefImpl(this.cls, mt);
+            DaoMethodDef mdef = new DaoMethodDefImpl(this, mt);
             methods.add(mdef);
         }
 
+        // в случае абстрактного класса
+        int md = this.cls.getModifiers();
+        if (Modifier.isAbstract(md)) {
+            // должен быть не абстрактный метод impl
+            Method implMethod;
+            try {
+                implMethod = this.cls.getMethod("impl");
+            } catch (NoSuchMethodException e) {
+                throw new XError("В абстрактном dao-классе {0} нет метода impl()", this.cls.getName());
+            }
+            md = implMethod.getModifiers();
+            if (Modifier.isAbstract(md)) {
+                throw new XError("Метод не должен быть абстрактным: {0}", implMethod);
+            }
+            if (md == 0) {
+                throw new XError("Метод должен быть public: {0}", implMethod);
+            }
+            // создаем класс - обертку
+            Class wrapperCls = ImplClassFactory.getInst().getImplClass(this.cls);
+            this.clsInst = wrapperCls;
+        }
     }
 
     protected void validatePackageMethods(Class cls) {

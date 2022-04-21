@@ -30,7 +30,7 @@
     <tr>
       <td>${r.name}</td>
       <td>${dh.resolveDaoInvokerName(r)}</td>
-      <td>${r.methodDef.cls.name}</td>
+      <td>${r.methodDef.classDef.cls.name}</td>
       <td>${r.methodDef.method.name}</td>
       <td>${r.methodDef.method}</td>
     </tr>

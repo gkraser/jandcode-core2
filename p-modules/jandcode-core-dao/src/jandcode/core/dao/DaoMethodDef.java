@@ -13,7 +13,7 @@ public interface DaoMethodDef extends INamed {
     /**
      * Какому классу принадлежит
      */
-    Class getCls();
+    DaoClassDef getClassDef();
 
     /**
      * Ссылка на реальный java-метод

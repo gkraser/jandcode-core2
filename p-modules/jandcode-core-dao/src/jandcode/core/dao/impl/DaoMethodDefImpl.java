@@ -7,12 +7,12 @@ import java.lang.reflect.*;
 
 public class DaoMethodDefImpl implements DaoMethodDef {
 
-    private Class cls;
+    private DaoClassDef classDef;
     private Method method;
     private NamedList<DaoMethodParamDef> params = new DefaultNamedList<>();
 
-    public DaoMethodDefImpl(Class cls, Method method) {
-        this.cls = cls;
+    public DaoMethodDefImpl(DaoClassDef classDef, Method method) {
+        this.classDef = classDef;
         this.method = method;
         grabParams();
     }
@@ -26,8 +26,8 @@ public class DaoMethodDefImpl implements DaoMethodDef {
         }
     }
 
-    public Class getCls() {
-        return cls;
+    public DaoClassDef getClassDef() {
+        return classDef;
     }
 
     public Method getMethod() {

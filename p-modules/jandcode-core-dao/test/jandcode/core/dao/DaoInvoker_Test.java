@@ -1,6 +1,7 @@
 package jandcode.core.dao;
 
 import jandcode.core.dao.data.*;
+import jandcode.core.dao.data_bad.*;
 import jandcode.core.dao.impl.*;
 import jandcode.core.test.*;
 import org.junit.jupiter.api.*;
@@ -111,6 +112,43 @@ public class DaoInvoker_Test extends App_Test {
         Map<String, Object> map2 = (Map<String, Object>) ctx.bean("map2");
         assertEquals(map1.get("k1"), "v1");
         assertEquals(map2.get("k2"), "v2");
+    }
+
+    @Test
+    public void abstract_impl_bad_1() throws Exception {
+        DaoInvoker m = app.create(DefaultDaoInvoker.class);
+        try {
+            AbstractDao1_bad z = m.createDao(AbstractDao1_bad.class);
+            fail();
+        } catch (Exception e) {
+            System.out.println("В абстрактном классе нужно иметь метод impl");
+            utils.showError(e);
+        }
+    }
+
+    @Test
+    public void abstract_impl_ok_2() throws Exception {
+        DaoInvoker m = app.create(DefaultDaoInvoker.class);
+        AbstractDao1_ok z = m.createDao(AbstractDao1_ok.class);
+        System.out.println(z.getClass());
+        assertEquals(z.m1("1", 2), "m1 from AbstractDao1_impl: 1,2");
+        assertEquals(z.m2(), "m2 from AbstractDao1_ok");
+        AbstractDao1_impl.RES = "";
+        z.m3(4, 5);
+        assertEquals(AbstractDao1_impl.RES, "m3 from AbstractDao1_impl: 4,5");
+    }
+
+    @Test
+    public void abstr_arg_name() throws Exception {
+        DaoInvoker m = app.create(DefaultDaoInvoker.class);
+        DaoClassDef cd = m.getDaoClassDef(AbstractDao1_ok.class);
+        for (var mt : cd.getMethods()) {
+            System.out.println(mt.getName());
+            for (var pr : mt.getParams()) {
+                System.out.println("  " + pr.getName());
+            }
+        }
+        abstract_impl_ok_2();
     }
 
 

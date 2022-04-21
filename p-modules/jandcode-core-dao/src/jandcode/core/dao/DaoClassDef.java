@@ -9,14 +9,18 @@ import jandcode.commons.named.*;
 public interface DaoClassDef extends INamed {
 
     /**
-     * Оригинальный класс.
+     * Оригинальный класс. Этот класс используется для получения методов.
      */
     Class getCls();
+
+    /**
+     * Класс для создания экземпляра. Может не совпадать с getCls()
+     */
+    Class getClsInst();
 
     /**
      * Методы dao
      */
     NamedList<DaoMethodDef> getMethods();
-
 
 }

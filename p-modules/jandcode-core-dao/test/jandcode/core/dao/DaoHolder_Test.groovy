@@ -37,12 +37,12 @@ class DaoHolder_Test extends App_Test {
         )
 
         assertEquals(
-                h.items.get("recursive_pak/dao11/sum").methodDef.cls,
+                h.items.get("recursive_pak/dao11/sum").methodDef.classDef.cls,
                 Dao11.class
         )
 
         assertEquals(
-                h.items.get("d1/p1").methodDef.cls,
+                h.items.get("d1/p1").methodDef.classDef.cls,
                 Dao11.class
         )
 
@@ -52,27 +52,27 @@ class DaoHolder_Test extends App_Test {
         )
 
         assertEquals(
-                h.items.get("pfx/c1/p1").methodDef.cls,
+                h.items.get("pfx/c1/p1").methodDef.classDef.cls,
                 Dao11.class
         )
 
         assertEquals(
-                h.items.get("pfx/fold1/fold2/f1").methodDef.cls,
+                h.items.get("pfx/fold1/fold2/f1").methodDef.classDef.cls,
                 Dao11.class
         )
 
         assertEquals(
-                h.items.get("pfx/recursive_pak/mySuper2/test1").methodDef.cls,
+                h.items.get("pfx/recursive_pak/mySuper2/test1").methodDef.classDef.cls,
                 MySuper2_Dao.class
         )
 
         assertEquals(
-                h.items.get("pfx/mySuper1/test1").methodDef.cls,
+                h.items.get("pfx/mySuper1/test1").methodDef.classDef.cls,
                 MySuper1Dao.class
         )
 
         assertEquals(
-                h.items.get("flat/mySuper2/test1").methodDef.cls,
+                h.items.get("flat/mySuper2/test1").methodDef.classDef.cls,
                 MySuper2_Dao.class
         )
 

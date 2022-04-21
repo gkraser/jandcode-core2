@@ -90,7 +90,7 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
 
     protected boolean isClassUsed(Class cls) {
         for (var it : this.items) {
-            if (cls == it.getMethodDef().getCls()) {
+            if (cls == it.getMethodDef().getClassDef().getCls()) {
                 return true;
             }
         }

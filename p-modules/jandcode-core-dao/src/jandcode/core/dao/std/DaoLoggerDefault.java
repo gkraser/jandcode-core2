@@ -9,7 +9,7 @@ public class DaoLoggerDefault implements DaoLogger {
 
     public String toString(DaoContext ctx) {
         DaoMethodDef m = ctx.getDaoMethodDef();
-        return m.getCls().getSimpleName() + "." + m.getMethod().getName() + " => " + m.getMethod().toString();
+        return m.getClassDef().getCls().getSimpleName() + "." + m.getMethod().getName() + " => " + m.getMethod().toString();
     }
 
     public void logStart(DaoContext ctx) {

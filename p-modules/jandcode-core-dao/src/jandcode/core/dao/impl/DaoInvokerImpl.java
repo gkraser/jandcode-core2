@@ -42,7 +42,7 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker {
         context.getBeanFactory().setParentBeanFactory(getBeanFactory());
 
         // создаем экземпляр dao
-        Object daoInst = context.create(method.getCls());
+        Object daoInst = context.create(method.getClassDef().getClsInst());
         context.setDaoInst(daoInst);
 
         daoLogger.logStart(context);
