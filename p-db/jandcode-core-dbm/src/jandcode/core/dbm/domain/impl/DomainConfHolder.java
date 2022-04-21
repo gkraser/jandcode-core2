@@ -15,6 +15,7 @@ public class DomainConfHolder {
     private Conf systemConf;
     private Conf fieldBaseConf;
     private Conf domainBaseConf;
+    private Conf modelConf;
 
     /**
      * Построить раскрытые конфигурации
@@ -22,6 +23,7 @@ public class DomainConfHolder {
      * @param modelConf конфигурация модели
      */
     public void buildConf(Conf modelConf) {
+        this.modelConf = modelConf;
 
         // это все что мы собрали для себя, обработанная копия
         this.root = Conf.create();
@@ -30,7 +32,7 @@ public class DomainConfHolder {
         new DomainConfGrab().grab(modelConf, root);
 
         // обрабатываем собранное
-        new DomainConfPrepare().prepareRoot(root);
+        new DomainConfPrepare().prepareRoot(modelConf, root);
 
         // создаем expander
         this.expander = UtConf.createExpander(root);
@@ -122,8 +124,8 @@ public class DomainConfHolder {
         Conf tmp = Conf.create(domainName);
         tmp.join(domainConf);
 
-        // обработка такая же, как и для доменов ис структуры
-        new DomainConfPrepare().prepareDomain(root, tmp);
+        // обработка такая же, как и для доменов из структуры
+        new DomainConfPrepare().prepareDomain(modelConf, root, tmp);
         //
 
         return getExpander().expand("domain", tmp);

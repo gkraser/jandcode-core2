@@ -16,14 +16,14 @@ public class DomainConfPrepare {
      *
      * @param root конфигурация, собранная из модели
      */
-    public void prepareRoot(Conf root) {
+    public void prepareRoot(Conf modelConf, Conf root) {
 
         // бины базовых объектов
         prepareBaseBeans(root);
 
         // domain
         for (Conf x : root.getConfs("domain")) {
-            prepareDomain(root, x);
+            prepareDomain(modelConf, root, x);
         }
 
         // base domain
@@ -35,7 +35,7 @@ public class DomainConfPrepare {
     /**
      * Подготовить конфигурацию домена
      */
-    public void prepareDomain(Conf root, Conf domain) {
+    public void prepareDomain(Conf modelConf, Conf root, Conf domain) {
         prepareDomain_include(root, domain);
 
         // если есть узлы ref, для каждого ставим ref=имя_домена
@@ -48,6 +48,16 @@ public class DomainConfPrepare {
         // ставим ref=имя_домена по имени домена для ref по умолчанию, даже если ее нет
         Conf ref = domain.findConf("ref/default", true);
         ref.setValue("ref", domain.getName());
+
+        // если есть dict с именем, как у домена - ставим в ref домена dict
+        Conf dict = modelConf.findConf("dict/" + domain.getName());
+        if (dict != null) {
+            if (!UtConf.isTagged(dict, "abstract")) {
+                if (!ref.containsKey("dict")) {
+                    ref.setValue("dict", domain.getName());
+                }
+            }
+        }
 
         // tag.db
         if (UtConf.isTagged(domain, "tag.db")) {
