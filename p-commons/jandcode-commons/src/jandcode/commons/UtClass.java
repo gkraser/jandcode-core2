@@ -45,7 +45,7 @@ public class UtClass {
                     continue;
                 }
                 int md = type.getModifiers();
-                if (Modifier.isAbstract(md) || (!Modifier.isPublic(md))) {
+                if (!Modifier.isPublic(md)) {
                     continue;
                 }
                 ///
