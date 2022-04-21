@@ -23,6 +23,7 @@ class DbCmdProject extends ProjectScript {
                 commonOpt,
                 cm.opt("e", false, "Не создавать структуру, только пустую базу"),
                 cm.opt("g", false, "Сгенерировать скрипт на создание, базу не создавать"),
+                cm.opt("s", "", "Имена fixture-suite через запятую, которые нужно загрузить после создания"),
         )
         cm.add("db-info", "Информация о базе данных и проверка соединения", this.&cmDbInfo,
                 commonOpt,
@@ -77,6 +78,17 @@ class DbCmdProject extends ProjectScript {
         } finally {
             mdb.disconnect()
         }
+
+        // loadtestdata
+        if (args.containsKey("s")) {
+            String suiteNames = args.getString("s")
+            FixtureService fxSvc = app.bean(FixtureService)
+            if (UtString.empty(suiteNames)) {
+                throw new XError("Не указаны имена fixture-suite в параметре -s, допустимые имена: ${fxSvc.getFixtureSuiteNames()}")
+            }
+            doLoadTestData(dbTools, suiteNames)
+        }
+        
     }
 
     void cmDbInfo(CmArgs args) {
@@ -111,6 +123,7 @@ class DbCmdProject extends ProjectScript {
         if (errorModels) {
             throw new XError("Ошибки в моделях: ${errorModels}")
         }
+
     }
 
     void cmLoadTestData(CmArgs args) {
@@ -128,6 +141,11 @@ class DbCmdProject extends ProjectScript {
             throw new XError("Не указаны имена fixture-suite в параметре -s, допустимые имена: ${fxSvc.getFixtureSuiteNames()}")
         }
 
+        doLoadTestData(dbTools, suiteNames)
+    }
+
+    void doLoadTestData(CliDbTools dbTools, String suiteNames) {
+        FixtureService fxSvc = dbTools.app.bean(FixtureService)
         Mdb mdb = dbTools.model.createMdb(true)
         mdb.connect()
         try {
