@@ -214,6 +214,13 @@ public class DbmTestSvc extends BaseAppTestSvc {
         return st;
     }
 
+    /**
+     * Показать структуру store
+     */
+    public void showStoreStruct(Store st) {
+        utils.outTable(createStoreStruct(st));
+    }
+
     ////// dao
 
     /**
