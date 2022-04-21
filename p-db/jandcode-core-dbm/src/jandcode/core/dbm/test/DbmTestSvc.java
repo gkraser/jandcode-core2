@@ -208,7 +208,7 @@ public class DbmTestSvc extends BaseAppTestSvc {
             rec.setValue("name", f.getName());
             rec.setValue("type", f.getStoreDataType().getName());
             rec.setValue("size", f.getSize());
-            rec.setValue("dict", f.getDict());
+            rec.setValue("dict", UtString.empty(f.getDict()) ? "" : f.getDict());
         }
 
         return st;
