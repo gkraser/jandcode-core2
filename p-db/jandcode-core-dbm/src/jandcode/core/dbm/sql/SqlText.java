@@ -71,6 +71,11 @@ public interface SqlText extends CharSequence, IModelLink {
      */
     SqlText paginateParamsPrefix(String prefix);
 
+    /**
+     * Включена ли пагинация
+     */
+    boolean isPaginate();
+
 
     ////// replace parts
 

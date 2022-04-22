@@ -193,6 +193,10 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
         return this;
     }
 
+    public boolean isPaginate() {
+        return this.paginate;
+    }
+
     //////
 
     public SqlText replaceWhere(String whereName, List<String> whereTexts) {
