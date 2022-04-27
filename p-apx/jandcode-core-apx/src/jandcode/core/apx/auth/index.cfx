@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <bean name="jandcode.core.auth.AuthService">
+        <!-- подключение auth-процессоров:
+
+                <auth-processor name="default"
+                        class="jandcode.core.auth.AuthProcessor"/>
+        -->
+    </bean>
+
+    <bean name="jandcode.core.apx.auth.AuthClientCfgProvider"
+          class="jandcode.core.apx.auth.AuthClientCfgProvider"/>
+
+    <web>
+
+        <action name="auth"
+                class="jandcode.core.apx.auth.AuthAction"/>
+
+
+        <x-if env.dev="true">
+            <!-- автологин подключаем только в режиме dev -->
+            <filter name="auth-autologin"
+                    class="jandcode.core.apx.auth.AuthAutoLoginFilter"
+                    type="startRequest" weight="-100"/>
+        </x-if>
+
+        <filter name="auth"
+                class="jandcode.core.apx.auth.AuthFilter"
+                type="*" weight="-100"/>
+
+    </web>
+
+</root>

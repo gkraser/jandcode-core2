@@ -9,5 +9,6 @@
     <x-include path="web/index.cfx"/>
     <x-include path="dbm/index.cfx"/>
     <x-include path="jsonrpc/index.cfx"/>
+    <x-include path="auth/index.cfx"/>
 
 </root>
