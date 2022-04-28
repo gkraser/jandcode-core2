@@ -7,8 +7,11 @@ import jandcode.core.*;
 import jandcode.core.db.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.ddl.*;
+import jandcode.core.dbm.fixture.*;
 import jandcode.core.dbm.mdb.*;
 import org.slf4j.*;
+
+import java.util.*;
 
 /**
  * Набор методов для использоания в инструментах командной строки,
@@ -117,6 +120,32 @@ public class CliDbTools implements IAppLink, IModelLink {
         mdb.connect();
         mdb.disconnect();
         log.info("ОК");
+    }
+
+    /**
+     * Загрузиь в базу тестовые данные
+     *
+     * @param suiteNames имена fixture-suite через запятую
+     */
+    public void loadTestData(String suiteNames) throws Exception {
+        FixtureService fxSvc = getApp().bean(FixtureService.class);
+        Mdb mdb = getModel().createMdb(true);
+        mdb.connect();
+        try {
+            FixtureMdbUtils fxUtils = new FixtureMdbUtils(mdb);
+            for (String suiteName : UtCnv.toList(suiteNames)) {
+                log.info("save fixture-suite: {}", suiteName);
+                FixtureSuite suite = fxSvc.createFixtureSuite(suiteName);
+                List<FixtureBuilder> bs = suite.createBuilders();
+                for (var b : bs) {
+                    log.info("     fixture-builder: {}", b.getClass().getName());
+                    Fixture fx = b.build(getModel());
+                    fxUtils.saveFixture(fx, true);
+                }
+            }
+        } finally {
+            mdb.disconnect();
+        }
     }
 
 }

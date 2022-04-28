@@ -5,7 +5,6 @@ import jandcode.commons.error.*
 import jandcode.core.*
 import jandcode.core.dbm.*
 import jandcode.core.dbm.fixture.*
-import jandcode.core.dbm.mdb.*
 import jandcode.core.dbm.std.*
 import jandcode.core.jc.*
 import jandcode.jc.*
@@ -86,9 +85,9 @@ class DbCmdProject extends ProjectScript {
             if (UtString.empty(suiteNames)) {
                 throw new XError("Не указаны имена fixture-suite в параметре -s, допустимые имена: ${fxSvc.getFixtureSuiteNames()}")
             }
-            doLoadTestData(dbTools, suiteNames)
+            dbTools.loadTestData(suiteNames)
         }
-        
+
     }
 
     void cmDbInfo(CmArgs args) {
@@ -115,8 +114,8 @@ class DbCmdProject extends ProjectScript {
                     dbt.checkConnect()
                 } catch (e) {
                     errorModels.add(m.name)
-                    String err = UtError.createErrorInfo(e).getText();
-                    println("ERROR: " + err);
+                    String err = UtError.createErrorInfo(e).getText()
+                    println("ERROR: " + err)
                 }
             }
         }
@@ -141,28 +140,7 @@ class DbCmdProject extends ProjectScript {
             throw new XError("Не указаны имена fixture-suite в параметре -s, допустимые имена: ${fxSvc.getFixtureSuiteNames()}")
         }
 
-        doLoadTestData(dbTools, suiteNames)
-    }
-
-    void doLoadTestData(CliDbTools dbTools, String suiteNames) {
-        FixtureService fxSvc = dbTools.app.bean(FixtureService)
-        Mdb mdb = dbTools.model.createMdb(true)
-        mdb.connect()
-        try {
-            FixtureMdbUtils fxUtils = new FixtureMdbUtils(mdb)
-            for (suiteName in UtCnv.toList(suiteNames)) {
-                log "save fixture-suite: ${suiteName}"
-                def suite = fxSvc.createFixtureSuite(suiteName)
-                def bs = suite.createBuilders()
-                for (b in bs) {
-                    log "     fixture-builder: ${b.class.name}"
-                    def fx = b.build(dbTools.model)
-                    fxUtils.saveFixture(fx, true)
-                }
-            }
-        } finally {
-            mdb.disconnect()
-        }
+        dbTools.loadTestData(suiteNames)
     }
 
 }

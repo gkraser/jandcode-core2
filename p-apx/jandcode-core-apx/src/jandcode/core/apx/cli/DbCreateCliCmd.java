@@ -43,8 +43,12 @@ public class DbCreateCliCmd extends BaseAppCliCmd {
         } finally {
             mdb.disconnect();
         }
-        log.info("ok");
 
+        if (!UtString.empty(getSuiteNames())) {
+            dbTools.loadTestData(getSuiteNames());
+        }
+
+        log.info("ok");
     }
 
     public void cliConfigure(CliDef b) {
@@ -56,10 +60,14 @@ public class DbCreateCliCmd extends BaseAppCliCmd {
         b.opt("dropExist")
                 .names("-drop")
                 .desc("Удалить существующую базу");
+        b.opt("suiteNames")
+                .names("-s").arg("FIXTURE-SUITES")
+                .desc("Имена fixture-suite через запятую, которые нужно загрузить после создания");
     }
 
     private String modelName = "default";
     private boolean dropExist = false;
+    private String suiteNames = "";
 
     public String getModelName() {
         return modelName;
@@ -75,5 +83,13 @@ public class DbCreateCliCmd extends BaseAppCliCmd {
 
     public void setDropExist(boolean dropExist) {
         this.dropExist = dropExist;
+    }
+
+    public String getSuiteNames() {
+        return suiteNames;
+    }
+
+    public void setSuiteNames(String suiteNames) {
+        this.suiteNames = suiteNames;
     }
 }
