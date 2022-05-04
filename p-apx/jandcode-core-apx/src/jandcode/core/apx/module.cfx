@@ -3,6 +3,7 @@
 
     <dao>
         <holder name="api">
+            <include name="apx.system"/>
         </holder>
     </dao>
 
@@ -10,5 +11,6 @@
     <x-include path="dbm/index.cfx"/>
     <x-include path="jsonrpc/index.cfx"/>
     <x-include path="auth/index.cfx"/>
+    <x-include path="dao/index.cfx"/>
 
 </root>

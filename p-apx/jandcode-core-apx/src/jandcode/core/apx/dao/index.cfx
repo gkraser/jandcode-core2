@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!--
+        Системные dao apx
+    -->
+
+    <dao>
+        <holder name="apx.system">
+            <item name="i" prefix="apx"
+                  class="jandcode.core.apx.dao.Dict_Dao"/>
+        </holder>
+    </dao>
+
+</root>
