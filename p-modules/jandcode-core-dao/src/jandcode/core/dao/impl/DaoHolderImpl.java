@@ -42,9 +42,23 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
+        //
+        loadConf(cfg.getConf());
+    }
+
+    protected void loadConf(Conf conf) {
+        //
+        for (Conf includeConf : conf.getConfs("include")) {
+            String path = "dao/holder/" + includeConf.getName();
+            Conf forIncludeConf = getApp().getConf().findConf(path);
+            if (forIncludeConf == null) {
+                throw new XError("Не найден dao holder для include: {0} ({1})", includeConf.getName(), includeConf.origin());
+            }
+            loadConf(forIncludeConf);
+        }
 
         //
-        for (Conf ruleConf : cfg.getConf().getConfs("rule")) {
+        for (Conf ruleConf : conf.getConfs("rule")) {
             String daoInvoker = ruleConf.getString("invoker");
             String mask = ruleConf.getString("mask");
             if (UtString.empty(daoInvoker)) {
@@ -57,7 +71,7 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
         }
 
         //
-        for (Conf itemConf : cfg.getConf().getConfs("item")) {
+        for (Conf itemConf : conf.getConfs("item")) {
             try {
                 addItem(itemConf, "");
             } catch (Exception e) {
