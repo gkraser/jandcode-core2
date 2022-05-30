@@ -22,10 +22,15 @@ public abstract class BaseFixtureBuilder extends BaseComp implements FixtureBuil
     protected abstract void onBuild();
 
     public Fixture build(Model model) {
-        this.fx = Fixture.create(model);
+        Fixture fxTmp = Fixture.create(model);
+        this.fx = fxTmp;
         setApp(model.getApp());
-        doInternalBuild();
-        return this.fx;
+        try {
+            doInternalBuild();
+        } finally {
+            this.fx = null;
+        }
+        return fxTmp;
     }
 
     /**

@@ -134,13 +134,14 @@ public class CliDbTools implements IAppLink, IModelLink {
         try {
             FixtureMdbUtils fxUtils = new FixtureMdbUtils(mdb);
             for (String suiteName : UtCnv.toList(suiteNames)) {
-                log.info("save fixture-suite: {}", suiteName);
+                log.info("save fixture-suite: " + suiteName);
                 FixtureSuite suite = fxSvc.createFixtureSuite(suiteName);
                 List<FixtureBuilder> bs = suite.createBuilders();
                 for (var b : bs) {
-                    log.info("     fixture-builder: {}", b.getClass().getName());
+                    log.info("     fixture-builder: " + b.getClass().getName());
                     Fixture fx = b.build(getModel());
                     fxUtils.saveFixture(fx, true);
+                    fx = null;
                 }
             }
         } finally {
