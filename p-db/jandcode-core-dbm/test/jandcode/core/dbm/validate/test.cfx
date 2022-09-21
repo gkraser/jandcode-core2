@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <x-include path="../test.cfx"/>
+
+    <dbm>
+
+        <model name="testdb.base">
+
+            <validator name="v1"
+                       class="jandcode.core.dbm.validate.data.Validator1"
+                       a1="1"/>
+
+            <validator name="v2"
+                       class="jandcode.core.dbm.validate.data.Validator1"
+                       a1="2"/>
+
+            <domain name="empty1" parent="id">
+            </domain>
+
+            <domain name="attr1" parent="id" validator.v1="true">
+                <field name="f1" parent="string"
+                       validator.v2="true"/>
+                <field name="f2" parent="string"
+                       validator.v2="true"/>
+            </domain>
+
+            <domain name="child1" parent="id">
+                <field name="f1" parent="string">
+                    <validator name="v1"/>
+                    <validator name="i" type="v1"/>
+                    <validator name="i" class="V2Class" type="v1"/>
+                </field>
+                <field name="f2" parent="string">
+                    <validator name="v1"/>
+                    <validator name="i" type="v1"/>
+                </field>
+                <validator name="v1"/>
+                <validator name="i" type="v1"/>
+                <validator name="i" type="v1"/>
+                <validator name="i" type="v1" a1="11"/>
+            </domain>
+
+        </model>
+
+    </dbm>
+
+
+</root>

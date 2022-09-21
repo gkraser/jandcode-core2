@@ -7,8 +7,8 @@ import java.util.*;
  */
 public interface ErrorValidate {
 
-    public static final String FIELD = "field"; //NON-NLS
-    public static final String TEXT = "text"; //NON-NLS
+    String FIELD = "field"; //NON-NLS
+    String TEXT = "text"; //NON-NLS
 
     /**
      * Список ошибок валидации.

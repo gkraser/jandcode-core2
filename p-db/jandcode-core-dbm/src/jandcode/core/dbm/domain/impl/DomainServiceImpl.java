@@ -47,7 +47,7 @@ public class DomainServiceImpl extends BaseModelMember implements DomainService 
     }
 
     protected NamedList<Domain> createDomains() {
-        NamedList<Domain> res = new DefaultNamedList<>();
+        NamedList<Domain> res = new DefaultNamedList<>("Домен не найден: {0}");
 
         //
         for (Conf x : getDomainConfHolder().getDomainConf().getConfs()) {

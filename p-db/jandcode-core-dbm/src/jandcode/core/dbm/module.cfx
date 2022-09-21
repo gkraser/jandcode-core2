@@ -46,5 +46,6 @@
     <x-include path="verdb/index.cfx"/>
     <x-include path="genid/index.cfx"/>
     <x-include path="fixture/index.cfx"/>
+    <x-include path="validate/index.cfx"/>
 
 </root>

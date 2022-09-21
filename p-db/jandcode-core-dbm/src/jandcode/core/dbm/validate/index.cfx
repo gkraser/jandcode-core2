@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <!--
+        Сервисы для работы с валидаторами
+    -->
+
+    <dbm>
+        <!-- расширяем базовую модель -->
+        <model name="jandcode.core.dbm">
+
+            <bean name="jandcode.core.dbm.validate.ValidatorService"
+                  class="jandcode.core.dbm.validate.impl.ValidatorServiceImpl"/>
+
+            <field name="base">
+            </field>
+
+            <domain name="base">
+                <bean name="jandcode.core.dbm.validate.DomainValidator"
+                      class="jandcode.core.dbm.validate.impl.DomainValidatorImpl"/>
+            </domain>
+
+        </model>
+    </dbm>
+
+
+</root>
