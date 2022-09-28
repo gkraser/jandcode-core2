@@ -10,6 +10,8 @@ class Fixture_Test extends Dbm_Test {
     @Test
     void test1() throws Exception {
         def fx = Fixture.create(model)
+        fx.table('tab1').rangeId(1)
+        fx.table('tab2').rangeId(2)
         //
         fx.table('tab1').add(a: 1, b: 11)
         fx.table('tab1').add(a: 2, b: 22)
@@ -26,7 +28,7 @@ class Fixture_Test extends Dbm_Test {
         def tab2 = fx.table("tab2")
 
         for (i in 1..5) {
-            tab1.add(a: i)
+            tab1.add(id: i, a: i)
         }
 
         utils.outTableList(fx.stores)
@@ -82,6 +84,24 @@ class Fixture_Test extends Dbm_Test {
         def svc = app.bean(FixtureService)
         //
         def suite = svc.createFixtureSuite("tab1")
+        def bs = suite.createBuilders()
+        //
+        FixtureMdbUtils ut = new FixtureMdbUtils(mdb)
+        for (b in bs) {
+            def fx = b.build(model)
+            utils.outTableList(fx.stores)
+            ut.updateFixture(fx, true)
+        }
+        //
+        def st = mdb.loadQuery("select * from tab1 where id>=50000 order by id")
+        utils.outTable(st)
+    }
+
+    @Test
+    public void suite1_1() throws Exception {
+        def svc = app.bean(FixtureService)
+        //
+        def suite = svc.createFixtureSuite("tab1.1")
         def bs = suite.createBuilders()
         //
         FixtureMdbUtils ut = new FixtureMdbUtils(mdb)

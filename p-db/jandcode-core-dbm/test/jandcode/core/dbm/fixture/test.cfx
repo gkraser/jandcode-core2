@@ -31,6 +31,8 @@
                             count="2" startId="60000"/>
         </fixture-suite>
 
+        <fixture-suite name="tab1.1" parent="tab1">
+        </fixture-suite>
     </dbm>
 
     <test>
