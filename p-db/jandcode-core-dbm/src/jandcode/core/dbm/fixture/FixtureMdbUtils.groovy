@@ -3,6 +3,7 @@ package jandcode.core.dbm.fixture
 import groovy.transform.*
 import jandcode.commons.stopwatch.*
 import jandcode.core.db.*
+import jandcode.core.dbm.genid.*
 import jandcode.core.dbm.genid.std.*
 import jandcode.core.dbm.mdb.*
 import jandcode.core.dbm.sql.*
@@ -161,12 +162,7 @@ class FixtureMdbUtils extends BaseMdbUtils {
                 prg.stopwatch.start("recover genId")
             }
 
-            List<String> genIdNames = []
-            for (t in fx.tables) {
-                genIdNames.add(t.name)
-            }
-            GenIdTools genIdTools = new GenIdTools(fx.model)
-            genIdTools.recoverGenIds(genIdNames, true)
+            recoverGenIds(fx)
 
             if (prg != null) {
                 prg.stopwatch.stop("recover genId")
@@ -186,6 +182,38 @@ class FixtureMdbUtils extends BaseMdbUtils {
     void updateFixture(Fixture fx, boolean showProgress) throws Exception {
         cleanFixture(fx, showProgress)
         saveFixture(fx, showProgress)
+    }
+
+    /**
+     * Восстановить все genId, задействованные в фикстуре, на последние значения в базе
+     * @param fx фикстура
+     */
+    void recoverGenIds(Fixture fx) {
+        List<String> genIdNames = []
+        for (t in fx.tables) {
+            genIdNames.add(t.name)
+        }
+        GenIdTools genIdTools = new GenIdTools(fx.model)
+        genIdTools.recoverGenIds(genIdNames, true)
+    }
+
+    /**
+     * Установить все генераторы на последние значения в таблицах фикстур.
+     * Метод используется для тестирования вставок записей.
+     *
+     * Считаем, что для фикстуры задан rangeId. Если есть значения id в этом диапазоне,
+     * то выставляем genId на следующее после максимального.
+     * Если значений нет, то выставляем на начало rangeId.
+     *
+     * @param fx фикстура
+     */
+    void updateGenIds(Fixture fx) {
+        GenIdService genIdSvc = fx.model.bean(GenIdService)
+        for (t in fx.tables) {
+            long genIdValue = t.getMaxIdInRange()
+            println "update genId ${t.name} to value ${genIdValue}"
+            genIdSvc.updateCurrentId(t.name, genIdValue)
+        }
     }
 
 }

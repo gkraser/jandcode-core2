@@ -24,11 +24,11 @@
 
         <fixture-suite name="tab1">
             <fixture-builder name="step1"
-                            class="jandcode.core.dbm.fixture.fx.Tab1_fixture"
-                            count="3" startId="50000"/>
+                             class="jandcode.core.dbm.fixture.fx.Tab1_fixture"
+                             count="3" startId="50000"/>
             <fixture-builder name="step2"
-                            class="jandcode.core.dbm.fixture.fx.Tab1_fixture"
-                            count="2" startId="60000"/>
+                             class="jandcode.core.dbm.fixture.fx.Tab1_fixture"
+                             count="2" startId="60000"/>
         </fixture-suite>
 
         <fixture-suite name="tab1.1" parent="tab1">

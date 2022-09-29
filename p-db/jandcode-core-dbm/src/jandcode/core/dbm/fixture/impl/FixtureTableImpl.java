@@ -78,6 +78,28 @@ public class FixtureTableImpl extends Named implements FixtureTable {
         return new FixtureRangeIdImpl(startId, endId);
     }
 
+    protected long calcMaxIdInRange(long min, long max) {
+        StoreField idField = getStore().findField("id");
+        if (idField == null || getStore().size() == 0) {
+            return min;
+        }
+
+        long res = min;
+        if (max < 0) {
+            max = Long.MAX_VALUE;
+        }
+
+        int idIdx = idField.getIndex();
+        for (StoreRecord rec : getStore()) {
+            long id = rec.getLong(idIdx);
+            if (id > res && id <= max) {
+                res = id;
+            }
+        }
+
+        return res;
+    }
+
     public FixtureRangeId getRangeId() {
         if (getStartId() >= 0 && getEndId() >= 0) {
             return new FixtureRangeIdImpl(getStartId(), getEndId());
@@ -87,6 +109,16 @@ public class FixtureTableImpl extends Named implements FixtureTable {
                 getStartId() < 0 ? rng.getStartId() : getStartId(),
                 getEndId() < 0 ? rng.getEndId() : getEndId()
         );
+    }
+
+    public long getMaxIdInRange() {
+        boolean hasRange = getStartId() >= 0;
+        if (hasRange) {
+            return calcMaxIdInRange(getStartId(), getEndId());
+        } else {
+            FixtureRangeId rng = calcRangeIdByStore();
+            return rng.getEndId();
+        }
     }
 
     ////// genId

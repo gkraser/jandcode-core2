@@ -396,4 +396,27 @@ public class DbmTestSvc extends BaseAppTestSvc {
         saveFixtureSuite(fixtureSuiteName, true);
     }
 
+    /**
+     * Восстановить все genId, задействованные в фикстуре, на последние значения в базе
+     *
+     * @param fx фикстура
+     */
+    public void recoverGenIds(Fixture fx) {
+        new FixtureMdbUtils(getMdb()).recoverGenIds(fx);
+    }
+
+    /**
+     * Установить все генераторы на последние значения в таблицах фикстур.
+     * Метод используется для тестирования вставок записей.
+     * <p>
+     * Считаем, что для фикстуры задан rangeId. Если есть значения id в этом диапазоне,
+     * то выставляем genId на следующее после максимального.
+     * Если значений нет, то выставляем на начало rangeId.
+     *
+     * @param fx фикстура
+     */
+    public void updateGenIds(Fixture fx) {
+        new FixtureMdbUtils(getMdb()).updateGenIds(fx);
+    }
+
 }

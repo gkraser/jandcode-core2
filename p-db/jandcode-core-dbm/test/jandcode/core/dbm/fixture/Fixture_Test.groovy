@@ -142,4 +142,24 @@ class Fixture_Test extends Dbm_Test {
         assertEquals(tab1.lastId, 3)
     }
 
+
+    @Test
+    public void maxId1() throws Exception {
+        def fx = Fixture.create(model)
+
+        def tab1 = fx.table("tab1")
+
+        assertEquals(tab1.maxIdInRange, 0)
+
+        tab1.add(id: 220)
+        tab1.add(id: 420)
+        assertEquals(tab1.maxIdInRange, 420)
+
+        tab1.rangeId(100, 150)
+        assertEquals(tab1.maxIdInRange, 100)
+
+        tab1.rangeId(200, 300)
+        assertEquals(tab1.maxIdInRange, 220)
+    }
+
 }

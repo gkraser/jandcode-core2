@@ -45,4 +45,14 @@ public interface FixtureTable extends INamed, IFixtureGenId {
      */
     FixtureRangeId getRangeId();
 
+    /**
+     * Возвращает максимальную id в рамках диапазона.
+     * <p>
+     * Если для таблицы указан rangeId, то возвращается максимальная id из
+     * данных в этом диапазоне.
+     * <p>
+     * Если rangeId не указан, то возвращается максимальный id из данных.
+     */
+    long getMaxIdInRange();
+
 }
