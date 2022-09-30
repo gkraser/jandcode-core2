@@ -51,5 +51,5 @@ public interface IQueryRecord {
 
     ////// save record
 
-    
+
 }

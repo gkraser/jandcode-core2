@@ -50,6 +50,16 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
         return model;
     }
 
+    ////// Mdb
+
+    public <A> A create(Class<A> cls) {
+        A inst = getModel().create(cls);
+        if (inst instanceof IMdbLinkSet) {
+            ((IMdbLinkSet) inst).setMdb(this);
+        }
+        return (A) inst;
+    }
+
     ////// IMdbDao
 
     private IDaoInvoker getIDaoInvoker() {

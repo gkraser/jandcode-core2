@@ -54,6 +54,16 @@ public class DaoClassDefImpl implements DaoClassDef {
     }
 
     protected void grabMethods(NamedList<DaoMethodDef> methods) {
+        if (Dao.class.isAssignableFrom(cls)) {
+            // если класс - Dao, то собираем все публичные методы
+            grabMethods_Dao(methods);
+        } else {
+            // для всех остальных - только помеченные @DaoMethod
+            grabMethods_DaoMethod(methods);
+        }
+    }
+
+    protected void grabMethods_Dao(NamedList<DaoMethodDef> methods) {
 
         validatePackageMethods(this.cls);
 
@@ -110,6 +120,41 @@ public class DaoClassDefImpl implements DaoClassDef {
             }
         }
         validatePackageMethods(cls.getSuperclass());
+    }
+
+    protected void grabMethods_DaoMethod(NamedList<DaoMethodDef> methods) {
+
+        validatePublicDaoMethods(this.cls);
+
+        for (Method mt : this.cls.getMethods()) {
+            DaoMethod an = mt.getAnnotation(DaoMethod.class);
+            if (an == null) {
+                continue;
+            }
+            String nm = mt.getName();
+            if (methods.find(nm) != null) {
+                throw new XError("В dao-классе {0} дублирование имени dao-метода {1}", this.cls.getName(), mt.getName());
+            }
+            DaoMethodDef mdef = new DaoMethodDefImpl(this, mt);
+            methods.add(mdef);
+        }
+
+    }
+
+    protected void validatePublicDaoMethods(Class cls) {
+        while (cls != null && cls != Object.class) {
+            for (Method mt : cls.getDeclaredMethods()) {
+                DaoMethod an = mt.getAnnotation(DaoMethod.class);
+                if (an == null) {
+                    continue;
+                }
+                int md = mt.getModifiers();
+                if (!Modifier.isPublic(md)) {
+                    throw new XError("@DaoMethod указан для не публичного метода: {0}", mt);
+                }
+            }
+            cls = cls.getSuperclass();
+        }
     }
 
 }

@@ -7,9 +7,12 @@ import jandcode.core.dbm.*;
 /**
  * Базовый класс для утилит, привязанных к {@link Mdb}
  */
-public abstract class BaseMdbUtils implements IAppLink, IModelLink {
+public abstract class BaseMdbUtils implements IAppLink, IModelLink, IMdbLink, IMdbLinkSet {
 
     private Mdb mdb;
+
+    public BaseMdbUtils() {
+    }
 
     public BaseMdbUtils(Mdb mdb) {
         this.mdb = mdb;

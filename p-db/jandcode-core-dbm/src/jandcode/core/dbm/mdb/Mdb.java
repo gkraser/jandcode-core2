@@ -18,4 +18,13 @@ public interface Mdb extends IAppLink, IModelLink, Db,
         IDaoInvoker, IDomainService, IDictService, IQueryRecord, IStoreService,
         ISqlService, IOutData, IMdbGenId, IMdbRec {
 
+    /**
+     * Создать экземпляр класса с привязкой к модели.
+     * Если класс реализует интерфейс {@link IMdbLinkSet}, то ему будет присвоена
+     * ссылка на mdb.
+     * <p>
+     * Используется для создания потомков {@link BaseMdbUtils}.
+     */
+    <A> A create(Class<A> cls);
+
 }

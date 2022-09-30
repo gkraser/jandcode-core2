@@ -74,10 +74,10 @@ public class DomainRefs implements INamed {
      */
     public Collection<Ref> getRefs() {
         Map<Field, Ref> tmp = new HashMap<>();
-        for (Ref r: getInRefs()) {
+        for (Ref r : getInRefs()) {
             tmp.put(r.getField(), r);
         }
-        for (Ref r: getOutRefs()) {
+        for (Ref r : getOutRefs()) {
             tmp.put(r.getField(), r);
         }
         return tmp.values();
@@ -95,11 +95,11 @@ public class DomainRefs implements INamed {
      */
     public NamedList<Domain> getDomains() {
         NamedList<Domain> res = new DefaultNamedList<>();
-        for (Ref r: getInRefs()) {
+        for (Ref r : getInRefs()) {
             res.add(r.getFrom());
             res.add(r.getTo());
         }
-        for (Ref r: getOutRefs()) {
+        for (Ref r : getOutRefs()) {
             res.add(r.getFrom());
             res.add(r.getTo());
         }
