@@ -7,14 +7,14 @@ import jandcode.core.web.std.gsp.*;
  * Расширение {@link JsIndexGspContext} для работы с каталогом приложения,
  * которое собрано с помошью webpack.
  * <p>
- * Считается, что приложение собрано с помощтю модуля @jandcode/tools и следует
+ * Считается, что приложение собрано с помощью модуля @jandcode/tools и следует
  * определенным в нем соглашениям.
  */
 public interface FrontendIndexGspContext extends IGspContextLinkSet {
 
     /**
      * Каталог в виртуальной файловой системе web, в котором собрано webpack
-     * приложение. По умолчанию - public
+     * приложение. По умолчанию - frontend
      */
     String getSrcPath();
 
