@@ -46,8 +46,8 @@ dependencies {
     }
 
     // junit5
-    v = '5.8.2'
-    vp = '1.8.2'  // platform
+    v = '5.9.1'
+    vp = '1.9.1'  // platform
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: v
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: v
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: v
@@ -70,7 +70,7 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
 
     // groovy
-    v = '3.0.9'
+    v = '3.0.13'
     implementation group: 'org.codehaus.groovy', name: 'groovy', version: v
     implementation(group: 'org.codehaus.groovy', name: 'groovy-ant', version: v) {
         exclude group: 'org.apache.ant'
@@ -87,28 +87,28 @@ dependencies {
     implementation group: 'org.fusesource.jansi', name: 'jansi', version: '2.4.0'
 
     // picocli, для groovy
-    implementation group: 'info.picocli', name: 'picocli', version: '4.6.2'
+    implementation group: 'info.picocli', name: 'picocli', version: '4.6.3'
 
     // slf4j
-    v = '1.7.32'
+    v = '2.0.3'
     implementation group: 'org.slf4j', name: 'slf4j-api', version: v
     implementation group: 'org.slf4j', name: 'jcl-over-slf4j', version: v
     implementation group: 'org.slf4j', name: 'log4j-over-slf4j', version: v
 
     // logback
-    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.10'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.3'
 
     // gson
-    implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.9'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.1'
 
     // jdbc
-    implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.1'
-    implementation group: 'com.h2database', name: 'h2', version: '2.0.204'
-    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.4'
-    implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '21.4.0.0.1', transitive: false
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.5.0'
+    implementation group: 'com.h2database', name: 'h2', version: '2.1.214'
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.0.8'
+    implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '21.7.0.0', transitive: false
 
     // flexmark
-    v = '0.62.2'
+    v = '0.64.0'
     implementation group: 'com.vladsch.flexmark', name: 'flexmark', version: v
     implementation group: 'com.vladsch.flexmark', name: 'flexmark-ext-gfm-strikethrough', version: v
     implementation group: 'com.vladsch.flexmark', name: 'flexmark-ext-tables', version: v
@@ -122,29 +122,29 @@ dependencies {
     implementation group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 
     // undertow
-    implementation(group: 'io.undertow', name: 'undertow-servlet', version: '2.2.14.Final') {
+    implementation(group: 'io.undertow', name: 'undertow-servlet', version: '2.2.19.Final') {
         exclude module: 'jboss-annotations-api_1.2_spec'
         exclude module: 'jboss-servlet-api_4.0_spec'
     }
 
     // poi
-    v = '5.1.0'
+    v = '5.2.3'
     implementation group: 'org.apache.poi', name: 'poi', version: v
     implementation group: 'org.apache.poi', name: 'poi-ooxml', version: v
     implementation group: 'org.apache.poi', name: 'poi-scratchpad', version: v
 
     // lucene
-    v = '9.0.0'
+    v = '9.4.0'
     implementation group: 'org.apache.lucene', name: 'lucene-core', version: v
     implementation group: 'org.apache.lucene', name: 'lucene-analysis-common', version: v
     implementation group: 'org.apache.lucene', name: 'lucene-queryparser', version: v
 
     // javassist
-    v = '3.28.0-GA'
+    v = '3.29.2-GA'
     implementation group: 'org.javassist', name: 'javassist', version: v
 
     // plantuml
-    v = '1.2022.2'
+    v = '1.2022.8'
     implementation group: 'net.sourceforge.plantuml', name: 'plantuml', version: v
 
 }
