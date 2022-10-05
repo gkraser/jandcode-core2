@@ -2,6 +2,8 @@ package jandcode.core.dbm.sql;
 
 import jandcode.commons.conf.*;
 
+import java.util.*;
+
 /**
  * Методы сервиса sql
  */
@@ -39,5 +41,13 @@ public interface ISqlService {
      * Создать экземпляр {@link SqlBuilder}
      */
     SqlBuilder createSqlBuilder();
+
+    /**
+     * Создать экземпляр {@link SqlFilter}
+     *
+     * @param sql    sql
+     * @param params параметры фильтра
+     */
+    SqlFilter createSqlFilter(String sql, Map params);
 
 }
