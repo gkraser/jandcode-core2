@@ -14,7 +14,7 @@ import java.util.*;
 public class SqlFilterImpl extends BaseModelMember implements SqlFilter {
 
     private Mdb mdb;
-    private Map<String, Object> origParams;
+    private Map<String, Object> origParams = new LinkedHashMap<>();
     private String origSql;
     private IVariantMap params = new VariantMap();
     private List<SqlFilterWhere> wheres = new ArrayList<>();
@@ -26,7 +26,9 @@ public class SqlFilterImpl extends BaseModelMember implements SqlFilter {
     public SqlFilterImpl(Mdb mdb, String origSql, Map<String, Object> origParams) {
         this.mdb = mdb;
         setModel(mdb.getModel());
-        this.origParams = origParams;
+        if (origParams != null) {
+            this.origParams.putAll(origParams);
+        }
         this.origSql = origSql;
         // переносим параметры
         MapFilter mf = new MapFilter(origParams);
