@@ -27,7 +27,7 @@ public class LogbackConfigurator {
             "<configuration>\n" +
             "    <appender name=\"CONSOLE\" class=\"ch.qos.logback.core.ConsoleAppender\">\n" +
             "        <encoder>\n" +
-            "            <pattern>%d{HH:mm:ss,SSS} %-6p %-15c{1} - %m%n</pattern>\n" +
+            "            <pattern>%d{HH:mm:ss.SSS} %-6p %-15c{1} - %m%n</pattern>\n" +
             "        </encoder>\n" +
             "    </appender>\n" +
             "    <root level=\"info\">\n" +

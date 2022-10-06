@@ -1,7 +1,8 @@
 package jandcode.core.apx.dbm.sqlfilter
 
-
+import jandcode.core.apx.store.*
 import jandcode.core.dbm.test.*
+import jandcode.core.store.*
 import org.junit.jupiter.api.*
 
 import static org.junit.jupiter.api.Assertions.*
@@ -78,5 +79,68 @@ class SqlFilter_Test extends Dbm_Test {
 
     }
 
+    @Test
+    public void paginate1() throws Exception {
+        String sql = "select * from t1 where 0=0"
+        Map params = [
+                paginate: [
+                        limit : 5,
+                        offset: 10,
+                ],
+        ]
+        SqlFilter f = SqlFilter.create(mdb, sql, params)
+
+        //
+        out(f)
+        //
+        assertEquals(f.sql.toString(), "select * from t1 where 0=0 limit :paginate__limit offset :paginate__offset")
+        assertEquals(f.params, [paginate: null, paginate__offset: 10, paginate__limit: 5])
+    }
+
+    @Test
+    public void orderBy1() throws Exception {
+        String sql = "select * from t1 where 0=0 order by id"
+        Map params = [
+                orderBy: "z1"
+        ]
+        SqlFilter f = SqlFilter.create(mdb, sql, params)
+
+        f.addOrderBy("z1", "f1,f2")
+        //
+        out(f)
+        //
+        assertEquals(f.sql.toString(), "select * from t1 where 0=0 order by f1,f2")
+    }
+
+    void createData() {
+        Store st = mdb.createStore()
+        st.addField("id", "long")
+        st.addField("f1", "long")
+        //
+        for (i in 1..10) {
+            st.add(id: i, f1: i + 100)
+        }
+        //
+        dbm.createDbTable("t1", st)
+    }
+
+    @Test
+    public void load1_withPaginate() throws Exception {
+        createData()
+        //
+        utils.logOn()
+        String sql = "select * from t1 where 0=0"
+        Map params = [
+                paginate: [
+                        limit : 2,
+                        offset: 3,
+                ],
+        ]
+        SqlFilter f = SqlFilter.create(mdb, sql, params)
+        def st = f.load()
+        utils.outTable(st)
+        def pg = ApxStoreUtils.getPaginate(st)
+        println pg
+    }
 
 }

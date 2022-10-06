@@ -5,6 +5,7 @@ import jandcode.core.apx.dbm.sqlfilter.impl.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.mdb.*;
 import jandcode.core.dbm.sql.*;
+import jandcode.core.store.*;
 
 import java.util.*;
 
@@ -21,7 +22,7 @@ public interface SqlFilter extends IModelLink {
      * @param params параметры фильтрации
      */
     static SqlFilter create(Mdb mdb, String sql, Map params) {
-        return new SqlFilterImpl(mdb.getModel(), sql, params);
+        return new SqlFilterImpl(mdb, sql, params);
     }
 
     //////
@@ -88,5 +89,35 @@ public interface SqlFilter extends IModelLink {
      * @param attrs   произвольные атрибуты.
      */
     SqlFilterWhere addWhere(String name, String builder, Map attrs);
+
+    //////
+
+    /**
+     * Добавить описание orderBy
+     *
+     * @param name    имя. Это значение ключа orderBy в параметрах
+     * @param orderBy выражение orderBy
+     */
+    void addOrderBy(String name, String orderBy);
+
+    /**
+     * Добавить описание orderBy
+     *
+     * @param data ключ: имя (значение ключа orderBy в параметрах), значение: выражение orderBy
+     */
+    void addOrderBy(Map<String, String> data);
+
+    //////
+
+    /**
+     * Загрузить в указанный store
+     */
+    void load(Store st) throws Exception;
+
+    /**
+     * Загрузить в новый store
+     */
+    Store load() throws Exception;
+
 
 }

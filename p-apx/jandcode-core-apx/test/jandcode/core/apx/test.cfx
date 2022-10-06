@@ -3,6 +3,8 @@
 
     <x-depends module="jandcode.core.apx"/>
 
+    <x-depends module="jandcode.core.db.h2"/>
+
     <dao>
         <holder name="api">
             <item name="test1" prefix="" invoker="model:default"
@@ -21,9 +23,17 @@
                     <i id="3" text="blue"/>
                 </dictdata>
             </dict>
+            <dbsource name="default"
+                      dbdriver="h2.mem" database="testdb1"/>
         </model>
 
         <model name="default" instance="test1.model"/>
     </dbm>
+
+    <cfg>
+        <dbsource name="testdb.h2.mem"
+                  dbdriver="h2.mem"
+                  database="testdb1"/>
+    </cfg>
 
 </root>

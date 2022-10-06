@@ -21,6 +21,7 @@ class P extends ProjectScript {
                         "jandcode.core.dbm",
                 )
                 depends.dev(
+                        "jandcode.core.db.h2",
                 )
             }
         }

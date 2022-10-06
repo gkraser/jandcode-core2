@@ -394,7 +394,7 @@ public class CliLauncher implements CliConfigure {
             } else {
                 cmd = getCmds().get(cmdName);
                 if (cmd == null) {
-                    throw new XError("Command [{0}] not found");
+                    throw new XError("Command [{0}] not found", cmdName);
                 }
             }
         }

@@ -13,7 +13,7 @@ import javax.servlet.http.*;
  * Выводит в log для класса {@link Request}
  * Требует некоторой настройки в log:
  * <pre>{@code
- * PATTERN=%d{HH:mm:ss,SSS} %-5p %-15c{1} - %X{request}%m%n
+ * PATTERN=%d{HH:mm:ss.SSS} %-5p %-15c{1} - %X{request}%m%n
  * }</pre>
  * Здесь %X{request} - это отступ и идентификатор запроса.
  */
