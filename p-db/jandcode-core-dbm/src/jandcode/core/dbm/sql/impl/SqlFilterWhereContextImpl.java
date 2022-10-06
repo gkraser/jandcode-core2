@@ -7,13 +7,13 @@ import java.util.*;
 
 public class SqlFilterWhereContextImpl implements SqlFilterWhereContext {
 
-    private SqlText sqlText;
+    private SqlText sql;
     private SqlFilter sqlFilter;
     private SqlFilterWhere sqlFilterWhere;
     private MapFilterValue filterValue;
 
-    public SqlFilterWhereContextImpl(SqlText sqlText, SqlFilter sqlFilter, SqlFilterWhere wh, Object v) {
-        this.sqlText = sqlText;
+    public SqlFilterWhereContextImpl(SqlText sql, SqlFilter sqlFilter, SqlFilterWhere wh, Object v) {
+        this.sql = sql;
         this.sqlFilter = sqlFilter;
         this.sqlFilterWhere = wh;
         this.filterValue = new MapFilterValueImpl(wh.getKey(), v);
@@ -73,8 +73,8 @@ public class SqlFilterWhereContextImpl implements SqlFilterWhereContext {
         return sqlFilterWhere;
     }
 
-    public SqlText getSqlText() {
-        return sqlText;
+    public SqlText getSql() {
+        return sql;
     }
 
     public IVariantMap getParams() {
@@ -82,7 +82,7 @@ public class SqlFilterWhereContextImpl implements SqlFilterWhereContext {
     }
 
     public void addWhere(String where) {
-        this.sqlText.addWhere(this.sqlFilterWhere.getWherePlace(), where);
+        this.sql.addWhere(this.sqlFilterWhere.getWherePlace(), where);
     }
 
     public void setParam(String name, Object value) {

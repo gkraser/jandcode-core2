@@ -7,7 +7,7 @@ public interface SqlFilterWhereContext extends MapFilterValue, ISqlFilterWhere {
     /**
      * Для какого текста sql. Именно он модифицируется
      */
-    SqlText getSqlText();
+    SqlText getSql();
 
     /**
      * Для какого фильтра
