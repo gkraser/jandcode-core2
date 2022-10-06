@@ -73,6 +73,7 @@ public class SqlPartsUtils {
             if (m.find()) {
                 return m.replaceFirst("where " + where + " and");
             }
+            throw new XError("Не найдено место для вставки условия where");
         }
         return sql;
     }
