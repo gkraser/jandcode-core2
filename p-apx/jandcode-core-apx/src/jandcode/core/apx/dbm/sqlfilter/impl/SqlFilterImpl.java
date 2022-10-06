@@ -1,6 +1,7 @@
 package jandcode.core.apx.dbm.sqlfilter.impl;
 
 import jandcode.commons.*;
+import jandcode.commons.error.*;
 import jandcode.commons.variant.*;
 import jandcode.core.apx.dbm.sqlfilter.*;
 import jandcode.core.apx.store.*;
@@ -21,6 +22,10 @@ public class SqlFilterImpl extends BaseModelMember implements SqlFilter {
     private SqlText sql;
     private Map<String, String> orderBy = new LinkedHashMap<>();
     private Paginate paginate;
+    // id
+    private boolean needOneRec;
+    private boolean hasIdWhere;
+    private Object idValue;
 
 
     public SqlFilterImpl(Mdb mdb, String origSql, Map<String, Object> origParams) {
@@ -53,6 +58,9 @@ public class SqlFilterImpl extends BaseModelMember implements SqlFilter {
     private void reset() {
         this.sql = null;
         this.paginate = null;
+        this.hasIdWhere = false;
+        this.idValue = null;
+        this.needOneRec = false;
     }
 
     private void prepare() {
@@ -60,10 +68,12 @@ public class SqlFilterImpl extends BaseModelMember implements SqlFilter {
 
         // для каждого зарегистрированного where проверяем,
         // есть ли для него информация в параметрах, если есть - используем его
-
         for (SqlFilterWhere wh : this.wheres) {
             SqlFilterContextImpl ctx = new SqlFilterContextImpl(tmpSql, this, wh);
             String key = ctx.getKey();
+            if (SqlFilterConsts.id.equals(key)) {
+                this.hasIdWhere = true; // имеется фильтр с именем id
+            }
             if (!ctx.hasValue() && !getOrigParams().containsKey(key)) {
                 // нет значения для фильтра
                 continue;
@@ -75,6 +85,22 @@ public class SqlFilterImpl extends BaseModelMember implements SqlFilter {
                 ctx.assignValue(v);
             }
             wh.getBuilder().buildWhere(ctx);
+            //
+            if (SqlFilterConsts.id.equals(key)) {
+                this.idValue = ctx.getValue(); // забираем значение id для фильтра id
+            }
+        }
+
+        // проверка на id
+        if (getOrigParams().containsKey(SqlFilterConsts.id)) {
+            // имеется параметр id
+            if (!this.hasIdWhere) {
+                throw new XError("В SqlFilter имеется параметр id, но нет фильтра с именем id");
+            }
+            if (this.idValue == null) {
+                throw new XError("В SqlFilter значение параметра id=null");
+            }
+            this.needOneRec = true;
         }
 
         // orderBy
@@ -146,10 +172,12 @@ public class SqlFilterImpl extends BaseModelMember implements SqlFilter {
     //////
 
     public void addOrderBy(String name, String orderBy) {
+        reset();
         this.orderBy.put(name, orderBy);
     }
 
     public void addOrderBy(Map<String, String> data) {
+        reset();
         if (data != null) {
             this.orderBy.putAll(data);
         }
@@ -158,7 +186,16 @@ public class SqlFilterImpl extends BaseModelMember implements SqlFilter {
     //////
 
     private void prepareLoadedStore(Store st) throws Exception {
-        if (this.paginate != null) {
+        if (this.needOneRec) {
+            //  резульате должна быть только одна запись
+            if (st.size() == 0) {
+                throw new XError("Не найдена запись #{0}", this.idValue);
+            }
+            if (st.size() > 1) {
+                throw new XError("Для #{0} найдено более одной записи ({1})", this.idValue, st.size());
+            }
+        }
+        if (this.paginate != null && !this.needOneRec) {
             // требуется пагинация
             Paginate pag = new Paginate(this.paginate);
             //
