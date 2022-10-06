@@ -10,28 +10,39 @@ import java.util.*;
 
 public class SqlFilterServiceImpl extends BaseModelMember implements SqlFilterService {
 
-    private NamedList<SqlFilterWhereDef> sqlFilterWhereDefs = new DefaultNamedList<>("sql-filter-where [{0}] не найден");
+    private NamedList<SqlFilterBuilderDef> sqlFilterBuilderDefs = new DefaultNamedList<>("sql-filter-builder [{0}] не найден");
+
+    class SqlFilterBuilderDef extends Named {
+
+        Conf conf;
+
+        public SqlFilterBuilderDef(Conf conf) {
+            this.conf = conf;
+            setName(conf.getName());
+        }
+
+        public SqlFilterBuilder createInst() {
+            return (SqlFilterBuilder) getModel().create(conf);
+        }
+
+    }
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
 
         //
-        for (Conf conf : getModel().getConf().getConfs("sql-filter-where")) {
-            SqlFilterWhereDef f = new SqlFilterWhereDefImpl(getModel(), conf.getName(), conf);
-            this.sqlFilterWhereDefs.add(f);
+        for (Conf conf : getModel().getConf().getConfs("sql-filter-builder")) {
+            SqlFilterBuilderDef f = new SqlFilterBuilderDef(conf);
+            this.sqlFilterBuilderDefs.add(f);
         }
     }
 
-    public SqlFilter createSqlFilter(String sql, Map params) {
-        return new SqlFilterImpl(getModel(), sql, params);
+    public List<String> getSqlFilterBuilderNames() {
+        return sqlFilterBuilderDefs.getNames();
     }
 
-    public NamedList<SqlFilterWhereDef> getSqlFilterWhereDefs() {
-        return sqlFilterWhereDefs;
-    }
-
-    public SqlFilterWhere createSqlFilterWhere(String name) {
-        return sqlFilterWhereDefs.get(name).createInst();
+    public SqlFilterBuilder createSqlFilterBuilder(String name) {
+        return sqlFilterBuilderDefs.get(name).createInst();
     }
 
 }

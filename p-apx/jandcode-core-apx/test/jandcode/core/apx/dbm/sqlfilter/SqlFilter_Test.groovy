@@ -1,6 +1,6 @@
-package jandcode.core.apx.sqlfilter
+package jandcode.core.apx.dbm.sqlfilter
 
-import jandcode.core.apx.dbm.sqlfilter.*
+
 import jandcode.core.dbm.test.*
 import org.junit.jupiter.api.*
 
@@ -41,14 +41,16 @@ class SqlFilter_Test extends Dbm_Test {
         SqlFilter f = SqlFilter.create(mdb, sql, params)
 
         f.addWhere("p1", { ctx ->
-            ctx.addWhere("t1.f1=:${ctx.param()}")
-            ctx.setParam(ctx.param(), ctx.getValue())
+            ctx.addWhere("t1.f1=:${ctx.paramName()}")
+            ctx.setParam(ctx.paramName(), ctx.getValue())
         })
 
         f.addWhere("p2", "equal")
 
         //
         out(f)
+        //
+        assertEquals(f.sql.toString(), "select * from t1 where t1.f1=:p1__value and p2=:p2__value and 0=0")
     }
 
     @Test
@@ -58,21 +60,21 @@ class SqlFilter_Test extends Dbm_Test {
                 [p1: 1, p2: [value: 2], p3: [a: 1]]
         )
 
-        SqlFilterWhere wh
+        //
+        f.addWhere("p1", [a1: 1]) { ctx ->
+            assertEquals(ctx.name, "p1")
+            assertEquals(ctx.key, "p1")
+            assertEquals(ctx.sqlField, "p1")
+            assertEquals(ctx.attrs, [a1: 1])
+        }
 
         //
-        wh = f.addWhere("p1", "equal", [a1: 1])
-        assertEquals(wh.name, "p1")
-        assertEquals(wh.key, "p1")
-        assertEquals(wh.sqlField, "p1")
-        assertEquals(wh.attrs, [a1: 1])
-
-        //
-        wh = f.addWhere("p1", "equal", [a1: 1, sqlField: 'f1', key: 'k1'])
-        assertEquals(wh.name, "p1")
-        assertEquals(wh.key, "k1")
-        assertEquals(wh.sqlField, "f1")
-        assertEquals(wh.attrs, [a1: 1, sqlField: 'f1', key: 'k1'])
+        f.addWhere("p1", [a1: 1, sqlField: 'f1', key: 'k1']) { ctx ->
+            assertEquals(ctx.name, "p1")
+            assertEquals(ctx.key, "k1")
+            assertEquals(ctx.sqlField, "f1")
+            assertEquals(ctx.attrs, [a1: 1, sqlField: 'f1', key: 'k1'])
+        }
 
     }
 

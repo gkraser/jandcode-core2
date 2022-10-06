@@ -1,27 +1,47 @@
 package jandcode.core.apx.dbm.sqlfilter.impl;
 
+import jandcode.commons.*;
+import jandcode.commons.error.*;
 import jandcode.commons.variant.*;
 import jandcode.core.apx.dbm.sqlfilter.*;
 import jandcode.core.dbm.sql.*;
 
 import java.util.*;
 
-public class SqlFilterWhereContextImpl implements SqlFilterWhereContext {
+public class SqlFilterContextImpl implements SqlFilterContext {
 
+    private String name;
     private SqlText sql;
     private SqlFilter sqlFilter;
     private SqlFilterWhere sqlFilterWhere;
     private MapFilterValue filterValue;
 
-    public SqlFilterWhereContextImpl(SqlText sql, SqlFilter sqlFilter, SqlFilterWhere wh, Object v) {
+    public SqlFilterContextImpl(SqlText sql, SqlFilter sqlFilter, SqlFilterWhere sqlFilterWhere) {
         this.sql = sql;
         this.sqlFilter = sqlFilter;
-        this.sqlFilterWhere = wh;
-        this.filterValue = new MapFilterValueImpl(wh.getKey(), v);
+        this.sqlFilterWhere = sqlFilterWhere;
+        this.name = sqlFilterWhere.getName();
+        if (UtString.empty(this.name)) {
+            this.name = "noname";
+        }
+        if (sqlFilterWhere.getAttrs().containsKey("value")) {
+            this.filterValue = new MapFilterValueImpl(getKey(), sqlFilterWhere.getAttrs().get("value"));
+        }
     }
 
     protected MapFilterValue getFilterValue() {
+        if (filterValue == null) {
+            throw new XError("value not assigned");
+        }
         return filterValue;
+    }
+
+    boolean hasValue() {
+        return filterValue != null;
+    }
+
+    public String getName() {
+        return name;
     }
 
     ////// MapFilterValue
@@ -31,11 +51,19 @@ public class SqlFilterWhereContextImpl implements SqlFilterWhereContext {
     }
 
     public String getKey() {
-        return getFilterValue().getKey();
+        String s = getAttrs().getString("key");
+        if (UtString.empty(s)) {
+            return getName();
+        }
+        return s;
     }
 
     public Object getValue() {
         return getFilterValue().getValue();
+    }
+
+    void assignValue(Object v) {
+        this.filterValue = new MapFilterValueImpl(getKey(), v);
     }
 
     public List<String> getValueList() {
@@ -50,28 +78,24 @@ public class SqlFilterWhereContextImpl implements SqlFilterWhereContext {
         return getFilterValue().paramName(suffix);
     }
 
-    ////// ISqlFilterWhere
+    //////
 
     public IVariantMap getAttrs() {
-        return getSqlFilterWhere().getAttrs();
+        return sqlFilterWhere.getAttrs();
     }
 
     public String getWherePlace() {
-        return getSqlFilterWhere().getWherePlace();
+        return getAttrs().getString("wherePlace", null);
     }
 
     public String getSqlField() {
-        return getSqlFilterWhere().getSqlField();
+        return getAttrs().getString("sqlField", getName());
     }
 
     //////
 
     public SqlFilter getSqlFilter() {
         return sqlFilter;
-    }
-
-    public SqlFilterWhere getSqlFilterWhere() {
-        return sqlFilterWhere;
     }
 
     public SqlText getSql() {
@@ -83,7 +107,7 @@ public class SqlFilterWhereContextImpl implements SqlFilterWhereContext {
     }
 
     public void addWhere(String where) {
-        this.sql.addWhere(this.sqlFilterWhere.getWherePlace(), where);
+        this.sql.addWhere(getWherePlace(), where);
     }
 
     public void setParam(String name, Object value) {

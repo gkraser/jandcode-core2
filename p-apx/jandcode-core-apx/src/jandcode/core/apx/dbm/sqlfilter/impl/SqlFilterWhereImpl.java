@@ -1,61 +1,38 @@
 package jandcode.core.apx.dbm.sqlfilter.impl;
 
 import jandcode.commons.*;
-import jandcode.commons.named.*;
 import jandcode.commons.variant.*;
 import jandcode.core.apx.dbm.sqlfilter.*;
 
-public abstract class SqlFilterWhereImpl implements SqlFilterWhere, SqlFilterWhereBuilder, INamedSet {
+import java.util.*;
+
+public class SqlFilterWhereImpl implements SqlFilterWhere {
 
     private IVariantMap attrs = new VariantMap();
+    private SqlFilterBuilder builder;
     private String name;
-    private String key;
-    private String wherePlace;
-    private String sqlField;
+
+    public SqlFilterWhereImpl(String name, SqlFilterBuilder builder, Map attrs) {
+        this.name = name;
+        this.builder = builder;
+        if (attrs != null) {
+            this.attrs.putAll(attrs);
+        }
+        if (UtString.empty(this.name)) {
+            this.name = "noname";
+        }
+    }
 
     public String getName() {
-        if (UtString.empty(name)) {
-            return "noname";
-        }
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public SqlFilterBuilder getBuilder() {
+        return builder;
     }
 
     public IVariantMap getAttrs() {
         return attrs;
-    }
-
-    public String getKey() {
-        if (UtString.empty(key)) {
-            return getName();
-        }
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public String getWherePlace() {
-        return wherePlace;
-    }
-
-    public void setWherePlace(String wherePlace) {
-        this.wherePlace = wherePlace;
-    }
-
-    public String getSqlField() {
-        if (UtString.empty(sqlField)) {
-            return getName();
-        }
-        return sqlField;
-    }
-
-    public void setSqlField(String sqlField) {
-        this.sqlField = sqlField;
     }
 
 }

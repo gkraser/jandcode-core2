@@ -6,8 +6,8 @@
 
     <!-- sql filter -->
 
-    <sql-filter-where name="equal"
-                      class="jandcode.core.apx.dbm.sqlfilter.std.SqlFilterWhere_equal"/>
+    <sql-filter-builder name="equal"
+                        class="jandcode.core.apx.dbm.sqlfilter.std.SqlFilterBuilder_equal"/>
 
 
 </root>

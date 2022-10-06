@@ -5,9 +5,9 @@ import jandcode.core.apx.dbm.sqlfilter.*;
 /**
  * =
  */
-public class SqlFilterWhere_equal extends BaseSqlFilterWhere {
+public class SqlFilterBuilder_equal implements SqlFilterBuilder {
 
-    public void buildWhere(SqlFilterWhereContext ctx) {
+    public void buildWhere(SqlFilterContext ctx) {
         String pname = ctx.paramName("value");
         Object v = ctx.getValue();
         //

@@ -61,25 +61,32 @@ public interface SqlFilter extends IModelLink {
      * @param name    имя
      * @param builder построитель
      */
-    SqlFilterWhere addWhere(String name, SqlFilterWhereBuilder builder);
+    SqlFilterWhere addWhere(String name, SqlFilterBuilder builder);
 
     /**
      * Добавить where
      *
-     * @param name               имя
-     * @param sqlFilterWhereName имя зарегистрованного {@link SqlFilterWhere}
+     * @param name    имя
+     * @param attrs   произвольные атрибуты.
+     * @param builder построитель
      */
-    SqlFilterWhere addWhere(String name, String sqlFilterWhereName);
+    SqlFilterWhere addWhere(String name, Map attrs, SqlFilterBuilder builder);
 
     /**
      * Добавить where
      *
-     * @param name               имя
-     * @param sqlFilterWhereName имя зарегистрованного {@link SqlFilterWhere}
-     * @param attrs              произвольные атрибуты. Если совпадают с именами свойст
-     *                           экземпляра {@link SqlFilterWhere}, то будут присвоены соотвествующим
-     *                           свойствамы
+     * @param name    имя
+     * @param builder имя зарегистрованного {@link SqlFilterBuilder}
      */
-    SqlFilterWhere addWhere(String name, String sqlFilterWhereName, Map attrs);
+    SqlFilterWhere addWhere(String name, String builder);
+
+    /**
+     * Добавить where
+     *
+     * @param name    имя
+     * @param builder имя зарегистрованного {@link SqlFilterBuilder}
+     * @param attrs   произвольные атрибуты.
+     */
+    SqlFilterWhere addWhere(String name, String builder, Map attrs);
 
 }

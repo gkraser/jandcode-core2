@@ -1,7 +1,5 @@
 package jandcode.core.apx.dbm.sqlfilter.impl;
 
-import jandcode.commons.*;
-import jandcode.commons.named.*;
 import jandcode.commons.variant.*;
 import jandcode.core.apx.dbm.sqlfilter.*;
 import jandcode.core.dbm.*;
@@ -12,45 +10,26 @@ import java.util.*;
 public class SqlFilterImpl extends BaseModelMember implements SqlFilter {
 
     private Map<String, Object> origParams;
-    private MapFilter origMapFilter;
     private String origSql;
     private IVariantMap params = new VariantMap();
     private List<SqlFilterWhere> wheres = new ArrayList<>();
     private SqlText sql;
 
-    /**
-     * Враппер для SqlFilterWhereBuilder
-     */
-    public static class SqlFilterWhereBuilderWrapper extends SqlFilterWhereImpl {
-        private SqlFilterWhereBuilder b;
-
-        public SqlFilterWhereBuilderWrapper(SqlFilterWhereBuilder b) {
-            this.b = b;
-        }
-
-        public void buildWhere(SqlFilterWhereContext ctx) {
-            b.buildWhere(ctx);
-        }
-    }
 
     public SqlFilterImpl(Model model, String origSql, Map<String, Object> origParams) {
         setModel(model);
         this.origParams = origParams;
         this.origSql = origSql;
         // переносим параметры
-        this.origMapFilter = new MapFilter(origParams);
-        for (var key : this.origMapFilter.keySet()) {
-            MapFilterValue v = this.origMapFilter.getValue(key);
+        MapFilter mf = new MapFilter(origParams);
+        for (var key : mf.keySet()) {
+            MapFilterValue v = mf.getValue(key);
             this.params.setValue(key, v.getValue());
         }
     }
 
     public Map<String, Object> getOrigParams() {
         return origParams;
-    }
-
-    protected MapFilter getOrigMapFilter() {
-        return origMapFilter;
     }
 
     public String getOrigSql() {
@@ -73,15 +52,19 @@ public class SqlFilterImpl extends BaseModelMember implements SqlFilter {
         // есть ли для него информация в параметрах, если есть - используем его
 
         for (SqlFilterWhere wh : this.wheres) {
-            String key = wh.getKey();
-            if (!getOrigParams().containsKey(key)) {
+            SqlFilterContextImpl ctx = new SqlFilterContextImpl(tmpSql, this, wh);
+            String key = ctx.getKey();
+            if (!ctx.hasValue() && !getOrigParams().containsKey(key)) {
                 // нет значения для фильтра
                 continue;
             }
             // этот where нужен
-            Object v = getOrigParams().get(key);
-            SqlFilterWhereContext ctx = new SqlFilterWhereContextImpl(tmpSql, this, wh, v);
-            wh.buildWhere(ctx);
+            if (!ctx.hasValue()) {
+                // если явно не назначено значение, то берем из параметров
+                Object v = getOrigParams().get(key);
+                ctx.assignValue(v);
+            }
+            wh.getBuilder().buildWhere(ctx);
         }
 
 
@@ -100,34 +83,28 @@ public class SqlFilterImpl extends BaseModelMember implements SqlFilter {
         return currSql.asCountSqlText("cnt");
     }
 
-    protected void addWhereInst(String name, SqlFilterWhere inst) {
+    protected SqlFilterWhere addWhereInst(String name, SqlFilterBuilder builder, Map attrs) {
         reset();
-        if (inst instanceof INamedSet nm) {
-            nm.setName(name);
-        }
+        SqlFilterWhere inst = new SqlFilterWhereImpl(name, builder, attrs);
         this.wheres.add(inst);
-    }
-
-    public SqlFilterWhere addWhere(String name, SqlFilterWhereBuilder builder) {
-        SqlFilterWhere inst = new SqlFilterWhereBuilderWrapper(builder);
-        addWhereInst(name, inst);
         return inst;
     }
 
-    public SqlFilterWhere addWhere(String name, String sqlFilterWhereName) {
-        SqlFilterWhere inst = getModel().bean(SqlFilterService.class).createSqlFilterWhere(sqlFilterWhereName);
-        addWhereInst(name, inst);
-        return inst;
+    public SqlFilterWhere addWhere(String name, SqlFilterBuilder builder) {
+        return addWhereInst(name, builder, null);
     }
 
-    public SqlFilterWhere addWhere(String name, String sqlFilterWhereName, Map attrs) {
-        SqlFilterWhere inst = getModel().bean(SqlFilterService.class).createSqlFilterWhere(sqlFilterWhereName);
-        if (attrs != null) {
-            inst.getAttrs().putAll(attrs);
-            UtReflect.getUtils().setProps(inst, attrs);
-        }
-        addWhereInst(name, inst);
-        return inst;
+    public SqlFilterWhere addWhere(String name, Map attrs, SqlFilterBuilder builder) {
+        return addWhereInst(name, builder, attrs);
+    }
+
+    public SqlFilterWhere addWhere(String name, String builder) {
+        return addWhere(name, builder, null);
+    }
+
+    public SqlFilterWhere addWhere(String name, String builder, Map attrs) {
+        SqlFilterBuilder b = getModel().bean(SqlFilterService.class).createSqlFilterBuilder(builder);
+        return addWhereInst(name, b, attrs);
     }
 }
 

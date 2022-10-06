@@ -1,19 +1,20 @@
 package jandcode.core.apx.dbm.sqlfilter;
 
-import jandcode.commons.named.*;
 import jandcode.core.*;
 import jandcode.core.dbm.*;
+
+import java.util.*;
 
 public interface SqlFilterService extends Comp, IModelMember {
 
     /**
-     * Зарегистрированные {@link SqlFilterWhereDef}
+     * Зарегистрированные имена для {@link SqlFilterBuilder}
      */
-    NamedList<SqlFilterWhereDef> getSqlFilterWhereDefs();
+    List<String> getSqlFilterBuilderNames();
 
     /**
-     * Создать экземпляр {@link SqlFilterWhere} по зарегистрированному имени
+     * Создать экземпляр {@link SqlFilterBuilder} по зарегистрированному имени
      */
-    SqlFilterWhere createSqlFilterWhere(String name);
+    SqlFilterBuilder createSqlFilterBuilder(String name);
 
 }

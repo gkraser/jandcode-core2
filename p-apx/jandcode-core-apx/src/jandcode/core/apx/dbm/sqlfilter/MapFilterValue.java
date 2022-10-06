@@ -56,25 +56,4 @@ public interface MapFilterValue extends IVariant {
         return paramName(null);
     }
 
-    /**
-     * Имя параметра для sql с указанным суффиксом
-     */
-    default String param(String suffix) {
-        return paramName(suffix);
-    }
-
-    /**
-     * Имя параметра для sql с суффиксом value
-     */
-    default String param() {
-        return paramName(null);
-    }
-
-    /**
-     * Имя параметра для sql с суффиксом value
-     */
-    default String getParam() {
-        return paramName(null);
-    }
-
 }
