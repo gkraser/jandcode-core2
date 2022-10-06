@@ -1,6 +1,7 @@
-package jandcode.core.dbm.sql;
+package jandcode.core.apx.dbm.sqlfilter;
 
 import jandcode.commons.variant.*;
+import jandcode.core.dbm.sql.*;
 
 public interface SqlFilterWhereContext extends MapFilterValue, ISqlFilterWhere {
 

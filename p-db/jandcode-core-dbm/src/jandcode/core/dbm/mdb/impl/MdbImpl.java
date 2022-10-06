@@ -234,10 +234,6 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
         return getSqlService().createSqlBuilder();
     }
 
-    public SqlFilter createSqlFilter(String sql, Map params) {
-        return getSqlService().createSqlFilter(sql, params);
-    }
-
     ////// IOutData
 
     public void outMap(Map m, boolean showClass) {

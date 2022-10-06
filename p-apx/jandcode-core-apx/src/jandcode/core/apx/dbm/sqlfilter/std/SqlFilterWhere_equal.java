@@ -1,6 +1,6 @@
-package jandcode.core.dbm.sql.std;
+package jandcode.core.apx.dbm.sqlfilter.std;
 
-import jandcode.core.dbm.sql.*;
+import jandcode.core.apx.dbm.sqlfilter.*;
 
 /**
  * =

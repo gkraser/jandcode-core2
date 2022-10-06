@@ -1,8 +1,8 @@
-package jandcode.core.dbm.sql.impl;
+package jandcode.core.apx.dbm.sqlfilter.impl;
 
 import jandcode.commons.conf.*;
+import jandcode.core.apx.dbm.sqlfilter.*;
 import jandcode.core.dbm.*;
-import jandcode.core.dbm.sql.*;
 
 public class SqlFilterWhereDefImpl extends BaseModelMember implements SqlFilterWhereDef {
 

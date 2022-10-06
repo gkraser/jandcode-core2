@@ -1,8 +1,9 @@
-package jandcode.core.dbm.sql.impl;
+package jandcode.core.apx.dbm.sqlfilter.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.named.*;
 import jandcode.commons.variant.*;
+import jandcode.core.apx.dbm.sqlfilter.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.sql.*;
 
@@ -114,13 +115,13 @@ public class SqlFilterImpl extends BaseModelMember implements SqlFilter {
     }
 
     public SqlFilterWhere addWhere(String name, String sqlFilterWhereName) {
-        SqlFilterWhere inst = getModel().bean(SqlService.class).createSqlFilterWhere(sqlFilterWhereName);
+        SqlFilterWhere inst = getModel().bean(SqlFilterService.class).createSqlFilterWhere(sqlFilterWhereName);
         addWhereInst(name, inst);
         return inst;
     }
 
     public SqlFilterWhere addWhere(String name, String sqlFilterWhereName, Map attrs) {
-        SqlFilterWhere inst = getModel().bean(SqlService.class).createSqlFilterWhere(sqlFilterWhereName);
+        SqlFilterWhere inst = getModel().bean(SqlFilterService.class).createSqlFilterWhere(sqlFilterWhereName);
         if (attrs != null) {
             inst.getAttrs().putAll(attrs);
             UtReflect.getUtils().setProps(inst, attrs);

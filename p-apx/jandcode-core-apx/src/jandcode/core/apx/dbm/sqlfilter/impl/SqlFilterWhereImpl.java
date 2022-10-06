@@ -1,9 +1,9 @@
-package jandcode.core.dbm.sql.impl;
+package jandcode.core.apx.dbm.sqlfilter.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.named.*;
 import jandcode.commons.variant.*;
-import jandcode.core.dbm.sql.*;
+import jandcode.core.apx.dbm.sqlfilter.*;
 
 public abstract class SqlFilterWhereImpl implements SqlFilterWhere, SqlFilterWhereBuilder, INamedSet {
 

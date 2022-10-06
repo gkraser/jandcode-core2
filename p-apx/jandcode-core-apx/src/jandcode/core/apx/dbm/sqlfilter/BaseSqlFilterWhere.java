@@ -1,6 +1,6 @@
-package jandcode.core.dbm.sql;
+package jandcode.core.apx.dbm.sqlfilter;
 
-import jandcode.core.dbm.sql.impl.*;
+import jandcode.core.apx.dbm.sqlfilter.impl.*;
 
 /**
  * Базовая реализация {@link SqlFilterWhere}

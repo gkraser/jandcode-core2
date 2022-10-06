@@ -1,4 +1,4 @@
-package jandcode.core.dbm.sql;
+package jandcode.core.apx.dbm.sqlfilter;
 
 /**
  * Построитель части where

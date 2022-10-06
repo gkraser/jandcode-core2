@@ -1,7 +1,10 @@
-package jandcode.core.dbm.sql;
+package jandcode.core.apx.dbm.sqlfilter;
 
 import jandcode.commons.variant.*;
+import jandcode.core.apx.dbm.sqlfilter.impl.*;
 import jandcode.core.dbm.*;
+import jandcode.core.dbm.mdb.*;
+import jandcode.core.dbm.sql.*;
 
 import java.util.*;
 
@@ -9,6 +12,19 @@ import java.util.*;
  * Класс для формирования sql-запросов с переменной частью where, orderBy и пагинацией.
  */
 public interface SqlFilter extends IModelLink {
+
+    /**
+     * Создать экземпляр SqlFilter
+     *
+     * @param mdb    в контексте какой mdb
+     * @param sql    sql
+     * @param params параметры фильтрации
+     */
+    static SqlFilter create(Mdb mdb, String sql, Map params) {
+        return new SqlFilterImpl(mdb.getModel(), sql, params);
+    }
+
+    //////
 
     /**
      * Оригинальный набор параметров, которые переданы экземпляру при создании

@@ -1,9 +1,10 @@
-package jandcode.core.dbm.sql
+package jandcode.core.apx.sqlfilter
 
+import jandcode.core.apx.dbm.sqlfilter.*
 import jandcode.core.dbm.test.*
 import org.junit.jupiter.api.*
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*
 
 class SqlFilter_Test extends Dbm_Test {
 
@@ -37,7 +38,7 @@ class SqlFilter_Test extends Dbm_Test {
                         value1: 'v3'
                 ]
         ]
-        SqlFilter f = mdb.createSqlFilter(sql, params)
+        SqlFilter f = SqlFilter.create(mdb, sql, params)
 
         f.addWhere("p1", { ctx ->
             ctx.addWhere("t1.f1=:${ctx.param()}")
@@ -52,7 +53,7 @@ class SqlFilter_Test extends Dbm_Test {
 
     @Test
     public void attrs1() throws Exception {
-        SqlFilter f = mdb.createSqlFilter(
+        SqlFilter f = SqlFilter.create(mdb,
                 "select * from t1 where 0=0",
                 [p1: 1, p2: [value: 2], p3: [a: 1]]
         )

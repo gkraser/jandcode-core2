@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <bean name="jandcode.core.apx.dbm.sqlfilter.SqlFilterService"
+          class="jandcode.core.apx.dbm.sqlfilter.impl.SqlFilterServiceImpl"/>
+
+    <!-- sql filter -->
+
+    <sql-filter-where name="equal"
+                      class="jandcode.core.apx.dbm.sqlfilter.std.SqlFilterWhere_equal"/>
+
+
+</root>
