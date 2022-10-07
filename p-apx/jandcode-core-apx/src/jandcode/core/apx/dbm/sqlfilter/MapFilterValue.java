@@ -25,6 +25,12 @@ public interface MapFilterValue extends IVariant {
     Object getValue();
 
     /**
+     * Возвращает true, если параметр пустой.
+     * null, пустая строка, пустой Map, пустой List
+     */
+    boolean isEmpty();
+
+    /**
      * Получить значение как список строк.
      * Если значение - строка, то она рассматривается как набор значений через ','.
      */

@@ -62,6 +62,10 @@ public class SqlFilterContextImpl implements SqlFilterContext {
         return getFilterValue().getValue();
     }
 
+    public boolean isEmpty() {
+        return getFilterValue().isEmpty();
+    }
+
     void assignValue(Object v) {
         this.filterValue = new MapFilterValueImpl(getKey(), v);
     }

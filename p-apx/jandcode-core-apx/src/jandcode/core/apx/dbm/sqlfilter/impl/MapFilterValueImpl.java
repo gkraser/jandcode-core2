@@ -51,6 +51,33 @@ public class MapFilterValueImpl implements MapFilterValue {
         return getProps().get("value");
     }
 
+    public boolean isEmpty() {
+        Object v = getValue();
+        //
+        if (v == null) {
+            return true;
+        }
+        //
+        if (v instanceof CharSequence z) {
+            if (z.toString().trim().length() == 0) {
+                return true;
+            }
+        }
+        //
+        if (v instanceof List z) {
+            if (z.size() == 0) {
+                return true;
+            }
+        }
+        //
+        if (v instanceof Map z) {
+            if (z.size() == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<String> getValueList() {
         return UtCnv.toList(getValue());
     }

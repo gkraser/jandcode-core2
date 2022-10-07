@@ -84,10 +84,18 @@ public class SqlFilterImpl extends BaseModelMember implements SqlFilter {
                 Object v = getOrigParams().get(key);
                 ctx.assignValue(v);
             }
+            // пустые значения пропускаем
+            if (ctx.isEmpty()) {
+                continue;
+            }
+            //
             wh.getBuilder().buildWhere(ctx);
             //
             if (SqlFilterConsts.id.equals(key)) {
                 this.idValue = ctx.getValue(); // забираем значение id для фильтра id
+                if (ctx.isEmpty()) {
+                    this.idValue = null;
+                }
             }
         }
 

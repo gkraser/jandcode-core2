@@ -143,4 +143,27 @@ class SqlFilter_Test extends Dbm_Test {
         println pg
     }
 
+    @Test
+    public void emptyParams1() throws Exception {
+        String sql = "select * from t1 where 0=0"
+        Map params = [
+                p0: 0,
+                p1: null,
+                p2: "",
+                p3: [],
+                p4: [:],
+        ]
+        SqlFilter f = SqlFilter.create(mdb, sql, params)
+        //
+        f.addWhere("p0", "equal")
+        f.addWhere("p1", "equal")
+        f.addWhere("p2", "equal")
+        f.addWhere("p3", "equal")
+        f.addWhere("p4", "equal")
+        //
+        out(f)
+        //
+        assertEquals(f.sql.toString(), "select * from t1 where p0=:p0__value and 0=0")
+    }
+
 }
