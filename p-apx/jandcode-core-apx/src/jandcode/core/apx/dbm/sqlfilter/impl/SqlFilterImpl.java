@@ -129,11 +129,14 @@ public class SqlFilterImpl extends BaseModelMember implements SqlFilter {
             String pfx = key + "__";
 
             MapFilterValue pv = new MapFilterValueImpl(key, getOrigParams().get(key));
-            tmpSql.paginate(true);
-            tmpSql.paginateParamsPrefix(pfx);
-            this.paginate = new Paginate(pv.getProps());
-            getParams().put(pfx + "offset", this.paginate.getOffset());
-            getParams().put(pfx + "limit", this.paginate.getLimit());
+            Paginate tmpPaginate = new Paginate(pv.getProps());
+            if (tmpPaginate.getLimit() > 0) {
+                tmpSql.paginate(true);
+                tmpSql.paginateParamsPrefix(pfx);
+                this.paginate = tmpPaginate;
+                getParams().put(pfx + "offset", this.paginate.getOffset());
+                getParams().put(pfx + "limit", this.paginate.getLimit());
+            }
         }
 
         this.sql = tmpSql;
