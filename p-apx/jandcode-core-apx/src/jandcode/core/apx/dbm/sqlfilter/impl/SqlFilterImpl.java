@@ -210,7 +210,7 @@ public class SqlFilterImpl extends BaseModelMember implements SqlFilter {
             // требуется пагинация
             Paginate pag = new Paginate(this.paginate);
             //
-            StoreRecord rec = mdb.loadQueryRecord(getSqlCount());
+            StoreRecord rec = mdb.loadQueryRecord(getSqlCount(), getParams());
             pag.setTotal(rec.getInt("cnt"));
             //
             ApxStoreUtils.setPaginate(st, pag);
