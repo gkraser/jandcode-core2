@@ -112,6 +112,41 @@ class SqlFilter_Test extends Dbm_Test {
         assertEquals(f.sql.toString(), "select * from t1 where 0=0 order by f1,f2")
     }
 
+    @Test
+    public void orderBy2() throws Exception {
+        String sql = "select * from t1 where 0=0 order by id"
+        Map params = [
+                orderBy: "z2,z1"
+        ]
+        SqlFilter f = SqlFilter.create(mdb, sql, params)
+
+        f.addOrderBy("z1", "f1,f2")
+        f.addOrderBy("z2", "f3")
+        //
+        out(f)
+        //
+        assertEquals(f.sql.toString(), "select * from t1 where 0=0 order by f3,f1,f2")
+    }
+
+    @Test
+    public void orderBy3_error() throws Exception {
+        String sql = "select * from t1 where 0=0 order by id"
+        Map params = [
+                orderBy: "z2,z1_",
+        ]
+        SqlFilter f = SqlFilter.create(mdb, sql, params)
+
+        f.addOrderBy("z1", "f1,f2")
+        f.addOrderBy("z2", "f3")
+        //
+        try {
+            out(f)
+            fail()
+        } catch (e) {
+            utils.showError(e)
+        }
+    }
+
     void createData() {
         Store st = mdb.createStore()
         st.addField("id", "long")

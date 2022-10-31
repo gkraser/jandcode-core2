@@ -116,9 +116,23 @@ public class SqlFilterImpl extends BaseModelMember implements SqlFilter {
             String key = SqlFilterConsts.orderBy;
             MapFilterValue pv = new MapFilterValueImpl(key, getOrigParams().get(key));
             if (!UtString.empty(pv.getString())) {
-                String expr = this.orderBy.get(pv.getString());
-                if (!UtString.empty(expr)) {
-                    tmpSql.replaceOrderBy(expr);
+                List<String> obvList = UtCnv.toList(pv.getString());
+                StringBuilder sb = new StringBuilder();
+                for (String obv : obvList) {
+                    String expr = this.orderBy.get(obv);
+                    if (!UtString.empty(expr)) {
+                        if (sb.length() > 0) {
+                            sb.append(",");
+                        }
+                        sb.append(expr);
+                    } else {
+                        throw new XError("orderBy {0} не зарегистрирован", obv);
+                    }
+                }
+                if (sb.length() > 0) {
+                    tmpSql.replaceOrderBy(sb.toString());
+                } else {
+                    throw new XError("Пустое выражение orderBy для {0}", pv.getString());
                 }
             }
         }
