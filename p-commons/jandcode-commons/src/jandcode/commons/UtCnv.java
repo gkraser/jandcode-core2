@@ -63,7 +63,8 @@ public class UtCnv {
                 if (((String) value).length() == 0) {
                     return defValue;
                 } else {
-                    return Integer.parseInt((String) value);
+                    Double n = Double.parseDouble((String) value);
+                    return n.intValue();
                 }
             } else if (value instanceof Boolean) {
                 if ((Boolean) value) {
@@ -99,7 +100,8 @@ public class UtCnv {
                 if (((String) value).length() == 0) {
                     return defValue;
                 } else {
-                    return Long.parseLong((String) value);
+                    Double n = Double.parseDouble((String) value);
+                    return n.longValue();
                 }
             } else if (value instanceof Boolean) {
                 if ((Boolean) value) {

@@ -116,4 +116,18 @@ public class UtCnv_Test extends Utils_Test {
         assertEquals(UtCnv.toRadix(255, 64, 4), "003-");
     }
 
+    @Test
+    public void test_toLong() throws Exception {
+        assertEquals(UtCnv.toLong(255.55), 255);
+        assertEquals(UtCnv.toLong("255.55"), 255);
+        assertEquals(UtCnv.toLong("255"), 255);
+    }
+
+    @Test
+    public void test_toInt() throws Exception {
+        assertEquals(UtCnv.toInt(255.55), 255);
+        assertEquals(UtCnv.toInt("255.55"), 255);
+        assertEquals(UtCnv.toInt("255"), 255);
+    }
+
 }
