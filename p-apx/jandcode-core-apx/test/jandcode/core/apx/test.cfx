@@ -6,7 +6,7 @@
     <x-depends module="jandcode.core.db.h2"/>
 
     <dao>
-        <holder name="api">
+        <holder name="api" invoker="model:default">
             <item name="test1" prefix="" invoker="model:default"
                   package="jandcode.core.apx.data"/>
         </holder>

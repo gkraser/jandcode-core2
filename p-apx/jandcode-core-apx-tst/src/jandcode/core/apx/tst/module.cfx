@@ -61,7 +61,8 @@
     </dbm>
 
     <dao>
-        <holder name="tst-api">
+        <holder name="tst-api" invoker="model:tst-apx">
+            <include name="apx.system"/>
             <item name="dao" prefix="" invoker="model:tst-apx"
                   package="jandcode.core.apx.tst.dao"/>
         </holder>
