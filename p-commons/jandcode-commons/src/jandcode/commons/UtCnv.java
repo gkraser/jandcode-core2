@@ -7,6 +7,7 @@ import jandcode.commons.named.*;
 import jandcode.commons.variant.*;
 
 import java.awt.*;
+import java.math.*;
 import java.time.*;
 import java.util.List;
 import java.util.*;
@@ -759,6 +760,31 @@ public class UtCnv {
         }
 
         return new String(buf, charPos, (65 - charPos));
+    }
+
+    //////
+
+    /**
+     * Округление double
+     *
+     * @param d     что округляем
+     * @param scale сколько знаков оставляем после запятой. Если scale отрицательная,
+     *              то округляем целую часть до указанного количества знаков.
+     *              Например {@code round(123,-2)=>100}
+     * @return округленное число
+     */
+    public static double round(double d, int scale) {
+        if (Double.isNaN(d) || Double.isInfinite(d)) {
+            return d;
+        }
+        if (scale >= 0) {
+            BigDecimal decimal = new BigDecimal(d);
+            decimal = decimal.setScale(scale, RoundingMode.HALF_UP);
+            return decimal.doubleValue();
+        } else {
+            double mn = Math.pow(10, -scale);
+            return Math.round(d / mn) * mn;
+        }
     }
 
 }

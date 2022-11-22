@@ -130,4 +130,12 @@ public class UtCnv_Test extends Utils_Test {
         assertEquals(UtCnv.toInt("255"), 255);
     }
 
+    @Test
+    public void test_round() throws Exception {
+        assertEquals(UtCnv.round(156.123, 2), 156.12);
+        assertEquals(UtCnv.round(156.123, -2), 200);
+        assertEquals(UtCnv.round(1.0 / 6.0, 3), 0.167);
+        assertEquals(UtCnv.round(1.0 / 3.0, 1), 0.3);
+    }
+
 }
