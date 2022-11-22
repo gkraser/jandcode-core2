@@ -22,7 +22,23 @@ public class StoreDataType_double extends BaseStoreDataType {
         if (field.getScale() != StoreField.NO_SCALE) {
             v = UtCnv.round(v, field.getScale());
         }
+        if (Double.isNaN(v) || Double.isInfinite(v)) {
+            return 0.0;
+        }
         return v;
     }
 
+    public boolean isFieldValueNull(IRawRecord rawRec, int index, StoreRecord rec, StoreField field) {
+        Object v = rawRec.getRawValue(index);
+        if (v == null) {
+            return true;
+        }
+        if (v instanceof Double vd) {
+            if (Double.isNaN(vd) || Double.isInfinite(vd)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
 }

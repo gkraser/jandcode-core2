@@ -19,4 +19,8 @@ public abstract class BaseStoreDataType extends BaseComp implements StoreDataTyp
         this.dataType = dataType;
     }
 
+    public boolean isFieldValueNull(IRawRecord rawRec, int index, StoreRecord rec, StoreField field) {
+        return rawRec.getRawValue(index) == null;
+    }
+    
 }

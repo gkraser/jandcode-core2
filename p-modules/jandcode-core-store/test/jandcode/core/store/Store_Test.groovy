@@ -294,17 +294,36 @@ public class Store_Test extends App_Test {
         Store st = svc.createStore()
         st.addField("f1", "string")
         st.addField("f2", "long")
+        st.addField("f3", "double")
+        st.addField("f3_nan", "double")
+        st.addField("f3_inf", "double")
         //
-        def rec = st.add()
+        double zero = 0.0
+        double inf = 1.0 / zero
+        def rec = st.add(
+                f3_nan: Double.NaN,
+                f3_inf: inf
+        )
         //
         assertEquals(rec.getValue("f1"), "")
         assertEquals(rec.getValue("f2"), 0)
+        assertEquals(rec.getValue("f3"), 0.0)
+        assertEquals(rec.getValue("f3_nan"), 0.0)
+        assertEquals(rec.getValue("f3_inf"), 0.0)
+        IRawRecord rr = rec
+        assertTrue(Double.isInfinite(rr.getRawValue(4))) // f3_inf
         //
         assertNull(rec.getValueNullable("f1"))
         assertNull(rec.getValueNullable("f2"))
+        assertNull(rec.getValueNullable("f3"))
+        assertNull(rec.getValueNullable("f3_nan"))
+        assertNull(rec.getValueNullable("f3_inf"))
         //
         assertTrue(rec.isValueNull("f1"))
         assertTrue(rec.isValueNull("f2"))
+        assertTrue(rec.isValueNull("f3"))
+        assertTrue(rec.isValueNull("f3_nan"))
+        assertTrue(rec.isValueNull("f3_inf"))
         //
     }
 

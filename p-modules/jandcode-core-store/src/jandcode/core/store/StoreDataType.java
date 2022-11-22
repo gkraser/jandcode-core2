@@ -36,5 +36,16 @@ public interface StoreDataType extends INamed {
      */
     Object getFieldValue(IRawRecord rawRec, int index, StoreRecord rec, StoreField field);
 
+    /**
+     * Для использования в реализации типов полей.
+     * Проверка, что значение поля null.
+     *
+     * @param rawRec сырые данные записи
+     * @param index  индекс поля для rawRec
+     * @param rec    с какой записью связаны сырые данные
+     * @param field  с каким полем связаны сырые данные
+     * @return true, если значение поля - null
+     */
+    boolean isFieldValueNull(IRawRecord rawRec, int index, StoreRecord rec, StoreField field);
 
 }

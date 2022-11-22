@@ -15,7 +15,8 @@ public class DefaultStoreRecord extends BaseStoreRecord {
         if (index >= data.length) {
             return true;
         }
-        return data[index] == null;
+        StoreField f = getStore().getField(index);
+        return f.getStoreDataType().isFieldValueNull(this, f.getIndex(), this, f);
     }
 
     public void clear() {
