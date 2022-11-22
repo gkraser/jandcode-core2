@@ -8,6 +8,11 @@ import jandcode.commons.named.*;
 public interface StoreField extends INamed {
 
     /**
+     * Специальное значение scale - ничего не делать с double
+     */
+    int NO_SCALE = Integer.MAX_VALUE;
+
+    /**
      * Тип данных для поля
      */
     StoreDataType getStoreDataType();
@@ -31,5 +36,14 @@ public interface StoreField extends INamed {
 
     void setDict(String dict);
 
+    /**
+     * До какого знака округлять (для double-полей).
+     * Если число отрицательно - округляем целую часть до указанного количества знаков.
+     * Например {@code 123 и scale=-2 => 100}.
+     * По умолчанию {@link StoreField#NO_SCALE}
+     */
+    int getScale();
+
+    void setScale(int scale);
 
 }

@@ -18,7 +18,11 @@ public class StoreDataType_double extends BaseStoreDataType {
     }
 
     public Object getFieldValue(IRawRecord rawRec, int index, StoreRecord rec, StoreField field) {
-        return UtCnv.toDouble(rawRec.getRawValue(index));
+        double v = UtCnv.toDouble(rawRec.getRawValue(index));
+        if (field.getScale() != StoreField.NO_SCALE) {
+            v = UtCnv.round(v, field.getScale());
+        }
+        return v;
     }
 
 }

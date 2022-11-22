@@ -13,6 +13,7 @@ public abstract class BaseStoreField implements StoreField, Cloneable {
     private int size;
     private String dict;
     private StoreDataType storeDataType;
+    private int scale = NO_SCALE;
 
     public StoreDataType getStoreDataType() {
         return storeDataType;
@@ -52,6 +53,14 @@ public abstract class BaseStoreField implements StoreField, Cloneable {
 
     public void setDict(String dict) {
         this.dict = dict;
+    }
+
+    public int getScale() {
+        return scale;
+    }
+
+    public void setScale(int scale) {
+        this.scale = scale;
     }
 
     protected BaseStoreField cloneField() {

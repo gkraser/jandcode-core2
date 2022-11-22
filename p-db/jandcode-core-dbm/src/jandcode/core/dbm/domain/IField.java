@@ -79,4 +79,12 @@ public interface IField {
      */
     boolean hasDict();
 
+    /**
+     * До какого знака округлять (для double-полей).
+     * Если число отрицательно - округляем целую часть до указанного количества знаков.
+     * Например {@code 123 и scale=-2 => 100}.
+     * По умолчанию {@link StoreField#NO_SCALE}
+     */
+    int getScale();
+
 }

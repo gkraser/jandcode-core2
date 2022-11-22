@@ -79,5 +79,23 @@ class StoreField_Test extends App_Test {
         println rec["f"]
     }
 
+    @Test
+    public void test_double_scale() throws Exception {
+        def v
+        def rec = createRec("double")
+
+        v = rec["f"]
+        assertEquals(v.class, Double)
+
+        rec["f"] = 123.456789
+        assertEquals(rec["f"], 123.456789)
+
+        rec.store.getField("f").setScale(2)
+        assertEquals(rec["f"], 123.46)
+
+        rec.store.getField("f").setScale(StoreField.NO_SCALE)
+        assertEquals(rec["f"], 123.456789)
+    }
+
 
 }

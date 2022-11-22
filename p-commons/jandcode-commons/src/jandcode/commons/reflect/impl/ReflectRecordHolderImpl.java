@@ -178,6 +178,9 @@ public class ReflectRecordHolderImpl {
         if (fieldProps.size() > 0) {
             field.setPropIfNotExist("size", fieldProps.size());
         }
+        if (fieldProps.scale() != Integer.MAX_VALUE) {
+            field.setPropIfNotExist("scale", fieldProps.scale());
+        }
     }
 
     /**

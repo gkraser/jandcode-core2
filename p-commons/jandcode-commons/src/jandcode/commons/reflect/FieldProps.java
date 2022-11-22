@@ -20,4 +20,9 @@ public @interface FieldProps {
      */
     int size() default 0;
 
+    /**
+     * До какого знака округлять.
+     */
+    int scale() default Integer.MAX_VALUE;
+
 }

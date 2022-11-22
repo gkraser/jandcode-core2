@@ -101,6 +101,11 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
                             f.setSize(size);
                         }
 
+                        int scale = UtCnv.toInt(rtf.getProp("scale"));
+                        if (scale != StoreField.NO_SCALE) {
+                            f.setScale(scale);
+                        }
+
                     }
                     rt.setProp("storeStruct", storeStruct);
                 }

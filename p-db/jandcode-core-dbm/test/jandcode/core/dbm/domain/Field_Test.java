@@ -3,6 +3,7 @@ package jandcode.core.dbm.domain;
 import jandcode.commons.variant.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.test.*;
+import jandcode.core.store.*;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,6 +29,10 @@ public class Field_Test extends Dbm_Test {
         assertEquals(d.f("f2").getTitle(), "F2 title");
         assertEquals(d.f("f2").getTitleShort(), "F2");
         assertEquals(d.f("f2").getDbDataType().getName(), "long");
+        //
+        assertEquals(d.f("f3").getScale(), 4);
+        assertEquals(d.f("f3_1").getScale(), StoreField.NO_SCALE);
+        assertEquals(d.f("f3_2").getScale(), StoreField.NO_SCALE);
     }
 
 

@@ -12,6 +12,9 @@
 
         <field name="f1" parent="string" size="10" title="F1 title"/>
         <field name="f2" parent="long" title="F2 title" titleShort="F2"/>
+        <field name="f3" parent="double" scale="4"/>
+        <field name="f3_1" parent="double" scale=""/>
+        <field name="f3_2" parent="double" scale="aaaaaaa"/>
 
     </domain>
 

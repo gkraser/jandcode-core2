@@ -17,6 +17,7 @@ public class IFieldImpl extends BaseFieldMember implements IField {
     private String ref;
     private boolean refCascade;
     private String dict;
+    private int scale = StoreField.NO_SCALE;
 
     //////
 
@@ -132,6 +133,22 @@ public class IFieldImpl extends BaseFieldMember implements IField {
 
     public void setDict(String dict) {
         this.dict = dict;
+    }
+
+    public int getScale() {
+        return scale;
+    }
+
+    public void setScale(int scale) {
+        this.scale = scale;
+    }
+
+    public void setScale(String scale) {
+        if (UtString.empty(scale)) {
+            this.scale = StoreField.NO_SCALE;
+        } else {
+            this.scale = UtCnv.toInt(scale, StoreField.NO_SCALE);
+        }
     }
 
 }
