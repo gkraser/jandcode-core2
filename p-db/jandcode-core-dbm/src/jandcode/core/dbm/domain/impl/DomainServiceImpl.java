@@ -2,6 +2,7 @@ package jandcode.core.dbm.domain.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
+import jandcode.commons.error.*;
 import jandcode.commons.named.*;
 import jandcode.core.*;
 import jandcode.core.dbm.*;
@@ -58,6 +59,17 @@ public class DomainServiceImpl extends BaseModelMember implements DomainService 
                 ((DomainImpl) inst).domainService = this;
             });
             res.add(dd);
+            // validate: для полей домена в базе должен быть указан dbdatatype и sqltype
+            if (dd.hasTag("db")) {
+                for (Field f : dd.getFields()) {
+                    if (f.getDbDataType() == null) {
+                        throw new XError("Для поля {0} домена {1} не указан dbdatatype", f.getName(), f.getDomain().getName());
+                    }
+                    if (f.getSqlType() == null) {
+                        throw new XError("Для поля {0} домена {1} не указан sqltype", f.getName(), f.getDomain().getName());
+                    }
+                }
+            }
         }
 
         return res;
