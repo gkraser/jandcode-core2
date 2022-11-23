@@ -61,7 +61,7 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-vfs2', version: '2.9.0'
     implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
     implementation group: 'commons-codec', name: 'commons-codec', version: '1.15'
-    implementation group: 'org.apache.commons', name: 'commons-compress', version: '1.21'
+    implementation group: 'org.apache.commons', name: 'commons-compress', version: '1.22'
     implementation group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.9.0'
     implementation group: 'org.apache.commons', name: 'commons-pool2', version: '2.11.1'
     implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.9.0'
@@ -87,24 +87,26 @@ dependencies {
     implementation group: 'org.fusesource.jansi', name: 'jansi', version: '2.4.0'
 
     // picocli, для groovy
-    implementation group: 'info.picocli', name: 'picocli', version: '4.6.3'
+    implementation group: 'info.picocli', name: 'picocli', version: '4.7.0'
 
     // slf4j
-    v = '2.0.3'
+    v = '2.0.4'
     implementation group: 'org.slf4j', name: 'slf4j-api', version: v
     implementation group: 'org.slf4j', name: 'jcl-over-slf4j', version: v
     implementation group: 'org.slf4j', name: 'log4j-over-slf4j', version: v
 
     // logback
-    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.3'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.5'
 
     // gson
-    implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.1'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.10'
 
     // jdbc
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.5.0'
     implementation group: 'com.h2database', name: 'h2', version: '2.1.214'
-    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.0.8'
+    implementation(group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.1.0'){
+        exclude module: 'waffle-jna'  // для нативной windows аутентификации
+    }
     implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '21.7.0.0', transitive: false
 
     // flexmark
@@ -134,7 +136,7 @@ dependencies {
     implementation group: 'org.apache.poi', name: 'poi-scratchpad', version: v
 
     // lucene
-    v = '9.4.0'
+    v = '9.4.2'
     implementation group: 'org.apache.lucene', name: 'lucene-core', version: v
     implementation group: 'org.apache.lucene', name: 'lucene-analysis-common', version: v
     implementation group: 'org.apache.lucene', name: 'lucene-queryparser', version: v
@@ -144,7 +146,7 @@ dependencies {
     implementation group: 'org.javassist', name: 'javassist', version: v
 
     // plantuml
-    v = '1.2022.8'
+    v = '1.2022.13'
     implementation group: 'net.sourceforge.plantuml', name: 'plantuml', version: v
 
 }
