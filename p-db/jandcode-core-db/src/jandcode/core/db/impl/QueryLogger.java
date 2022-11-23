@@ -68,7 +68,12 @@ public class QueryLogger {
 
         if (paramNames != null && paramNames.size() > 0) {
             sb.append(UtString.delim("Params", d, len)).append("\n");
+            Set<String> used = new HashSet<>();
             for (String pn : paramNames) {
+                if (used.contains(pn)) {
+                    continue;
+                }
+                used.add(pn);
                 if (params.isValueNull(pn)) {
                     sb.append(pn).append("=<NULL>\n");
                 } else if (params.getDataType(pn) == VariantDataType.BLOB) {
