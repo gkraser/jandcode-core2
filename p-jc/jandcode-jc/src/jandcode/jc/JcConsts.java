@@ -1,5 +1,7 @@
 package jandcode.jc;
 
+import jandcode.commons.cli.*;
+
 /**
  * Константы для jc
  */
@@ -113,6 +115,43 @@ public class JcConsts {
         }
     }
 
+    /**
+     * Событие: построить глобальные опции
+     */
+    public static class Event_GlobalOptBuild extends BaseJcEvent {
+
+        /**
+         * где строить опции
+         */
+        private CliHelpFormatter cliHelpFormatter;
+
+        public Event_GlobalOptBuild(CliHelpFormatter cliHelpFormatter) {
+            this.cliHelpFormatter = cliHelpFormatter;
+        }
+
+        public CliHelpFormatter getCliHelpFormatter() {
+            return cliHelpFormatter;
+        }
+    }
+
+    /**
+     * Событие: обработать глобальные опции
+     */
+    public static class Event_GlobalOptHandle extends BaseJcEvent {
+
+        /**
+         * какие опции обрабатывать
+         */
+        private CliArgs args;
+
+        public Event_GlobalOptHandle(CliArgs args) {
+            this.args = args;
+        }
+
+        public CliArgs getArgs() {
+            return args;
+        }
+    }
 
     //////
 

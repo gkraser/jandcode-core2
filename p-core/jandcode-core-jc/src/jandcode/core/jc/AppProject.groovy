@@ -1,6 +1,7 @@
 package jandcode.core.jc
 
 import jandcode.commons.*
+import jandcode.commons.cli.*
 import jandcode.commons.conf.*
 import jandcode.commons.variant.*
 import jandcode.core.*
@@ -48,13 +49,18 @@ class AppProject extends ProjectScript implements ILibDependsGrab {
     private boolean _prepareSourceOk
 
     /**
+     * Файл, откуда грузим приложение
+     */
+    String appFile = AppConsts.FILE_APP_CONF
+
+    /**
      * Ссылка на приложение.
      * Приложение грузится из файла {@link AppConsts#FILE_APP_CONF},
      * который находится в корне проекта.
      */
     App getApp() {
         if (_app == null) {
-            String mf = wd(AppConsts.FILE_APP_CONF)
+            String mf = wd(appFile)
             log.info("load app from [${mf}]")
             // depends
             LibDepends deps = create(LibDependsUtils).getDepends(project)
@@ -77,6 +83,20 @@ class AppProject extends ProjectScript implements ILibDependsGrab {
     }
 
     protected void onInclude() throws Exception {
+        // настройка глобальных опций
+        ctx.onEvent(JcConsts.Event_GlobalOptBuild, { e ->
+            CliHelpFormatter z = e.cliHelpFormatter
+            z.addOpt("app", "Загружать указанный файл, вместо app.cfx в каталоге проекта", true);
+        })
+        ctx.onEvent(JcConsts.Event_GlobalOptHandle, { e ->
+            CliArgs args = e.args
+            String key = "app"
+            if (args.containsKey(key)) {
+                appFile = args.getString("app", AppConsts.FILE_APP_CONF)
+                args.remove(key)
+            }
+        })
+        //
         cm.add("app-showinfo", this.&cmShowinfo, "Информация о приложении")
         cm.add("app-saveappconf", this.&cmSaveAppConf, "Записать App.getConf() в файл")
     }

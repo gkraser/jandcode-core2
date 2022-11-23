@@ -135,6 +135,8 @@ public class MainImpl extends BaseMain {
             ctx.warn("set env.debug=true");
         }
 
+        // обрабатываем глобальные опции из запчастей проекта
+        ctx.fireEvent(new JcConsts.Event_GlobalOptHandle(cli));
         // выполняем
         cm.exec(cli);
         //
@@ -149,6 +151,8 @@ public class MainImpl extends BaseMain {
         z.addOpt(JcConsts.OPT_CSC, "Очистить кеш скриптов");
         z.addOpt(JcConsts.OPT_ENV_PROD, "Включить режим production (ctx.env.prod=true)");
         z.addOpt(JcConsts.OPT_ENV_DEBUG, "Включить режим debug (ctx.env.debug=true)");
+        // забираем глобальные опции из запчастей проекта
+        ctx.fireEvent(new JcConsts.Event_GlobalOptBuild(z));
     }
 
 }
