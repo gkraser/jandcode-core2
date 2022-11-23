@@ -26,4 +26,11 @@ public class DaoHolderItemImpl implements DaoHolderItem {
         return daoInvokerName;
     }
 
+    public String toString() {
+        return "DaoHolderItem {" +
+                "name='" + getName() + '\'' +
+                ", class=" + getMethodDef().getClassDef().getCls() +
+                ", method=" + getMethodDef().getMethod().getName() +
+                '}';
+    }
 }

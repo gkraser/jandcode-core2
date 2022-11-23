@@ -250,6 +250,33 @@ public class DbmTestSvc extends BaseAppTestSvc {
         return createDao(cls, null);
     }
 
+    /**
+     * Выполнить dao
+     *
+     * @param holderName имя хранилища dao, например 'api'
+     * @param methodName ммя метода, например 'my/dao/method1'
+     * @param args       аргументы метода
+     * @return результат выполнения dao
+     */
+    public Object invokeDao(String holderName, String methodName, Object... args) throws Exception {
+        DaoService svc = getApp().bean(DaoService.class);
+        DaoHolder holder = svc.getDaoHolder(holderName);
+        return holder.invokeDao(methodName, args);
+    }
+
+    /**
+     * Получение {@link DaoHolderItem}
+     *
+     * @param holderName имя хранилища dao, например 'api'
+     * @param methodName ммя метода, например 'my/dao/method1'
+     * @return null, если не найдено
+     */
+    public DaoHolderItem findDaoHolderItem(String holderName, String methodName) {
+        DaoService svc = getApp().bean(DaoService.class);
+        DaoHolder holder = svc.getDaoHolder(holderName);
+        return holder.getItems().find(methodName);
+    }
+
     ////// database
 
     /**
