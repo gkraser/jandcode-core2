@@ -37,4 +37,8 @@ public class ValidateErrorInfoImpl implements ValidateErrorInfo {
         return data;
     }
 
+    public String toString() {
+        return getMessage();
+    }
+
 }

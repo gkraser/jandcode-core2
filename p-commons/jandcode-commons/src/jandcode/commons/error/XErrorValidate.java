@@ -17,7 +17,7 @@ public class XErrorValidate extends RuntimeException implements ErrorValidate {
         return errors;
     }
 
-    public String toString() {
+    public String getMessage() {
         return getErrors().toString();
     }
 
@@ -31,4 +31,5 @@ public class XErrorValidate extends RuntimeException implements ErrorValidate {
         }
         return res;
     }
+    
 }

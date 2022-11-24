@@ -45,4 +45,17 @@ public class ValidateErrorsImpl implements ValidateErrors {
         this.errors.add(new ValidateErrorInfoImpl(message, field, data));
     }
 
+    //////
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (ValidateErrorInfo error : errors) {
+            if (sb.length() > 0) {
+                sb.append("\n");
+            }
+            sb.append(error.toString());
+        }
+        return sb.toString().trim();
+    }
+
 }
