@@ -8,11 +8,11 @@ import java.util.*;
 public interface ErrorValidate {
 
     String FIELD = "field"; //NON-NLS
-    String TEXT = "text"; //NON-NLS
+    String MESSAGE = "message"; //NON-NLS
 
     /**
      * Список ошибок валидации.
-     * Каждый Map в списке должен иметь ключи: field и text
+     * Каждый Map в списке должен иметь ключи: field и message
      */
     List<Map<String, String>> getValidateErrors();
 
