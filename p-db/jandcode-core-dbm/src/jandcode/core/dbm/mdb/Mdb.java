@@ -1,5 +1,6 @@
 package jandcode.core.dbm.mdb;
 
+import jandcode.commons.error.*;
 import jandcode.core.*;
 import jandcode.core.dao.*;
 import jandcode.core.db.*;
@@ -16,7 +17,7 @@ import jandcode.core.store.*;
  */
 public interface Mdb extends IAppLink, IModelLink, Db,
         IDaoInvoker, IDomainService, IDictService, IQueryRecord, IStoreService,
-        ISqlService, IOutData, IMdbGenId, IMdbRec {
+        ISqlService, IOutData, IMdbGenId, IMdbRec, IValidateErrorsLink, ValidateErrors {
 
     /**
      * Создать экземпляр класса с привязкой к модели.

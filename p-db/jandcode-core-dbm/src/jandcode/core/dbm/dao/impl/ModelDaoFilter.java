@@ -1,5 +1,6 @@
 package jandcode.core.dbm.dao.impl;
 
+import jandcode.commons.error.*;
 import jandcode.core.dao.*;
 import jandcode.core.db.*;
 import jandcode.core.dbm.*;
@@ -10,7 +11,7 @@ import jandcode.core.dbm.mdb.*;
  * dao-filter для модели.
  * Включает в контекст dao Model и Db.
  * Db устанавливает соединенение по требованию. Т.е.
- * если в dao небыло операций с базой данных, соединение не будет установлено.
+ * если в dao не было операций с базой данных, соединение не будет установлено.
  * После отработки dao - отсоединяет Db.
  */
 public class ModelDaoFilter extends BaseModelMember implements DaoFilter {
@@ -28,6 +29,9 @@ public class ModelDaoFilter extends BaseModelMember implements DaoFilter {
         Object inst = ctx.getDaoInst();
         if (inst instanceof IMdbLinkSet) {
             ((IMdbLinkSet) inst).setMdb(mdb);
+        }
+        if (mdb instanceof IValidateErrorsLinkSet) {
+            ((IValidateErrorsLinkSet) mdb).setValidateErrors(ctx.bean(ValidateErrors.class));
         }
     }
 

@@ -41,6 +41,10 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker {
         DaoContextImpl context = new DaoContextImpl(this, method);
         context.getBeanFactory().setParentBeanFactory(getBeanFactory());
 
+        // регистрируем validateErrors
+        ValidateErrors validateErrors = ValidateErrors.create();
+        context.getBeanFactory().registerBean(ValidateErrors.class.getName(), validateErrors);
+
         // создаем экземпляр dao
         Object daoInst = context.create(method.getClassDef().getClsInst());
         context.setDaoInst(daoInst);
@@ -62,15 +66,18 @@ public class DaoInvokerImpl extends BaseComp implements DaoInvoker {
             // сначала все фильтры before
             for (int i = 0; i < filters.size(); i++) {
                 filters.get(i).execDaoFilter(DaoFilterType.before, context);
+                validateErrors.checkErrors();
             }
 
             // затем оригинальный метод
             Object res = method.getMethod().invoke(daoInst, args);
+            validateErrors.checkErrors();
             context.setResult(res);
 
             // затем все фильтры after, в обратном порядке
             for (int i = filters.size() - 1; i >= 0; i--) {
                 filters.get(i).execDaoFilter(DaoFilterType.after, context);
+                validateErrors.checkErrors();
             }
 
             daoLogger.logStop(context);

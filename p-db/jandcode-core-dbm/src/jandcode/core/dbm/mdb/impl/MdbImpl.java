@@ -20,7 +20,7 @@ import jandcode.core.store.*;
 
 import java.util.*;
 
-public class MdbImpl extends BaseDbWrapper implements Mdb {
+public class MdbImpl extends BaseDbWrapper implements Mdb, IValidateErrorsLinkSet {
 
     private static final String FIELD_ID = "id";
 
@@ -32,6 +32,7 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
     private StoreService storeService;
     private SqlService sqlService;
     private GenIdService genIdService;
+    private ValidateErrors validateErrors;
 
     public MdbImpl(Model model, Db db) {
         this.model = model;
@@ -359,6 +360,47 @@ public class MdbImpl extends BaseDbWrapper implements Mdb {
     public void deleteRec(String tableName, long id) throws Exception {
         String sql = createSqlBuilder().makeSqlDelete(tableName, FIELD_ID);
         execQuery(sql, id);
+    }
+
+    ////// validate errors
+
+    public void setValidateErrors(ValidateErrors validateErrors) {
+        this.validateErrors = validateErrors;
+    }
+
+    public ValidateErrors getValidateErrors() {
+        if (this.validateErrors == null) {
+            this.validateErrors = ValidateErrors.create();
+        }
+        return validateErrors;
+    }
+
+    public List<ValidateErrorInfo> getErrorInfos() {
+        return getValidateErrors().getErrorInfos();
+    }
+
+    public void clearErrors() {
+        getValidateErrors().clearErrors();
+    }
+
+    public boolean hasErrors() {
+        return getValidateErrors().hasErrors();
+    }
+
+    public boolean hasErrors(int size) {
+        return getValidateErrors().hasErrors(size);
+    }
+
+    public void checkErrors() {
+        getValidateErrors().checkErrors();
+    }
+
+    public void addError(ValidateErrorInfo error) {
+        getValidateErrors().addError(error);
+    }
+
+    public void addError(CharSequence message, String field, Object data) {
+        getValidateErrors().addError(message, field, data);
     }
 
 }
