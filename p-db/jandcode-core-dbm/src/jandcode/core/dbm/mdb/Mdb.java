@@ -17,7 +17,7 @@ import jandcode.core.store.*;
  */
 public interface Mdb extends IAppLink, IModelLink, Db,
         IDaoInvoker, IDomainService, IDictService, IQueryRecord, IStoreService,
-        ISqlService, IOutData, IMdbGenId, IMdbRec, IValidateErrorsLink, ValidateErrors {
+        ISqlService, IOutData, IMdbGenId, IMdbRec, IValidateErrorsLink {
 
     /**
      * Создать экземпляр класса с привязкой к модели.

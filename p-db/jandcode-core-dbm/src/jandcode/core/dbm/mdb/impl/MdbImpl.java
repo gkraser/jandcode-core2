@@ -375,32 +375,4 @@ public class MdbImpl extends BaseDbWrapper implements Mdb, IValidateErrorsLinkSe
         return validateErrors;
     }
 
-    public List<ValidateErrorInfo> getErrorInfos() {
-        return getValidateErrors().getErrorInfos();
-    }
-
-    public void clearErrors() {
-        getValidateErrors().clearErrors();
-    }
-
-    public boolean hasErrors() {
-        return getValidateErrors().hasErrors();
-    }
-
-    public boolean hasErrors(int size) {
-        return getValidateErrors().hasErrors(size);
-    }
-
-    public void checkErrors() {
-        getValidateErrors().checkErrors();
-    }
-
-    public void addError(ValidateErrorInfo error) {
-        getValidateErrors().addError(error);
-    }
-
-    public void addError(CharSequence message, String field, Object data) {
-        getValidateErrors().addError(message, field, data);
-    }
-
 }
