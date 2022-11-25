@@ -1,5 +1,6 @@
 package jandcode.core.store.impl;
 
+import jandcode.commons.*;
 import jandcode.commons.error.*;
 import jandcode.core.store.*;
 
@@ -14,6 +15,7 @@ public abstract class BaseStoreField implements StoreField, Cloneable {
     private String dict;
     private StoreDataType storeDataType;
     private int scale = NO_SCALE;
+    private String title;
 
     public StoreDataType getStoreDataType() {
         return storeDataType;
@@ -75,6 +77,22 @@ public abstract class BaseStoreField implements StoreField, Cloneable {
 
     public StoreField scale(int scale) {
         setScale(scale);
+        return this;
+    }
+
+    public String getTitle() {
+        if (UtString.empty(this.title)) {
+            return getName();
+        }
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public StoreField title(String title) {
+        setTitle(title);
         return this;
     }
 

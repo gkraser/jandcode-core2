@@ -52,4 +52,13 @@ public interface StoreField extends INamed {
 
     StoreField scale(int scale);
 
+    /**
+     * Заголовок поля. Если не указан - имя поля.
+     */
+    String getTitle();
+
+    void setTitle(String title);
+
+    StoreField title(String title);
+
 }
