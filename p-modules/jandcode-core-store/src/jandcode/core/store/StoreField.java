@@ -29,12 +29,16 @@ public interface StoreField extends INamed {
 
     void setSize(int size);
 
+    StoreField size(int size);
+
     /**
      * Имя словаря, связанного с этим полем.
      */
     String getDict();
 
     void setDict(String dict);
+
+    StoreField dict(String dict);
 
     /**
      * До какого знака округлять (для double-полей).
@@ -45,5 +49,7 @@ public interface StoreField extends INamed {
     int getScale();
 
     void setScale(int scale);
+
+    StoreField scale(int scale);
 
 }

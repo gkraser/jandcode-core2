@@ -103,7 +103,7 @@ public class Store_Test extends App_Test {
     public void dict1() throws Exception {
         Store st = createStore()
         st.setDictResolver(new DictResolver())
-        st.getField("id").setDict("dict1")
+        st.getField("id").dict("dict1")
         st.getField("s1").setDict("dict2")
         st.getField("s2").setDict("no-dict")
         //
