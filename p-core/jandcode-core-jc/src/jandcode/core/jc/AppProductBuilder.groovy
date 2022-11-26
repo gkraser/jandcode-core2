@@ -53,6 +53,18 @@ class AppProductBuilder extends ProductBuilder {
      */
     List<String> ignoreModules = []
 
+    /**
+     * Файлы, которые нужно скопировать в продукт как есть
+     */
+    List<String> includeFiles = ["app.cfx", "cfg.cfx"]
+
+    /**
+     * Файлы, которые нужно скопировать в продукт как есть,
+     * если продукт собирается в режиме debug
+     */
+    List<String> includeFilesDebug = ["app-dev.cfx"]
+
+
     boolean isIgnoreModule(String name) {
         for (String mask in ignoreModules) {
             if (UtVDir.matchPath(mask, name)) {
@@ -87,12 +99,21 @@ class AppProductBuilder extends ProductBuilder {
         cp.add(includeLibs)
         cp.copyTo("${destDir}/lib")
 
-        // app
-        ant.copy(file: wd("app.cfx"), todir: "${destDir}")
+        // files
+        for (f in includeFiles) {
+            def ff = wd(f)
+            if (UtFile.exists(ff)) {
+                ant.copy(file: ff, todir: "${destDir}")
+            }
+        }
+
+        // files debug
         if (ctx.env.debug) {
-            String fnAppDev = wd("app-dev.cfx")
-            if (UtFile.exists(fnAppDev)) {
-                ant.copy(file: fnAppDev, todir: "${destDir}")
+            for (f in includeFilesDebug) {
+                def ff = wd(f)
+                if (UtFile.exists(ff)) {
+                    ant.copy(file: ff, todir: "${destDir}")
+                }
             }
         }
 
