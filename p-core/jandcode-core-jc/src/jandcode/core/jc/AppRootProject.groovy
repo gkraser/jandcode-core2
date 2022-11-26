@@ -18,6 +18,8 @@ class AppRootProject extends ProjectScript {
         include(AppProductBuilder).with {
             name = "app"
         }
+        //
+        include(AppZipDistrProject)
     }
 
 }
