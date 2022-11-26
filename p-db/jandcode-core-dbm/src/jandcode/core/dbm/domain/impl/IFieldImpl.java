@@ -18,6 +18,8 @@ public class IFieldImpl extends BaseFieldMember implements IField {
     private boolean refCascade;
     private String dict;
     private int scale = StoreField.NO_SCALE;
+    private boolean req;
+    private boolean notNull;
 
     //////
 
@@ -149,6 +151,22 @@ public class IFieldImpl extends BaseFieldMember implements IField {
         } else {
             this.scale = UtCnv.toInt(scale, StoreField.NO_SCALE);
         }
+    }
+
+    public boolean isReq() {
+        return req;
+    }
+
+    public void setReq(boolean req) {
+        this.req = req;
+    }
+
+    public boolean isNotNull() {
+        return notNull;
+    }
+
+    public void setNotNull(boolean notNull) {
+        this.notNull = notNull;
     }
 
 }

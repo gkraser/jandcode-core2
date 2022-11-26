@@ -134,4 +134,12 @@ public class FieldImpl extends BaseModelMember implements Field, IBeanIniter {
         return getIField().getScale();
     }
 
+    public boolean isReq() {
+        return getIField().isReq();
+    }
+
+    public boolean isNotNull() {
+        return getIField().isNotNull();
+    }
+    
 }
