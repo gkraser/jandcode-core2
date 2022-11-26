@@ -11,7 +11,7 @@ create table ${d.dbTableName} (
 <%
     for (def f : d.fields) {
       String notNull = ""
-      if ("id" == f.name) {
+      if ("id" == f.name || f.notNull) {
         notNull = " not null"
       }
       def zpt = f == d.fields.last() ? '' : ','
