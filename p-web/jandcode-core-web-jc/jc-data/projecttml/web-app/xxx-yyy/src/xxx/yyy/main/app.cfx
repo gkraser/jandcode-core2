@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <app
+            title="XxxYyy"
+            mainmodule="xxx.yyy"
+    />
+
+    <x-depends module="xxx.yyy"/>
+
+</root>
