@@ -3,6 +3,7 @@ package jandcode.commons;
 import jandcode.commons.conf.*;
 import jandcode.commons.conf.impl.*;
 import jandcode.commons.io.*;
+import jandcode.commons.variant.*;
 
 import java.util.*;
 
@@ -218,6 +219,20 @@ public class UtConf {
      */
     public static String getAttrAsPath(Conf x, String attrName) {
         return UtVDir.normalize(x.getString(attrName).replace('!', '/'));
+    }
+
+    /**
+     * Получает map с простыми атрибутами, игнорирует свойства типа Conf
+     */
+    public static IVariantMap getAttrs(Conf x) {
+        IVariantMap m = new VariantMap();
+        for (String pn : x.keySet()) {
+            Object v = x.getValue(pn);
+            if (!(v instanceof Conf)) {
+                m.put(pn, v);
+            }
+        }
+        return m;
     }
 
 }
