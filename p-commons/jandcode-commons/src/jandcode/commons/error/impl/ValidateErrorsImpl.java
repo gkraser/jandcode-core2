@@ -41,8 +41,8 @@ public class ValidateErrorsImpl implements ValidateErrors {
         this.errors.add(error);
     }
 
-    public void addError(CharSequence message, String field, Object data) {
-        this.errors.add(new ValidateErrorInfoImpl(message, field, data));
+    public void addError(CharSequence message, String field) {
+        this.errors.add(new ValidateErrorInfoImpl(message, field));
     }
 
     //////

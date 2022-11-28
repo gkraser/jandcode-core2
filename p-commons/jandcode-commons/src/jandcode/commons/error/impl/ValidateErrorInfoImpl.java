@@ -7,12 +7,10 @@ public class ValidateErrorInfoImpl implements ValidateErrorInfo {
 
     private CharSequence message;
     private String field;
-    private Object data;
 
-    public ValidateErrorInfoImpl(CharSequence message, String field, Object data) {
+    public ValidateErrorInfoImpl(CharSequence message, String field) {
         this.message = message;
         this.field = field;
-        this.data = data;
     }
 
     public String getMessage() {
@@ -31,10 +29,6 @@ public class ValidateErrorInfoImpl implements ValidateErrorInfo {
 
     public String getField() {
         return field;
-    }
-
-    public Object getData() {
-        return data;
     }
 
     public String toString() {

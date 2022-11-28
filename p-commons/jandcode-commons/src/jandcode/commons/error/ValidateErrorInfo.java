@@ -15,9 +15,4 @@ public interface ValidateErrorInfo {
      */
     String getField();
 
-    /**
-     * Связанный объект данных
-     */
-    Object getData();
-
 }
