@@ -24,5 +24,11 @@ public class DbmConsts {
      */
     public static final String CORE_MODEL = "jandcode.core.dbm";
 
+    /**
+     * Имя свойства store, в котором хранится ссылка на домен, если store
+     * создается по домену. Начинается с '$', что бы не учавствовало в сериализации store
+     * в json.
+     */
+    public static final String STORE_PROP_DOMAIN = "$domain";
 
 }

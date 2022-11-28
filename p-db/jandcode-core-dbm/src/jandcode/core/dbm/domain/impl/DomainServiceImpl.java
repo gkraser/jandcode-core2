@@ -102,6 +102,8 @@ public class DomainServiceImpl extends BaseModelMember implements DomainService 
     public Store createStore(Domain domain) {
         Store store = getApp().bean(StoreService.class).createStore();
         //
+        store.setCustomProp(DbmConsts.STORE_PROP_DOMAIN, domain);
+        //
         for (Field f : domain.getFields()) {
             StoreField sf = store.addField(f.getName(), f.getStoreDataType().getName());
             if (f.hasDict()) {
