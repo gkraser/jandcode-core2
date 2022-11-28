@@ -161,7 +161,7 @@ public class ValidatorContextImpl implements ValidatorContext {
 
     public Domain getDomain(boolean required) {
         Domain domain = getDomain();
-        if (required) {
+        if (required && domain == null) {
             throw new XError("Для контекста валидации не определен домен");
         }
         return domain;

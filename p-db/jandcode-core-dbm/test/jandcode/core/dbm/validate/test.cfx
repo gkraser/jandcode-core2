@@ -41,6 +41,17 @@
                 <validator name="i" type="v1" a1="11"/>
             </domain>
 
+            <!-- =================== -->
+
+            <domain name="record1" parent="id">
+                <field name="f1" parent="int" title="ПОЛЕ-f1">
+                    <validator name="minmax" min="2" max="12"/>
+                </field>
+                <field name="f2" parent="int" title="поле-f2" req="true"/>
+                <validator name="v1"/>
+                <validator name="v2"/>
+            </domain>
+
         </model>
 
     </dbm>

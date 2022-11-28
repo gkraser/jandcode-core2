@@ -8,10 +8,13 @@ import jandcode.core.*;
 import jandcode.core.dbm.*;
 import jandcode.core.dbm.mdb.*;
 import jandcode.core.dbm.validate.*;
+import org.slf4j.*;
 
 import java.util.*;
 
 public class ValidatorServiceImpl extends BaseModelMember implements ValidatorService {
+
+    protected static Logger log = LoggerFactory.getLogger(ValidatorService.class);
 
     private NamedList<ValidatorDef> validators = new DefaultNamedList<>("Валидатор {0} не зарегистрирован");
 
@@ -59,6 +62,9 @@ public class ValidatorServiceImpl extends BaseModelMember implements ValidatorSe
     public boolean validatorExec(Mdb mdb, Object data, Validator validator, Map attrs) throws Exception {
         ValidatorContext ctx = createValidatorContext(mdb, data, attrs);
         int es = ctx.getErrorInfos().size();
+        if (log.isDebugEnabled()) {
+            log.debug("validatorExec: {}, attrs: {}", validator.getClass().getName(), attrs);
+        }
         validator.validate(ctx);
         return !ctx.hasErrors(es);
     }

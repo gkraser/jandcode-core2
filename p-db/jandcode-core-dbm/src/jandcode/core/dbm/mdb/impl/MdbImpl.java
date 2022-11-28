@@ -407,7 +407,10 @@ public class MdbImpl extends BaseDbWrapper implements Mdb, IValidateErrorsLinkSe
     }
 
     public boolean validateField(Object data, String fieldName, Map attrs) throws Exception {
-        Map<String, Object> attrs2 = new HashMap<>(attrs);
+        Map<String, Object> attrs2 = new HashMap<>();
+        if (attrs != null) {
+            attrs2.putAll(attrs);
+        }
         attrs2.put("field", fieldName);
         return getValidatorService().validatorExec(this, data, "field", attrs2);
     }
