@@ -16,9 +16,27 @@
             </field>
 
             <domain name="base">
-                <bean name="jandcode.core.dbm.validate.DomainValidator"
-                      class="jandcode.core.dbm.validate.impl.DomainValidatorImpl"/>
+                <bean name="jandcode.core.dbm.validate.DomainValidatorHolder"
+                      class="jandcode.core.dbm.validate.impl.DomainValidatorHolderImpl"/>
             </domain>
+
+            <!-- стандартные валидаторы -->
+
+            <validator name="field"
+                       class="jandcode.core.dbm.validate.std.Validator_field"/>
+
+            <validator name="record"
+                       class="jandcode.core.dbm.validate.std.Validator_record"/>
+
+            <validator name="req"
+                       class="jandcode.core.dbm.validate.std.Validator_req"/>
+
+            <validator name="notnull"
+                       class="jandcode.core.dbm.validate.std.Validator_notnull"/>
+
+            <validator name="minmax"
+                       class="jandcode.core.dbm.validate.std.Validator_minmax"
+                       min="0" max="100"/>
 
         </model>
     </dbm>

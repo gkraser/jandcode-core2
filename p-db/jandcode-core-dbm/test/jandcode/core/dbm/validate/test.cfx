@@ -29,7 +29,7 @@
                 <field name="f1" parent="string">
                     <validator name="v1"/>
                     <validator name="i" type="v1"/>
-                    <validator name="i" class="V2Class" type="v1"/>
+                    <validator name="i" class="jandcode.core.dbm.validate.data.Validator1" type="v1"/>
                 </field>
                 <field name="f2" parent="string">
                     <validator name="v1"/>

@@ -16,8 +16,7 @@ public class ValidatorService_Test extends Dbm_Test {
         ValidatorDef vd = svc.getValidators().get("v1");
         Validator1 v = (Validator1) vd.createInst();
         //
-        assertEquals(v.getA1(), "1");
-        assertSame(v.getModel(), getModel());
+        assertEquals(vd.getConf().getString("a1"), "1");
     }
 
 

@@ -4,7 +4,7 @@ import jandcode.commons.conf.*;
 import jandcode.core.*;
 
 /**
- * Определение валидатора для домена
+ * Определение валидатора
  */
 public interface ValidatorDef extends Comp, IConfLink {
 
@@ -14,8 +14,8 @@ public interface ValidatorDef extends Comp, IConfLink {
     Validator createInst();
 
     /**
-     * Имя поля, для которого предназначен валидатор
+     * Класс валидатора
      */
-    String getFieldName();
+    Class getCls();
 
 }

@@ -6,7 +6,9 @@ import jandcode.commons.named.*;
 import jandcode.core.dbm.domain.*;
 import jandcode.core.dbm.validate.*;
 
-public class DomainValidatorImpl extends BaseDomainMember implements DomainValidator {
+import java.util.*;
+
+public class DomainValidatorHolderImpl extends BaseDomainMember implements DomainValidatorHolder {
 
     private NamedList<ValidatorDef> validators = new DefaultNamedList<>("Валидатор {0} не зарегистрирован");
 
@@ -62,6 +64,32 @@ public class DomainValidatorImpl extends BaseDomainMember implements DomainValid
 
     public NamedList<ValidatorDef> getValidators() {
         return validators;
+    }
+
+    public List<ValidatorDef> getValidatorsField(String fieldName) {
+        List<ValidatorDef> res = new ArrayList<>();
+        for (ValidatorDef vd : getValidators()) {
+            String f1 = vd.getConf().getString("field");
+            if (UtString.empty(f1)) {
+                continue;
+            }
+            if (f1.equalsIgnoreCase(fieldName)) {
+                res.add(vd);
+            }
+        }
+        return res;
+    }
+
+    public List<ValidatorDef> getValidatorsRecord() {
+        List<ValidatorDef> res = new ArrayList<>();
+        for (ValidatorDef vd : getValidators()) {
+            String f1 = vd.getConf().getString("field");
+            if (!UtString.empty(f1)) {
+                continue;
+            }
+            res.add(vd);
+        }
+        return res;
     }
 
 }

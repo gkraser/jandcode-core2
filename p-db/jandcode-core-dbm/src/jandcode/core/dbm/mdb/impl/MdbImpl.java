@@ -16,6 +16,7 @@ import jandcode.core.dbm.domain.*;
 import jandcode.core.dbm.genid.*;
 import jandcode.core.dbm.mdb.*;
 import jandcode.core.dbm.sql.*;
+import jandcode.core.dbm.validate.*;
 import jandcode.core.store.*;
 
 import java.util.*;
@@ -33,6 +34,7 @@ public class MdbImpl extends BaseDbWrapper implements Mdb, IValidateErrorsLinkSe
     private SqlService sqlService;
     private GenIdService genIdService;
     private ValidateErrors validateErrors;
+    private ValidatorService validatorService;
 
     public MdbImpl(Model model, Db db) {
         this.model = model;
@@ -373,6 +375,29 @@ public class MdbImpl extends BaseDbWrapper implements Mdb, IValidateErrorsLinkSe
             this.validateErrors = ValidateErrors.create();
         }
         return validateErrors;
+    }
+
+    ////// IMdbValidate
+
+    private ValidatorService getValidatorService() {
+        if (validatorService == null) {
+            validatorService = getModel().bean(ValidatorService.class);
+        }
+        return validatorService;
+    }
+
+    public boolean validate(Object data, String validatorName, Map attrs) throws Exception {
+        return getValidatorService().validatorExec(this, data, validatorName, attrs);
+    }
+
+    public boolean validateRecord(Object data, Map attrs) throws Exception {
+        return getValidatorService().validatorExec(this, data, "record", attrs);
+    }
+
+    public boolean validateField(Object data, String fieldName, Map attrs) throws Exception {
+        Map<String, Object> attrs2 = new HashMap<>(attrs);
+        attrs2.put("field", fieldName);
+        return getValidatorService().validatorExec(this, data, "field", attrs2);
     }
 
 }
