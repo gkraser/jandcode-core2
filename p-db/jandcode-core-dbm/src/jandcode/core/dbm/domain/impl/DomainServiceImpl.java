@@ -9,6 +9,8 @@ import jandcode.core.dbm.*;
 import jandcode.core.dbm.domain.*;
 import jandcode.core.store.*;
 
+import java.util.*;
+
 public class DomainServiceImpl extends BaseModelMember implements DomainService {
 
     private NamedList<Domain> domains;
@@ -116,6 +118,21 @@ public class DomainServiceImpl extends BaseModelMember implements DomainService 
         }
         //
         return store;
+    }
+
+    public StoreRecord createStoreRecord(Domain domain) {
+        Store st = createStore(domain);
+        return st.add();
+    }
+
+    public StoreRecord createStoreRecord(Domain domain, StoreRecord data) {
+        Store st = createStore(domain);
+        return st.add(data);
+    }
+
+    public StoreRecord createStoreRecord(Domain domain, Map data) {
+        Store st = createStore(domain);
+        return st.add(data);
     }
 
 }

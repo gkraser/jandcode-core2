@@ -117,6 +117,18 @@ public class MdbImpl extends BaseDbWrapper implements Mdb, IValidateErrorsLinkSe
         return getDomainService().createStore(domain);
     }
 
+    public StoreRecord createStoreRecord(Domain domain) {
+        return getDomainService().createStoreRecord(domain);
+    }
+
+    public StoreRecord createStoreRecord(Domain domain, StoreRecord data) {
+        return getDomainService().createStoreRecord(domain, data);
+    }
+
+    public StoreRecord createStoreRecord(Domain domain, Map data) {
+        return getDomainService().createStoreRecord(domain, data);
+    }
+
     ////// IDictService
 
     public DictService getDictService() {

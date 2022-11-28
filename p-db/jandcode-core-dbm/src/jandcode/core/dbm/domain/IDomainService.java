@@ -4,6 +4,8 @@ import jandcode.commons.conf.*;
 import jandcode.commons.named.*;
 import jandcode.core.store.*;
 
+import java.util.*;
+
 /**
  * Методы сервиса доменов
  */
@@ -68,6 +70,58 @@ public interface IDomainService extends IDomainHolder {
      */
     default Store createStore(String domainName) {
         return createStore(getDomain(domainName));
+    }
+
+    /**
+     * Создать пустую StoreRecord со структурой как в домене.
+     *
+     * @param domain для какого домена
+     */
+    StoreRecord createStoreRecord(Domain domain);
+
+    /**
+     * Создать пустой store со структурой как в домене.
+     *
+     * @param domainName для какого домена
+     */
+    default StoreRecord createStoreRecord(String domainName) {
+        return createStoreRecord(getDomain(domainName));
+    }
+
+    /**
+     * Создать StoreRecord со структурой как в домене и с данными из data
+     *
+     * @param domain для какого домена
+     * @param data   данные для записи
+     */
+    StoreRecord createStoreRecord(Domain domain, StoreRecord data);
+
+    /**
+     * Создать StoreRecord со структурой как в домене и с данными из data
+     *
+     * @param domainName для какого домена
+     * @param data       данные для записи
+     */
+    default StoreRecord createStoreRecord(String domainName, StoreRecord data) {
+        return createStoreRecord(getDomain(domainName), data);
+    }
+
+    /**
+     * Создать StoreRecord со структурой как в домене и с данными из data
+     *
+     * @param domain для какого домена
+     * @param data   данные для записи
+     */
+    StoreRecord createStoreRecord(Domain domain, Map data);
+
+    /**
+     * Создать StoreRecord со структурой как в домене и с данными из data
+     *
+     * @param domainName для какого домена
+     * @param data       данные для записи
+     */
+    default StoreRecord createStoreRecord(String domainName, Map data) {
+        return createStoreRecord(getDomain(domainName), data);
     }
 
 }
