@@ -129,6 +129,12 @@ public class JsonRpcDaoInvoker {
         ErrorInfo ei = UtError.createErrorInfo(e);
         err.put("message", ei.getText());
 
+        ErrorValidate ev = UtError.getErrorValidate(e);
+        if (ev != null) {
+            List<Map<String, String>> msgs = ev.getValidateErrors();
+            err.put("messages", msgs);
+        }
+
         //
         Map<String, Object> res = new LinkedHashMap<>();
         if (this.id != null) {
