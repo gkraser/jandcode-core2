@@ -11,7 +11,7 @@ configurations {
         // это предоставляет flexmark
         exclude group: "junit"
         exclude group: "log4j"
-        exclude group: "org.apache.logging.log4j"
+        exclude group: 'org.apache.logging.log4j', module: 'log4j-core'
         // это (случайно видимо) тащит vfs
         exclude group: "org.apache.hadoop"
         // это не нужно
@@ -94,6 +94,15 @@ dependencies {
     implementation group: 'org.slf4j', name: 'slf4j-api', version: v
     implementation group: 'org.slf4j', name: 'jcl-over-slf4j', version: v
     implementation group: 'org.slf4j', name: 'log4j-over-slf4j', version: v
+    
+    // log4j for poi
+    v = '2.19.0'
+    implementation(group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: v) {
+        transitive = false
+    }
+    implementation(group: 'org.apache.logging.log4j', name: 'log4j-api', version: v) {
+        transitive = false
+    }
 
     // logback
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.5'
