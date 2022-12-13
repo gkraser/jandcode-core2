@@ -104,6 +104,10 @@ public class JsonRpcDaoInvoker {
             DaoContext daoContext = daoHolder.invokeDao(null, method, args);
             Object result = wrapResult(daoContext);
 
+            // конвертируем ответ
+            JsonRpcService jsonRpcSvc = req.getApp().bean(JsonRpcService.class);
+            result = jsonRpcSvc.convertForClient(daoContext, result);
+
             // формируем ответ
 
             Map<String, Object> resultMap = new LinkedHashMap<>();

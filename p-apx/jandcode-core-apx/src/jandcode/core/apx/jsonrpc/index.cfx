@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
 
+    <bean name="jandcode.core.apx.jsonrpc.JsonRpcService"
+          class="jandcode.core.apx.jsonrpc.impl.JsonRpcServiceImpl"/>
+
     <web>
 
         <action name="api"
@@ -8,5 +11,19 @@
                 daoHolder="api"/>
 
     </web>
+
+    <apx>
+
+        <jsonrpc>
+
+            <!-- конверторы результатов для клиента по типам
+
+                <type name="java.lang.Object"
+                      client-convertor="jandcode.core.apx.jsonrpc.DummyJsonRpcClientConvertor"/>
+            -->
+
+        </jsonrpc>
+
+    </apx>
 
 </root>
