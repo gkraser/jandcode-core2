@@ -267,4 +267,41 @@ public class UtWeb {
         return s;
     }
 
+    /**
+     * Установить заголовок http для download файла.
+     * Пытается поддерживать русские имена файлов
+     *
+     * @param request  для какого запроса
+     * @param fileName имя файла, которым будет представляется ответ
+     * @param fileSize размер файла, может быть null
+     */
+    public static void setHeaderDownload(Request request, String fileName, Long fileSize) throws Exception {
+        if (!request.isContentTypeAssigned()) {
+            request.setContentType("application/octet-stream");
+        }
+        String userAgent = request.getHttpRequest().getHeader("USER-AGENT");
+        if (userAgent == null) {
+            userAgent = "";
+        } else {
+            userAgent = userAgent.toLowerCase();
+        }
+        fileName = URLEncoder.encode(fileName, "UTF8");
+        boolean isMozilla = userAgent.contains("mozilla") && userAgent.contains("gecko")
+                && !userAgent.contains("applewebkit");
+        if (isMozilla) {
+            request.setHeader(
+                    "Content-Disposition",
+                    "attachment; filename*=\"utf-8'" + fileName + "\""
+            );
+        } else {
+            request.setHeader(
+                    "Content-Disposition",
+                    "attachment; filename=\"" + fileName + "\""
+            );
+        }
+        if (fileSize != null) {
+            request.setHeader("Content-Length", UtCnv.toString(fileSize));
+        }
+    }
+
 }
