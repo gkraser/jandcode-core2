@@ -2,6 +2,6 @@
 
 # Update to last version & build bin
 
-hg pull -u
+git pull --all
 sh ./jc.sh product -u
 
