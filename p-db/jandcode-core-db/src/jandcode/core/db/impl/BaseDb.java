@@ -36,6 +36,28 @@ public abstract class BaseDb extends BaseDbConnect implements IDb {
         }
     }
 
+    public int execQueryUpdate(CharSequence sql) throws Exception {
+        int res = 0;
+        DbQuery q = createQuery(sql);
+        try {
+            res = q.execUpdate();
+        } finally {
+            q.close();
+        }
+        return res;
+    }
+
+    public int execQueryUpdate(CharSequence sql, Object params) throws Exception {
+        int res = 0;
+        DbQuery q = createQuery(sql, params);
+        try {
+            res = q.execUpdate();
+        } finally {
+            q.close();
+        }
+        return res;
+    }
+
     public DbQuery openQuery(CharSequence sql) throws Exception {
         DbQuery q = createQuery(sql);
         q.open();

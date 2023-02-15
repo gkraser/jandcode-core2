@@ -96,6 +96,14 @@ public abstract class BaseDbWrapper implements Db {
         getWrapConnected().execQuery(sql, params);
     }
 
+    public int execQueryUpdate(CharSequence sql) throws Exception {
+        return getWrapConnected().execQueryUpdate(sql);
+    }
+
+    public int execQueryUpdate(CharSequence sql, Object params) throws Exception {
+        return getWrapConnected().execQueryUpdate(sql, params);
+    }
+
     public DbQuery openQuery(CharSequence sql) throws Exception {
         return getWrapConnected().openQuery(sql);
     }

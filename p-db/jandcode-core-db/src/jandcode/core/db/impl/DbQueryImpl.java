@@ -90,6 +90,20 @@ public class DbQueryImpl implements DbQuery {
         }
     }
 
+    public int execUpdate() throws Exception {
+        int res = 0;
+        try {
+            prepareStatement();
+            assignStatementParams();
+            queryLogger.logStart();
+            res = ((PreparedStatement) statement).executeUpdate();
+            queryLogger.logStop();
+        } catch (Exception e) {
+            queryLogger.markError(e);
+        }
+        return res;
+    }
+
     public void open() throws Exception {
         try {
             if (statement != null) {

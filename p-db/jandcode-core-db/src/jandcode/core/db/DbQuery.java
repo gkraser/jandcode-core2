@@ -48,6 +48,12 @@ public interface DbQuery extends IVariantNamed, IVariantIndexed, AutoCloseable, 
     void execNative() throws Exception;
 
     /**
+     * Выполнить DML оператор (insert, update, delete) и вернуть количество обработанных
+     * записей.
+     */
+    int execUpdate() throws Exception;
+
+    /**
      * Открыть запрос. Первая запись доступна (автоматически выполняется next()).
      */
     void open() throws Exception;

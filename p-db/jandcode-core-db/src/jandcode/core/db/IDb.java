@@ -33,6 +33,25 @@ public interface IDb extends IDbConnect {
     void execQuery(CharSequence sql, Object params) throws Exception;
 
     /**
+     * Выполнить запрос без параметров (insert, update, delete)
+     * и вернуть количество обработанных записей
+     *
+     * @param sql
+     * @return количество обработанных записей
+     */
+    int execQueryUpdate(CharSequence sql) throws Exception;
+
+    /**
+     * Выполнить запрос c параметрами (insert, update, delete)
+     * и вернуть количество обработанных записей
+     *
+     * @param sql
+     * @param params
+     * @return количество обработанных записей
+     */
+    int execQueryUpdate(CharSequence sql, Object params) throws Exception;
+
+    /**
      * Открыть запрос без параметров
      *
      * @param sql
