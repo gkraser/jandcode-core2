@@ -390,4 +390,26 @@ public class XDateTime_Test extends Utils_Test {
         assertEquals(d2, d3);
     }
 
+    @Test
+    public void addMSec() throws Exception {
+        XDateTime d1 = XDateTime.create(2001, 12, 30);
+        XDateTime d2 = XDateTime.create(2001, 12, 30, 0, 0, 0, 1);
+        XDateTime d3 = d1.addMSec(1);
+        assertEquals(d2, d3);
+        //
+        d2 = XDateTime.create(2001, 12, 29, 23, 59, 59, 999);
+        d3 = d1.addMSec(-1);
+        assertEquals(d2, d3);
+    }
+
+    @Test
+    public void diffMSec() throws Exception {
+        XDateTime d1 = XDateTime.create(2001, 12, 30);
+        XDateTime d2 = XDateTime.create(2001, 12, 30, 0, 0, 0, 1);
+        long z1 = d1.diffMSec(d2);
+        assertEquals(z1, -1);
+        z1 = d2.diffMSec(d1);
+        assertEquals(z1, 1);
+    }
+
 }

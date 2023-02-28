@@ -327,4 +327,18 @@ public final class Jdn implements Comparable<Jdn>, DateTimeConsts {
         return create(jdn, this.time);
     }
 
+    public Jdn addMSec(long msec) {
+        long msecCur = (long) this.jdn * MSEC_IN_DAY + this.time;
+        msecCur = msecCur + msec;
+        long jdn = msecCur / MSEC_IN_DAY;
+        long time = msecCur % MSEC_IN_DAY;
+        return create((int) jdn, (int) time);
+    }
+
+    public long diffMSec(Jdn dt) {
+        long d1 = (long) this.jdn * MSEC_IN_DAY + this.time;
+        long d2 = (long) dt.jdn * MSEC_IN_DAY + dt.time;
+        return d1 - d2;
+    }
+
 }

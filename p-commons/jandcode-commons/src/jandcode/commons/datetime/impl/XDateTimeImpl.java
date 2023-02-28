@@ -155,5 +155,16 @@ public final class XDateTimeImpl implements XDateTime {
     public XDateTime withTime(int hour, int min, int sec, int msec) {
         return create(Jdn.create(jdn.jdn, Jdn.encodeTime(hour, min, sec, msec)));
     }
-    
+
+    public XDateTime addMSec(long msec) {
+        return create(jdn.addMSec(msec));
+    }
+
+    public long diffMSec(XDateTime dt) {
+        if (dt instanceof XDateTimeImpl) {
+            return jdn.diffMSec(((XDateTimeImpl) dt).jdn);
+        }
+        throw new XError("Unsupported type parameter dt");
+    }
+
 }
