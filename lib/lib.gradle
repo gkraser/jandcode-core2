@@ -35,7 +35,7 @@ dependencies {
     String v, vp
 
     // ant
-    v = '1.10.12'
+    v = '1.10.13'
     implementation group: 'org.apache.ant', name: 'ant', version: v
     implementation group: 'org.apache.ant', name: 'ant-launcher', version: v
     implementation(group: 'org.apache.ant', name: 'ant-junit', version: v) {
@@ -46,8 +46,8 @@ dependencies {
     }
 
     // junit5
-    v = '5.9.1'
-    vp = '1.9.1'  // platform
+    v = '5.9.2'
+    vp = '1.9.2'  // platform
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: v
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: v
     implementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: v
@@ -64,13 +64,13 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-compress', version: '1.22'
     implementation group: 'org.apache.commons', name: 'commons-dbcp2', version: '2.9.0'
     implementation group: 'org.apache.commons', name: 'commons-pool2', version: '2.11.1'
-    implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.9.0'
+    implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.10.0'
     implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
     implementation group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
 
     // groovy
-    v = '3.0.13'
+    v = '3.0.16'
     implementation group: 'org.codehaus.groovy', name: 'groovy', version: v
     implementation(group: 'org.codehaus.groovy', name: 'groovy-ant', version: v) {
         exclude group: 'org.apache.ant'
@@ -87,16 +87,16 @@ dependencies {
     implementation group: 'org.fusesource.jansi', name: 'jansi', version: '2.4.0'
 
     // picocli, для groovy
-    implementation group: 'info.picocli', name: 'picocli', version: '4.7.0'
+    implementation group: 'info.picocli', name: 'picocli', version: '4.7.1'
 
     // slf4j
-    v = '2.0.4'
+    v = '2.0.7'
     implementation group: 'org.slf4j', name: 'slf4j-api', version: v
     implementation group: 'org.slf4j', name: 'jcl-over-slf4j', version: v
     implementation group: 'org.slf4j', name: 'log4j-over-slf4j', version: v
     
     // log4j for poi
-    v = '2.19.0'
+    v = '2.20.0'
     implementation(group: 'org.apache.logging.log4j', name: 'log4j-to-slf4j', version: v) {
         transitive = false
     }
@@ -105,18 +105,18 @@ dependencies {
     }
 
     // logback
-    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.5'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.6'
 
     // gson
-    implementation group: 'com.google.code.gson', name: 'gson', version: '2.10'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
 
     // jdbc
-    implementation group: 'org.postgresql', name: 'postgresql', version: '42.5.0'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.6.0'
     implementation group: 'com.h2database', name: 'h2', version: '2.1.214'
-    implementation(group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.1.0'){
+    implementation(group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.1.2'){
         exclude module: 'waffle-jna'  // для нативной windows аутентификации
     }
-    implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '21.7.0.0', transitive: false
+    implementation group: 'com.oracle.database.jdbc', name: 'ojdbc8', version: '21.9.0.0', transitive: false
 
     // flexmark
     v = '0.64.0'
@@ -145,7 +145,7 @@ dependencies {
     implementation group: 'org.apache.poi', name: 'poi-scratchpad', version: v
 
     // lucene
-    v = '9.4.2'
+    v = '9.5.0'
     implementation group: 'org.apache.lucene', name: 'lucene-core', version: v
     implementation group: 'org.apache.lucene', name: 'lucene-analysis-common', version: v
     implementation group: 'org.apache.lucene', name: 'lucene-queryparser', version: v
