@@ -37,5 +37,11 @@ class Mdb_Test extends Dbm_Test {
         assertNotNull(st.findField("id"))
     }
 
+    @Test
+    public void fetchSize1() throws Exception {
+        assertEquals(mdb.getDbParams().getFetchSize(), 500)
+        assertEquals(mdb.getDbSource().createDb().getDbParams().getFetchSize(), 500)
+    }
+
 
 }

@@ -38,7 +38,8 @@
         <dbdriver name="base" class="jandcode.core.db.std.BaseDbDriver"
                   dbtype="base">
 
-            <dbsource-default>
+            <dbsource-default
+                    db.fetchSize="500">
                 <!-- конфигурация dbsource по умолчанию для драйвера -->
             </dbsource-default>
 

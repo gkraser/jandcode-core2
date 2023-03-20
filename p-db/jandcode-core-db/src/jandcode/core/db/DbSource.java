@@ -2,6 +2,7 @@ package jandcode.core.db;
 
 import jandcode.commons.conf.*;
 import jandcode.core.*;
+import jandcode.core.db.std.*;
 
 /**
  * Источник для базы данных. Содержит информацию о параметрах базы данных:
@@ -47,6 +48,12 @@ public interface DbSource extends Comp, IConfLink, BeanFactoryOwner {
      * <p>
      * Для свойств с префиксом 'conn.': префикс убирается и полученное свойство
      * используется как свойство jdbc-соединения (зависит от драйвера jdbc).
+     * <p>
+     * Для свойств с префиксом 'dbcp.': префикс убирается и полученное свойство
+     * используется для настройки пула соединений dbcp (см: {@link PoolingDbConnectionService}).
+     * <p>
+     * Для свойств с префиксом 'db.': префикс убирается и полученное свойство
+     * используется для настройки свойств {@link DbParams}.
      */
     DbSourceProps getProps();
 

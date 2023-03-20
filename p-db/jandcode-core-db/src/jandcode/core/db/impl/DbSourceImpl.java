@@ -2,6 +2,7 @@ package jandcode.core.db.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
+import jandcode.commons.variant.*;
 import jandcode.core.*;
 import jandcode.core.db.*;
 
@@ -54,6 +55,16 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
     public void beanInit(Object inst) {
         if (inst instanceof IDbSourceMember) {
             ((IDbSourceMember) inst).setDbSource(this);
+        }
+        if (inst instanceof IDbConnect dbConn) {
+            // db properties
+            IVariantMap props = getProps().subMap("db");
+            for (String key : props.keySet()) {
+                String val = props.getString(key);
+                if ("fetchSize".equals(key)) {
+                    dbConn.getDbParams().setFetchSize(UtCnv.toInt(val));
+                }
+            }
         }
     }
 
