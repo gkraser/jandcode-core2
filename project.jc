@@ -96,6 +96,7 @@ class P extends ProjectScript {
             ant.copy(file: wd("jc-env.bat"), todir: destDir, overwrite: true, preservelastmodified: true)
             ant.copy(file: wd("jc.sh"), todir: destDir, overwrite: true, preservelastmodified: true)
             ant.copy(file: wd("jc-env.sh"), todir: destDir, overwrite: true, preservelastmodified: true)
+            ant.copy(file: wd("LICENSE"), todir: destDir, overwrite: true, preservelastmodified: true)
 
             // формирование jc-run
             def libCore = ctx.getLib("jandcode-jc").sourceProject.include(JavaProject)
