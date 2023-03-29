@@ -3,7 +3,7 @@ body {
   padding: 0;
   color: #000;
   background-color: #fff;
-  font-family: Verdana;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 body, td, th {
