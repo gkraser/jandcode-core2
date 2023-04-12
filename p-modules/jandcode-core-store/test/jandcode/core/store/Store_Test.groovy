@@ -124,6 +124,7 @@ public class Store_Test extends App_Test {
         assertEquals(r.getDictValue("s2", "x1"), null)
         assertEquals(r.getDictValue("s3", "x1"), null)
 
+        st.add(id: 111, s1: 's11,s11-1,s11-2', s2: 's22', s3: 's33')
         //
         utils.outTable(st)
         utils.outTable(st.get(0))

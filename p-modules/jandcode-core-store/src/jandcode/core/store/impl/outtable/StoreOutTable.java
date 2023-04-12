@@ -51,7 +51,34 @@ public class StoreOutTable implements OutTable {
         if (UtString.empty(f.getDict())) {
             return r.getValue(col);
         } else {
-            return "" + r.getDictText(f.getName()) + "[" + r.getString(col) + "]";
+            Object v = r.getValue(col);
+            StringBuilder sb = new StringBuilder();
+            sb.append(UtCnv.toString(v)).append(" [");
+            IStoreDictResolver dr = r.getStore().getDictResolver();
+            if (dr == null) {
+                sb.append(OutTableSaver.NULL_STRING_VALUE);
+                return sb.toString();
+            }
+            if (v instanceof CharSequence || v instanceof Collection) {
+                List<String> lst = UtCnv.toList(r.getValue(col));
+                int idx = 0;
+                for (String vs : lst) {
+                    Object dv = dr.getDictValue(f.getDict(), vs, null);
+                    if (idx != 0) {
+                        sb.append(", ");
+                    }
+                    if (dv == null) {
+                        sb.append(OutTableSaver.NULL_STRING_VALUE);
+                    } else {
+                        sb.append(UtCnv.toString(dv));
+                    }
+                    idx++;
+                }
+            } else {
+                sb.append(dr.getDictValue(f.getDict(), v, null));
+            }
+            sb.append("]");
+            return sb.toString();
         }
     }
 
