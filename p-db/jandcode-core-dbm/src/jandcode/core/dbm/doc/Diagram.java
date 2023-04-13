@@ -26,6 +26,7 @@ public class Diagram extends BaseModelMember implements IConfLink {
         private Conf conf;
         private Domain domain;
         private boolean showfields = true;
+        private boolean showrefs = true;
 
         public DomainInfo(Conf conf, Domain domain) {
             this.conf = conf;
@@ -57,6 +58,17 @@ public class Diagram extends BaseModelMember implements IConfLink {
 
         public void setShowfields(boolean showfields) {
             this.showfields = showfields;
+        }
+
+        /**
+         * @return
+         */
+        public boolean isShowrefs() {
+            return showrefs;
+        }
+
+        public void setShowrefs(boolean showrefs) {
+            this.showrefs = showrefs;
         }
     }
 

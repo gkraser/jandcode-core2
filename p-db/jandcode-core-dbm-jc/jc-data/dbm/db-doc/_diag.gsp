@@ -45,7 +45,9 @@ class ${d.dbTableName} [[../index.html#${d.dbTableName}]] ${colors} {
         // это ссылка
         if (ft.refInfo.refDomain != null) {
           ft_text = """<color:green>${ft_text}</color>"""
-          links.add("""${d.dbTableName} --> ${ft.refInfo.refDomain.dbTableName} : ${f.name}""")
+          if (di.showrefs) {
+            links.add("""${d.dbTableName} --> ${ft.refInfo.refDomain.dbTableName} : ${f.name}""")
+          }
         } else {
           ft_text = """<color:silver>${ft_text}</color>"""
         }
