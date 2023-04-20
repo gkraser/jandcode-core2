@@ -57,6 +57,7 @@ public class StoreOutTable implements OutTable {
             IStoreDictResolver dr = r.getStore().getDictResolver();
             if (dr == null) {
                 sb.append(OutTableSaver.NULL_STRING_VALUE);
+                sb.append("]");
                 return sb.toString();
             }
             if (v instanceof CharSequence || v instanceof Collection) {
