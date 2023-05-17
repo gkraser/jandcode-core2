@@ -16,6 +16,7 @@ public class IFieldImpl extends BaseFieldMember implements IField {
     private StoreDataType storeDataType;
     private String ref;
     private boolean refCascade;
+    private boolean refIndex = true;
     private String dict;
     private int scale = StoreField.NO_SCALE;
     private boolean req;
@@ -127,6 +128,14 @@ public class IFieldImpl extends BaseFieldMember implements IField {
 
     public void setRefCascade(boolean refCascade) {
         this.refCascade = refCascade;
+    }
+
+    public boolean isRefIndex() {
+        return refIndex;
+    }
+
+    public void setRefIndex(boolean refIndex) {
+        this.refIndex = refIndex;
     }
 
     public String getDict() {

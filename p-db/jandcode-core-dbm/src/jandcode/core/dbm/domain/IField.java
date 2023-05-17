@@ -70,6 +70,12 @@ public interface IField {
     boolean isRefCascade();
 
     /**
+     * Если поле ссылка, то нужно ли создавать индекс по этому полю.
+     * По умолчанию - true
+     */
+    boolean isRefIndex();
+
+    /**
      * Имя словаря, связанного с этим полем.
      */
     String getDict();

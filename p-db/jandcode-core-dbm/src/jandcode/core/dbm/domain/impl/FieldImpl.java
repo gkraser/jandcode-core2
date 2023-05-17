@@ -122,6 +122,10 @@ public class FieldImpl extends BaseModelMember implements Field, IBeanIniter {
         return getIField().isRefCascade();
     }
 
+    public boolean isRefIndex() {
+        return getIField().isRefIndex();
+    }
+
     public String getDict() {
         return getIField().getDict();
     }
