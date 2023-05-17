@@ -47,6 +47,12 @@
                  file="#{path}/ddl/domain-ref.gsp"
                  stage="afterData"/>
 
+            <dbtype name="postgresql">
+                <ddl name="domain.ref.index"
+                     file="#{path}/ddl/domain-ref-index.gsp"
+                     stage="afterData"/>
+            </dbtype>
+
         </model>
     </dbm>
 
