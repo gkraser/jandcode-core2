@@ -49,7 +49,7 @@ class GitVersion extends ProjectScript {
         try {
             def f = UtFile.findFileUp(".git", getWorkDir())
             if (f != null) {
-                def a = ut.runcmd(cmd: 'git describe --match "v-*"', saveout: true, showout: false, dir: getWorkDir())
+                def a = ut.runcmd(cmd: 'git describe --match v-*', saveout: true, showout: false, dir: getWorkDir())
                 v = ""
                 boolean hasHash = false
                 if (a.size() > 0) {
