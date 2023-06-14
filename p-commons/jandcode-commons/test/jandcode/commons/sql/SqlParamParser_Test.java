@@ -30,4 +30,19 @@ class SqlParamParser_Test extends Utils_Test {
         check("a :{} :{привет} :{q} :{q1} b", "a :{} :{привет} ? ? b", "[q, q1]");
     }
 
+    @Test
+    public void test_comment_line() throws Exception {
+        check("a :b --:z", "a ? --:z", "[b]");
+        check("a :b --:z\n", "a ? --:z\n", "[b]");
+        check("--a :b --:z", "--a :b --:z", "[]");
+    }
+
+    @Test
+    public void test_comment_multi() throws Exception {
+        check("a /*:b --:z*/", "a /*:b --:z*/", "[]");
+        check("a /*:b \n--:z*/", "a /*:b \n--:z*/", "[]");
+        check("a /*:b --:z", "a /*:b --:z", "[]");
+        check("a /*:b --:z*", "a /*:b --:z*", "[]");
+    }
+
 }

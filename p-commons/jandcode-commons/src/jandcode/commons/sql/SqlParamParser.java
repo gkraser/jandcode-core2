@@ -7,7 +7,16 @@ import java.util.*;
 
 /**
  * Парзер sql с параметрами.
- * ':name' и ':{name}' - параметры, которые превращаются в '?'.
+ * <ul>
+ * <li>':name' и ':{name}' - параметры, которые превращаются в '?'.</li>
+ * <li>'\:' - превращает в ':'</li>
+ * <li>учитываются коментарии sql: '-- xxx' и многострочный '/*', в них
+ * параметры не разбираются</li>
+ * <li>строковые константы не учитываются! Если вам необходима строковая константа
+ * вида ':xxx', ':{xxx}', '--xxx', '/*xxx' - преобразуйте ее в другой вид, иначе она
+ * будет рассматриваться как параметр!
+ * </li>
+ * </ul>
  */
 public class SqlParamParser extends TextParser {
 
@@ -79,6 +88,35 @@ public class SqlParamParser extends TextParser {
                 }
                 params.add(s);
                 res.append('?');
+            } else if (c == '-') {
+                char c2 = next();
+                String s;
+                if (c2 == '-') {
+                    s = grabUntil('\n');
+                    res.append(c);
+                    res.append(c2);
+                    res.append(s);
+                    if (last != EOF) {
+                        res.append(last);
+                    }
+                } else {
+                    res.append(c);
+                    push(c2);
+                }
+            } else if (c == '/') {
+                char c2 = next();
+                String s;
+                if (c2 == '*') {
+                    s = grabUntil2('*', '/');
+                    res.append("/*");
+                    res.append(s);
+                    if (last != EOF) {
+                        res.append("*/");
+                    }
+                } else {
+                    res.append(c);
+                    push(c2);
+                }
             } else {
                 res.append(c);
             }
@@ -107,6 +145,26 @@ public class SqlParamParser extends TextParser {
                 sb.append(c);
             } else {
                 break;
+            }
+        }
+        return sb.toString();
+    }
+
+    private String grabUntil2(char terminate, char terminate2) throws Exception {
+        StringBuilder sb = new StringBuilder();
+        while (true) {
+            char c = next();
+            if (c == EOF) {
+                break;
+            } else if (c != terminate) {
+                sb.append(c);
+            } else {
+                char c2 = next();
+                if (c2 == terminate2) {
+                    break;
+                }
+                sb.append(c);
+                push(c2);
             }
         }
         return sb.toString();
