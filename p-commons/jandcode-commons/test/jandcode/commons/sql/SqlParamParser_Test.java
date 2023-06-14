@@ -24,5 +24,10 @@ class SqlParamParser_Test extends Utils_Test {
         check(":b::c", "?::c", "[b]");
     }
 
+    @Test
+    public void test_param_is_idn() throws Exception {
+        check("a : b :йц", "a : b :йц", "[]");
+        check("a :{} :{привет} :{q} :{q1} b", "a :{} :{привет} ? ? b", "[q, q1]");
+    }
 
 }

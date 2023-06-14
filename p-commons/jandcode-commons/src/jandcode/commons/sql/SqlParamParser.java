@@ -63,9 +63,19 @@ public class SqlParamParser extends TextParser {
                     continue;
                 } else if (c2 == '{') {
                     s = grabUntil('}');
+                    if (!isIdn(s)) {
+                        res.append(":{");
+                        res.append(s);
+                        res.append('}');
+                        continue;
+                    }
                 } else {
                     push(c2);
                     s = grabIdn();
+                    if (UtString.empty(s)) {
+                        res.append(c);
+                        continue;
+                    }
                 }
                 params.add(s);
                 res.append('?');
@@ -100,6 +110,18 @@ public class SqlParamParser extends TextParser {
             }
         }
         return sb.toString();
+    }
+
+    private boolean isIdn(CharSequence s) {
+        if (s == null || s.length() == 0) {
+            return false;
+        }
+        for (int i = 0; i < s.length(); i++) {
+            if (!UtString.isIdnChar(s.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
