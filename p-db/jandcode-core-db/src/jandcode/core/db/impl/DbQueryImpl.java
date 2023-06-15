@@ -73,7 +73,7 @@ public class DbQueryImpl implements DbQuery {
             assignStatementParams();
             queryLogger.logStart();
             ((PreparedStatement) statement).execute();
-            queryLogger.logStop();
+            queryLogger.logStop("exec");
         } catch (Exception e) {
             queryLogger.markError(e);
         }
@@ -84,7 +84,7 @@ public class DbQueryImpl implements DbQuery {
             createStatement();
             queryLogger.logStart();
             statement.execute(sql);
-            queryLogger.logStop();
+            queryLogger.logStop("exec");
         } catch (Exception e) {
             queryLogger.markError(e);
         }
@@ -97,7 +97,7 @@ public class DbQueryImpl implements DbQuery {
             assignStatementParams();
             queryLogger.logStart();
             res = ((PreparedStatement) statement).executeUpdate();
-            queryLogger.logStop();
+            queryLogger.logStop("exec");
         } catch (Exception e) {
             queryLogger.markError(e);
         }
@@ -116,7 +116,7 @@ public class DbQueryImpl implements DbQuery {
                 throw new XError("Запрос не вернул результатов");
             }
             bindResultSet(statement.getResultSet());
-            queryLogger.logStop();
+            queryLogger.logStop("open");
         } catch (Exception e) {
             queryLogger.markError(e);
         }
@@ -130,7 +130,7 @@ public class DbQueryImpl implements DbQuery {
             createStatement();
             queryLogger.logStart();
             bindResultSet(statement.executeQuery(sql));
-            queryLogger.logStop();
+            queryLogger.logStop("open");
         } catch (Exception e) {
             queryLogger.markError(e);
         }

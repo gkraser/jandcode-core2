@@ -23,14 +23,24 @@ public class QueryLogger {
     }
 
     public void logStart() {
+        logStart(true);
+    }
+
+    public void logStart(boolean showDebugInfo) {
         if (!log.isInfoEnabled()) {
             return;
         }
         startTime = System.currentTimeMillis();
-        log.info(buildDebugInfo());
+        if (showDebugInfo) {
+            log.info(buildDebugInfo());
+        }
     }
 
     public void logStop() {
+        logStop(null);
+    }
+
+    public void logStop(String message) {
         if (!log.isInfoEnabled()) {
             return;
         }
@@ -38,7 +48,11 @@ public class QueryLogger {
         long tmms = System.currentTimeMillis() - startTime;
         String tm = String.format("%.3f sec.", tmms / 1000.0);
 
-        log.info(tm);
+        if (UtString.empty(message)) {
+            log.info(tm);
+        } else {
+            log.info(message + " " + tm);
+        }
     }
 
     /**
