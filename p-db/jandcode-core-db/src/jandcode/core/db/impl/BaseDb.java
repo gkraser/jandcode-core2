@@ -2,6 +2,7 @@ package jandcode.core.db.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.error.*;
+import jandcode.commons.stopwatch.*;
 import jandcode.core.db.*;
 import jandcode.core.store.*;
 
@@ -19,12 +20,7 @@ public abstract class BaseDb extends BaseDbConnect implements IDb {
     }
 
     public void execQuery(CharSequence sql) throws Exception {
-        DbQuery q = createQuery(sql);
-        try {
-            q.exec();
-        } finally {
-            q.close();
-        }
+        execQuery(sql, null);
     }
 
     public void execQuery(CharSequence sql, Object params) throws Exception {
@@ -37,14 +33,7 @@ public abstract class BaseDb extends BaseDbConnect implements IDb {
     }
 
     public int execQueryUpdate(CharSequence sql) throws Exception {
-        int res = 0;
-        DbQuery q = createQuery(sql);
-        try {
-            res = q.execUpdate();
-        } finally {
-            q.close();
-        }
-        return res;
+        return execQueryUpdate(sql, null);
     }
 
     public int execQueryUpdate(CharSequence sql, Object params) throws Exception {
@@ -59,9 +48,7 @@ public abstract class BaseDb extends BaseDbConnect implements IDb {
     }
 
     public DbQuery openQuery(CharSequence sql) throws Exception {
-        DbQuery q = createQuery(sql);
-        q.open();
-        return q;
+        return openQuery(sql, null);
     }
 
     public DbQuery openQuery(CharSequence sql, Object params) throws Exception {
@@ -126,7 +113,11 @@ public abstract class BaseDb extends BaseDbConnect implements IDb {
         }
 
         // переносим
+        var sw = new DefaultStopwatch("loadQuery");
+        sw.start();
+        int cnt = 0;
         while (!query.eof()) {
+            cnt++;
             StoreRecord rec = store.add();
             for (int i = 0; i <= pos; i++) {
                 if (!query.isValueNull(queryIdx[i])) {
@@ -137,6 +128,8 @@ public abstract class BaseDb extends BaseDbConnect implements IDb {
             }
             query.next();
         }
+        sw.stop(cnt);
+        QueryLogger.log.info(sw.toString());
         //
         return store;
     }
@@ -176,12 +169,7 @@ public abstract class BaseDb extends BaseDbConnect implements IDb {
     //////
 
     public Store loadQuery(Store store, CharSequence sql) throws Exception {
-        DbQuery q = createQuery(sql);
-        q.open();
-        try (q) {
-            loadQuery(store, q);
-        }
-        return store;
+        return loadQuery(store, sql, null);
     }
 
     public Store loadQuery(Store store, CharSequence sql, Object params) throws Exception {
