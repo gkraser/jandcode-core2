@@ -86,7 +86,7 @@ public abstract class BaseStoreRecord implements StoreRecord, IRawRecord {
             if (f == null) {
                 continue;
             }
-            setValue(f.getIndex(), rec.getValue(fsrc.getIndex()));
+            setValue(f.getIndex(), rec.getValueNullable(fsrc.getIndex()));
         }
     }
 
