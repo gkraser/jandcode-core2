@@ -154,6 +154,22 @@ public class MdbImpl extends BaseDbWrapper implements Mdb, IValidateErrorsLinkSe
         return getDictService().loadDictData(dict, ids);
     }
 
+    public Object getDictValue(String dictName, Object id, String fieldName) {
+        return getDictService().getDictValue(dictName, id, fieldName);
+    }
+
+    public Object getDictValue(String dictName, Object id) {
+        return getDictService().getDictValue(dictName, id);
+    }
+
+    public String getDictText(String dictName, Object id, String fieldName) {
+        return getDictService().getDictText(dictName, id, fieldName);
+    }
+
+    public String getDictText(String dictName, Object id) {
+        return getDictService().getDictText(dictName, id);
+    }
+
     ////// ILoadQueryRecord
 
     protected StoreRecord oneRecord(Store st, boolean required) {
