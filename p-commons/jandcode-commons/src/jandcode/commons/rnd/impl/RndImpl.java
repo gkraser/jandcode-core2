@@ -51,6 +51,12 @@ public class RndImpl implements Rnd {
         return v + min;
     }
 
+    public long numLong(long min, long max) {
+        long cnt = max - min + 1;
+        long v = getRandom().nextLong(cnt);
+        return v + min;
+    }
+
     public double doub(double min, double max, int scale) {
         double d = (max - min) * getRandom().nextDouble() + min;
         if (scale == 0) {
@@ -133,12 +139,9 @@ public class RndImpl implements Rnd {
         if (min.equals(max)) {
             return min;
         }
-        int days = max.diffDays(min);
-        return min.addDays(num(0, days)).withTime(
-                num(0, 23),
-                num(0, 59),
-                num(0, 59),
-                num(0, 999)
-        );
+        long msecDiff = max.diffMSec(min);
+        long msecAdd = numLong(0, msecDiff);
+        return min.addMSec(msecAdd).clearMSec();
     }
+    
 }

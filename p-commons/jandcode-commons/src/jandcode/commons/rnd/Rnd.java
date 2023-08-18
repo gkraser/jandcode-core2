@@ -71,6 +71,11 @@ public interface Rnd {
     int num(int min, int max);
 
     /**
+     * long в указанном диапазоне
+     */
+    long numLong(long min, long max);
+
+    /**
      * double в указанном диапазоне с указанным числом знаков после запятой (scale).
      */
     double doub(double min, double max, int scale);
@@ -125,7 +130,7 @@ public interface Rnd {
     XDate date(XDate min, XDate max);
 
     /**
-     * XDateTime в указанном диапазоне
+     * XDateTime в указанном диапазоне. Милисекунды очищаются.
      */
     XDateTime datetime(XDateTime min, XDateTime max);
 
