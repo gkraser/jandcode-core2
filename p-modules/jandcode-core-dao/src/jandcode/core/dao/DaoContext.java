@@ -43,4 +43,11 @@ public interface DaoContext extends IAppLink, BeanFactoryOwner {
      */
     boolean hasError();
 
+    /**
+     * Ссылка на {@link DaoHolderItem}, если dao выполняется по полному имени
+     *
+     * @return null, если выполняется не через {@link DaoHolder}
+     */
+    DaoHolderItem getDaoHolderItem();
+
 }

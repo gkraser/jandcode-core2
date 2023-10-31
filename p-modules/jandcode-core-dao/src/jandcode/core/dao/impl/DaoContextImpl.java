@@ -13,6 +13,7 @@ public class DaoContextImpl implements DaoContext, IBeanIniter {
     private DaoMethodDef daoMethodDef;
     private DaoInvoker daoInvoker;
     private long startTime;
+    private DaoHolderItem daoHolderItem;
 
     public DaoContextImpl(DaoInvoker daoInvoker, DaoMethodDef daoMethodDef) {
         this.daoInvoker = daoInvoker;
@@ -76,6 +77,14 @@ public class DaoContextImpl implements DaoContext, IBeanIniter {
 
     public boolean hasError() {
         return this.exception != null;
+    }
+
+    public DaoHolderItem getDaoHolderItem() {
+        return daoHolderItem;
+    }
+
+    public void setDaoHolderItem(DaoHolderItem daoHolderItem) {
+        this.daoHolderItem = daoHolderItem;
     }
 
 }

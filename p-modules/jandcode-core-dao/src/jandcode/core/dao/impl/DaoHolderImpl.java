@@ -224,7 +224,14 @@ public class DaoHolderImpl extends BaseComp implements DaoHolder {
         DaoHolderItem d = items.get(name);
         String dmn = resolveDaoInvokerName(d);
         DaoInvoker dm = getApp().bean(DaoService.class).getDaoInvoker(dmn);
-        return dm.invokeDao(ctxIniter, d.getMethodDef(), args);
+        return dm.invokeDao((ctx) -> {
+            if (ctx instanceof DaoContextImpl ctxImpl) {
+                ctxImpl.setDaoHolderItem(d);
+            }
+            if (ctxIniter != null) {
+                ctxIniter.initDaoContext(ctx);
+            }
+        }, d.getMethodDef(), args);
     }
 
     public Object invokeDao(String name, Object... args) throws Exception {
