@@ -43,4 +43,11 @@ public interface Dict extends Comp, IConfLink, IModelMember {
      */
     boolean isLoadable();
 
+    /**
+     * true (по умолчанию) - словарное поле может быть строкой с разделителем ','.
+     * В случае, когда такое поведение не нужно (например, если id словаря - строка), то нужно установить
+     * значение false
+     */
+    boolean isMultiValue();
+
 }

@@ -65,4 +65,12 @@ public class DictDataHolderImpl implements DictDataHolder {
         return res;
     }
 
+    public boolean isDictMultiValue(String dictName) {
+        DictData dd = items.find(dictName);
+        if (dd == null) {
+            return false;
+        }
+        return dd.getDict().isMultiValue();
+    }
+
 }
