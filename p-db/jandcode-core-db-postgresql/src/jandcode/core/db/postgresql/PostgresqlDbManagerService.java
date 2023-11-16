@@ -44,8 +44,20 @@ public class PostgresqlDbManagerService extends BaseDbManagerService {
         try {
             String dbn = getDbSource().getProps().getString(DbSourcePropsConsts.database);
 
-            dbsys.execQuery("drop database " +
-                    dbn);
+            boolean force = getDbSource().getProps().getBoolean("dropdatabase.force", getApp().getEnv().isDev());
+            if (force) {
+                dbsys.execQueryNative(
+                        "update pg_database set datallowconn=false where lower(datname)='" + dbn.toLowerCase() + "'"
+                );
+                dbsys.execQueryNative(
+                        "select pg_terminate_backend(pid) from pg_stat_activity where lower(datname)='" + dbn.toLowerCase() + "'"
+                );
+                dbsys.execQueryNative(
+                        "drop database " + dbn + " with (force)"
+                );
+            } else {
+                dbsys.execQuery("drop database " + dbn);
+            }
         } finally {
             dbsys.disconnect();
         }

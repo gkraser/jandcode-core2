@@ -6,12 +6,21 @@
                   class="jandcode.core.db.postgresql.PostgresqlDbDriver"
                   jdbcDriverClass="org.postgresql.Driver">
 
+            <!--
+                dropdatabase.force
+                    При true - база данных удаляется в режиме force, т.е. отключаются все подключенные
+                    пользователи.
+
+                    По умолчанию: в режиме dev=true, в режиме prod=false
+            -->
             <dbsource-default
                     url="jdbc:postgresql://${host}:${port}/${database}"
                     host="localhost"
                     port="5432"
                     dbcp.validationQuery="select 1"
-                    system.database="postgres">
+                    system.database="postgres"
+                    dropdatabase.force=""
+                    >
 
                 <bean name="jandcode.core.db.DbManagerService"
                       class="jandcode.core.db.postgresql.PostgresqlDbManagerService"/>
