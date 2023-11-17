@@ -87,4 +87,13 @@ public class WebXmlBuilder {
         addErrorPage(location, 0, null);
     }
 
+    public void addContextParam(String paramName, String paramValue){
+        if (!UtString.empty(paramName)) {
+            WebXml.InitParam p = new WebXml.InitParam();
+            p.setParamName(paramName);
+            p.setParamValue(paramValue);
+            getWebXml().getContextParams().add(p);
+        }
+    }
+    
 }

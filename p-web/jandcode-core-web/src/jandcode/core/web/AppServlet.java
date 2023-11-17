@@ -39,19 +39,19 @@ public class AppServlet extends HttpServlet implements IAppLink {
      * Настройка логирования.
      * Значение: boolean. По умолчанию - true (логирование включено).
      */
-    public static final String initParameter_log = "log";
+    public static final String param_log = "log";
 
     /**
      * Имя файла с приложением. Если не указано, используется 'app.cfx' в качестве
      * значения.
      */
-    public static final String initParameter_app = "app";
+    public static final String param_app = "app";
 
     /**
      * Имя атрибута контекста сервлета, в котором будет зарегистрирована
      * ссылка на сервлет для межсервлетного взаимодействия.
      */
-    public static final String initParameter_servletref = "servlet.ref";
+    public static final String param_servletref = "servlet.ref";
 
     protected App app;
     protected boolean reloadAppWork;
@@ -81,7 +81,7 @@ public class AppServlet extends HttpServlet implements IAppLink {
         }
 
         // регистрируем сервлет в атрибутах контекста, если заказано
-        String servletRefAttrName = getInitParameter(initParameter_servletref);
+        String servletRefAttrName = getParam(param_servletref, null);
         if (!UtString.empty(servletRefAttrName)) {
             getServletContext().setAttribute(servletRefAttrName, this);
         }
@@ -90,7 +90,7 @@ public class AppServlet extends HttpServlet implements IAppLink {
 
     public void destroy() {
         // убираем сервлет из атрибутов контекста, если он там был
-        String servletRefAttrName = getInitParameter(initParameter_servletref);
+        String servletRefAttrName = getParam(param_servletref, null);
         if (!UtString.empty(servletRefAttrName)) {
             getServletContext().removeAttribute(servletRefAttrName);
         }
@@ -123,6 +123,20 @@ public class AppServlet extends HttpServlet implements IAppLink {
     }
 
     /**
+     * Получить значение параметра из init-params, если его там нет, то из context-params
+     */
+    protected String getParam(String name, String defaultValue) {
+        String v = getInitParameter(name);
+        if (v == null) {
+            v = getServletContext().getInitParameter(name);
+        }
+        if (v == null) {
+            v = defaultValue;
+        }
+        return v;
+    }
+
+    /**
      * Ссылка на приложение сервлета.
      * В dev-режиме это может быть не изначальный экземпляр, а перезагруженный.
      */
@@ -148,16 +162,13 @@ public class AppServlet extends HttpServlet implements IAppLink {
         AppLogManager logManager = UtLog.createAppLogManager(appDir);
 
         // настраиваем логирование
-        s = getInitParameter(initParameter_log);
+        s = getParam(param_log, "true");
         if (UtCnv.toBoolean(s, true)) {
             logManager.logOn();
         }
 
         // ищем конфиг
-        String appConfFile = getInitParameter(initParameter_app);
-        if (UtString.empty(appConfFile)) {
-            appConfFile = AppConsts.FILE_APP_CONF;
-        }
+        String appConfFile = getParam(param_app, AppConsts.FILE_APP_CONF);
         appConfFile = UtFile.join(appDir, appConfFile);
 
         // загружаем приложение
