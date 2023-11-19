@@ -11,6 +11,7 @@ import jandcode.core.db.*;
 import jandcode.core.dbm.mdb.*;
 import jandcode.core.dbm.std.*;
 import jandcode.core.groovy.*;
+import jandcode.core.store.*;
 import org.slf4j.*;
 
 import java.util.*;
@@ -75,11 +76,15 @@ public class DbScriptCliCmd extends BaseAppCliCmd {
         //
         mdb.connect();
         try {
-            mdb.startTran();
+            if (!isSystemDbSource()) {
+                mdb.startTran();
+            }
             try {
                 t.run();
-                if (mdb.isTran()) {
-                    mdb.commit();
+                if (!isSystemDbSource()) {
+                    if (mdb.isTran()) {
+                        mdb.commit();
+                    }
                 }
             } catch (Exception e) {
                 if (mdb.isTran()) {
@@ -94,7 +99,17 @@ public class DbScriptCliCmd extends BaseAppCliCmd {
     }
 
     public void cliConfigure(CliDef b) {
-        b.desc("Выполнение скрипта в контексте соединения с базой данных");
+        b.desc("""
+                Выполнение скрипта в контексте соединения с базой данных.
+                            
+                Скрипт - это groovy-файл.
+                Имеется свойство mdb, типа jandcode.core.dbm.mdb.Mdb с установленным соединением.
+                                
+                Дополнительные методы exec (выполнить) и load (загрузить):
+                                
+                exec 'update A set b=1 where id=:id', [id:1]
+                st = load 'select * from A where id=:id', [id:1]
+                """);
         b.opt("modelName")
                 .names("-m").arg("MODEL")
                 .desc("Для какой модели")
@@ -111,7 +126,7 @@ public class DbScriptCliCmd extends BaseAppCliCmd {
                 .desc("Переменная с именем name и строковым значением value для использования в скрипте.\nМожно указывать несколько раз");
         b.opt("systemDbSource")
                 .names("-sys")
-                .desc("Использовать системное подключение к базе (например для создания/удаления базы)");
+                .desc("Использовать системное подключение к базе (например для создания/удаления базы) без транзакции");
     }
 
     //////
@@ -144,6 +159,43 @@ public class DbScriptCliCmd extends BaseAppCliCmd {
          * Реализация метода run. Текст скрипта является телом этого метода.
          */
         protected abstract void doRun() throws Exception;
+
+
+        /**
+         * Выполнить запрос
+         */
+        public void exec(CharSequence sql, Object params) throws Exception {
+            if (params == null) {
+                getMdb().execQueryNative(sql);
+            } else {
+                getMdb().execQuery(sql, params);
+            }
+        }
+
+        /**
+         * Выполнить запрос
+         */
+        public void exec(CharSequence sql) throws Exception {
+            exec(sql, null);
+        }
+
+        /**
+         * Загрузить запрос в Store
+         */
+        public Store load(CharSequence sql, Object params) throws Exception {
+            if (params == null) {
+                return getMdb().loadQueryNative(sql);
+            } else {
+                return getMdb().loadQuery(sql, params);
+            }
+        }
+
+        /**
+         * Загрузить запрос в Store
+         */
+        public Store load(CharSequence sql) throws Exception {
+            return load(sql);
+        }
 
     }
 
