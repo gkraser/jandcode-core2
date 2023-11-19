@@ -91,8 +91,15 @@ public class CliDbTools implements IAppLink, IModelLink {
      * Показать инфу о базе данных
      */
     public void showInfo() {
+        showInfo(getDbSource());
+    }
+
+    /**
+     * Показать инфу о базе данных для модели в контексте dbSource
+     */
+    public void showInfo(DbSource dbSource) {
         System.out.println("Модель: " + getModel().getName());
-        UtOutTable.outTable(getDbSource().getProps());
+        UtOutTable.outTable(dbSource.getProps());
     }
 
     /**
