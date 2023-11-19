@@ -7,9 +7,11 @@ import jandcode.commons.cli.*;
 import jandcode.commons.error.*;
 import jandcode.commons.groovy.*;
 import jandcode.core.cli.*;
+import jandcode.core.db.*;
 import jandcode.core.dbm.mdb.*;
 import jandcode.core.dbm.std.*;
 import jandcode.core.groovy.*;
+import org.slf4j.*;
 
 import java.util.*;
 
@@ -40,11 +42,10 @@ import java.util.*;
  */
 public class DbScriptCliCmd extends BaseAppCliCmd {
 
+    protected static Logger log = UtLog.getLogConsole();
+
     public void exec() throws Exception {
         CliDbTools dbTools = new CliDbTools(getApp(), getModelName());
-        if (isShowInfo()) {
-            dbTools.showInfo();
-        }
         String script = null;
         if (!UtString.empty(getScriptFile())) {
             script = UtFile.loadString(getScriptFile());
@@ -52,7 +53,17 @@ public class DbScriptCliCmd extends BaseAppCliCmd {
             throw new XError("Не указан параметр -f");
         }
         //
-        Mdb mdb = dbTools.getModel().createMdb();
+        DbSource dbSource = dbTools.getDbSource();
+        if (isSystemDbSource()) {
+            dbSource = dbSource.createSystemDbSource();
+            log.info("With system DbSource");
+        }
+        Db db = dbSource.createDb(true);
+        Mdb mdb = dbTools.getModel().createMdb(db);
+        //
+        if (isShowInfo()) {
+            dbTools.showInfo();
+        }
         //
         GroovyCompiler gc = getApp().bean(GroovyService.class).getGroovyCompiler(DbScriptCliCmd.class.getName());
         GroovyClazz gcls = gc.getClazz(BaseScript.class, "void doRun()", script, false);
@@ -98,6 +109,9 @@ public class DbScriptCliCmd extends BaseAppCliCmd {
                 .names("-d").arg("name=value")
                 .multi(true)
                 .desc("Переменная с именем name и строковым значением value для использования в скрипте.\nМожно указывать несколько раз");
+        b.opt("systemDbSource")
+                .names("-sys")
+                .desc("Использовать системное подключение к базе (например для создания/удаления базы)");
     }
 
     //////
@@ -138,6 +152,7 @@ public class DbScriptCliCmd extends BaseAppCliCmd {
     private boolean showInfo = false;
     private String scriptFile = null;
     private Map<String, String> vars = new HashMap<>();
+    private boolean systemDbSource = false;
 
     public String getModelName() {
         return modelName;
@@ -179,4 +194,11 @@ public class DbScriptCliCmd extends BaseAppCliCmd {
         }
     }
 
+    public boolean isSystemDbSource() {
+        return systemDbSource;
+    }
+
+    public void setSystemDbSource(boolean systemDbSource) {
+        this.systemDbSource = systemDbSource;
+    }
 }
