@@ -66,6 +66,11 @@ public interface DbSource extends Comp, IConfLink, BeanFactoryOwner {
     DbSource cloneComp();
 
     /**
+     * Содать системный dbSource. В нем будут заменены свойства на те, у которых префикс 'system.'
+     */
+    DbSource createSystemDbSource();
+
+    /**
      * Отключить все соединения
      */
     void disconnectAll();
