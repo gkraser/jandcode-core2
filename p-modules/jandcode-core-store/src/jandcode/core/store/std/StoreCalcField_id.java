@@ -17,7 +17,7 @@ public class StoreCalcField_id extends BaseStoreCalcField {
     }
 
     protected Object doCalcValue(StoreField field, StoreRecord record) {
-        String key = "calcfield.id.COMMON.last";
+        String key = "$calcfield.id.COMMON.last";
         long lastId = UtCnv.toLong(record.getStore().getCustomProp(key));
         lastId++;
         record.getStore().setCustomProp(key, lastId);
