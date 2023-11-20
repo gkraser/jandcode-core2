@@ -73,6 +73,13 @@ public interface StoreField extends INamed {
     StoreField calc(StoreCalcField calc);
 
     /**
+     * Установить зарегистрированный обработчик вычисляемого поля по имени
+     */
+    void setCalc(String calc);
+
+    StoreField calc(String calc);
+
+    /**
      * Признак вычисляемого поля
      */
     default boolean isCalc() {

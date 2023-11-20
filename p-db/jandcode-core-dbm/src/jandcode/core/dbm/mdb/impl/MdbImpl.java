@@ -244,6 +244,10 @@ public class MdbImpl extends BaseDbWrapper implements Mdb, IValidateErrorsLinkSe
         return getStoreService().createStoreLoader(name);
     }
 
+    public StoreCalcField createStoreCalcField(String name) {
+        return getStoreService().createStoreCalcField(name);
+    }
+
     ////// ISqlService
 
     private SqlService getSqlService() {

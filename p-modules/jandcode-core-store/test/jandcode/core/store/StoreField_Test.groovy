@@ -1,6 +1,7 @@
 package jandcode.core.store
 
 import jandcode.commons.datetime.impl.*
+import jandcode.core.store.std.*
 import jandcode.core.test.*
 import org.junit.jupiter.api.*
 
@@ -119,5 +120,47 @@ class StoreField_Test extends App_Test {
         assertEquals(st.get(2).getValue("c1"), "z1-calc")
     }
 
+    @Test
+    public void test_calc_guid() throws Exception {
+        def st = svc.createStore()
+        st.addField("c1", "string").calc(new StoreCalcField_guid())
+        st.add()
+        utils.outTable(st)
+        def v1 = st.get(0).getValue("c1")
+        st.get(0).setValue("c1", "v11")
+        utils.outTable(st)
+        def v2 = st.get(0).getValue("c1")
+        assertEquals(v1, v2)
+        assertNotNull(v1)
+    }
+
+    @Test
+    public void test_calc_id() throws Exception {
+        def st = svc.createStore()
+        st.addField("c1", "long").calc(new StoreCalcField_id())
+        st.addField("c2", "long").calc(new StoreCalcField_id())
+        st.add()
+        st.add()
+        utils.outTable(st)
+        def v1 = st.get(0).getValue("c1")
+        st.get(0).setValue("c1", "v11")
+        utils.outTable(st)
+        def v2 = st.get(0).getValue("c1")
+        assertEquals(v1, v2)
+        assertNotNull(v1)
+        assertEquals(st.get(0).getValue("c1"), 1)
+        assertEquals(st.get(0).getValue("c2"), 2)
+    }
+
+    @Test
+    public void test_calc_id_registred() throws Exception {
+        def st = svc.createStore()
+        st.addField("c1", "long").calc("id")
+        st.addField("c2", "string").calc("guid")
+        st.add()
+        st.add()
+        utils.outTable(st)
+        utils.outTable(st)
+    }
 
 }

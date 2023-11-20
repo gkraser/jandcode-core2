@@ -26,4 +26,9 @@ public interface StoreService extends Comp, IStoreService {
      */
     boolean hasStoreLoader(String name);
 
+    /**
+     * Список имен зарегистрированных вычисляемых полей
+     */
+    Collection<String> getStoreCalcFieldNames();
+
 }

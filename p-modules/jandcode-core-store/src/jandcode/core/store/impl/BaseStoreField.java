@@ -18,6 +18,11 @@ public abstract class BaseStoreField implements StoreField, Cloneable {
     private int scale = NO_SCALE;
     private String title;
     private StoreCalcField calc;
+    private IStoreService storeService;
+
+    public void setStoreService(IStoreService storeService) {
+        this.storeService = storeService;
+    }
 
     public StoreDataType getStoreDataType() {
         return storeDataType;
@@ -120,6 +125,18 @@ public abstract class BaseStoreField implements StoreField, Cloneable {
     }
 
     public StoreField calc(StoreCalcField calc) {
+        setCalc(calc);
+        return this;
+    }
+
+    public void setCalc(String calc) {
+        if (this.storeService == null) {
+            throw new XError("storeService not assigned");
+        }
+        setCalc(this.storeService.createStoreCalcField(calc));
+    }
+
+    public StoreField calc(String calc) {
         setCalc(calc);
         return this;
     }

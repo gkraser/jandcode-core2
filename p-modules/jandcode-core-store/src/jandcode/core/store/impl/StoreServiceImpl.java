@@ -19,6 +19,7 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
     private NamedList<StoreDataType> storeDataTypes = new DefaultNamedList<>("Not found StoreDataType: {0}");
     private ClassLinks<String> storeDatatypesByClass = new ClassLinks<>();
     private NamedList<StoreLoaderDef> storeLoaders = new DefaultNamedList<>("Not found StoreLoader: {0}");
+    private NamedList<StoreCalcFieldDef> storeCalcFields = new DefaultNamedList<>("Not found StoreCalcField: {0}");
 
     class StoreLoaderDef extends Named {
         Conf conf;
@@ -30,6 +31,19 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
 
         StoreLoader createInst() {
             return (StoreLoader) getApp().create(this.conf);
+        }
+    }
+
+    class StoreCalcFieldDef extends Named {
+        Conf conf;
+
+        public StoreCalcFieldDef(String name, Conf conf) {
+            setName(name);
+            this.conf = conf;
+        }
+
+        StoreCalcField createInst() {
+            return (StoreCalcField) getApp().create(this.conf);
         }
     }
 
@@ -56,6 +70,11 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
         //
         for (Conf x : topConf.getConfs("storeloader")) {
             storeLoaders.add(new StoreLoaderDef(x.getName(), x));
+        }
+
+        //
+        for (Conf x : topConf.getConfs("storecalcfield")) {
+            storeCalcFields.add(new StoreCalcFieldDef(x.getName(), x));
         }
     }
 
@@ -124,6 +143,14 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
 
     public boolean hasStoreLoader(String name) {
         return this.storeLoaders.find(name) != null;
+    }
+
+    public StoreCalcField createStoreCalcField(String name) {
+        return this.storeCalcFields.get(name).createInst();
+    }
+
+    public Collection<String> getStoreCalcFieldNames() {
+        return this.storeCalcFields.getNames();
     }
 
 }
