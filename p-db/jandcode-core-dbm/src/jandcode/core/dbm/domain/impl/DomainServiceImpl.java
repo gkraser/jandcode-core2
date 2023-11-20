@@ -115,6 +115,9 @@ public class DomainServiceImpl extends BaseModelMember implements DomainService 
                 sf.setScale(f.getScale());
             }
             sf.setTitle(f.getTitle());
+            if (f.getSize() > 0) {
+                sf.setSize(f.getSize());
+            }
         }
         //
         return store;
