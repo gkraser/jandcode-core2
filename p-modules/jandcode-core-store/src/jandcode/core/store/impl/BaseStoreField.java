@@ -3,6 +3,7 @@ package jandcode.core.store.impl;
 import jandcode.commons.*;
 import jandcode.commons.error.*;
 import jandcode.core.store.*;
+import jandcode.core.store.std.*;
 
 /**
  * Предок для реализаций полей
@@ -16,6 +17,7 @@ public abstract class BaseStoreField implements StoreField, Cloneable {
     private StoreDataType storeDataType;
     private int scale = NO_SCALE;
     private String title;
+    private StoreCalcField calc;
 
     public StoreDataType getStoreDataType() {
         return storeDataType;
@@ -102,6 +104,24 @@ public abstract class BaseStoreField implements StoreField, Cloneable {
         } catch (Throwable e) {
             throw new XErrorWrap(e);
         }
+    }
+
+    public StoreCalcField getCalc() {
+        return calc;
+    }
+
+    public void setCalc(StoreCalcField calc) {
+        if (this.calc != null && this.storeDataType instanceof StoreDataType_calc) {
+            // calc уже был установлен, возвращаем тот datatype, который был ранее
+            this.storeDataType = ((StoreDataType_calc) this.storeDataType).getBaseStoreDataType();
+        }
+        this.calc = calc;
+        this.storeDataType = new StoreDataType_calc(this.storeDataType, this.calc);
+    }
+
+    public StoreField calc(StoreCalcField calc) {
+        setCalc(calc);
+        return this;
     }
 
 }

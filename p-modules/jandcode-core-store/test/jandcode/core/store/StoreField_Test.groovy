@@ -97,5 +97,27 @@ class StoreField_Test extends App_Test {
         assertEquals(rec["f"], 123.456789)
     }
 
+    @Test
+    public void test_calc() throws Exception {
+        def st = svc.createStore()
+        st.addField("f", "string")
+        st.addField("c1", "string").calc { f, r ->
+            if (r.isValueNull("f")) {
+                return null
+            }
+            return r.getString("f") + "-calc"
+        }
+        st.add()
+        st.add(f: 'v1')
+        st.add(f: 'z1')
+        utils.outTable(st)
+        st.get(1).setValue("f", "v11")
+        utils.outTable(st)
+
+        assertEquals(st.get(0).getValue("c1"), null)
+        assertEquals(st.get(1).getValue("c1"), "v11-calc")
+        assertEquals(st.get(2).getValue("c1"), "z1-calc")
+    }
+
 
 }
