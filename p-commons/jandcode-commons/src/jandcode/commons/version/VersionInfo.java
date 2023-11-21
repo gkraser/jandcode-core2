@@ -1,6 +1,7 @@
 package jandcode.commons.version;
 
 import jandcode.commons.*;
+import jandcode.commons.datetime.*;
 import jandcode.commons.io.*;
 import org.apache.commons.vfs2.*;
 
@@ -24,6 +25,7 @@ public class VersionInfo {
 
 
     private String version;
+    private XDateTime buildDate;
 
     /**
      * Инициализирует объекта версией указанного пакета
@@ -37,6 +39,13 @@ public class VersionInfo {
      */
     public String getVersion() {
         return version == null ? DEFAULT_VERSION : version; //NON-NLS
+    }
+
+    /**
+     * Дата сборки. Определяется по времени создания version.properties
+     */
+    public XDateTime getBuildDate() {
+        return buildDate;
     }
 
     //////
@@ -53,6 +62,7 @@ public class VersionInfo {
             } else {
                 this.version = this.version.trim();
             }
+            this.buildDate = XDateTime.create(prop.getProperty("buildDate"));
         }
     }
 
@@ -88,6 +98,9 @@ public class VersionInfo {
                 Properties prop = new Properties();
                 PropertiesLoader ldr = new PropertiesLoader(prop);
                 UtLoad.fromFileObject(ldr, f);
+                XDateTime buildDate = XDateTime.create(f.getContent().getLastModifiedTime());
+                buildDate = buildDate.clearMSec();
+                prop.setProperty("buildDate", buildDate.toString());
                 return prop;
             }
         } catch (Exception e) {

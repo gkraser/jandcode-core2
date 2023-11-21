@@ -1,6 +1,7 @@
 package jandcode.core.std;
 
 import jandcode.commons.conf.*;
+import jandcode.commons.datetime.*;
 import jandcode.core.*;
 
 /**
@@ -45,5 +46,10 @@ public interface AppInfo extends Comp {
      * получать дополнительную информацию.
      */
     Conf getConf();
+
+    /**
+     * Дата сборки
+     */
+    XDateTime getBuildDate();
 
 }

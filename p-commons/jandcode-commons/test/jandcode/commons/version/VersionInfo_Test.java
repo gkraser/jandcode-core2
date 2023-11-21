@@ -32,4 +32,10 @@ public class VersionInfo_Test extends Utils_Test {
         assertEquals(UtVersion.getVersion(Dummy1.class), "6");
     }
 
+    @Test
+    public void buildDate() throws Exception {
+        VersionInfo vi = new VersionInfo("jandcode.commons.version.data.x.t.y.w");
+        System.out.println(vi.getBuildDate());
+    }
+
 }
