@@ -153,4 +153,8 @@ public class StoreServiceImpl extends BaseComp implements StoreService {
         return this.storeCalcFields.getNames();
     }
 
+    public Conf getStoreCalcFieldConf(String name) {
+        return this.storeCalcFields.get(name).conf.cloneConf();
+    }
+
 }

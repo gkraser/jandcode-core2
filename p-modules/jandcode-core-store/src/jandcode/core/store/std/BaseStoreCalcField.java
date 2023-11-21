@@ -17,7 +17,7 @@ public abstract class BaseStoreCalcField extends BaseComp implements StoreCalcFi
         return cached;
     }
 
-    public void setCached(boolean cached) {
+    protected void setCached(boolean cached) {
         this.cached = cached;
     }
 

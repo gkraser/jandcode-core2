@@ -1,5 +1,6 @@
 package jandcode.core.store;
 
+import jandcode.commons.conf.*;
 import jandcode.commons.named.*;
 import jandcode.core.*;
 
@@ -30,5 +31,11 @@ public interface StoreService extends Comp, IStoreService {
      * Список имен зарегистрированных вычисляемых полей
      */
     Collection<String> getStoreCalcFieldNames();
+
+    /**
+     * Возвращает новую копию конфигурации указанного
+     * зарегистрированного, с указанным именем, вычисляемого поля.
+     */
+    Conf getStoreCalcFieldConf(String name);
 
 }
