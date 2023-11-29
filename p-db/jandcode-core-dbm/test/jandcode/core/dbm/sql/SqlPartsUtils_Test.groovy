@@ -26,6 +26,12 @@ class SqlPartsUtils_Test extends Dbm_Test {
         assertEquals(sqlRes, res)
     }
 
+    void check_part(String name, List wh, String sql, String sqlRes) {
+        String res = SqlPartsUtils.replacePart(sql, name, wh)
+        println res
+        assertEquals(sqlRes, res)
+    }
+
     @Test
     public void test_where() throws Exception {
         check_where('default', ['z=0', 'x=1'],
@@ -100,6 +106,14 @@ class SqlPartsUtils_Test extends Dbm_Test {
         check_orderby('a,b',
                 """select * from aaa /**/order by b,n,m /*end*/ order by b""",
                 """select * from aaa order by a,b order by b""",
+        )
+    }
+
+    @Test
+    public void test_part() throws Exception {
+        check_part('p1', ['and z=0', 'and x=1'],
+                """select * \nfrom aaa where 0=0 /*part:p1*/ order by id""",
+                """select * \nfrom aaa where 0=0 and z=0 and x=1 order by id"""
         )
     }
 }

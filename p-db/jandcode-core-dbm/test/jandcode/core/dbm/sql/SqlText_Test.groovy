@@ -56,6 +56,14 @@ class SqlText_Test extends Dbm_Test {
     }
 
     @Test
+    public void replace_part1() throws Exception {
+        SqlText sql = create("select * from tab1 where 0=0 /*part:default*/")
+
+        sql.replacePart(["and id=0", "and id1=1"])
+        assertEquals(sql.toString(), "select * from tab1 where 0=0 and id=0 and id1=1")
+    }
+
+    @Test
     public void replace_orderBy1() throws Exception {
         SqlText sql = create("select * from tab1 order by id")
 

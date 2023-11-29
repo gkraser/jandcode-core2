@@ -159,4 +159,59 @@ public interface SqlText extends CharSequence, IModelLink {
      */
     SqlText replaceOrderBy(String text);
 
+    //////
+
+    /**
+     * Заменить part.
+     * Вызов метода отменяет предыдущий вызов replacePart для указанного partName.
+     *
+     * @param partName  имя part, по умолчанию 'default'
+     * @param partTexts тексты part, между ними ставится ' ' (пробел)
+     * @return ссылка на себя
+     */
+    SqlText replacePart(String partName, List<String> partTexts);
+
+    /**
+     * см. {@link SqlText#replacePart(java.lang.String, java.util.List)},
+     * где partName=default
+     */
+    default SqlText replacePart(List<String> partTexts) {
+        return replacePart(null, partTexts);
+    }
+
+    /**
+     * см. {@link SqlText#replacePart(java.lang.String, java.util.List)},
+     * где partTexts это список из одного элемента partText
+     */
+    default SqlText replacePart(String partName, String partText) {
+        return replacePart(partName, List.of(partText));
+    }
+
+    /**
+     * см. {@link SqlText#replacePart(java.util.List)},
+     * где partTexts это список из одного элемента partText
+     */
+    default SqlText replacePart(String partText) {
+        return replacePart(null, List.of(partText));
+    }
+
+    /**
+     * Добавить условие part. Существующие условия не изменяются.
+     *
+     * @param partName имя part, по умолчанию 'default'
+     * @param partText условие part
+     * @return ссылка на себя
+     */
+    SqlText addPart(String partName, String partText);
+
+    /**
+     * Добавить условие для part с именем 'default'. Существующие условия не изменяются.
+     *
+     * @param partText условие part
+     * @return ссылка на себя
+     */
+    default SqlText addPart(String partText) {
+        return addPart(null, partText);
+    }
+
 }
