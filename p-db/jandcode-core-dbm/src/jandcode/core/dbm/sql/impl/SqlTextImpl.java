@@ -83,24 +83,20 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
 
     static class ReplacePart {
         String name;
-        List<String> parts;
+        private List<String> parts = new ArrayList<>();
 
-        public ReplacePart(String name, List<String> parts) {
+        public ReplacePart(String name) {
             this.name = name;
             if (UtString.empty(this.name)) {
                 this.name = "default";
             }
-            this.parts = new ArrayList<>();
-            if (parts != null) {
-                this.parts.addAll(parts);
-            }
         }
 
         String replace(String sql) {
-            if (this.parts.size() == 0) {
+            if (this.getParts().size() == 0) {
                 return sql;
             }
-            return SqlPartsUtils.replacePart(sql, this.name, this.parts);
+            return SqlPartsUtils.replacePart(sql, this.name, this.getParts());
         }
 
         public String getName() {
@@ -110,6 +106,20 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
         public List<String> getParts() {
             return parts;
         }
+
+        public void addParts(List<String> parts) {
+            if (parts == null) {
+                return;
+            }
+            // обеспечиваем уникальность
+            for (String newPart : parts) {
+                if (this.parts.contains(newPart)) {
+                    continue;
+                }
+                this.parts.add(newPart);
+            }
+        }
+
     }
 
     //////
@@ -289,7 +299,8 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
         if (this.replacePart == null) {
             this.replacePart = new LinkedHashMap<>();
         }
-        ReplacePart rw = new ReplacePart(partName, partTexts);
+        ReplacePart rw = new ReplacePart(partName);
+        rw.addParts(partTexts);
         this.replacePart.put(rw.name, rw);
         return this;
     }
@@ -306,7 +317,7 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
             if (rw == null) {
                 replacePart(partName, partText);
             } else {
-                rw.parts.add(partText);
+                rw.addParts(List.of(partText));
             }
         }
         return this;
