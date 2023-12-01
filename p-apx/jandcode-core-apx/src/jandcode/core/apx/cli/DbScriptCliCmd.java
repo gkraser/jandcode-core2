@@ -194,7 +194,7 @@ public class DbScriptCliCmd extends BaseAppCliCmd {
          * Загрузить запрос в Store
          */
         public Store load(CharSequence sql) throws Exception {
-            return load(sql);
+            return load(sql, null);
         }
 
     }
