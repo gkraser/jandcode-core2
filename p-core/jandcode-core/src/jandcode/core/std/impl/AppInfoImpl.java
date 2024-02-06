@@ -2,6 +2,7 @@ package jandcode.core.std.impl;
 
 import jandcode.commons.*;
 import jandcode.commons.conf.*;
+import jandcode.commons.datetime.*;
 import jandcode.core.*;
 import jandcode.core.std.*;
 
@@ -57,4 +58,9 @@ public class AppInfoImpl extends BaseComp implements AppInfo {
     public Conf getConf() {
         return conf;
     }
+
+    public XDateTime getBuildDate() {
+        return UtVersion.getBuildDate(getMainModule());
+    }
+
 }

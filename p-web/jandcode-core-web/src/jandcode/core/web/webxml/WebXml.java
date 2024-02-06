@@ -14,6 +14,7 @@ public class WebXml {
     private List<Servlet> servlets = new ArrayList<>();
     private List<ServletMapping> servletMappings = new ArrayList<>();
     private List<ErrorPage> errorPages = new ArrayList<>();
+    private List<InitParam> contextParams = new ArrayList<>();
 
     //////
 
@@ -71,6 +72,7 @@ public class WebXml {
         public void setMultipartConfig(MultipartConfig multipartConfig) {
             this.multipartConfig = multipartConfig;
         }
+
     }
 
     //////
@@ -232,5 +234,8 @@ public class WebXml {
 
     //////
 
+    public List<InitParam> getContextParams() {
+        return contextParams;
+    }
 
 }

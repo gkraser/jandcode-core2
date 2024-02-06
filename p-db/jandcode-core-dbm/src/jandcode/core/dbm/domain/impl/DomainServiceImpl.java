@@ -115,6 +115,32 @@ public class DomainServiceImpl extends BaseModelMember implements DomainService 
                 sf.setScale(f.getScale());
             }
             sf.setTitle(f.getTitle());
+            if (f.getSize() > 0) {
+                sf.setSize(f.getSize());
+            }
+            String calc = f.getConf().getString("calc");
+            if (!UtString.empty(calc)) {
+                StoreCalcField scf = null;
+                // вычисляемое поле
+                Class cls = null;
+                try {
+                    cls = UtClass.getClass(calc);
+                } catch (Exception e) {
+                    // ignore
+                }
+                if (cls != null) {
+                    // в поле calc указан класс
+                    scf = (StoreCalcField) getModel().create(cls, f.getConf(), false, null);
+                } else {
+                    // объединяем конфигурации storecalcfield и field
+                    Conf tmp = Conf.create();
+                    tmp.join(getApp().bean(StoreService.class).getStoreCalcFieldConf(calc));
+                    cls = UtClass.getClass(tmp.getString("class"));
+                    tmp.join(f.getConf());
+                    scf = (StoreCalcField) getModel().create(cls, tmp, false, null);
+                }
+                sf.setCalc(scf);
+            }
         }
         //
         return store;

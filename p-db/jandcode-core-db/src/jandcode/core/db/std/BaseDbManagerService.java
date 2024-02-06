@@ -16,8 +16,7 @@ public class BaseDbManagerService extends BaseDbSourceMember implements DbManage
      */
     public DbSource getSystemDbSource() {
         if (systemDbSource == null) {
-            systemDbSource = getDbSource().cloneComp();
-            systemDbSource.getProps().putAll(getDbSource().getProps().subMap("system", true));
+            systemDbSource = getDbSource().createSystemDbSource();
         }
         return systemDbSource;
     }

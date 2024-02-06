@@ -20,6 +20,16 @@ public class WebXmlUtils {
         x.getAttrs().put("version", "3.1");
         x.getAttrs().put("metadata-complete", "true");
 
+        for (WebXml.InitParam p : w.getContextParams()) {
+            x2 = x.addChild("context-param");
+
+            x3 = x2.addChild("param-name");
+            x3.setText(p.getParamName());
+
+            x3 = x2.addChild("param-value");
+            x3.setText(p.getParamValue());
+        }
+
         for (WebXml.Servlet sv : w.getServlets()) {
             x1 = x.addChild("servlet");
 

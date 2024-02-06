@@ -121,6 +121,7 @@ public abstract class BaseStore implements Store, Cloneable {
         String fnKey = UtStrDedup.lower(name);
         field.setName(name);
         field.setIndex(fields.size());
+        field.setStoreService(this.storeService);
         fields.add(field);
         fieldsByName.put(fnKey, field);
     }

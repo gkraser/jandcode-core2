@@ -69,4 +69,42 @@ public interface IDictService {
         return loadDictData(getDict(dictName), ids);
     }
 
+    /**
+     * Получить значение поля словаря для указанного id
+     *
+     * @param dictName  имя словаря
+     * @param id        id в словаре
+     * @param fieldName какое поле нужно получить
+     * @return null, если значение для id не существует
+     */
+    Object getDictValue(String dictName, Object id, String fieldName);
+
+    /**
+     * Получить значение поля словаря для указанного id. Возвращаентся значение поля по умолчанию
+     *
+     * @param dictName имя словаря
+     * @param id       id в словаре
+     * @return null, если значение для id не существует
+     */
+    Object getDictValue(String dictName, Object id);
+
+    /**
+     * Получить значение поля словаря для указанного id в виде строки
+     *
+     * @param dictName  имя словаря
+     * @param id        id в словаре
+     * @param fieldName какое поле нужно получить
+     * @return пустая строка, если значение для id не существует
+     */
+    String getDictText(String dictName, Object id, String fieldName);
+
+    /**
+     * Получить значение поля словаря для указанного id в виде строки. Возвращаентся значение поля по умолчанию
+     *
+     * @param dictName имя словаря
+     * @param id       id в словаре
+     * @return пустая строка, если значение для id не существует
+     */
+    String getDictText(String dictName, Object id);
+
 }

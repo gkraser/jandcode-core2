@@ -17,6 +17,7 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
     private Map<String, ReplaceWhere> replaceWhere;
     private ReplaceSelect replaceSelect;
     private ReplaceOrderBy replaceOrderBy;
+    private Map<String, ReplacePart> replacePart;
 
     static class ReplaceWhere {
         String name;
@@ -80,6 +81,47 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
 
     }
 
+    static class ReplacePart {
+        String name;
+        private List<String> parts = new ArrayList<>();
+
+        public ReplacePart(String name) {
+            this.name = name;
+            if (UtString.empty(this.name)) {
+                this.name = "default";
+            }
+        }
+
+        String replace(String sql) {
+            if (this.getParts().size() == 0) {
+                return sql;
+            }
+            return SqlPartsUtils.replacePart(sql, this.name, this.getParts());
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public List<String> getParts() {
+            return parts;
+        }
+
+        public void addParts(List<String> parts) {
+            if (parts == null) {
+                return;
+            }
+            // обеспечиваем уникальность
+            for (String newPart : parts) {
+                if (this.parts.contains(newPart)) {
+                    continue;
+                }
+                this.parts.add(newPart);
+            }
+        }
+
+    }
+
     //////
 
     public SqlTextImpl(Model model, String sql) {
@@ -100,6 +142,12 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
         if (this.replaceWhere != null) {
             for (var rw : this.replaceWhere.values()) {
                 res.replaceWhere(rw.name, rw.wheres);
+            }
+        }
+
+        if (this.replacePart != null) {
+            for (var rw : this.replacePart.values()) {
+                res.replacePart(rw.name, rw.parts);
             }
         }
 
@@ -125,6 +173,11 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
 
         if (this.replaceWhere != null) {
             for (ReplaceWhere rw : this.replaceWhere.values()) {
+                res = rw.replace(res);
+            }
+        }
+        if (this.replacePart != null) {
+            for (ReplacePart rw : this.replacePart.values()) {
                 res = rw.replace(res);
             }
         }
@@ -239,4 +292,34 @@ public class SqlTextImpl extends BaseModelMember implements SqlText {
         return this;
     }
 
+    //////
+
+    public SqlText replacePart(String partName, List<String> partTexts) {
+        reset();
+        if (this.replacePart == null) {
+            this.replacePart = new LinkedHashMap<>();
+        }
+        ReplacePart rw = new ReplacePart(partName);
+        rw.addParts(partTexts);
+        this.replacePart.put(rw.name, rw);
+        return this;
+    }
+
+    public SqlText addPart(String partName, String partText) {
+        reset();
+        if (UtString.empty(partName)) {
+            partName = "default";
+        }
+        if (this.replacePart == null) {
+            replacePart(partName, partText);
+        } else {
+            ReplacePart rw = this.replacePart.get(partName);
+            if (rw == null) {
+                replacePart(partName, partText);
+            } else {
+                rw.addParts(List.of(partText));
+            }
+        }
+        return this;
+    }
 }

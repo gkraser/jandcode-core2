@@ -11,7 +11,9 @@ public class OracleDbDriver extends BaseDbDriver {
         if ("double".equals(dt)) {
             int pr = md.getPrecision(colIdx);
             int sc = md.getScale(colIdx);
-            if (pr > 0 && sc == 0) {
+            if (pr == 0 && sc == 0) {
+                dt = "long";
+            } else if (pr > 0 && sc == 0) {
                 if (pr <= 5) {
                     dt = "smallint";
                 } else if (pr <= 10) {

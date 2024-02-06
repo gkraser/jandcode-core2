@@ -144,4 +144,18 @@ public class Rnd_Test extends Utils_Test {
         System.out.println();
     }
 
+    @Test
+    public void test_datetime_1() throws Exception {
+        XDateTime min = XDateTime.create(1999, 12, 1);
+        XDateTime max = XDateTime.create(1999, 12, 1, 1, 0, 0);
+        for (int i = 1; i <= 100; i++) {
+            String s = r.datetime(min, max).toString() + "  ";
+            System.out.print(s);
+            if (i % 5 == 0) {
+                System.out.println();
+            }
+        }
+        System.out.println();
+    }
+
 }

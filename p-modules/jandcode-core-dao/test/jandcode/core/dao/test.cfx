@@ -50,6 +50,8 @@
                 </item>
             </item>
 
+            <item name="dao11" class="jandcode.core.dao.data.recursive_pak.Dao11"
+                  method="*"/>
 
         </holder>
 

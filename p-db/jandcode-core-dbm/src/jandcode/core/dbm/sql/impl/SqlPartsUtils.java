@@ -157,4 +157,39 @@ public class SqlPartsUtils {
 
     }
 
+    /**
+     * Заменить part
+     *
+     * @param sql       исходный sql
+     * @param partName  имя part, по умолчанию 'default'
+     * @param partTexts части sql, между ними ставится ' ' (пробел), о правильных разделителях задумывается вызывающий
+     */
+    public static String replacePart(String sql, String partName, List<String> partTexts) {
+        if (partTexts == null || partTexts.size() == 0) {
+            return sql;
+        }
+        //
+        StringBuilder sb = new StringBuilder();
+        for (String partText : partTexts) {
+            if (sb.length() > 0) {
+                sb.append(" ");
+            }
+            sb.append(partText);
+        }
+        String part = sb.toString();
+        //
+        if (UtString.empty(partName)) {
+            partName = "default";
+        }
+        //
+        Matcher m;
+
+        Pattern NAMED_PART = Pattern.compile("\\/\\*part\\:" + partName + "\\*\\/", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
+        m = NAMED_PART.matcher(sql);
+        if (m.find()) {
+            return m.replaceFirst(part);
+        }
+        return sql;
+    }
+
 }

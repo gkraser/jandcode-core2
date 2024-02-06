@@ -35,4 +35,9 @@ public interface IStoreService {
      */
     StoreLoader createStoreLoader(String name);
 
+    /**
+     * Создать экземпляр вычислителяемого поля по имени
+     */
+    StoreCalcField createStoreCalcField(String name);
+
 }

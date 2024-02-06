@@ -3,6 +3,7 @@ package jandcode.core.store.impl;
 import jandcode.commons.*;
 import jandcode.commons.error.*;
 import jandcode.core.store.*;
+import jandcode.core.store.std.*;
 
 /**
  * Предок для реализаций полей
@@ -16,6 +17,12 @@ public abstract class BaseStoreField implements StoreField, Cloneable {
     private StoreDataType storeDataType;
     private int scale = NO_SCALE;
     private String title;
+    private StoreCalcField calc;
+    private IStoreService storeService;
+
+    public void setStoreService(IStoreService storeService) {
+        this.storeService = storeService;
+    }
 
     public StoreDataType getStoreDataType() {
         return storeDataType;
@@ -102,6 +109,36 @@ public abstract class BaseStoreField implements StoreField, Cloneable {
         } catch (Throwable e) {
             throw new XErrorWrap(e);
         }
+    }
+
+    public StoreCalcField getCalc() {
+        return calc;
+    }
+
+    public void setCalc(StoreCalcField calc) {
+        if (this.calc != null && this.storeDataType instanceof StoreDataType_calc) {
+            // calc уже был установлен, возвращаем тот datatype, который был ранее
+            this.storeDataType = ((StoreDataType_calc) this.storeDataType).getBaseStoreDataType();
+        }
+        this.calc = calc;
+        this.storeDataType = new StoreDataType_calc(this.storeDataType, this.calc);
+    }
+
+    public StoreField calc(StoreCalcField calc) {
+        setCalc(calc);
+        return this;
+    }
+
+    public void setCalc(String calc) {
+        if (this.storeService == null) {
+            throw new XError("storeService not assigned");
+        }
+        setCalc(this.storeService.createStoreCalcField(calc));
+    }
+
+    public StoreField calc(String calc) {
+        setCalc(calc);
+        return this;
     }
 
 }

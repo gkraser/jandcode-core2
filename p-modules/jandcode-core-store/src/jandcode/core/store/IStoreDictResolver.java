@@ -35,4 +35,13 @@ public interface IStoreDictResolver {
         return new HashMap<>();
     }
 
+    /**
+     * Возвращает true, если словарь допускает в качестве значения словарного поля строку, разделенную ','
+     *
+     * @param dictName имя словаря
+     */
+    default boolean isDictMultiValue(String dictName) {
+        return true;
+    }
+
 }

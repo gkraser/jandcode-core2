@@ -60,8 +60,8 @@ public class StoreOutTable implements OutTable {
                 sb.append("]");
                 return sb.toString();
             }
-            if (v instanceof CharSequence || v instanceof Collection) {
-                List<String> lst = UtCnv.toList(r.getValue(col));
+            if ((v instanceof CharSequence && dr.isDictMultiValue(f.getDict())) || v instanceof Collection) {
+                List<String> lst = UtCnv.toList(r.getValue(col), ",");
                 int idx = 0;
                 for (String vs : lst) {
                     Object dv = dr.getDictValue(f.getDict(), vs, null);

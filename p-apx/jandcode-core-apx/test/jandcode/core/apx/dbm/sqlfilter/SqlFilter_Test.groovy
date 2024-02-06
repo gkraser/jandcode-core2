@@ -201,4 +201,136 @@ class SqlFilter_Test extends Dbm_Test {
         assertEquals(f.sql.toString(), "select * from t1 where p0=:p0__value and 0=0")
     }
 
+    //////
+
+    @Test
+    public void part1() throws Exception {
+        String sql = "select * from t1 /*part:p1*/ where 0=0 /*part:p2*/"
+        Map params = [
+                p1: 'v1',
+                p2: [
+                        value: 'v2'
+                ],
+                p3: [
+                        value1: 'v3'
+                ]
+        ]
+        SqlFilter f = SqlFilter.create(mdb, sql, params)
+
+        f.addWhere("p1", { ctx ->
+            ctx.addPart("p1", "left join f1=:${ctx.paramName()}")
+            ctx.setParam(ctx.paramName(), ctx.getValue())
+        })
+        f.addWhere("p2", { ctx ->
+            ctx.addPart("p1", "left join f2=:${ctx.paramName()}")
+            ctx.setParam(ctx.paramName(), ctx.getValue())
+        })
+
+        //
+        out(f)
+        //
+        assertEquals(f.sql.toString(), "select * from t1 left join f1=:p1__value left join f2=:p2__value where 0=0 /*part:p2*/")
+    }
+
+    @Test
+    public void part_unique1() throws Exception {
+        String sql = "select * from t1 /*part:p1*/ where 0=0 /*part:p2*/"
+        Map params = [
+                p1: 'v1',
+                p2: [
+                        value: 'v2'
+                ],
+                p3: [
+                        value1: 'v3'
+                ]
+        ]
+        SqlFilter f = SqlFilter.create(mdb, sql, params)
+
+        f.addWhere("p1", { ctx ->
+            ctx.addPart("p1", "a1")
+            ctx.addPart("p2", "a2")
+            ctx.addPart("p1", "a1")
+        })
+        f.addWhere("p2", { ctx ->
+            ctx.addPart("p1", "a1")
+            ctx.addPart("p2", "a2")
+            ctx.addPart("p1", "a1")
+        })
+
+        //
+        out(f)
+        //
+        assertEquals(f.sql.toString(), "select * from t1 a1 where 0=0 a2")
+    }
+
+    @Test
+    public void chain_builder() throws Exception {
+        String sql = "select * from t1 /*part:p1*/ where 0=0 /*part:p2*/"
+        Map params = [
+                p1: 'v1',
+                p2: [
+                        value: 'v2'
+                ],
+                p3: [
+                        value1: 'v3'
+                ]
+        ]
+        SqlFilter f = SqlFilter.create(mdb, sql, params)
+
+        f.addWhere("p1", { ctx ->
+            ctx.addPart("p1", "z1")
+        }).addBuilder({ ctx ->
+            ctx.addPart("p1", "z2")
+        })
+        //
+        out(f)
+        //
+        assertEquals(f.sql.toString(), "select * from t1 z1 z2 where 0=0 /*part:p2*/")
+    }
+
+    @Test
+    public void chain_builder_2() throws Exception {
+        String sql = "select * from t1 /*part:p1*/ where 0=0 /*part:p2*/"
+        Map params = [
+                p1: 'v1',
+                p2: [
+                        value: 'v2'
+                ],
+                p3: [
+                        value1: 'v3'
+                ]
+        ]
+        SqlFilter f = SqlFilter.create(mdb, sql, params)
+
+        f.addWhere("p1", "equal").addBuilder({ ctx ->
+            ctx.addPart("p1", "z2")
+        })
+        //
+        out(f)
+        //
+        assertEquals(f.sql.toString(), "select * from t1 z2 where p1=:p1__value and 0=0 /*part:p2*/")
+    }
+
+    @Test
+    public void chain_builder_3() throws Exception {
+        String sql = "select * from t1 /*part:p1*/ where 0=0 /*part:p2*/"
+        Map params = [
+                p2: [
+                        value: 'v2'
+                ],
+                p3: [
+                        value1: 'v3'
+                ]
+        ]
+        SqlFilter f = SqlFilter.create(mdb, sql, params)
+
+        f.addWhere("p1", "equal").addBuilder({ ctx ->
+            ctx.addPart("p1", "z2")
+        })
+        //
+        out(f)
+        //
+        assertEquals(f.sql.toString(), "select * from t1 /*part:p1*/ where 0=0 /*part:p2*/")
+    }
+
 }

@@ -15,7 +15,6 @@ public interface AuthUser {
 
     /**
      * Атрибуты пользователя.
-     * Только для чтения.
      */
     IVariantMap getAttrs();
 

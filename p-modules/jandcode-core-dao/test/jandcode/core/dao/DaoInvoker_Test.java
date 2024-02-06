@@ -151,5 +151,14 @@ public class DaoInvoker_Test extends App_Test {
         abstract_impl_ok_2();
     }
 
+    @Test
+    public void daoHolderItem_link() throws Exception {
+        utils.logOn();
+        DaoService svc = app.bean(DaoService.class);
+        DaoHolder h = svc.getDaoHolder("test1");
+        //
+        String a = (String) h.invokeDao("dao11/method1");
+        assertEquals(a, "dao11/method1");
+    }
 
 }

@@ -89,4 +89,35 @@ public class DictServiceImpl extends BaseModelMember implements DictService {
     public DictData loadDictData(Dict dict, Collection<Object> ids) throws Exception {
         return resolveIds(dict, ids);
     }
+
+    protected Object getDictValue(Dict dict, Object id, String fieldName) {
+        try {
+            DictData dd = resolveIds(dict, Collections.singletonList(id));
+            if (dd.getData().size() != 1) {
+                return null;
+            }
+            return dd.getData().get(0).getValue(fieldName);
+        } catch (Exception e) {
+            throw new XErrorWrap(e);
+        }
+    }
+
+    public Object getDictValue(String dictName, Object id, String fieldName) {
+        Dict dict = getDict(dictName);
+        return getDictValue(dict, id, fieldName);
+    }
+
+    public Object getDictValue(String dictName, Object id) {
+        Dict dict = getDict(dictName);
+        return getDictValue(dict, id, dict.getDefaultField());
+    }
+
+    public String getDictText(String dictName, Object id, String fieldName) {
+        return UtCnv.toString(getDictValue(dictName, id, fieldName));
+    }
+
+    public String getDictText(String dictName, Object id) {
+        return UtCnv.toString(getDictValue(dictName, id));
+    }
+
 }

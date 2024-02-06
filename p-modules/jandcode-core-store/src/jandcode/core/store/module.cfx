@@ -74,6 +74,14 @@
         <storeloader name="xml"
                      class="jandcode.core.store.std.StoreLoader_xml"/>
 
+        <!-- =================== -->
+
+        <storecalcfield name="id"
+                        class="jandcode.core.store.std.StoreCalcField_id"/>
+
+        <storecalcfield name="guid"
+                        class="jandcode.core.store.std.StoreCalcField_guid"/>
+
     </store>
 
 </root>

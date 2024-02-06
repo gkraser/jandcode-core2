@@ -114,6 +114,12 @@ public class DbSourceImpl extends BaseComp implements DbSource, IBeanIniter {
         return dbs;
     }
 
+    public DbSource createSystemDbSource() {
+        DbSource systemDbSource = cloneComp();
+        systemDbSource.getProps().putAll(getProps().subMap("system", true));
+        return systemDbSource;
+    }
+
     public void disconnectAll() {
         for (var connSvc : getBeanFactory().impl(DbConnectionService.class)) {
             connSvc.disconnectAll();

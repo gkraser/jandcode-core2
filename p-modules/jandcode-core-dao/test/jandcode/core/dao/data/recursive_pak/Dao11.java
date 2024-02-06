@@ -8,4 +8,13 @@ public class Dao11 extends BaseDao {
         return a + b;
     }
 
+    public String method1() {
+        String mn = "";
+        DaoHolderItem dhi = getContext().getDaoHolderItem();
+        if (dhi != null) {
+            mn = dhi.getName();
+        }
+        return mn;
+    }
+
 }

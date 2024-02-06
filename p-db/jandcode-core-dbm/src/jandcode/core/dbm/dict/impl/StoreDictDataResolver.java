@@ -33,7 +33,7 @@ public class StoreDictDataResolver {
                 for (Object it : lst) {
                     addId(it);
                 }
-            } else if (id instanceof CharSequence) {
+            } else if (this.dict.isMultiValue() && id instanceof CharSequence) {
                 String s = UtCnv.toString(id);
                 if (s.indexOf(',') != -1) {
                     // значения через ','

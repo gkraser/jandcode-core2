@@ -19,6 +19,7 @@ public class DictImpl extends BaseModelMember implements Dict {
     private Domain domain;
     private DictHandler handler;
     private boolean loadable;
+    private boolean multiValue;
 
     protected void onConfigure(BeanConfig cfg) throws Exception {
         super.onConfigure(cfg);
@@ -37,6 +38,9 @@ public class DictImpl extends BaseModelMember implements Dict {
         s = this.conf.getString("defaultField", DEFAULT_FIELD);
         this.defaultField = this.domain.f(s);
 
+        // multiValue
+        this.multiValue = this.conf.getBoolean("multiValue", true);
+
         // handler
         s = this.conf.getString("handler");
         if (UtString.empty(s)) {
@@ -44,7 +48,6 @@ public class DictImpl extends BaseModelMember implements Dict {
         }
         this.handler = (DictHandler) getModel().create(s);
         this.loadable = handler instanceof IDictHandlerLoadDict;
-
     }
 
     //////
@@ -77,6 +80,12 @@ public class DictImpl extends BaseModelMember implements Dict {
 
     public DictData createDictData() {
         return new DictDataImpl(this, createStore());
+    }
+
+    //////
+
+    public boolean isMultiValue() {
+        return multiValue;
     }
 
 }

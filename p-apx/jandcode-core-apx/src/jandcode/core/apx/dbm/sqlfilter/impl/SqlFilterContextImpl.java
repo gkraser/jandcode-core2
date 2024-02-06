@@ -118,4 +118,10 @@ public class SqlFilterContextImpl implements SqlFilterContext {
         getParams().setValue(name, value);
     }
 
+    //////
+
+    public void addPart(String partName, String partText) {
+        this.sql.addPart(partName, partText);
+    }
+
 }

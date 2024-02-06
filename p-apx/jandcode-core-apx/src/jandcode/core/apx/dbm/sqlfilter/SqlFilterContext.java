@@ -62,4 +62,11 @@ public interface SqlFilterContext extends INamed, MapFilterValue {
      */
     void setParam(String name, Object value);
 
+    //////
+
+    /**
+     * Добавить часть sql
+     */
+    void addPart(String partName, String partText);
+
 }

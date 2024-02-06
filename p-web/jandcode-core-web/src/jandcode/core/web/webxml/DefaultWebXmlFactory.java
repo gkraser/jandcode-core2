@@ -11,10 +11,10 @@ public class DefaultWebXmlFactory implements WebXmlFactory {
         WebXml x = new WebXml();
         WebXmlBuilder b = new WebXmlBuilder(x);
 
+        b.addContextParam( "app", "app.cfx");
+        b.addContextParam( "log", "true");
         //
         WebXml.Servlet sv = b.addServlet(WebConsts.WEB_SERVLET_NAME, "jandcode.core.web.AppServlet", "/*", 1);
-        b.addInitParam(sv, "app", "app.cfx");
-        b.addInitParam(sv, "log", "true");
 
         //
         b.setMultipartConfig(sv);

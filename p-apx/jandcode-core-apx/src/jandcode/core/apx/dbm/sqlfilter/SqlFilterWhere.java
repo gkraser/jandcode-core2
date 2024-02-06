@@ -18,4 +18,11 @@ public interface SqlFilterWhere extends INamed {
      */
     IVariantMap getAttrs();
 
+    /**
+     * Добавить еще один builder
+     *
+     * @return возвращает себя
+     */
+    SqlFilterWhere addBuilder(SqlFilterBuilder builder);
+
 }
