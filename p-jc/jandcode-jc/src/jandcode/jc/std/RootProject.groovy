@@ -57,7 +57,7 @@ class RootProject extends ProjectScript implements ILibDepends, ILibDependsGrab 
     /**
      * каталоги, которые исключаются из модуля и не видны в idea.
      */
-    List<String> dirsExclude = ["temp", "out", "_product", "_jc", "lib", "_gen"]
+    List<String> dirsExclude = ["temp", "out", "_product", "_jc", "lib", "_gen", ".ideaDataSources", "dataSources"]
 
     /**
      * Имя группы модулей, в которую будут входить java-модули, если для них
