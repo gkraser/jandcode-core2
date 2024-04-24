@@ -3,7 +3,11 @@
 
     <dao>
         <holder name="api">
-            <include name="apx.system"/>
+            <!-- для включения системных dao от apx, используйте в проекте:
+
+                <include name="apx.system"/>
+
+            -->
         </holder>
     </dao>
 
