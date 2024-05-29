@@ -5,7 +5,7 @@ import jandcode.commons.error.*;
 
 import java.time.*;
 
-public final class XDateImpl implements XDate {
+public class XDateImpl implements XDate {
 
     final Jdn jdn;
 
