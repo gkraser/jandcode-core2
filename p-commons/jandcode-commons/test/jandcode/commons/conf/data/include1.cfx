@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+
+    <top>
+
+        <second name="base" a1="1">
+            <filter name="base1" a1="1"/>
+        </second>
+
+        <second name="base2">
+            <filter name="base2" a1="1"/>
+        </second>
+
+        <second name="model" a2="2">
+            <include name="base"/>
+            <include name="base2"/>
+            <filter name="n1" a1="1"/>
+            <filter name="n2" a2="2"/>
+        </second>
+
+        <second name="model2" a1="11">
+            <include name="model"/>
+            <include name="base"/>
+            <filter name="nn1" a1="1"/>
+            <filter name="nn2" a2="2"/>
+        </second>
+
+    </top>
+
+
+</root>

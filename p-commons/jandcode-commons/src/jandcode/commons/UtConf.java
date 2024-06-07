@@ -235,4 +235,62 @@ public class UtConf {
         return m;
     }
 
+    /**
+     * Обработка тега "include", как средство включения других конфигураций.
+     * Например для:
+     * <pre>{@code
+     * <root>
+     *     <top>
+     *        <second name="a1">
+     *        </second>
+     *        <second name="a2">
+     *            <include name="a1"/>
+     *        </second>
+     *        <second name="a3">
+     *            <include name="a2"/>
+     *        </second>
+     *     </top>
+     * </root>
+     * }</pre>
+     * <p>
+     * можно раскрыть include так:
+     * <pre>{@code
+     * UtConf.expandInclude(root, root.getConf("top/second/a3"), "top/second")
+     * }</pre>
+     *
+     * @param root     корень. Тут будут искаться конфигурации с префиксом basePath
+     * @param conf     что требуется развернуть
+     * @param basePath базовый путь, где искать конфигурации для включения
+     * @return развернутая конфигурация
+     */
+    public static Conf expandInclude(Conf root, Conf conf, String basePath) {
+        Conf res = Conf.create(conf.getName());
+        if (!UtString.empty(basePath) && !basePath.endsWith("/")) {
+            basePath += "/";
+        }
+        Set<Conf> used = new HashSet<>();
+        internal_expandInclude(root, res, conf, basePath, used);
+
+        return res;
+    }
+
+    private static void internal_expandInclude(Conf root, Conf dest, Conf src, String basePath, Set<Conf> used) {
+        if (used.contains(src)) {
+            return;
+        }
+        used.add(src);
+        Conf inc = src.findConf("include");
+        if (inc != null) {
+            for (Conf x : src.getConfs("include")) {
+                String path = x.getName();
+                if (!path.contains("/")) {
+                    path = basePath + path;
+                }
+                Conf parent = root.getConf(path);
+                internal_expandInclude(root, dest, parent, basePath, used);
+            }
+        }
+        dest.join(src);
+    }
+
 }
