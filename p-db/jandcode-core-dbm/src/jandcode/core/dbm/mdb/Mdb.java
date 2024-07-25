@@ -29,4 +29,20 @@ public interface Mdb extends IAppLink, IModelLink, Db,
      */
     <A> A create(Class<A> cls);
 
+    /**
+     * Выполнить код в контексте mdb из другой модели.
+     *
+     * @param modelName имя модели, для которой будет создан экземпляр mdb
+     * @param closure   код, который нужно выполнить
+     */
+    void withMdb(String modelName, WithMdb closure) throws Exception;
+
+    /**
+     * Выполнить код в контексте mdb из другой модели.
+     *
+     * @param model   модель, для которой будет создан экземпляр mdb
+     * @param closure код, который нужно выполнить
+     */
+    void withMdb(Model model, WithMdb closure) throws Exception;
+
 }

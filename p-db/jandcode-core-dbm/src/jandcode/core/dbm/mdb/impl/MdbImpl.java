@@ -14,6 +14,7 @@ import jandcode.core.dbm.dao.*;
 import jandcode.core.dbm.dict.*;
 import jandcode.core.dbm.domain.*;
 import jandcode.core.dbm.genid.*;
+import jandcode.core.dbm.impl.*;
 import jandcode.core.dbm.mdb.*;
 import jandcode.core.dbm.sql.*;
 import jandcode.core.dbm.validate.*;
@@ -25,8 +26,8 @@ public class MdbImpl extends BaseDbWrapper implements Mdb, IValidateErrorsLinkSe
 
     private static final String FIELD_ID = "id";
 
-    private Model model;
-    private Db db;
+    private final Model model;
+    private final Db db;
     private DaoInvoker daoInvoker;
     private DomainService domainService;
     private DictService dictService;
@@ -60,7 +61,7 @@ public class MdbImpl extends BaseDbWrapper implements Mdb, IValidateErrorsLinkSe
         if (inst instanceof IMdbLinkSet) {
             ((IMdbLinkSet) inst).setMdb(this);
         }
-        return (A) inst;
+        return inst;
     }
 
     ////// IMdbDao
@@ -433,6 +434,43 @@ public class MdbImpl extends BaseDbWrapper implements Mdb, IValidateErrorsLinkSe
         }
         attrs2.put("field", fieldName);
         return getValidatorService().validatorExec(this, data, "field", attrs2);
+    }
+
+    ////// withMdb
+
+    public void withMdb(String modelName, WithMdb closure) throws Exception {
+        Model model = getApp().bean(ModelService.class).getModel(modelName);
+        withMdb(model, closure);
+    }
+
+    public void withMdb(Model model, WithMdb closure) throws Exception {
+        Db db = model.createDb();
+        Db dbw = new ModelDbWrapper(db, true, true);
+        Mdb mdb = model.createMdb(dbw);
+        try {
+            closure.withMdb(mdb);
+        } catch (Exception e) {
+            if (db.isConnected()) {
+                // кто то попользовался и не закрыл
+                // например в after не сработал commit
+                try {
+                    if (db.isTran()) {
+                        db.rollback();
+                    }
+                } finally {
+                    db.disconnectForce();
+                }
+            }
+            throw new XErrorWrap(e);
+        } finally {
+            if (db.isConnected()) {
+                // кто то попользовался
+                if (db.isTran()) {
+                    db.commit();
+                }
+                db.disconnectForce();
+            }
+        }
     }
 
 }
